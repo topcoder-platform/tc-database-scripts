@@ -1,0 +1,10 @@
+select u.email as email_address, u.handle
+from email_user u, coder c, rating r
+where c.coder_id = u.user_id
+and r.coder_id = u.user_id
+and u.status = 'A'
+and c.country_code = '840'
+and u.user_id in (select coder_id from coder_notify where notify_id = 3)
+and r.rating >= 1000
+and u.user_id not in (select user_id from response where question_id = 7318 and answer_id = 7319)
+and u.user_id not in (select user_id from job_hit where job_id = 324)

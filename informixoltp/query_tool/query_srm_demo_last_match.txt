@@ -1,0 +1,32 @@
+select
+    sum(case when days between 1 and 7 then 1 else 0 end) as onetoseven, 
+    sum(case when days between 8 and 14 then 1 else 0 end) as eighttofourteen, 
+    sum(case when days between 15 and 30 then 1 else 0 end) as fifteentothirty, 
+    sum(case when days between 31 and 60 then 1 else 0 end) as thirtyonetosixty, 
+    sum(case when days between 61 and 90 then 1 else 0 end) as sixtyonetoninety, 
+    sum(case when days > 90 then 1 else 0 end) as ninetyplus
+from 
+    table(multiset( 
+    select  
+    rr1.coder_id, 
+    max(date(current)) - max(date(rs.start_time)) as days 
+    from  
+      contest c,  
+      round r,  
+      round_segment rs, 
+      room_result rr1 
+    where 
+      r.contest_id = c.contest_id and 
+      rs.round_id = r.round_id and 
+      rs.segment_id = 1 and  
+      c.contest_id > 2000 and 
+      rr1.round_id = r.round_id and 
+      rr1.old_rating <> rr1.new_rating and 
+      rr1.round_id != @rd@ and 
+      date(start_time) < date(current) and
+      rr1.coder_id in 
+      ( 
+        select rr2.coder_id from room_result rr2 where rr2.round_id = @rd@ 
+      ) 
+     group by 1 
+    ))

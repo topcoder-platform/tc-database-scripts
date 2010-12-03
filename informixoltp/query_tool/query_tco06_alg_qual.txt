@@ -1,0 +1,20 @@
+select u.user_id 
+     , il.seed 
+     , u.handle
+     , ra.rating
+     , quals.points
+     , u.handle_lower as handle_sort
+     , quals.round_name
+  from invite_list il
+     , user u
+     , rating ra
+     , outer table(multiset(SELECT rr.point_total as points, r.name as round_name, rr.coder_id
+                              FROM room_result rr
+                                 , round r
+                             WHERE rr.round_id = r.round_id
+                               AND rr.round_id in (9897,9898,9900,9901,9903)
+                               AND rr.advanced = 'Y')) as quals
+ where il.round_id = 9917
+   and il.coder_id = u.user_id
+   and u.user_id = ra.coder_id
+   and quals.coder_id = il.coder_id

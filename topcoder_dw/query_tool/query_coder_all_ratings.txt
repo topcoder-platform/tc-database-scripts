@@ -1,0 +1,22 @@
+select c.coder_id, c.handle,
+ NVL(r.rating,0) as algorithm_rating,
+ NVL(dsr.rating,0) as design_rating,
+ NVL(dvr.rating,0) as development_rating,
+ NVL(ar.rating,0) as hs_algorithm_rating,
+ NVL(ar_mm.rating,0) as marathon_match_rating
+from coder c, 
+ OUTER(rating r),
+ OUTER(algo_rating ar),
+ OUTER(algo_rating ar_mm),
+ OUTER(tcs_dw:user_rating dsr),
+ OUTER(tcs_dw:user_rating dvr)
+where c.coder_id = ?
+ and r.coder_id = c.coder_id
+ and dsr.user_id = c.coder_id
+ and dsr.phase_id = 112
+ and dvr.user_id = c.coder_id
+ and dvr.phase_id = 113
+ and ar.coder_id = c.coder_id
+ and ar.algo_rating_type_id = 2
+ and ar_mm.coder_id = c.coder_id
+ and ar_mm.algo_rating_type_id = 3

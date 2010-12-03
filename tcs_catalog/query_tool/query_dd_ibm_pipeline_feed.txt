@@ -1,0 +1,175 @@
+select p.project_id,
+       (select to_char(max(scheduled_start_time), '%Y-%m-%dT%R:%S%F3') from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
+       (select to_char(max(nvl(actual_end_time, scheduled_end_time)), '%Y-%m-%dT%R:%S%F3') from project_phase where phase_type_id = 10 and project_id = p.project_id and project_phase_id < NVL((select min(pp2.project_phase_id) from project_phase pp2 where pp2.phase_type_id = 11 and pp2.project_id = p.project_id ),999999999)) completion_date,
+       ttc.name client,
+       ttp.name billing_project,
+       tdp.name project_name,
+       DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
+       pi.value as contest_name,
+       pi2.value version,
+       CASE 
+       WHEN ps.project_status_id not in (1,2,3)
+          THEN ps.name --'Completed'
+       WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
+          THEN 'Scheduled'
+       WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
+          THEN 'Live'
+       ELSE
+          'Live'
+       END as contest_status,
+       (select value::integer from project_info where project_id = p.project_id and project_info_type_id = 31) as contest_fee,
+       DECODE(ttp.project_id, 70015983, 'TRUE', 'FALSE') as private,
+       '<![CDATA[<a href=http://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>' || p.project_id || '</a>' as contest_link,
+       '<![CDATA[<a href="http://www.topcoder.com/tc?module=ProjectDetail&pj=' || p.project_id || '">' || p.project_id || '</a>' as contest_details,
+       '<![CDATA[<a href="https://www.topcoder.com/bugs/browse/' || (select max(pi.value) from project_info pi where p.project_id = pi.project_id and pi.project_info_type_id = 2) || '">Jira</a>]]>' as Jira,
+       DECODE(@flag@, 1, 'hidden', (select '<![CDATA[' || detailed_requirements from project_spec where project_id = p.project_id and version = (select max(version) from project_spec where project_id = p.project_id))) as contest_description,
+ (SELECT COUNT(*) FROM resource r, resource_info ri WHERE ri.resource_id = r.resource_id AND ri.resource_info_type_id = 4 AND r.project_id = p.project_id AND r.resource_role_id = 1 AND ri.value <> 'N/A') as total_rated_registrants,
+ ((SELECT COUNT(*)
+  FROM resource
+  where resource_role_id = 1
+  and project_id = p.project_id)
+ -  
+ (SELECT COUNT(*)
+  FROM resource r, resource_info ri
+  WHERE ri.resource_id = r.resource_id
+  AND ri.resource_info_type_id = 4
+  AND r.project_id = p.project_id
+  AND r.resource_role_id = 1
+  AND ri.value <> 'N/A'))
+  as total_unrated_registrants,
+ (SELECT COUNT(*) 
+  FROM resource 
+  WHERE project_id = p.project_id 
+  AND resource_role_id = 1) 
+  as total_inquiries,
+ (SELECT COUNT(*)
+  FROM submission s, upload u
+  WHERE u.upload_id = s.upload_id
+  AND u.project_id = p.project_id
+  and s.submission_type_id = 1
+  and s.submission_status_id in (1,2,3,4))
+  as total_submissions,
+ (SELECT count(DISTINCT ri.value) 
+  FROM resource r, resource_info ri 
+  WHERE r.project_id = p.project_id 
+  AND r.resource_role_id in (2, 3, 4, 5, 6, 7, 8, 9)
+  AND r.resource_id = ri.resource_id
+  AND ri.resource_info_type_id = 2)
+  as total_reviewers,
+  (select to_char(max(scheduled_end_time), '%Y-%m-%dT%R:%S%F3') from project_phase where phase_type_id = 1 and project_id = p.project_id ) as registration_end,
+  (select to_char(max(scheduled_end_time), '%Y-%m-%dT%R:%S%F3') from project_phase where phase_type_id = 2 and project_id = p.project_id ) as submission_end,
+  (select max(value)::integer from project_info pic where p.project_id = pic.project_id and pic.project_info_type_id = 2 )as component_id,
+  (select max(value) from project_info pif where p.project_id = pif.project_id and pif.project_info_type_id = 4 )::INTEGER as forum_id,
+  (select max(dest_project_id) from linked_project_xref where link_type_id = 3 and source_project_id = p.project_id) as spec_review_id,
+  DECODE((select dest_project_id from linked_project_xref where link_type_id = 5 and source_project_id = p.project_id), null, 'No', 'Yes') as repost,
+  NVL((select u.handle from project_result pr, user u where pr.project_id = p.project_id and pr.user_id = u.user_id and pr.placed = 1), '***') as first_place,
+  NVL((select u.handle from project_result pr, user u where pr.project_id = p.project_id and pr.user_id = u.user_id and pr.placed = 2), '***') as second_place,
+  (select dest_project_id from linked_project_xref where link_type_id = 5 and source_project_id = p.project_id) as original_id,
+  (select value from project_info pi where project_info_type_id = 16 and pi.project_id = p.project_id)::integer as first_place_prize,
+  cat.category_name as master_category,
+  technology_list(cv.comp_vers_id) technologies,
+  (select name from phase_type_lu where phase_type_id = (select max(ptl.phase_type_id) from phase_type_lu ptl, project_phase current_phase
+                                                             where ptl.phase_type_id = current_phase.phase_type_id
+                                                                  and current_phase.project_id = p.project_id
+                                                                  and current_phase.phase_status_id = 2 )) as current_phase
+
+from project p,
+     outer tc_direct_project tdp,
+     project_status_lu ps,
+     project_category_lu pc,
+     project_info pi, -- project name
+     project_info pi2, -- project version
+     project_info pi3, -- billing account
+     time_oltp:project ttp,
+     time_oltp:client_project ttcp,
+     time_oltp:client ttc,
+     project_info pi_ci,
+     project_info pi_cvi,
+     comp_catalog cc,
+     outer comp_versions cv,
+     outer categories cat
+where p.project_status_id <> DECODE(@includeDeletes@,0,3,3)
+  and p.project_status_id = ps.project_status_id
+  and p.project_category_id = pc.project_category_id
+  and p.project_category_id not in (27) --exclude spec reviews
+  and p.project_id = pi.project_id
+  and pi.project_info_type_id = 6
+  and p.project_id = pi2.project_id
+  and pi2.project_info_type_id = 7
+  and p.project_id = pi3.project_id
+  and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = 70014096 --IBM
+  and ttp.project_id not in (70016038) --filter out warranty project
+  and p.tc_direct_project_id = tdp.project_id
+  and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) >= mdy(8,1,2009) and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) >= (today - @days@)
+  and ( DECODE(@LIQUIDCOMMUNITY@,1,ttp.project_id,-1) in (70015983) --LC
+  OR DECODE(@LIQUIDRESOURCE@,1,ttp.project_id,-1) in (70015956,70015984,70016058,70016059) ) --LR
+   AND pi_ci.project_id = p.project_id
+ AND pi_ci.project_info_type_id = 2
+ and p.project_id = pi_cvi.project_id
+ and pi_cvi.project_info_type_id = 1
+ and cv.comp_vers_id = pi_cvi.value
+ AND cc.component_id = pi_ci.value
+ and cc.root_category_id = cat.category_id
+ and cv.component_id = cc.component_id
+UNION
+select 
+c.contest_id as project_id,
+to_char(c.start_time, '%Y-%m-%dT%R:%S%F3') launch_date,
+to_char(c.end_time, '%Y-%m-%dT%R:%S%F3') completion_date,
+NVL(ttc.name, 'One-Off') client,
+NVL(ttp.name, 'One-Off' ) billing_project,
+NVL(tdp.name, 'One-Off') project_name,
+cc.contest_type_desc category,
+c.name as contest_name,
+'1.0' version,
+DECODE(cds.contest_detailed_status_id, 14, 'Cancelled', 3, 'Cancelled', 13, 'Cancelled', 11, 'Cancelled', 4, 'Cancelled', 7, 'Cancelled', 17, 'Cancelled', 15, 'Scheduled', 1, 'Scheduled', 6, 'Live', 5, 'Live', 2, 'Live', 12, 'Live', 10, 'Live', cds.name) contest_status,
+(select sum(price) from studio_oltp:contest_payment where contest_id = c.contest_id) contest_fee,
+DECODE(ttp.project_id, 70015983, 'TRUE', 'FALSE') as private,
+'<![CDATA[<a href="http://studio.topcoder.com/?module=ViewContestDetails&ct=' || c.contest_id || '">' || c.contest_id || '</a>' as contest_link,
+'<![CDATA[<a href="http://studio.topcoder.com/?module=ViewContestDetails&ct=' || c.contest_id || '">' || c.contest_id || '</a>' as contest_details,
+'--' Jira,
+DECODE(@flag@, 1, 'hidden', (select '<![CDATA[' || property_value from studio_oltp:contest_config where contest_id = c.contest_id and property_id = 13)) as contest_description,
+0 total_rated_registrants,
+(select count(*) from studio_oltp:contest_registration where contest_id = c.contest_id) total_unrated_registrants,
+(select count(*) from studio_oltp:contest_registration where contest_id = c.contest_id) total_inquiries,
+(select count(*) from studio_oltp:submission where contest_id = c.contest_id and submission_status_id = 1 and rank <= (select property_value from studio_oltp:contest_config where contest_id = c.contest_id and property_id = 8 )) total_submissions,
+0 total_reviewers,
+to_char(c.end_time, '%Y-%m-%dT%R:%S%F3') registration_end,
+to_char(c.end_time, '%Y-%m-%dT%R:%S%F3') submission_end,
+c.contest_id component_id,
+c.forum_id forum_id,
+0 as spec_review_link,
+'No' as repost,
+NVL((select u.handle from studio_oltp:contest_result cr, studio_oltp:submission s, user u where c.contest_id = cr.contest_id and cr.submission_id = s.submission_id and s.submitter_id = u.user_id and cr.placed = 1), '***') as first_place,
+NVL((select u.handle from studio_oltp:contest_result cr, studio_oltp:submission s, user u where c.contest_id = cr.contest_id and cr.submission_id = s.submission_id and s.submitter_id = u.user_id and cr.placed = 2), '***') as second_place,
+''::integer as original_id,
+(select pr.amount from studio_oltp:contest_prize_xref px, studio_oltp:prize pr where px.prize_id = pr.prize_id and pr.place = 1 and px.contest_id = c.contest_id) as first_place_prize,
+'Studio' as master_category,
+'NA' technologies,
+'' as current_phase
+from studio_oltp:contest c,
+     studio_oltp:contest_config cc1, time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc,
+     tc_direct_project tdp,
+     studio_oltp:contest_type_lu cc,
+     studio_oltp:contest_status_lu cs,
+     studio_oltp:contest_detailed_status_lu cds
+where c.contest_id = cc1.contest_id
+  and cc1.property_id = 28
+  and cc1.property_value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = 70014096 --IBM
+  and ttp.project_id not in (70016038) --filter out warranty project
+  and c.tc_direct_project_id = tdp.project_id
+  and c.contest_status_id in (1,2,4,10,11, DECODE(@includeDeletes@,1,16,-1), DECODE(@includeDeletes@,1,17,-1), DECODE(@includeDeletes@,1,3,-1))
+  and c.contest_status_id = cs.contest_status_id
+  and c.contest_detailed_status_id = cds.contest_detailed_status_id
+  and c.contest_type_id = cc.contest_type_id
+  and ( DECODE(@LIQUIDCOMMUNITY@,1,ttp.project_id,-1) in (70015983) --LC
+  OR DECODE(@LIQUIDRESOURCE@,1,ttp.project_id,-1) in (70015956,70015984,70016058,70016059) ) --LR
+  and c.start_time >= (today - @days@)
+order by 1 asc;

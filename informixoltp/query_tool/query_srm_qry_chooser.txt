@@ -1,0 +1,11 @@
+SELECT c.name AS contest_name
+             ,TO_CHAR(seg.start_time, '%iY-%m-%d') AS contest_date
+             ,TO_CHAR(seg.start_time, '%I:%M PM') AS start_time
+             ,r.round_id  as id            
+             FROM contest c
+             JOIN round r ON r.contest_id = c.contest_id
+             AND c.name LIKE '%Single%'
+             JOIN round_segment seg ON seg.round_id = r.round_id
+             AND seg.segment_id = 2
+             AND r.status = 'P'
+             ORDER BY 2 DESC;

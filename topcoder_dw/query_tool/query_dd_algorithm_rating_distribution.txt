@@ -1,0 +1,45 @@
+SELECT sum(case when rating between 0000 and 0099 then 1 else 0 end) as group01
+ ,sum(case when rating between 0100 and 0199 then 1 else 0 end) as group02
+ ,sum(case when rating between 0200 and 0299 then 1 else 0 end) as group03
+ ,sum(case when rating between 0300 and 0399 then 1 else 0 end) as group04
+ ,sum(case when rating between 0400 and 0499 then 1 else 0 end) as group05
+ ,sum(case when rating between 0500 and 0599 then 1 else 0 end) as group06
+ ,sum(case when rating between 0600 and 0699 then 1 else 0 end) as group07
+ ,sum(case when rating between 0700 and 0799 then 1 else 0 end) as group08
+ ,sum(case when rating between 0800 and 0899 then 1 else 0 end) as group09
+ ,sum(case when rating between 0900 and 0999 then 1 else 0 end) as group10
+ ,sum(case when rating between 1000 and 1099 then 1 else 0 end) as group11
+ ,sum(case when rating between 1100 and 1199 then 1 else 0 end) as group12
+ ,sum(case when rating between 1200 and 1299 then 1 else 0 end) as group13
+ ,sum(case when rating between 1300 and 1399 then 1 else 0 end) as group14
+ ,sum(case when rating between 1400 and 1499 then 1 else 0 end) as group15
+ ,sum(case when rating between 1500 and 1599 then 1 else 0 end) as group16
+ ,sum(case when rating between 1600 and 1699 then 1 else 0 end) as group17
+ ,sum(case when rating between 1700 and 1799 then 1 else 0 end) as group18
+ ,sum(case when rating between 1800 and 1899 then 1 else 0 end) as group19
+ ,sum(case when rating between 1900 and 1999 then 1 else 0 end) as group20
+ ,sum(case when rating between 2000 and 2099 then 1 else 0 end) as group21
+ ,sum(case when rating between 2100 and 2199 then 1 else 0 end) as group22
+ ,sum(case when rating between 2200 and 2299 then 1 else 0 end) as group23
+ ,sum(case when rating between 2300 and 2399 then 1 else 0 end) as group24
+ ,sum(case when rating between 2400 and 2499 then 1 else 0 end) as group25
+ ,sum(case when rating between 2500 and 2599 then 1 else 0 end) as group26
+ ,sum(case when rating between 2600 and 2699 then 1 else 0 end) as group27
+ ,sum(case when rating between 2700 and 2799 then 1 else 0 end) as group28
+ ,sum(case when rating between 2800 and 2899 then 1 else 0 end) as group29
+ ,sum(case when rating between 2900 and 2999 then 1 else 0 end) as group30
+ ,sum(case when rating between 3000 and 3099 then 1 else 0 end) as group31
+ ,sum(case when rating between 3100 and 3199 then 1 else 0 end) as group32
+ ,sum(case when rating between 3200 and 3299 then 1 else 0 end) as group33
+ ,sum(case when rating between 3300 and 3399 then 1 else 0 end) as group34
+ ,sum(case when rating between 3400 and 3499 then 1 else 0 end) as group35
+ ,sum(case when rating between 3500 and 3599 then 1 else 0 end) as group36
+ ,sum(case when rating between 3600 and 3699 then 1 else 0 end) as group37
+ ,sum(case when rating between 3700 and 3799 then 1 else 0 end) as group38
+ ,sum(case when rating between 3800 and 3899 then 1 else 0 end) as group39
+ ,sum(case when rating between 3900 and 3999 then 1 else 0 end) as group40
+ FROM coder c
+ ,rating r
+ WHERE c.coder_id = r.coder_id
+ AND status = 'A'
+ and r.num_ratings > 0

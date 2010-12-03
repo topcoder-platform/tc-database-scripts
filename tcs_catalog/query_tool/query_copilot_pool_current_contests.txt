@@ -1,0 +1,4 @@
+select count(DISTINCT p.project_id) as current_contests_number, cp.user_id from project p 
+     inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id = 1
+     inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1
+     right outer join copilot_profile cp on cp.user_id = ri.value group by cp.user_id;

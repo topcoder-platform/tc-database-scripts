@@ -1,0 +1,11 @@
+select
+cc.coder_id, handle, 0 as studio_rating, des.rating as design_rating, dev.rating as development_rating, ar.rating as algorithm_rating, hsr.rating as highschool_rating, mr.rating as marathon_rating, cc_country.country_name, latitude, longitude, im.file_name as image_name
+from coder cc left join coder_image_xref cix on cc.coder_id=cix.coder_id and cix.display_flag=1 left join image im on cix.image_id=im.image_id
+left join algo_rating ar on cc.coder_id=ar.coder_id and ar.algo_rating_type_id=1
+left join algo_rating hsr on cc.coder_id=hsr.coder_id and hsr.algo_rating_type_id=2
+left join algo_rating mr on cc.coder_id=mr.coder_id and mr.algo_rating_type_id=3
+left join tcs_dw:user_rating des on cc.coder_id=des.user_id and des.phase_id=112
+left join tcs_dw:user_rating dev on cc.coder_id=dev.user_id and dev.phase_id=113,
+country cc_country
+where cc.comp_country_code=cc_country.country_code
+and cc.coder_id=@cr@

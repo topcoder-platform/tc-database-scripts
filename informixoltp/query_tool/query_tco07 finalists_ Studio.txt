@@ -1,0 +1,11 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+ WHERE u.handle IN
+('amiune',
+'FMX',
+'Maraqja',
+'oton',
+'SIGCHLD',
+'Tricia_Tjia',
+'yiming');

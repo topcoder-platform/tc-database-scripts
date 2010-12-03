@@ -1,0 +1,14 @@
+select handle
+      , tr.test_case_id
+      , score
+      , processing_time
+      , fatal_error_ind
+from long_system_test_result tr
+    ,system_test_case  tc
+    , coder c
+where tr.test_case_id = tc.test_case_id
+and c.coder_id = tr.coder_id
+and round_id = @rd@
+and tr.coder_id = @cr@
+and example=0
+and system_flag=1

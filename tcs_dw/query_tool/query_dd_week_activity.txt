@@ -1,0 +1,47 @@
+select
+  cal_week.year, cal_week.week, cal_week.year || '-' || cal_week.week as week_date,
+  (
+    select count(distinct pr.user_id)
+    from project p, project_result pr, calendar cal
+    where p.project_id = pr.project_id
+      and cal.week_year = cal_week.year and cal.week_of_year = cal_week.week
+      and cal.date = date(p.posting_date)
+      and p.phase_id = 112
+      and p.category_desc != 'Application'
+  ) as Design_Registrants,
+  (
+    select count(distinct pr.user_id)
+    from project p, project_result pr, calendar cal
+    where p.project_id = pr.project_id
+      and cal.week_year = cal_week.year and cal.week_of_year = cal_week.week
+      and cal.date = date(p.posting_date)
+      and p.phase_id = 112
+      and p.category_desc != 'Application'
+      and pr.submit_ind = 1
+  ) as Design_Submitters,
+  (
+    select count(distinct pr.user_id)
+    from project p, project_result pr, calendar cal
+    where p.project_id = pr.project_id
+      and cal.week_year = cal_week.year and cal.week_of_year = cal_week.week
+      and cal.date = date(p.posting_date)
+      and p.phase_id = 113
+      and p.category_desc != 'Application'
+  ) as Dev_Registrants,
+  (
+    select count(distinct pr.user_id)
+    from project p, project_result pr, calendar cal
+    where p.project_id = pr.project_id
+      and cal.week_year = cal_week.year and cal.week_of_year = cal_week.week
+      and cal.date = date(p.posting_date)
+      and p.phase_id = 113
+      and p.category_desc != 'Application'
+      and pr.submit_ind = 1
+  ) as Dev_Submitters
+from
+  table(multiset(
+    select distinct cal.week_year as year, cal.week_of_year as week
+    from calendar cal
+    where cal.date between (today-365/2) and today
+   )) as cal_week
+order by 1,2

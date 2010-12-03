@@ -1,0 +1,36 @@
+select c.name
+     , c.start_time
+     , (select count(*) from submission s where s.contest_id = c.contest_id) as all_submissions
+/*
+     , (select count(*)
+          from submission s
+         where s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id) as submissions_under_limit
+*/
+     , (select count(*)
+          from submission s, submission_review sr
+         where s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id
+           and sr.submission_id = s.submission_id
+           and sr.review_status_id = 1) as passed_screening
+     , (select sum(p.amount) from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id) as prize_purse
+     , (select p.amount from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id and p.place = 1) as first_place
+     , (select p.amount from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id and p.place = 2) as second_place
+     , (select p.amount from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id and p.place = 3) as third_place
+     , (select p.amount from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id and p.place = 4) as fourth_place
+     , (select p.amount from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id and p.place = 5) as fifth_place
+     , (select p.amount from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id and p.place = 6) as sixth_place
+     , (select p.amount from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id and p.place = 7) as seventh_place
+     , (select p.amount from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id and p.place = 8) as eighth_place
+     , (select p.amount from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id and p.place = 8) as nineth_place
+     , (select p.amount from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id and cpx.prize_id = p.prize_id and p.place = 8) as tenth_place
+     , (select u.handle
+  from submission_prize_xref spx, user u, submission s, prize p
+ where u.user_id = s.submitter_id
+  and s.submission_id = spx.submission_id
+   and p.prize_id = spx.prize_id
+   and p.place = 1
+  and s.contest_id = c.contest_id) as winner
+  from contest c
+ where c.contest_status_id = 2
+order by start_time desc

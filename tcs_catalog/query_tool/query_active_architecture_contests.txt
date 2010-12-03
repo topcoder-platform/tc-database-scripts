@@ -1,0 +1,80 @@
+SELECT submpp.scheduled_end_time as initial_submission_date
+ ,cc.component_name as contest_name
+ , regpp.scheduled_end_time as reg_end_date
+ ,cat.category_name as catalog_name
+ ,(SELECT COUNT(*)
+  FROM resource r, resource_info ri
+  WHERE ri.resource_id = r.resource_id
+  AND ri.resource_info_type_id = 4
+  AND r.project_id = p.project_id
+  AND r.resource_role_id = 1
+  AND ri.value <> 'N/A')
+  as total_rated_inquiries
+,(SELECT COUNT(*)
+  FROM resource
+  WHERE project_id = p.project_id
+  AND resource_role_id = 1)
+  as total_inquiries
+, (SELECT COUNT(*)
+  FROM resource
+  WHERE project_id = p.project_id
+  AND resource_role_id = 1) - (SELECT COUNT(*)
+  FROM resource r, resource_info ri
+  WHERE ri.resource_id = r.resource_id
+  AND ri.resource_info_type_id = 4
+  AND r.project_id = p.project_id
+  AND r.resource_role_id = 1
+  AND ri.value <> 'N/A') as total_unrated_inquiries
+ ,(SELECT COUNT(*)
+  FROM submission s, upload u
+  WHERE u.upload_id = s.upload_id
+  AND u.project_id = p.project_id
+  and s.submission_type_id = 1
+  and s.submission_status_id in (1,2,3,4))
+  as total_submissions
+  , regpp.phase_status_id <> 2 as is_reg_closed
+  , p.project_id
+  , (select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id) as price
+  , case when pidr.value = 'On' then 
+  NVL((select value::decimal from project_info pi_dr where pi_dr.project_info_type_id = 30 and pi_dr.project_id = p.project_id), (select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id)) 
+  else null end as dr_points
+  , (select count(*) from contest_project_xref where project_id = p.project_id) as tourny_project
+  , (select count(*) from comp_categories where category_id = 27240258 and component_id = cc.component_id) as sensations_project
+   , (select count(*) from comp_categories where component_id = cc.component_id and category_id = 27416657)
+   as paypal_brand
+  , p.project_category_id
+  , (select NVL(NVL(ppd.actual_start_time, psd.actual_start_time), ppd.scheduled_start_time)
+       from project proj
+          , OUTER project_phase psd
+          , OUTER project_phase ppd
+      where psd.project_id = proj.project_id
+        and psd.phase_type_id = 2
+        and ppd.project_id = proj.project_id
+        and proj.project_id = p.project_id
+        and ppd.phase_type_id = 1) as posting_date
+FROM project p
+   ,project_phase submpp
+   ,project_phase regpp
+   ,categories cat
+   ,project_info pi_ci
+   ,project_info pidr
+   ,comp_catalog cc
+   ,comp_versions cv
+WHERE p.project_category_id = 7
+AND regpp.project_id = p.project_id
+AND regpp.phase_type_id = 1
+AND submpp.project_id = p.project_id
+AND submpp.phase_type_id = 2
+and p.project_status_id = 1
+AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2)
+and cc.root_category_id = cat.category_id
+AND pi_ci.project_id = p.project_id 
+AND pi_ci.project_info_type_id = 1
+and pidr.project_id = p.project_id
+  and pidr.project_info_type_id = 26
+ AND cv.comp_vers_id = pi_ci.value
+and cv.component_id= cc.component_id
+AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+AND not exists (select 1 from project_info where project_id = p.project_id and project_info_type_id = 29 and value = 'Off')
+order by @sc@ @sd@

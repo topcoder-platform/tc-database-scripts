@@ -1,0 +1,42 @@
+select '<a href=http://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || contest_id || '>' || contest_id || '</a>' as contest_link
+      , nvl((select max(cl.name) from time_oltp:project p, time_oltp:client_project clp, time_oltp:client cl where p.project_id = clp.project_id and clp.client_id = cl.client_id and p.project_id = ttp.project_id), 'Self-Serviced') as client
+      , nvl((select max(p.name) from time_oltp:project p, time_oltp:client_project clp, time_oltp:client cl where p.project_id = clp.project_id and clp.client_id = cl.client_id and p.project_id = ttp.project_id), 'Self-Serviced') as project
+      , pi.value name
+      , max(cs.create_date) as payment_date
+      , nvl(pp.actual_start_time, 'not started') as contest_start_date
+      , pc.name as contest_type
+      , ps.name as contest_status
+--      , CASE WHEN cs.sale_type_id = 1 THEN (select contest_fee from time_oltp:project_contest_fee f where f.project_id = CASE WHEN cs.create_date < mdy(12,15,2009) THEN 70015978 ELSE 70016028 END and lower(f.contest_type) = lower(DECODE(pc.name, 'UI Prototype Competition', 'UIPROTOTYPE', 'Assembly Competition', 'ASSEMBLY', 'RIA Build Competition', 'RIABUILD', 'Test Suites', 'TESTING', 'Test Scenarios', 'TESTING',  pc.name)) ) ELSE (select contest_fee from time_oltp:project_contest_fee f where f.project_id = pi3.value and lower(f.contest_type) = lower(DECODE(pc.name, 'UI Prototype Competition', 'UIPROTOTYPE', 'Assembly Competition', 'ASSEMBLY', 'RIA Build Competition', 'RIABUILD', 'Test Suites', 'TESTING', 'Test Scenarios', 'TESTING',  pc.name)) ) END as sow_contest_fee
+      , CASE WHEN cs.sale_type_id = 1 THEN (select max(contest_fee) from time_oltp:project_contest_fee f where f.project_id = CASE WHEN cs.create_date BETWEEN mdy(12,15,2009) and mdy(09,02,2010) THEN 70015978 WHEN cs.create_date >= mdy(09,02,2010) THEN 70016124 ELSE 70016028 END and f.contest_type_id = pc.project_category_id ) ELSE (select max(contest_fee) from time_oltp:project_contest_fee f where f.project_id = pi3.value and f.contest_type_id = pc.project_category_id ) END as sow_contest_fee
+      , sum(cs.price) as total_amount
+      , cs.sale_reference_id as sale_reference_id
+      , CASE WHEN cs.sale_type_id = 1 THEN 'Credit Card' ELSE 'Invoice' END as payment_type
+      , MAX((select count(*) from project_info pi5, project p5 where pi5.project_id = p5.project_id and p5.project_status_id <> 3 and p5.project_category_id = p.project_category_id and pi5.project_info_type_id = 1 and pi5.value in (select cv.comp_vers_id from comp_versions cv where cv.comp_vers_id in (select pi4.value from project_info pi4 where p.project_id = pi4.project_id and pi4.project_info_type_id = 1 )))) as num_posts
+      , DECODE((select dest_project_id from linked_project_xref where link_type_id = 5 and source_project_id = p.project_id), null, 'No', 'Yes') as repost
+      , p.project_id as contest_id
+      , (select value from project_info where project_id = p.project_id and project_info_type_id = 31) as actual_fee
+      , (select max(nvl(actual_end_time, scheduled_end_time)) from project_phase where phase_type_id = 10 and project_id = p.project_id and p.project_status_id = 7) completion_date
+from contest_sale cs,
+     project p,
+     project_category_lu pc,
+     project_status_lu ps,
+     project_phase pp,
+     project_info pi,
+     project_info pi3,   -- billing account
+     outer ( time_oltp:project ttp, outer ( time_oltp:client_project ttcp, outer time_oltp:client ttc ) )
+where cs.create_date >= (today - @days@)
+  and cs.contest_id = p.project_id
+  and p.project_category_id = pc.project_category_id
+  and p.project_status_id = ps.project_status_id
+  and p.project_id = pp.project_id
+  and pp.phase_type_id = 1
+  and p.project_id = pi.project_id
+  and pi.project_info_type_id = 6
+  and p.project_status_id <> 3
+  and p.project_id = pi3.project_id
+  and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+group by 1,2,3,4,6,7,8,9,11,12,14,15,16,17
+order by max(cs.create_date) desc;

@@ -1,0 +1,177 @@
+SELECT "Component Design" as Competition_Type,
+   count(p.project_id) as Total_Projects,
+   1.5 * round(sum(nvl(pi16.value::decimal, 0))) as Total_Prizes
+ FROM project p,
+   project_phase ps,
+   project_phase regpp,
+   project_info pi_ci,
+   project_info pi16,
+   project_info pidr,
+   comp_catalog cc,
+   categories cat,
+   comp_versions cv
+ WHERE p.project_status_id = 1
+ AND p.project_category_id = 1
+and (ps.phase_status_id = 2 or regpp.phase_status_id = 2)
+ AND ps.project_id = p.project_id
+AND ps.phase_type_id = 2 AND ps.scheduled_end_time > CURRENT
+ and pidr.project_id = p.project_id
+  and pidr.project_info_type_id = 26
+ AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+ AND pi_ci.project_id = p.project_id AND pi_ci.project_info_type_id = 2
+ AND cc.component_id = pi_ci.value and cc.root_category_id = cat.category_id
+ and cv.component_id = cc.component_id
+ and cv.phase_id = 112
+ AND cat.category_id in (select distinct category_id from category_catalog where catalog_id != 4)
+ AND regpp.project_id = p.project_id and regpp.phase_type_id = 1 AND regpp.scheduled_start_time <= CURRENT
+and pi16.project_info_type_id = 16
+AND pi16.project_id = p.project_id
+UNION
+SELECT "Component Development" as Competition_Type,
+   count(p.project_id) as Total_Projects,
+   1.5 * round(sum(nvl(pi16.value::decimal, 0))) as Total_Prizes
+FROM project p,
+   project_phase ps,
+   project_phase regpp,
+   project_info pi_ci,
+   project_info pi16,
+   project_info pidr,
+   comp_catalog cc,
+   categories cat,
+   comp_versions cv
+ WHERE p.project_status_id = 1
+ AND p.project_category_id = 2 and (ps.phase_status_id = 2 or regpp.phase_status_id = 2)
+ AND ps.project_id = p.project_id
+AND ps.phase_type_id = 2
+AND ps.scheduled_end_time > CURRENT
+ AND pi_ci.project_id = p.project_id AND pi_ci.project_info_type_id = 2
+ and cv.component_id = cc.component_id
+ and cv.phase_id = 113
+ and pidr.project_id = p.project_id
+  and pidr.project_info_type_id = 26
+ AND cc.component_id = pi_ci.value and cc.root_category_id = cat.category_id
+ AND cat.category_id in (select distinct category_id from category_catalog where catalog_id != 4)
+ AND regpp.project_id = p.project_id and regpp.phase_type_id = 1 AND regpp.scheduled_start_time <= CURRENT
+and pi16.project_info_type_id = 16
+AND pi16.project_id = p.project_id
+UNION
+SELECT "Architecture" as Competition_Type,
+     count(*) as Total_Projects,
+     1.5 * round(sum(nvl(pi16.value::decimal, 0))) as Total_Prizes
+FROM project p
+   ,project_phase submpp
+   ,project_phase regpp
+   ,categories cat
+   ,project_info pi_ci
+   ,comp_catalog cc
+   ,comp_versions cv
+   , project_info pi_ic
+   , project_info pi16
+WHERE p.project_category_id = 7
+AND regpp.project_id = p.project_id
+AND regpp.phase_type_id = 1
+AND submpp.project_id = p.project_id
+AND submpp.phase_type_id = 2
+and p.project_status_id = 1
+AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2)
+and cc.root_category_id = cat.category_id
+AND pi_ci.project_id = p.project_id
+AND pi_ci.project_info_type_id = 1
+ AND cv.comp_vers_id = pi_ci.value
+and cv.component_id= cc.component_id
+AND pi_ic.project_id = p.project_id
+AND pi_ic.project_info_type_id = 29
+and pi_ic.value = 'On'
+and pi16.project_info_type_id = 16
+AND pi16.project_id = p.project_id
+UNION
+SELECT "Assembly" as Competition_Type,
+  count(*) as Total_Projects,
+  1.5 * round(sum(nvl(pi16.value::decimal, 0))) as Total_Prizes
+FROM project p
+   ,project_phase submpp
+   ,project_phase regpp
+   ,categories cat
+   ,project_info pi_ci
+   ,comp_catalog cc
+   ,comp_versions cv
+   , project_info pi_ic
+   , project_info pi16
+WHERE p.project_category_id = 14
+AND regpp.project_id = p.project_id
+AND regpp.phase_type_id = 1
+AND submpp.project_id = p.project_id
+AND submpp.phase_type_id = 2
+and p.project_status_id = 1
+AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2)
+and cc.root_category_id = cat.category_id
+AND pi_ci.project_id = p.project_id
+AND pi_ci.project_info_type_id = 1
+ AND cv.comp_vers_id = pi_ci.value
+and cv.component_id= cc.component_id
+AND pi_ic.project_id = p.project_id
+AND pi_ic.project_info_type_id = 29
+and pi_ic.value = 'On'
+and pi16.project_info_type_id = 16
+AND pi16.project_id = p.project_id
+UNION
+SELECT "Conceptualization" as Competition_Type,
+     count(*) as Total_Projects,
+     1.5 * round(sum(nvl(pi16.value::decimal, 0))) as Total_Prizes
+FROM project p
+   ,project_phase submpp
+   ,project_phase regpp
+   ,categories cat
+   ,project_info pi_ci
+   ,comp_catalog cc
+   ,comp_versions cv
+   , project_info pi_ic
+   , project_info pi16
+WHERE p.project_category_id = 23
+AND regpp.project_id = p.project_id
+AND regpp.phase_type_id = 1
+AND submpp.project_id = p.project_id
+AND submpp.phase_type_id = 2
+and p.project_status_id = 1
+AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2)
+and cc.root_category_id = cat.category_id
+AND pi_ci.project_id = p.project_id
+AND pi_ci.project_info_type_id = 1
+ AND cv.comp_vers_id = pi_ci.value
+and cv.component_id= cc.component_id
+AND pi_ic.project_id = p.project_id
+AND pi_ic.project_info_type_id = 29
+and pi_ic.value = 'On'
+and pi16.project_info_type_id = 16
+AND pi16.project_id = p.project_id
+UNION
+SELECT "Specification" as Competition_Type,
+     count(*) as Total_Projects,
+     1.5 * round(sum(nvl(pi16.value::decimal, 0))) as Total_Prizes
+FROM project p
+   ,project_phase submpp
+   ,project_phase regpp
+   ,categories cat
+   ,project_info pi_ci
+   ,comp_catalog cc
+   ,comp_versions cv
+   , project_info pi_ic
+   , project_info pi16
+WHERE p.project_category_id = 6
+AND regpp.project_id = p.project_id
+AND regpp.phase_type_id = 1
+AND submpp.project_id = p.project_id
+AND submpp.phase_type_id = 2
+and p.project_status_id = 1
+AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2)
+and cc.root_category_id = cat.category_id
+AND pi_ci.project_id = p.project_id
+AND pi_ci.project_info_type_id = 1
+ AND cv.comp_vers_id = pi_ci.value
+and cv.component_id= cc.component_id
+AND pi_ic.project_id = p.project_id
+AND pi_ic.project_info_type_id = 29
+and pi_ic.value = 'On'
+and pi16.project_info_type_id = 16
+AND pi16.project_id = p.project_id

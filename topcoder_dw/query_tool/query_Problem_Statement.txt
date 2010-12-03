@@ -1,0 +1,6 @@
+SELECT problem_text,
+ method_name,
+ class_name
+ FROM problem
+ WHERE problem_id = @pm@
+AND viewable = 1

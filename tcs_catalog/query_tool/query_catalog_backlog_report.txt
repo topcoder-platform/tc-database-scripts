@@ -1,0 +1,26 @@
+select cat.category_name || ' ' || cc.component_name || ' ' || cv.version_text as component
+     , cc.component_id as component_id
+     , max(date(pp.actual_end_time)) as finish_date
+     , cv.comments as comments
+  from comp_catalog cc
+     , comp_versions cv
+     , project_info pi2
+     , project_info pi3
+     , project p
+     , project_phase pp
+     , categories cat
+ where cc.root_category_id in (5801776, 5801777)
+   and cc.component_id = cv.component_id
+   and cv.phase_id = 113
+   and cc.component_id = pi2.value::integer
+   and pi2.project_info_type_id = 2
+   and cv.version = pi3.value::integer
+   and pi3.project_info_type_id = 3
+   and pi2.project_id = pi3.project_id
+   and pi2.project_id = p.project_id
+   and p.project_status_id = 7
+   and p.project_category_id = 2
+   and p.project_id = pp.project_id
+   and cc.root_category_id = cat.category_id
+group by 1, 2, 4
+order by 3, 1;

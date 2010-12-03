@@ -1,0 +1,14 @@
+select coder_id
+     , count(coder_id) as num_wins
+     , count(coder_id) / (select count(distinct round_id) 
+             from long_comp_result 
+             where lcr.coder_id = coder_id
+		and rated_ind = 1) * 100 as percent
+from long_comp_result lcr
+    , round r
+where lcr.round_id = r.round_id
+and r.round_type_id in (13,19)
+and placed = 1
+and lcr.rated_ind = 1
+group by coder_id
+order by percent desc, num_wins desc

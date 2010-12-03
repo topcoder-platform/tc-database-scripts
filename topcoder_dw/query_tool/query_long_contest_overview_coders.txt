@@ -1,0 +1,22 @@
+SELECT c.coder_id AS coder_id
+     , ps.problem_id
+     , c.handle
+     , lcr.point_total
+     , lcr.placed AS placed
+     , ll.language_name
+     , c.handle_lower
+     , lcr.system_point_total
+     , lcr.provisional_placed
+  FROM long_comp_result lcr
+     , coder c
+     , long_problem_submission ps
+     , language_lu ll
+ WHERE lcr.round_id = @rd@
+   AND c.coder_id = lcr.coder_id
+   AND ps.coder_id = lcr.coder_id
+   AND ps.round_id = lcr.round_id
+   and lcr.attended = 'Y'
+   and ps.last_submission = 1
+   and ps.example = 0
+   AND ll.language_id = ps.language_id
+ order by placed, c.handle_lower

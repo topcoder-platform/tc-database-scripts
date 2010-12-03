@@ -1,0 +1,5 @@
+select c.contest_id, c.contest_type_id, c.contest_name
+from contest_season_xref x, contest c
+where x.contest_id = c.contest_id
+and x.season_id = @seid@
+and c.phase_id = @ph@

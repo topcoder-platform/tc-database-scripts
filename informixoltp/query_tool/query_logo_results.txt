@@ -1,0 +1,9 @@
+select a.answer_text, count(*)
+  from response r
+     , answer a
+ where a.answer_id = r.answer_id
+   and a.question_id = 1505
+   and r.question_id = a.question_id
+   and r.create_date <= '2005-05-25 17:00:00.000'
+ group by 1
+ order by 1

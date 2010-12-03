@@ -1,0 +1,22 @@
+select calendar.year
+, calendar.month_numeric as month
+, case
+  when project_category_id = 1 then 'Design'
+  when project_category_id = 2 then 'Development'
+  end as phase
+, sum(case when exists (select 1 from project r
+                    where p.project_id = r.project_id
+                    and r.project_category_id in (1,2)
+	            and r.status_id = 6) then 1 else 0 end) as reposts
+, count(*) as projects
+, round(case when count(*) = 0 then 0 else 
+  sum(case when exists (select 1 from project r
+                    where p.project_id = r.project_id
+                    and r.project_category_id in (1,2)
+	            and r.status_id = 6) then 1 else 0 end) / count(*) * 100 end, 1) || '%' as repost_pct
+from project p, calendar
+where calendar.date = date(p.posting_date)
+and p.posting_date < today 
+and p.project_category_id in (1,2)
+group by 1,2,3
+order by 1 desc,2 desc,3

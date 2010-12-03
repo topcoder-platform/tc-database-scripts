@@ -1,0 +1,25 @@
+select r.short_name as name
+     , r.calendar_id
+     , sdw1.coder_id as winner1
+     , c1.handle_lower as winnerhandle1
+     , (select count(*) from division_winners where coder_id = sdw1.coder_id and calendar_id <= sdw1.calendar_id and division_id = 1 and round_type_id = 1) as wins1
+     , (select count(*) from division_winners where coder_id = sdw1.coder_id and division_id = 1 and round_type_id = 1) as totalwins1
+     , sdw2.coder_id as winner2
+     , c2.handle_lower as winnerhandle2
+     , (select count(*) from division_winners where coder_id = sdw2.coder_id and calendar_id <= sdw2.calendar_id and division_id = 2 and round_type_id = 1) as wins2
+     , (select count(*) from division_winners where coder_id = sdw2.coder_id and division_id = 2 and round_type_id = 1) as totalwins2
+     , r.round_id
+  from contest c
+     , round r
+     , outer (division_winners sdw1, coder c1)
+     , outer (division_winners sdw2, coder c2)
+ where r.round_id = sdw1.round_id
+   and r.round_id = sdw2.round_id
+   and r.contest_id = c.contest_id
+   and sdw1.coder_id = c1.coder_id
+   and sdw2.coder_id = c2.coder_id
+   and sdw1.division_id = 1
+   and sdw2.division_id = 2
+   and r.calendar_id is not null
+   and r.round_type_id = 1
+ order by r.calendar_id desc;

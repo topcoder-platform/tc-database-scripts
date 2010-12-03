@@ -1,0 +1,8 @@
+select distinct p.project_id, 
+p.component_id, 
+p.component_name,
+case when p.status_id in (1) then 0 else 1 end as is_complete
+from tcs_dw:contest_project_xref cpx,
+tcs_dw:project p
+where cpx.contest_id = @ct@
+and p.project_id = cpx.project_id

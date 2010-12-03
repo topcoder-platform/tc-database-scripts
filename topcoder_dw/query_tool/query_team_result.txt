@@ -1,0 +1,14 @@
+select tr.team_id
+       , t.name
+       , team_points
+       , submission_points
+       , (challenge_points + defense_points) as total_challenge_points
+       , system_test_points
+       , final_points
+       , tr.team_placed
+from team_round tr
+    ,team t
+where tr.team_id = t.team_id
+     and not tr.team_placed is null
+     and tr.round_id = @rd@
+order by team_placed

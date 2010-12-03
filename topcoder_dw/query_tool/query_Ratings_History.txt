@@ -1,0 +1,22 @@
+SELECT rr.round_id,
+r.name,
+r.contest_id,
+cal.date,
+c.name,
+rr.new_rating,
+rr.room_id,
+rth.vol,
+rkh.rank
+FROM contest c, round r, calendar cal, room_result rr, rating_history rth, coder_rank_history rkh
+WHERE rr.coder_id = @cr@
+AND r.round_id = rr.round_id
+AND c.contest_id = r.contest_id
+AND cal.calendar_id = r.calendar_id
+AND r.round_type_id IN (1,2,10,20)
+AND rth.round_id = rr.round_id
+AND rth.coder_id = rr.coder_id
+AND rkh.round_id = rr.round_id
+AND rkh.coder_id = rr.coder_id
+AND rkh.coder_rank_type_id = 2
+AND rkh.algo_rating_type_id = 1
+ORDER BY @sc@ @sd@, rr.round_id desc

@@ -1,0 +1,14 @@
+select distinct u.handle, u.email as email_address
+  from tcs_catalog:project_result pr
+     , tcs_catalog:contest_project_xref x
+     , event_registration er
+     , tcs_catalog:contest c
+     , email_user u
+ where er.user_id = pr.user_id
+   and pr.project_id = x.project_id
+   and c.contest_id = x.contest_id
+   and c.event_id = er.event_id
+   and er.event_id = 3006
+   and u.user_id = pr.user_id
+   and er.create_date < pr.create_date
+   and pr.valid_submission_ind = 1

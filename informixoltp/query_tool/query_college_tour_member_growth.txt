@@ -1,0 +1,12 @@
+select sum(case when c.country_code in ('840') then 1 else 0 end) as kristen
+     , sum(case when c.country_code in ('Albania','Andorra','Austria','Belgium','Bosnia and Herzegowina','Bulgaria','Croatia','Czech Republic','Denmark','Faroe Islands','Finland','France','Germany','Gibraltar','Greece','Netherlands','Hungary','Iceland','Italy','Ireland','Latvia','Liechtenstein','Lithuania','Luxembourg','Macedonia','Monaco','Norway','Poland','Portugal','Romania','Slovakia','Slovenia','Spain','Sweden','Switzerland','United Kingdom','Vatican City State (Holy See)','Macedonia, Former Yugoslav Rep. of')then 1 else 0 end) as niall
+     , sum(case when c.country_code in ('156') then 1 else 0 end) as yingying
+     , sum(case when c.country_code in ('Belarus','Estonia','Kazakhstan','Lithuania','Russia','Armenia','Azerbaijan','Georgia','Latvia','Moldova','Ukraine','Uzbekistan') then 1 else 0 end) as lena
+     , cal.year
+     , cal.quarter_of_year
+  from calendar cal
+     , coder c
+ where cal.year in (2006, 2007)
+   and date(c.member_since) = cal.date
+ group by cal.year, cal.quarter_of_year
+ order by year asc, quarter_of_year asc

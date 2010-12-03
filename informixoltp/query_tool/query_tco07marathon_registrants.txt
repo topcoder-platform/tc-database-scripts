@@ -1,0 +1,14 @@
+select u.user_id, u.handle_lower, case when ar.rating = 0 then null else ar.rating end as rating, il.seed
+from 
+event_registration er, 
+user u,
+invite_list il,
+OUTER(algo_rating ar)
+where er.event_id = @eid@
+and er.eligible_ind = 1
+and u.user_id = er.user_id
+and ar.coder_id = u.user_id
+and ar.algo_rating_type_id = 3
+and il.coder_id = u.user_id
+and il.round_id = 10722
+order by 4 asc

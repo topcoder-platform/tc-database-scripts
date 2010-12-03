@@ -1,0 +1,10 @@
+select u.handle, u.first_name, u.last_name, e.address as email, date(dt.create_time) as date, cc.component_name || " " || cv.version_text 
+from download_tracking dt, user_group_xref ugx, comp_versions cv, comp_catalog cc, user u, email e
+where ugx.group_id = 200
+and ugx.login_id = dt.login_id
+and u.user_id = e.user_id
+ and e.primary_ind = 1
+and u.user_id = ugx.login_id
+and cv.comp_vers_id = dt.comp_vers_id
+and cv.component_id = cc.component_id
+order by date desc

@@ -1,0 +1,6 @@
+select csx.top_performers_factor 
+from contest_stage_xref csx, contest c
+where csx.contest_id = c.contest_id 
+and c.contest_type_id = 18
+and c.phase_id = @ph@
+and csx.stage_id = @staid@

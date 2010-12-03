@@ -1,0 +1,12 @@
+--
+-- This a content of dr_contests_for_track query to be added to same named command (to be created also)
+-- to 'TCS Data Warehouse' (java:TCS_DW) DB under 'dr' group in Query Tool.  For details on Query Tool
+-- usage, please, see: http://www.topcoder.com/wiki/display/docs/TopCoder+Studio+Query+Tool+Usage
+--
+-- Don't forget to add tid input to created query
+--
+
+SELECT c.track_contest_id, c.track_contest_desc, c.track_contest_type_id
+FROM track_contest c
+WHERE c.track_id = @tid@
+ORDER BY c.track_contest_id

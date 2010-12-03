@@ -1,0 +1,10 @@
+select s.name, count(*), s.school_id
+  from event_registration er, current_school cs, school s, user u
+where cs.school_id = s.school_id
+ and er.user_id = cs.coder_id
+ and er.event_id = @eid@
+and u.user_id = er.user_id
+and u.status = 'A'
+  and er.eligible_ind = 1
+group by s.name, s.school_id
+order by count(*) desc

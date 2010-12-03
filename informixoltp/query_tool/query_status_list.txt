@@ -1,0 +1,4 @@
+select status_id
+     , status_desc
+  from status_lu 
+ where status_id in (83,82)

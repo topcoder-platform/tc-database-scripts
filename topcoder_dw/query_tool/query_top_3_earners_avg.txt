@@ -1,0 +1,7 @@
+select avg(sums.gross)
+from table(multiset(
+select first 3 sum(gross_amount) as gross, c.handle
+from user_payment up, coder c
+where c.coder_id = up.user_id
+group by c.handle
+order by 1 desc)) sums

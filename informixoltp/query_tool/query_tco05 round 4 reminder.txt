@@ -1,0 +1,8 @@
+select u.handle
+     , u.email as email_address
+  from room_result rr
+     , email_user u
+ where rr.coder_id = u.user_id
+   and rr.round_id = 8016
+   and rr.advanced = 'Y'
+   and u.status= 'A'

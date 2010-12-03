@@ -1,0 +1,6 @@
+select u.user_id, lower(u.handle) , case when r.rating = 0 then null else r.rating end as rating
+from common_oltp:user_terms_of_use_xref utx, common_oltp:user u, OUTER(rating r)
+where u.user_id = utx.user_id
+and utx.terms_of_use_id = 28
+and r.coder_id = u.user_id
+order by 2

@@ -1,0 +1,14 @@
+select pc.name as Type, 
+       pi_name.value project_name, 
+       p.modify_Date closure_date,
+      '<a href=https://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>OR link</a>' AS or_link
+  from project p,
+       project_category_lu pc,
+       project_info pi_name
+ where p.project_Category_id in(6,7)
+   and p.project_Category_id = pc.project_Category_id 
+   and pi_name.project_info_type_id = 6
+   and pi_name.project_id = p.project_id
+   and p.project_status_id = 7
+   and p.modify_date >= CURRENT - 6 UNITS MONTH
+order by 1 desc, 2

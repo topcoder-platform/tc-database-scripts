@@ -1,0 +1,24 @@
+SELECT u.user_id
+     , (select seed 
+          from invite_list 
+         where coder_id = rr.coder_id 
+           and round_id = 8035) as seed
+     , u.handle
+     , ra.rating
+     , rr.point_total as points
+     , handle_lower as handle_sort
+     , r.name as round_name
+     , res.response
+  FROM user u
+     , room_result rr
+     , rating ra
+     , round r
+     , outer response res
+ WHERE rr.round_id = r.round_id
+   AND rr.round_id in (8030,8031,8032,8033,8034)
+   AND rr.advanced = 'Y'
+   AND u.user_id = ra.coder_id
+   and u.user_id = res.user_id
+   and res.question_id = 30
+   and u.user_id = rr.coder_id
+ order by seed asc

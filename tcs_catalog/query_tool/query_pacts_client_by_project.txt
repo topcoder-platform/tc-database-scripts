@@ -1,0 +1,25 @@
+--
+-- This a content of pacts_client_by_project query to be added to same named command (to be created also)
+-- to 'TCS Catalog' (java:TCS_CATALOG) DB under 'development' group in Query Tool.  For details on Query Tool
+-- usage, please, see: http://www.topcoder.com/wiki/display/docs/TopCoder+Studio+Query+Tool+Usage
+--
+-- Don't forget to add pj input to created query
+--
+SELECT
+    c.client_id,
+    c.name,
+    c.company_id,
+    c.payment_term_id,
+    c.status,
+    c.salestax,
+    c.start_date,
+    c.end_date
+FROM project_info pi,
+     tt_project p,
+     tt_client c,
+     tt_client_project x
+WHERE pi.value = p.project_id
+AND   p.project_id = x.project_id
+AND   x.client_id = c.client_id
+AND   pi.project_id = @pj@
+AND   pi.project_info_type_id = 32

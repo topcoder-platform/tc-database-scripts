@@ -1,0 +1,4 @@
+select u.handle, u.email email_address
+  from email_user u, user_terms_of_use_xref x
+ where u.user_id = x.user_id
+   and x.terms_of_use_id = 22

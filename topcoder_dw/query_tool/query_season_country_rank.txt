@@ -1,0 +1,5 @@
+select c.country_name, cr.member_count, cr.rank, cr.rating
+FROM season_country_rank cr
+     , country c
+WHERE cr.country_code = c.country_code
+AND season_id = @snid@

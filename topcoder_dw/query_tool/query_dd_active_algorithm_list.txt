@@ -1,0 +1,14 @@
+select c.coder_id
+     , c.handle
+     , ct.country_name
+     , r.rating as alg_rating
+     , r.vol as alg_vol
+     , r.num_ratings as alg_num_ratings
+from coder c
+   , rating r
+   , country ct
+   , active_members a
+where r.coder_id = c.coder_id
+  and ct.country_code = c.comp_country_code
+  and c.status = 'A'
+  and c.coder_id = a.coder_id

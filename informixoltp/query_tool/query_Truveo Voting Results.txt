@@ -1,0 +1,13 @@
+select 
+  asset_name
+  ,asset_owner 
+  ,sum(win) as total_wins
+  ,sum(loss) as total_losses
+  ,sum(win) + sum(loss) as total_votes
+  ,round(sum(win)/(sum(win)+sum(loss)),3) as shady_win_pct
+  ,sum(pure_win) as pure_wins
+  ,sum(win) - sum(pure_win) as dirty_votes
+  ,round( sum(pure_win)/(sum(pure_win)+sum(pure_loss)),3) as pure_win_pct
+from votingwidget:asset_vote
+group by 1,2
+order by 9 desc

@@ -1,0 +1,15 @@
+select sum(case when placed=1 and passed_review_ind = 1 then 1 else 0 end) / count(*) as percentage
+     , c.coder_id
+  from project_result pr
+     , coder c
+     , project p
+ where pr.user_id = c.coder_id
+   and pr.project_id = p.project_id
+   and p.phase_id in (@pis@)
+   and c.status = 'A'
+   and pr.valid_submission_ind = 1
+   and pr.rating_ind = 1
+   and p.status_id in (4,5,7,8)
+ group by c.coder_id
+ having count(*) >= 5
+ order by 1 desc

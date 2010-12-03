@@ -1,0 +1,41 @@
+
+ SELECT u.user_id
+ ,r.rating
+ ,r.num_ratings
+ ,r.last_rated_event
+ ,c.member_since
+ ,c.first_name
+ ,c.middle_name
+ ,c.last_name
+ ,u.email
+ ,c.address1
+ ,c.address2
+ ,c.city
+ ,c.state_code
+ ,c.zip
+ ,c.home_phone
+ ,c.work_phone
+ ,re.referral_desc
+ ,ct.coder_type_desc
+ ,u.handle
+ ,rs.start_time
+ ,c.notify
+ ,CASE WHEN cref.referral_id = 6 THEN (SELECT name 
+                                         FROM school
+                                        WHERE school_id = cref.reference_id)
+       WHEN cref.referral_id = 10 THEN cref.other
+       WHEN cref.referral_id = 40 THEN (SELECT handle
+                                          FROM user
+                                         WHERE user_id = cref.reference_id)
+       ELSE '' END as referral_type
+ ,us.user_status_desc
+ FROM user u
+ JOIN coder c ON u.user_id = c.coder_id
+ JOIN rating r ON r.coder_id = c.coder_id  
+ JOIN coder_referral cref ON cref.coder_id = c.coder_id
+ JOIN referral re ON re.referral_id = cref.referral_id
+ JOIN coder_type ct ON c.coder_type_id = ct.coder_type_id
+ JOIN user_status_lu us ON u.status = us.user_status_id
+ JOIN round_segment rs ON rs.round_id = r.round_id
+  AND rs.segment_id = 2
+WHERE u.user_id = @cr@

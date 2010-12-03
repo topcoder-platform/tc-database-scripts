@@ -1,0 +1,36 @@
+select '<a href=https://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>' || cat.category_name || ' ' || pi6.value || ' ' || pi7.value || '</a>' as component
+     , pcl.name as type
+     , ptl.name as phase
+     , (count(*) + 1)::integer as repeats
+     , current - min(pp3.actual_start_time) as days_taken
+     , p.project_id
+  from project p
+     , project_phase pp1
+     , project_phase pp2
+     , project_phase pp3
+     , project_info pi5
+     , project_info pi6
+     , project_info pi7
+     , categories cat
+     , phase_type_lu ptl
+     , project_category_lu pcl
+ where p.project_status_id = 1
+   and p.project_id = pp1.project_id
+   and pp1.phase_status_id = 2
+   and p.project_id = pp2.project_id
+   and pp1.phase_type_id = pp2.phase_type_id
+   and pp2.phase_status_id != 2
+   and p.project_id = pp3.project_id
+   and pp3.phase_type_id = 1
+   and p.project_id = pi5.project_id
+   and pi5.project_info_type_id = 5
+   and pi5.value::integer = cat.category_id
+   and p.project_id = pi6.project_id
+   and pi6.project_info_type_id = 6
+   and p.project_id = pi7.project_id
+   and pi7.project_info_type_id = 7
+   and pp1.phase_type_id = ptl.phase_type_id
+   and p.project_category_id = pcl.project_category_id
+   and pcl.project_type_id = 1
+group by 1, 2, 3, 6
+order by 5 desc, 1;

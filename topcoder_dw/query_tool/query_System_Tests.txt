@@ -1,0 +1,11 @@
+SELECT stc.args,
+stc.expected_result,
+str.received,
+str.test_case_id,
+str.succeeded
+FROM system_test_case stc, system_test_result str
+WHERE str.round_id = @rd@
+AND str.coder_id = @cr@
+AND str.problem_id = @pm@
+AND stc.test_case_id = str.test_case_id
+ORDER BY str.test_case_id ASC

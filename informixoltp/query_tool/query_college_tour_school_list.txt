@@ -1,0 +1,11 @@
+select p.path || i.file_name as image_path, e.event_desc as event_name,rs.start_time,
+  nvl((select event_id from event e2 where e2.parent_event_id = cte.event_id and event_type_id = 12),0) as algo_event,
+  nvl((select event_id from event e3 where e3.parent_event_id = cte.event_id and event_type_id = 13),0) as comp_event
+  from intro_event cte, image i,path p, round_segment rs, event e
+where cte.image_id = i.image_id
+ and i.path_id = p.path_id
+  and cte.round_id = rs.round_id
+  and rs.segment_id = 2
+and cte.event_id > 1000
+and cte.event_id = e.event_id
+order by rs.start_time desc

@@ -1,0 +1,19 @@
+select count(*)
+from  project p
+where p.project_status_id = 1
+and (select (NVL(ppd.actual_start_time, psd.actual_start_time) )
+	from project p0             
+                 ,project_info pi
+                 , OUTER project_phase psd 
+                 , OUTER project_phase ppd 
+             where  psd.project_id = p0.project_id  
+             and psd.phase_type_id = 2  
+             and ppd.project_id = p0.project_id  
+             and ppd.phase_type_id = 1  
+             and pi.project_id = p0.project_id
+             and pi.project_info_type_id = 26
+             and pi.value='On'
+             and p.project_id = p0.project_id) 
+       between (select min(start_date) from stage st where st.season_id=@seid@)
+       and (select max(end_date) from stage st where st.season_id=@seid@)
+and p.project_category_id = @ph@ - 111

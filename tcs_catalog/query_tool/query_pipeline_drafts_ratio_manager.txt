@@ -1,0 +1,96 @@
+SELECT
+    manager AS source,
+    (case
+        when current_phase is not null then 'Launched'
+        when sname = 'Active' and newstatus is not null then 'Not Launched'
+        when sname = 'Cancelled - Client Request' or  sname = 'Cancelled - Requirements Infeasible' then 'Not Launched'
+        when sname = 'Draft' then 'Not Launched'
+        else 'Launched'
+    end) as status,
+    count(contest_id) AS contests_count
+FROM table(
+    multiset(
+        select
+            c.project_id as contest_id,
+            psl.name as sname,
+            (select u.handle from project pp, user u where pp.create_user = u.user_id and pp.project_id = c.project_id) as manager,
+            (select name from permission_type where permission_type_id= NVL((select max( permission_type_id)
+                                                                             from user_permission_grant as upg
+                                                                             where resource_id=p.project_id
+                                                                             and upg.user_id = @uid@),
+                                                                            case
+                                                                                when exists (select u.user_id
+                                                                                             from user as u
+                                                                                             join user_role_xref as uref on u.user_id = @uid@ and u.user_id = uref.login_id
+                                                                                             join security_roles as sr on uref.role_id = sr.role_id and sr.description in ('Cockpit Administrator','Admin Super Role','TC Staff'))
+                                                                                then 3
+                                                                                else 0
+                                                                            end)
+            ) as pperm,
+            (select name from permission_type where permission_type_id = NVL((select max( permission_type_id)
+                                                                              from user_permission_grant as upg
+                                                                              where resource_id=c.project_id
+                                                                              and is_studio=0
+                                                                              and upg.user_id = @uid@),0)
+            ) as cperm,
+            (select ptl.name from phase_type_lu ptl where phase_type_id = (select min(phase_type_id)
+                                                                           from project_phase ph
+                                                                           where ph.phase_status_id = 2
+                                                                           and ph.project_id=c.project_id)
+            ) as current_phase,
+            (select case when(count(*)>=1) then 'Scheduled' when(count(*)=0) then 'Draft' end
+             from contest_sale cs where c.project_id = cs.contest_id and upper(psl.name)='ACTIVE'
+            ) as newstatus
+from project as c
+join project_info as piccat on c.project_id = piccat.project_id and piccat.project_info_type_id = 2
+join comp_catalog as ccat on piccat.value = ccat.component_id
+join project_category_lu as pcl on c.project_category_id = pcl.project_category_id
+join project_type_lu as ptl on pcl.project_type_id = ptl.project_type_id
+join project_status_lu as psl on c.project_status_id = psl.project_status_id
+left outer join tc_direct_project as p on c.tc_direct_project_id = p.project_id
+left outer join software_competition_pipeline_info as pipe on pipe.competition_id = c.project_id and pipe.component_id = ccat.component_id
+where (exists (select u.user_id
+       from user as u
+       join user_role_xref as uref
+       on u.user_id = @uid@
+       and u.user_id = uref.login_id
+       join security_roles as sr
+       on uref.role_id = sr.role_id
+       and sr.description in ('Cockpit Administrator','Admin Super Role','TC Staff'))
+       OR
+       NVL( (select max( permission_type_id)
+       from user_permission_grant as upg
+       where resource_id=p.project_id and permission_type_id >= 2
+       and upg.user_id = @uid@),0) > 0
+       OR  NVL( (select max( permission_type_id)
+       from user_permission_grant as upg
+       where resource_id=c.project_id and permission_type_id >= 5
+       and is_studio=0
+       and upg.user_id = @uid@),0) > 0
+       OR
+       exists (select cp.contest_id
+       from contest_sale as cp
+       join tt_project as ttp
+       on cp.sale_reference_id = ttp.po_box_number
+       and cp.sale_type_id = 2
+       and cp.contest_id = c.project_id
+       and ttp.project_id in (
+                  SELECT distinct project_id FROM tt_project_worker ttw, tt_user_account u
+                         WHERE ttw.user_account_id = u.user_account_id and
+                                           u.user_name = (select handle from user where user_id = @uid@)
+                  union
+                  SELECT distinct project_id FROM tt_project_manager ttm, tt_user_account u
+                          WHERE ttm.user_account_id = u.user_account_id and
+                                      u.user_name = (select handle from user where user_id = @uid@)) ) )
+
+   AND  (c.project_status_id != 3)
+   and c.project_category_id != 27
+   AND  ( date((select min(nvl(actual_start_time, scheduled_start_time)) from project_phase ph
+             where ph.project_id=c.project_id) ) > date(current) - 90)
+)) pipe
+
+where (cperm is not null or pperm is not null)
+group by 1,2
+
+
+

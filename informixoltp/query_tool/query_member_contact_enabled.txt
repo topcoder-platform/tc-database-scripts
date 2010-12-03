@@ -1,0 +1,4 @@
+select value
+from user_preference 
+where user_id = @cr@
+and preference_id = 24

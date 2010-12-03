@@ -1,0 +1,17 @@
+select c.coder_id
+     , c.handle
+     , ct.country_name
+     , ur_dev.rating as dev_rating
+     , ur_dev.vol as dev_vol
+     , ur_dev.num_ratings as dev_num_ratings
+from coder c
+   , rating r
+   , country ct
+   , tcs_dw:user_rating ur_dev
+   , tcs_dw:active_developers a
+where r.coder_id = c.coder_id
+  and ct.country_code = c.comp_country_code
+  and ur_dev.user_id = c.coder_id
+  and ur_dev.phase_id = 113
+  and c.status = 'A'
+  and c.coder_id = a.user_id

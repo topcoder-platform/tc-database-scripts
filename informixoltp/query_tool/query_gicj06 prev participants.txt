@@ -1,0 +1,33 @@
+select distinct e.address AS email_address, u.handle
+from gcj05_oltp:email e,
+     gcj05_oltp:user u 
+where u.user_id = e.user_id
+and e.address NOT IN
+(SELECT u.email AS address
+  FROM email_user u
+     , coder c
+     , country cy
+     , coder_notify n
+ WHERE u.user_id = n.coder_id
+   AND u.status = 'A'
+   AND n.notify_id = 1
+   AND u.user_id = c.coder_id 
+   AND c.country_code = cy.country_code
+   AND cy.country_name in ('India', 'Bangladesh', 'Indonesia', 'Malaysia', 'Maldives', 'Myanmar', 'Nepal', 'Singapore', 'Thailand'))
+UNION
+select distinct e.address AS email_address, u.handle
+from gicj05:email e,
+     gicj05:user u 
+where u.user_id = e.user_id
+and e.address NOT IN
+(SELECT u.email AS address
+  FROM email_user u
+     , coder c
+     , country cy
+     , coder_notify n
+ WHERE u.user_id = n.coder_id
+   AND u.status = 'A'
+   AND n.notify_id = 1
+   AND u.user_id = c.coder_id 
+   AND c.country_code = cy.country_code
+   AND cy.country_name in ('India', 'Bangladesh', 'Indonesia', 'Malaysia', 'Maldives', 'Myanmar', 'Nepal', 'Singapore', 'Thailand'))

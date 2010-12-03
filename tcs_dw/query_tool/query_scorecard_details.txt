@@ -1,0 +1,35 @@
+select sq.question_text,
+       sq.question_header,
+       sq.question_weight,
+        sq.section_weight,
+        sq.section_desc,
+        sq.question_desc,
+        (select evaluation_desc from evaluation_lu where evaluation_id = sr.evaluation_id) as evaluation,
+        tr.num_tests,
+        tr.num_passed,
+        sjr.response_text,
+    sjr.response_type_desc,
+	a.appeal_text,
+	a.appeal_response,
+        tca.appeal_text as testcase_appeal_text,
+        tca.appeal_response as testcase_appeal_response,
+        (select evaluation_desc from evaluation_lu where evaluation_id = a.raw_evaluation_id) as raw_evaluation,
+       tca.raw_num_passed,
+       tca.raw_num_tests,
+       sq.sort,
+       sjr.sort
+FROM scorecard_question sq,
+OUTER  scorecard_response sr, OUTER testcase_response tr,  OUTER subjective_response sjr, OUTER appeal a, OUTER testcase_appeal tca
+where
+    sq.scorecard_question_id  = tr.scorecard_question_id
+and sq.scorecard_question_id  = sr.scorecard_question_id
+and sq.scorecard_question_id  = sjr.scorecard_question_id
+and sq.scorecard_question_id  = a.scorecard_question_id
+and sq.scorecard_question_id  = tca.scorecard_question_id
+and sr.scorecard_id =  @scr@
+and sjr.scorecard_id =  @scr@
+and tr.scorecard_id = @scr@
+and a.scorecard_id = @scr@
+and tca.scorecard_id = @scr@
+and sq.scorecard_template_id = @scrt@
+order by sq.sort, sjr.sort

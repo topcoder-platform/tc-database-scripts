@@ -1,0 +1,9 @@
+select  distinct c.contest_id, c.name
+from contest c,
+   round r, round_segment rs
+where r.contest_id = c.contest_id
+and r.round_type_id in (2,18)
+and r.round_id = rs.round_id
+and rs.segment_id = 2
+and rs.start_time > current - 1 units year
+order by c.name

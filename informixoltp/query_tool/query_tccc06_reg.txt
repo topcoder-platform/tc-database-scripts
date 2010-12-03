@@ -1,0 +1,22 @@
+select count(distinct u.user_id) as total
+     , sum(case when utx.terms_of_use_id = 20504 then 1 else 0 end) as algo_total
+     , sum(case when utx.terms_of_use_id = 20503 then 1 else 0 end) as compo_total
+     , sum(case when r.num_ratings>0 then 1 else 0 end) as alg_rated
+     , sum(case when des.rating is null then 0 else 1 end) as design_rated
+     , sum(case when dev.rating is null then 0 else 1 end) as development_rated
+     , sum(case when dev.rating is not null or des.rating is not null then 1 else 0 end) as component_rated
+  from user u
+     , coder c
+     , user_terms_of_use_xref utx
+     , rating r
+     , outer tcs_catalog:user_rating des
+     , outer tcs_catalog:user_rating dev
+ where u.user_id = utx.user_id
+   and u.user_id = c.coder_id 
+   and u.user_id = utx.user_id
+   and des.phase_id = 112
+   and dev.phase_id = 113
+   and des.user_id = u.user_id
+   and dev.user_id = u.user_id
+   and utx.terms_of_use_id in (20503,20504)
+   and u.user_id = r.coder_id

@@ -1,0 +1,23 @@
+select rr.coder_id
+     , rr.challenges_made_successful
+     , rr.challenges_made_failed
+     , rr.challenge_points
+     , (select sum(challenger_points) 
+          from challenge 
+         where succeeded = 1 
+           and challenger_id = rr.coder_id 
+           and round_id = rr.round_id) as positive_challenge_points
+     , r.short_name
+     , r.round_id
+     , division_desc
+  from room_result rr
+     , round r
+     , contest c
+     , division_lu d
+ where rr.round_id = r.round_id
+   and c.contest_id = r.contest_id
+   and rr.division_id = d.division_id
+   and r.round_type_id in (1,2)
+   and rr.coder_id <> 301395--hardcoder
+   and rr.challenges_made_successful > 8
+ order by rr.challenges_made_successful desc, rr.challenge_points desc

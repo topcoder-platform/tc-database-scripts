@@ -1,0 +1,18 @@
+SELECT su.user_id, 
+                DECODE(project_type_id, 1, 'Design', 'Development') phase,
+                count(*) totalSubmissions, 
+                   sum(sub.advanced_to_review) AdvancedToReview, 
+                    decode(sum(sub.advanced_to_review), 0, 0, round(sum(final_score)/sum(sub.advanced_to_review),2)) averagescore,
+                    decode(max(final_Score), -1,0, round(max(final_Score),2)) highscore
+     FROM submission sub,
+                  security_user su,
+                  project p
+ WHERE EXTEND(sub.submission_date, YEAR TO DAY) >= (EXTEND(CURRENT, YEAR TO DAY) - 6 UNITS MONTH)
+and sub.cur_version = 1
+and su.login_id = sub.submitter_id
+and submission_type = 1
+and p.project_id = sub.project_id
+and p.cur_version = 1
+and sub.is_removed = 0
+group by su.user_id, 2
+order by 1,2

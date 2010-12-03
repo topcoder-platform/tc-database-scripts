@@ -1,0 +1,19 @@
+SELECT c.coder_id
+     , c.handle
+     , r.rating
+     , c.handle_lower
+     , scr.rank
+from school_coder_rank scr 
+    , algo_rating r
+    , current_school cs
+    , coder c
+where scr.coder_id = cs.coder_id
+and c.coder_id = cs.coder_id
+and r.coder_id = c.coder_id
+and c.status = 'A'
+and scr.school_id = @scid@
+and cs.viewable = 1
+and scr.algo_rating_type_id = 3
+and r.algo_rating_type_id = 3
+and coder_rank_type_id = 2
+order by scr.rank, handle_lower

@@ -1,0 +1,1 @@
+select * from coder where coder_id = @cr@

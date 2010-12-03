@@ -1,0 +1,27 @@
+SELECT s.submission_number
+     , s.submission_text
+     , r.round_id
+     , p.problem_id
+     , cs.coder_id
+     , c.name AS contest_name
+     , r.name AS round_name
+     , r.round_type_id
+     , comp.class_name AS problem_name
+     , comp.component_id
+  FROM component comp
+     , long_component_state cs
+     , round r
+     , contest c
+     , long_submission s
+     , problem p
+ WHERE 1=1
+   and cs.coder_id = @cr@
+   and cs.round_id = @rd@
+   and cs.long_component_state_id = s.long_component_state_id
+   AND p.problem_id = @pm@
+   and p.problem_id = comp.problem_id
+   and cs.component_id = comp.component_id
+   AND s.submission_number = @subnum@
+   and s.example = @ex@
+   AND r.round_id = cs.round_id
+   AND c.contest_id = r.contest_id

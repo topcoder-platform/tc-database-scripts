@@ -1,0 +1,4 @@
+select track_type_id, track_type_desc, track_status_id, 
+track_status_desc, track_desc, track_start_date, track_end_date
+from track
+where track_id = @tid@

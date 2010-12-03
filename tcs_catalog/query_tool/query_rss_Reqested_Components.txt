@@ -1,0 +1,5 @@
+select component_name as title,
+       'http://www.topcoder.com' as link,
+       'Requested on:  ' || create_time || '<br><br>' || description as description
+from comp_catalog
+where status_id = 101

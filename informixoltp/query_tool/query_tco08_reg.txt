@@ -1,0 +1,36 @@
+select count(distinct u.user_id) as total
+     , sum(case when er.event_id = 3005 and eligible_ind = 1 then 1 else 0 end) as algo_total
+     , sum(case when er.event_id = 3005 and eligible_ind = 1 and c.coder_type_id = 1 then 1 else 0 end) as student_algo
+     , sum(case when er.event_id = 3005 and eligible_ind = 1 and c.coder_type_id = 2 then 1 else 0 end) as pro_algo
+     , sum(case when er.event_id = 3006 and eligible_ind = 1 then 1 else 0 end) as compo_total
+     , sum(case when er.event_id = 3006 and eligible_ind = 1 and c.coder_type_id = 1 then 1 else 0 end) as student_compo
+     , sum(case when er.event_id = 3006 and eligible_ind = 1 and c.coder_type_id = 2 then 1 else 0 end) as pro_compo
+     , sum(case when r.num_ratings>0 then 1 else 0 end) as alg_rated
+     , sum(case when des.rating is null then 0 else 1 end) as design_rated
+     , sum(case when dev.rating is null then 0 else 1 end) as development_rated
+     , sum(case when dev.rating is not null or des.rating is not null then 1 else 0 end) as component_rated
+     , sum(case when er.event_id = 3007 and eligible_ind = 1 then 1 else 0 end) as mm_total
+     , sum(case when er.event_id = 3007 and eligible_ind = 1 and c.coder_type_id = 1 then 1 else 0 end) as student_mm
+     , sum(case when er.event_id = 3007 and eligible_ind = 1 and c.coder_type_id = 2 then 1 else 0 end) as pro_mm
+     , sum(case when r1.num_ratings>0 then 1 else 0 end) as mm_rated
+     , sum(case when er.event_id = 3008 and eligible_ind = 1 then 1 else 0 end) as studio_total
+     , sum(case when er.event_id = 3008 and eligible_ind = 1 and c.coder_type_id = 1 then 1 else 0 end) as student_studio
+     , sum(case when er.event_id = 3008 and eligible_ind = 1 and c.coder_type_id = 2 then 1 else 0 end) as pro_studio
+  from user u
+     , coder c
+     , event_registration er
+     , outer rating r
+     , outer algo_rating r1
+     , outer tcs_catalog:user_rating des
+     , outer tcs_catalog:user_rating dev
+ where u.user_id = er.user_id
+   and u.user_id = c.coder_id 
+   and u.user_id = er.user_id
+   and des.phase_id = 112
+   and dev.phase_id = 113
+   and r1.coder_id = u.user_id
+   and r1.algo_rating_type_id = 3
+   and des.user_id = u.user_id
+   and dev.user_id = u.user_id
+   and er.event_id in (3005, 3006, 3007, 3008)
+   and u.user_id = r.coder_id

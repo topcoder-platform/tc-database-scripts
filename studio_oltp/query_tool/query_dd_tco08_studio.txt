@@ -1,0 +1,11 @@
+select stud.submitter_id as coder_id, handle, cc_country.country_name, latitude, longitude, im.file_name as image_name, 0 as rating, match_overlap as overlap
+from table(multiset(
+ select first 100 submitter_id, count(contest_id) as match_overlap from submission
+ where contest_id in (Select contest_id from submission where submitter_id=@uid@)
+ and submitter_id in (select coder_id from tco08_onsite) and submitter_id <> @uid@
+ group by submitter_id order by match_overlap desc
+)) stud,
+common_oltp:country cc_country,
+informixoltp:coder old_cc,
+common_oltp:user cc left join informixoltp:coder_image_xref cix on cc.user_id=cix.coder_id and cix.display_flag=1 left join informixoltp:image im on cix.image_id=im.image_id
+where stud.submitter_id=cc.user_id and stud.submitter_id=old_cc.coder_id and old_cc.comp_country_code=cc_country.country_code;

@@ -1,0 +1,9 @@
+select u.handle, e.address as email_address
+  from email_user u, email e, event_registration er
+where e.user_id = u.user_id
+ and er.user_id = u.user_id
+ and u.status = 'A'
+and er.event_id = 3001
+and er.eligible_ind = 1
+and e.primary_ind = 1
+and not exists (select 1 from response where user_id = u.user_id and question_id between 790 and 792)

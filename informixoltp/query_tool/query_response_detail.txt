@@ -1,0 +1,16 @@
+SELECT a.answer_id
+     , q.question_id
+     , r.response
+     , q.question_style_id
+     , q.question_type_id
+  FROM survey_question sq
+     , question q
+     , response r 
+     , OUTER answer a
+ WHERE sq.question_id = q.question_id
+   AND q.question_id = a.question_id
+   AND q.question_type_id in (1,4,5,6,7)
+   AND r.question_id = q.question_id 
+   AND r.answer_id = a.answer_id
+   AND sq.survey_id = @sid@
+   AND r.user_id = @cr@

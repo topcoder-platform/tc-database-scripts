@@ -1,0 +1,7 @@
+select first 1 track_id
+from track
+where track_status_id = 1 -- active
+and track_type_id = @ttid@
+and track_start_date <= current
+and track_end_date >= current
+order by track_start_date desc

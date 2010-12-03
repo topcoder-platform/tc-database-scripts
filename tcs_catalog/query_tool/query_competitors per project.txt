@@ -1,0 +1,32 @@
+select u.handle as handle
+     , r.create_date as registration_date
+     , e.address as email
+     , u.user_id as user_id
+     , CASE WHEN (select count(user_id) from user_terms_of_use_xref where u.user_id = user_id and terms_of_use_id = 20713 ) > 0 THEN 'TRUE' ELSE 'FALSE' END as CCA
+  from project p
+     , resource r
+     , resource_info ri1
+     , user u
+     , email e
+ where p.project_id = @pj@
+   and p.project_id = r.project_id
+   and r.resource_role_id = 1
+   and r.resource_id = ri1.resource_id
+   and ri1.resource_info_type_id = 1
+   and ri1.value::integer = u.user_id
+   and u.user_id = e.user_id
+UNION
+select u.handle as handle
+     , cr.create_date as registration_date
+     , e.address as email
+     , u.user_id as user_id
+     , CASE WHEN (select count(user_id) from user_terms_of_use_xref where u.user_id = user_id and terms_of_use_id = 20713 ) > 0 THEN 'TRUE' ELSE 'FALSE' END as CCA
+ from studio_oltp:contest c
+     , studio_oltp:contest_registration cr 
+     , user u
+     , email e
+where c.contest_id = cr.contest_id
+  and cr.user_id = u.user_id
+  and u.user_id = e.user_id
+  and c.contest_id = @pj@
+order by 1;

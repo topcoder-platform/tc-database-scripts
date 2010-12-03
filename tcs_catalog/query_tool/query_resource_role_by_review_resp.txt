@@ -1,0 +1,1 @@
+select resource_role_id from review_resp where review_resp_id=@rrid@

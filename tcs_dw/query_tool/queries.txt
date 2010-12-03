@@ -1,0 +1,139 @@
+query_all_projects_cost.txt|UPDATE query SET text= ? WHERE query_id=28437
+query_all_projects_cost_by_date.txt|UPDATE query SET text= ? WHERE query_id=28627
+query_all_projects_cost_scrubbed.txt|UPDATE query SET text= ? WHERE query_id=28622
+query_appeal_percentage.txt|UPDATE query SET text= ? WHERE query_id=27086
+query_avg_placement.txt|UPDATE query SET text= ? WHERE query_id=26490
+query_avg_score.txt|UPDATE query SET text= ? WHERE query_id=27259
+query_bonus_first_dev_complete.txt|UPDATE query SET text= ? WHERE query_id=29176
+query_check_project_completed.txt|UPDATE query SET text= ? WHERE query_id=26271
+query_client_costs.txt|UPDATE query SET text= ? WHERE query_id=28618
+query_client_costs_by_project.txt|UPDATE query SET text= ? WHERE query_id=28788
+query_client_costs_by_project_architecture.txt|UPDATE query SET text= ? WHERE query_id=29137
+query_client_costs_by_project_assembly.txt|UPDATE query SET text= ? WHERE query_id=29046
+query_client_costs_by_project_studio.txt|UPDATE query SET text= ? WHERE query_id=29136
+query_comp_list.txt|UPDATE query SET text= ? WHERE query_id=21628
+query_competition_history.txt|UPDATE query SET text= ? WHERE query_id=26631
+query_component_color_change.txt|UPDATE query SET text= ? WHERE query_id=27127
+query_component_money.txt|UPDATE query SET text= ? WHERE query_id=26491
+query_component_payments_in_month.txt|UPDATE query SET text= ? WHERE query_id=28641
+query_consecutive_paid.txt|UPDATE query SET text= ? WHERE query_id=27262
+query_consecutive_rating_increase.txt|UPDATE query SET text= ? WHERE query_id=27263
+query_consecutive_winnings.txt|UPDATE query SET text= ? WHERE query_id=27261
+query_contest_details.txt|UPDATE query SET text= ? WHERE query_id=26938
+query_contest_prizes.txt|UPDATE query SET text= ? WHERE query_id=27997
+query_contest_projects.txt|UPDATE query SET text= ? WHERE query_id=26940
+query_cost_by_catalog.txt|UPDATE query SET text= ? WHERE query_id=26546
+query_cost_by_phase.txt|UPDATE query SET text= ? WHERE query_id=26545
+query_current_month.txt|UPDATE query SET text= ? WHERE query_id=28642
+query_current_year.txt|UPDATE query SET text= ? WHERE query_id=28643
+query_dd_component_rating_distribution.txt|UPDATE query SET text= ? WHERE query_id=21617
+query_dd_OperationalStatsComponents.txt|UPDATE query SET text= ? WHERE query_id=28997
+query_dd_OperationalStatsComponents_AOL.txt|UPDATE query SET text= ? WHERE query_id=29096
+query_dd_project_info.txt|UPDATE query SET text= ? WHERE query_id=27428
+query_dd_project_review.txt|UPDATE query SET text= ? WHERE query_id=27431
+query_dd_reviewers_for_project.txt|UPDATE query SET text= ? WHERE query_id=27429
+query_dd_submissions.txt|UPDATE query SET text= ? WHERE query_id=27430
+query_dd_tco08_design.txt|UPDATE query SET text= ? WHERE query_id=28921
+query_dd_tco08_development.txt|UPDATE query SET text= ? WHERE query_id=28922
+query_dd_week_activity.txt|UPDATE query SET text= ? WHERE query_id=28727
+query_dd_week_info.txt|UPDATE query SET text= ? WHERE query_id=28726
+query_design component newbies that submitted.txt|UPDATE query SET text= ? WHERE query_id=26305
+query_design component newbies.txt|UPDATE query SET text= ? WHERE query_id=26304
+query_design newbies that submitted.txt|UPDATE query SET text= ? WHERE query_id=26307
+query_design newbies.txt|UPDATE query SET text= ? WHERE query_id=26306
+query_design_registrants.txt|UPDATE query SET text= ? WHERE query_id=26300
+query_design_registrants_by _country.txt|UPDATE query SET text= ? WHERE query_id=26301
+query_design_submitters.txt|UPDATE query SET text= ? WHERE query_id=26302
+query_design_submitters_by_country.txt|UPDATE query SET text= ? WHERE query_id=26303
+query_development  registrants by country.txt|UPDATE query SET text= ? WHERE query_id=26309
+query_development component newbies that submitted.txt|UPDATE query SET text= ? WHERE query_id=26313
+query_development component newbies.txt|UPDATE query SET text= ? WHERE query_id=26312
+query_development newbies that submitted.txt|UPDATE query SET text= ? WHERE query_id=26315
+query_development newbies.txt|UPDATE query SET text= ? WHERE query_id=26314
+query_development registrants.txt|UPDATE query SET text= ? WHERE query_id=26308
+query_development submitters by country.txt|UPDATE query SET text= ? WHERE query_id=26311
+query_development submitters.txt|UPDATE query SET text= ? WHERE query_id=26310
+query_dr_concurrent_track.txt|UPDATE query SET text= ? WHERE query_id=29091
+query_dr_contest_payments.txt|UPDATE query SET text= ? WHERE query_id=27795
+query_dr_current_period.txt|UPDATE query SET text= ? WHERE query_id=26628
+query_dr_current_rookie_season.txt|UPDATE query SET text= ? WHERE query_id=27789
+query_dr_current_track.txt|UPDATE query SET text= ? WHERE query_id=29086
+query_dr_leader_board.txt|UPDATE query SET text= ? WHERE query_id=26626
+query_dr_leader_tie_break_placement.txt|UPDATE query SET text= ? WHERE query_id=26766
+query_dr_leader_tie_break_score.txt|UPDATE query SET text= ? WHERE query_id=26767
+query_dr_points_detail.txt|UPDATE query SET text= ? WHERE query_id=29087
+query_dr_results.txt|UPDATE query SET text= ? WHERE query_id=27786
+query_dr_rookie_board.txt|UPDATE query SET text= ? WHERE query_id=26627
+query_dr_rookie_results.txt|UPDATE query SET text= ? WHERE query_id=27787
+query_dr_rookie_seasons.txt|UPDATE query SET text= ? WHERE query_id=27788
+query_dr_rookie_tie_break_placement.txt|UPDATE query SET text= ? WHERE query_id=26768
+query_dr_rookie_tie_break_score.txt|UPDATE query SET text= ? WHERE query_id=26769
+query_dr_seasons.txt|UPDATE query SET text= ? WHERE query_id=26629
+query_dr_stage_top_performers_factor.txt|UPDATE query SET text= ? WHERE query_id=27209
+query_dr_stages.txt|UPDATE query SET text= ? WHERE query_id=26630
+query_dr_track_details.txt|UPDATE query SET text= ? WHERE query_id=29088
+query_dr_track_list.txt|UPDATE query SET text= ? WHERE query_id=29089
+query_drop_off_inquire.txt|UPDATE query SET text= ? WHERE query_id=26542
+query_drop_off_submit.txt|UPDATE query SET text= ? WHERE query_id=26543
+query_drv2_results.txt|UPDATE query SET text= ? WHERE query_id=29090
+query_find_projects.txt|UPDATE query SET text= ? WHERE query_id=21627
+query_fulfillment_rate.txt|UPDATE query SET text= ? WHERE query_id=26536
+query_fulfillment_rate_design.txt|UPDATE query SET text= ? WHERE query_id=26619
+query_fulfillment_rate_dev.txt|UPDATE query SET text= ? WHERE query_id=26620
+query_fulfillment_rate_week.txt|UPDATE query SET text= ? WHERE query_id=26537
+query_fulfillmentByWeek.txt|UPDATE query SET text= ? WHERE query_id=27967
+query_get_review_scorecard.txt|UPDATE query SET text= ? WHERE query_id=26272
+query_get_screening_scorecard.txt|UPDATE query SET text= ? WHERE query_id=26273
+query_get_submission_url.txt|UPDATE query SET text= ? WHERE query_id=27040
+query_has_unknwon.txt|UPDATE query SET text= ? WHERE query_id=21632
+query_high_scores.txt|UPDATE query SET text= ? WHERE query_id=26492
+query_highest_rating_gains.txt|UPDATE query SET text= ? WHERE query_id=27264
+query_impressive_debut.txt|UPDATE query SET text= ? WHERE query_id=27260
+query_largest_comp_prize.txt|UPDATE query SET text= ? WHERE query_id=26493
+query_leader_board_placement_prize.txt|UPDATE query SET text= ? WHERE query_id=27196
+query_leader_board_pool_prize.txt|UPDATE query SET text= ? WHERE query_id=27197
+query_most_reviews.txt|UPDATE query SET text= ? WHERE query_id=26494
+query_most_submissions.txt|UPDATE query SET text= ? WHERE query_id=26495
+query_most_submissions_reviews.txt|UPDATE query SET text= ? WHERE query_id=27258
+query_most_wins.txt|UPDATE query SET text= ? WHERE query_id=26496
+query_new_participants_week_design.txt|UPDATE query SET text= ? WHERE query_id=26539
+query_new_participants_week_dev.txt|UPDATE query SET text= ? WHERE query_id=26540
+query_new_ratio.txt|UPDATE query SET text= ? WHERE query_id=26541
+query_outstanding_projects.txt|UPDATE query SET text= ? WHERE query_id=26788
+query_overall_money.txt|UPDATE query SET text= ? WHERE query_id=26497
+query_posted_components_month.txt|UPDATE query SET text= ? WHERE query_id=26548
+query_posted_components_week.txt|UPDATE query SET text= ? WHERE query_id=26547
+query_posted_components_year.txt|UPDATE query SET text= ? WHERE query_id=26549
+query_project_details.txt|UPDATE query SET text= ? WHERE query_id=26941
+query_project_info.txt|UPDATE query SET text= ? WHERE query_id=21630
+query_project_payments.txt|UPDATE query SET text= ? WHERE query_id=28436
+query_project_payments_scrubbed.txt|UPDATE query SET text= ? WHERE query_id=28623
+query_project_results.txt|UPDATE query SET text= ? WHERE query_id=27996
+query_project_results_all.txt|UPDATE query SET text= ? WHERE query_id=27998
+query_reposts.txt|UPDATE query SET text= ? WHERE query_id=26538
+query_reposts_month.txt|UPDATE query SET text= ? WHERE query_id=26593
+query_review_board_tests.txt|UPDATE query SET text= ? WHERE query_id=26296
+query_reviewers_for_project.txt|UPDATE query SET text= ? WHERE query_id=21629
+query_rookie_board_placement_prize.txt|UPDATE query SET text= ? WHERE query_id=27198
+query_royalties.txt|UPDATE query SET text= ? WHERE query_id=26498
+query_scorecard_details.txt|UPDATE query SET text= ? WHERE query_id=26275
+query_season_outstanding_projects.txt|UPDATE query SET text= ? WHERE query_id=26787
+query_stage_outstanding_projects.txt|UPDATE query SET text= ? WHERE query_id=26786
+query_submission_rate.txt|UPDATE query SET text= ? WHERE query_id=26544
+query_submissions.txt|UPDATE query SET text= ? WHERE query_id=21631
+query_tccc06_contest_prizes.txt|UPDATE query SET text= ? WHERE query_id=26937
+query_tccc06_project_results.txt|UPDATE query SET text= ? WHERE query_id=26942
+query_tccc06_project_results_all.txt|UPDATE query SET text= ? WHERE query_id=26943
+query_tco07_contest_prizes.txt|UPDATE query SET text= ? WHERE query_id=27567
+query_tco07_project_results.txt|UPDATE query SET text= ? WHERE query_id=27568
+query_tco07_project_results_all.txt|UPDATE query SET text= ? WHERE query_id=27566
+query_tournament_money.txt|UPDATE query SET text= ? WHERE query_id=26499
+query_unit_tests.txt|UPDATE query SET text= ? WHERE query_id=26297
+query_user_details.txt|UPDATE query SET text= ? WHERE query_id=26939
+query_win_percentage.txt|UPDATE query SET text= ? WHERE query_id=26500
+query_dr_all_finished_tracks_list.txt|UPDATE query SET text= ? WHERE query_id=30116
+query_dr_contests_for_track.txt|UPDATE query SET text= ? WHERE query_id=30117
+query_dr_track_contest_payments.txt|UPDATE query SET text= ? WHERE query_id=30118
+query_direct_dashboard_enterprise_health.txt|UPDATE query SET text= ? WHERE query_id=30766
+query_direct_dashboard_enterprise_detailed_stats.txt|UPDATE query SET text= ? WHERE query_id=30767
+query_direct_dashboard_enterprise_detailed_stats_overall.txt|UPDATE query SET text= ? WHERE query_id=30768

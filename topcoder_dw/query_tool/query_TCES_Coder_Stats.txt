@@ -1,0 +1,50 @@
+SELECT (CASE WHEN r.num_ratings = 0 THEN 'Not Rated' ELSE ''||r.rating END) AS rating
+     , r.highest_rating
+     , r.lowest_rating
+     , cr.percentile
+     , cr.rank
+     , r.num_ratings
+     , TO_CHAR(cal.date, '%m/%d/%iY') as last_rated_event
+     , rdev.rating as dev_rating
+     , rdes.rating as design_rating
+     , vrank.rank as dev_rank
+     , srank.rank as design_rank
+     , vrank.percentile as dev_percentile
+     , srank.percentile as design_percentile
+     , rdev.num_ratings as num_dev_ratings
+     , rdes.num_ratings as num_design_ratings
+     , rdev.highest_rating as highest_dev_rating
+     , rdev.lowest_rating as lowest_dev_rating
+     , rdes.highest_rating as highest_design_rating
+     , rdes.lowest_rating as lowest_design_rating
+     , pdev.complete_date as last_rated_dev_project
+     , pdes.complete_date as last_rated_design_project
+  FROM calendar cal
+     , round rd
+     , rating r
+     , coder_rank cr
+     , coder c
+     , outer (tcs_dw:user_rating rdev, tcs_dw:project pdev)
+     , outer (tcs_dw:user_rating rdes, tcs_dw:project pdes)
+     , outer tcs_dw:user_rank vrank
+     , outer tcs_dw:user_rank srank
+ WHERE cal.calendar_id = rd.calendar_id
+   AND rd.round_id = r.last_rated_round_id
+   AND r.coder_id = cr.coder_id
+   AND r.coder_id = @mid@
+   AND cr.coder_rank_type_id = 1
+   AND cr.coder_id = c.coder_id
+   AND c.status = 'A'
+   AND rdev.user_id = c.coder_id 
+   AND rdes.user_id = c.coder_id
+   AND rdev.phase_id = 113
+   AND rdes.phase_id = 112
+   AND srank.user_id = c.coder_id
+   AND srank.phase_id = 112
+   AND srank.user_rank_type_id = 1
+   AND vrank.user_id = c.coder_id
+   AND vrank.phase_id = 113
+   AND vrank.user_rank_type_id = 1
+   AND rdev.last_rated_project_id = pdev.project_id
+   AND rdes.last_rated_project_id = pdes.project_id
+   AND cr.algo_rating_type_id = 1

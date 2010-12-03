@@ -1,0 +1,21 @@
+SELECT ROUND(AVG(pr.problem_rating)) as avg
+  FROM problem_rating pr
+ WHERE pr.problem_id = @pm@
+   AND pr.coder_id in (
+              SELECT rr.coder_id
+                FROM component c
+                   , round_component rc
+                   , round r
+                   , room_result rr
+                   , room ro
+               WHERE c.problem_id = @pm@
+                 AND rc.component_id = c.component_id
+                 AND r.round_id = rc.round_id
+                 AND r.round_type_id in (1,2)
+                 AND rr.round_id = r.round_id
+                 AND ro.round_id = rr.round_id
+                 AND rr.room_id = ro.room_id
+                 AND ro.division_id = 1
+                 AND ro.division_id = rc.division_id
+                 AND rr.attended = 'Y')
+ GROUP BY pr.coder_id

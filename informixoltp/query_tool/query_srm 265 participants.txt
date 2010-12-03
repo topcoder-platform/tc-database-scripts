@@ -1,0 +1,8 @@
+select u.email as email_address, u.handle
+from email_user u, coder_notify n, room_result rr
+where u.user_id = n.coder_id
+and u.user_id = rr.coder_id
+and u.status = 'A'
+and n.notify_id = 1
+and rr.round_id = 8007
+and rr.attended = 'Y'

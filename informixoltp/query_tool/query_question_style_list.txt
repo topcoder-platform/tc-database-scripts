@@ -1,0 +1,3 @@
+select question_style_id
+     , question_style_desc
+  from question_style

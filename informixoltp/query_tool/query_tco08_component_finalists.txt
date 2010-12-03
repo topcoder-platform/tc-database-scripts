@@ -1,0 +1,9 @@
+select handle, email as email_address 
+from email_user 
+where handle in 
+('argolite','fabrizyo','humblefool','kyky','Pops','saevio','Standlove','urtks','Wendell','dmks','Luca','tushak')
+ union
+select handle, email as email_address 
+from email_user 
+where handle in 
+('hotblue','oldbig','PE','hefeng','jueyey','Orange_Cloud','Xuchen','enefem21','actonwang','cyberjag','sparemax','shen75')

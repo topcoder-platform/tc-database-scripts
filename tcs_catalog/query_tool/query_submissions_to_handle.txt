@@ -1,0 +1,15 @@
+select cc.component_name,
+       p.description phase,
+       'Submitter'||round(submitter_id,0) submitter_id,
+       u.user_id
+ from security_user u,
+      phase p,
+      submitters s,
+      comp_versions cv,
+      comp_catalog cc
+where cv.comp_vers_id = s.comp_version_id
+  and u.login_id = s.login_id
+  and p.phase_id = cv.phase_id
+  and cc.component_id = cv.component_id 
+  and u.user_id not in ('mess','lost','marcg','mmorris')
+order by cc.component_name

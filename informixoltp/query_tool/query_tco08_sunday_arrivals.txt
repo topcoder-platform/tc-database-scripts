@@ -1,0 +1,14 @@
+select 
+  e.address as email_address, u.handle
+from user u, email e
+where
+  u.user_id = e.user_id and
+  u.handle in 
+(
+'AleaActaEst', 'argolite', 'dmks', 'fabrizyo', 'humblefool', 'kyky', 'Luca',
+'Pops', 'ShindouHikaru ', 'tushak', 'urtks', 'Wendell', 'paranoia', 'brinky',
+'rahulgarg123', 'doudouille', 'tpelkone', 'RatonulBolnav', 'delicato', 'wata', 'Iquadrat',
+'bhzhan', 'Psyho', 'venco', 'dogsoldier39', 'oninkxronda', 'Elizabethhee', 'foxyhu',
+'abedavera', 'djackmania', 'oton', 'Tricia_Tjia', 'mahestro', 'sweetpea', 'Maraqja',
+'vlad_D'
+)

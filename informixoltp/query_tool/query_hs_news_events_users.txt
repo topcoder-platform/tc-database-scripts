@@ -1,0 +1,17 @@
+select
+  u.handle
+  , u.first_name
+  , u.last_name
+  ,u.email as email_address
+from
+  email_user u,
+  user_group_xref x 
+where
+  u.status = 'A' and
+  x.login_id = u.user_id and 
+  x.group_id = 12 and
+  exists
+  (
+    select * from user_notify_xref un
+    where un.user_id = u.user_id and un.notify_id in (5,7)
+  )

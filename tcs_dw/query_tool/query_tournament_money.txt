@@ -1,0 +1,10 @@
+select (NVL(SUM(up.gross_amount),0)) as money, up.user_id as coder_id 
+          FROM topcoder_dw:payment p, topcoder_dw:user_payment up, contest co, coder c
+         WHERE p.payment_type_id in (17, 19, 25) and p.payment_id = up.payment_id 
+         and co.contest_id = p.reference_id
+         and p.show_in_profile_ind = 1
+         and co.phase_id in (@pis@)
+         and up.user_id = c.coder_id
+         and c.status = 'A'
+        group by up.user_id
+        order by 1 desc

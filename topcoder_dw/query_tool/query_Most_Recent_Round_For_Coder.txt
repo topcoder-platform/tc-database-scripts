@@ -1,0 +1,10 @@
+
+SELECT NVL(MAX(rr.round_id), 0)
+FROM room_result rr, round r
+WHERE rr.coder_id = @cr@
+AND rr.round_id = r.round_id
+AND r.calendar_id =
+ (SELECT MAX(calendar_id)
+  FROM room_result, round
+  WHERE coder_id = @cr@
+  AND room_result.round_id = round.round_id)

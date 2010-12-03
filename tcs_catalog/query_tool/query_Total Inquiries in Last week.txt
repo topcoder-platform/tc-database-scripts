@@ -1,0 +1,11 @@
+select  cc.component_name,
+        p.description phase,
+       count(distinct ci.user_id) total_inquiries,
+       (EXTEND(CURRENT, YEAR TO DAY) - 7 UNITS DAY) Begin_date
+ from component_inquiry ci, comp_catalog cc, phase p
+ where ci.component_id = cc.component_id
+   and ci.create_time >= (EXTEND(CURRENT, YEAR TO DAY) - 7 UNITS DAY)
+   and p.phase_id = ci.phase
+ group by ci.component_id, ci.phase, ci.version,
+       cc.component_name, p.description
+ order by total_inquiries desc, cc.component_name

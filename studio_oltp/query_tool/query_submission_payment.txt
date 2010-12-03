@@ -1,0 +1,3 @@
+select p.payment_status_id, p.price
+from submission_payment p
+where p.submission_id = @sbmid@

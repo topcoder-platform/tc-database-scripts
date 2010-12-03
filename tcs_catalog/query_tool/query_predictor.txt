@@ -1,0 +1,29 @@
+SELECT DATE(pi.start_date) AS posting_date
+     , cv.comments AS client
+     , cat.category_name || ' ' || cc.component_name || ' ' || cv.version_text AS component
+     , ph.description AS phase
+     , ROUND(PREDICTOR(p.project_id) * 100, 1) || '%' AS reliability
+     , (SELECT COUNT(*) FROM component_inquiry WHERE project_id = p.project_id) AS registrants
+     , '$' || TRUNC(cvd.price) AS prize
+     , DATE(pi.start_date + 3 UNITS DAY) AS registration_end
+  FROM comp_catalog cc
+     , comp_versions cv
+     , categories cat
+     , project p
+     , phase_instance pi
+     , phase ph
+     , comp_version_dates cvd
+ WHERE p.project_stat_id IN (1, 3)
+   AND p.cur_version = 1
+   AND p.phase_instance_id = pi.phase_instance_id
+   AND pi.phase_id = 1
+   AND pi.start_date <= CURRENT
+   AND pi.cur_version = 1
+   AND p.comp_vers_id = cv.comp_vers_id
+   AND cv.component_id = cc.component_id
+   AND cc.root_category_id = cat.category_id
+   AND cat.category_id IN (5801776, 5801777, 5801778, 5801779)
+   AND p.project_type_id + 111 = ph.phase_id
+   AND cv.comp_vers_id = cvd.comp_vers_id
+   AND ph.phase_id = cvd.phase_id
+ORDER BY 4, 2, 3;

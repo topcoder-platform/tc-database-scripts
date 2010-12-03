@@ -1,0 +1,15 @@
+select 
+     st.stage_id, se.name season_name, st.name stage_name, se.start_calendar_id
+     , se.name || ' > '|| st.name as complete_name
+     , se.rookie_competition_ind
+     , se.season_id
+from 
+     season se, stage st, calendar c
+where 
+    se.season_id = st.season_id and 
+    c.calendar_id = st.start_calendar_id and
+    c.date <= DATE(current)
+    -- this is just temporary
+    --and st.stage_id <= 6
+order by 
+     st.start_calendar_id asc;

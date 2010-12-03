@@ -1,0 +1,12 @@
+select n.note_id
+     , n.text
+     , u.handle as submitted_by
+     , n.modify_date as date
+  from user_note_xref x
+     , note n
+     , user u
+ where n.note_id = x.note_id
+   and n.submitted_by = u.user_id
+   and n.note_type_id = 5
+   and x.user_id = @uid@
+ order by n.modify_date desc

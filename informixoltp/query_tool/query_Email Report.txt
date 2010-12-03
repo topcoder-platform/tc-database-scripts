@@ -1,0 +1,25 @@
+SELECT sj.start_after_date AS date
+     , sjs.sched_job_status_name as status
+     , (SELECT count(*) 
+          FROM archive_sched_job_detail sjd 
+         WHERE sj.sched_job_id = sjd.sched_job_id 
+           AND sjd.sched_job_detail_status_id = 1) AS num_sent
+     , (SELECT count(*) 
+          FROM archive_sched_job_detail sjd 
+         WHERE sj.sched_job_id = sjd.sched_job_id 
+           AND sjd.sched_job_detail_status_id = 2) AS num_failed
+     , sej.from_personal AS from_name
+     , sej.from_address AS from_address
+     , sej.subject AS subject
+     , CASE WHEN sej.command_id > 0 THEN (SELECT 'dynamic query: ' || c.command_desc FROM command c WHERE c.command_id = sej.command_id)
+            ELSE (SELECT 'static list: ' || el.email_list_name FROM email_list el WHERE el.email_list_id = sej.email_list_id) END AS list_name
+  FROM sched_email_job sej
+     , sched_job sj
+     , email_list list1
+     , sched_job_status_lu sjs
+ WHERE sej.sched_email_job_id = sj.sched_job_id
+   AND sj.start_after_date > CURRENT - 30 UNITS DAY
+   AND sej.email_list_id = list1.email_list_id
+   AND list1.email_list_group_id <> 99998
+   AND sjs.sched_job_status_id = sj.sched_job_status_id
+ ORDER BY date DESC

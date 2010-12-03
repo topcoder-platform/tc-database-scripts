@@ -1,0 +1,26 @@
+select cal.week_of_year
+     , cal.year
+     , count(distinct u.user_id) as total
+     , sum(case when er.event_id = 2010 and eligible_ind = 1 then 1 else 0 end) as algo_total
+     , sum(case when er.event_id = 2010 and eligible_ind = 1 and c.coder_type_id = 1 then 1 else 0 end) as student_algo
+     , sum(case when er.event_id = 2010 and eligible_ind = 1 and c.coder_type_id = 2 then 1 else 0 end) as pro_algo
+     , sum(case when er.event_id = 7 and eligible_ind = 1 then 1 else 0 end) as compo_total
+     , sum(case when er.event_id = 7 and eligible_ind = 1 and c.coder_type_id = 1 then 1 else 0 end) as student_compo
+     , sum(case when er.event_id = 7 and eligible_ind = 1 and c.coder_type_id = 2 then 1 else 0 end) as pro_compo
+     , sum(case when er.event_id = 2030 and eligible_ind = 1 then 1 else 0 end) as mm_total
+     , sum(case when er.event_id = 2030 and eligible_ind = 1 and c.coder_type_id = 1 then 1 else 0 end) as student_mm
+     , sum(case when er.event_id = 2030 and eligible_ind = 1 and c.coder_type_id = 2 then 1 else 0 end) as pro_mm
+     , sum(case when er.event_id = 2040 and eligible_ind = 1 then 1 else 0 end) as studio_total
+     , sum(case when er.event_id = 2040 and eligible_ind = 1 and c.coder_type_id = 1 then 1 else 0 end) as student_studio
+     , sum(case when er.event_id = 2040 and eligible_ind = 1 and c.coder_type_id = 2 then 1 else 0 end) as pro_studio
+  from user u
+     , coder c
+     , event_registration er
+     , common_oltp:calendar cal
+ where u.user_id = er.user_id
+   and u.user_id = c.coder_id 
+   and u.user_id = er.user_id
+   and er.event_id in (2010, 7, 2030, 2040)
+   and date(er.create_date) = cal.date
+ group by cal.week_of_year, year
+ order by cal.year, cal.week_of_year asc

@@ -1,0 +1,11 @@
+select u.handle, u.email as email_address
+  from email_user u
+     , response r
+where r.question_id = 3241 
+  and r.user_id = u.user_id
+  and r.answer_id in (3244, 3242)
+  and r.user_id not in (
+select up.user_id
+  from common_oltp:user_preference up
+ where up.preference_id in (2,7))
+ and exists (select '1' from coder_notify where coder_id = u.user_id and notify_id = 3)

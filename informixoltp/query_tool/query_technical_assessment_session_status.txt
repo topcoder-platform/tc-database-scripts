@@ -1,0 +1,35 @@
+select c.company_id
+     , c.company_name
+     , (select count(*)
+          from session s
+             , session_profile sp
+         where sp.company_id = c.company_id
+           and s.session_profile_id = sp.session_profile_id
+           and s.system_tested = 1) as completed_sessions
+     , (select count(*)
+          from session s
+             , session_profile sp
+         where sp.company_id = c.company_id
+           and s.session_profile_id = sp.session_profile_id
+           and s.system_tested = 0
+           and s.end_time < current) as expired_sessions
+     , (select count(*)
+          from session s
+             , session_profile sp
+         where sp.company_id = c.company_id
+           and s.session_profile_id = sp.session_profile_id
+           and current between s.begin_time and s.end_time
+           and s.system_tested = 0) as sessions_in_progress
+     , (select count(*)
+          from session s
+             , session_profile sp
+         where sp.company_id = c.company_id
+           and s.session_profile_id = sp.session_profile_id) as total_sessions
+  from company c
+ where exists (select '1'
+                 from contact co
+                    , user_role_xref x
+                 where co.contact_id = x.login_id
+                   and co.company_id = c.company_id
+                   and x.role_id = 2000131)
+ order by c.company_id desc

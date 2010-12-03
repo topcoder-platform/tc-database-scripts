@@ -1,0 +1,5 @@
+select count(*) as count
+  from component_inquiry ci
+ where ci.component_id = @cd@
+   and ci.version = @vid@
+   and phase = @ph@

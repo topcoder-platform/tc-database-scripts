@@ -1,0 +1,3 @@
+select country_code, country_name
+from country
+where country_code = '@cc@'

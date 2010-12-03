@@ -1,0 +1,44 @@
+select
+  degree,
+  year,
+  count(*) cnt,
+  min(sort) as sort
+from
+table(multiset(
+select
+  demographic_answer_text as degree,
+  da.sort,
+  (
+    select
+      demographic_answer_text
+    from
+      demographic_answer da2,
+      demographic_response dr2
+     where
+      dr2.coder_id = dr.coder_id and
+      dr2.demographic_question_id = 18 and
+      dr2.demographic_question_id = da2.demographic_question_id and
+      da2.demographic_answer_id = dr2.demographic_answer_id
+  ) as year
+from
+  demographic_answer da,
+  demographic_response dr,
+  room_result rr,
+  coder c,
+  user u
+where
+  da.demographic_question_id = 16 and
+  dr.demographic_question_id = da.demographic_question_id and
+  da.demographic_answer_id = dr.demographic_answer_id and
+  dr.coder_id = c.coder_id and
+  u.user_id = c.coder_id and
+  rr.round_id = @rd@ and
+  rr.coder_id = dr.coder_id and
+  c.coder_id = rr.coder_id and
+  coder_type_id = 1 and
+  u.status = 'A'
+))
+where
+  year NOT in ('2002', '2003')
+group by degree, year
+order by sort, year

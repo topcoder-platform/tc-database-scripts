@@ -1,0 +1,8 @@
+select count(distinct c.contest_id) as total_contests
+     , sum(nvl(p.amount, 0)) as total_prizes
+ from contest c
+     , outer (contest_prize_xref x, prize p)
+ where current between c.start_time and c.end_time
+   and c.contest_status_id = 2 and (c.contest_detailed_status_id = 5 or c.contest_detailed_status_id = 2)
+   and x.contest_id = c.contest_id
+   and x.prize_id = p.prize_id

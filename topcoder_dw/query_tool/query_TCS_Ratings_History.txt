@@ -1,0 +1,23 @@
+SELECT 0,
+DECODE(p.phase_id, 112, 'Design', 113, 'Development'),
+round(p.component_id),
+(case when p.submitby_date is not null then EXTEND(p.submitby_date) when p.complete_date is not null then EXTEND(p.complete_date) else EXTEND(c.submit_timestamp) end) as submit_timestamp,
+p.component_name,
+round(c.new_rating),
+1,
+c.final_score,
+p.submitby_date,
+p.posting_date,
+p.complete_date,
+(case when p.submitby_date is null then p.complete_date else p.submitby_date end ) as sort_column,
+p.project_id,
+c.placed, p.viewable_category_ind
+FROM tcs_dw:project_result c,
+tcs_dw:project p
+WHERE p.project_id = c.project_id
+and c.user_id = @cr@
+and p.phase_id = @ph@
+and c.new_rating > 0
+and p.status_id in (4,5,7)
+and c.rating_ind = 1
+ORDER BY @sc@ @sd@

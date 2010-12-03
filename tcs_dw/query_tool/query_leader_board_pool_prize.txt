@@ -1,0 +1,6 @@
+select 1 as place, cp.prize_amount from contest_prize cp, contest_stage_xref csx, contest c
+        where cp.contest_id = csx.contest_id
+        and c.contest_id = cp.contest_id
+        and contest_type_id = 18
+        and csx.stage_id = @staid@
+        and phase_id = @ph@

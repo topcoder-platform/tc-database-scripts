@@ -1,0 +1,15 @@
+select u.handle, e.address as email_address
+  from winformula_oltp:user u
+      , winformula_oltp:email e
+ where u.user_id = e.user_id
+ and u.status = 'A'
+ and e.primary_ind = 1
+  and u.user_id in 
+  (
+    select distinct coder_id 
+    from 
+      winformula_oltp:long_component_state 
+    where 
+      round_id in (13602,13603,13604,13605) and 
+      (submission_number > 0 or example_submission_number > 0)
+  )

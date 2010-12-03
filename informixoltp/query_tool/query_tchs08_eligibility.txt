@@ -1,0 +1,15 @@
+select u.user_id, 
+nvl((select 1 from event where event_short_desc = "tchs08" and start_registration < current and end_registration > current),0) as open,
+nvl((select eligible_ind from event_registration er, event e where er.event_id = e.event_id and e.event_short_desc = "tchs08" and er.user_id = u.user_id), 2) as registered
+from event_registration er, user u
+where u.user_id =@cr@
+and eligible_ind = 1
+and event_id = 991
+and u.user_id = er.user_id
+ and u.status = 'A'
+and (select count(*) from round r, contest c, room_result rr
+where r.round_id = rr.round_id
+and r.contest_id = c.contest_id
+ and rr.rated_flag = 1
+  and rr.coder_id = u.user_id
+and c.season_id = 2) > 2

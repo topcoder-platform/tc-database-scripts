@@ -1,0 +1,15 @@
+SELECT l.level_desc,
+l.level_id,
+SUM(cl.challenge_attempts_made) AS challenge_attempts_made,
+SUM(cl.challenges_made_failed) AS challenges_made_failed,
+SUM(cl.challenges_made_successful) AS challenges_made_successful,
+(CASE SUM(cl.challenge_attempts_made)
+  WHEN 0 THEN 0.0
+  ELSE SUM(cl.challenges_made_successful) / SUM(cl.challenge_attempts_made)
+  END) AS success_percentage
+FROM level_lu l, coder_level cl
+WHERE cl.coder_id = @cr@
+AND l.level_id = cl.level_id
+AND cl.algo_rating_type_id = @ratid@
+GROUP by l.level_desc, l.level_id
+ORDER by l.level_id

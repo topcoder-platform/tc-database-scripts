@@ -1,0 +1,31 @@
+SELECT 
+(SELECT coder.handle FROM coder
+ WHERE coder.coder_id = c.challenger_id) AS challenger_name,
+(SELECT room_result.new_rating FROM room_result
+ WHERE room_result.round_id = @rd@
+ AND room_result.coder_id = c.challenger_id) AS challenger_rating,
+c.challenger_id,
+(SELECT coder.handle FROM coder
+ WHERE coder.coder_id = c.defendant_id) AS defendant_name,
+(SELECT room_result.new_rating FROM room_result
+ WHERE room_result.round_id = @rd@
+ AND room_result.coder_id = c.defendant_id) AS defendant_rating,
+c.defendant_id,
+p.class_name,
+p.problem_id,
+(CASE c.succeeded
+ WHEN 1 THEN 'Y'
+ ELSE 'N'
+ END) AS succeeded,
+c.challenger_points,
+c.submit_time,
+c.time_elapsed
+FROM problem p, challenge c
+WHERE c.challenger_id = @cr@
+AND c.round_id = @rd@
+AND p.problem_id = c.problem_id
+AND p.round_id = c.round_id
+AND p.division_id =
+   (SELECT division_id FROM room_result
+    WHERE coder_id = @cr@ AND round_id = @rd@)
+ORDER BY c.submit_time ASC

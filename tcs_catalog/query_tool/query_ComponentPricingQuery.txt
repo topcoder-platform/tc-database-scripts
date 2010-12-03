@@ -1,0 +1,14 @@
+SELECT          pcat.category_name catalog_name,
+c.component_name as Name, v.version_text as Version, p.description as Phase, vd.price as Price, l.description as level
+FROM comp_catalog c,comp_versions v, comp_version_dates vd, phase p, comp_level l,
+         comp_categories ccat,
+         categories cat,
+         categories pcat
+WHERE c.component_id = v.component_id
+AND v.comp_vers_id = vd.comp_vers_id
+AND vd.phase_id = p.phase_id
+and vd.level_id = l.level_id
+     and ccat.component_id = c.component_id
+     and cat.category_id = ccat.category_id
+     and pcat.category_id = cat.parent_category_id
+ORDER BY pcat.category_name,c.component_name, v.version_text

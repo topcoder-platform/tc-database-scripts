@@ -1,0 +1,78 @@
+SELECT u.user_id
+, r.rating
+, r.num_ratings
+, nvl(c.member_since, u.create_date) as member_since
+, u.first_name
+, u.middle_name
+, u.last_name
+, e.address as email
+, a.address1
+, a.address2
+, a.city
+, a.state_code
+, a.zip
+, co.country_name
+, p.phone_number as home_phone
+, re.referral_desc
+, ct.coder_type_desc
+, u.handle
+, rs.end_time as last_rated_event
+, CASE WHEN cref.referral_id = 6 THEN (SELECT name
+       FROM school
+       WHERE school_id = cref.reference_id)
+       WHEN cref.referral_id = 10 THEN cref.other
+      WHEN cref.referral_id = 40 THEN (SELECT handle
+       FROM user
+       WHERE user_id = cref.reference_id)
+        ELSE '' END as referral_info
+, us.user_status_desc
+, case when cs.school_id=0 then (select demographic_response from demographic_response where demographic_question_id = 20 and user_id = u.user_id) else s.name end as school_name
+, comp.company_name as company
+, con.title
+, case when exists (select '1' from common_oltp:user_preference where user_id= u.user_id and preference_id in (2,7)) then '1' else '0' end as registered_for_placement
+, case when exists (select '1' from user_note_xref where user_id= u.user_id ) then '1' else '0' end as has_notes
+, l.language_name
+FROM user u
+, outer (rating r, round_segment rs, coder c, language l, coder_type ct)
+, outer (coder_referral cref, referral re)
+, user_address_xref x
+, address a
+, outer phone p
+, email e
+, user_status_lu us
+, OUTER (current_school cs, OUTER school s)
+, country co
+, outer (contact con, company comp)
+WHERE u.user_id = c.coder_id
+and u.user_id = con.contact_id
+and con.company_id = comp.company_id
+and c.language_id = l.language_id
+AND r.coder_id = c.coder_id
+and r.round_id = rs.round_id
+ and rs.segment_id = 2
+AND cref.coder_id = u.user_id
+AND re.referral_id = cref.referral_id
+AND c.coder_type_id = ct.coder_type_id
+AND u.status = us.user_status_id
+AND u.user_id = cs.coder_id
+and u.user_id = x.user_id
+and x.address_id = a.address_id
+and e.user_id = u.user_id
+ and e.primary_ind = 1
+and u.user_id = p.user_id
+ and p.primary_ind = 1
+AND cs.school_id = s.school_id
+AND a.country_code = co.country_code
+AND u.user_id in
+(
+  SELECT
+    u1.user_id
+  FROM
+    user u1, email e1
+  WHERE u1.handle_lower like LOWER('@ha@')
+    and u1.user_id = e1.user_id
+    and e1.primary_ind = 1
+    AND LOWER(u1.first_name) like LOWER('@fn@')
+    AND LOWER(u1.last_name) like LOWER('@ln@')
+    AND LOWER(e1.address) like LOWER('@em@')
+)

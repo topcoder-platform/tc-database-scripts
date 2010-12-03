@@ -1,0 +1,17 @@
+select case when cc.root_category_id = 5801776 then 'Java' else '.NET' end as category, 
+cc.component_name,
+cv.version_text as version,
+cd.document_name,
+dt.description as document_type,
+'<a href=''http://software.topcoder.com/catalog/document?id=' || cd.document_id || '''>link</a>' as link
+from
+comp_catalog cc,
+comp_versions cv,
+comp_documentation cd,
+doc_types dt
+where root_category_id in (5801776,5801777)
+and cv.component_id = cc.component_id
+and cv.version = cc.current_version
+and cd.comp_vers_id = cv.comp_vers_id
+and dt.document_type_id = cd.document_type_id
+order by 1, 2, 3, 5, 4;

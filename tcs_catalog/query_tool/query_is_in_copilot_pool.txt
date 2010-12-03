@@ -1,0 +1,2 @@
+select copilot_profile_id from copilot_profile where
+user_id = @uid@ and copilot_profile_status_id = 1

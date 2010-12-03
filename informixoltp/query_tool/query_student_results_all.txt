@@ -1,0 +1,16 @@
+select cs.round_id, r.name as round_name, cs.component_id, p.name as problem_name, cs.points, d.point_value as possible_points,
+(select count(*) from system_test_result where round_id = cs.round_id and coder_id = cs.coder_id and component_id = cs.component_id) as total,
+(select sum(succeeded) from system_test_result where round_id = cs.round_id and coder_id = cs.coder_id and component_id = cs.component_id) as succeeded,
+(select rp2.int_value from round_property rp2 where rp2.round_id = cs.round_id and rp2.round_property_type_id = 3) as show_all,
+(select rp2.int_value from round_property rp2 where rp2.round_id = cs.round_id and rp2.round_property_type_id = 4) as score_type
+from component_state cs, round r, component c, problem p, difficulty d
+where cs.round_id = r.round_id
+and cs.component_id = c.component_id
+and c.problem_id = p.problem_id
+and d.difficulty_id = p.proposed_difficulty_id
+and cs.round_id in 
+(select rp.round_id from round_property rp where
+rp.round_property_type_id = 1
+and rp.int_value = @clsid@)
+and cs.coder_id = @cr@
+order by r.name

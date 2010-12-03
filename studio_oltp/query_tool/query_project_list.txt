@@ -1,0 +1,11 @@
+select pi.value as project_name, p.project_id
+  from tcs_catalog:project p
+     , tcs_catalog:project_info pi
+     , tcs_catalog:project_category_lu pc
+ where p.project_id = pi.project_id
+   and pi.project_info_type_id = 6
+   and p.project_category_id = pc.project_category_id
+   and pc.project_type_id = 3
+   and pi.value not like 'Sample%Review Scorecard'
+   and p.project_status_id = 1
+ order by project_name

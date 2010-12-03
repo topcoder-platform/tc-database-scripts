@@ -1,0 +1,11 @@
+select u.handle, u.email as email_address
+from email_user u, event e, intro_event ie,current_school cs, demographic_response dr, demographic_answer da
+where e.event_id = 3233
+   and ie.event_id = e.parent_event_id
+  and cs.coder_id = u.user_id
+   and dr.user_id = u.user_id
+   and da.demographic_answer_id = dr.demographic_answer_id
+   and da.demographic_question_id = 18
+   and da.demographic_answer_text in ('2008', '2009', '2010', '2011')
+   and cs.school_id = ie.school_id
+  and exists (select 1 from user_notify_xref where notify_id in (1) and user_id = u.user_id)

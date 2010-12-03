@@ -1,0 +1,28 @@
+select pcl.name as phase
+     , cat.category_name as catalog
+     , pi_name.value as component
+     , pi_version.value as version
+     , max(pp.scheduled_end_time) as end_time
+     , '<a href=http://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>online review</a>' as online_review
+  from contest_project_xref cpx
+     , project p
+     , project_category_lu pcl
+     , project_info pi_catalog
+     , project_info pi_name
+     , project_info pi_version
+     , project_phase pp
+     , categories cat
+ where cpx.contest_id in (420, 421)
+   and cpx.project_id = p.project_id
+   and p.project_status_id = 1
+   and p.project_category_id = pcl.project_category_id
+   and p.project_id = pi_catalog.project_id
+   and pi_catalog.project_info_type_id = 5
+   and p.project_id = pi_name.project_id
+   and pi_name.project_info_type_id = 6
+   and p.project_id = pi_version.project_id
+   and pi_version.project_info_type_id = 7
+   and p.project_id = pp.project_id
+   and pi_catalog.value::integer = cat.category_id
+group by 1, 2, 3, 4, 6
+order by 5 desc;

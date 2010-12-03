@@ -1,0 +1,7 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , user_notify_xref n
+ WHERE u.user_id = n.user_id
+   AND u.status = 'A'
+   AND n.notify_id = 7

@@ -1,0 +1,4 @@
+select project_category_id,
+       name
+from tcs_catalog:project_category_lu
+where project_category_id in (1,2,14,13,7) --Design, Development, Assembly, Testing, Architecture

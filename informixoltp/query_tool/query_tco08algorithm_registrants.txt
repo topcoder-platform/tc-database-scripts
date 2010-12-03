@@ -1,0 +1,12 @@
+select u.user_id, u.handle_lower, case when ar.rating = 0 then null else ar.rating end as rating
+from 
+event_registration er, 
+user u,
+OUTER(algo_rating ar)
+where er.event_id = @eid@
+and er.eligible_ind = 1
+and u.user_id = er.user_id
+and ar.coder_id = u.user_id
+and u.status = 'A'
+and ar.algo_rating_type_id = 1
+order by 3 desc

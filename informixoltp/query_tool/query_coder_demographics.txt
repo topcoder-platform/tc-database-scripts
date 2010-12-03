@@ -1,0 +1,17 @@
+SELECT distinct dq.demographic_question_text
+ , case when dr.demographic_answer_id = 0 or dr.demographic_answer_id is null or lower(da.demographic_answer_text) = 'free form' then dr.demographic_response else da.demographic_answer_text end as demographic_answer_text
+ , dq.demographic_question_id
+ FROM demographic_question dq
+ , demographic_answer da 
+ , demographic_response dr
+ , demographic_assignment dass
+ , coder c
+ WHERE dr.user_id = @cr@
+ AND da.demographic_question_id = dq.demographic_question_id
+ AND dr.demographic_answer_id = da.demographic_answer_id
+ AND dr.demographic_question_id = dq.demographic_question_id
+ and dr.user_id = c.coder_id
+  and dass.demographic_question_id = dr.demographic_question_id
+ and dass.status = 'A'
+ and dass.coder_type_id = c.coder_type_id
+ ORDER BY dq.demographic_question_id

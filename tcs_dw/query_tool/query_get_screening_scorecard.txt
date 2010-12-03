@@ -1,0 +1,4 @@
+select scorecard_id, scorecard_template_id, reviewer_id
+from submission_screening
+where project_id = @pj@
+and user_id = @cr@

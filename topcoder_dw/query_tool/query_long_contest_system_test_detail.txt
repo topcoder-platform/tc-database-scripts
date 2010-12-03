@@ -1,0 +1,18 @@
+SELECT r.round_id AS round_id
+     , p.problem_id AS problem_id
+     , c.name AS contest_name
+     , r.name AS round_name
+     , class_name AS problem_name
+     , args
+     , expected_result
+     , r.round_type_id
+  FROM system_test_case stc
+     , problem p
+     , round r
+     , contest c
+ WHERE p.round_id = @rd@
+   AND p.problem_id = @pm@
+   AND stc.test_case_id = @tid@
+   AND p.problem_id = stc.problem_id
+   AND r.round_id = p.round_id
+   AND c.contest_id = r.contest_id;

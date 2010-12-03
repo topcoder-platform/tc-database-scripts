@@ -1,0 +1,19 @@
+SELECT rp.problems_presented as competitors
+     , rp.problems_opened
+     , CASE WHEN problems_presented = 0 THEN 0 ELSE rp.problems_opened/rp.problems_presented END as open_percentage
+     , CASE WHEN problems_opened = 0 THEN 0 ELSE rp.problems_submitted/rp.problems_opened END as submission_percentage
+     , CASE WHEN problems_opened = 0 THEN 0 ELSE rp.problems_correct/rp.problems_presented END as overall_accuracy
+     , d.division_desc as division
+     , d.division_id
+     , p.points
+  FROM round_problem rp
+     , division_lu d
+     , problem p
+ WHERE rp.round_id = @rd@
+   AND rp.problem_id = @pm@
+   AND d.division_id = rp.division_id
+   and p.problem_id = rp.problem_id
+   and p.round_id = rp.round_id 
+   and p.division_id = rp.division_id
+   and p.viewable = 1
+ ORDER BY d.division_id asc

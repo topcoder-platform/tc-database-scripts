@@ -1,0 +1,4 @@
+select e.address
+ from email e
+where e.primary_ind = 1
+and e.user_id = @uid@

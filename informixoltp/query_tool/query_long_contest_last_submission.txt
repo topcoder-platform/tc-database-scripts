@@ -1,0 +1,10 @@
+select 1
+  from long_component_state cs 
+     , problem p
+     , component c
+ where p.problem_id = c.problem_id
+   and c.component_id = cs.component_id
+   and cs.round_id = @rd@
+   and cs.coder_id = @cr@
+   and cs.example_submission_number = @subnum@
+   and p.problem_id = @pm@

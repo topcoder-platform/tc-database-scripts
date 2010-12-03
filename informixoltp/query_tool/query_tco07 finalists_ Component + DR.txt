@@ -1,0 +1,26 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+ WHERE u.handle IN
+('AleaActaEst',
+'argolite',
+'bendlund',
+'kakarotto',
+'kyky',
+'oldbam',
+'Pops',
+'sql_lall',
+'cnettel',
+'enefem21',
+'hefeng',
+'PE',
+'tyrian',
+'wolve',
+'Ghostar',
+'humblefool',
+'urtks',
+'UFP2161',
+'KKD',
+'RachaelLCook',
+'vividmxx',
+'hotblue')

@@ -1,0 +1,14 @@
+select r.short_name||' - '||cp.level_desc||' Problem' as desc,
+(select avg_time_elapsed from round_problem where problem_id = cp.problem_id and division_id = cp.division_id and round_id = cp.round_id) as avg_time,
+(select problems_submitted from round_problem where problem_id = cp.problem_id and division_id = cp.division_id and round_id = cp.round_id) as problems_submitted,
+(select problems_correct / problems_opened  from round_problem where problem_id = cp.problem_id and round_id = cp.round_id and division_id = cp.division_id) as problems_correct,
+(select count(distinct coder_id) from coder_problem where problem_id = cp.problem_id and division_id = cp.division_id) as coder_count,
+time_elapsed, ps.submission_text, p.problem_text, cp.language_id
+from coder_problem cp, round r, problem_submission ps, problem p
+where cp.coder_id = @cr@
+and cp.problem_id = @pm@
+and r.round_id = cp.round_id
+and ps.problem_id = cp.problem_id
+and ps.coder_id = cp.coder_id
+and p.problem_id = cp.problem_id
+and p.division_id = cp.division_id

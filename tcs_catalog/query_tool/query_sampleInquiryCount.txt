@@ -1,0 +1,13 @@
+select count(*) + 50, catalog 
+from sample_inquiry
+where email_address not like '%topcoder%' 
+and email_address != 'mess34@yahoo.com'
+and catalog = 'dotnet'
+group by catalog
+UNION
+select count(*) + 61, catalog 
+from sample_inquiry
+where email_address not like '%topcoder%' 
+and email_address != 'mess34@yahoo.com'
+and catalog = 'java'
+group by catalog

@@ -1,0 +1,41 @@
+select c.coder_id 
+     , cc.seed
+     , c.handle
+     , ar.rating
+     , case when rr.advanced = "Y" then rr.final_points else null end as points
+     , c.handle_lower as handle_sort
+     , r.name as round_name
+  from coder c
+     , algo_rating ar
+     , contest_coder cc
+     , room_result rr
+     , round r
+ where 
+   cc.coder_id = c.coder_id
+   and ar.coder_id = c.coder_id
+   and ar.algo_rating_type_id = 1
+   and rr.advanced = 'Y'
+   and cc.contest_id = 12973
+   and rr.coder_id = c.coder_id 
+   and rr.round_id = r.round_id
+   and r.round_id in (13742, 13757, 13758)
+   and cc.bye_ind = 0
+union
+-- add the byes list
+select c.coder_id 
+     , cc.seed
+     , c.handle
+     , ar.rating
+     , case when 0=1 then 1 else null end as points
+     , c.handle_lower as handle_sort
+     , case when 0=1 then "" else null end as round_name
+  from coder c
+     , algo_rating ar
+     , contest_coder cc
+ where 
+   cc.coder_id = c.coder_id
+   and ar.coder_id = c.coder_id
+   and ar.algo_rating_type_id = 1
+   and cc.contest_id = 12973
+   and cc.bye_ind = 1
+ order by round_name, points desc, ar.rating desc

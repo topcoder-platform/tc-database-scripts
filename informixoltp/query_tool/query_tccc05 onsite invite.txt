@@ -1,0 +1,17 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , coder_notify n
+ WHERE u.user_id = n.coder_id
+   AND u.status = 'A'
+   AND n.notify_id = 1
+and u.user_id not in (select user_id from user where lower(handle) in 
+('kyky','cucu','thecois','aksonov','adamselene','wishingbone','adic',
+'mphk','aubergineanode','gladius','xuchuan','dmks','oldbig'))
+and u.user_id not in (select u.user_id
+  from email_user u, room_result rr
+ where rr.round_id = 6531
+   and u.user_id = rr.coder_id
+   and rr.advanced = 'Y'
+   and rr.attended = 'Y'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14)))

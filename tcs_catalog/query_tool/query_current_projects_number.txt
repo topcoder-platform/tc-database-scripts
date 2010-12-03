@@ -1,0 +1,4 @@
+select count(DISTINCT p.tc_direct_project_id) as current_projects_number from project p 
+     inner join resource r on r.project_id = p.project_id 
+     inner join resource_info ri on ri.resource_id = r.resource_id
+     where r.resource_role_id = 14 and ri.resource_info_type_id = 1 and p.project_status_id = 1 and ri.value = @uid@

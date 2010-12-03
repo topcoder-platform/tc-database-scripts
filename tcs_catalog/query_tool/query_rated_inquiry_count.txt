@@ -1,0 +1,9 @@
+select count(*) as count
+  from user_rating ur
+     , component_inquiry ci
+ where ci.phase = ur.phase_id
+   and ci.user_id = ur.user_id
+   and ur.num_ratings > 0
+   and ci.component_id = @cd@
+   and ci.version = @vid@
+   and phase = @ph@

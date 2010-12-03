@@ -1,0 +1,25 @@
+SELECT u.handle
+     , u.user_id
+     , rr.point_total
+     , il.seed
+     , c.name as contest_name
+     , r.name as round_name
+     , ra.rating
+     , r.round_id
+     , LOWER(handle) AS sort_handle
+  FROM user u
+     , room_result rr
+     , invite_list il
+     , round r
+     , contest c
+     , rating ra
+ WHERE rr.coder_id = il.coder_id
+   AND il.coder_id = u.user_id
+   AND il.round_id = rr.round_id
+   AND rr.round_id = @rds@
+   AND rr.advanced = 'Y'
+   AND rr.coder_id = il.coder_id
+   AND rr.round_id = r.round_id
+   AND r.contest_id = c.contest_id
+   AND u.user_id = ra.coder_id
+ ORDER BY @sc@ @sdir@

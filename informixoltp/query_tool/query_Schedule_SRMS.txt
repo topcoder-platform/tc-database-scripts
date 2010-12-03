@@ -1,0 +1,53 @@
+SELECT r.round_id
+     , r.name AS round_name
+     , c.contest_id
+     , c.name AS contest_name
+     , (SELECT TO_CHAR(start_time, '%D')
+          FROM round_segment rs
+         WHERE rs.round_id = r.round_id
+           AND rs.segment_id = 1) AS reg_date
+     , (SELECT TO_CHAR(start_time, '%D')
+          FROM round_segment rs
+         WHERE rs.round_id = r.round_id
+           AND rs.segment_id = 2) AS date
+     , p.path || i.file_name AS path
+     , i.height
+     , i.width
+     , TO_CHAR(rs1.start_time, '%M') as minute
+     , TO_CHAR(rs1.start_time, '%H') as hour
+     , TO_CHAR(rs1.start_time, '%d') as day
+     , TO_CHAR(rs1.start_time, '%m') as month
+     , TO_CHAR(rs1.start_time, '%iY') as year
+     , i.link
+     , r.forum_id
+     , r.round_type_id
+     , reg.region_name
+     , rs1.start_time as coding_start_time
+     , rs1.end_time as coding_end_time
+     , rs2.start_time as reg_start_time
+     , rs2.end_time as reg_end_time
+     , p.path || i.file_name AS mm_image_path
+  FROM round r
+     , contest c
+     , OUTER (round_image_xref rix, image i, path p)
+     , OUTER (round_image_xref rix1, image i1, path p1)
+     , round_segment rs1
+     , round_segment rs2
+     , outer region reg
+ WHERE r.contest_id = c.contest_id
+   AND rix.round_id = r.round_id
+   AND rix1.round_id = r.round_id
+   AND rs1.round_id = r.round_id
+   and r.region_id = reg.region_id
+   AND rs1.segment_id = 2
+   AND rix.display_flag = 1
+   AND rix.image_id = i.image_id
+   AND i.image_type_id = 8
+   AND p.path_id = i.path_id
+   AND rix1.display_flag = 1
+   AND rix1.image_id = i1.image_id
+   AND i1.image_type_id = 16
+   AND p1.path_id = i1.path_id
+   AND r.round_id = @rd@
+   and rs2.round_id = r.round_id
+   and rs2.segment_id = 1

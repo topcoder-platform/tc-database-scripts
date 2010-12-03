@@ -1,0 +1,3 @@
+select c.name, r.name, rc.division_id, rc.points from contest c, round r, component cp, round_component rc
+where cp.class_name = @compname@ and rc.component_id = cp.component_id and r.round_id = rc.round_id and c.contest_id = r.contest_id 
+order by r.round_id desc

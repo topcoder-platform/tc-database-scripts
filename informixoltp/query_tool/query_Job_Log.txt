@@ -1,0 +1,8 @@
+
+SELECT sched_job_detail_status_name,
+reason,
+sched_job_detail_id
+FROM sched_job_detail sjd,
+sched_job_detail_status_lu sjdslu
+WHERE sjd.sched_job_detail_status_id = sjdslu.sched_job_detail_status_id
+AND sched_job_id = @ji@

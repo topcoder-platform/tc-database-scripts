@@ -1,0 +1,11 @@
+select season_id from season
+where start_calendar_id = (select max(s.start_calendar_id)
+    from project_result pr, project p, season s, stage st
+    where pr.final_points is not null 
+    and pr.final_points > 0
+    and pr.project_id = p.project_id 
+    and pr.valid_submission_ind = 1 
+    and pr.rating_ind = 1
+        and p.stage_id = st.stage_id
+        and st.season_id = s.season_id
+        and s.rookie_competition_ind = 1)

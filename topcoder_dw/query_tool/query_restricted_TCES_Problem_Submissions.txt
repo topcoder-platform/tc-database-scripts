@@ -1,0 +1,30 @@
+SELECT cal.date
+     , (CASE WHEN r.round_type_id = 2
+             THEN c.name || ' ' || r.name
+             ELSE c.name END) AS name
+     , cp.level_desc
+     , dlu.division_desc
+     , cp.final_points
+     , langlu.language_name
+     , cp.end_status_text
+     , cp.round_id
+     , cp.problem_id
+     , cp.level_id
+  FROM coder_problem cp
+     , round r
+     , contest c
+     , division_lu dlu
+     , language_lu langlu
+     , calendar cal
+     , coder co
+ WHERE cp.round_id = r.round_id
+   AND r.contest_id = c.contest_id
+   AND cp.division_id = dlu.division_id
+   AND cp.language_id = langlu.language_id
+   AND r.calendar_id = cal.calendar_id
+   AND (cp.coder_id = @mid@)
+   AND (cp.submission_points > 0.0)
+   AND cp.coder_id = co.coder_id
+   AND co.status = 'A'  
+   AND r.round_id in (@rds@)
+ ORDER BY cal.date DESC, cp.level_id ASC

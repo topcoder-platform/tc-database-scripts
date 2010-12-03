@@ -1,0 +1,12 @@
+select u.handle, u.email as email_address
+from 
+  email_user u, 
+  user_notify_xref x,
+  user_address_xref ax,
+  address a
+where u.user_id = x.user_id
+ and x.notify_id = 7
+ and ax.user_id = u.user_id 
+ and a.address_id = ax.address_id
+ and a.country_code = '156'
+ and u.user_id in (select user_id from event_registration where event_id = 993 and eligible_ind = 1)

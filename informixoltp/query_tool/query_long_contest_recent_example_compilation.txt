@@ -1,0 +1,14 @@
+SELECT c.compilation_text
+     , c.language_id 
+     , s.submit_time
+  FROM long_compilation c
+     , long_component_state cs
+     , outer long_submission s
+ WHERE c.long_component_state_id = cs.long_component_state_id 
+   AND round_id = @rd@
+   AND coder_id = @cr@ 
+   and s.long_component_state_id = cs.long_component_state_id
+   AND cs.component_id = @compid@
+   and cs.example_submission_number = s.submission_number
+   and s.example = 1
+ order by s.submit_time desc

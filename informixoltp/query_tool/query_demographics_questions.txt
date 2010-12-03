@@ -1,0 +1,4 @@
+select demographic_question_id, demographic_question_text from demographic_question where selectable <> 'N' and demographic_question_id in 
+(select demographic_question_id from demographic_answer where status ='A')
+and demographic_question_id in (select demographic_question_id from demographic_assignment where status = 'A')
+ order by 1

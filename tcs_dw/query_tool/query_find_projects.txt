@@ -1,0 +1,6 @@
+select project_id, posting_date, status_id, suspended_ind
+   from project where component_id = @compid@
+      and version_id = @vr@
+      and phase_id = @ph@
+      and status_id in (4,5,7,8)
+   order by posting_date

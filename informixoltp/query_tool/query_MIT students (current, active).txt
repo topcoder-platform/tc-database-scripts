@@ -1,0 +1,10 @@
+SELECT LOWER(u.email) AS email_address,
+	u.handle
+from email_user u, coder_notify n, current_school s, coder c
+where u.user_id = n.coder_id
+   AND u.status = 'A'
+   AND n.notify_id = 1
+   AND u.user_id = s.coder_id
+   AND u.user_id = c.coder_id
+   AND c.coder_type_id = 1
+   AND school_id = 775

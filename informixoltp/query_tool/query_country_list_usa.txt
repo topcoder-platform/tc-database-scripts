@@ -1,0 +1,2 @@
+select country_code, country_name, case country_code when 840 then 0  else 1 end from country where country_name <> ''
+order by 3,2

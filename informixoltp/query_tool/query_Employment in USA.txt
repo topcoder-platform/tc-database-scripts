@@ -1,0 +1,10 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , coder c
+ WHERE u.status = 'A'
+   AND c.coder_id = u.user_id
+   AND c.country_code = '840'
+   AND u.user_id IN (SELECT cn.coder_id
+                       FROM coder_notify cn
+                      WHERE notify_id in (3))

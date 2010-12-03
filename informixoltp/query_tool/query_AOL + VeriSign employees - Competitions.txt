@@ -1,0 +1,23 @@
+SELECT u.handle, e.address as email_address, company_name
+  FROM    company comp,
+    contact con,
+    coder c,
+    user u,
+    user_address_xref x,
+    address a,
+    email e,
+    country cry
+  WHERE 1 = 1
+    AND u.user_id = c.coder_id
+    AND u.status = 'A'
+    AND cry.country_code = a.country_code
+    and x.user_id = u.user_id 
+    and x.address_id = a.address_id 
+    and a.address_type_id = 2 
+    AND e.user_id = u.user_id
+    AND e.primary_ind = 1
+    AND c.coder_id = con.contact_id
+    AND con.company_id = comp.company_id
+    AND (lower(comp.company_name) LIKE 'aol %' or lower(comp.company_name) = 'america online' or lower(comp.company_name) LIKE '%verisign%')
+    and exists (select 1 from user_notify_xref cn where cn.user_id = u.user_id 
+    AND cn.notify_id in (1))

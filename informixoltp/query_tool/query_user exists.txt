@@ -1,0 +1,3 @@
+select '1'
+  from security_user 
+ where lower(user_id) = lower('@hn@')

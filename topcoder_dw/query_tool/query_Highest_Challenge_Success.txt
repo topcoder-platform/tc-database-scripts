@@ -1,0 +1,22 @@
+SELECT c.handle,
+c.coder_id,
+r.rating, 
+count(*),
+SUM(rr.challenge_attempts_made) AS challenge_attempts_made,
+SUM(rr.challenges_made_successful) AS challenges_made_successful,
+(CASE SUM(rr.challenge_attempts_made)
+      WHEN 0 THEN 0.0
+ ELSE SUM(rr.challenges_made_successful)/SUM(rr.challenge_attempts_made)
+ END) AS success_percent
+FROM coder c, room_result rr, rating r, round, active_members a
+WHERE c.coder_id = rr.coder_id
+AND c.status = 'A'
+AND r.coder_id = c.coder_id
+AND rr.round_id = round.round_id
+AND round.round_type_id in (1,2)
+AND a.coder_id = c.coder_id
+and a.coder_id <> 301395
+and rr.rated_flag = 1
+GROUP BY c.handle, c.coder_id, r.rating
+HAVING SUM(rr.challenge_attempts_made) >= 20
+ORDER BY success_percent DESC, r.rating DESC, c.handle

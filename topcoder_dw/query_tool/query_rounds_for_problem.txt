@@ -1,0 +1,13 @@
+select  c.name || ' ' || r.name || ' - ' || d.division_desc || ', ' || l.level_desc as round_name
+        , p.round_id
+        , p.problem_id
+from problem p
+     , round r
+     , contest c
+     , division_lu d
+     , level_lu l
+where p.round_id = r.round_id
+and r.contest_id = c.contest_id
+and p.division_id = d.division_id
+and p.level_id = l.level_id
+and problem_id = @pm@

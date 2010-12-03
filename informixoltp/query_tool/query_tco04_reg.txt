@@ -1,0 +1,14 @@
+select count(distinct u.user_id) as total
+     , sum(case when utx.terms_of_use_id = 18 then 1 else 0 end) as algo_total
+     , sum(case when utx.terms_of_use_id = 18 and c.coder_type_id = 1 then 1 else 0 end) as student_algo
+     , sum(case when utx.terms_of_use_id = 18 and c.coder_type_id = 2 then 1 else 0 end) as pro_algo
+     , sum(case when utx.terms_of_use_id = 19 then 1 else 0 end) as compo_total
+     , sum(case when utx.terms_of_use_id = 19 and c.coder_type_id = 1 then 1 else 0 end) as student_compo
+     , sum(case when utx.terms_of_use_id = 19 and c.coder_type_id = 2 then 1 else 0 end) as pro_compo
+  from user u
+     , coder c
+     , user_terms_of_use_xref utx
+ where u.user_id = utx.user_id
+   and u.user_id = c.coder_id 
+   and u.user_id = utx.user_id
+   and utx.terms_of_use_id in (18, 19)

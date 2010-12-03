@@ -1,0 +1,3 @@
+SELECT COUNT(*) as member_count
+  FROM coder c
+ WHERE c.status = 'A'

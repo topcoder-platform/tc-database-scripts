@@ -1,0 +1,7 @@
+select ua.achievement_date
+     , ua.description
+     , ua.coder_id
+  from user_achievement ua
+ where ua.coder_id = @cr@
+   and ua.achievement_type_id in (1,4,5,6,7,8,9)
+ order by ua.achievement_date desc

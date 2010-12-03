@@ -1,0 +1,11 @@
+select sum(case when create_date > current - 7 units day and create_date < current - 0 units day then 1 else 0 end) as last_0_7
+     , sum(case when create_date > current - 14 units day and create_date < current - 7 units day then 1 else 0 end) as last_7_14
+     , sum(case when create_date > current - 21 units day and create_date < current - 14 units day then 1 else 0 end) as last_14_21
+     , sum(case when create_date > current - 28 units day and create_date < current - 21 units day then 1 else 0 end) as last_21_28
+     , sum(case when create_date > current - 35 units day and create_date < current - 28 units day then 1 else 0 end) as last_28_35
+     , sum(case when create_date > current - 42 units day and create_date < current - 35 units day then 1 else 0 end) as last_35_42
+     , sum(case when create_date > current - 49 units day and create_date < current - 42 units day then 1 else 0 end) as last_42_49
+     , sum(case when create_date > current - 56 units day and create_date < current - 49 units day then 1 else 0 end) as last_49_56
+     , sum(case when create_date > current - 63 units day and create_date < current - 56 units day then 1 else 0 end) as last_56_63
+     , sum(case when create_date > current - 70 units day and create_date < current - 63 units day then 1 else 0 end) as last_63_70
+  from rboard_application ra

@@ -1,0 +1,11 @@
+select
+  u.handle handle, cr.create_date date_registered,
+  (
+    select ar.rating from informixoltp:algo_rating ar
+    where ar.algo_rating_type_id = 3 and ar.coder_id = u.user_id 
+  ) marathon_rating
+from
+  user u, 
+  winformula_oltp:contest_registration cr
+where u.user_id = cr.user_id
+    and cr.create_date >= mdy(7,29,2008)

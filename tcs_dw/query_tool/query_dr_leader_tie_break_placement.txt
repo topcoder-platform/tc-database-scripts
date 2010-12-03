@@ -1,0 +1,11 @@
+select count(*) cnt, pr.placed from project_result pr, project p
+where pr.project_id = p.project_id and pr.final_points > 0 
+and pr.valid_submission_ind = 1 and
+    pr.rating_ind = 1 and
+    p.status_id = 7 and
+    p.digital_run_ind = 1 and 
+    p.phase_id = @ph@ and
+    p.stage_id = @staid@ and 
+    pr.user_id = @cr@
+group by pr.placed
+order by placed asc

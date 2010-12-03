@@ -1,0 +1,83 @@
+select cc.component_name as application
+     , app_cv.version_text as version
+
+     , count(unique comp_cv.component_id) as components
+
+     , (sum(case when des_p.project_status_id = 7 and des_pr.placed = 1
+                 then des_pr.final_score else 0.0 end)
+        / sum(case when des_p.project_status_id = 7 and des_pr.placed = 1
+                   then 1.0 else 0.0 end))::decimal(10, 2) as avg_design_score
+
+     , (select sum(pdet.gross_amount)
+          from comp_dependencies cdep
+             , comp_versions cver
+             , project p
+             , project_info pi1
+             , informixoltp:payment pay
+             , informixoltp:payment_detail pdet
+         where app_cv.comp_vers_id = cdep.comp_vers_id
+           and cdep.child_comp_vers_id = cver.comp_vers_id
+           and cver.comp_vers_id = pi1.value::integer
+           and pi1.project_info_type_id = 1
+           and pi1.project_id = p.project_id
+           and p.project_category_id = 1
+           and p.project_status_id in (4, 5, 6, 7)
+           and p.project_id = pdet.component_project_id
+           and pdet.payment_type_id in (6, 7, 24)
+           and pdet.payment_detail_id = pay.most_recent_detail_id) as total_design_payments
+
+     , (sum(case when dev_p.project_status_id = 7 and dev_pr.placed = 1
+                 then dev_pr.final_score else 0.0 end)
+        / sum(case when dev_p.project_status_id = 7 and dev_pr.placed = 1
+                   then 1.0 else 0.0 end))::decimal(10, 2) as avg_dev_score
+
+     , (select sum(pdet.gross_amount)
+          from comp_dependencies cdep
+             , comp_versions cver
+             , project p
+             , project_info pi1
+             , informixoltp:payment pay
+             , informixoltp:payment_detail pdet
+         where app_cv.comp_vers_id = cdep.comp_vers_id
+           and cdep.child_comp_vers_id = cver.comp_vers_id
+           and cver.comp_vers_id = pi1.value::integer
+           and pi1.project_info_type_id = 1
+           and pi1.project_id = p.project_id
+           and p.project_category_id = 2
+           and p.project_status_id in (4, 5, 6, 7)
+           and p.project_id = pdet.component_project_id
+           and pdet.payment_type_id in (6, 7, 24)
+           and pdet.payment_detail_id = pay.most_recent_detail_id) as total_dev_payments
+
+     , '<a href=http://www.topcoder.com/tc?module=LegacyReport&t=new_report&db=java:TCS_CATALOG&c=application_component_report&cv='
+       || app_cv.comp_vers_id|| '>details</a>' as details
+  from comp_catalog cc
+     , comp_versions app_cv
+     , comp_versions comp_cv
+     , comp_dependencies cd
+     , project_info des_pi1
+     , project des_p
+     , project_result des_pr
+     , project_info dev_pi1
+     , project dev_p
+     , project_result dev_pr
+ where cc.root_category_id = 9926572
+   and cc.component_id = app_cv.component_id
+   and app_cv.comp_vers_id = cd.comp_vers_id
+   and cd.child_comp_vers_id = comp_cv.comp_vers_id
+
+   and comp_cv.comp_vers_id = des_pi1.value::integer
+   and des_pi1.project_info_type_id = 1
+   and des_pi1.project_id = des_p.project_id
+   and des_p.project_category_id = 1
+   and des_p.project_status_id in (4, 5, 6, 7)
+   and des_p.project_id = des_pr.project_id
+
+   and comp_cv.comp_vers_id = dev_pi1.value::integer
+   and dev_pi1.project_info_type_id = 1
+   and dev_pi1.project_id = dev_p.project_id
+   and dev_p.project_category_id = 2
+   and dev_p.project_status_id in (4, 5, 6, 7)
+   and dev_p.project_id = dev_pr.project_id
+group by 1, 2, 5, 7, 8
+order by 1, 2;

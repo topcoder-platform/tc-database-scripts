@@ -1,0 +1,21 @@
+select '<a href=http://studio.topcoder.com/?module=ViewContestDetails&ct=' \|\| c.contest_id \|\| '>' \|\| c.name \|\| '</a>',
+       c.contest_id,
+       cc.contest_channel_desc contest_origin,
+       ds.name detailed_status,
+       cs.name studio_status,
+       proj.name project,
+       u.handle creator,
+       (select price from contest_payment where contest_id = c.contest_id) admin_fee,
+       (select paypal_order_id from contest_payment where contest_id = c.contest_id) admin_fee_conf_id  
+from contest c,
+     contest_channel_lu cc,
+     contest_detailed_status_lu ds,
+     contest_status_lu cs,
+     tc_direct_project proj,
+     user u
+where c.contest_channel_id = cc.contest_channel_id
+  and c.contest_detailed_status_id = ds.contest_detailed_status_id
+  and c.contest_status_id = cs.contest_status_id
+  and c.tc_direct_project_id = proj.project_id
+  and proj.user_id = u.user_id
+order by ds.name

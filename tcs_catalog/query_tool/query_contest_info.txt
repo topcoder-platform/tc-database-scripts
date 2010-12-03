@@ -1,0 +1,9 @@
+select * , nvl(uc.payment, cp.prize_amount) as prize_payment
+from contest c,
+contest_prize cp,
+OUTER (user_contest_prize uc, user u)
+where u.user_id = uc.user_id
+and uc.contest_prize_id = cp.contest_prize_id
+and cp.contest_id = c.contest_id
+and cp.place = 1
+and c.contest_id = @ct@

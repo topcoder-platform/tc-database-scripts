@@ -1,0 +1,33 @@
+select distinct '<a href=/tc?module=PlacementInfoDetail&uid='||u.user_id||'>'||u.handle||'</a>'
+     , case when exists (select '1' from user_note_xref x, note n where x.note_id = n.note_id and user_id= r.coder_id and n.note_type_id = 5) then
+       '<a href=/tc?module=ViewNotes&uid='||u.user_id||'>View Notes</a>' else
+       '<a href=/tc?module=EditNote&uid='||u.user_id||'>Add Note</a>' end
+     , co.country_name
+     , a.state_code
+     , r.rating as algorithm_rating
+     , (select rating 
+          from tcs_catalog:user_rating ur
+         where ur.user_id = u.user_id 
+           and ur.phase_id = 112) as design_rating
+     , (select rating 
+          from tcs_catalog:user_rating ur
+         where ur.user_id = u.user_id 
+           and ur.phase_id = 113) as dev_rating
+     , lower(u.handle) as lower_handle
+     , (select max(n.modify_date) from note n, user_note_xref x where x.note_id = n.note_id and x.user_id = u.user_id and n.note_type_id = 5) as most_recent_note
+  from common_oltp:user_preference up
+     , user u
+     , rating r
+     , country co
+     , coder c
+     , user_address_xref x
+     , address a
+ where up.preference_id in (2,7)
+   and u.user_id = up.user_id
+   and u.user_id = r.coder_id
+   and u.user_id = c.coder_id
+   and x.address_id = a.address_id
+   and a.address_type_id = 2
+   and a.country_code = co.country_code
+   and x.user_id = u.user_id
+ order by 9 desc, co.country_name asc, algorithm_rating desc

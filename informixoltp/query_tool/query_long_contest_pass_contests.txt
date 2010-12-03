@@ -1,0 +1,31 @@
+SELECT ct.contest_id
+     , r.round_id
+     , rs.start_time
+     , rs.end_time
+     , r.status
+     , r.name AS round_name
+     , round_type_id
+     , ct.name AS contest_name 
+     , (select count(*) from round_registration where round_id = r.round_id) as num_registrants
+     , (select count(*) from long_comp_result where round_id = r.round_id and attended = 'Y') as num_competitors
+     , p.path || i.file_name as file_path
+     , i.height
+     , i.width
+     , i.link
+     , r.forum_id
+     , (select count(*) from long_component_state cs, long_submission s where s.example = 0 and s.long_component_state_id = cs.long_component_state_id and cs.round_id = r.round_id) as submission_count
+  FROM round_segment rs
+     , round r
+     , contest ct 
+     , OUTER (round_image_xref rix, OUTER (image i, OUTER path p)) 
+ WHERE ct.contest_id = r.contest_id 
+   AND rs.round_id = r.round_id 
+   AND rs.segment_id = 2 
+   AND r.round_type_id = @rt@
+   AND current > end_time 
+   and rix.round_id = r.round_id
+   and rix.image_id = i.image_id
+   and i.path_id = p.path_id
+   and rix.display_flag = 1
+   and i.image_type_id = 16
+ ORDER BY start_time desc

@@ -1,0 +1,9 @@
+SELECT c.coder_id
+       ,c.handle
+       ,r.rating
+  FROM coder c, rating r, active_members a
+ WHERE c.coder_id = r.coder_id
+   AND c.status = 'A'
+   AND r.rating > 1199
+   AND a.coder_id = c.coder_id
+ ORDER BY r.rating DESC

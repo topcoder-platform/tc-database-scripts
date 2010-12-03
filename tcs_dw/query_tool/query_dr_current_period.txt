@@ -1,0 +1,18 @@
+select season_id seid, stage_id staid from stage
+where stage_id = (select max(p.stage_id) 
+	from project_result pr, project p
+	where pr.final_points is not null 
+	and pr.final_points > 0
+	and pr.project_id = p.project_id 
+	and pr.valid_submission_ind = 1 
+	and pr.rating_ind = 1)
+
+-- select
+--    season_id seid, stage_id staid
+-- from
+--    stage s, calendar c1, calendar c2 
+-- where 
+--    s.start_calendar_id = c1.calendar_id and 
+--    s.end_calendar_id = c2.calendar_id and 
+--    c1.date <= DATE(current) and 
+--    c2.date >= DATE(current)

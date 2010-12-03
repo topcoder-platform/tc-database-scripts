@@ -1,0 +1,12 @@
+select count(*) as total
+from jiraissue i,
+     resolution res,
+     issuestatus status
+where i.resolution = res.id
+  and i.issuestatus = status.id
+  and status.id in (5,6,10,11,12)
+  and res.id in (1,12,11,7,10,8,9)
+  and trim(lower(i.reporter)) = lower('@ha@')
+  and i.project = 10021 -- bug race project
+;
+  

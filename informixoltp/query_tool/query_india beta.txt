@@ -1,0 +1,30 @@
+select
+  u.handle, u.email as email_address
+from
+  user u,
+  coder c,
+  rating r,
+  practice_room_result rr
+where
+  u.user_id = c.coder_id and
+  r.coder_id = c.coder_id and
+  c.country_code = '356' and
+  rr.coder_id = c.coder_id and
+  u.status = 'A'
+group by 1,2
+having count(*) > 1
+union
+select
+  u.handle, u.email as email_address
+from
+  user u,
+  coder c,
+  rating r,
+  room_result rr
+where
+  u.user_id = c.coder_id and
+  r.coder_id = c.coder_id and
+  c.country_code = '356' and
+  rr.coder_id = c.coder_id and
+  u.status = 'A'
+group by 1,2

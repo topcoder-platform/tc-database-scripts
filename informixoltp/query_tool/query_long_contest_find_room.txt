@@ -1,0 +1,4 @@
+select room_id
+  from room
+ where round_id = @rd@
+   and room_type_id = 2

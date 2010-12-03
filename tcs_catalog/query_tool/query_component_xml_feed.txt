@@ -1,0 +1,25 @@
+select cc.component_name as name
+     , cc.create_time as created
+     , cc.short_desc as shortdesc
+     , cc.description as description
+     , 'http://software.topcoder.com/tcs?module=ViewComponentTerms&comp=' || cc.component_id || '&ver=' || cv.version as downloadpage
+     , 'http://software.topcoder.com/catalog/c_component.jsp?comp=' || cc.component_id || '&ver=' || cv.version as homepage
+     , 'http://forums.topcoder.com/?module=Category&categoryID=' || jive.jive_category_id as mailinglist
+     , cv.issue_tracker_path
+     , component_developer(cc.component_id) as developer
+     , cc.component_id -- as siteLocalPermId
+     , component_versions(cc.component_id) as versions
+     , cv.browse
+     , cv.location
+     , cv.revision 
+     , cv.version_text
+     , categories(cv.comp_vers_id) as category_list
+  from comp_catalog cc
+     , comp_versions cv
+     , categories cat
+     , comp_jive_category_xref jive
+ where cc.component_id = cv.component_id
+   and cc.root_category_id = cat.category_id
+   and cat.viewable = 1
+   and cc.current_version = cv.version
+   and cv.comp_vers_id = jive.comp_vers_id

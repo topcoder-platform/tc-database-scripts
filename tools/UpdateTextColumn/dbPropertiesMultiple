@@ -1,0 +1,4 @@
+axcgffd|bsdfd
+dbProperties|UPDATE TESTTB SET DESCRIPTION=? where ID='1'
+dbProperties1|UPDATE TESTTB SET DESCRIPTION=? where ID='2'
+dbProperties2|UPDATE TESTTB SET DESCRIPTION=? where ID='3'

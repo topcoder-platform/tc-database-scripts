@@ -1,0 +1,3 @@
+select u.handle, e.address as email_address from user u, email e
+ where handle in ('thesilentkiller','notmasteryet','LiuYuChen','crystal_xmy','bodhi','edans','loopman','Yi_Zhang','nim','borysb','akjs123','NetCoderCN','shalinmangar','abiczo','qzs')
+and e.user_id = u.user_id

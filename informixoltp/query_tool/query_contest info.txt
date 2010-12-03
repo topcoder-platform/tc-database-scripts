@@ -1,0 +1,6 @@
+select c.name || ' ' || r.name as name
+     , r.round_id
+  from contest c
+     , round r
+ where r.contest_id = c.contest_id
+   and r.round_id = @rd@

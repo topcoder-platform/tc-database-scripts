@@ -1,0 +1,8 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+ WHERE u.status = 'A'
+   AND u.user_id IN (SELECT cn.coder_id
+                       FROM coder_notify cn
+                      WHERE notify_id in (5))
+   and not exists (select '1' from response where user_id = u.user_id and question_id = 3262)

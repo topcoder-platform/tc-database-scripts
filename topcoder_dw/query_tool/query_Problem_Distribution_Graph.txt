@@ -1,0 +1,50 @@
+SELECT
+  sum(case when cp.final_points >= p.points*0.300 and cp.final_points < p.points*0.323 then 1 else 0 end) as group00
+  ,sum(case when cp.final_points >= p.points*0.323 and cp.final_points < p.points*0.347 then 1 else 0 end) as group01
+  ,sum(case when cp.final_points >= p.points*0.347 and cp.final_points < p.points*0.370 then 1 else 0 end) as group02
+  ,sum(case when cp.final_points >= p.points*0.370 and cp.final_points < p.points*0.393 then 1 else 0 end) as group03
+  ,sum(case when cp.final_points >= p.points*0.393 and cp.final_points < p.points*0.417 then 1 else 0 end) as group04
+  ,sum(case when cp.final_points >= p.points*0.417 and cp.final_points < p.points*0.440 then 1 else 0 end) as group05
+  ,sum(case when cp.final_points >= p.points*0.440 and cp.final_points < p.points*0.463 then 1 else 0 end) as group06
+  ,sum(case when cp.final_points >= p.points*0.463 and cp.final_points < p.points*0.487 then 1 else 0 end) as group07
+  ,sum(case when cp.final_points >= p.points*0.487 and cp.final_points < p.points*0.510 then 1 else 0 end) as group08
+  ,sum(case when cp.final_points >= p.points*0.510 and cp.final_points < p.points*0.533 then 1 else 0 end) as group09
+  ,sum(case when cp.final_points >= p.points*0.533 and cp.final_points < p.points*0.557 then 1 else 0 end) as group10
+  ,sum(case when cp.final_points >= p.points*0.557 and cp.final_points < p.points*0.580 then 1 else 0 end) as group11
+  ,sum(case when cp.final_points >= p.points*0.580 and cp.final_points < p.points*0.603 then 1 else 0 end) as group12
+  ,sum(case when cp.final_points >= p.points*0.603 and cp.final_points < p.points*0.627 then 1 else 0 end) as group13
+  ,sum(case when cp.final_points >= p.points*0.627 and cp.final_points < p.points*0.650 then 1 else 0 end) as group14
+  ,sum(case when cp.final_points >= p.points*0.650 and cp.final_points < p.points*0.673 then 1 else 0 end) as group15
+  ,sum(case when cp.final_points >= p.points*0.673 and cp.final_points < p.points*0.697 then 1 else 0 end) as group16
+  ,sum(case when cp.final_points >= p.points*0.697 and cp.final_points < p.points*0.720 then 1 else 0 end) as group17
+  ,sum(case when cp.final_points >= p.points*0.720 and cp.final_points < p.points*0.743 then 1 else 0 end) as group18
+  ,sum(case when cp.final_points >= p.points*0.743 and cp.final_points < p.points*0.767 then 1 else 0 end) as group19
+  ,sum(case when cp.final_points >= p.points*0.767 and cp.final_points < p.points*0.790 then 1 else 0 end) as group20
+  ,sum(case when cp.final_points >= p.points*0.790 and cp.final_points < p.points*0.813 then 1 else 0 end) as group21
+  ,sum(case when cp.final_points >= p.points*0.813 and cp.final_points < p.points*0.837 then 1 else 0 end) as group22
+  ,sum(case when cp.final_points >= p.points*0.837 and cp.final_points < p.points*0.860 then 1 else 0 end) as group23
+  ,sum(case when cp.final_points >= p.points*0.860 and cp.final_points < p.points*0.883 then 1 else 0 end) as group24
+  ,sum(case when cp.final_points >= p.points*0.883 and cp.final_points < p.points*0.907 then 1 else 0 end) as group25
+  ,sum(case when cp.final_points >= p.points*0.907 and cp.final_points < p.points*0.930 then 1 else 0 end) as group26
+  ,sum(case when cp.final_points >= p.points*0.930 and cp.final_points < p.points*0.953 then 1 else 0 end) as group27
+  ,sum(case when cp.final_points >= p.points*0.953 and cp.final_points < p.points*0.977 then 1 else 0 end) as group28
+  ,sum(case when cp.final_points >= p.points*0.977 and cp.final_points < p.points*1.000 then 1 else 0 end) as group29
+  ,p.class_name as name
+  ,p.points as points
+FROM
+  problem p,
+  coder_problem cp,
+  coder c
+WHERE
+  cp.problem_id=@pm@ and
+  p.problem_id = cp.problem_id and
+  cp.division_id = @dn@ and
+  p.division_id = @dn@ and
+  cp.coder_id = c.coder_id and
+  p.division_id = cp.division_id and
+  p.round_id = cp.round_id and 
+  p.round_id = @rd@ and 
+  c.status = 'A'
+GROUP BY
+  p.class_name,
+  p.points

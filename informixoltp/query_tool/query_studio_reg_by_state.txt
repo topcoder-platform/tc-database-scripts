@@ -1,0 +1,12 @@
+select a.state_code
+     , count(*) as total
+     , sum(case when u.status = 'A' then 1 else 0 end) as activated
+from user u, user_group_xref x, address a, user_address_xref uax
+where u.user_id = x.login_id and u.user_id= uax.user_id
+ and uax.address_id = a.address_id
+ and a.country_code = '840'
+  and a.address_type_id = 2
+and x.group_id = 14
+and x.security_status_id = 1
+group by 1
+order by 2 desc

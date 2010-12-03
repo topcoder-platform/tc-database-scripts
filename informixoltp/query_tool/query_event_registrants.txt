@@ -1,0 +1,8 @@
+select u.handle
+     , u.first_name
+     , u.last_name
+  from user u
+     , event_registration er
+ where er.user_id = u.user_id
+   and er.event_id = @eid@
+   and er.eligible_ind = 1

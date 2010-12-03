@@ -1,0 +1,18 @@
+SELECT u.user_id
+     , il.seed
+     , u.handle
+     , ra.rating
+     , rr.point_total as points
+     , lower(handle) as handle_sort
+  FROM user u
+     , room_result rr
+     , invite_list il
+     , rating ra
+ WHERE rr.coder_id = il.coder_id
+   AND il.coder_id = u.user_id
+   AND il.round_id = rr.round_id
+   AND rr.round_id = @rd@
+   AND rr.advanced = 'Y'
+   AND rr.coder_id = il.coder_id
+   AND u.user_id = ra.coder_id
+ order by points desc

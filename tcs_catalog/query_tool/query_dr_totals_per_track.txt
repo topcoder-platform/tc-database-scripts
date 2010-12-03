@@ -1,0 +1,43 @@
+select t.track_desc, dp.reference_id, 
+       case when dp.dr_points_reference_type_id = 1 then pi.value when dp.dr_points_reference_type_id = 3 then c.name end as contest, 
+       pcl.name as category,
+       cat.category_name as catalog,
+       sum(dp.amount) as awarded_points, 0 as potential_points
+from dr_points dp, track t, outer(project p, project_info pi, project_category_lu pcl, project_info pi_cat, categories cat), outer studio_oltp:contest c
+where dp.track_id = @trid@
+and not dp.is_potential
+and t.track_id = dp.track_id
+and dp.reference_id = p.project_id
+and p.project_id = pi.project_id
+and pi.project_info_type_id = 6
+and p.project_id = pi_cat.project_id
+and pi_cat.project_info_type_id = 5
+and cat.category_id = pi_cat.value
+and p.project_category_id = pcl.project_category_id
+and c.contest_id = dp.reference_id
+group by 1, 2, 3, 4, 5
+union
+select distinct t.track_desc, dp.reference_id, 
+       case when dp.dr_points_reference_type_id = 1 then pi.value when dp.dr_points_reference_type_id = 3 then c.name end as contest, 
+       pcl.name as category,
+       cat.category_name as catalog,
+       0 as awarded_points, 
+       case when dp.dr_points_reference_type_id = 1 then nvl(pi_dr.value::decimal, pi_price.value::decimal) when dp.dr_points_reference_type_id = 3 then cc.property_value::decimal end as potential_points
+from dr_points dp, track t, outer(project p, project_info pi, project_category_lu pcl, project_info pi_cat, categories cat, outer project_info pi_dr, outer project_info pi_price), outer(studio_oltp:contest c, studio_oltp:contest_config cc)
+where dp.track_id = @trid@
+and dp.is_potential
+and t.track_id = dp.track_id
+and dp.reference_id = p.project_id
+and p.project_id = pi.project_id
+and pi.project_info_type_id = 6
+and p.project_id = pi_cat.project_id
+and pi_cat.project_info_type_id = 5
+and cat.category_id = pi_cat.value
+and p.project_category_id = pcl.project_category_id
+and p.project_id = pi_dr.project_id
+and pi_dr.project_info_type_id = 30
+and p.project_id = pi_price.project_id
+and pi_price.project_info_type_id = 16
+and c.contest_id = dp.reference_id
+and c.contest_id = cc.contest_id
+and cc.property_id = 24

@@ -1,0 +1,9 @@
+select distinct u.handle, e.address AS email_address
+from vsign_oltp:user u, vsign_oltp:email e
+where u.user_id = e.user_id
+and u.status = 'A'
+and u.modify_date > '2006-11-01 00:00:00'
+and u.user_id NOT IN
+(select u.user_id 
+from vsign_oltp:user u, vsign_oltp:group_user g
+where g.group_id in (13,14) and u.user_id = g.user_id)

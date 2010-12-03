@@ -1,0 +1,15 @@
+select u.handle
+     , (select response from response where question_id = 50 and user_id = u.user_id) as handle
+     , (select response from response where question_id = 51 and user_id = u.user_id) as name
+  from user u
+ where ((u.user_id in (select user_id from user where handle in ('liympanda','nemesis_nitt','SnapDragon','tomek','darnley','Vasyl(alphacom)','jakubr','ACRush','Eryx',
+'JongMan','Ying','Andrew_Lazarev','Per','Vitaliy','halyavin','Gluk','abikbaev','andrewzta','VitalyGoldstein',
+'gevak','marian','w_','lars','yava','bladerunner','cyfra','bmerry','marek.cygan','tmyklebu','msg555',
+'Vedensky','tomekkulczynski','falagar','Revenger','ante','wleite','gawry','ltdtl','pashka','xOberon',
+'nima.ahmadi','gunnark','Astein','tteesstt','misof','dmytro','Tomy','Klinck','ploh','lovro','sghao126',
+'nicka81','xhl_kogitsune','Jan_Kuipers','HiltonLange','Petr','OpenGL','A.I.R.','_efer_','ainu7'))
+    or u.user_id in (select user_id from user where handle in 
+('argolite','kyky','Pops','AleaActaEst','kakarotto','urtks','MiG-29','bendlund','biotrail',
+'magicpig','PE','zsudraco','bbskill','cnettel','enefem21','hefeng'))
+    or u.user_id in (select user_id from user where handle in 
+('Mojito1','doudouille','saarixx','grotmol','Maris','.Invader','prober','jdmetz', 'amiune', 'FMX', 'Maraqja', 'oton', 'SIGCHLD', 'Tricia_Tjia', 'yiming'))))

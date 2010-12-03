@@ -1,0 +1,19 @@
+select u.handle, u.email as email_address
+from email_user u where lower(u.handle) in (
+'argolite',
+'aleaactaest',
+'zsudraco',
+'standlove',
+'saevio',
+'fabrizyo',
+'ghostar',
+'prunthaban',
+'nebula.lam',
+'rachaellcook',
+'minhu',
+'evilisneo',
+'yeung',
+'kkkk9',
+'elkhawajah',
+'moonli',
+'kurtrips')

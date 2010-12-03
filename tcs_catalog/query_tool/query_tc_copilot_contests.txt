@@ -1,0 +1,25 @@
+select unique tdp.project_id as tc_direct_project_id, tdp.name as tc_direct_project_name, 
+p.project_id as contest_id, pi6.value as contest_name,
+ri1.value as copilot_userid, ri2.value as copilot_handle
+
+from user_permission_grant upg, tc_direct_project tdp, project_info pi6,
+project p 
+left outer join resource r on (r.project_id = p.project_id and r.resource_role_id = 14)
+left outer join resource_info ri1 on (r.resource_id = ri1.resource_id and ri1.resource_info_type_id = 1)
+left outer join resource_info ri2 on (r.resource_id = ri2.resource_id and ri2.resource_info_type_id = 2)
+
+where tdp.project_id = upg.resource_id
+
+and upg.user_id = @uid@
+
+and upg.permission_type_id in (1,2,3)
+
+and tdp.project_status_id = 1
+
+and p.tc_direct_project_id = tdp.project_id
+
+and p.project_id = pi6.project_id and pi6.project_info_type_id = 6
+
+and p.project_category_id != 27 and p.project_status_id != 3
+
+order by tc_direct_project_name

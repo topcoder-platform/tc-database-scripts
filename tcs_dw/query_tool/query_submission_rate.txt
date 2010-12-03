@@ -1,0 +1,9 @@
+select sum(submit_ind) as inquire_and_submit
+, count(*) as inquire_total
+, round(case when count(*) = 0 then 0 else sum(submit_ind) / count(*) * 100 end, 1) || '%' as percentage
+from project_result
+where inquire_timestamp is not null
+and user_id in (select coder_id
+  from coder
+  where member_since > today - (@days@) units day
+)

@@ -1,0 +1,26 @@
+select EXTEND(sub.submission_date, year to month)  Submission_month, 
+            category_name,
+           pt.project_type_name,            
+            count(unique cv.comp_vers_id) NumberOfProjects,
+            count(*) submissions, 
+            sum(advanced_to_review) toReview,
+            decode(sum(advanced_to_review), 0, 0, sum(final_score)/sum(advanced_to_review)) avgfinalscore
+   from submission sub, 
+            project p, 
+            comp_versions cv, 
+            comp_catalog cc, 
+            categories c,
+            project_Type pt
+where 1=1
+and cc.root_category_id = c.category_id
+and cc.component_id = cv.component_id
+and cv.comp_vers_id = p.comp_vers_id
+and p.project_id = sub.project_id
+and p.cur_version = 1
+and sub.cur_version = 1
+and sub.submission_type = 1
+and sub.is_removed = 0
+and sub.submission_date  >= CURRENT - 6 UNITS MONTH
+and p.project_type_id = pt.project_type_id
+group by category_name, 1, pt.project_type_name 
+order by 1,    category_name

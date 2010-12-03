@@ -1,0 +1,18 @@
+SELECT c2.component_id,
+       v2.comp_vers_id,
+       v2.version,
+       c2.component_name, 
+       v2.version_text
+  FROM comp_dependencies d, 
+       comp_catalog c1,
+       comp_catalog c2, 
+       comp_versions v1,
+       comp_versions v2
+ WHERE c1.component_id = v1.component_id
+   AND v1.comp_vers_id = d.comp_vers_id
+   AND v2.comp_vers_id = d.child_comp_vers_id
+   AND c2.component_id = v2.component_id
+   AND c1.component_id = @cd@
+   AND c1.current_version = v1.version    
+ ORDER BY 4;
+ 

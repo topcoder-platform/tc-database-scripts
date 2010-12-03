@@ -1,0 +1,13 @@
+SELECT 'Registration ends: ' \|\| c.end_time \|\| '<br />'  \|\| 
+      'Submission ends: ' \|\| c.end_time \|\| '<br />'  \|\| 
+      'Purse: $' \|\|  round(nvl((select sum(p.amount) from prize p, contest_prize_xref x where x.prize_id = p.prize_id and x.contest_id = c.contest_id)::decimal, 0)) \|\| '<br />'  \|\| 
+      (select cc.property_value e from contest_config cc where cc.contest_id = c.contest_id and cc.property_id = 1) as description
+     , 'http://studio.topcoder.com/?module=ViewContestDetails&ct=' \|\| c.contest_id as link
+     , c.name as title
+     , c.contest_id as guid
+  FROM contest c   
+ WHERE 
+   current between c.start_time and c.end_time
+--   and c.contest_status_id = 2
+   and c.name like '%REMIX%'
+   order by c.end_time desc

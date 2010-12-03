@@ -1,0 +1,22 @@
+SELECT r.round_id AS round_id
+     , p.problem_id AS problem_id
+     , c.name AS contest_name
+     , r.name AS round_name
+     , p.class_name AS problem_name
+     , r.round_type_id
+     , (SELECT COUNT(coder_id)
+          FROM long_comp_result lcr
+         WHERE lcr.round_id = r.round_id
+           AND attended = 'Y') AS num_competitors
+     , (SELECT COUNT(coder_id)
+          FROM long_comp_result lcr
+         WHERE lcr.round_id = r.round_id) AS num_registrants
+     , (SELECT AVG(lcr.num_submissions)
+          FROM long_comp_result lcr
+         WHERE lcr.round_id = r.round_id) AS avg_submissions
+  FROM round r
+  JOIN problem p
+    ON p.round_id = r.round_id
+  LEFT JOIN contest c
+    ON c.contest_id = r.contest_id
+ WHERE r.round_id = @rd@

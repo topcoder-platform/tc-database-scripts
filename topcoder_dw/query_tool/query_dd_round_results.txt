@@ -1,0 +1,78 @@
+select r.room_id
+     , r.name as room_name
+     , c.coder_id
+     , c.handle
+     , rr.paid
+     , rr.old_rating
+     , rr.new_rating
+     , rh.vol as new_vol
+     , rr.num_ratings
+     , rr.room_placed
+     , rr.division_placed
+     , rr.advanced
+     , rr.challenge_points
+     , rr.system_test_points
+     , rr.defense_points
+     , rr.submission_points
+     , rr.final_points
+     , rr.division_id as division
+     , rr.problems_presented
+     , rr.problems_submitted
+     , rr.problems_correct
+     , rr.problems_failed_by_system_test
+     , rr.problems_failed_by_challenge
+     , rr.problems_opened
+     , rr.problems_left_open
+     , rr.challenge_attempts_made
+     , rr.challenges_made_successful
+     , rr.challenges_made_failed
+     , rr.challenge_attempts_received
+     , rr.challenges_received_successful
+     , rr.challenges_received_failed
+     , rr.rated_flag
+     , cp1.problem_id as level_one_problem_id
+     , cp1.submission_points as level_one_submission_points
+     , cp1.final_points as level_one_final_points
+     , cp1.end_status_text as level_one_status
+     , cp1.time_elapsed as level_one_time_elapsed
+     , cp1.placed as level_one_placed
+     , lu1.language_name as level_one_language
+     , cp2.problem_id as level_two_problem_id
+     , cp2.submission_points as level_two_submission_points
+     , cp2.final_points as level_two_final_points
+     , cp2.end_status_text as level_two_status
+     , cp2.time_elapsed as level_two_time_elapsed
+     , cp2.placed as level_two_placed
+     , lu2.language_name as level_two_language
+     , cp3.problem_id as level_three_problem_id
+     , cp3.submission_points as level_three_submission_points
+     , cp3.final_points as level_three_final_points
+     , cp3.end_status_text as level_three_status
+     , cp3.time_elapsed as level_three_time_elapsed
+     , cp3.placed as level_three_placed
+     , lu3.language_name as level_three_language
+from room_result rr
+     , room r
+     , coder c
+     , rating_history rh
+     , OUTER(coder_problem cp1, language_lu lu1)
+     , OUTER(coder_problem cp2, language_lu lu2)
+     , OUTER(coder_problem cp3, language_lu lu3)
+where rr.round_id = @rd@
+     and rr.attended = 'Y'
+     and r.room_id = rr.room_id
+     and c.coder_id = rr.coder_id
+     and rh.coder_id = c.coder_id
+     and rh.round_id = rr.round_id
+     and cp1.round_id = rr.round_id
+     and cp1.coder_id = c.coder_id
+     and cp1.level_id = 1
+     and lu1.language_id = cp1.language_id
+     and cp2.round_id = rr.round_id
+     and cp2.coder_id = c.coder_id
+     and cp2.level_id = 2
+     and lu2.language_id = cp2.language_id
+     and cp3.round_id = rr.round_id
+     and cp3.coder_id = c.coder_id
+     and cp3.level_id = 3
+     and lu3.language_id = cp3.language_id

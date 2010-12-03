@@ -1,0 +1,4 @@
+select distinct u.email as email_address, u.handle from user_achievement ua, email_user u
+where u.user_id = ua.user_id
+and ua.achievement_type_id in (1, 5,6,7)
+and ua.achievement_date < mdy(8,1,2007)

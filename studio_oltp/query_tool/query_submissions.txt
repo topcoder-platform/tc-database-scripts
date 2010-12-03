@@ -1,0 +1,38 @@
+select u.user_id
+     , s.submission_id
+     , u.handle_lower
+     , ft.image_file_ind=1 as is_image
+     , s.create_date
+     , s.width
+     , s.height
+     , cr.final_score
+     , sr.review_status_id
+     , (select cc.property_value from contest_config cc where cc.contest_id = c.contest_id and cc.property_id = 10) as require_preview_image
+     , (select cc.property_value from contest_config cc where cc.contest_id = c.contest_id and cc.property_id = 11) as require_preview_file
+     , c.contest_channel_id
+     , (select count(*)
+        from submission_image si, image i
+        where si.submission_id = s.submission_id
+        and si.image_id = i.image_id
+        and i.image_type_id = 30) as gallery_image_count
+     , c.contest_id
+     , s.award_milestone_prize
+     , NVL(s.feedback_text, '') as feedback_text
+from submission s
+     , user u
+     , mime_type_lu mt
+     , file_type_lu ft
+     , contest c
+     , submission_review sr
+     , outer contest_result cr
+where s.submitter_id = u.user_id
+   and s.mime_type_id = mt.mime_type_id
+   and mt.file_type_id = ft.file_type_id
+   and s.contest_id = @ct@
+   and s.submission_id = sr.submission_id
+   and s.rank <= @srank@
+   and s.contest_id = c.contest_id
+   and s.submission_id = cr.submission_id
+   -- only submissions that pass screening are shown. (Failed, Cheated are filtered)
+   and sr.review_status_id = 1
+order by cr.final_score desc

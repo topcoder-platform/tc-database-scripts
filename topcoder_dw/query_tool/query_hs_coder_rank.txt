@@ -1,0 +1,11 @@
+SELECT sr.coder_id, sr.rating, t.team_id, t.name, sk.rank, c.handle, t.name team
+FROM season_algo_rating sr
+    , season_rank sk
+    , coder c
+    , outer (team_coder_xref tc, team t)
+WHERE sr.season_id =@snid@
+  and c.coder_id = sr.coder_id
+  and sr.coder_id = tc.coder_id
+  and sr.coder_id = sk.coder_id
+  and sr.season_id = sk.season_id
+and  tc.team_id = t.team_id AND t.team_type = 4

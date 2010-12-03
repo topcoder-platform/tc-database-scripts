@@ -1,0 +1,52 @@
+select u.handle
+     , (select response from response where question_id = 39 and user_id = u.user_id) as newspaper
+     , (select response from response where question_id = 40 and user_id = u.user_id) as radio
+     , (select response from response where question_id = 41 and user_id = u.user_id) as tv
+     , a.address1
+     , a.address2
+     , a.address3
+     , a.city
+     , a.state_code
+     , a.zip
+     , a.province
+     , co.country_name
+  from user u
+     , coder c
+     , coder_type ct
+     , outer (demographic_response dr1,demographic_answer da1)
+     , outer (demographic_response dr2,demographic_answer da2)
+     , outer demographic_response dr3
+     , outer (demographic_response dr4,demographic_answer da4)
+     , outer (current_school cs, school s)
+     , user_address_xref uax
+     , address a
+     , country co
+ where da1.demographic_question_id = 16
+   and da1.demographic_question_id = dr1.demographic_question_id
+   and da1.demographic_answer_id = dr1.demographic_answer_id
+   and dr1.user_id = u.user_id
+   and da2.demographic_question_id = 17
+   and da2.demographic_question_id = dr2.demographic_question_id
+   and da2.demographic_answer_id = dr2.demographic_answer_id
+   and dr2.user_id = u.user_id
+   and dr3.user_id = u.user_id
+   and dr3.demographic_question_id = 14
+   and c.coder_id = u.user_id
+   and cs.coder_id = u.user_id
+   and cs.school_id = s.school_id
+   and c.coder_type_id = ct.coder_type_id
+   and uax.user_id =u.user_id
+   and uax.address_id = a.address_id
+   and a.address_type_id = 2
+   and a.country_code = co.country_code
+   and da4.demographic_question_id = 15
+   and da4.demographic_question_id = dr4.demographic_question_id
+   and da4.demographic_answer_id = dr4.demographic_answer_id
+   and dr4.user_id = u.user_id
+   and (
+	u.handle in ('AleaActaEst','bramandia','Luca','nicka81','kakarotto','sql_lall','urtks','Vovka')
+    or  u.handle in ('serine','catcher','enefem21','fanse','lyt','PE','Yeung')
+    or  u.handle in ('abedavera','amiune','Maraqja','oton','SIGCHLD','Tricia_Tjia','vlad_D')
+    or u.user_id in (select coder_id from room_result where round_id = 10924 and advanced = 'Y')
+    or u.user_id in (select coder_id from long_comp_result where round_id = 10502 and advanced = 'Y')
+    )

@@ -1,0 +1,51 @@
+select c.name
+     , nvl((select max(cl.name) from time_oltp:project p, time_oltp:client_project clp, time_oltp:client cl where p.project_id = clp.project_id and clp.client_id = cl.client_id and p.po_box_number = cp.sale_reference_id), 'Self-Serviced') as client
+     , conf1.property_value as user
+     , '<a href=http://studio.topcoder.com/?module=ViewContestDetails&ct=' \|\| c.contest_id \|\| '>' \|\| c.contest_id \|\| '</a>' as contest_link
+     , ct.contest_type_desc contest_type
+     , cc.contest_channel_desc contest_origin
+     , cs.contest_status_desc status
+     , ds.contest_detailed_status_desc cockpit_status
+     , c.end_time
+     , cp.price as contest_fee
+     , cp.paypal_order_id as contest_fee_trans_id
+     , CASE WHEN cp.sale_type_id = 1 THEN 'Credit Card' ELSE 'PO' END as contest_fee_payment_method
+     , MAX(( select sum(nvl(p.amount, 0)) from prize p, contest_prize_xref cpx where cpx.contest_id = c.contest_id  and cpx.prize_id = p.prize_id )) total_potential_prizes
+     , max(( select sum(p.amount) from submission_prize_xref sp, submission s, prize p where sp.submission_id = s.submission_id and sp.prize_id = p.prize_id and s.contest_id = c.contest_id )) total_prizes_awarded
+     , MAX((select sum(cmp.amount) from contest_milestone_prize cmp where c.contest_milestone_prize_id = cmp.contest_milestone_prize_id )) as potential_milestone_prizes
+     , MAX((select sum(cmp.amount) from submission_milestone_prize_xref smpx, submission s2, contest_milestone_prize cmp where smpx.submission_id = s2.submission_id and smpx.contest_milestone_prize_id = cmp.contest_milestone_prize_id and s2.contest_id = c.contest_id)) as milestone_prizes_awarded
+     , max(conf2.property_value) studio_cup_points
+     , max((select count(submission_id) from submission where contest_id = c.contest_id and submission_status_id = 1)) num_subs
+     , max((select count(s2.submission_id) from submission s2, submission_review sr where s2.submission_id = sr.submission_id and sr.review_status_id = 1 and s2.contest_id = c.contest_id)) num_passing_subs
+     , max((select count(sp.submission_id)
+        from submission_payment sp, 
+             submission s2 
+       where sp.submission_id = s2.submission_id 
+         and s2.contest_id = c.contest_id 
+         and sp.payment_status_id = 1)) num_purchased
+     , max((CASE WHEN ds.contest_detailed_status_id = 8 THEN 'YES' ELSE 'NO' END)) winner_picked
+     , min ((select min(create_date) from contest_result where contest_id = c.contest_id)) winner_picked_date
+     , max(( select max(sp.paypal_order_id) from submission_payment sp, submission s where sp.submission_id = s.submission_id and s.contest_id = c.contest_id )) as submission_payment_trans_id
+     , max(( select (CASE WHEN max(sp.sale_type_id) = 1 THEN 'Credit Card' ELSE 'PO' END ) from submission_payment sp, submission s where sp.submission_id = s.submission_id and s.contest_id = c.contest_id )) as submission_payment_method
+     , max('<a href=http://www.topcoder.com/tc?module=LegacyReport&t=new_report&c=studio_billing_modified_detail&db=java:JTS_STUDIO_OLTP&ct=' \|\| c.contest_id \|\| '>details</a>') as pacts_details
+     , c.contest_id as contest_id
+  from contest c LEFT OUTER JOIN contest_detailed_status_lu ds ON c.contest_detailed_status_id = ds.contest_detailed_status_id
+     , contest_type_lu ct
+     , contest_channel_lu cc
+     , contest_status_lu cs
+     , contest_config conf1
+     , contest_config conf2
+     , contest_payment cp
+where 1=1 
+  and c.contest_status_id in (2, 4, 10, 11)
+  and c.contest_type_id = ct.contest_type_id
+  and c.contest_channel_id = cc.contest_channel_id
+  and c.contest_status_id = cs.contest_status_id
+  and c.contest_id = conf1.contest_id
+  and conf1.property_id = 22
+  and c.contest_id = conf2.contest_id
+  and conf2.property_id = 24
+  and c.end_time >= (today - @days@)
+  and c.contest_id = cp.contest_id
+group by 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 26
+order by 9 desc

@@ -1,0 +1,11 @@
+select 
+   count(*) remaining_contests 
+from 
+   contest c, contest_project_xref cpx, project_result pr
+where 
+   c.contest_id = cpx.contest_id
+   and c.contest_type_id = 26
+   and pr.project_id = cpx.project_id
+   and pr.user_id = @uid@
+   and cpx.project_id not in (
+      select project_id from project_wager pw where pw.user_id = @uid@)

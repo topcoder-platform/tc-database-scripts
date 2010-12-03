@@ -1,0 +1,14 @@
+select e.address AS email_address, u.handle
+  from coder c, email e, user_address_xref uax, address a , email_user u, demographic_response dr, user_notify_xref unx where u.user_id = c.coder_id  and u.status = 'A'
+ and u.user_id = uax.user_id
+ and uax.address_id = a.address_id
+and a.state_code in ('ME','NH','VT','MA','CT','RI','NY','NJ','PA')
+and a.country_code = '840'
+and a.address_type_id= 2
+and e.user_id = u.user_id
+ and e.primary_ind = 1
+and c.coder_type_id = 1
+and dr.user_id = u.user_id
+ and dr.demographic_answer_id = 8
+and unx.user_id = u.user_id
+ and unx.notify_id = 3

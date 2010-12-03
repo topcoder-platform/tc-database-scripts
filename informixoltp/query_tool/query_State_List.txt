@@ -1,0 +1,3 @@
+
+SELECT state_code
+  FROM state

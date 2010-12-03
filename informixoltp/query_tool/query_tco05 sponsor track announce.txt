@@ -1,0 +1,11 @@
+select u.handle
+     , u.email as email_address
+  from demographic_response dr
+     , email_user u
+ where (lower(dr.demographic_response) like '%yahoo%'
+    or lower(dr.demographic_response) like '%sun m%')
+   and coder_id not in (276230, 10421849,10421852)
+   and dr.coder_id = u.user_id
+   and   exists  (
+    select * from coder_notify cn
+    where cn.coder_id = u.user_id and cn.notify_id in (1,5))

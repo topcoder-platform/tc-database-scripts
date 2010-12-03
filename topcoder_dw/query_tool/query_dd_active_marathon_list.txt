@@ -1,0 +1,15 @@
+select c.coder_id
+     , c.handle
+     , ct.country_name
+     , r.rating as mar_rating
+     , r.vol as mar_vol
+     , r.num_ratings as mar_num_ratings
+from coder c
+   , algo_rating r
+   , country ct
+   , active_members a
+where r.coder_id = c.coder_id
+  and ct.country_code = c.comp_country_code
+  and c.status = 'A'
+  and c.coder_id = a.coder_id 
+  and r.algo_rating_type_id = 3

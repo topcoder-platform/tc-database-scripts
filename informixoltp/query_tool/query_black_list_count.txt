@@ -1,0 +1,2 @@
+select count(*) from member_contact_black_list 
+where blocked_ind = 1

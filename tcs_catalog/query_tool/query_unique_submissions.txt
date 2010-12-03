@@ -1,0 +1,7 @@
+select pt.project_type_name, count(unique s.submitter_id),
+    from project p,
+         submission s,
+         project_type pt
+  where p.project_id = s.project_id 
+    and pt.project_type_id = p.project_type_id
+group by pt.project_type_name

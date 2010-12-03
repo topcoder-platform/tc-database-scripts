@@ -1,0 +1,21 @@
+select distinct e.address as email_address
+     , u.handle
+  from tcs_catalog:rboard_user ru
+     , common_oltp:email e
+     , common_oltp:email_user u
+ where ru.status_id = 100
+   and ru.user_id = e.user_id
+   and u.user_id = e.user_id
+   and e.primary_ind = 1
+   and ru.catalog_id in (1, 2)
+   
+--   select distinct e.address as email_address
+--     , u.handle
+--  from tcs_catalog:rboard_user ru
+--     , common_oltp:email e
+--     , common_oltp:email_user u
+-- where ru.status_id = 100
+--   and ru.user_id = e.user_id
+--   and u.user_id = e.user_id
+--   and e.primary_ind = 1
+--   and (java_ind=1 or net_ind=1)

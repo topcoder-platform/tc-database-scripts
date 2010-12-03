@@ -1,0 +1,24 @@
+select u.user_id
+     , min(q.create_date) as queue_date
+     , c.name as contest_name
+     , r.name as round_name 
+     , l.language_name
+     , r.round_id
+     , case when q.example = 1 then 'Example Test' else 'Full Submission' end as submission_type
+     , count(*) as tests
+  from long_test_queue q
+     , long_component_state lcs
+     , user u
+     , contest c
+     , round r
+     , language l
+ where q.status_id in (1,2)
+   and u.user_id = lcs.coder_id
+   and q.test_action = 10
+   and lcs.long_component_state_id = q.long_component_state_id
+   and r.round_id = lcs.round_id
+   and r.contest_id = c.contest_id
+   and q.language_id = l.language_id
+   and r.round_id <> 9890
+ group by u.user_id, c.name, r.name, l.language_name, r.round_id, 7
+ order by 2

@@ -1,0 +1,157 @@
+SELECT distinct p.class_name as problem_name
+     , r.short_name as contest_name
+     , cal.date as contest_date
+     , p.problem_id
+     , (SELECT rp2.level_id
+          FROM round_problem rp2
+         WHERE rp2.problem_id = p.problem_id 
+           AND rp2.round_id = r.round_id
+           AND rp2.division_id = 1) as div1_level
+     , (SELECT rp2.level_id
+          FROM round_problem rp2
+         WHERE rp2.problem_id = p.problem_id
+           AND rp2.round_id = r.round_id 
+           AND rp2.division_id = 2) as div2_level
+     , CASE WHEN EXISTS (SELECT '1' 
+                           FROM round_problem rp2
+                          WHERE rp2.problem_id = p.problem_id      
+                            AND rp2.round_id = r.round_id
+                            AND rp2.division_id = 1
+                            AND rp2.problems_submitted > 0) 
+            THEN (SELECT rp2.problems_correct/rp2.problems_submitted
+                    FROM round_problem rp2
+                   WHERE rp2.problem_id = p.problem_id
+                     AND rp2.round_id = r.round_id 
+                     AND rp2.division_id = 1)
+            ELSE null END as div1_success
+     , CASE WHEN EXISTS (SELECT '1' 
+                           FROM round_problem rp2
+                          WHERE rp2.problem_id = p.problem_id      
+                            AND rp2.round_id = r.round_id
+                            AND rp2.division_id = 2
+                            AND rp2.problems_submitted > 0) 
+            THEN (SELECT rp2.problems_correct/rp2.problems_submitted
+                    FROM round_problem rp2
+                   WHERE rp2.problem_id = p.problem_id
+                     AND rp2.round_id = r.round_id 
+                     AND rp2.division_id = 2)
+            ELSE null END as div2_success
+     , CASE WHEN EXISTS (SELECT '1'
+             FROM problem rp2
+            WHERE rp2.problem_id = p.problem_id
+              AND rp2.round_id = r.round_id 
+              AND rp2.division_id = 1) 
+            THEN (SELECT rp2.level_id
+                    FROM problem rp2
+                   WHERE rp2.problem_id = p.problem_id
+                     AND rp2.round_id = r.round_id 
+                     AND rp2.division_id = 1) 
+            ELSE 100 END as div1_level_sort_asc
+     , CASE WHEN EXISTS (SELECT '1'
+             FROM problem rp2
+            WHERE rp2.problem_id = p.problem_id
+              AND rp2.round_id = r.round_id 
+              AND rp2.division_id = 1) 
+            THEN (SELECT rp2.level_id
+                    FROM problem rp2
+                   WHERE rp2.problem_id = p.problem_id
+                     AND rp2.round_id = r.round_id 
+                     AND rp2.division_id = 1) 
+            ELSE -1 END as div1_level_sort_desc
+     , CASE WHEN EXISTS (SELECT '1'
+             FROM problem rp2
+            WHERE rp2.problem_id = p.problem_id
+              AND rp2.round_id = r.round_id 
+              AND rp2.division_id = 2) 
+            THEN (SELECT rp2.level_id
+                    FROM problem rp2
+                   WHERE rp2.problem_id = p.problem_id
+                     AND rp2.round_id = r.round_id 
+                     AND rp2.division_id = 2) 
+            ELSE 100 END as div2_level_sort_asc
+     , CASE WHEN EXISTS (SELECT '1'
+             FROM problem rp2
+            WHERE rp2.problem_id = p.problem_id
+              AND rp2.round_id = r.round_id 
+              AND rp2.division_id = 2) 
+            THEN (SELECT rp2.level_id
+                    FROM problem rp2
+                   WHERE rp2.problem_id = p.problem_id
+                     AND rp2.round_id = r.round_id 
+                     AND rp2.division_id = 2) 
+            ELSE -1 END as div2_level_sort_desc
+     , CASE WHEN EXISTS (SELECT '1'
+                           FROM round_problem rp1
+                          WHERE rp1.round_id = r.round_id
+                            AND rp1.problem_id = p.problem_id
+                            AND rp1.division_id = 1
+                            AND rp1.problems_submitted > 0)
+            THEN (SELECT rp2.problems_correct/rp2.problems_submitted
+                    FROM round_problem rp2
+                   WHERE rp2.problem_id = p.problem_id
+                     AND rp2.round_id = r.round_id 
+                     AND rp2.division_id = 1)
+            ELSE 100 END as div1_success_sort_asc
+     , CASE WHEN EXISTS (SELECT '1'
+                           FROM round_problem rp1
+                          WHERE rp1.round_id = r.round_id
+                            AND rp1.problem_id = p.problem_id
+                            AND rp1.division_id = 1)
+            THEN (SELECT rp2.problems_correct/rp2.problems_submitted
+                    FROM round_problem rp2
+                   WHERE rp2.problem_id = p.problem_id
+                     AND rp2.round_id = r.round_id 
+                     AND rp2.division_id = 1
+                     AND rp2.problems_submitted > 0)
+            ELSE -1 END as div1_success_sort_desc
+     , CASE WHEN EXISTS (SELECT '1'
+                           FROM round_problem rp1
+                          WHERE rp1.round_id = r.round_id
+                            AND rp1.problem_id = p.problem_id
+                            AND rp1.division_id = 2)
+            THEN (SELECT rp2.problems_correct/rp2.problems_submitted
+                    FROM round_problem rp2
+                   WHERE rp2.problem_id = p.problem_id
+                     AND rp2.round_id = r.round_id 
+                     AND rp2.division_id = 2
+                     AND rp2.problems_submitted > 0)
+            ELSE 100 END as div2_success_sort_asc
+     , CASE WHEN EXISTS (SELECT '1'
+                           FROM round_problem rp1
+                          WHERE rp1.round_id = r.round_id
+                            AND rp1.problem_id = p.problem_id
+                            AND rp1.division_id = 2)
+            THEN (SELECT rp2.problems_correct/rp2.problems_submitted
+                    FROM round_problem rp2
+                   WHERE rp2.problem_id = p.problem_id
+                     AND rp2.round_id = r.round_id 
+                     AND rp2.division_id = 2
+                     AND rp2.problems_submitted > 0)
+            ELSE -1 END as div2_success_sort_desc
+     , r.round_id
+     , category_list(p.problem_id) as categories
+     , (SELECT handle
+             FROM problem_writer pw, coder c
+             WHERE pw.writer_id = c.coder_id
+             AND pw.problem_id = p.problem_id) as writer_handle
+     , (SELECT writer_id
+             FROM problem_writer
+             WHERE problem_id = p.problem_id) as writer_id 
+     , rt.algo_rating_type_id
+  FROM problem p
+     , round_problem rp
+     , round r
+     , contest c
+     , calendar cal
+     , round_type_lu rt
+ WHERE p.viewable = 1
+   AND p.problem_id = rp.problem_id
+   AND r.round_id = rp.round_id
+   AND p.round_id = r.round_id
+   and r.round_type_id = rt.round_type_id
+   AND p.division_id = rp.division_id
+   AND c.contest_id = r.contest_id
+   AND cal.calendar_id = r.calendar_id  
+   AND ((cal.date >= '2003-04-30')
+    OR (r.round_type_id = 2))
+ ORDER BY @sc@ @sd@

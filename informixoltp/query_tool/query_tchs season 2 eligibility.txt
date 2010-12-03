@@ -1,0 +1,8 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+    , event_registration r
+ WHERE u.user_id = r.user_id
+   AND u.status = 'A'
+   AND r.event_id = 991
+   AND r.eligible_ind = 0

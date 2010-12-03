@@ -1,0 +1,6 @@
+SELECT datasource_name
+  FROM datasource_lu d
+     , company_datasource_xref cdx
+ WHERE d.datasource_id = cdx.datasource_id
+   AND cdx.company_id = @cm@
+   AND d.datasource_type_id = @dstid@

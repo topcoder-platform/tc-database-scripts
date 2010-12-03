@@ -1,0 +1,4 @@
+select u.handle, u.email as email_address, r.code
+from sun_reg r, email_user u
+where r.group = 9
+and u.user_id = r.user_id

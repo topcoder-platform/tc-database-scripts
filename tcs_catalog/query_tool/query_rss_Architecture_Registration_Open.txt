@@ -1,0 +1,33 @@
+SELECT 'Registration ends: ' || regpp.scheduled_end_time || '<br />'  || 
+      'Submission ends: ' || submpp.scheduled_end_time || '<br />'  || 
+      'Winning Payment: ' || round(nvl(pi16.value::decimal, 0)) || '<br />'  || 
+      cc.description as description
+     , 'http://www.topcoder.com/tc?module=ProjectDetail&pj=' || p.project_id as link
+     , cat.category_name || ' ' || 
+     (select value from project_info where project_id = p.project_id and project_info_type_id = 6) || ' ' || cv.version_text as title
+FROM project p
+   ,project_phase submpp
+   ,project_phase regpp
+   ,categories cat
+   ,project_info pi_ci
+   ,comp_catalog cc
+   ,comp_versions cv
+   , outer project_info pi16
+WHERE p.project_category_id = 7
+AND regpp.project_id = p.project_id
+AND regpp.phase_type_id = 1
+AND submpp.project_id = p.project_id
+AND submpp.phase_type_id = 2
+and regpp.scheduled_end_time > current
+and p.project_status_id = 1
+AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2)
+and cc.root_category_id = cat.category_id
+AND pi_ci.project_id = p.project_id 
+AND pi_ci.project_info_type_id = 1
+AND cv.comp_vers_id = pi_ci.value
+AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+and cv.component_id= cc.component_id
+and pi16.project_info_type_id = 16
+and pi16.project_id = p.project_id
+order by regpp.scheduled_end_time desc

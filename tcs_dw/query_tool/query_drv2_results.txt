@@ -1,0 +1,22 @@
+select c.coder_id
+     , c.handle
+     , (nvl((select sum(dp.amount) from dr_points dp where dp.track_id = tc.track_id and dp.user_id = tcr.user_id and not is_potential),0)) as final_points
+     , (nvl((select sum(dp.amount) from dr_points dp where dp.track_id = tc.track_id and dp.user_id = tcr.user_id and is_potential),0)) as potential_points
+     , tcr.track_contest_placement as current_place
+     , tcr.track_contest_prize as current_top_performer_prize
+     , (select tcr2.track_contest_prize
+          from track_contest_results tcr2
+             , track_contest tc2
+         where tcr2.track_contest_id = tc2.track_contest_id
+           and tc2.track_id = tc.track_id
+           and tc2.track_contest_type_id = 1
+           and tcr2.user_id = tcr.user_id) as current_top_n_prize
+     , (case when tcr.track_contest_placement <= 1 and tc.track_id <= 2041 then 1 else 0 end) as has_won_trip -- No more trips after August 2009
+  from track_contest tc
+     , track_contest_results tcr
+     , coder c
+ where tcr.user_id = c.coder_id
+   and tc.track_contest_id = tcr.track_contest_id
+   and tc.track_id = @tid@
+   and tc.track_contest_type_id = 2 -- top performers
+ order by tcr.track_contest_placement

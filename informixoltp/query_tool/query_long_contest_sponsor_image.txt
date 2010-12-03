@@ -1,0 +1,12 @@
+SELECT p.path || i.file_name AS file_path
+     , i.link
+     , i.height
+     , i.width
+  from round_image_xref rix
+     , image i
+     , path p
+ where i.image_id = rix.image_id
+   and p.path_id = i.path_id
+   and rix.display_flag = 1
+   and rix.round_id = @rd@
+   and i.image_type_id = 16

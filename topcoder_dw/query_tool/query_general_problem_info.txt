@@ -1,0 +1,32 @@
+SELECT distinct r.short_name as event_name
+     , p.class_name
+     , (SELECT d.division_desc || ' ' || p1.level_desc
+          FROM problem p1
+             , division_lu d
+         WHERE p1.problem_id = p.problem_id
+           AND p1.round_id = p.round_id
+           AND p1.division_id = 1
+           AND d.division_id = p1.division_id) as div1_use
+      , (SELECT d.division_desc || ' ' || p1.level_desc
+           FROM problem p1
+              , division_lu d
+          WHERE p1.problem_id = p.problem_id
+            AND p1.round_id = p.round_id
+            AND p1.division_id = 2
+            AND d.division_id = p1.division_id) as div2_use
+     , r.round_id
+     , p.problem_id
+     , category_list(p.problem_id) as categories
+     , r.forum_id
+     , rt.algo_rating_type_id
+     , (SELECT writer_id
+             FROM problem_writer
+             WHERE problem_id = p.problem_id) as writer_id 
+  FROM problem p
+     , round r
+     , round_type_lu rt
+ WHERE r.round_id = p.round_id
+   AND p.problem_id = @pm@
+   AND p.viewable = 1
+   and r.round_type_id = rt.round_type_id 
+   AND r.round_id = @rd@

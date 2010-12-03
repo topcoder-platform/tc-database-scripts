@@ -1,0 +1,16 @@
+select p.description Status, pcat.category_name catalog_name, count(distinct cc.component_name) Components
+from comp_versions cv, comp_catalog cc, status s, phase p,
+         comp_categories ccat,
+         categories cat,
+         categories pcat
+where cc.status_id = s.status_id
+and cv.component_id = cc.component_id
+and s.description = 'Approved'
+and cv.version = 1
+and p.phase_id = cv.phase_id
+and cc.component_name != 'Rules Engine Tool'
+and ccat.component_id = cc.component_id
+and cat.category_id = ccat.category_id
+and pcat.category_id = cat.parent_category_id
+group by p.description, pcat.category_name
+order by pcat.category_name

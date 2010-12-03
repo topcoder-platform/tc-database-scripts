@@ -1,0 +1,29 @@
+SELECT cat.category_name AS catalog     
+     , component_name
+     , pi3.value AS version
+     , pcl.name AS category
+     , p.project_id AS project_id
+     , '<a href=https://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>online review</a>' AS or_link
+     , '<a href=http://www.topcoder.com/PactsInternalServlet?payment_id=&project_id=' || p.project_id || '&handle=&earliest_creation_date=&latest_creation_date=&earliest_modification_date=&latest_modification_date=&earliest_pay_date=&latest_pay_date=&earliest_due_date=&latest_due_date=&lowest_net_amount=&highest_net_amount=&status_code=&type_code=&method_code=&B1=Submit&module=PaymentList>payment</a>' AS pacts_link
+     , cv.comments
+     , p.modify_date
+  FROM project p
+     , project_info pi2
+     , project_info pi3
+     , project_info pi4
+     , project_category_lu pcl
+     , categories cat
+     , comp_catalog cc
+     , comp_versions cv
+ WHERE p.project_status_id IN (4, 5, 7, 8)
+   AND cc.root_category_id = cat.category_id
+   and cv.component_id = cc.component_id
+   and pi2.project_id = p.project_id
+   and pi2.project_info_type_id = 1
+   and pi2.value = cv.comp_vers_id 
+   AND p.project_id = pi3.project_id
+   AND pi3.project_info_type_id = 7
+   AND p.project_id = pi4.project_id
+   AND pi4.project_info_type_id = 21
+   AND p.project_category_id = pcl.project_category_id
+ORDER BY 1,2,3,4,5

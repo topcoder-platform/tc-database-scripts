@@ -1,0 +1,32 @@
+select pr.user_id
+     , rdn.rating > rdo.rating as color_increase
+     , rdo.color as old_color
+     , rdn.color as new_color
+     , p.project_id
+     , rdo.rating as old_rating
+     , rdn.rating as new_rating
+     , p.component_name
+     , p.version_text
+     , c.handle_lower
+     , rdn.color_sort
+     , p.rating_date as date
+  from project_result pr
+     , common_dw:rating_dim rdo
+     , common_dw:rating_dim rdn
+     , project p
+     , coder c
+     , user_rating ur
+ where pr.old_rating_id = rdo.rating_id
+   and pr.new_rating_id = rdn.rating_id
+   and rdn.color <> rdo.color
+   and rdo.rating > 0
+   and rdn.rating > 0
+   and p.phase_id = @ph@
+   and ur.user_id = pr.user_id
+   and p.project_id = pr.project_id
+   and p.rating_date > current - 30 units day
+   and pr.user_id = c.coder_id
+   and c.status = 'A'
+   and pr.num_ratings > 2
+   and ur.phase_id = p.phase_id
+ order by color_increase desc, new_rating desc

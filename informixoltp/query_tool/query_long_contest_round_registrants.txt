@@ -1,0 +1,29 @@
+SELECT c.coder_id as coder_id
+     , handle
+     , case when c.comp_country_code = '840' then a.state_code else null end as state_code
+     , language_name
+     , country_name
+     , (SELECT s.name
+          FROM current_school cs, coder c1, school s
+         WHERE cs.coder_id = c.coder_id
+           and c1.coder_id = c.coder_id
+           and cs.school_id = s.school_id
+           and c1.coder_type_id = 1
+           AND cs.viewable = 1) AS school_name
+  FROM coder c
+     , round_registration rr
+     , round r
+     , user u
+     , outer language l
+     , country
+     , address a
+     , user_address_xref x
+ WHERE rr.round_id = @rd@
+   and x.user_id = c.coder_id
+   and x.address_id = a.address_id
+   and a.address_type_id = 2
+   AND c.coder_id = rr.coder_id
+   AND rr.round_id = r.round_id
+   AND u.user_id = c.coder_id
+   AND l.language_id = c.language_id
+   AND country.country_code = c.comp_country_code;

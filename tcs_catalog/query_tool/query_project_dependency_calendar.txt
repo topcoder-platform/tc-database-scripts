@@ -1,0 +1,25 @@
+SELECT 'project-dependency-calendar-' || p.project_id || '@topcoder.com' AS uid
+     , TO_CHAR(min(CASE WHEN p.project_status_id = 1 THEN pp.scheduled_start_time ELSE pp.actual_start_time END), '%Y%m%dT%H%M%S') AS start_time
+     , TO_CHAR(max(CASE WHEN p.project_status_id = 1 THEN pp.scheduled_end_time ELSE pp.actual_end_time END), '%Y%m%dT%H%M%S') AS end_time
+     , pi6.value || ' - ' || pcl.name AS summary
+     , 'Online Review project:\nhttp://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id AS description
+     , 'http://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id AS url
+  FROM comp_versions cv
+     , comp_dependencies cd
+     , project_info pi1
+     , project p
+     , project_info pi6
+     , project_phase pp
+     , project_category_lu pcl
+ WHERE cv.component_id = @cd@
+   AND cv.version = @vid@
+   AND cv.comp_vers_id = cd.comp_vers_id
+   AND pi1.project_info_type_id = 1
+   AND (pi1.value::integer = cd.child_comp_vers_id
+        OR pi1.value::integer = cv.comp_vers_id)
+   AND pi1.project_id = p.project_id
+   AND p.project_id = pi6.project_id
+   AND pi6.project_info_type_id = 6
+   AND p.project_id = pp.project_id
+   AND p.project_category_id = pcl.project_category_id
+group by 1, 4, 5, 6;

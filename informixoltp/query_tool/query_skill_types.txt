@@ -1,0 +1,2 @@
+select skill_type_id, skill_type_desc, skill_type_order
+from skill_type where status = 'Y' order by 3

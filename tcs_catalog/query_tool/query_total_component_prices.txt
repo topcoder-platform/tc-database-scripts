@@ -1,0 +1,44 @@
+select
+        sum(cvd.price) * 1.5 as total
+   from comp_versions cv,
+        comp_version_dates cvd,
+        comp_documentation cd,
+        comp_catalog cc,
+        comp_level cl,
+        comp_categories ccat,
+        categories cat,
+        categories pcat,
+        project p,
+        phase_instance pi1,
+        phase_instance pi5,
+        phase_instance pi6,
+        phase_instance pi8
+  where cv.comp_vers_id = p.comp_vers_id
+    and cv.phase_id-111 = p.project_type_id
+    and p.cur_version = 1
+     and p.PROJECT_STAT_ID in (1,3)
+    and cvd.comp_vers_id = cv.comp_vers_id
+    and cvd.phase_id = cv.phase_id
+    and cvd.level_id = cl.level_id
+    and cd.document_type_id = 0
+    and cv.phase_id in (112,113)
+    and cc.component_id = cv.component_id
+    and cc.status_id = 102
+    and cd.comp_vers_id = cvd.comp_vers_id
+    and pi1.start_date <= EXTEND(CURRENT, YEAR TO DAY) -- cvd.posting_date
+    and pi1.end_date >= EXTEND(CURRENT, YEAR TO DAY) -- cvd.initial_submission_date
+    and ccat.component_id = cc.component_id
+    and cat.category_id = ccat.category_id
+    and pcat.category_id = cat.parent_category_id
+    and pi1.project_id = p.project_id
+    and pi1.phase_id = 1
+    and pi1.cur_version = 1
+    and pi5.project_id = p.project_id
+    and pi5.phase_id = 5
+    and pi5.cur_version = 1
+    and pi6.project_id = p.project_id
+    and pi6.phase_id = 6
+    and pi6.cur_version = 1
+    and pi8.project_id = p.project_id
+    and pi8.phase_id = 8
+    and pi8.cur_version = 1

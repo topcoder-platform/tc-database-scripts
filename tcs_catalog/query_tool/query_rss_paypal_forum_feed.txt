@@ -1,0 +1,18 @@
+select first 10 m.subject as title, 'http://forums.topcoder.com/?module=Thread&threadID=' || m.threadid as link,
+m.body as description, millis_to_time(m.modificationdate) as pubdate, u.handle as author
+
+from project_info pi1, project_info pi2,  project p, user u,
+
+jivecategory c, jiveforum f, jivemessage m
+
+where pi1.project_info_type_id = 32 and pi1.value in ('70016090', '70016097')
+and pi1.project_id = pi2.project_id and pi2.project_info_type_id = 4
+and p.project_category_id != 27 and p.project_id = pi1.project_id
+and p.project_status_id != 3
+
+
+and c.categoryid = pi2.value and c.categoryid = f.categoryid and m.forumid = f.forumid 
+and m.userid = u.user_id
+
+
+order by 4 desc

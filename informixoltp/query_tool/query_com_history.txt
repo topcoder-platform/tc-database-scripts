@@ -1,0 +1,5 @@
+select user_id
+     , achievement_date
+  from user_achievement
+ where achievement_type_id = 1
+ order by achievement_date desc

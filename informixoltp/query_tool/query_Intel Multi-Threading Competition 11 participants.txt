@@ -1,0 +1,9 @@
+SELECT u.email AS email_address
+, u.handle
+FROM email_user u
+, long_comp_result lcr
+WHERE u.status = 'A'
+and lcr.coder_id = u.user_id
+and lcr.round_id = 10649
+and lcr.attended = 'Y'
+and u.user_id not in (select user_id from group_user where group_id in (13,14))

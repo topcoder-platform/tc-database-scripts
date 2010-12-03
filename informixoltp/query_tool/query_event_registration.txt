@@ -1,0 +1,17 @@
+select sum(er.eligible_ind) as eligible_registrants
+     , count(*) as total_registrants
+     , sum(case when addr.country_code = '840' then 1 else 0 end) as US
+     , sum(case when addr.country_code = '840' then 0 else 1 end) as non_US
+     , e.event_desc as event
+     , e.start_registration
+     , e.end_registration
+from event e
+ , event_registration er
+ , table(multiset(select distinct x.user_id, a.country_code
+                     from user_address_xref x, address a
+                     where a.address_id = x.address_id
+                       and a.address_type_id = 2)) addr
+where e.event_id = er.event_id
+  and er.user_id = addr.user_id
+group by e.event_desc, e.start_registration, e.end_registration
+order by e.end_registration desc

@@ -1,0 +1,22 @@
+select r.name, r.room_id,      
+       rr.coder_id,
+       rr.team_points,
+       cr.handle,
+       division_placed,
+       submission_points,
+       challenge_points,
+       defense_points,
+       (challenge_points + defense_points) as total_challenge_points,
+       system_test_points,
+       final_points,
+       problems_submitted, 
+       challenge_attempts_made,
+       challenge_attempts_received,
+       old_rating, new_rating,
+       (new_rating - old_rating)as rating_change,
+       (select name from team where team_id = rr.team_id) as team_name
+from room_result rr, room r, coder cr
+where rr.room_id = r.room_id
+and cr.coder_id = rr.coder_id
+and rr.round_id = @rd@
+and rr.team_id = @tmid@

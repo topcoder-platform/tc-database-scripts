@@ -1,0 +1,25 @@
+select first 3 c.name
+     , c.contest_id
+     , p.amount
+     , u.user_id
+     , s.submission_id
+     , (select property_value from contest_config where contest_id = c.contest_id and property_id = 3) as show_submissions
+     , (select count(*)
+        from submission_image si, image i
+        where si.submission_id = s.submission_id
+        and si.image_id = i.image_id
+        and i.image_type_id = 30) as gallery_image_count
+  from contest_result cr
+     , contest c
+     , submission s
+     , user u
+     , prize p
+     , submission_prize_xref x
+ where c.contest_id = s.contest_id
+   and s.submission_id = cr.submission_id
+   and s.submission_id = x.submission_id
+   and x.prize_id = p.prize_id
+   and p.place = 1
+   and s.submitter_id = u.user_id
+   and c.end_time < current
+ order by c.end_time desc

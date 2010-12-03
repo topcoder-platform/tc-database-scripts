@@ -1,0 +1,34 @@
+select project_id
+     , category_desc
+     , phase_desc
+     , component_name
+     , version_text
+     , num_registrations
+     , num_submissions
+     , num_valid_submissions
+     , (select handle_lower 
+          from coder
+         where coder_id = (select user_id 
+                             from project_result 
+                            where placed=1 
+                              and project_id = p.project_id)) as winner_handle_lower
+     , (select user_id 
+          from project_result 
+         where placed=1 
+           and passed_review_ind = 1
+           and project_id = p.project_id) as winner_id
+     , complete_date
+     , (select final_score 
+          from project_result 
+         where project_id = p.project_id
+           and placed = 1) as winner_score
+     , case when p.project_category_id = 1 then "Design" when p.project_category_id = 2 then "Development" when p.project_category_id = 5 then "Testing" else "" end as type
+ from project p
+where project_id in (select max(project_id) 
+	from project 
+	where status_id in (4,5,7,8)
+	and project_category_id in (@pts@)
+        and (category_id not in (9926572) or complete_date >= mdy(12, 01, 2008))
+	and num_submissions > 0
+	group by component_id, version_id, project_category_id)
+order by complete_date desc, project_id desc;

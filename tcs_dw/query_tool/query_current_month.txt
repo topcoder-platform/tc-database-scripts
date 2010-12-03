@@ -1,0 +1,1 @@
+select month_numeric from calendar where date = date(current)

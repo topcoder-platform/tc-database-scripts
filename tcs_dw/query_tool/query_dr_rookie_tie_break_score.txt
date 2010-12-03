@@ -1,0 +1,13 @@
+select pr.final_score from project_result pr, project p, stage s, rookie r
+where pr.project_id = p.project_id and pr.final_points > 0 
+and pr.valid_submission_ind = 1 and
+    pr.rating_ind = 1 and
+    p.status_id = 7 and
+    p.stage_id = s.stage_id and
+    r.user_id = pr.user_id and
+    r.season_id = s.season_id and
+    r.phase_id = p.phase_id and
+    p.phase_id = @ph@ and
+    s.season_id = @seid@ and 
+    pr.user_id = @cr@
+order by pr.final_score desc

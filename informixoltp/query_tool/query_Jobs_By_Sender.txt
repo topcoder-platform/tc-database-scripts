@@ -1,0 +1,4 @@
+
+SELECT sched_email_job_id
+FROM sched_email_job
+WHERE from_address='@email@'

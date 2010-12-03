@@ -1,0 +1,45 @@
+select cat.category_name as category
+     , cc.component_name as component_name
+     , cv.version_text as component_version
+     , cc.component_id as component_id
+     , cv.comp_vers_id as comp_vers_id
+     , nvl(min(date(design_pp.actual_start_time)), 'N/A') as design_post_date
+     , nvl(design_pr_winner.final_score, 'N/A') as winning_design_score
+     , nvl(min(date(dev_pp.actual_start_time)), 'N/A') as dev_post_date
+     , nvl(dev_pr_winner.final_score, 'N/A') as winning_dev_score
+     , nvl(max(date(dev_pp.actual_end_time)), 'N/A') as component_complete_date
+     , nvl(max(date(cvd.production_date)), 'N/A') as catalog_posting_date
+  from categories cat
+     , comp_catalog cc
+     , comp_versions cv
+     , comp_version_dates cvd
+     , project_info design_pi1
+     , project design_p
+     , project_phase design_pp
+     , project_result design_pr_winner
+     , project_info dev_pi1
+     , project dev_p
+     , project_phase dev_pp
+     , project_result dev_pr_winner
+ where cat.category_id in (5801776, 5801777, 5801778, 5801779, 9926572)
+   and cat.category_id = cc.root_category_id
+   and cc.component_id = cv.component_id
+   and cv.comp_vers_id = cvd.comp_vers_id
+   and design_pi1.project_info_type_id = 1
+   and cv.comp_vers_id = design_pi1.value::integer
+   and design_pi1.project_id = design_p.project_id
+   and design_p.project_status_id = 7
+   and design_p.project_category_id = 1
+   and design_p.project_id = design_pp.project_id
+   and design_p.project_id = design_pr_winner.project_id
+   and design_pr_winner.placed = 1
+   and dev_pi1.project_info_type_id = 1
+   and cv.comp_vers_id = dev_pi1.value::integer
+   and dev_pi1.project_id = dev_p.project_id
+   and dev_p.project_status_id = 7
+   and dev_p.project_category_id = 2
+   and dev_p.project_id = dev_pp.project_id
+   and dev_p.project_id = dev_pr_winner.project_id
+   and dev_pr_winner.placed = 1
+group by 1, 2, 3, 4, 5, 7, 9
+order by 1, 2, 3;

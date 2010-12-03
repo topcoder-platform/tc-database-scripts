@@ -1,0 +1,16 @@
+select cc.component_name, su1.user_id as reviewer,  su2.user_id as reviewee,
+       ta.testcase_app_name as approval_status, tr.review_text as comments
+  from comp_catalog cc, comp_versions cv, project p, phase_instance pi,
+       security_user su1, security_user su2, testcase_approval ta,
+       testcase_review tr
+ where cc.component_id = cv.component_id
+   and cv.comp_vers_id = p.comp_vers_id
+   and p.cur_version = 1 and pi.cur_version = 1
+   and p.phase_instance_id = pi.phase_instance_id
+   and pi.phase_id = 3
+   and su1.login_id = tr.reviewer_id 
+   and su2.login_id = tr.reviewee_id
+   and tr.project_id = p.project_id
+   and tr.testcase_app_id = ta.testcase_app_id
+   and tr.cur_version = 1
+order by component_name, reviewer, reviewee

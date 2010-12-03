@@ -1,0 +1,9 @@
+select e.address as email_address, u.handle, d.total_amount as paid
+from payment_detail_xref x, payment p, payment_detail d, user u, email e
+where x.payment_detail_id = d.payment_detail_id
+and x.payment_id = p.payment_id
+and d.payment_desc = 'MM18 winnings'
+and d.payment_detail_id = p.most_recent_detail_id
+and p.user_id = u.user_id
+and e.user_id = u.user_id
+and e.primary_ind = 1

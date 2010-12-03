@@ -1,0 +1,15 @@
+SELECT p.name 
+  FROM 
+    round r, 
+    round_component rc, 
+    round_segment rs, 
+    problem p, 
+    component c
+  WHERE rs.end_time < current AND
+    rs.segment_id = 2 AND
+    rc.round_id = rs.round_id AND
+    r.round_id = rs.round_id AND
+    c.component_id = rc.component_id AND
+    p.problem_id = c.problem_id AND
+    p.problem_id = @pm@
+  GROUP BY 1

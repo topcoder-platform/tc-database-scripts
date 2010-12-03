@@ -1,0 +1,11 @@
+select c.coder_id
+     , c.handle
+     , ur.rating
+  from tcs_dw:user_rating ur
+     , coder c   
+     , tcs_dw:active_developers a
+ where c.coder_id = ur.user_id
+   and c.coder_id = a.user_id
+   and c.status = 'A'
+   and phase_id = 113
+ order by ur.rating desc

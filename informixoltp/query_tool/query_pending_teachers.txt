@@ -1,0 +1,9 @@
+select u.first_name, u.last_name, u.handle, s.name as school_name, u.user_id
+from professor p, user u, user_school us, school s
+where p.user_id = u.user_id
+ and u.user_id = us.user_id
+ and us.primary_ind
+and us.school_association_type_id = 2
+and us.school_id =s.school_id
+and p.status_id = 2
+order by p.create_date desc

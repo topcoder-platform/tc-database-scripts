@@ -1,0 +1,4 @@
+
+SELECT MIN(room_id)
+FROM room
+WHERE room.round_id = @rd@

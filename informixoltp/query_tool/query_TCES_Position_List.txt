@@ -1,0 +1,15 @@
+SELECT j.job_id,
+       j.job_desc,
+       COUNT(jh.user_id) AS hit_count,
+       MAX(jh.timestamp) AS most_recent
+  FROM job j
+     , campaign_job_xref cjx
+     , OUTER (job_hit jh, user u)
+ WHERE cjx.campaign_id = @cid@
+   AND cjx.status_id = 1
+   AND cjx.job_id = j.job_id
+   AND jh.job_id = j.job_id
+   AND jh.user_id = u.user_id
+   AND u.status = 'A'
+ GROUP BY j.job_id, j.job_desc
+ ORDER BY 1

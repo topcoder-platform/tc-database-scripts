@@ -1,0 +1,6 @@
+select contest_id
+    , contest_name, 
+      phase_id 
+from tcs_catalog:contest 
+where event_id = @eid@
+order by contest_type_id desc, start_date

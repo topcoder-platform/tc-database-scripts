@@ -1,0 +1,21 @@
+SELECT c.handle,
+c.coder_id,
+count(*),
+r.rating, 
+SUM(rr.problems_submitted) AS problems_submitted,
+SUM(rr.problems_correct) AS problems_correct,
+(CASE SUM(rr.problems_submitted)
+      WHEN 0 THEN 0.0
+ ELSE SUM(rr.problems_correct)/SUM(rr.problems_submitted)
+ END) AS success_percent
+FROM coder c, room_result rr, rating r, round, active_members a
+WHERE c.coder_id = rr.coder_id
+AND c.status = 'A'
+AND r.coder_id = c.coder_id
+AND rr.round_id = round.round_id
+AND round.round_type_id in (1,2,10)
+AND a.coder_id = c.coder_id
+and rr.rated_flag= 1
+GROUP BY c.handle, c.coder_id, r.rating
+HAVING SUM(rr.problems_submitted) >= 50
+ORDER BY success_percent DESC, r.rating DESC, c.handle

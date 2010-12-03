@@ -1,0 +1,10 @@
+
+SELECT c.coder_id
+       ,c.handle
+       ,r.rating
+  FROM coder c, rating r
+ WHERE c.coder_id = r.coder_id
+   AND c.status = 'A'
+   AND r.rating > 0
+   AND r.rating < 1200
+ ORDER BY r.rating DESC

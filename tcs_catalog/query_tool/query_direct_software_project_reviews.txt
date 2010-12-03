@@ -1,0 +1,16 @@
+SELECT
+    rv.review_id,
+    rv.resource_id,
+    rv.submission_id,
+    rv.committed = 1 AS is_committed,
+    rv.initial_score,
+    rv.score AS final_score,
+    r.resource_role_id AS reviewer_role_id
+FROM
+    review rv
+    INNER JOIN resource r ON rv.resource_id = r.resource_id
+WHERE
+    r.project_id = @pj@
+AND r.resource_role_id IN (2, 4, 5, 6, 7)
+AND rv.committed = 1
+    

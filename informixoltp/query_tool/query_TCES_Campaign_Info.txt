@@ -1,0 +1,4 @@
+
+SELECT c.campaign_name
+  FROM campaign c
+ WHERE c.campaign_id = @cid@

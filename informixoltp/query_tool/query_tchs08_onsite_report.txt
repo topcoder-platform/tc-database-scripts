@@ -1,0 +1,50 @@
+select u.handle
+     , case when (select count(*) from affidavit where user_id = u.user_id and affirmed = 1 and affidavit_type_id in(33,34)) > 0 then '-' else 'no' end as affirmed_affidavit
+     , case when exists (select '1' from coder_image_xref where display_flag = 1 and coder_id = u.user_id) then '-' else 'no' end as has_headshot
+     , case when (select count(*) from affidavit where user_id = u.user_id and notarized = 1) > 0 then '-' else 'no' end as notarized_affidavit
+     , (select t.name from user_tax_form_xref x, tax_form t where x.tax_form_id = t.tax_form_id and x.user_id = u.user_id and x.status_id = 60) as tax_form
+     , case when exists (select '1' from response where question_id = 33 and user_id = u.user_id) then '-' else 'no' end as answered_travel
+     , case when exists (select '1' from response where question_id = 21921 and user_id = u.user_id) then '-' else 'no' end as answered_questionaire
+     , u.first_name
+     , u.last_name
+     , e.address as email
+     , a.address1
+     , a.address2
+     , a.address3
+     , a.city
+     , a.state_code
+     , a.zip
+     , a.province
+     , s.name as school
+     , co.country_name
+     , da1.demographic_answer_text as shirt_size
+     , (select response from response where user_id = u.user_id and question_id = 19271) as age_at_reg_time
+     , (select trim(r.response::varchar(15)) from response r where user_id = u.user_id and question_id = 19272) as age_on_mar_16_2007
+     , (select trim(r.response::varchar(15)) from response r where user_id = u.user_id and question_id = 16328) as age_on_feb_26_2007
+     , (select response from response where user_id = u.user_id and question_id = 16344) as age_on_march_29_2007
+     , (select response from response where user_id = u.user_id and question_id = 21074) as age_on_feb_5_2008
+  from user u
+     , coder c
+     , user_address_xref x
+     , address a
+     , country co
+     , email e
+     , coder_type ct
+     , outer (demographic_response dr1,demographic_answer da1)
+     , outer (current_school cs, school s)
+ where da1.demographic_question_id = 26
+   and da1.demographic_question_id = dr1.demographic_question_id
+   and da1.demographic_answer_id = dr1.demographic_answer_id
+   and dr1.user_id = u.user_id
+   and c.coder_id = u.user_id
+   and co.country_code = a.country_code
+   and x.user_id = u.user_id
+   and x.address_id = a.address_id
+   and a.address_type_id = 2
+   and cs.coder_id = u.user_id
+   and cs.school_id = s.school_id
+   and e.user_id = u.user_id
+   and e.primary_ind = 1
+   and c.coder_type_id = ct.coder_type_id
+   and u.user_id in (select coder_id from room_result where advanced = 'Y' and round_id = 11150)
+order by affirmed_affidavit desc,has_headshot desc,notarized_affidavit desc,tax_form desc,answered_travel desc ,answered_questionaire desc

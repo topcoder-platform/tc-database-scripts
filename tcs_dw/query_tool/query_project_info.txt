@@ -1,0 +1,27 @@
+select 
+        component_name,
+	component_id,
+	version_id,
+	phase_id,
+        version_text,
+        category_desc,
+        phase_desc,
+        status_id,
+	num_registrations as num_inquiries,
+	num_submissions,
+	case num_registrations
+		WHEN null then null
+                WHEN 0 then null
+        	else 100.0 * num_submissions  / num_registrations
+	        end as submission_percent,
+	num_valid_submissions as passed,
+	case num_submissions
+		WHEN 0 then null
+        	else 100.0 * num_valid_submissions / num_submissions
+	        end as passed_percent,
+	avg_raw_score,
+	avg_final_score,
+        project_id, viewable_category_ind,
+        category_id
+from project 
+where project_id = @pj@

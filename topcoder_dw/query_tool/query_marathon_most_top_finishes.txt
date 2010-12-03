@@ -1,0 +1,9 @@
+select coder_id, count(*) num_finishes
+from long_comp_result lcr
+    , round r
+where placed <= @mp@
+and lcr.round_id = r.round_id
+and r.round_type_id in (13, 19)
+group by coder_id
+having count(*) > 2
+order by 2 desc

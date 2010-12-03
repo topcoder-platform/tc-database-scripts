@@ -1,0 +1,6 @@
+select u.handle
+     , s.code
+     , u.email as email_address
+  from email_user u
+     , sun_reg s
+ where u.user_id = s.user_id

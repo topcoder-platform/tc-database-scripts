@@ -1,0 +1,4 @@
+select * from project_spec ps where 
+ps.project_id = @pj@ and
+ps.version = (select max(version) 
+              from project_spec ps2 where ps2.project_id = ps.project_id)

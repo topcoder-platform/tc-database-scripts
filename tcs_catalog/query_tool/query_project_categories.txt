@@ -1,0 +1,4 @@
+SELECT project_category_id, name
+FROM project_category_lu
+WHERE display = 't'
+ORDER BY display_order

@@ -1,0 +1,6 @@
+
+SELECT com.company_name
+  FROM contact con,
+       company com
+ WHERE con.contact_id = @uid@
+   AND com.company_id = con.company_id

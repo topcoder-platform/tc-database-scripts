@@ -1,0 +1,17 @@
+select p.payment_desc Contest_Desc, 
+       p.payment_status_desc Payment_Status,
+       p.client,
+       cal.date paid_date,
+       sum(up.gross_amount) amount
+from payment p,
+     user_payment up,
+     calendar cal
+where p.payment_type_id in (26,29)
+  and p.payment_id = up.payment_id
+  and up.paid_calendar_id = cal.calendar_id
+group by p.reference_id,
+         p.payment_desc,
+         p.payment_status_desc,
+         p.client,
+         cal.date
+order by cal.date desc

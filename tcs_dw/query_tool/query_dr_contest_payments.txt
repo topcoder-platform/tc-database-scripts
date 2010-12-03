@@ -1,0 +1,5 @@
+select current_place as place, coder_id, current_prize as prize
+ from contest_result 
+where contest_id = @ct@
+and current_prize > 0
+order by current_place

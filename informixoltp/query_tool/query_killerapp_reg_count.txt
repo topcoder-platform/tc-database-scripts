@@ -1,0 +1,7 @@
+select
+  count(*) total_reg_count
+from
+  user u, 
+  aolicq_oltp:contest_registration cr
+where u.user_id = cr.user_id
+    and cr.contest_id = 1002

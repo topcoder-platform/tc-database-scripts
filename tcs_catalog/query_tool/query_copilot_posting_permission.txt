@@ -1,0 +1,49 @@
+SELECT  p.project_id
+  , p.project_category_id, 
+ (
+  SELECT COUNT(*)
+  FROM resource r, resource_info ri
+  WHERE r.project_id = p.project_id
+  AND r.resource_id = ri.resource_id
+  AND ri.resource_info_type_id = 1
+  AND ri.value = @uid@
+  )
+  as copilot_posting_resources,
+  
+  (
+  SELECT COUNT(*)
+  FROM copilot_profile where user_id = @uid@
+  )
+  as in_copilot_pool,
+  
+  (
+  SELECT COUNT(*)
+  FROM user_permission_grant upg WHERE p.tc_direct_project_id = upg.resource_id AND upg.user_id = @uid@
+  AND upg.permission_type_id in (1,2,3)
+  ) as  has_direct_project_permission  
+
+FROM project p
+   ,project_phase submpp
+   ,project_phase regpp
+   ,categories cat
+   ,project_info pi_ci
+   ,project_info pidr
+   ,comp_catalog cc
+   ,comp_versions cv
+WHERE p.project_category_id = 29
+AND p.project_id = @pj@
+AND regpp.project_id = p.project_id
+AND regpp.phase_type_id = 1
+AND submpp.project_id = p.project_id
+AND submpp.phase_type_id = 2
+and p.project_status_id = 1
+AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2)
+and cc.root_category_id = cat.category_id
+AND pi_ci.project_id = p.project_id 
+AND pi_ci.project_info_type_id = 1
+and pidr.project_id = p.project_id
+  and pidr.project_info_type_id = 26
+ AND cv.comp_vers_id = pi_ci.value
+and cv.component_id= cc.component_id
+ AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)

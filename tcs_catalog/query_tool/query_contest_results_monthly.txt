@@ -1,0 +1,40 @@
+select pr.user_id, 
+        NVL(( select sum(
+                case cd.level_id when 100 then
+                        (case pr2.placed when 1 then 10 when 2 then 7 when 3 then 5 when 4 then 4 else 0 end)
+                when 200 then
+                        (case pr2.placed when 1 then 12 when 2 then 9 when 3 then 7 when 4 then 6 else 0 end)
+                end     )
+        from project_result pr2,
+                project p,
+                comp_versions cv,
+                comp_version_dates cd
+        where pr2.project_id in (select project_id from contest_project_xref where contest_id = cpx.contest_id) 
+        and p.project_id = pr2.project_id
+        and p.cur_version = 1
+        and cv.comp_vers_id = p.comp_vers_id
+        and cd.comp_vers_id = cv.comp_vers_id
+        and cd.phase_id = (p.project_type_id + 111)
+        and pr2.user_id = pr.user_id),0) as position_points,
+ucp.payment as prize_payment, u.handle, lower(u.handle),
+min(case when p.project_stat_id in (4,5,6) or (pr.placed is null or pr.placed = 0)  then 1 else 0 end) as complete_status,
+(select count(distinct pr3.project_id) from project_result pr3, project p3 where pr3.user_id = pr.user_id and pr3.project_id in (select project_id from contest_project_xref where contest_id = cpx.contest_id) 
+     and p3.project_id = pr3.project_id and p3.cur_version = 1 and pr3.placed > 0 and p3.project_stat_id in (4,5,6)) as complete_count,
+(select count(distinct pr3.project_id) from project_result pr3, project p3 where pr3.user_id = pr.user_id and pr3.project_id in (select project_id from contest_project_xref where contest_id = cpx.contest_id) 
+     and p3.project_id = pr3.project_id and p3.cur_version = 1 and p3.project_stat_id not in (4,5,6)) as incomplete_count,
+case when cp.place is null then 9 else cp.place end as place
+from  contest_project_xref cpx,
+project_result pr,
+project p,
+user u,
+OUTER (user_contest_prize ucp, contest_prize cp)
+where pr.project_id = cpx.project_id
+and p.project_id = pr.project_id
+and p.cur_version = 1
+and u.user_id = pr.user_id
+and cpx.contest_id = @ct@
+and ucp.user_id = pr.user_id
+and cp.contest_prize_id = ucp.contest_prize_id 
+and cp.contest_id = cpx.contest_id
+group by 1, 2, 3, 4, 5, 7, 8, 9
+order by 9 , 2 desc, 5 asc

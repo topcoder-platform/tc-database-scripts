@@ -1,0 +1,4 @@
+select distinct e.address AS email_address, u.handle
+from gcj06_oltp:user u, gcj06_oltp:email e 
+where u.user_id = e.user_id 
+and lower(e.address) NOT like '%@google.com'

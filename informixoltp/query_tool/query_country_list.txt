@@ -1,0 +1,5 @@
+SELECT country_code
+     , country_name
+     , LOWER(country_name)
+  FROM country
+ ORDER BY 3 ASC

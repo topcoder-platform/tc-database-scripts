@@ -1,0 +1,20 @@
+-- Author: TCSDEVELOPER
+-- Version: 1.1
+-- Copyright (C) 2004 - 2009 TopCoder Inc., All Rights Reserved.
+--
+-- Description: This query returns necessary data to build terms of use list
+--
+-- Version 1.1 (Configurable Contest Terms Release Assembly v1.0) changes: replaced terms_text by title.
+--
+-- Important Note: do not include this comments in query tool since it will fail to create/update the query.
+
+select t.terms_of_use_id
+     , t.title
+     , t.terms_of_use_type_id
+     , t.create_date
+     , t.modify_date 
+     , tt.terms_of_use_type_desc
+  from terms_of_use t
+     , terms_of_use_type tt
+ where t.terms_of_use_type_id = tt.terms_of_use_type_id
+ order by t.modify_date desc

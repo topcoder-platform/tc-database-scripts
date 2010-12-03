@@ -1,0 +1,6 @@
+SELECT DISTINCT(rr.team_id),
+       name, upper(name) as upperName
+FROM room_result rr, team t
+WHERE rr.team_id = t.team_id 
+AND round_id = @rd@
+ORDER BY upperName

@@ -1,0 +1,9 @@
+
+SELECT c.command_id AS command_id,
+c.command_desc AS command_desc
+FROM command AS c
+WHERE c.command_group_id = 1 AND
+c.command_id >
+(SELECT c2.command_id
+FROM command AS c2
+WHERE c2.command_desc = 'email_queries')

@@ -1,0 +1,23 @@
+select c.coder_id
+     , r.rating
+     , c.handle
+     , c.handle_lower as handle_sort
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (11153)) as round1
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (11151)) as round2
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (11150)) as round3
+     , (select CASE WHEN advanced='Y' THEN 'Champion' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 12046) as final
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (11153)), 3) as round1_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (11151)), 3) as round2_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id  in (11150)), 3) as round3_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 12046), 3) as finals_sort
+  from coder c
+     , algo_rating r
+     , room_result rr
+     , round ro
+ where r.coder_id = c.coder_id
+   and c.status = 'A'
+   and ro.round_id = rr.round_id
+   and rr.round_id in (11153)
+   and rr.coder_id = c.coder_id
+   and r.algo_rating_type_id = 2
+  order by finals_sort, round3_sort, round2_sort, round1_sort, handle_sort

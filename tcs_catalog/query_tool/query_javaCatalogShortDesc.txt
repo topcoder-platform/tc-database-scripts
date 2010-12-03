@@ -1,0 +1,4 @@
+select component_name, description
+from comp_catalog
+where component_name not like '.%'
+and status_id = 102

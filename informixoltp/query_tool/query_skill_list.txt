@@ -1,0 +1,3 @@
+select * from skill where skill_type_id = @stid@
+and status = 'Y'
+order by skill_order

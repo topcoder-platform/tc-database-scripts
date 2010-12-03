@@ -1,0 +1,67 @@
+select p.project_id contest_id
+     , u.handle as handle
+     , min(to_char(to_date(ri2.value, '%m.%d.%Y %I:%M %p'), '%Y-%m-%dT%I:%M:%S%F3')) as date_inquired
+     , 'na' as date_withdrawn
+     , max((select to_char(max(s.create_date), '%Y-%m-%dT%I:%M:%S%F3') from resource_submission rs, submission s where rs.resource_id = r.resource_id  and rs.submission_id = s.submission_id and rs.submission_id in (select max(rs2.submission_id) from resource_submission rs2, submission s2 where rs2.resource_id = r.resource_id  and rs2.submission_id = s2.submission_id))) as date_submitted
+     , max((select max(screening_score) from resource_submission rs, submission s where rs.resource_id = r.resource_id  and rs.submission_id = s.submission_id and rs.submission_id in (select max(rs2.submission_id) from resource_submission rs2, submission s2 where rs2.resource_id = r.resource_id  and rs2.submission_id = s2.submission_id))) as screening_score
+     , 'na' as screening_result --(select decode(max(ss.submission_status_id),2,'Failed', 'Passed') from resource_submission rs, submission s, submission_status_lu ss where rs.resource_id = r.resource_id  and rs.submission_id = s.submission_id and s.submission_status_id = ss.submission_status_id and rs.submission_id in (select max(rs2.submission_id) from resource_submission rs2, submission s2 where rs2.resource_id = r.resource_id  and rs2.submission_id = s2.submission_id))as screening_result
+     , max((select max(final_score) from resource_submission rs, submission s where rs.resource_id = r.resource_id  and rs.submission_id = s.submission_id and rs.submission_id in (select max(rs2.submission_id) from resource_submission rs2, submission s2 where rs2.resource_id = r.resource_id  and rs2.submission_id = s2.submission_id))) as review_score
+     , max((select max(ss.name) from resource_submission rs, submission s, submission_status_lu ss where rs.resource_id = r.resource_id  and rs.submission_id = s.submission_id and s.submission_status_id = ss.submission_status_id and rs.submission_id in (select max(rs2.submission_id) from resource_submission rs2, submission s2 where rs2.resource_id = r.resource_id  and rs2.submission_id = s2.submission_id) ) )as review_result
+     , max((select max(placement) from resource_submission rs, submission s where rs.resource_id = r.resource_id  and rs.submission_id = s.submission_id and rs.submission_id in (select max(rs2.submission_id) from resource_submission rs2, submission s2 where rs2.resource_id = r.resource_id  and rs2.submission_id = s2.submission_id))) as place
+  from project p
+     , resource r
+     , resource_info ri1
+     , user u
+     , email e
+     , project_info pi3 -- billing account
+     , time_oltp:project ttp
+     , time_oltp:client_project ttcp
+     , time_oltp:client ttc
+     , resource_info ri2 -- reg date
+ where p.project_id = r.project_id
+   and r.resource_role_id = 1
+   and r.resource_id = ri1.resource_id
+   and ri1.resource_info_type_id = 1
+   and ri1.value::integer = u.user_id
+   and u.user_id = e.user_id
+   and p.project_id = pi3.project_id
+   and pi3.project_info_type_id = 32
+   and pi3.value = ttp.project_id
+   and ttp.project_id = ttcp.project_id
+   and ttcp.client_id = ttc.client_id
+   and ttc.client_id = 70014096 --IBM
+   and r.resource_id = ri2.resource_id
+   and ri2.resource_info_type_id = 6 -- reg date
+   and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) >= TODAY - @days@
+   and ( DECODE(@LIQUIDCOMMUNITY@,1,ttp.project_id,-1) in (70015983) --LC
+   OR DECODE(@LIQUIDRESOURCE@,1,ttp.project_id,-1) in (70015956,70015984,70016058,70016059) ) --LR
+group by 1,2,4,7
+UNION
+select c.contest_id contest_id
+     , u.handle as handle
+     , to_char(cr.create_date,'%Y-%m-%dT%I:%M:%S%F3') as date_inquired
+     , 'na' as date_withdrawn
+     , (select to_char(max(create_date), '%Y-%m-%dT%I:%M:%S%F3') from studio_oltp:submission s where s.contest_id = c.contest_id and s.submitter_id = u.user_id) as date_submitted
+     , 0 as screening_score
+     , decode((select max(review_status_id) from studio_oltp:submission_review srev, studio_oltp:submission s where s.contest_id = c.contest_id and srev.submission_id = s.submission_id and s.submitter_id = u.user_id),2,'Failed', 'Passed') as screening_result 
+     , 0 as review_score
+     , 'na' as review_result
+     , (select max(placed) from studio_oltp:contest_result res, studio_oltp:submission sub where res.contest_id = c.contest_id and res.submission_id = sub.submission_id and sub.submitter_id = u.user_id) as place
+ from studio_oltp:contest c
+     , studio_oltp:contest_registration cr 
+     , user u
+     , email e
+     , studio_oltp:contest_config cc1, time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc
+where c.contest_id = cr.contest_id
+  and cr.user_id = u.user_id
+  and u.user_id = e.user_id
+  and c.contest_id = cc1.contest_id
+  and cc1.property_id = 28
+  and cc1.property_value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = 70014096 --IBM
+  and c.start_time >= TODAY - @days@
+  and ( DECODE(@LIQUIDCOMMUNITY@,1,ttp.project_id,-1) in (70015983) --LC
+  OR DECODE(@LIQUIDRESOURCE@,1,ttp.project_id,-1) in (70015956,70015984,70016058,70016059) ) --LR
+order by 1;

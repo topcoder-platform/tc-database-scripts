@@ -1,0 +1,39 @@
+select cc.component_name
+     , cc.component_id
+     , su.login_id coder_id
+     , su.user_id
+     , pr.final_score as score
+     , round(pr.placed) place
+     , case when p.project_type_id = 1 then 112 else 113 end as phase_id
+     , ur.rating
+     , pr.payment as money
+     , pi.start_date as create_date_time
+     , p.project_id
+  from project_result pr
+     , project p
+     , comp_versions cv
+     , comp_catalog cc
+     , security_user su
+     , submission s
+     , phase_instance pi
+     , outer user_rating ur
+where cc.component_id = cv.component_id
+  and cc.component_id not in (12037088, 12037105, 12037048, 12037064, 14937214, 14987284, 15102560, 15102644)
+  and ur.user_id = su.login_id
+  and ur.phase_id = p.project_type_id + 111
+  and su.login_id = pr.user_id
+  and p.project_id = pr.project_id
+  and p.cur_version = 1
+  and p.project_stat_id in (1,3,4)
+  and cv.comp_vers_id = p.comp_vers_id
+  and pr.placed >0
+  and pr.payment > 0
+  and s.cur_version = 1 
+  and s.project_id = pr.project_id 
+  and s.submitter_id = pr.user_id 
+  and s.submission_type = 1 and s.is_removed = 0
+  and pi.project_id = p.project_id
+  and pi.phase_id = 1
+  and pi.cur_version = 1
+  and p.complete_date > current - 14 units day
+order by pi.start_date desc, p.project_id, place asc

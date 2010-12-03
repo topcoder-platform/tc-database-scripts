@@ -1,0 +1,15 @@
+SELECT (CASE WHEN coder.notify = 'Y' THEN 'Yes' ELSE 'No' END) AS response
+     , COUNT(DISTINCT coder.coder_id) AS resp_count
+  FROM campaign_job_xref cjx
+     , job_hit jh
+     , coder
+     , user u
+ WHERE cjx.job_id = jh.job_id
+   AND jh.user_id = coder.coder_id
+   AND cjx.status_id = 1
+   AND (cjx.campaign_id = @cid@)
+   AND (coder.coder_type_id = @ct@)
+   AND coder.coder_id = u.user_id
+   AND u.status = 'A'
+ GROUP BY 1
+ ORDER BY 1 DESC

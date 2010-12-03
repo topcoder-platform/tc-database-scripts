@@ -1,0 +1,15 @@
+select u.handle, u.email as email_address 
+from email_user u
+where lower(u.handle) in (
+'oninkxronda',
+'abedavera',
+'djackmania',
+'mahestro',
+'oton',
+'tricia_tjia',
+'elizabethhee',
+'dogsoldier39',
+'lunarkid',
+'cartholitz',
+'formula',
+'maxsense')

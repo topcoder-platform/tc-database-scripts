@@ -1,0 +1,3 @@
+select tester_id 
+from  problem_tester 
+where problem_id = @pm@

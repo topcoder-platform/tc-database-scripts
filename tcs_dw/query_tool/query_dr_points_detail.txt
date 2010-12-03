@@ -1,0 +1,8 @@
+select dr_points_id, dr_points_reference_type_id, dr_points_operation_id, 
+dr_points_type_id, dr_points_status_id, dr_points_desc, reference_id, 
+amount, is_potential, application_date, award_date 
+from dr_points
+where track_id = @tid@
+and user_id = @cr@
+and is_potential = "@pf@"
+order by award_date desc

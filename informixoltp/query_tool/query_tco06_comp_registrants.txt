@@ -1,0 +1,15 @@
+select u.user_id
+     , lower(u.handle) 
+     , ur_des.rating as design_rating
+     , ur_dev.rating as dev_rating
+  from common_oltp:user_terms_of_use_xref utx
+     , common_oltp:user u
+     , OUTER(tcs_catalog:user_rating ur_des)
+     , OUTER(tcs_catalog:user_rating ur_dev)
+ where u.user_id = utx.user_id
+   and utx.terms_of_use_id = 20384
+   and ur_des.user_id = u.user_id
+   and ur_des.phase_id = 112
+   and ur_dev.user_id = u.user_id
+   and ur_dev.phase_id = 113
+ order by 2

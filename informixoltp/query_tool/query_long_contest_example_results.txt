@@ -1,0 +1,21 @@
+select stc.expected_result
+     , str.fatal_errors
+     , sto.stdout
+     , sto.stderr
+     , str.score
+     , str.processing_time
+  from long_system_test_result str
+     , long_system_test_output sto
+     , system_test_case stc
+     , component c
+ where str.round_id = @rd@
+   and str.component_id = c.component_id
+   and c.problem_id = @pm@
+   and str.coder_id = @cr@
+   and sto.round_id = str.round_id
+   and sto.component_id = str.component_id
+   and sto.coder_id = str.coder_id
+   and stc.test_case_id = str.test_case_id
+   and stc.component_id = str.component_id
+   and stc.example_flag = 1
+   and sto.test_case_id = str.test_case_id

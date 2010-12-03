@@ -1,0 +1,42 @@
+SELECT llu.language_id
+     , llu.language_name
+     , rp.problems_presented
+     , COUNT(cp.coder_id) AS submitted
+     , (CASE WHEN rp.problems_presented = 0 THEN 0.0
+             ELSE COUNT(cp.coder_id) / rp.problems_presented * 100
+             END) AS submit_percent
+     , SUM(CASE WHEN cp.end_status_id = 150 THEN 1 ELSE 0 END) AS correct
+     , (CASE WHEN COUNT(cp.coder_id) = 0 THEN 0.0
+             ELSE SUM(CASE WHEN cp.end_status_id = 150 THEN 1 ELSE 0 END) / COUNT(cp.coder_id) * 100
+             END) AS submission_accuracy
+     , 'N/A' AS overall_accuracy
+     , (CASE WHEN SUM(CASE WHEN cp.end_status_id = 150 THEN 1 ELSE 0 END) = 0 THEN 0.0
+             ELSE SUM(CASE WHEN cp.end_status_id = 150 THEN cp.final_points ELSE 0 END) / 
+                  SUM(CASE WHEN cp.end_status_id = 150 THEN 1 ELSE 0 END)
+             END) AS avg_submission_points
+     , 'N/A' AS avg_final_points
+     , (CASE WHEN SUM(CASE WHEN cp.end_status_id = 150 THEN 1 ELSE 0 END) = 0 THEN 0.0
+             ELSE SUM(CASE WHEN cp.end_status_id = 150 THEN cp.time_elapsed ELSE 0 END) / 
+                  SUM(CASE WHEN cp.end_status_id = 150 THEN 1 ELSE 0 END)
+             END) AS avg_time_elapsed
+     , rp.problems_presented
+  FROM coder_problem maincp
+     , coder_problem cp
+     , language_lu llu
+     , round_problem rp
+     , coder c
+ WHERE maincp.round_id = cp.round_id
+   AND maincp.division_id = cp.division_id
+   AND maincp.problem_id = cp.problem_id
+   AND cp.language_id = llu.language_id
+   AND maincp.round_id = rp.round_id
+   AND maincp.problem_id = rp.problem_id
+   AND maincp.division_id = rp.division_id
+   AND (maincp.coder_id = @mid@)
+   AND (maincp.problem_id = @pm@)
+   AND maincp.round_id = @rd@
+   AND (cp.end_status_id in (140,150,160))
+   AND c.coder_id = maincp.coder_id 
+   AND c.status = 'A'
+ GROUP BY llu.language_id, rp.problems_presented, llu.language_name
+ ORDER BY llu.language_id

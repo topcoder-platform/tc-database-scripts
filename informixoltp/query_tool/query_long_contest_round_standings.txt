@@ -1,0 +1,26 @@
+SELECT u.handle
+     , rr.round_id
+     , rr.coder_id
+     , cs.long_component_state_id
+     , cs.component_id
+     , rr.point_total as points
+     , cs.submission_number
+     , cs.example_submission_number as test_number
+     , u.handle_lower
+     , cs.status_id
+     , s.submit_time
+     , l.language_name
+  FROM long_comp_result rr
+     , user u
+     , long_component_state cs 
+     , outer (long_submission s, language l)
+ WHERE rr.round_id = @rd@
+   and rr.attended = 'Y'
+   and rr.coder_id = u.user_id
+   and cs.coder_id = u.user_id 
+   AND rr.round_id = cs.round_id 
+   and s.long_component_state_id = cs.long_component_state_id
+   and s.submission_number = cs.submission_number
+   and s.example = 0
+   and s.language_id = l.language_id
+ORDER BY points desc, u.handle_lower asc

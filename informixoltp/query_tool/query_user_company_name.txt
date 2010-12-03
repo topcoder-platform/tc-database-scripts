@@ -1,0 +1,4 @@
+SELECT demographic_response as company_name
+  FROM demographic_response dr
+ WHERE dr.demographic_question_id = 15
+   AND dr.coder_id = @cr@

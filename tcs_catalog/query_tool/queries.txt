@@ -1,0 +1,280 @@
+query_-deleted.txt|UPDATE query SET text= ? WHERE query_id=26283
+query_accumulated_dr_points_by_month.txt|UPDATE query SET text= ? WHERE query_id=29056
+query_Active Competition Registrants.txt|UPDATE query SET text= ? WHERE query_id=28406
+query_active_architecture_contests.txt|UPDATE query SET text= ? WHERE query_id=28418
+query_active_assembly_contests.txt|UPDATE query SET text= ? WHERE query_id=27317
+query_active_contests_list.txt|UPDATE query SET text= ? WHERE query_id=28857
+query_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=28776
+query_actual_tco_contests.txt|UPDATE query SET text= ? WHERE query_id=26601
+query_all_components_and_projects.txt|UPDATE query SET text= ? WHERE query_id=27433
+query_aol_component_downloads.txt|UPDATE query SET text= ? WHERE query_id=28656
+query_aol_project_data.txt|UPDATE query SET text= ? WHERE query_id=27066
+query_application_component_report.txt|UPDATE query SET text= ? WHERE query_id=27426
+query_application_report.txt|UPDATE query SET text= ? WHERE query_id=27427
+query_architecture_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=28969
+query_architecture_project_status.txt|UPDATE query SET text= ? WHERE query_id=28796
+query_architecture_registrants.txt|UPDATE query SET text= ? WHERE query_id=28417
+query_assembly_registrants.txt|UPDATE query SET text= ? WHERE query_id=27318
+query_AverageTimeByPhase.txt|UPDATE query SET text= ? WHERE query_id=21685
+query_catalog_backlog_report.txt|UPDATE query SET text= ? WHERE query_id=27420
+query_catalog_components.txt|UPDATE query SET text= ? WHERE query_id=28987
+query_catalog_report.txt|UPDATE query SET text= ? WHERE query_id=27459
+query_Catalog_Totals.txt|UPDATE query SET text= ? WHERE query_id=12208
+query_checkTerms.txt|UPDATE query SET text= ? WHERE query_id=15960
+query_client_component_access_report.txt|UPDATE query SET text= ? WHERE query_id=28766
+query_code_details.txt|UPDATE query SET text= ? WHERE query_id=28536
+query_college_tour_comp_results.txt|UPDATE query SET text= ? WHERE query_id=27586
+query_comp_docs.txt|UPDATE query SET text= ? WHERE query_id=21581
+query_competitor_status.txt|UPDATE query SET text= ? WHERE query_id=15915
+query_competitors per project.txt|UPDATE query SET text= ? WHERE query_id=28407
+query_Component Downloads by Access Group.txt|UPDATE query SET text= ? WHERE query_id=29266
+query_Component Downloads by Company.txt|UPDATE query SET text= ? WHERE query_id=21553
+query_Component Downloads by Day.txt|UPDATE query SET text= ? WHERE query_id=21530
+query_Component Downloads by Month - Component.txt|UPDATE query SET text= ? WHERE query_id=21532
+query_Component Downloads by Month - Customer.txt|UPDATE query SET text= ? WHERE query_id=21533
+query_Component Downloads by Month.txt|UPDATE query SET text= ? WHERE query_id=21531
+query_component_appeal.txt|UPDATE query SET text= ? WHERE query_id=26609
+query_component_coder.txt|UPDATE query SET text= ? WHERE query_id=26606
+query_component_cost.txt|UPDATE query SET text= ? WHERE query_id=28416
+query_component_data.txt|UPDATE query SET text= ? WHERE query_id=26605
+query_component_dates_status.txt|UPDATE query SET text= ? WHERE query_id=13794
+query_Component_Downloads.txt|UPDATE query SET text= ? WHERE query_id=12209
+query_component_durations.txt|UPDATE query SET text= ? WHERE query_id=28619
+query_component_inquiry.txt|UPDATE query SET text= ? WHERE query_id=13798
+query_component_payment_report.txt|UPDATE query SET text= ? WHERE query_id=28038
+query_component_payment_report_misc.txt|UPDATE query SET text= ? WHERE query_id=28039
+query_component_score.txt|UPDATE query SET text= ? WHERE query_id=26608
+query_component_status_by_name.txt|UPDATE query SET text= ? WHERE query_id=12256
+query_component_suspension.txt|UPDATE query SET text= ? WHERE query_id=13796
+query_component_time.txt|UPDATE query SET text= ? WHERE query_id=27227
+query_component_timelines.txt|UPDATE query SET text= ? WHERE query_id=27966
+query_component_version_report.txt|UPDATE query SET text= ? WHERE query_id=27444
+query_ComponentPricingQuery.txt|UPDATE query SET text= ? WHERE query_id=12186
+query_components_added_to_catalog.txt|UPDATE query SET text= ? WHERE query_id=26514
+query_components_to_mark_completed.txt|UPDATE query SET text= ? WHERE query_id=28066
+query_contest_details.txt|UPDATE query SET text= ? WHERE query_id=15902
+query_contest_info.txt|UPDATE query SET text= ? WHERE query_id=15904
+query_contest_project_status.txt|UPDATE query SET text= ? WHERE query_id=28786
+query_contest_projects.txt|UPDATE query SET text= ? WHERE query_id=15903
+query_contest_registrants.txt|UPDATE query SET text= ? WHERE query_id=28858
+query_contest_results_monthly.txt|UPDATE query SET text= ? WHERE query_id=15905
+query_contest_status.txt|UPDATE query SET text= ? WHERE query_id=26503
+query_datasource_info.txt|UPDATE query SET text= ? WHERE query_id=28507
+query_dd_active_contest_info.txt|UPDATE query SET text= ? WHERE query_id=28806
+query_dd_component_catalog.txt|UPDATE query SET text= ? WHERE query_id=28836
+query_dd_ProjectCategories.txt|UPDATE query SET text= ? WHERE query_id=28996
+query_dd_ProjectStatus.txt|UPDATE query SET text= ? WHERE query_id=28737
+query_dd_WidgetVersion.txt|UPDATE query SET text= ? WHERE query_id=28846
+query_design_contests.txt|UPDATE query SET text= ? WHERE query_id=26405
+query_design_reviewers.txt|UPDATE query SET text= ? WHERE query_id=13723
+query_dev_contests.txt|UPDATE query SET text= ? WHERE query_id=26404
+query_development_project_status.txt|UPDATE query SET text= ? WHERE query_id=28946
+query_development_reviewers.txt|UPDATE query SET text= ? WHERE query_id=13724
+query_download_key_members.txt|UPDATE query SET text= ? WHERE query_id=29066
+query_dr_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=28968
+query_dr_contests_for_season.txt|UPDATE query SET text= ? WHERE query_id=27791
+query_dr_contests_for_stage.txt|UPDATE query SET text= ? WHERE query_id=27790
+query_dr_finished_periods.txt|UPDATE query SET text= ? WHERE query_id=27792
+query_dr_pool_detail.txt|UPDATE query SET text= ? WHERE query_id=29068
+query_dr_season_active_projects.txt|UPDATE query SET text= ? WHERE query_id=27794
+query_dr_stage_active_projects.txt|UPDATE query SET text= ? WHERE query_id=27793
+query_dr_totals.txt|UPDATE query SET text= ? WHERE query_id=29257
+query_dr_totals_per_track.txt|UPDATE query SET text= ? WHERE query_id=29256
+query_event_contest_status.txt|UPDATE query SET text= ? WHERE query_id=27727
+query_example_component_info.txt|UPDATE query SET text= ? WHERE query_id=26287
+query_FillRateByProjectType.txt|UPDATE query SET text= ? WHERE query_id=21693
+query_FillRateByWeek.txt|UPDATE query SET text= ? WHERE query_id=21691
+query_fulfillment.txt|UPDATE query SET text= ? WHERE query_id=27947
+query_homepage_active_contest_summary.txt|UPDATE query SET text= ? WHERE query_id=28967
+query_Inquiry Detail.txt|UPDATE query SET text= ? WHERE query_id=12154
+query_Inquiry Trend.txt|UPDATE query SET text= ? WHERE query_id=12155
+query_inquiry_count.txt|UPDATE query SET text= ? WHERE query_id=13792
+query_internal_status.txt|UPDATE query SET text= ? WHERE query_id=12257
+query_intro_event_comp_results.txt|UPDATE query SET text= ? WHERE query_id=27728
+query_intro_event_contests.txt|UPDATE query SET text= ? WHERE query_id=27729
+query_javaCatalogShortDesc.txt|UPDATE query SET text= ? WHERE query_id=12231
+query_main_profile_info.txt|UPDATE query SET text= ? WHERE query_id=17684
+query_member_payments.txt|UPDATE query SET text= ? WHERE query_id=26453
+query_member_project_query.txt|UPDATE query SET text= ? WHERE query_id=28263
+query_new_design_postings.txt|UPDATE query SET text= ? WHERE query_id=27462
+query_old_arch_spec_projects.txt|UPDATE query SET text= ? WHERE query_id=28306
+query_open_reviewer_positions.txt|UPDATE query SET text= ? WHERE query_id=27432
+query_passed_review_for_event.txt|UPDATE query SET text= ? WHERE query_id=27726
+query_pending_tournament_projects.txt|UPDATE query SET text= ? WHERE query_id=28156
+query_pm_details.txt|UPDATE query SET text= ? WHERE query_id=15916
+query_pm_project_calendar.txt|UPDATE query SET text= ? WHERE query_id=29231
+query_predictor.txt|UPDATE query SET text= ? WHERE query_id=27186
+query_ProblemProjects.txt|UPDATE query SET text= ? WHERE query_id=21696
+query_production_dates.txt|UPDATE query SET text= ? WHERE query_id=12242
+query_project winners.txt|UPDATE query SET text= ? WHERE query_id=13769
+query_project_calendar.txt|UPDATE query SET text= ? WHERE query_id=29230
+query_project_dependency_calendar.txt|UPDATE query SET text= ? WHERE query_id=29243
+query_project_detail.txt|UPDATE query SET text= ? WHERE query_id=13771
+query_project_info.txt|UPDATE query SET text= ? WHERE query_id=28408
+query_project_participants.txt|UPDATE query SET text= ? WHERE query_id=26452
+query_project_statistics_report.txt|UPDATE query SET text= ? WHERE query_id=27496
+query_project_status.txt|UPDATE query SET text= ? WHERE query_id=12214
+query_project_technologies.txt|UPDATE query SET text= ? WHERE query_id=13772
+query_project_timeline_report.txt|UPDATE query SET text= ? WHERE query_id=27406
+query_ProjectStatID.txt|UPDATE query SET text= ? WHERE query_id=21692
+query_rated_inquiry_count.txt|UPDATE query SET text= ? WHERE query_id=13800
+query_rating_info.txt|UPDATE query SET text= ? WHERE query_id=13797
+query_ready_components.txt|UPDATE query SET text= ? WHERE query_id=15885
+query_recent_components.txt|UPDATE query SET text= ? WHERE query_id=21583
+query_recently_completed_projects.txt|UPDATE query SET text= ? WHERE query_id=26451
+query_registrants.txt|UPDATE query SET text= ? WHERE query_id=26406
+query_reliability_detail.txt|UPDATE query SET text= ? WHERE query_id=26866
+query_remaining_tco_contests.txt|UPDATE query SET text= ? WHERE query_id=26603
+query_repeat_phases.txt|UPDATE query SET text= ? WHERE query_id=27396
+query_Retrieve open projects.txt|UPDATE query SET text= ? WHERE query_id=12168
+query_review_board_members.txt|UPDATE query SET text= ? WHERE query_id=15982
+query_review_board_payments.txt|UPDATE query SET text= ? WHERE query_id=15878
+query_review_project_detail.txt|UPDATE query SET text= ? WHERE query_id=13722
+query_review_projects.txt|UPDATE query SET text= ? WHERE query_id=13717
+query_review_resp_info.txt|UPDATE query SET text= ? WHERE query_id=26277
+query_reviewer_activity.txt|UPDATE query SET text= ? WHERE query_id=15910
+query_reviewer_activity_by_day.txt|UPDATE query SET text= ? WHERE query_id=15911
+query_reviewer_check.txt|UPDATE query SET text= ? WHERE query_id=15950
+query_reviewer_data.txt|UPDATE query SET text= ? WHERE query_id=26607
+query_reviewers.txt|UPDATE query SET text= ? WHERE query_id=21635
+query_reviewers_report.txt|UPDATE query SET text= ? WHERE query_id=15913
+query_reviewers_status_query.txt|UPDATE query SET text= ? WHERE query_id=12408
+query_roles_by_component.txt|UPDATE query SET text= ? WHERE query_id=13709
+query_rss_Architecture_Registration_Open.txt|UPDATE query SET text= ? WHERE query_id=28510
+query_rss_Assembly_Registration_Open.txt|UPDATE query SET text= ? WHERE query_id=28511
+query_rss_Design_Registration_Open.txt|UPDATE query SET text= ? WHERE query_id=28509
+query_rss_Development_Registration_Open.txt|UPDATE query SET text= ? WHERE query_id=28506
+query_rss_Open_Review_Positions.txt|UPDATE query SET text= ? WHERE query_id=28586
+query_rss_Recently_Completed_Components.txt|UPDATE query SET text= ? WHERE query_id=29238
+query_rss_Reqested_Components.txt|UPDATE query SET text= ? WHERE query_id=28956
+query_sampleInquiry.txt|UPDATE query SET text= ? WHERE query_id=12370
+query_sampleInquiryCount.txt|UPDATE query SET text= ? WHERE query_id=12373
+query_ScoresBySubmittersLast6Months.txt|UPDATE query SET text= ? WHERE query_id=21688
+query_security_reviews.txt|UPDATE query SET text= ? WHERE query_id=28027
+query_software_forums.txt|UPDATE query SET text= ? WHERE query_id=27377
+query_stuck_component_report.txt|UPDATE query SET text= ? WHERE query_id=27407
+query_submission_count.txt|UPDATE query SET text= ? WHERE query_id=27986
+query_submission_count_by_handle.txt|UPDATE query SET text= ? WHERE query_id=12254
+query_submission_report.txt|UPDATE query SET text= ? WHERE query_id=12243
+query_submission_status.txt|UPDATE query SET text= ? WHERE query_id=13689
+query_SubmissionFillRate.txt|UPDATE query SET text= ? WHERE query_id=21690
+query_submissions_count.txt|UPDATE query SET text= ? WHERE query_id=12245
+query_submissions_to_handle.txt|UPDATE query SET text= ? WHERE query_id=12251
+query_SubmissionsByMonthByPhase.txt|UPDATE query SET text= ? WHERE query_id=21687
+query_submit_review_testcases_report.txt|UPDATE query SET text= ? WHERE query_id=12287
+query_subscriptions.txt|UPDATE query SET text= ? WHERE query_id=13763
+query_successful_components.txt|UPDATE query SET text= ? WHERE query_id=26285
+query_survey_projects.txt|UPDATE query SET text= ? WHERE query_id=21704
+query_survey_results.txt|UPDATE query SET text= ? WHERE query_id=21705
+query_survey_results_all.txt|UPDATE query SET text= ? WHERE query_id=21706
+query_survey_results_all_freeform.txt|UPDATE query SET text= ? WHERE query_id=21707
+query_survey_results_freeform.txt|UPDATE query SET text= ? WHERE query_id=21708
+query_tccc05_online_round_results.txt|UPDATE query SET text= ? WHERE query_id=17691
+query_tccc05_overall_results.txt|UPDATE query SET text= ? WHERE query_id=17692
+query_tccc06_comp_registrants.txt|UPDATE query SET text= ? WHERE query_id=26827
+query_tco04_contest_results_monthly.txt|UPDATE query SET text= ? WHERE query_id=15970
+query_tco04_contest_results_overall.txt|UPDATE query SET text= ? WHERE query_id=16018
+query_tco04_online_round_results.txt|UPDATE query SET text= ? WHERE query_id=15968
+query_tco04_overall_details.txt|UPDATE query SET text= ? WHERE query_id=16019
+query_tco04_overall_results.txt|UPDATE query SET text= ? WHERE query_id=15969
+query_tco05_online_round_results.txt|UPDATE query SET text= ? WHERE query_id=21585
+query_tco05_overall_results.txt|UPDATE query SET text= ? WHERE query_id=21586
+query_tco_submissions_by_user.txt|UPDATE query SET text= ? WHERE query_id=12285
+query_test.txt|UPDATE query SET text= ? WHERE query_id=28986
+query_timelines_by_component.txt|UPDATE query SET text= ? WHERE query_id=28621
+query_top_downloads.txt|UPDATE query SET text= ? WHERE query_id=21524
+query_Total Inquiries in Last week.txt|UPDATE query SET text= ? WHERE query_id=12156
+query_total_component_prices.txt|UPDATE query SET text= ? WHERE query_id=12361
+query_tournament_project.txt|UPDATE query SET text= ? WHERE query_id=26424
+query_tournament_review_projects.txt|UPDATE query SET text= ? WHERE query_id=13751
+query_unique_submissions.txt|UPDATE query SET text= ? WHERE query_id=12284
+query_upload_url.txt|UPDATE query SET text= ? WHERE query_id=12244
+query_usdc_monthly_results.txt|UPDATE query SET text= ? WHERE query_id=15895
+query_usdc_quarterly_results.txt|UPDATE query SET text= ? WHERE query_id=15894
+query_usdc_weekly_results.txt|UPDATE query SET text= ? WHERE query_id=15896
+query_used_wager_points.txt|UPDATE query SET text= ? WHERE query_id=26604
+query_User_List.txt|UPDATE query SET text= ? WHERE query_id=11010
+query_wager_history.txt|UPDATE query SET text= ? WHERE query_id=26602
+query_winners.txt|UPDATE query SET text= ? WHERE query_id=13694
+query_winning_designer_check.txt|UPDATE query SET text= ? WHERE query_id=15953
+query_conceptualization_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29266
+query_specification_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29267
+query_ria_build_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29646
+query_ria_component_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29647
+query_ui_prototype_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29648
+query_project_requirements.txt|UPDATE query SET text= ? WHERE query_id= 29736
+query_spec_review_projects.txt|UPDATE query SET text= ? WHERE query_id= 29787
+query_spec_review_board_payments.txt|UPDATE query SET text= ? WHERE query_id= 29789
+query_spec_review_project_detail.txt|UPDATE query SET text= ? WHERE query_id= 29788
+query_project_docs.txt|UPDATE query SET text= ? WHERE query_id= 29966
+query_dr_point_breakdown.txt|UPDATE query SET text = ? WHERE query_id = 30006
+query_dr_point_detailed_breakdown.txt|UPDATE query SET text = ? WHERE query_id = 30426
+query_project_role_ids.txt|UPDATE query SET text = ? WHERE query_id = 30046
+query_component_xml_feed.txt|UPDATE query SET text = ? WHERE query_id = 30056
+query_pacts_client_by_project.txt|UPDATE query SET text = ? WHERE query_id = 30087
+query_has_eligibility.txt|UPDATE query SET text = ? WHERE query_id = 30186
+query_is_eligible.txt|UPDATE query SET text = ? WHERE query_id = 30187
+query_tc_direct_facts.txt|UPDATE query SET text = ? WHERE query_id = 30247
+query_copilot_stats.txt|UPDATE query SET text = ? WHERE query_id = 30246
+query_direct_latest_activities.txt|UPDATE query SET text = ? WHERE query_id = 30248
+query_direct_my_contests.txt|UPDATE query SET text = ? WHERE query_id = 30251
+query_direct_my_projects.txt|UPDATE query SET text = ? WHERE query_id = 30250
+query_direct_upcoming_activities.txt|UPDATE query SET text = ? WHERE query_id = 30249
+query_tcs_resources_by_user.txt|UPDATE query SET text = ? WHERE query_id = 30384
+query_tcs_resources_by_user_and_status.txt|UPDATE query SET text = ? WHERE query_id = 30385
+query_tcs_resource_infos_by_user.txt|UPDATE query SET text = ? WHERE query_id = 30382
+query_tcs_resource_infos_by_user_and_status.txt|UPDATE query SET text = ? WHERE query_id = 30383
+query_tcs_projects_by_user.txt|UPDATE query SET text = ? WHERE query_id = 30381
+query_tcs_projects_by_status.txt|UPDATE query SET text = ? WHERE query_id = 30380
+query_tcs_project_phases_by_user.txt|UPDATE query SET text = ? WHERE query_id = 30379
+query_tcs_project_phases_by_status.txt|UPDATE query SET text = ? WHERE query_id = 30378
+query_tcs_project_infos_by_user.txt|UPDATE query SET text = ? WHERE query_id = 30377
+query_tcs_project_infos_by_status.txt|UPDATE query SET text = ? WHERE query_id = 30376
+query_direct_studio_contest_stats.txt|UPDATE query SET text = ? WHERE query_id = 30416
+query_direct_active_contests.txt|UPDATE query SET text = ? WHERE query_id = 30512
+query_cockpit_project.txt|UPDATE query SET text = ? WHERE query_id = 30517
+query_cockpit_project_user.txt|UPDATE query SET text = ? WHERE query_id = 30518
+query_rss_paypal_forum_feed.txt|UPDATE query SET text = ? WHERE query_id = 30536
+query_direct_contest_stats.txt|UPDATE query SET text = ? WHERE query_id = 30546
+query_rss_paypal_studio_forum_feed.txt|UPDATE query SET text = ? WHERE query_id = 30556
+query_dd_paypalx_member_count.txt|UPDATE query SET text = ? WHERE query_id = 30596
+query_copilot_pool_members.txt|UPDATE query SET text = ? WHERE query_id = 30636
+query_copilot_pool_images.txt|UPDATE query SET text = ? WHERE query_id = 30637
+query_current_contests_number.txt|UPDATE query SET text = ? WHERE query_id = 30638
+query_current_projects_number.txt|UPDATE query SET text = ? WHERE query_id = 30639
+query_direct_software_project_reviewers.txt|UPDATE query SET text = ? WHERE query_id = 30646
+query_direct_software_project_reviews.txt|UPDATE query SET text = ? WHERE query_id = 30647
+query_direct_software_project_submissions.txt|UPDATE query SET text = ? WHERE query_id = 30648
+query_copilot_pool_current_contests.txt|UPDATE query SET text = ? WHERE query_id = 30656
+query_copilot_pool_current_projects.txt|UPDATE query SET text = ? WHERE query_id = 30657
+query_tcs_deliverables.txt|UPDATE query SET text = ? WHERE query_id = 30666
+query_comp_version.txt|UPDATE query SET text = ? WHERE query_id = 30676
+query_comp_version_documents.txt|UPDATE query SET text = ? WHERE query_id = 30677
+query_copilot_profile_info.txt|UPDATE query SET text = ? WHERE query_id = 30696
+query_copilot_user_info.txt|UPDATE query SET text = ? WHERE query_id = 30697
+query_resource_role_by_review_resp.txt|UPDATE query SET text = ? WHERE query_id = 30726
+query_project_categories.txt|UPDATE query SET text = ? WHERE query_id = 30769
+query_is_in_copilot_pool.txt|UPDATE query SET text = ? WHERE query_id = 30786
+query_copilot_postings_permission.txt|UPDATE query SET text = ? WHERE query_id = 30787
+query_copilot_posting_permission.txt|UPDATE query SET text = ? WHERE query_id = 30788
+query_is_copilot_posting_registered.txt|UPDATE query SET text = ? WHERE query_id = 30789
+query_copilot_posting_active_contests_summary.txt|UPDATE query SET text = ? WHERE query_id = 30790
+query_project_phases_status.txt|UPDATE query SET text = ? WHERE query_id = 30796
+query_registration_status.txt|UPDATE query SET text = ? WHERE query_id = 30797
+query_project_dependencies_statuses.txt|UPDATE query SET text = ? WHERE query_id = 30798
+query_review_signup_stats.txt|UPDATE query SET text = ? WHERE query_id = 30806
+query_contest_forum_stats.txt|UPDATE query SET text = ? WHERE query_id = 30816
+query_copilot_pool_statistics.txt|UPDATE query SET text = ? WHERE query_id = 30846
+query_copilot_profile_statistics.txt|UPDATE query SET text = ? WHERE query_id = 30847
+query_copilot_all_contests.txt|UPDATE query SET text = ? WHERE query_id = 30848
+query_pipeline_drafts_ratio_billing.txt|UPDATE query SET text = ? WHERE query_id = 30857
+query_pipeline_drafts_ratio_client.txt|UPDATE query SET text = ? WHERE query_id = 30858
+query_pipeline_drafts_ratio_contesttype.txt|UPDATE query SET text = ? WHERE query_id = 30859
+query_pipeline_drafts_ratio_copilot.txt|UPDATE query SET text = ? WHERE query_id = 30860
+query_pipeline_drafts_ratio_manager.txt|UPDATE query SET text = ? WHERE query_id = 30861
+query_pipeline_drafts_ratio_project.txt|UPDATE query SET text = ? WHERE query_id = 30862
+
+query_tc_copilot_contests.txt|UPDATE query SET text = ? WHERE query_id = 30866
+query_tc_copilot_projects.txt|UPDATE query SET text = ? WHERE query_id = 30867
+
+

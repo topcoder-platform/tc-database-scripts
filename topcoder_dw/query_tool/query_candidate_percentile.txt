@@ -1,0 +1,4 @@
+select  ROUND(case when @pts@ = 0 then 0 when count(*) = 0 then 0 else ((count(*) - sum(case when cp.final_points >= (@pts@) then 1 else 0 end)) / (count(*) + 1)) * 100 end, 2) as percentile
+from coder_problem cp
+where cp.problem_id = @pm@
+and cp.submit_time > 0

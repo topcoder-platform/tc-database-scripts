@@ -1,0 +1,22 @@
+SELECT uc.first_name AS First
+     , uc.last_name AS Last
+     , su.user_id AS Handle
+     , uc.company AS Company
+     , uc.address AS Address
+     , uc.city AS City
+     , uc.postal_code AS Zip
+     , c.description AS Country
+     , uc.telephone_area AS AreaCode
+     , uc.telephone_nbr AS Telephone
+     , uc.email_address AS Email 
+  FROM tcs_catalog:user_customer uc
+     , tcs_catalog:country_codes c
+     , tcs_catalog:security_user su 
+     , tcs_catalog:user_master um
+ WHERE su.login_id = uc.login_id 
+   AND uc.country_code = c.country_code 
+   AND uc.email_address not like '%topcoder.com' 
+   AND lower(last_name) not in ('tanacea', 'corsello')
+   AND um.login_id = uc.login_id
+   AND um.num_logins > 0
+ORDER BY uc.last_name

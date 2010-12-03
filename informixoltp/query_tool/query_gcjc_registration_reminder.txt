@@ -1,0 +1,10 @@
+select u.email as email_address, u.handle
+from email_user u, coder_notify n, coder c
+where u.user_id = n.coder_id
+and u.user_id = c.coder_id
+and u.status = 'A'
+and n.notify_id = 1
+and c.comp_country_code = 156
+and lower(u.email) not in (
+	select lower(address) from temp_gcjc_email
+)

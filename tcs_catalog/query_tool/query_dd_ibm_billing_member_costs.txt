@@ -1,0 +1,84 @@
+select p.project_id as contest_id,
+       decode(p.project_category_name,
+              'Testing Competition', 'Application Testing',
+              'Assembly Competition', 'Assembly',
+              'Design', 'Component Design',
+              'Development', 'Component Development',
+              p.project_category_name) as contest_category
+     , p.component_name as contest_name
+     , p.version_text as version
+     , sum( nvl(prizes.cost, 0) +
+       nvl(rel.cost, 0) +
+       nvl(ref.cost, 0) +
+       nvl(review.cost, 0) +
+       nvl(spec_review.cost, 0) +
+       round(nvl(dr.dr_points, 0), 2) +
+       nvl(copilot.cost, 0) +
+       nvl(misc.cost, 0)) as amount
+     , p.complete_date
+  from project p
+     , outer table(multiset(select pp.reference_id as project_id, sum(up.gross_amount) as cost
+                              from payment p, user_payment up, payment pp
+                             where up.payment_id = p.payment_id
+                               and p.payment_type_id = 24 -- reliability bonus
+                               and pp.payment_id = p.parent_payment_id
+                             group by pp.reference_id)) rel
+     , outer table(multiset(select pp.reference_id as project_id, sum(up.gross_amount) as cost
+                              from payment p, user_payment up, payment pp
+                             where up.payment_id = p.payment_id
+                               and p.payment_type_id = 4 -- coder referral
+                               and pp.payment_id = p.parent_payment_id
+                             group by pp.reference_id)) ref
+     , outer table(multiset(select p.reference_id as project_id, sum(up.total_amount) as cost
+                              from payment p, user_payment up
+                             where up.payment_id = p.payment_id
+                               and p.payment_type_id in (7, 24, 26) -- we're unifying all competition review board payments under this id
+                               and p.installment_number = 1
+                             group by p.reference_id)) review
+     , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                              from payment p, user_payment up
+                             where up.payment_id = p.payment_id
+                               and p.payment_type_id = 7 
+                             group by p.reference_id)) spec_review
+     , outer table(multiset(select p.reference_id as project_id, sum(up.total_amount) as cost
+                              from payment p, user_payment up
+                             where up.payment_id = p.payment_id
+                               and p.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55)
+                               and p.installment_number = 1
+                             group by p.reference_id)) prizes
+     , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                              from payment p, user_payment up
+                             where up.payment_id = p.payment_id
+                               and p.payment_type_id not in (6, 29, 10, 42, 43, 44, 27, 7, 24, 26, 4, 24, 45, 49, 50, 51, 55)
+                             group by p.reference_id)) misc
+     , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                              from payment p, user_payment up
+                             where up.payment_id = p.payment_id
+                               and p.payment_type_id = 45
+                             group by p.reference_id)) copilot
+     , outer table(multiset(select pr.project_id, sum(pr.final_points) as dr_points
+                              from project_result pr
+                             group by pr.project_id)) as dr
+     , outer table(multiset(select p.reference_id as project_id
+                                 , max(extend(mdy(c.month_numeric, c.day_of_month, c.year), year to minute) + t.hour_24 units hour + t.minute units minute) as modified
+                              from payment p
+                                 , calendar c
+                                 , time t
+                             where p.modified_calendar_id = c.calendar_id
+                               and p.modified_time_id = t.time_id
+                             group by p.reference_id)) mod
+ where rel.project_id = p.project_id
+   and review.project_id = p.project_id
+   and spec_review.project_id = (select psr.spec_review_project_id from project_spec_review_xref psr where psr.project_id = p.project_id)
+   and ref.project_id = p.project_id
+   and prizes.project_id = p.project_id
+   and misc.project_id = p.project_id
+   and dr.project_id = p.project_id
+   and mod.project_id = p.project_id
+   and copilot.project_id = p.project_id
+   and p.posting_date is not null
+   and p.complete_date >= (today - @days@)
+   and (select max(pay.client) from payment pay where pay.reference_id = p.project_id) = 'IBM'
+ group by 1, 2, 3, 4, p.complete_date
+ order by p.complete_date desc;
+ 

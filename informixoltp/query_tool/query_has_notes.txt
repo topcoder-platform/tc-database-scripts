@@ -1,0 +1,2 @@
+select case when exists (select '1' from user_note_xref x, note n where x.user_id= @uid@ and n.note_id = x.note_id and n.note_type_id=5) then '1' else '0' end as has_notes
+from dual

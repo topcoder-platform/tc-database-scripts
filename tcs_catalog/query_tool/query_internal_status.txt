@@ -1,0 +1,21 @@
+select cc.component_name,
+       cc.component_id,
+       cv.version,
+       cvd.initial_submission_date,
+       cvd.review_complete_date,
+       cvd.aggregation_complete_date,
+       cvd.phase_complete_date,
+       p.description phase,
+       cvd.final_submission_date
+  from comp_catalog cc,
+       comp_version_dates cvd,
+       comp_versions cv,
+       phase p
+ where cv.comp_vers_id = cvd.comp_vers_id
+   and cc.component_id = cv.component_id
+   and cvd.initial_submission_date < EXTEND(CURRENT, YEAR TO DAY)
+   and cvd.PHASE_COMPLETE_DATE >= EXTEND(CURRENT, YEAR TO DAY)
+   and cvd.review_complete_date is not NULL
+   and cv.phase_id = cvd.phase_id
+   and cv.phase_id in (113,112)
+order by p.description, cc.component_name

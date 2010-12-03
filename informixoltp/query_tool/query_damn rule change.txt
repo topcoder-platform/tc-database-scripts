@@ -1,0 +1,7 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , common_oltp:user_terms_of_use_xref x
+ WHERE u.status = 'A'
+   and u.user_id = x.user_id
+   and x.terms_of_use_id = 20

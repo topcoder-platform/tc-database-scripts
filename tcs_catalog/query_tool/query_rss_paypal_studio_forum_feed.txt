@@ -1,0 +1,11 @@
+select first 10 j.subject as title,  'http://studio.topcoder.com/forums?module=Thread&threadID=' || j.threadid as link,
+j.body as description, millis_to_time(j.modificationdate) as pubdate, u.handle as author
+
+from studio_oltp:jivemessage j, studio_oltp:contest c, studio_oltp:contest_config cf, user u
+
+where j.forumid = c.forum_id 
+and cf.property_value in ('70016090', '70016097')
+and c.contest_id = cf.contest_id and cf.property_id = 28
+and j.userid = u.user_id
+
+order by 4 desc

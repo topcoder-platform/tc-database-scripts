@@ -1,0 +1,17 @@
+SELECT count(*) as count
+  FROM coder c
+     , rating r
+     , round ro
+     , country co
+     , calendar cal
+ WHERE c.coder_id = r.coder_id
+   AND c.status = 'A'
+   AND c.state_code like '@st@'
+   AND LOWER(c.handle) like LOWER('@ha@')
+   AND r.last_rated_round_id = ro.round_id
+   AND r.rating BETWEEN @minra@ AND @maxra@
+   AND r.num_ratings BETWEEN @nrn@ and @mrn@
+   AND c.country_code like '@cc@'
+   AND c.country_code = co.country_code
+   AND cal.calendar_id = ro.calendar_id
+   AND cal.date > CURRENT - @mdslc@ UNITS DAY

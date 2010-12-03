@@ -1,0 +1,10 @@
+select pr.project_id, pr.final_score, pr.submit_timestamp, pr.payment,
+case when pr.placed = 0 then '-' else ''||pr.placed end as placed
+, p.category_desc|| ' ' || p.component_name as component_name, p.component_id,
+case when p.status_id in (4,5,6,7) then 1 else 0 end as complete_status
+from tcs_dw:contest_project_xref cpx, tcs_dw:project_result pr, tcs_dw:project p
+where pr.user_id = @cr@
+and cpx.contest_id = @ct@
+and pr.project_id = cpx.project_id
+and p.project_id = pr.project_id
+order by pr.submit_timestamp desc

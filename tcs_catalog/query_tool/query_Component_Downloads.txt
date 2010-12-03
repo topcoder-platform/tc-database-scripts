@@ -1,0 +1,22 @@
+select 
+  su.user_id Handle, 
+  co.company_name, 
+  c.component_name Component,
+  cv.version_text Version, 
+  dt.create_time Time
+from 
+  security_user su, 
+  download_tracking dt, 
+  comp_catalog c,
+  comp_versions cv, 
+  OUTER (company co, contact con)
+where 
+  su.login_id = dt.login_id
+  and con.contact_id = su.login_id
+  and con.company_id = co.company_id
+  and dt.comp_vers_id = cv.comp_vers_id
+  and c.component_id = cv.component_id 
+  and date(dt.create_time) >= today - 30 
+  and su.login_id not in 
+    (select login_id from user_group_xref where group_id = 2000115)
+order by dt.create_time desc,su.user_id

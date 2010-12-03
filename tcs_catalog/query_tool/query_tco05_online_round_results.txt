@@ -1,0 +1,5 @@
+select * 
+from contest c
+where 
+c.contest_type_id = 10
+and c.phase_id = @ph@

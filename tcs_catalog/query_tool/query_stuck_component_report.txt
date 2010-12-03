@@ -1,0 +1,71 @@
+select unique 
+       '<a href=https://software.topcoder.com/admin/component_admin.jsp?comp=' || pi2.value || '>' || cat.category_name || ' ' || pi6.value || ' ' || pi7.value || '</a>' as component
+     , pi2.value::integer as component_id
+     , decode(p.project_category_id, 1, 'STUCK IN DESIGN', 2, 'STUCK IN DEVELOPMENT') as status
+  from project p
+     , project_info pi2
+     , project_info pi3
+     , project_info pi5
+     , project_info pi6
+     , project_info pi7
+     , categories cat
+ where p.project_status_id in (4, 5, 6)
+   and p.project_category_id in (1, 2)
+   and p.project_id = pi2.project_id
+   and pi2.project_info_type_id = 2
+   and p.project_id = pi3.project_id
+   and pi3.project_info_type_id = 3
+   and not exists (select *
+                     from project proj
+                        , project_info proji2
+                        , project_info proji3
+                    where proj.project_status_id in (1, 7)
+                      and proj.project_category_id = p.project_category_id
+                      and proj.project_id = proji2.project_id
+                      and proji2.project_info_type_id = 2
+                      and proji2.value = pi2.value
+                      and proji3.project_info_type_id = 3
+                      and proji3.value = pi3.value)
+   and p.project_id = pi5.project_id
+   and pi5.project_info_type_id = 5
+   and p.project_id = pi6.project_id
+   and pi6.project_info_type_id = 6
+   and p.project_id = pi7.project_id
+   and pi7.project_info_type_id = 7
+   and pi5.value::integer = cat.category_id
+union
+select unique
+     '<a href=https://software.topcoder.com/admin/component_admin.jsp?comp=' || pi2.value || '>' || cat.category_name || ' ' || pi6.value || ' ' || pi7.value || '</a>' as component
+     , pi2.value::integer as component_id
+     , 'NEVER DEVELOPED' as status
+  from project p
+     , project_info pi2
+     , project_info pi3
+     , project_info pi5
+     , project_info pi6
+     , project_info pi7
+     , categories cat
+ where p.project_category_id = 1
+   and p.project_status_id = 7
+   and p.project_id = pi2.project_id
+   and pi2.project_info_type_id = 2
+   and p.project_id = pi3.project_id
+   and pi3.project_info_type_id = 3
+   and not exists (select *
+                     from project proj
+                        , project_info proji2
+                        , project_info proji3
+                    where proj.project_category_id = 2
+                      and proj.project_id = proji2.project_id
+                      and proji2.project_info_type_id = 2
+                      and proji2.value = pi2.value
+                      and proji3.project_info_type_id = 3
+                      and proji3.value = pi3.value)
+   and p.project_id = pi5.project_id
+   and pi5.project_info_type_id = 5
+   and p.project_id = pi6.project_id
+   and pi6.project_info_type_id = 6
+   and p.project_id = pi7.project_id
+   and pi7.project_info_type_id = 7
+   and pi5.value::integer = cat.category_id
+order by pi2.value::integer desc;

@@ -1,0 +1,17 @@
+select c.coder_id
+     , u.handle
+     , NVL(r.rating,0) as algorithm_rating
+     , NVL(dsr.rating,0) as design_rating
+     , NVL(dvr.rating,0) as development_rating
+  from coder c
+     , user u
+     , OUTER(rating r)
+     , OUTER(tcs_catalog:user_rating dsr)
+     , OUTER(tcs_catalog:user_rating dvr)
+ where c.coder_id = @mid@
+   and c.coder_id = u.user_id
+   and r.coder_id = c.coder_id
+   and dsr.user_id = c.coder_id
+   and dsr.phase_id = 112
+   and dvr.user_id = c.coder_id
+   and dvr.phase_id = 113

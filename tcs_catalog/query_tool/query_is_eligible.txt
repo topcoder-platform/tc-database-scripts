@@ -1,0 +1,8 @@
+select ce.contest_eligibility_id, login_id, gce.group_id from 
+
+project p left outer join (contest_eligibility ce 
+                           join (group_contest_eligibility gce left outer join user_group_xref x 
+                                                               on (x.group_id = gce.group_id and x.login_id = @uid@)) 
+                           on ce.contest_eligibility_id = gce.contest_eligibility_id) 
+          on p.project_id = ce.contest_id 
+where p.project_id = @pj@

@@ -1,0 +1,17 @@
+select count(*), s.name
+ from school s
+ , current_school cs
+, user u
+, address a
+, user_address_xref x
+, user_terms_of_use_xref utx
+where s.school_id = cs.school_id 
+and u.user_id = cs.coder_id
+and utx.user_id = u.user_id
+ and utx.terms_of_use_id = 15
+ and a.address_id = x.address_id
+ and a.country_code <> '840'
+  and x.user_id = u.user_id
+  and u.status = 'A'
+ group by s.name
+order by 1 desc

@@ -1,0 +1,17 @@
+select p.product_desc
+     , pur.create_date
+     , u.handle
+     , c.company_name
+     , u.first_name
+     , u.last_name
+     , pur.paid
+  from corporate_oltp:product p
+     , corporate_oltp:purchase pur
+     , common_oltp:user u
+     , outer company c
+ where p.product_id = pur.product_id
+   and p.product_id in (13,14,15,16,18,19,10,11,12)
+   and pur.user_id = u.user_id
+   and pur.company_id = c.company_id
+   and u.user_id not in (select user_id from group_user where group_id in (13,14))
+ order by create_date desc

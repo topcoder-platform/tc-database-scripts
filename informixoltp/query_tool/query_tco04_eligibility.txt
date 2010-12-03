@@ -1,0 +1,11 @@
+select '1'
+  from coder c
+     , user u
+ where c.coder_id = @cr@
+   and c.coder_id = u.user_id
+   and u.status = 'A'
+   and not exists (select '1' 
+                     from demographic_response 
+                    where demographic_question_id = 15
+                      and coder_id = c.coder_id
+                      and lower(demographic_response) like '%microsoft%')

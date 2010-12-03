@@ -1,0 +1,17 @@
+
+SELECT ps.submission_text
+FROM problem_submission ps, problem p
+WHERE ps.round_id = @rd@
+AND ps.problem_id = p.problem_id
+AND ps.round_id = p.round_id
+AND p.division_id =
+ (SELECT MIN(division_id) FROM problem
+  WHERE problem_id = @pm@ AND round_id = @rd@)
+AND p.viewable = 1
+AND ps.coder_id = @cr@
+AND ps.problem_id = @pm@
+AND ps.submission_number= (SELECT MAX(submission_number)
+                             FROM problem_submission ps1
+                            WHERE ps.coder_id = ps1.coder_id
+                              AND ps.problem_id = ps1.problem_id
+                              AND ps.round_id = ps1.round_id)

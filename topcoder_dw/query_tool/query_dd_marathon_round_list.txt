@@ -1,0 +1,15 @@
+select r.round_id
+     , c.name || ' - ' || r.name as full_name
+     , r.short_name
+     , l.date || ' ' ||  t.time_24 as date
+     , rt.round_type_desc as round_type
+  from round r
+     , contest c
+     , calendar l
+     , time t
+     , round_type_lu rt
+ where r.round_type_id in (13,15,19,22)
+   and c.contest_id = r.contest_id
+   and l.calendar_id = r.calendar_id
+   and t.time_id = r.time_id
+   and r.round_type_id = rt.round_type_id

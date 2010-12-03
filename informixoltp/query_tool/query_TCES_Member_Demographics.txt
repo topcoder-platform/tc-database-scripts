@@ -1,0 +1,18 @@
+SELECT dq.demographic_question_id
+     , dq.demographic_question_text
+     , da.demographic_answer_text
+     , da.sort
+  FROM demographic_response dr
+     , demographic_answer da
+     , demographic_question dq
+     , user u
+ WHERE dr.demographic_answer_id = da.demographic_answer_id
+   AND dr.demographic_question_id = dq.demographic_question_id
+   AND da.demographic_question_id = dq.demographic_question_id
+   AND dr.demographic_question_id = da.demographic_question_id
+   AND (dr.user_id = @mid@)
+   AND dq.demographic_question_id NOT IN (1,2,12,24,25)
+   AND dr.user_id = u.user_id 
+   AND u.status = 'A'
+ ORDER BY dq.demographic_question_id
+     , da.sort

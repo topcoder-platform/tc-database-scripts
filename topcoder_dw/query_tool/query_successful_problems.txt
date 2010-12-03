@@ -1,0 +1,8 @@
+select ct.name||' '||r.name||' - '||p.class_name||' - '||p.points as name, p.problem_id, p.round_id, cp.level_id from coder_problem cp, problem p, round r, contest ct where coder_id = @cr@
+and end_status_id = 150
+and p.problem_id = cp.problem_id
+and p.round_id = cp.round_id
+and p.level_id = cp.level_id
+and r.round_id = cp.round_id
+and ct.contest_id = r.contest_id
+order by p.round_id, cp.level_id

@@ -1,0 +1,4 @@
+select count(*)
+  from common_oltp:user_preference
+ where preference_id = 1
+   and value = 'true'

@@ -1,0 +1,18 @@
+select distinct 
+       r.round_id
+      , cal.date
+      , c.name as contest_name
+      , r.name as round_name
+      , r.round_type_id
+      , p.class_name as problem_name
+      , p.problem_id
+from long_comp_result lcr
+     , round r
+     , contest c
+     , problem p
+     , calendar cal
+where lcr.round_id = r.round_id
+and r.contest_id = c.contest_id
+and r.calendar_id = cal.calendar_id
+and p.round_id = r.round_id
+and lcr.placed=1

@@ -1,0 +1,12 @@
+select e.address as address, u.handle as handle, sum(total_amount) as paid
+from 
+  payment p,
+  payment_detail pd,
+  email e,
+  user u
+where 
+  e.user_id = u.user_id and
+  u.user_id = p.user_id and
+  lower(pd.payment_desc) like '%truveo dev%' and payment_desc not like '%Design%'
+  and p.most_recent_detail_id = pd.payment_detail_id
+group by 1,2

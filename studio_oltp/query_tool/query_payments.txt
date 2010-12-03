@@ -1,0 +1,37 @@
+select sp.create_date payment_date,
+       c.end_time contest_end_dt,
+       '<a href=http://studio.topcoder.com/?module=ViewContestResults&ct=' \|\| c.contest_id \|\| '>' \|\| c.name \|\| '</a>',
+       ps.payments_status_desc payment_status,
+       sp.price,
+       sp.submission_id,
+       u.handle,
+       sub.contest_id,
+       sub.submitter_id,
+       sp.paypal_order_id as Paypal_OR_PO
+from submission_payment sp,
+     payment_status_lu ps,
+     submission sub,
+     contest c,
+     user u
+where sp.payment_status_id = ps.payment_status_id
+  and sp.submission_id = sub.submission_id
+  and sub.contest_id = c.contest_id
+  and sub.submitter_id = u.user_id
+UNION
+select cp.create_date payment_date,
+       c.end_time contest_end_dt,
+       '<a href=http://studio.topcoder.com/?module=ViewContestResults&ct=' \|\| c.contest_id \|\| '>' \|\| c.name \|\| '</a>',
+       ps.payments_status_desc payment_status,
+       cp.price,
+       -1,
+       u.handle,
+       c.contest_id,
+       -1,
+       cp.paypal_order_id as Paypal_OR_PO
+from contest_payment cp,
+     payment_status_lu ps,
+     contest c,
+     user u
+where cp.payment_status_id = ps.payment_status_id
+  and cp.contest_id = c.contest_id
+  and c.create_user_id = u.user_id

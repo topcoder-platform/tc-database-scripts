@@ -1,0 +1,34 @@
+select c.contest_id
+     , c.name
+     , c.start_time
+     , c.end_time 
+     , p.amount 
+     , (select count(*)
+          from submission s
+         where s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id) as submission_count
+     , (select count(*)
+          from submission s, submission_review sr
+         where s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id
+           and sr.submission_id = s.submission_id
+           and sr.review_status_id = 1) as passing_submission_count
+     , exists (select 1 from submission_prize_xref x, submission s where x.submission_id = s.submission_id and s.contest_id = c.contest_id) as results_available
+     , NVL((select property_value from contest_config where contest_id = c.contest_id and property_id = 3), 'false') ='true' as show_submissions
+     , (select count(*) from contest_registration cr where cr.contest_id = c.contest_id) as registrants
+     , c.forum_id
+     , c.contest_channel_id
+     , (select sum(p.amount) from prize p, contest_prize_xref x where x.prize_id = p.prize_id and x.contest_id = c.contest_id) as prize_total
+     , (select property_value::decimal from contest_config where contest_id = c.contest_id and property_id = 24) as dr_points
+     , c.event_id
+     , (select milestone_date from contest_multi_round_information where contest_multi_round_information_id = c.contest_multi_round_information_id) as milestone_date
+  from contest c
+     , outer (contest_prize_xref x, prize p)
+ where c.contest_status_id in (2,10,11)
+   and x.contest_id = c.contest_id
+   and current > c.end_time
+   and x.prize_id = p.prize_id
+   and p.place = 1
+   and c.start_time > '@startdate@'
+   and c.start_time < '@enddate@'
+ order by @sc@ @sd@

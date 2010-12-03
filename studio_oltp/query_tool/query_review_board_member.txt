@@ -1,0 +1,4 @@
+select 'can perform reviews' from rboard_user
+where user_id = @uid@
+and contest_type_id = @ctt@
+and (immune_ind = 1 or status_id = 100) -- immune or ACTIVE

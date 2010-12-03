@@ -1,0 +1,9 @@
+select distinct sr.reviewer_id, c.handle as reviewer, sr.review_resp_id, rr.review_resp_desc
+  from submission_review sr
+      , review_resp rr
+      , coder c
+ where sr.project_id =@pj@
+   and sr.review_resp_id is not null
+   and sr.review_resp_id = rr.review_resp_id
+   and sr.reviewer_id = c.coder_id
+ order by sr.review_resp_id

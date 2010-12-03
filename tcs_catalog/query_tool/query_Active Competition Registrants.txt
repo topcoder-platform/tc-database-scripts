@@ -1,0 +1,22 @@
+select cat.category_name as catalog
+     , pi6.value as component
+     , pi7.value as version
+     , '<a href="/tc?module=LegacyReport&t=new_report&db=java:TCS_CATALOG&c=users_for_project&pj=' || p.project_id || '">Users</a>' as users
+  from project p
+     , project_phase pp2
+     , project_info pi5
+     , project_info pi6
+     , project_info pi7
+     , categories cat
+ where p.project_status_id = 1
+   and p.project_category_id in (1, 2, 14)
+   and p.project_id = pp2.project_id
+   and pp2.phase_type_id = 2
+   and pp2.phase_status_id = 2
+   and p.project_id = pi5.project_id
+   and pi5.project_info_type_id = 5
+   and p.project_id = pi6.project_id
+   and pi6.project_info_type_id = 6
+   and p.project_id = pi7.project_id
+   and pi7.project_info_type_id = 7  
+   and pi5.value::integer = cat.category_id order by 1, 2, 3;

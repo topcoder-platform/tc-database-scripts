@@ -1,0 +1,17 @@
+select  c1.coder_id
+      , c.handle
+      , c1.initial_points
+      , c1.final_points
+      , c1.potential_points
+      , c1.current_place
+      , c1.current_prize as current_top_n_prize
+      , c2.current_prize as current_top_performer_prize
+from contest_result c1
+    ,outer contest_result c2
+    , coder c
+where c1.contest_id = @ct@
+and c2.contest_id = @tpct@
+and c1.coder_id = c2.coder_id
+and c.coder_id = c1.coder_id
+and (c1.initial_points > 0 or c1.potential_points > 0)
+order by c1.final_points desc

@@ -1,0 +1,20 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+ WHERE u.handle IN
+('AleaActaEst',
+ 'bramandia',
+ 'Luca',
+ 'nicka81',
+ 'tushak',
+ 'Urmass',
+ 'urtks',
+ 'Vovka',
+ 'catcher',
+ 'fanse',
+ 'lyt',
+ 'nebula.lam',
+ 'Yeung',
+ '80x86',
+ 'enefem21',
+ 'PE')

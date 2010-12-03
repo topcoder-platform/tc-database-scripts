@@ -1,0 +1,12 @@
+select
+  u.handle
+  ,u.email as email_address
+from
+  email_user u
+where
+  u.status = 'A' and
+  exists
+  (
+    select * from user_notify_xref un
+    where un.user_id = u.user_id and un.notify_id in (4,5)
+  )

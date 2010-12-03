@@ -1,0 +1,7 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+ WHERE u.status = 'A'
+   AND u.user_id IN (SELECT unx.user_id
+                       FROM user_notify_xref unx
+                      WHERE notify_id in (4))

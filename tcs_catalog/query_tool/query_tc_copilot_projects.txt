@@ -1,0 +1,18 @@
+select unique tdp.project_id as tc_direct_project_id, tdp.name as tc_direct_project_name, cpr.user_id, u.handle, ct.name, cp.copilot_project_id, cpr.copilot_profile_id
+
+from user_permission_grant upg, tc_direct_project tdp
+
+left outer join copilot_project cp on tdp.project_id = cp.tc_direct_project_id
+left outer join copilot_profile cpr on cpr.copilot_profile_id = cp.copilot_profile_id
+left outer join user u on u.user_id = cpr.user_id
+left outer join copilot_type ct on ct.copilot_type_id = cp.copilot_type_id
+
+where tdp.project_id = upg.resource_id
+
+and upg.user_id = @uid@
+
+and upg.permission_type_id in (1,2,3)
+
+and tdp.project_status_id = 1
+
+order by tc_direct_project_name

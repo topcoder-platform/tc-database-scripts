@@ -1,0 +1,19 @@
+select
+  demographic_response, count(*) as cnt, avg(rat.rating) as avg_rating, lower(demographic_response)
+from
+  room_result rr,
+  room r,
+  coder c,
+  rating rat,
+  demographic_response dr
+where
+  rr.round_id = @rd@ and
+  c.coder_id = rr.coder_id and
+  rat.coder_id = c.coder_id and
+  r.room_id = rr.room_id and
+  room_type_id <> 1 and
+  coder_type_id = 2 and
+  dr.coder_id = c.coder_id and
+  dr.demographic_question_id = 15 and
+  demographic_response != ''
+group by 1 order by 4

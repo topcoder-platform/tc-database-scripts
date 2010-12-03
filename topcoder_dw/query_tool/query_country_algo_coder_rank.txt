@@ -1,0 +1,16 @@
+SELECT c.coder_id
+     , c.handle
+     , r.rating
+     , r.num_competitions
+     , c.handle_lower
+     , ccr.rank
+  FROM coder c
+     , rating r
+     , country_coder_rank ccr
+ WHERE c.coder_id = r.coder_id
+   AND c.status = 'A'
+   AND ccr.coder_rank_type_id = 2
+   AND ccr.coder_id = c.coder_id
+   AND ccr.algo_rating_type_id = 1
+   AND ccr.country_code = '@cc@'
+ ORDER BY @sc@ @sd@

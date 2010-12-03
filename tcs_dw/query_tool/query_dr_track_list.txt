@@ -1,0 +1,4 @@
+select track_id, track_desc from track 
+where track_type_id = @ttid@
+and track_status_id != 3      -- deleted
+order by track_start_date asc

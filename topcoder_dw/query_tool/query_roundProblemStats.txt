@@ -1,0 +1,41 @@
+SELECT p.level_id
+     , p.problem_id
+     , p.class_name AS name
+     , dlu.division_desc
+     , rp.level_desc
+     , rp.problems_presented AS coders
+     , rp.problems_submitted AS submissions
+     , (CASE WHEN rp.problems_presented = 0 THEN 0.0
+             ELSE ROUND(rp.problems_submitted / rp.problems_presented * 100, 2)
+             END) AS submit_pct
+     , rp.problems_correct AS correct
+     , (CASE WHEN rp.problems_submitted = 0 THEN 0.0
+             ELSE ROUND(rp.problems_correct / rp.problems_submitted * 100, 2)
+             END) AS submit_pct_correct
+     , (CASE WHEN rp.problems_presented = 0 THEN 0.0
+             ELSE ROUND(rp.problems_correct / rp.problems_presented * 100, 2)
+             END) AS overall_pct_correct
+     , TO_CHAR(EXTEND(TODAY) + (AVG(cp.time_elapsed)/1000) UNITS FRACTION,
+               '%H:%M:%S') AS time_elapsed
+     , (SELECT AVG(final_points)
+          FROM coder_problem cp1
+         WHERE cp1.round_id = cp.round_id
+           AND cp1.division_id = cp.division_id
+           AND cp1.problem_id = cp.problem_id
+           AND cp1.end_status_id = 150) as avg_points
+  FROM round_problem rp
+     , problem p
+     , division_lu dlu
+     , coder_problem cp
+ WHERE rp.round_id = @rd@
+   AND rp.division_id = @dn@
+   AND p.problem_id = rp.problem_id
+   AND p.round_id = rp.round_id
+   AND p.division_id = rp.division_id
+   AND dlu.division_id = rp.division_id
+   AND cp.problem_id = rp.problem_id
+   AND cp.round_id = rp.round_id
+   AND cp.division_id = rp.division_id
+   AND cp.end_status_id IN (131,140,150,160)
+ GROUP BY 1,2,3,4,5,6,7,8,9,10,11,13
+ ORDER BY 1

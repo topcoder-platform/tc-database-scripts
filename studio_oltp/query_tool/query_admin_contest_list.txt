@@ -1,0 +1,16 @@
+select c.contest_id
+     , c.name
+     , c.start_time
+     , c.end_time 
+     , cs.contest_status_desc
+     , (select count(*)
+          from submission s
+         where s.submission_status_id = 1
+           and s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id) as submission_count
+     , (select milestone_date from contest_multi_round_information where contest_multi_round_information_id = c.contest_multi_round_information_id) as milestone_date
+  from contest c
+     , contest_status_lu cs
+ where c.contest_status_id in (1,2,10,11)
+   and cs.contest_status_id = c.contest_status_id
+ order by @sc@ @sd@

@@ -1,0 +1,47 @@
+select p.payment_type_desc
+     , 'member_handle'
+     , up.gross_amount
+     , p.payment_status_desc
+     , p.payment_desc
+     , pr.phase_desc
+     , cal1.date as due_date
+     , cal2.date as paid_date
+     , 'client_name'
+  from payment p
+     , user_payment up
+     , coder c
+     , calendar cal1
+     , project pr
+     , outer calendar cal2
+ where p.payment_id = up.payment_id
+   and c.coder_id = up.user_id
+   and cal1.calendar_id = up.due_calendar_id
+   and pr.component_id = (select component_id from project where project_id = @pj@)
+   and pr.version_id = (select version_id from project where project_id = @pj@)
+   and p.reference_id = pr.project_id
+   and up.paid_calendar_id = cal2.calendar_id
+union
+select p.payment_type_desc
+     , c.handle
+     , up.gross_amount
+     , p.payment_status_desc
+     , p.payment_desc
+     , pr.phase_desc
+     , cal1.date as due_date
+     , cal2.date as paid_date
+     , p.client
+  from payment p
+     , user_payment up
+     , payment pp
+     , coder c
+     , calendar cal1
+     , project pr
+     , outer calendar cal2
+ where p.payment_id = up.payment_id
+   and c.coder_id = up.user_id
+   and cal1.calendar_id = up.due_calendar_id
+   and pr.component_id = (select component_id from project where project_id = @pj@)
+   and pr.version_id = (select version_id from project where project_id = @pj@)
+   and pp.payment_id = p.parent_payment_id
+   and pr.project_id = pp.reference_id
+   and up.paid_calendar_id = cal2.calendar_id

@@ -1,0 +1,10 @@
+select submission_number as number
+       , submission_points as score
+      , language_name as language
+      , submit_time as time
+from long_problem_submission lps
+    , language_lu l
+where lps.language_id = l.language_id
+and round_id = @rd@
+and coder_id = @cr@
+and example = 0

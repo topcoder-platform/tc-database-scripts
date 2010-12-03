@@ -1,0 +1,26 @@
+SELECT c.coder_id AS user_id
+     , c.handle
+     , LOWER(c.handle) lower_handle
+     , r.rating
+     , case when c.state_code='ZZ' then '' else c.state_code end as state_code
+     , r.num_ratings
+     , (SELECT date FROM calendar cal WHERE cal.calendar_id = ro.calendar_id) AS last_competed
+     , CASE WHEN r.rating > 0 THEN 1 ELSE 2 END AS rating_order
+     , co.country_name
+  FROM coder c
+     , rating r
+     , round ro
+     , country co
+     , calendar cal
+ WHERE c.coder_id = r.coder_id
+   AND c.status = 'A'
+   AND c.state_code like '@st@'
+   AND LOWER(c.handle) like LOWER('@ha@')
+   AND r.last_rated_round_id = ro.round_id
+   AND r.rating BETWEEN @minra@ AND @maxra@
+   AND r.num_ratings BETWEEN @nrn@ and @mrn@
+   AND c.country_code like '@cc@'
+   AND c.country_code = co.country_code
+   AND cal.calendar_id = ro.calendar_id
+   AND cal.date > CURRENT - @mdslc@ UNITS DAY
+ ORDER BY rating_order, lower_handle

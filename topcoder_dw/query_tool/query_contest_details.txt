@@ -1,0 +1,3 @@
+SELECT *
+FROM tcs_dw:contest c
+where c.contest_id = @ct@

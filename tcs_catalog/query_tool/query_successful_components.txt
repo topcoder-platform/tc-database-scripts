@@ -1,0 +1,15 @@
+select '', 0, 0, 0, 0, 0
+from dual where 2=1
+
+--select component_name, placed, final_score, pr.project_id, cv.comp_vers_id, cc.component_id
+--from project_result pr, project p, comp_versions cv, comp_catalog cc
+--where pr.user_id = @uid@
+--and pr.project_id = p.project_id
+--and cv.comp_vers_id = p.comp_vers_id
+--and cc.component_id = cv.component_id
+--and p.cur_version = 1
+--and p.project_type_id = @ph@
+--and p.project_stat_id in (2,4)
+--and pr.placed is not null
+--and cc.root_category_id in (5801776,5801777)
+--order by placed asc, final_score desc

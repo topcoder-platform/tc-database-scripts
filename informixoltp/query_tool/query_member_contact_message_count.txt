@@ -1,0 +1,1 @@
+select count(*) from member_contact_message

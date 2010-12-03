@@ -1,0 +1,10 @@
+select
+  '<a href=''http://www.topcoder.com/tc?module=MemberProfile&cr=' || u.user_id || '''>' || u.handle || '</a>' as handle, 
+  cr.create_date date_registered, 
+  nvl(co.country_name, (select distinct co2.country_name from address a, user_address_xref uax, country co2 
+where a.address_type_id = 2 and a.address_id = uax.address_id and a.country_code = co2.country_code
+and uax.user_id = u.user_id)) as country_name
+  from user u, aolicq_oltp:contest_registration cr, outer (coder c, country co)
+where u.user_id = cr.user_id
+    and cr.contest_id = 1002
+    and c.coder_id = u.user_id and co.country_code = c.comp_country_code

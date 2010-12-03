@@ -1,0 +1,29 @@
+select c.contest_id contest_id
+     , ct.contest_type_desc contest_category
+     , c.name contest_name
+     , 1 version
+     , max(( select sum(p.amount) from submission_prize_xref sp, submission s, prize p where sp.submission_id = s.submission_id and sp.prize_id = p.prize_id and s.contest_id = c.contest_id ))
+     + MAX((select sum(cmp.amount) from submission_milestone_prize_xref smpx, submission s2, contest_milestone_prize cmp where smpx.submission_id = s2.submission_id and smpx.contest_milestone_prize_id = cmp.contest_milestone_prize_id and s2.contest_id = c.contest_id))
+     + max(conf2.property_value) amount
+     , c.end_time complete_date
+  from contest c LEFT OUTER JOIN contest_detailed_status_lu ds ON c.contest_detailed_status_id = ds.contest_detailed_status_id
+     , contest_type_lu ct
+     , contest_channel_lu cc
+     , contest_status_lu cs
+     , contest_config conf1
+     , contest_config conf2
+     , contest_payment cp
+where 1=1 
+  and c.contest_status_id in (2, 4, 10, 11)
+  and c.contest_type_id = ct.contest_type_id
+  and c.contest_channel_id = cc.contest_channel_id
+  and c.contest_status_id = cs.contest_status_id
+  and c.contest_id = conf1.contest_id
+  and conf1.property_id = 22
+  and c.contest_id = conf2.contest_id
+  and conf2.property_id = 24
+  and c.end_time >= (today - @days@)
+  and c.contest_id = cp.contest_id
+  and (select max(cl.name) from time_oltp:project p, time_oltp:client_project clp, time_oltp:client cl where p.project_id = clp.project_id and clp.client_id = cl.client_id and p.po_box_number = cp.sale_reference_id) = 'IBM'
+group by 1, 2, 3, 4, 6
+order by 6 desc

@@ -1,0 +1,22 @@
+select cte.event_id
+     , cte.event_name
+     , cte.school_id
+     , cte.round_id
+     , cte.reg_start
+     , cte.reg_end
+     , (select start_time from round_segment where round_id = cte.round_id and segment_id = 2) as coding_start
+     , (select end_time from round_segment where round_id = cte.round_id and segment_id = 5) as sys_test_end
+     , s.name as school_name
+     , c.name as round_name
+     , cte.forum_id
+     , t.timezone_desc
+  from college_tour_event cte
+     , school s
+     , contest c
+     , round r
+     , timezone_lu t
+ where cte.event_id = @cteid@
+   and cte.school_id = s.school_id
+   and cte.round_id = r.round_id
+   and r.contest_id = c.contest_id
+   and t.timezone_id = cte.timezone_id

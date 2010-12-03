@@ -1,0 +1,27 @@
+select u.user_id
+     , r.rating
+     , il.seed
+     , u.handle
+     , u.handle_lower as handle_sort
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 9917) as round1
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 9891) as round2
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 9922) as round3
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 9925) as round4
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (9980, 9981, 9982)) as semi
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (9983)) as wildcard
+     , (select CASE WHEN advanced='Y' THEN 'Champion' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 9984) as final
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 9917), 3) as round1_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 9891), 3) as round2_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 9922), 3) as round3_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 9925), 3) as round4_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (9980, 9981, 9982)), 3) as semi_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (9983)), 3) as wildcard_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 9984), 3) as finals_sort
+  from user u
+     , rating r
+     , invite_list il
+ where il.coder_id = u.user_id
+   and r.coder_id = u.user_id
+   and u.status = 'A'
+   and il.round_id = 9917
+ order by finals_sort, semi_sort, wildcard_sort, round4_sort, round3_sort, round2_sort, round1_sort, seed

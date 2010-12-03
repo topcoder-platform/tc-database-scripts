@@ -1,0 +1,14 @@
+select tt.technology_name
+  from project p
+     , technology_types tt
+     , comp_versions cv
+     , comp_technology ct
+     , project_info pi
+ where 1=1
+   and p.project_id = @pj@
+   and p.project_id = pi.project_id
+   and pi.project_info_type_id = 2  
+   and pi.value = cv.component_id 
+   and cv.phase_id IN (112, 113) 
+   and cv.comp_vers_id = ct.comp_vers_id
+   and ct.technology_type_id = tt.technology_type_id

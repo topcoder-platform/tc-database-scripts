@@ -1,0 +1,8 @@
+select u.handle
+     , lower(u.handle) as lower_handle
+  from common_oltp:user_preference up
+     , user u
+ where up.user_id = u.user_id
+   and up.preference_id = 1
+   and up.value = 'true'
+ order by lower_handle

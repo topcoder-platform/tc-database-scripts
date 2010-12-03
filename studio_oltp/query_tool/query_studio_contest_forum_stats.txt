@@ -1,0 +1,10 @@
+select c.forum_id,
+(select count(*) from jivemessage where forumid = c.forum_id )  as number_of_forum,
+(select userid from jivemessage where forumid = c.forum_id and modificationdate = (select max(modificationdate) from jivemessage where forumid = c.forum_id)) latest_userid,
+(select millis_to_time((max(modificationdate))) from jivemessage where forumid = c.forum_id) latest_time,
+(select threadid from jivemessage where forumid = c.forum_id and modificationdate = (select max(modificationdate) from jivemessage where forumid = c.forum_id)) latest_threadid,
+(select handle from jivemessage, user where forumid = c.forum_id and user_id = userid and modificationdate = (select max(modificationdate) from jivemessage where forumid = c.forum_id)) latest_handle
+
+from contest c 
+
+where c.contest_id = @ct@

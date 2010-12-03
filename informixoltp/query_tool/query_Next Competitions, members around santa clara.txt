@@ -1,0 +1,38 @@
+select u.handle, u.email as email_address
+ from coder c, email_user u
+where u.status = 'A'
+  and u.user_id = c.coder_id
+  and c.state_code = 'CA'
+  and exists (select '1' from coder_notify where coder_id = u.user_id and notify_id = 1)
+ and lower(c.city) in 
+('santa clara',
+'san jose',
+'cupertino',
+'burbank',
+'campbell',
+'milpitas',
+'san carlos',
+'foster city',
+'redwood city',
+'palo alto',
+'east palo alto',
+'menlo park',
+'woodside',
+'redwood city',
+'maintain view',
+'sunnyvale',
+'fremont',
+'union city',
+'newark',
+'los gatos',
+'saratoga',
+'cambrian park',
+'morgan hill',
+'san mateo',
+'daly city',
+'pleasanton',
+'hayward',
+'oakland',
+'richmond',
+'concord',
+'san francisco')

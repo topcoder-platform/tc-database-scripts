@@ -1,0 +1,8 @@
+select su.user_id as handle
+     , ra.user_id
+     , ra.primary_ind as primary
+  from rboard_application ra
+     , security_user su
+ where project_id = @pj@
+   and phase_id = @ph@
+   and su.login_id = ra.user_id

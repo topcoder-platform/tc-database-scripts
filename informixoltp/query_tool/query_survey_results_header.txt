@@ -1,0 +1,4 @@
+select s.name, s.text, (select count(distinct r.user_id) from response r, survey_question sq
+    where sq.question_id = r.question_id and sq.survey_id = s.survey_id) as number_of_responses
+ from survey s
+where s.survey_id = @sid@

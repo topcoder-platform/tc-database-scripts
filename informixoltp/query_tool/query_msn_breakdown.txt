@@ -1,0 +1,58 @@
+select (select count(distinct jh.user_id) 
+          from campaign_job_xref x
+             , job_hit jh 
+         where x.campaign_id = 167 
+           and jh.job_id = x.job_id) as opt_ins
+     , (select count(distinct jh.user_id) 
+          from campaign_job_xref x
+             , job_hit jh 
+             , coder c
+         where x.campaign_id = 167 
+           and jh.job_id = x.job_id
+           and jh.user_id = c.coder_id
+           and c.country_code <> '840') as international
+     , (select count(distinct jh.user_id) 
+          from campaign_job_xref x
+             , job_hit jh 
+             , coder c
+         where x.campaign_id = 167 
+           and jh.job_id = x.job_id
+           and jh.user_id = c.coder_id
+           and c.country_code <> '840'
+           and c.coder_type_id = 1) as international_student
+     , (select count(distinct jh.user_id) 
+          from campaign_job_xref x
+             , job_hit jh 
+             , coder c
+         where x.campaign_id = 167 
+           and jh.job_id = x.job_id
+           and jh.user_id = c.coder_id
+           and c.country_code <> '840'
+           and c.coder_type_id = 2) as international_pro
+     , (select count(distinct jh.user_id) 
+          from campaign_job_xref x
+             , job_hit jh 
+             , coder c
+         where x.campaign_id = 167 
+           and jh.job_id = x.job_id
+           and jh.user_id = c.coder_id
+           and c.country_code = '840') as US
+     , (select count(distinct jh.user_id) 
+          from campaign_job_xref x
+             , job_hit jh 
+             , coder c
+         where x.campaign_id = 167 
+           and jh.job_id = x.job_id
+           and jh.user_id = c.coder_id
+           and c.country_code = '840'
+           and c.coder_type_id = 1) as US_student
+     , (select count(distinct jh.user_id) 
+          from campaign_job_xref x
+             , job_hit jh 
+             , coder c
+         where x.campaign_id = 167 
+           and jh.job_id = x.job_id
+           and jh.user_id = c.coder_id
+           and c.country_code = '840'
+           and c.coder_type_id = 2) as US_pro
+  from dual

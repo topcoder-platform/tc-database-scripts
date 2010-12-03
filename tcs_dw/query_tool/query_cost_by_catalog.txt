@@ -1,0 +1,20 @@
+select category_desc as catalog,
+case
+  when project_category_id = 1 then 'Design'
+  when project_category_id = 2 then 'Development'
+end as phase
+, round(avg(payment + case when reviewer_payment is null then 0 else reviewer_payment end), 2) as average_cost
+from table(multiset(
+  select p.project_id, p.project_category_id, p.category_desc, sum(pr.payment) as payment
+  , (select sum(total_payment) from project_review
+     where project_id = p.project_id) as reviewer_payment
+  from project_result pr
+  , project p
+  where p.project_id = pr.project_id
+  and pr.payment is not null
+  and p.project_category_id in (1,2)
+  and pr.review_complete_timestamp > today - (@days@) units day 
+  group by 1,2,3,5
+))
+group by 1,2
+order by 1,2

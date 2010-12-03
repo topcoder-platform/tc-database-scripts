@@ -1,0 +1,50 @@
+select r.rating
+     , r.vol
+     , r.highest_rating
+     , r.lowest_rating
+     , l.language_name
+     , r.num_ratings
+     , rd.short_name as last_round
+     , cl.date as last_round_date
+     , (SELECT SUM(paid) 
+          FROM room_result
+         WHERE coder_id = r.coder_id) AS earnings
+     , cr.rank
+     , (select count(*)
+          from coder_rank cr1
+         where cr1.coder_rank_type_id = cr.coder_rank_type_id
+           and cr1.algo_rating_type_id = 1) as num_ranked
+     , scr.rank as school_rank
+     , ccr.rank as country_rank
+     , (select count(*)
+          from school_coder_rank scr1
+         where scr1.coder_rank_type_id = scr.coder_rank_type_id
+           and scr1.school_id = scr.school_id
+            and scr1.algo_rating_type_id = 1) as num_school_ranked
+     , (select count(*)
+          from country_coder_rank ccr1
+         where ccr1.coder_rank_type_id = scr.coder_rank_type_id
+           and ccr1.country_code = ccr.country_code
+	   and ccr1.algo_rating_type_id = 1) as num_country_ranked
+     , cr.percentile
+  from rating r
+     , coder c
+     , language_lu l
+     , OUTER(round rd, calendar cl)
+     , OUTER coder_rank cr
+     , OUTER school_coder_rank scr
+     , OUTER country_coder_rank ccr
+where r.coder_id = @cr@
+and c.coder_id = r.coder_id
+and l.language_id = c.language_id
+and rd.round_id = r.last_rated_round_id
+and cl.calendar_id = rd.calendar_id
+and cr.coder_id = c.coder_id
+and cr.coder_rank_type_id = 2
+and scr.coder_id = c.coder_id
+and scr.coder_rank_type_id = 2
+and ccr.coder_id = c.coder_id
+and ccr.coder_rank_type_id = 2
+and cr.algo_rating_type_id = 1
+and ccr.algo_rating_type_id = 1
+and scr.algo_rating_type_id = 1

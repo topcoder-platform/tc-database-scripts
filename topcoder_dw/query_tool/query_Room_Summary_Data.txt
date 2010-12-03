@@ -1,0 +1,29 @@
+SELECT c.handle,
+c.coder_id,
+con.name,
+r.name,
+round.name,
+rr.room_placed,
+rr.problems_submitted,
+rr.submission_points,
+rr.challenge_attempts_received,
+rr.defense_points,
+rr.challenge_attempts_made,
+rr.challenge_points,
+rr.system_test_points,
+rr.final_points,
+CASE WHEN round.round_type_id = 1 THEN 'N/A' ELSE rr.advanced END,
+rr.old_rating,
+(rr.new_rating - rr.old_rating) AS rating_change,
+rr.new_rating,
+rr.round_id,
+rr.room_id,
+round.forum_id
+FROM contest con, round, room r, coder c, room_result rr
+WHERE rr.round_id = @rd@
+AND rr.room_id = @rm@
+AND r.room_id = @rm@
+AND c.coder_id = rr.coder_id
+AND round.round_id = @rd@
+AND con.contest_id = round.contest_id
+ORDER BY rr.final_points DESC, rr.new_rating DESC, c.handle

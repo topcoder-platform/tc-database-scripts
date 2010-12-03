@@ -1,0 +1,19 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+ WHERE u.handle IN
+('maxsense',
+'yiming',
+'oton',
+'popuasik',
+'Tricia_Tjia',
+'FMX',
+'foxyhu',
+'mahestro',
+'errdee',
+'andrey_atlas',
+'billow',
+'oninkxronda',
+'eugen_males',
+'rutam',
+'rajeshrathod')

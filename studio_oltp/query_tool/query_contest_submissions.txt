@@ -1,0 +1,18 @@
+select c.name
+     , c.start_time
+     , c.end_time
+     , c.end_time - c.start_time as duration
+     , (select count(*) from submission s where s.contest_id = c.contest_id) as all_submissions
+     , (select count(*)
+          from submission s
+         where s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id) as submissions_under_limit
+     , (select count(*)
+          from submission s, submission_review sr
+         where s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id
+           and sr.submission_id = s.submission_id
+           and sr.review_status_id = 1) as passed_screening
+  from contest c
+ where c.contest_status_id = 2
+order by start_time desc

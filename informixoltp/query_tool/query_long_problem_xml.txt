@@ -1,0 +1,15 @@
+select c.class_name
+       , c.component_text 
+       , r.name as round_name
+       , con.name as contest_name
+       , r.round_type_id
+       , r.round_id
+from component c
+     , round r
+     , round_component rc
+     , contest con
+where r.round_id = rc.round_id
+and c.component_id = @compid@
+and r.round_id = @rd@
+and c.component_id = rc.component_id
+and r.contest_id = con.contest_id

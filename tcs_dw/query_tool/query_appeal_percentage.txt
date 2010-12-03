@@ -1,0 +1,11 @@
+select sum(num_successful_appeals)/sum(num_appeals) as success_percentage
+     , sum(num_appeals) as num_appeals
+     , sr.user_id
+  from submission_review sr
+     , project p
+ where p.project_id = sr.project_id
+   and p.phase_id in (@pis@)
+   and sr.num_successful_appeals is not null
+ group by sr.user_id
+having sum(num_appeals) > 50
+ order by 1 desc

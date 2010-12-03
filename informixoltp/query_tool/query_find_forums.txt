@@ -1,0 +1,4 @@
+select forumid, name || ' - ' ||  forumid  as name
+from jive:jiveforum 
+where categoryid = @fcid@
+order by name

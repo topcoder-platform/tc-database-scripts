@@ -1,0 +1,8 @@
+select rr.coder_id, u.last_name, u.first_name, rr.point_total as points,
+(select count(*) from system_test_result where round_id = rr.round_id and coder_id = rr.coder_id) as total,
+(select sum(succeeded) from system_test_result where round_id = rr.round_id and coder_id = rr.coder_id) as succeeded
+from room_result rr, user u
+where rr.coder_id = u.user_id
+and rr.round_id = @rd@
+and rr.coder_id = @cr@
+order by u.last_name, u.first_name

@@ -1,0 +1,13 @@
+select u.user_id,
+       p.description phase,
+       count(u.user_id) count_by_phase
+ from security_user u,
+      phase p,
+      submitters s,
+      comp_versions cv
+where cv.comp_vers_id = s.comp_version_id
+  and u.login_id = s.login_id
+  and p.phase_id = cv.phase_id 
+  and u.user_id not in ('mess','lost','mmorris','marcg')
+group by u.user_id, p.description
+order by u.user_id

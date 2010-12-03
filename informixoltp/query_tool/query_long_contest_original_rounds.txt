@@ -1,0 +1,13 @@
+select rc.round_id
+       , c.problem_id
+       , r.name as round_name
+       , con.name as contest_name
+       , r.round_type_id
+from round_component rc
+     , component c
+     , round r
+     , contest con
+where rc.component_id = c.component_id
+and rc.round_id = r.round_id
+and r.round_type_id in (13,15,19,22)
+and con.contest_id = r.contest_id

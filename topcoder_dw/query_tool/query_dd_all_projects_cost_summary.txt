@@ -1,0 +1,34 @@
+select  p.category_desc
+     , year((select max(complete_date) from tcs_dw:project where component_id = p.component_id and version_id = p.version_id)) as year
+     , trunc((month((select max(complete_date) from tcs_dw:project where component_id = p.component_id and version_id = p.version_id))-1) / @pl@) + 1 as period
+     , count(distinct p.component_id) as project_count
+     , sum(nvl(direct.cost, 0) + nvl(indirect.cost, 0)) as Total_Cost
+     , sum(case when p.phase_id = 112 then nvl(direct.cost, 0)+ nvl(indirect.cost, 0) else 0 end) as Total_Design_Cost
+     , sum(case when p.phase_id = 113 then nvl(direct.cost, 0)+ nvl(indirect.cost, 0) else 0 end) as Total_Dev_Cost
+     , sum(review.cost) as Review_Cost
+     , sum(case when p.phase_id = 112 and p.complete_date is not null then 1 else 0 end) as num_design_contests
+     , sum(case when p.phase_id = 113 and p.complete_date is not null then 1 else 0 end) as num_dev_contests
+  from tcs_dw:project p
+      , table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from tcs_dw:payment p, tcs_dw:user_payment up
+                        where up.payment_id = p.payment_id
+                        group by p.reference_id)) direct
+      , outer table(multiset(select pp.reference_id as project_id, sum(up.gross_amount) as cost
+                         from tcs_dw:payment p, tcs_dw:user_payment up, tcs_dw:payment pp
+                        where up.payment_id = p.payment_id
+                          and pp.payment_id = p.parent_payment_id
+                        group by pp.reference_id)) indirect
+      , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from tcs_dw:payment p, tcs_dw:user_payment up
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 7
+                        group by p.reference_id)) review
+ where direct.project_id = p.project_id
+   and indirect.project_id = p.project_id
+   and review.project_id = p.project_id
+   and ('@catn@' = 'all' or category_desc = '@catn@')
+   and (select max(complete_date) from tcs_dw:project where component_id = p.component_id and version_id = p.version_id) > ('@sdt@ ' || ' 00:00:00')
+   and (select max(complete_date) from tcs_dw:project where component_id = p.component_id and version_id = p.version_id) < ('@edt@'  || ' 23:59:59')
+   and exists (select 1 from tcs_dw:project where component_id = p.component_id and version_id = p.version_id and phase_id = 113 and complete_date is not null and status_id=7 )
+   and category_desc <> 'Application' 
+ group by 1,2,3

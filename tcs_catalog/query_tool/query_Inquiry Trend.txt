@@ -1,0 +1,11 @@
+select EXTEND(ci.create_time, YEAR TO DAY)  inquiry_date,
+       count(distinct ci.user_id) total_inquiries,
+       p.description phase
+ from component_inquiry ci, comp_catalog cc, phase p
+ where ci.component_id = cc.component_id
+   and ci.phase = p.phase_id
+   and ci.rating != -1
+   and ci.create_time > (CURRENT - 14 UNITS DAY)
+ group by ci.phase, ci.version,
+      1, p.description
+order by inquiry_date desc

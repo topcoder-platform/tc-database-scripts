@@ -1,0 +1,14 @@
+select
+  (
+    select count(*) 
+    from event_registration er, user u
+    where  er.eligible_ind = 1 and er.event_id = 993
+    and u.user_id = er.user_id and u.status = 'A'
+  ) as total_registrants,
+  (
+    select count(distinct coder_id) 
+    from room_result rr, contest c, round r
+    where c.season_id = 3 and r.contest_id = c.contest_id
+    and r.round_type_id = 17 and rr.round_id = r.round_id
+  ) as competed
+from dual

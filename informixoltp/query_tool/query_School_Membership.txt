@@ -1,0 +1,18 @@
+
+SELECT cs.school_name as school_name
+       ,count(*) as number_of_students
+       ,sum(r.rating)/sum(case when r.rating > 0 then 1 else 0 end) as avg_rating
+       ,sum(r.num_ratings) as num_ratings
+  FROM user u
+       ,coder c
+       ,rating r
+       ,current_school cs
+ WHERE u.user_id = r.coder_id
+   AND r.coder_id = cs.coder_id
+   AND c.coder_id = u.user_id
+   AND u.status = 'A'
+   AND c.coder_type_id = 1
+   AND cs.school_name <> ''  
+ GROUP BY cs.school_name
+HAVING count(*) > 30
+ ORDER BY 2 DESC

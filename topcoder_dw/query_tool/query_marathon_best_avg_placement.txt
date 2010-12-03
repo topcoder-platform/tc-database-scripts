@@ -1,0 +1,12 @@
+select coder_id
+      , avg(placed) average
+      , count(*) events
+from long_comp_result lcr
+    , round r
+where lcr.round_id = r.round_id
+and r.round_type_id in (13,19)
+and lcr.rated_ind = 1
+and attended = 'Y'
+group by coder_id
+having count(*) > 4
+order by average, events desc

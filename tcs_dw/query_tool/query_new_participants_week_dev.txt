@@ -1,0 +1,18 @@
+select c.date as week_of_first_inquiry
+     , count(*) as new_participants
+  from project_result pr
+     , project p
+     , calendar c
+ where p.project_id = pr.project_id
+   and c.date = (select min(date(pr2.inquire_timestamp) - c2.day_of_week units day)
+                   from project_result pr2
+                      , project p2
+                      , calendar c2
+                  where c2.date = date(pr2.inquire_timestamp)
+                    and pr2.user_id = pr.user_id
+                    and pr2.project_id = p2.project_id
+                    and p2.phase_id = p.phase_id)
+   and p.phase_id = 112
+   and c.date > today - (@days@) units day
+group by 1
+order by 1 desc, 2;

@@ -1,0 +1,3 @@
+select property_id, property_value
+  from college_tour_config
+ where event_id = @cteid@

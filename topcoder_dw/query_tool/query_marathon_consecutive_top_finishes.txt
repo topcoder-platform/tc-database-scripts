@@ -1,0 +1,20 @@
+SELECT c.handle,
+c.coder_id,
+ws.length,
+c1.date AS start_date,
+r1.short_name AS start_contest_name,
+r1.name AS start_round_name,
+c2.date AS end_date,
+r2.short_name AS end_contest_name,
+r2.name AS end_round_name,
+ws.is_current
+FROM streak ws, coder c, round r1, calendar c1, round r2, calendar c2
+WHERE ws.coder_id = c.coder_id
+AND c.status = 'A'
+AND ws.streak_type_id = @wst@
+and r1.calendar_id = c1.calendar_id
+ and r1.round_id = ws.start_round_id
+ and r2.calendar_id = c2.calendar_id
+ and r2.round_id = ws.end_round_id
+ and ws.length > 2
+ORDER BY ws.length DESC, start_date DESC,  c.handle

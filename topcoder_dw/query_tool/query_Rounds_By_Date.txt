@@ -1,0 +1,14 @@
+SELECT r.round_id,
+r.name,
+c.contest_id,
+c.name,
+cal.date,
+(SELECT MIN(room_id) FROM room
+ WHERE round_id = r.round_id
+   and room_type_id = 2) AS first_room_id,
+c.name || ' - ' || r.name as full_name
+FROM contest c, round r, calendar cal
+WHERE cal.calendar_id = r.calendar_id
+AND c.contest_id = r.contest_id
+AND r.round_type_id IN (1,2,10,20)
+ORDER BY cal.date DESC, r.round_id DESC

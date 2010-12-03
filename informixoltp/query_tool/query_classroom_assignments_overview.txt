@@ -1,0 +1,21 @@
+select 
+rp.round_id,
+r.name,
+(select count(*) from round_registration rr where
+rr.round_id = rp.round_id) as assigned,
+(select count(*) from round_registration rr where
+exists (select 'did something' from component_state cs where cs.round_id = rr.round_id and cs.coder_id = rr.coder_id)
+and not exists (select 'all finished' from round_registration rr2 where
+rr2.round_id = r.round_id and 
+((select count(*) from round_component rc where rc.round_id = rr2.round_id) =
+(select count(*) from component_state cs where cs.round_id = rr2.round_id and 
+cs.coder_id = rr.coder_id and cs.status_id in (130, 131, 140, 150, 160))))
+and rr.round_id = r.round_id) as opened,
+(select count(*) from round_registration rr where
+rr.round_id = r.round_id and 
+((select count(*) from round_component rc where rc.round_id = rr.round_id) =
+(select count(*) from component_state cs where cs.round_id = rr.round_id and cs.coder_id = rr.coder_id and cs.status_id in (130, 131, 140, 150, 160)))) as finished
+from round_property rp, round r
+where rp.round_property_type_id = 1
+and rp.int_value = @clsid@
+and rp.round_id = r.round_id

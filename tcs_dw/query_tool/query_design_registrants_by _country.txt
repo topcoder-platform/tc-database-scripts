@@ -1,0 +1,18 @@
+select count(distinct pr.user_id) as num_registered
+     , cal.week_of_year
+     , cal.week_year
+     , co.country_name
+  from project p
+     , calendar cal
+     , project_result pr
+     , coder c
+     , country co
+ where p.posting_date > current - 31 units day
+   and p.posting_date < current + 1 units day
+   and date(p.posting_date) = cal.date
+   and p.project_id = pr.project_id
+   and p.phase_id = 112
+   and c.coder_id =pr.user_id
+   and co.country_code = c.country_code
+ group by cal.week_of_year, cal.week_year, co.country_name
+ order by cal.week_year, cal.week_of_year, co.country_name

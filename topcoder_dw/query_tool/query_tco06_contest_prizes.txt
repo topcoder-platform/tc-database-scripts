@@ -1,0 +1,3 @@
+select * from tcs_dw:contest c, tcs_dw:user_contest_prize ucp
+where c.contest_id = @ct@
+and ucp.contest_id = c.contest_id

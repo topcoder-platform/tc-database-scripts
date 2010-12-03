@@ -1,0 +1,5 @@
+select handle
+     , email as email_address
+  from user where handle in 
+('adic','AleaActaEst','aubergineanode','kyky','nicka81','Pops','real_vg','ThinMan',
+'biotrail','cnettel','colau','nhzp339','oodinary','sindu','traugust','visualage')

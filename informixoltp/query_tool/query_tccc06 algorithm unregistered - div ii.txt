@@ -1,0 +1,22 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , user_notify_xref n
+     , coder c
+     , rating r
+ WHERE u.status = 'A'
+   AND u.user_id = n.user_id
+   AND u.user_id = c.coder_id
+   AND n.notify_id = 1
+   AND c.coder_type_id = 1
+   AND c.coder_id = r.coder_id
+   AND r.rating < 1200
+   AND r.rating >= 0
+   AND u.handle NOT IN
+(SELECT u.handle 
+FROM email_user u, user_group_xref x
+WHERE x.group_id = 12 
+	AND x.security_status_id = 1 
+	AND x.login_id = u.user_id)
+   AND u.user_id NOT IN
+(select user_id from user_terms_of_use_xref where terms_of_use_id = 20504)

@@ -1,0 +1,15 @@
+select u.handle
+     , q.question_text as question
+     , r.response
+     , lower(u.handle)
+     , q.question_id
+  from user u
+     , survey_question sq
+     , question q
+     , outer response r
+ where u.user_id in (272072,287496,144400,274023,262056,260835,287568,297823,108530,152347,311170,153505,7445961,152073,269554,155275, 119676, 152342,154714,277356)
+   and r.user_id = u.user_id
+   and r.question_id = q.question_id
+   and q.question_id = sq.question_id
+   and sq.survey_id = 201
+ order by 4, q.question_id

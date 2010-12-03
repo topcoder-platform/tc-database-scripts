@@ -1,0 +1,52 @@
+SELECT c.handle
+     , c.member_since
+     , r.num_ratings as num_competitions
+     , r.highest_rating
+     , r.rating as algorithm_rating
+     , p.path || i.file_name as image_path
+     , cr.rank
+     , cr.percentile
+     , round(r1.rating) AS design_rating
+     , round(r2.rating) AS development_rating
+     , cal.date as last_match
+     , (SELECT max(final_points)
+          FROM room_result rr, round r, round_type_lu rt
+         WHERE rr.coder_id = c.coder_id
+           AND rr.rated_flag = 1
+           and rt.round_type_id = r.round_type_id
+           and r.round_id = rr.round_id
+           and rt.algo_rating_type_id = 1
+           AND rr.division_id = 1) as best_div1
+     , (SELECT max(final_points)
+          FROM room_result rr, round r, round_type_lu rt
+         WHERE rr.coder_id = c.coder_id
+           and rt.round_type_id = r.round_type_id
+           and r.round_id = rr.round_id
+           and rt.algo_rating_type_id = 1
+           AND rr.rated_flag = 1
+           AND rr.division_id = 2) as best_div2
+  FROM coder c
+     , rating r
+     , OUTER(coder_image_xref cix, image i, path p)
+     , OUTER coder_rank cr
+     , OUTER tcs_dw:user_rating r1
+     , OUTER tcs_dw:user_rating r2
+     , OUTER (round ro, calendar cal, round_type_lu rt)
+ WHERE c.coder_id = @cr@
+   AND r.coder_id = c.coder_id
+   AND cix.coder_id = c.coder_id
+   AND cix.display_flag = 1   
+   AND cr.coder_id = c.coder_id
+   AND cr.coder_rank_type_id = 2
+   AND cix.image_id = i.image_id
+   AND i.image_type_id = 1
+   AND i.path_id = p.path_id
+   AND r1.user_id = c.coder_id
+   AND r2.user_id = c.coder_id
+   AND r1.phase_id = 112
+   AND r2.phase_id = 113
+   AND r.last_rated_round_id = ro.round_id
+   AND ro.calendar_id = cal.calendar_id
+   and ro.round_type_id = rt.round_type_id 
+   and rt.algo_rating_type_id = 1
+   AND cr.algo_rating_type_id = 1

@@ -1,0 +1,23 @@
+select u.handle,
+       coder.member_since,
+       country.country_name,
+       s.submission_date,
+       cr.placed,
+       (CASE WHEN r.review_status_id = 1 THEN 'Passed' ELSE 'Failed' END) review_status,
+       reg.create_date contest_reg_date,
+       c.name contest_name,
+       c.contest_id       
+from submission s LEFT OUTER JOIN contest_result cr ON s.submission_id = cr.submission_id
+     LEFT OUTER JOIN submission_review r ON s.submission_id = r.submission_id,
+     contest_registration reg,
+     contest c,
+     coder coder,
+     user u,
+     common_oltp:country country
+where s.submission_status_id = 1
+  and s.contest_id = reg.contest_id
+  and reg.user_id = s.submitter_id
+  and s.contest_id = c.contest_id
+  and s.submitter_id = coder.coder_id
+  and coder.coder_id = u.user_id
+  and coder.comp_country_code = country.country_code

@@ -1,0 +1,18 @@
+select rr.coder_id
+     , rr.point_total
+  from intro_event ie
+     , event e
+     , event ea
+     , room_result rr
+     , event_registration er
+     , user u
+ where ea.parent_event_id = e.event_id
+   and e.event_id = ie.event_id
+   and rr.round_id = ie.competition_round_id
+   and ea.event_id = @eid@
+   and er.event_id = ea.event_id
+   and rr.attended = 'Y'
+   and er.user_id = rr.coder_id
+   and u.user_id = er.user_id
+   and u.status = 'A'   
+ order by rr.point_total desc

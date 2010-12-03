@@ -1,0 +1,13 @@
+SELECT {+AVOID_FULL(p)}
+       p.project_id, p.project_status_id, p.project_category_id,
+       p.create_user, p.create_date, p.modify_user, p.modify_date
+FROM project p
+WHERE p.project_status_id = 1
+AND p.project_id in
+(select {+AVOID_FULL(r)} r.project_id
+   from resource r where r.resource_id IN
+(select {+AVOID_FULL(i)} i.resource_id
+   from resource_info i
+  WHERE  i.resource_info_type_id = 1
+    AND  i.value = '@uid@'
+))

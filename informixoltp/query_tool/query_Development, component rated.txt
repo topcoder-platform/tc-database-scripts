@@ -1,0 +1,11 @@
+select u.email as email_address
+     , u.handle
+  from tcs_catalog:user_rating ur
+     , email_user u
+ where num_ratings > 0
+   and ur.user_id = u.user_id
+   and u.status = 'A'
+   and exists (select '1'
+                 from coder_notify 
+                where coder_id = u.user_id    
+                  and notify_id in (4))

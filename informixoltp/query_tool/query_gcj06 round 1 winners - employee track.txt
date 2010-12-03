@@ -1,0 +1,8 @@
+select distinct u.handle, e.address as email_address
+from gcj06_oltp:user u, gcj06_oltp:email e, gcj06_oltp:room_result rr
+where u.user_id = e.user_id
+   and rr.coder_id = u.user_id
+   and rr.round_id = 10111
+   and rr.advanced = 'Y'
+   and rr.attended = 'Y'
+   and u.status = 'A'

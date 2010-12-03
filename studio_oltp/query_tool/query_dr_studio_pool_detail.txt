@@ -1,0 +1,8 @@
+select nvl(sum(nvl(cc.property_value::integer,0)),0) as total_DR_points
+     , nvl(sum(case when date(c.start_time) >= date(current) - @days@ units day then nvl(cc.property_value::integer,0) else 0 end),0) as total_DR_points_today
+from studio_oltp:contest c, studio_oltp:contest_config cc
+where c.contest_id = cc.contest_id 
+and cc.property_id = 24
+and month(c.start_time) = @month@
+and year(c.start_time) = @year@
+and c.contest_status_id = 2

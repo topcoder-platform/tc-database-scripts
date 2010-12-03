@@ -1,0 +1,1 @@
+select count(*) from user_preference where preference_id = 24 and value = 'true'

@@ -1,0 +1,1 @@
+select question_id, question, question_desc from problem_rating_question order by question

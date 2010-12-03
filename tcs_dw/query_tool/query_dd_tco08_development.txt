@@ -1,0 +1,11 @@
+select dev.user_id as coder_id, handle, cc_country.country_name, latitude, longitude, im.file_name as image_name, rating as rating, match_overlap as overlap
+from table(multiset(
+ select first 100 user_id, count(pr.project_id) as match_overlap
+ from project_result pr left join project p on pr.project_id=p.project_id 
+ where pr.project_id in (Select project_id from project_result where user_id=@cr@)
+ and phase_id=113 and user_id <> @cr@
+ group by user_id order by match_overlap desc
+)) dev left join user_rating dr on dev.user_id=dr.user_id and dr.phase_id=113,
+country cc_country,
+topcoder_dw:coder cc left join topcoder_dw:coder_image_xref cix on cc.coder_id=cix.coder_id and cix.display_flag=1 left join topcoder_dw:image im on cix.image_id=im.image_id
+where dev.user_id=cc.coder_id and cc.comp_country_code=cc_country.country_code;

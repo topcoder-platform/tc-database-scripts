@@ -1,0 +1,31 @@
+select   p.project_id as design_project_id
+         ,p.component_name || ' v' || p.version_text as component_name 
+         , winner_id
+         , (select handle from coder c where c.coder_id = p.winner_id) as winner
+
+	, (select count(*) from project p2 
+         where p2.component_id = p.component_id
+         and p2.version_id = p.version_id
+         and p2.project_category_id = 2) as num_developments
+       , (select sum(net_amount) from user_payment up, payment pay
+          where up.payment_id = pay.payment_id
+          and up.user_id = p.winner_id
+          and p.project_id = pay.reference_id
+          and pay.payment_type_id = 6) as amount_paid
+        ,case when (select count(*) from project p2 
+             where p2.component_id = p.component_id
+             and p2.version_id = p.version_id
+             and p2.project_category_id = 2) = 1 then (select sum(net_amount) from user_payment up, payment pay 
+             where up.payment_id = pay.payment_id
+             and up.user_id = p.winner_id
+             and p.project_id = pay.reference_id
+             and pay.payment_type_id = 6) * 0.15 
+              else 0 end as bonus
+from project p
+where p.project_category_id = 1
+and p.status_id = 7
+and exists (select 1 from project pdev
+         where pdev.component_id = p.component_id
+         and pdev.version_id = p.version_id
+         and pdev.project_category_id = 2
+         and pdev.complete_date >= current - @days@ units day)

@@ -1,0 +1,11 @@
+select ur.rating
+     , ucs.user_id
+     , sum(ucs.payment) as earnings
+  from outer tcs_dw:user_rating ur
+     , tcs_dw:project_result ucs,
+	outer tcs_dw:project p
+ where ur.user_id = ucs.user_id
+   and ur.user_id = @cr@
+   and p.project_id = ucs.project_id
+   and p.phase_id = 112
+ group by ucs.user_id, ur.rating

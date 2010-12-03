@@ -1,0 +1,58 @@
+select
+  region_name, count(*)
+from
+user u,
+region_state rs,
+region r,
+table(multiset(
+select
+  x.user_id,
+  case 
+    when length(trim(x.school_state_code)) > 0  then x.school_state_code
+    when x.school_id = 0 then coder_state_code
+    else coder_state_code
+  end as state_code
+from
+table(multiset(
+select
+  u.user_id,
+  case when length(c.state_code) < 2 then 'ZZ' else c.state_code end as coder_state_code, 
+  co1.country_name, 
+  co1.country_code,
+  u.handle,
+  s.school_id school_id,
+  s.name as school_school,
+  s.state_code as school_state_code,  
+  (
+    select 
+      dr.demographic_response
+    from 
+      demographic_response dr 
+    where 
+      dr.coder_id = c.coder_id and
+      dr.demographic_question_id = 20
+  ) as other_school
+from
+  user u,
+  coder c,
+  country co1,
+  invite_list il,
+  current_school cs,
+  school s
+where
+  u.user_id = il.coder_id and
+  il.round_id = 4462 and
+  c.coder_id = u.user_id and
+  co1.country_code = c.country_code and
+  cs.coder_id = il.coder_id and
+  s.school_id = cs.school_id  
+)) x
+)) y
+where 
+  u.user_id = y.user_id and
+  u.status = 'A' and
+  rs.user_type_id = 1 and
+  rs.state_code = y.state_code and
+  r.region_code = rs.region_code
+group by 1
+order by 1

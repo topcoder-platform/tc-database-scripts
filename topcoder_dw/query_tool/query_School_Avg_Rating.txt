@@ -1,0 +1,16 @@
+select NVL(s.short_name, s.name) AS name
+     , TRUNC(sum(r.rating*(pow(.87, rank_no_tie-1)))*((1-.87)/(1-pow(.87, count(*)))),2) as avg_rating
+     , count(*) as rated_count
+     , s.school_id
+     , s.name as long_name
+  from school s
+     , school_coder_rank scr
+     , rating r
+ where s.school_id = scr.school_id
+   and scr.coder_id = r.coder_id
+   and scr.coder_rank_type_id = 2
+   and s.school_id not in (0, 3519)
+   and scr.algo_rating_type_id = 1
+ group by 1,4,5
+ having count(*) > 9
+ order by 2 desc

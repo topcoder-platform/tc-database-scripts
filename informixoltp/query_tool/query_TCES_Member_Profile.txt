@@ -1,0 +1,87 @@
+SELECT c.coder_id
+     , u.first_name
+     , u.middle_name
+     , u.last_name
+     , a.address1
+     , a.address2
+     , a.address3
+     , a.city
+     , (CASE WHEN a.state_code = 'ZZ' THEN '' ELSE a.state_code END) as state_code
+     , a.zip
+     , a.province
+     , cy.country_name
+     , e.address as email
+     , ph.phone_number as home_phone
+     , TO_CHAR(c.member_since, '%m/%d/%iY') as member_since_date
+     , p.path || i.file_name AS image_path
+     , (SELECT COUNT(*)
+          FROM coder_image_xref cix
+             , image i
+         WHERE cix.image_id = i.image_id
+           AND cix.coder_id = c.coder_id
+           AND cix.display_flag = 1
+           AND i.image_type_id = 1) AS has_image
+     , ct.coder_type_desc
+     , s.name as school_name
+     ,  (SELECT demographic_answer_text
+           FROM demographic_response dr1 
+              , demographic_answer da1
+          WHERE dr1.user_id = c.coder_id
+            AND dr1.demographic_question_id = 16
+            AND dr1.demographic_answer_id = da1.demographic_answer_id
+            AND dr1.demographic_question_id = da1.demographic_question_id) AS degree
+     ,  (SELECT demographic_answer_text
+           FROM demographic_response dr1 
+              , demographic_answer da1
+          WHERE dr1.user_id = c.coder_id
+            AND dr1.demographic_question_id = 17
+            AND dr1.demographic_answer_id = da1.demographic_answer_id
+            AND dr1.demographic_question_id = da1.demographic_question_id) AS major
+     ,  (SELECT demographic_answer_text
+           FROM demographic_response dr1 
+              , demographic_answer da1
+          WHERE dr1.user_id = c.coder_id
+            AND dr1.demographic_question_id = 23
+            AND dr1.demographic_answer_id = da1.demographic_answer_id
+            AND dr1.demographic_question_id = da1.demographic_question_id) AS grad_month
+     ,  (SELECT demographic_answer_text
+           FROM demographic_response dr1 
+              , demographic_answer da1
+          WHERE dr1.user_id = c.coder_id
+            AND dr1.demographic_question_id = 18
+            AND dr1.demographic_answer_id = da1.demographic_answer_id
+            AND dr1.demographic_question_id = da1.demographic_question_id) AS grad_year
+     , u.handle
+     , (CASE WHEN c.coder_type_id = 1 THEN cs.gpa || '/' || cs.gpa_scale
+             ELSE 'N/A' END) as gpa
+     , r.num_ratings
+  FROM country cy
+     , user u
+     , coder_type ct
+     , coder c
+     , OUTER (coder_image_xref cix, OUTER (image i, path p))
+     , outer (current_school cs, school s)
+     , rating r
+     , user_address_xref x
+     , address a
+     , phone ph
+     , email e 
+ WHERE a.country_code = cy.country_code
+   and a.address_id = x.address_id
+   and a.address_type_id = 2
+   and x.user_id = u.user_id
+   and e.user_id = u.user_id
+   and cs.school_id = s.school_id
+   and e.primary_ind = 1
+   and ph.user_id = u.user_id
+   and ph.primary_ind = 1
+   AND u.user_id = c.coder_id
+   AND c.coder_type_id = ct.coder_type_id
+   AND c.coder_id = cs.coder_id
+   AND c.coder_id = @mid@
+   AND c.coder_id = cix.coder_id
+   AND cix.display_flag = 1
+   AND cix.image_id = i.image_id
+   AND p.path_id = i.path_id
+   AND u.user_id = r.coder_id
+   AND u.status = 'A'

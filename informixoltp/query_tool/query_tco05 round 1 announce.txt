@@ -1,0 +1,16 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+ WHERE u.status = 'A'
+   AND u.user_id IN (SELECT cn.coder_id
+                       FROM coder_notify cn
+                      WHERE notify_id in (5))
+  and u.user_id not in (
+select u.user_id
+  from user u
+     , room_result rr
+ where rr.attended = 'Y'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id in (8020, 8021, 8023, 8024, 8026, 8030, 8031, 8032, 8033, 8034)
+   and rr.coder_id = u.user_id
+   and u.status = 'A')

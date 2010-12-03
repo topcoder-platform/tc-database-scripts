@@ -1,0 +1,10 @@
+SELECT stat.tcd_project_id as tc_direct_project_id,
+       NVL(SUM(stat.duration) / CASE WHEN SUM(stat.total_project) = 0 THEN 1 ELSE SUM(stat.total_project) END, 0) / 60 AS average_duration,
+       NVL(SUM(stat.fulfillment) / CASE WHEN SUM(stat.total_project) = 0 THEN 1 ELSE SUM(stat.total_project) END * 100, 0) AS average_fulfillment,
+       NVL(SUM(stat.cost) / CASE WHEN SUM(stat.total_project) = 0 THEN 1 ELSE SUM(stat.total_project) END, 0) AS average_cost_per_contest,
+       NVL(SUM(stat.cost), 0) AS total_cost,
+       NVL(SUM(stat.total_project), 0) AS total_contest_count
+FROM tcd_project_stat stat
+WHERE tcd_project_id IN (@tdpis@)
+GROUP BY tcd_project_id
+

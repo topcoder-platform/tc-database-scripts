@@ -1,0 +1,21 @@
+
+SELECT 
+(SELECT coder.handle FROM coder
+ WHERE coder.coder_id = challenger_id) AS challenger_name,
+(SELECT room_result.new_rating FROM room_result
+ WHERE room_result.coder_id = challenger_id
+ AND room_result.round_id = @rd@) AS challenger_rating,
+challenger_id,
+expected,
+received,
+submit_time,
+(CASE succeeded
+ WHEN 1 THEN 'N'
+ ELSE 'Y'
+ END) AS succeeded,
+args
+FROM challenge
+WHERE defendant_id = @cr@
+AND round_id = @rd@
+AND problem_id = @pm@
+ORDER BY submit_time ASC

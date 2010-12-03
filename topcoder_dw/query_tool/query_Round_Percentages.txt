@@ -1,0 +1,26 @@
+select
+  d.division_desc as division_desc,
+  p.level_id,
+  min(l.level_desc) as problem_level,
+  p.class_name as problem_name,
+  p.problem_id as problem_id,
+  sum(case when submission_points > 0 then 1 else 0 end) as submissions,
+  sum(case when final_points > 0 then 1 else 0 end) as successful_submissions,
+  sum(final_points) as total_points,
+  min(d.division_id) as division_id
+from
+  division_lu d,
+  level_lu l,
+  problem p,
+  coder_problem cp,
+  round rd
+where
+  cp.round_id = rd.round_id and
+  cp.problem_id = p.problem_id and
+  p.level_id = l.level_id and
+  cp.division_id = d.division_id and
+  cp.division_id = p.division_id and
+  p.round_id = rd.round_id and
+  rd.round_id = @rd@
+group by 1,2,4,5
+order by 9, 2

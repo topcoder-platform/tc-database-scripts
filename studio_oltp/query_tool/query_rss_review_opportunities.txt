@@ -1,0 +1,64 @@
+select 'Contest Name: ' \|\| c.name \|\| '<br/>' \|\|
+       'Contest Type: ' \|\| ctl.contest_type_desc \|\| '<br/>' \|\|
+       'Contest Start: ' \|\| c.start_time as description,
+       'http://studio.topcoder.com/?module=ViewReviewOpportunities' as link,
+       c.name as title,
+       c.contest_id as guid
+from contest c, contest_type_lu ctl, spec_review sr, outer (spec_review_reviewer_xref srrx)
+where c.contest_type_id = ctl.contest_type_id
+and c.contest_id = sr.contest_id and sr.is_studio = 1
+and sr.review_status_type_id in (4, 5) -- READY / REVIEWER_ASSIGNED
+and sr.spec_review_id = srrx.spec_review_id
+and srrx.is_active = 1
+--order by c.start_time desc
+UNION
+select 'Contest Name: ' \|\| c.component_name \|\| '<br/>' \|\|
+       'Contest Type: ' \|\| cat.category_name \|\| ' - ' \|\| (select name from tcs_catalog:project_category_lu where project_category_id = p.project_category_id) \|\| '<br/>' \|\|
+       'Review Start: ' \|\| (SELECT creation_time from spec_review where contest_id = p.project_id) as description,
+       'http://www.topcoder.com/tc?module=ReviewProjectDetail&pj=' \|\| p.project_id \|\| '&pt=' \|\| p.project_category_id + 1001 as link,
+       c.component_name as title,
+       p.project_id as guid
+  FROM tcs_catalog:project p
+     , tcs_catalog:project_info projinfo
+     , tcs_catalog:comp_versions cv
+     , tcs_catalog:comp_catalog c
+     , tcs_catalog:categories cat
+     , tcs_catalog:project_phase regpp
+     , tcs_catalog:project_phase submpp
+     , tcs_catalog:project_phase screenpp
+     , tcs_catalog:project_phase reviewpp
+     , tcs_catalog:project_phase aggreviewpp
+     , tcs_catalog:project_info pi
+     , tcs_catalog:comp_version_dates cvd
+     , outer tcs_catalog:project_info pi_prize
+ WHERE 1=1
+   AND projinfo.project_info_type_id = 2
+   AND projinfo.project_id = p.project_id
+   AND projinfo.value = cv.component_id
+   AND cv.phase_id in (112,113)
+   AND regpp.project_id = p.project_id
+   AND regpp.phase_type_id = 1
+   AND submpp.project_id = p.project_id
+   AND submpp.phase_type_id = 2
+   AND screenpp.project_id = p.project_id
+   AND screenpp.phase_type_id = 3
+   AND reviewpp.phase_type_id = 4
+   AND reviewpp.project_id =  p.project_id
+   AND aggreviewpp.project_id =  p.project_id
+   AND aggreviewpp.phase_type_id = 8
+   AND cvd.comp_vers_id = cv.comp_vers_id
+   AND cvd.phase_id = cv.phase_id
+   AND cvd.status_id <> 303
+   AND c.component_id = cv.component_id
+   AND c.root_category_id = cat.category_id
+   AND pi.project_id = p.project_id
+   AND pi.project_info_type_id = 14
+   AND pi.value = 'Open'
+   AND p.project_status_id = 1
+   AND p.project_id = pi_prize.project_id
+   AND pi_prize.project_info_type_id = 35
+   AND p.project_category_id in (19, 24, 25)
+   AND (select count(*) -- check with spec_review table.										
+        from spec_review as sp
+        where contest_id = p.project_id
+	and (review_status_type_id = 4 or review_status_type_id = 5)) > 0

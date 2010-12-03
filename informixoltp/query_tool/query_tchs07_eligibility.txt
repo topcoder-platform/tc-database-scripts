@@ -1,0 +1,38 @@
+select u.user_id, 
+nvl((select 1 from event where event_short_desc = "tchs07" and start_registration < current and end_registration > current),0) as open,
+nvl((select eligible_ind from event_registration er, event e where er.event_id = e.event_id and e.event_short_desc = "tchs07" and er.user_id = u.user_id), 2) as registered
+  from user u
+     , user_group_xref x
+     , algo_rating ar
+     , current_school cs
+     , school s
+     , coder c
+ where u.user_id = x.login_id
+   and x.group_id = 12
+   and x.security_status_id = 1
+   and ar.coder_id = u.user_id
+   and ar.algo_rating_type_id = 2
+   and cs.coder_id = u.user_id
+   and cs.school_id = s.school_id
+   and s.school_type_id = 2
+   and ar.num_ratings >= 4
+   and u.status = 'A'
+   and c.coder_type_id = 1
+   and c.coder_id = u.user_id
+   and u.user_id = @cr@
+   and u.user_id not in (22387433,22661549,22628067,22635783,22668536,22382080,22626886,22662550,22362033,22672444,22664059,
+20396763,22655490,22629415,22658316,22671057,15781162,22643384,22656705,22629374,22271359,21691498,
+22656703,22638148,22654622,21655744,22627758,22663637,22658228,15204961,13255937,22656813,22271383,
+22271374,22271750,22627747,22661967,22271346,22629638,22628195,16064931,22399611,15693244,20095182,
+22662415,22656792,21117059,22660883,22667446)
+UNION
+select u.user_id, 
+nvl((select 1 from event where event_short_desc = "tchs07" and start_registration < current and end_registration > current),0) as open,
+nvl((select eligible_ind from event_registration er, event e where er.event_id = e.event_id and e.event_short_desc = "tchs07" and er.user_id = u.user_id), 2) as registered
+  from user u
+where u.user_id in (22387433,22661549,22628067,22635783,22668536,22382080,22626886,22662550,22362033,22672444,22664059,
+20396763,22655490,22629415,22658316,22671057,15781162,22643384,22656705,22629374,22271359,21691498,
+22656703,22638148,22654622,21655744,22627758,22663637,22658228,15204961,13255937,22656813,22271383,
+22271374,22271750,22627747,22661967,22271346,22629638,22628195,16064931,22399611,15693244,20095182,
+22662415,22656792,21117059,22660883,22667446)
+   and u.user_id = @cr@

@@ -1,0 +1,19 @@
+select 
+  framework.name || '.' || widget.name type,
+  cur_version.version_major || '.' ||  cur_version.version_minor || '.' ||  cur_version.version_increment || '.' || cur_version.version_build Latest_Version,
+  cur_version.version_date Latest_Date,
+  min_version.version_major || '.' ||  min_version.version_minor || '.' ||  min_version.version_increment || '.' || min_version.version_build Minimum_Version,
+  min_version.deprecate_date Minimum_Date,
+  cur_version.download_url
+from
+  framework,
+  widget,
+  widget_version cur_version,
+  outer widget_version min_version
+where
+  framework.framework_id = widget.framework_id and
+  widget.widget_id = cur_version.widget_id and
+  widget.widget_id = min_version.widget_id and
+  cur_version.current_version = 't' and
+  min_version.minimum_version = 't' and
+  widget.widget_id = @wid@

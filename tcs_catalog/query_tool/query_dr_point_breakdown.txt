@@ -1,0 +1,55 @@
+select year(t.track_start_date) as year
+     , month(t.track_start_date) as month
+     , sum(case when t.track_type_id = 1 then dp.amount else 0 end) as design_points_total
+     , sum(case when t.track_type_id = 1 and topcoder_project_ids.project_id is not null then dp.amount else 0 end) as design_points_topcoder
+     , sum(case when t.track_type_id = 1 and topcoder_project_ids.project_id is null then dp.amount else 0 end) as design_points_client
+     , (case when 10000 - sum(case when t.track_type_id = 1 then dp.amount else 0 end) < 0 then 0 else 10000 - sum(case when t.track_type_id = 1 then dp.amount else 0 end) end) as design_points_subsidy
+     , sum(case when t.track_type_id = 2 then dp.amount else 0 end) as development_points_total
+     , sum(case when t.track_type_id = 2 and topcoder_project_ids.project_id is not null then dp.amount else 0 end) as development_points_topcoder
+     , sum(case when t.track_type_id = 2 and topcoder_project_ids.project_id is null then dp.amount else 0 end) as development_points_client
+     , (case when 10000 - sum(case when t.track_type_id = 2 then dp.amount else 0 end) < 0 then 0 else 10000 - sum(case when t.track_type_id = 2 then dp.amount else 0 end) end) as development_points_subsidy
+     , sum(case when t.track_type_id = 3 then dp.amount else 0 end) as studio_points_total
+     , sum(case when t.track_type_id = 3 and topcoder_project_ids.project_id is not null then dp.amount else 0 end) as studio_points_topcoder
+     , sum(case when t.track_type_id = 3 and topcoder_project_ids.project_id is null then dp.amount else 0 end) as studio_points_client
+     , (case when 5000 - sum(case when t.track_type_id = 3 then dp.amount else 0 end) < 0 then 0 else 5000 - sum(case when t.track_type_id = 3 then dp.amount else 0 end) end) as studio_points_subsidy
+  from dr_points dp
+     , track t
+     , outer table(multiset(select 1 as project_type
+                                 , p.project_id
+                              from tcs_catalog:project p
+                                 , tcs_catalog:project_info pi
+                                 , time_oltp:project tp
+                                 , time_oltp:client_project clp
+                                 , time_oltp:client cl
+                             where p.project_id = pi.project_id
+                               and pi.project_info_type_id = 32
+                               and pi.value = tp.project_id
+                               and tp.project_id = clp.project_id
+                               and clp.client_id = cl.client_id 
+                               and cl.client_id in (13, 70014062, 70014097)
+                             union
+                            select 3 as project_type
+                                 , c.contest_id as project_id
+                              from studio_oltp:contest c
+                                 , studio_oltp:contest_config cc1
+                                 , time_oltp:project ttp
+                                 , time_oltp:client_project ttcp
+                                 , time_oltp:client ttc
+                                 , tc_direct_project tdp
+                                 , studio_oltp:contest_type_lu cc
+                             where c.contest_id = cc1.contest_id
+                               and cc1.property_id = 28
+                               and cc1.property_value = ttp.project_id
+                               and ttp.project_id = ttcp.project_id
+                               and ttcp.client_id = ttc.client_id
+                               and c.tc_direct_project_id = tdp.project_id
+                               and c.contest_status_id in (1, 2)
+                               and c.contest_type_id = cc.contest_type_id
+                               and ttc.client_id in (13, 70014062, 70014097))) topcoder_project_ids
+  where dp.track_id = t.track_id
+    and dp.dr_points_status_id = 1
+    and dp.is_potential = 'f'
+    and dp.dr_points_reference_type_id = topcoder_project_ids.project_type
+    and dp.reference_id = topcoder_project_ids.project_id
+  group by 1, 2
+  order by 1 desc, 2 desc

@@ -1,0 +1,16 @@
+select u.user_id, u.handle_lower, case when dsr.rating = 0 then null else dsr.rating end as des_rating,
+case when dvr.rating = 0 then null else dvr.rating end as dev_rating
+from 
+event_registration er, 
+user u,
+OUTER(tcs_catalog:user_rating dsr),
+OUTER(tcs_catalog:user_rating dvr)
+where er.event_id = @eid@
+and er.eligible_ind = 1
+and u.user_id = er.user_id
+and dsr.user_id = u.user_id
+and dsr.phase_id = 112
+and dvr.user_id = u.user_id
+and u.status = 'A'
+and dvr.phase_id = 113
+order by 2 asc

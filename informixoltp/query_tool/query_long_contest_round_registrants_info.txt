@@ -1,0 +1,20 @@
+SELECT r.round_id AS round_id
+     , comp.problem_id AS problem_id
+     , comp.component_id AS component_id
+     , c.name AS contest_name
+     , r.name AS round_name
+     , r.round_type_id
+     , p.name as problem_name
+     , (SELECT COUNT(coder_id)
+          FROM round_registration rr
+         WHERE rr.round_id = r.round_id) AS num_competitors
+  FROM round r
+     , round_component rc
+     , component comp
+     , contest c
+     , problem p
+ WHERE r.round_id = @rd@
+   AND rc.round_id = r.round_id
+   AND comp.component_id = rc.component_id
+   AND c.contest_id = r.contest_id
+   AND comp.problem_id = p.problem_id

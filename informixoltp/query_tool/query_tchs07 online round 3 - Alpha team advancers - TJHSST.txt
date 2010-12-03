@@ -1,0 +1,17 @@
+select u.handle, e.address as email_address
+from user u, email e
+where e.user_id = u.user_id
+and e.primary_ind = 1
+and u.status = 'A'
+and u.handle IN
+('AnonnymousT',
+'arvindthiagaraj',
+'bvargo',
+'FMako',
+'frostedlilies',
+'hmao',
+'jchen123',
+'LynValente',
+'raiame',
+'t3hg0suazn',
+'xhuwin')

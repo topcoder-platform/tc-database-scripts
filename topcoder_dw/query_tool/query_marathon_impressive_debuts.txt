@@ -1,0 +1,20 @@
+select c.coder_id
+     , c.handle
+     , new_rating
+     , cal.date
+     , con.name as contest_name
+     , r.name as round_name
+     , r.round_type_id
+from long_comp_result lcr
+     , coder c
+     , round r
+     , calendar cal
+     , contest con
+where lcr.coder_id = c.coder_id
+and r.round_type_id in (13,19)
+and lcr.round_id = r.round_id
+and r.calendar_id = cal.calendar_id
+and r.contest_id = con.contest_id
+and new_rating > 1500
+and old_rating is null
+order by new_rating desc, handle

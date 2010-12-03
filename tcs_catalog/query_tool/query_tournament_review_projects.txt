@@ -1,0 +1,70 @@
+select (select count(*)
+          from submission s
+         where s.project_id = p.project_id
+           and s.cur_version = 1
+           and s.is_removed = 0) as submission_count
+     , c.component_name
+     , cat.category_name as catalog
+     , cat.category_id
+     , ph.description as phase_desc
+     , p.project_id
+     , ph.phase_id
+     , (select start_date 
+          from phase_instance
+         where project_id = p.project_id
+           and cur_version = 1
+           and phase_id = 3) as review_start
+     , (select end_date 
+          from phase_instance
+         where project_id = p.project_id
+           and cur_version = 1
+           and phase_id = 3) as review_end
+     , (select start_date 
+          from phase_instance
+         where project_id = p.project_id
+           and cur_version = 1
+           and phase_id = 5) as agg_review_start
+     , (select end_date 
+          from phase_instance
+         where project_id = p.project_id
+           and cur_version = 1
+           and phase_id = 5) as agg_review_end
+     , (select 3-round(count(*))
+          from rboard_application
+         where project_id = p.project_id
+           and phase_id = ph.phase_id) as available_spots
+     , cvd.status_id
+  from project p
+     , comp_versions cv
+     , phase_instance pi
+     , comp_catalog c
+     , categories cat
+     , phase ph
+     , comp_version_dates cvd
+ where 1=1
+   and p.comp_vers_id = cv.comp_vers_id
+   and p.cur_version=1
+   and p.project_id = pi.project_id
+   and pi.phase_id in (1,2,3)
+   and pi.phase_instance_id = p.phase_instance_id
+   and cv.phase_id in (113,112)
+   and pi.cur_version = 1
+   and c.component_id = cv.component_id
+   and c.root_category_id = cat.category_id
+   and ph.phase_id = cv.phase_id
+   and p.project_stat_id in (1,3)
+   and cvd.comp_vers_id = cv.comp_vers_id
+   and cvd.phase_id = cv.phase_id
+   and cvd.status_id = 303
+   and extend((select start_date 
+          from phase_instance
+         where project_id = p.project_id
+           and cur_version = 1
+           and phase_id = 1), year to hour) + 9 units hour < extend(current, year to hour)
+   and c.root_category_id in (8459260,9926572,5801776,5801777)
+   and (select count(*)
+          from submission s
+         where s.project_id = p.project_id
+           and s.is_removed = 0
+           and s.cur_version = 1) > 0
+ order by 3 desc,4,11 desc

@@ -1,0 +1,43 @@
+select u.handle, u.email as email_address
+  from email_user u
+     , room_result rr
+ where rr.advanced = 'N'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id = 10713
+   and rr.coder_id = u.user_id
+   and u.status = 'A'
+   and u.handle NOT IN ('__tabara',
+'anouk',
+'blindcoder',
+'cosi',
+'cretu',
+'gaby_wiz',
+'ghostyo',
+'paula_11',
+'Spiri',
+'tc_flo',
+'cheater_no1',
+'cypressx',
+'exod40',
+'iliyan88',
+'InsaneCoder',
+'itzo',
+'mi6091',
+'Rostislav',
+'alexthero',
+'donalexey',
+'dumi',
+'gcosmin',
+'sims',
+'svalentin',
+'wefgef',
+'brahle',
+'psir',
+'sluga',
+'Zuza',
+'blazej',
+'jerzy.kozera',
+'tomekkulczynski',
+'bkovacic',
+'icanadi',
+'rmedic')

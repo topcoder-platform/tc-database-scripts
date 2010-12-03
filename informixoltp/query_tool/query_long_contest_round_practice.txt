@@ -1,0 +1,14 @@
+SELECT ct.contest_id
+      , r.round_id
+      , rs.start_time
+      , rs.end_time
+      , r.status
+      , r.name AS round_name
+      , round_type_id
+      , ct.name AS contest_name 
+FROM round_segment rs, round r, contest ct 
+WHERE ct.contest_id = r.contest_id 
+AND rs.round_id = r.round_id AND rs.segment_id = 2 
+AND r.round_type_id in (14,23)
+AND r.round_id <> 9890
+order by rs.start_time desc

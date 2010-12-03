@@ -1,0 +1,4 @@
+select * from 
+common_oltp:preference_group_lu
+where preference_group_id in (2,3,4)
+order by sort_order

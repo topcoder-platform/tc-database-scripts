@@ -1,0 +1,10 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , coder c
+     , user_notify_xref n
+ WHERE u.user_id = n.user_id
+   AND u.status = 'A'
+   AND u.user_id = c.coder_id
+   AND c.comp_country_code = 840
+   AND n.notify_id = 5

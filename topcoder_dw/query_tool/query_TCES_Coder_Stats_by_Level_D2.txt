@@ -1,0 +1,37 @@
+SELECT cl.level_id
+     , llu.level_desc
+     , cl.problems_presented AS presented
+     , cl.problems_submitted AS submitted
+     , (CASE WHEN cl.problems_presented = 0 THEN 0.0
+             ELSE cl.problems_submitted / cl.problems_presented * 100
+             END) AS submit_percent
+     , cl.problems_correct AS correct
+     , (CASE WHEN cl.problems_submitted = 0 THEN 0.0
+             ELSE cl.problems_correct / cl.problems_submitted * 100
+             END) AS submission_accuracy
+     , (CASE WHEN cl.problems_presented = 0 THEN 0.0
+             ELSE cl.problems_correct / cl.problems_presented * 100
+             END) AS overall_accuracy
+     , (CASE WHEN cl.problems_submitted = 0 THEN 0.0
+             ELSE cl.final_points / cl.problems_submitted
+             END) AS avg_submission_points
+     , (CASE WHEN cl.problems_presented = 0 THEN 0.0
+             ELSE cl.final_points / cl.problems_presented
+             END) AS avg_final_points
+     , (CASE WHEN cl.problems_submitted = 0 THEN 0.0
+             ELSE (SELECT AVG(cp.time_elapsed)
+          FROM coder_problem cp
+         WHERE cp.coder_id = cl.coder_id
+           AND cp.division_id = cl.division_id
+           AND cp.level_id = cl.level_id
+           AND cp.end_status_id IN (140,150,160)) END) AS avg_time_elapsed
+  FROM coder_level cl
+     , level_lu llu 
+     , coder c
+ WHERE cl.level_id = llu.level_id
+   AND (cl.division_id = 2)
+   AND (cl.coder_id = @mid@)
+   AND cl.coder_id = c.coder_id
+   AND c.status = 'A'
+and cl.algo_rating_type_id = 1
+ ORDER BY cl.level_id

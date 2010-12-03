@@ -1,0 +1,12 @@
+SELECT
+  problems_presented as total
+  ,problems_opened-problems_submitted as opened
+  ,problems_correct as passed
+  ,problems_failed_by_challenge as challenged
+  ,problems_failed_by_system_test as failed
+FROM
+  round_problem
+WHERE
+  problem_id=@pm@ and
+  division_id = @dn@ and
+  round_id = @rd@

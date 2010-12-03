@@ -1,0 +1,4 @@
+select *
+from common_oltp:preference_lu
+where preference_group_id = @prid@
+order by sort_order asc

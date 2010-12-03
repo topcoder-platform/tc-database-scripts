@@ -1,0 +1,22 @@
+SELECT submission_number
+     , submission_text
+     , r.round_id
+     , p.problem_id
+     , ps.coder_id
+     , c.name AS contest_name
+     , r.name AS round_name
+     , p.class_name AS problem_name
+     , r.round_type_id
+  FROM long_problem_submission ps
+     , round r
+     , problem p
+     , contest c
+ WHERE ps.coder_id = @cr@
+   AND ps.round_id = @rd@
+   AND ps.problem_id = @pm@
+   AND ps.submission_number = @subnum@
+   and ps.example = @ex@
+   AND r.round_id = ps.round_id
+   AND p.problem_id = ps.problem_id
+   AND p.round_id = ps.round_id
+   AND c.contest_id = r.contest_id;

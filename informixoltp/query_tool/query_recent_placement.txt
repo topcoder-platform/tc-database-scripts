@@ -1,0 +1,29 @@
+select u.handle
+     , to_char((select max(create_date) from user_preference where user_id = u.user_id and preference_id in (2,7)),'%D %R') signup_date
+     , u.first_name
+     , u.last_name
+     , a.city
+     , a.state_code
+     , co.country_name
+     , r.rating
+     , r.num_ratings
+     , '<a href=http://www.topcoder.com/tc?module=PlacementInfoDetail&uid='|| u.user_id || '>View Placement Information</a>'
+from user u
+   , coder c
+   , country co
+   , rating r
+   , address a
+   , user_address_xref uax
+where u.user_id = c.coder_id 
+  and r.coder_id = c.coder_id 
+  and u.user_id = uax.user_id 
+  and uax.address_id = a.address_id
+  and a.address_type_id = 2
+  and co.country_code = a.country_code and
+  u.user_id in(
+    select up.user_id
+    from common_oltp:user_preference up
+    where up.preference_id in (2,7) 
+      and up.modify_date is not null 
+      and date(up.create_date) >= today - 14)
+order by 2 desc

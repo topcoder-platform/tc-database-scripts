@@ -1,0 +1,16 @@
+select 'seid=' || season_id as value
+      , name || ' > Rookies ' as name
+      , (select max(end_date) from stage st where s.season_id = st.season_id) as end_date
+      , 2
+from season s 
+where rookie_competition_ind = 1
+and (select max(end_date) from stage st where s.season_id = st.season_id) < current
+union
+select 'staid=' || stage_id as value
+       , s.name  || ' > ' || st.name as name
+       , end_date
+       ,1
+from stage st, season s
+where s.season_id = st.season_id
+and end_date < current
+order by end_date, 4

@@ -1,0 +1,11 @@
+SELECT sum(cd.amount) as amount
+     , count(distinct c.coder_id) as count
+  FROM coder c
+     , charity_donation cd
+     , rating r
+     , user u
+ WHERE cd.coder_id = c.coder_id
+   AND cd.donation_type_id = 1
+   AND r.coder_id = c.coder_id
+   AND u.user_id = c.coder_id
+ GROUP BY cd.donation_type_id

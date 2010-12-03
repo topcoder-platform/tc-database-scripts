@@ -1,0 +1,22 @@
+select count(distinct pr.user_id)
+     , cal.week_of_year
+     , cal.week_year
+  from project p, calendar cal
+     , outer project_result pr
+     , table(multiset(
+            select min(c.calendar_id) as calendar_id, pr.user_id, p.phase_id
+              from project_result pr, project p, calendar c
+             where pr.project_id = p.project_id
+               and p.phase_id = 112
+               and date(p.posting_date) = c.date
+             group by 2,3)) as first_date
+ where p.posting_date > current - 31 units day
+   and p.posting_date < current + 1 units day
+   and date(p.posting_date) = cal.date
+   and p.project_id = pr.project_id
+   and p.phase_id = first_date.phase_id
+   and pr.user_id = first_date.user_id
+   and p.phase_id = 112
+   and cal.calendar_id = first_date.calendar_id
+ group by cal.week_of_year, cal.week_year
+ order by cal.week_year, cal.week_of_year

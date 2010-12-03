@@ -1,0 +1,23 @@
+select u.handle, u.email as email_address
+  from email_user u
+     , room_result rr
+ where rr.advanced = 'N'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id = 10720
+   and rr.coder_id = u.user_id
+   and u.status = 'A'
+   and u.handle NOT IN 
+('nishanth',
+'perfect_guy1989',
+'premprakash',
+'quantumelixir',
+'sivaraman',
+'venkateshb',
+'vikram_v1990',
+'Anton_Feskov',
+'CrazyLammer',
+'Grif-on',
+'ioffe',
+'Joshik',
+'Kostia',
+'valich')

@@ -1,0 +1,33 @@
+select p.category_desc
+     , p.component_name
+     , p.version_text
+     , (select max(pay.client) from payment pay where pay.reference_id = p.project_id) as client
+     , sum(nvl(direct.cost, 0) + nvl(indirect.cost, 0)) as Total_Cost
+     , sum(case when p.project_category_id = 1 then nvl(direct.cost, 0)+ nvl(indirect.cost, 0) else 0 end) as Total_Design_Cost
+     , sum(case when p.project_category_id = 2 then nvl(direct.cost, 0)+ nvl(indirect.cost, 0) else 0 end) as Total_Dev_Cost
+     , sum(review.cost) as Review_Cost
+     , max(p.complete_date) as complete_date
+     , '<a href="http://www.topcoder.com/tc?module=LegacyReport&t=new_report&c=project_payments&db=java:TCS_DW&pj=' || max(p.project_id) || '">payments</a>'
+     , sum(case when p.project_category_id = 1 and p.complete_date is not null then 1 else 0 end) as num_design_contests
+     , sum(case when p.project_category_id = 2 and p.complete_date is not null then 1 else 0 end) as num_dev_contests
+  from project p
+      , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up
+                        where up.payment_id = p.payment_id
+                        group by p.reference_id)) direct
+      , outer table(multiset(select pp.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up, payment pp
+                        where up.payment_id = p.payment_id
+                          and pp.payment_id = p.parent_payment_id
+                        group by pp.reference_id)) indirect
+      , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 7
+                        group by p.reference_id)) review
+ where direct.project_id = p.project_id
+   and indirect.project_id = p.project_id
+   and review.project_id = p.project_id
+   and p.project_category_id in (1,2)
+ group by 1,2,3,4
+ order by complete_date desc

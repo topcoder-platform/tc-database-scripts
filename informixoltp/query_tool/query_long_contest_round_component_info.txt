@@ -1,0 +1,14 @@
+select p.name as problem_name
+     , c.name as contest_name
+     , r.round_id
+     , p.problem_id
+     , r.name as round_name
+     , r.round_type_id
+  from round r
+     , contest c
+     , component co
+     , problem p
+ where r.round_id = @rd@ 
+   and r.contest_id = c.contest_id
+   and co.problem_id = @pm@
+   and co.problem_id = p.problem_id

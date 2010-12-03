@@ -1,0 +1,3 @@
+select current > rs.start_time from round_segment rs
+where round_id = @rd@
+and segment_id = 2

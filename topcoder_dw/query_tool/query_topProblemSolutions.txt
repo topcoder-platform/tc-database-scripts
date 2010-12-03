@@ -1,0 +1,15 @@
+SELECT cp.final_points
+     , cp.coder_id
+     , cp.problem_id
+     , cp.round_id
+     , cp.division_id
+     , cp.level_desc
+     , dlu.division_desc
+     , cp.time_elapsed
+  FROM coder_problem cp
+     , division_lu dlu
+ WHERE cp.problem_id = @pm@
+   AND cp.division_id = @dn@
+   AND dlu.division_id = cp.division_id
+   AND cp.end_status_id = 150
+ ORDER BY 1 DESC

@@ -1,0 +1,29 @@
+select u.user_id
+     , r.rating
+     , il.seed
+     , u.handle
+     , u.handle_lower as handle_sort
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10738,10742,10743)) as round1
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10749)) as round2
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id = 10751) as round3
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id = 10759) as round4
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10839, 10840, 10841)) as semi
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10842)) as wildcard
+     , (select CASE WHEN advanced='Y' THEN 'Champion' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id = 10843) as final
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10738,10742,10743)), 3) as round1_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10749)), 3) as round2_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id = 10751), 3) as round3_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id = 10759), 3) as round4_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10839, 10840, 10841)), 3) as semi_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10842)), 3) as wildcard_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = u.user_id and rr1.round_id = 10843), 3) as finals_sort
+     , (select case when il1.round_id = 10738 then 'A' else case when il1.round_id = 10742 then 'B' else case when il1.round_id = 10743 then 'C' else '' end end end from invite_list il1 where il1.coder_id = u.user_id and il1.round_id in (10738, 10742, 10743)) as section
+  from user u
+     , rating r
+     , invite_list il
+ where il.coder_id = u.user_id
+   and r.coder_id = u.user_id
+   and u.status = 'A'
+   and il.round_id = 10741
+ order by finals_sort, semi_sort, wildcard_sort
+, round4_sort, round3_sort, round2_sort, round1_sort, seed

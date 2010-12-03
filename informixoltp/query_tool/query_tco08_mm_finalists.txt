@@ -1,0 +1,14 @@
+select handle, email as email_address
+from email_user where lower(handle) in 
+('doudouille',
+'venco',
+'ratonulbolnav',
+'psyho',
+'tpelkone',
+'paranoia',
+'iquadrat',
+'delicato',
+'brinky',
+'rahulgarg123',
+'bhzhan',
+'wata')

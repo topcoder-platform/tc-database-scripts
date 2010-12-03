@@ -1,0 +1,9 @@
+select
+  u.handle
+  ,u.email as email_address
+from
+  email_user u
+where
+  u.status = 'A' and
+  u.user_id IN (select user_id from user_notify_xref un where un.notify_id = 5) and
+  u.user_id IN (select user_id from user_notify_xref un where un.notify_id = 11)

@@ -1,0 +1,4 @@
+SELECT p.project_id, p.project_status_id, p.project_category_id,
+       p.create_user, p.create_date, p.modify_user, p.modify_date
+FROM project p
+WHERE p.project_status_id = @stid@

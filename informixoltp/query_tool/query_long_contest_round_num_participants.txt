@@ -1,0 +1,1 @@
+select count(distinct coder_id) from long_component_state where round_id = @rd@

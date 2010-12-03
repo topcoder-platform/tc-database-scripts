@@ -1,0 +1,4 @@
+SELECT d.name
+FROM project p, corporate_oltp:tc_direct_project d
+WHERE p.tc_direct_project_id = d.project_id
+AND   p.project_id = @pj@

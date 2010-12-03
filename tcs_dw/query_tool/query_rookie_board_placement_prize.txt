@@ -1,0 +1,7 @@
+select cp.place, cp.prize_amount from contest_prize cp, contest_season_xref csx, contest c
+        where cp.contest_id = csx.contest_id
+        and c.contest_id = cp.contest_id
+        and contest_type_id = 20
+        and csx.season_id = @seid@
+        and phase_id = @ph@
+        order by cp.place asc

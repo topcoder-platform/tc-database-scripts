@@ -1,0 +1,23 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , coder c
+     , coder_notify n
+ WHERE u.user_id = n.coder_id
+   AND u.user_id = c.coder_id
+   AND c.state_code IN ('NV', 'AZ', 'NM', 'UT', 'CA')
+   AND u.status = 'A'
+   AND n.notify_id = 1
+   AND u.email NOT IN 
+(select u.email as email_address
+  from email_user u
+     , room_result rr
+ where rr.advanced = 'Y'
+   and u.status = 'A'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id in (9925)
+   and rr.coder_id = u.user_id)
+   AND u.handle NOT IN
+('adic','AleaActaEst','aubergineanode','kyky','nicka81','Pops','real_vg','ThinMan',
+'biotrail','cnettel','colau','nhzp339','oodinary','sindu','traugust','visualage',
+'omgrace','davidyang','Kawigi','dplass','aksonov','victor_lxd','WishingBone','argolite','cucu','UFP2161')

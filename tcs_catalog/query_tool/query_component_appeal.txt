@@ -1,0 +1,30 @@
+select 
+    ri1.value::decimal user_id, ric.review_item_comment_id appeal_id, ri2.value::decimal author_id, 
+    case when ric.extra_info = 'Succeeded' then 1
+         when ric.extra_info = 'Failed' then 0 
+         else null end as successful, 
+    case when ric.extra_info is null then 0 
+         else 1 end as is_resolved
+from 
+    contest_project_xref cpx, upload u, submission su, resource_info ri1, review r, review_item ri, review_item_comment ric
+    , resource res, resource_info ri2
+where 
+    -- join match
+    u.project_id = cpx.project_id and
+    u.upload_id = su.upload_id and
+    u.resource_id = ri1.resource_id and
+    ri1.resource_info_type_id = 1 and
+    su.submission_id = r.submission_id and 
+    su.submission_type_id = 1 and
+    su.submission_status_id in (1,2,3,4) and 
+    r.review_id = ri.review_id and
+    ri.review_item_id = ric.review_item_id and
+    r.resource_id = res.resource_id and
+    -- role is reviewer
+    res.resource_role_id in (4,5,6,7) and
+    r.resource_id = ri2.resource_id and
+    ri2.resource_info_type_id = 1 and
+    -- 4 is appeal comment type
+    ric.comment_type_id = 4 and   
+    -- params
+    cpx.contest_id = @ct@

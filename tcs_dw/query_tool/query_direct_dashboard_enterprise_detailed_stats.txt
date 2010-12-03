@@ -1,0 +1,13 @@
+SELECT s.stat_date,
+       SUM(s.cost) / CASE WHEN SUM(s.total_project) = 0 THEN 1 ELSE SUM(s.total_project) END AS cost,
+       SUM(s.duration) / CASE WHEN SUM(s.total_project) = 0 THEN 1 ELSE SUM(s.total_project) END / 60 AS duration,
+       SUM(s.fulfillment) / CASE WHEN SUM(s.total_project) = 0 THEN 1 ELSE SUM(s.total_project) END * 100 AS fulfillment,
+       SUM(s.total_project) AS total_project
+FROM tcd_project_stat s
+WHERE s.tcd_project_id = @pj@
+AND   DATE(s.stat_date) BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
+AND   s.project_category_id IN (@pcids@)
+GROUP BY s.stat_date
+ORDER BY s.stat_date
+
+

@@ -1,0 +1,4 @@
+select pi.value as project_name
+from project_info pi
+where pi.project_info_type_id = 6
+and pi.project_id = @pj@

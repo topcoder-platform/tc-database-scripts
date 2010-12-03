@@ -1,0 +1,4 @@
+SELECT u.handle
+  FROM user u
+ WHERE (u.user_id = @mid@)
+   AND u.status = 'A'

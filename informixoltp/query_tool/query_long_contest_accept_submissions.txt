@@ -1,0 +1,6 @@
+select 1
+  from component c
+     , problem p
+ where p.problem_id = c.problem_id
+   and p.accept_submissions = 1
+   and c.component_id = @compid@

@@ -1,0 +1,76 @@
+
+SELECT u.user_id
+       ,u.handle
+       ,u.email
+       ,c.first_name
+       ,c.last_name
+       ,c.address1
+       ,c.address2
+       ,c.city
+       ,c.state_code
+       ,c.zip
+       ,c.relocate
+       ,co.country_name
+       ,ct.coder_type_desc
+       ,r.rating
+       ,r.num_ratings
+       ,(SELECT demographic_answer_text
+           FROM demographic_response dr1 
+                ,demographic_answer da1
+          WHERE dr1.coder_id = c.coder_id
+            AND dr1.coder_id = u.user_id
+            AND dr1.demographic_question_id = 18
+            AND dr1.demographic_answer_id = da1.demographic_answer_id
+            AND dr1.demographic_question_id = da1.demographic_question_id
+            AND da1.demographic_answer_text::DECIMAL >= @gn@
+            AND da1.demographic_answer_text::DECIMAL <= @gx@) as grad_year
+       ,dr2.demographic_response as company
+       ,da3.demographic_answer_text as looking_for_job
+       ,cs.school_name as known_school_name
+       ,da4.demographic_answer_text as other_school_name
+       ,da5.demographic_answer_text as degree
+       ,rs.start_time as last_rated_event
+       ,LOWER(u.handle)
+  FROM user u
+       ,coder c    
+       ,coder_type ct
+       ,rating r
+       ,country co 
+       ,round_segment rs
+       ,OUTER demographic_response dr2 
+       ,OUTER (demographic_response dr3, OUTER demographic_answer da3)
+       ,OUTER (demographic_response dr4, OUTER demographic_answer da4)
+       ,OUTER (demographic_response dr5, OUTER demographic_answer da5)
+       ,OUTER current_school cs 
+ WHERE c.coder_id = u.user_id
+   AND ct.coder_type_id = c.coder_type_id
+   AND ct.coder_type_id in (@cts@)
+   AND r.coder_id = u.user_id
+   AND r.round_id = rs.round_id
+   AND rs.segment_id = 2
+   AND co.country_code = c.country_code
+   AND dr2.coder_id = c.coder_id
+   AND dr2.demographic_question_id = 15
+   AND dr3.coder_id = c.coder_id
+   AND dr3.demographic_question_id = 3
+   AND dr3.demographic_answer_id = da3.demographic_answer_id
+   AND dr3.demographic_question_id = da3.demographic_question_id
+   AND dr4.coder_id = c.coder_id
+   AND dr4.demographic_question_id = 20
+   AND dr4.demographic_answer_id <> 0
+   AND dr4.demographic_answer_id = da4.demographic_answer_id
+   AND dr4.demographic_question_id = da4.demographic_question_id
+   AND dr5.coder_id = c.coder_id
+   AND dr5.demographic_question_id = 16
+   AND dr5.demographic_answer_id = da5.demographic_answer_id
+   AND dr5.demographic_question_id = da5.demographic_question_id
+   AND cs.coder_id = c.coder_id
+   AND LOWER(u.handle) like LOWER('@ha@')
+   AND LOWER(c.first_name) like LOWER('@fn@')
+   AND LOWER(c.last_name) like LOWER('@ln@')
+   AND c.state_code in (@scs@)
+   AND r.rating >= @rn@
+   AND r.rating <= @rx@
+   AND r.num_ratings >= @nrn@
+   AND r.num_ratings <= @nrx@
+ ORDER BY 23 ASC

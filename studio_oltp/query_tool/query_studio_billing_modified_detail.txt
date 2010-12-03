@@ -1,0 +1,20 @@
+select ptl.payment_type_desc as payment_type
+     , pd.payment_desc as description
+     , pd.client as client
+     , u.handle as handle
+     , pd.gross_amount as gross
+     , psl.payment_status_desc as status
+     , pd.installment_number as installment
+     , p.modify_date as modified
+     , '<a href=http://www.topcoder.com/PactsInternalServlet?module=ViewPayment&payment_id=' \|\| p.payment_id \|\| '>pacts</a>' as pacts_link
+  from informixoltp:payment p
+     , informixoltp:payment_detail pd
+     , informixoltp:payment_type_lu ptl
+     , informixoltp:payment_status_lu psl
+     , user u
+ where p.most_recent_detail_id = pd.payment_detail_id
+   and pd.payment_type_id = ptl.payment_type_id
+   and pd.payment_status_id = psl.payment_status_id
+   and pd.studio_contest_id = @ct@
+   and p.user_id = u.user_id
+ order by p.modify_date desc

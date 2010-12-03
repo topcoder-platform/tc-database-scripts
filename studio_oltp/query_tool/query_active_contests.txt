@@ -1,0 +1,25 @@
+select c.contest_id
+     , c.name
+     , c.start_time
+     , c.end_time 
+     , p.amount 
+     , (select count(*)
+          from submission s
+         where s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id) as submission_count
+     , (select property_value from contest_config where contest_id = c.contest_id and property_id = 3)='true' as show_submissions
+     , case when exists (select 1 from contest_registration cr where cr.user_id = @uid@ and cr.contest_id=c.contest_id)then 1 else 0 end as is_user_registered
+     , c.event_id
+     , (select count(*) from contest_registration cr where cr.contest_id = c.contest_id) as registrants
+     , c.contest_channel_id
+     , (select sum(p.amount) from prize p, contest_prize_xref x where x.prize_id = p.prize_id and x.contest_id = c.contest_id) as prize_total
+     , (select property_value::decimal from contest_config where contest_id = c.contest_id and property_id = 24) as dr_points
+     , (select milestone_date from contest_multi_round_information where contest_multi_round_information_id = c.contest_multi_round_information_id and is_MULTI_ROUND = 't') as milestone_date
+ from contest c
+     , outer (contest_prize_xref x, prize p)
+ where current between c.start_time and c.end_time
+   and c.contest_status_id = 2 and (c.contest_detailed_status_id = 5 or c.contest_detailed_status_id = 2)
+   and x.contest_id = c.contest_id
+   and x.prize_id = p.prize_id
+   and p.place = 1
+ order by @sc@ @sd@

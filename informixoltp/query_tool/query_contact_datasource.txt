@@ -1,0 +1,8 @@
+SELECT datasource_name
+  FROM datasource_lu d
+     , company_datasource_xref cdx
+     , contact c
+ WHERE d.datasource_id = cdx.datasource_id
+   AND d.datasource_type_id = @dstid@
+   AND c.company_id = cdx.company_id
+   AND c.contact_id = @uid@

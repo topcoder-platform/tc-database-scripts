@@ -1,0 +1,12 @@
+select c.name || ' > ' || r.name as name
+     , r.round_id
+     , rs.start_time
+     , r.round_type_id
+  from round r
+     , contest c
+     , round_segment rs
+ where r.contest_id = c.contest_id
+   and r.round_type_id in (13,14,15,16,19,22,23)
+   and rs.round_id = r.round_id
+   and rs.segment_id = 2
+ order by rs.start_time desc

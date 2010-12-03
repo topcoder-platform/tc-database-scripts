@@ -1,0 +1,19 @@
+SELECT c.handle,
+c.coder_id,
+rr.final_points,
+rr.new_rating,
+r.name,
+r.round_id,
+cal.date,
+r.short_name
+FROM contest con, round r, calendar cal, coder c, room_result rr
+WHERE c.coder_id = rr.coder_id
+AND c.status = 'A'
+AND r.round_id = rr.round_id
+AND r.round_type_id in (1,2,10)
+AND con.contest_id = r.contest_id
+AND cal.calendar_id = r.calendar_id
+AND rr.division_id = @dn@
+AND rr.final_points >= 500.0
+and rr.rated_flag = 1
+ORDER BY rr.final_points DESC, rr.new_rating DESC, c.handle

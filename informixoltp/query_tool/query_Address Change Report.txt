@@ -1,0 +1,13 @@
+select u.handle as user_name
+     , u.first_name
+     , u.last_name
+     , a.column_name
+     , a.old_value as old_address
+     , a.new_value as new_address
+     , a.timestamp as time
+  from user u
+     , common_oltp:audit_user a
+ where u.user_id = a.user_id
+   and a.timestamp > current - 90 units day
+   and a.column_name in ('ADDRESS1', 'ADDRESS2', 'ADDRESS3', 'ADDRESS_CITY', 'ADDRESS_COUNTRY', 'ADDRESS_PROVINCE', 'ADDRESS_STATE', 'ADDRESS_ZIP')
+ order by timestamp desc

@@ -1,0 +1,5 @@
+select achievement_date as date, description
+from user_achievement
+where user_id = @cr@
+and achievement_type_id = 2
+order by date

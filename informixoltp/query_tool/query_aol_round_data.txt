@@ -1,0 +1,13 @@
+select r.short_name as round_name
+     , rr.coder_id as user_id
+     , rr.point_total as points
+     , rr.division_placed as placed
+     , (select start_time from round_segment where round_id = r.round_id and segment_id = 1) as reg_start
+     , (select end_time from round_segment where round_id = r.round_id and segment_id = 1) as reg_end
+     , (select start_time from round_segment where round_id = r.round_id and segment_id = 2) as date
+  from round r, outer (room_result rr, room ro)
+ where rr.round_id = r.round_id
+   and rr.attended = 'Y'
+   and r.round_id = @rd@
+   and rr.room_id = ro.room_id
+   and ro.room_type_id = 2

@@ -1,0 +1,4 @@
+select ur.rating, ur.num_ratings
+  from user_rating ur
+ where ur.user_id = @uid@
+   and phase_id = @ph@

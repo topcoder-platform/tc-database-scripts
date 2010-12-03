@@ -1,0 +1,18 @@
+select distinct u.handle
+     , u.user_id
+     , lower(u.handle) as lower_handle
+     , cp.copilot_profile_id as profile_id
+     , cp.copilot_profile_status_id as status_id
+     , cps.name as status_name
+     , cp.activation_date 
+     , cp.suspension_count
+     , cp.reliability
+     , cp.show_copilot_earnings as show_earnings
+     , cp.create_date
+     , cp.update_date
+     , cp.create_user
+     , cp.update_user
+  from copilot_profile cp
+     , user u , copilot_profile_status cps
+ where cp.user_id = u.user_id and cp.copilot_profile_status_id = cps.copilot_profile_status_id
+ order by 3 asc

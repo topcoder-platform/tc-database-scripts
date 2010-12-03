@@ -1,0 +1,18 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+ WHERE u.handle IN
+('aubergineanode',         
+'real_vg',
+'Standlove',     
+'haozhangr',
+'urtks',
+'vividmxx',
+'biotrail',
+'codenameHarmony',
+'hotblue',
+'ShindouHikaru',
+'woodjhon',
+'zsudraco',
+'nebula.lam',
+'yext')

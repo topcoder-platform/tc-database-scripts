@@ -1,0 +1,23 @@
+SELECT FIRST 3 ro.contest_id as ContestId
+ ,rr.round_id as RoundId
+ ,rr.room_id as RoomId
+ ,rr.coder_id as CoderId
+ ,c.handle as Handle
+ ,rr.submission_points as CodingPoints
+ ,rr.challenge_points+rr.defense_points as ChallengePoints
+ ,rr.system_test_points as TestPoints
+ ,rr.final_points as FinalPoints
+ ,rr.advanced as Advanced
+ ,rr.old_rating as PreRoundRating
+ ,(rr.new_rating - rr.old_rating) as RatingDifference
+ ,rr.new_rating as PostRoundRating
+ ,cal.calendar_id 
+ FROM contest con, round ro, room r, coder c, room_result rr, calendar cal
+ WHERE c.coder_id = @cr@
+ AND c.coder_id = rr.coder_id
+ AND con.contest_id = ro.contest_id
+ AND ro.calendar_id = cal.calendar_id
+ AND r.round_id = ro.round_id
+ AND rr.round_id = ro.round_id
+ AND rr.room_id = r.room_id
+ ORDER BY cal.calendar_id DESC

@@ -1,0 +1,13 @@
+select 
+  year(dt.create_time) dl_year,
+  month(dt.create_time) dl_month,
+  count(*) downloads,
+  count(distinct dt.login_id) users
+from 
+  download_tracking dt
+where  
+  date(dt.create_time) >= today - 360
+  and dt.login_id not in 
+    (select login_id from user_group_xref where group_id = 2000115)
+group by 1,2
+order by 1 desc, 2 desc

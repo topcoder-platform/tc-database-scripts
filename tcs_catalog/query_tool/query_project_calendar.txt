@@ -1,0 +1,51 @@
+SELECT 'project-calendar-' || pp.project_phase_id || '@topcoder.com' AS uid
+     , TO_CHAR(CASE WHEN pp.actual_start_time IS NOT NULL THEN pp.actual_start_time ELSE pp.scheduled_start_time END, '%Y%m%dT%H%M%S') AS start_time
+     , TO_CHAR(CASE WHEN pp.actual_end_time IS NOT NULL THEN pp.actual_end_time ELSE pp.scheduled_end_time END, '%Y%m%dT%H%M%S') AS end_time
+     , pi6.value || ' - ' || ptl.name AS summary
+     , 'Online Review project:\nhttp://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id AS description
+     , 'http://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id AS url
+  FROM resource_info ri
+     , resource r
+     , project p
+     , project_info pi6
+     , project_phase pp
+     , resource_role_lu rrl
+     , phase_type_lu ptl
+ WHERE ri.resource_info_type_id = 1
+   AND ri.value::integer = @uid@
+   AND ri.resource_id = r.resource_id
+   AND r.project_id = p.project_id
+   AND p.project_status_id = 1
+   AND p.project_id = pi6.project_id
+   AND pi6.project_info_type_id = 6
+   AND p.project_id = pp.project_id
+   AND pp.phase_status_id IN (1, 2)
+   AND r.resource_role_id = rrl.resource_role_id
+   AND (rrl.phase_type_id = pp.phase_type_id
+        -- Submitters in registration, submission, and appeals.
+        OR (r.resource_role_id = 1
+            AND pp.phase_type_id IN (1, 2, 5))
+        -- Reviewers in appeals response.
+        OR (r.resource_role_id IN (4, 5, 6, 7)
+            AND pp.phase_type_id = 6)
+        -- Non-aggregator reviewers in aggregation review.
+        OR (r.resource_role_id IN (4, 5, 6, 7)
+            AND pp.phase_type_id = 8
+            AND NOT EXISTS (SELECT rx.resource_id
+                              FROM resource rx
+                                 , resource_info rix
+                             WHERE rix.resource_info_type_id = 1
+                               AND rix.value = ri.value
+                               AND rix.resource_id = rx.resource_id
+                               AND rx.resource_role_id = 8))
+        -- Winner in aggregation review and final fixes.
+        OR (r.resource_role_id = 1
+            AND pp.phase_type_id IN (8, 9)
+            AND EXISTS (SELECT value
+                          FROM project_info
+                         WHERE project_id = p.project_id
+                           AND project_info_type_id = 23
+                           AND value = ri.value))
+        -- Designer, Observer, or Manager in any phase.
+        OR (r.resource_role_id IN (11, 12, 13)))
+   AND pp.phase_type_id = ptl.phase_type_id;

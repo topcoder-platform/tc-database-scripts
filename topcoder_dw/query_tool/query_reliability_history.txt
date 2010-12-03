@@ -1,0 +1,14 @@
+SELECT 0 as comp_vers_id,
+p.phase_desc,
+round(p.component_id),
+p.submitby_date,
+p.component_name,
+case when c.new_reliability is null then 'N/A' else
+round(c.new_reliability * 100,2)||'%' end as reliability,
+1, p.viewable_category_ind
+FROM tcs_dw:project_result c,
+tcs_dw:project p
+WHERE p.project_id = c.project_id
+and c.user_id = @cr@
+and c.reliability_ind = 1
+order by @sc@ @sd@, 3

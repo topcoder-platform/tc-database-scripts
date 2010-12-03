@@ -1,0 +1,7 @@
+
+SELECT c.handle,
+r.rating
+FROM coder c, rating r
+WHERE c.coder_id = @cr@
+AND r.coder_id = @cr@
+

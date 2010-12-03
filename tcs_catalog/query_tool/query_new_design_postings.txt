@@ -1,0 +1,23 @@
+select c.year as year
+     , c.week_of_year as week
+     , count(*) as new_design_postings
+     , max(c.month_numeric) || '/' || max(c.day_of_month) || '/' || max(c.year) as week_ending
+  from calendar c
+     , project_phase pp1
+     , project p
+     , project_info pi1
+ where pp1.phase_type_id = 1
+   and date(pp1.actual_start_time) = c.date
+   and pp1.project_id = p.project_id
+   and p.project_category_id = 1
+   and p.project_id = pi1.project_id
+   and pi1.project_info_type_id = 1
+   and p.project_id = (select min(pp.project_id)
+                         from project pp
+                            , project_info ppi1
+                        where ppi1.project_info_type_id = 1
+                          and ppi1.value = pi1.value
+                          and ppi1.project_id = pp.project_id
+                          and pp.project_category_id = 1)
+group by 1, 2
+order by 1, 2;

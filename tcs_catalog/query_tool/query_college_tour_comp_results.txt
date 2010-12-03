@@ -1,0 +1,60 @@
+select ctr0.coder_id
+,(select sum (
+            case (select count(*) 
+                from project_result pr2
+                    ,informixoltp:college_tour_registration ctr2
+                where pr2.passed_review_ind = 1
+                and ctr2.create_date < (select max(ci2.create_time) from component_inquiry ci2
+                                           where ci2.project_id = pr2.project_id
+                                            and ci2.user_id = pr2.user_id)
+                and ctr2.coder_id = pr2.user_id
+                and not pr2.placed is null
+                and pr.placed < pr2.placed
+                and pr2.project_id = pr.project_id) + 1
+           when 1 then 10
+           when 2 then 7
+           when 3 then 5
+           when 4 then 4
+           else 0 end) as points
+    from contest c
+         ,contest_project_xref cpx
+         ,project p
+         ,project_result pr
+         ,informixoltp:college_tour_registration ctr
+    where c.contest_id = cpx.contest_id
+    and cpx.project_id = p.project_id
+    and p.project_id = pr.project_id
+    and p.project_status_id = 7 
+    and pr.passed_review_ind = 1
+    and ctr.create_date < (select max(ci.create_time) from component_inquiry ci
+                           where ci.project_id = pr.project_id
+                           and ci.user_id = pr.user_id)
+    and ctr.coder_id = pr.user_id
+    and ctr.event_id = c.event_id
+    and not pr.placed is null
+    and c.contest_id = c0.contest_id
+    and pr.user_id = ctr0.coder_id) as points
+
+  , (select count(*)
+    from contest_project_xref cpx2
+         ,project p2
+         ,project_result pr2
+         ,informixoltp:college_tour_registration ctr2
+    where c0.contest_id = cpx2.contest_id
+    and cpx2.project_id = p2.project_id
+    and p2.project_id = pr2.project_id
+    and p2.project_status_id = 1 
+    and pr2.valid_submission_ind = 1
+    and ctr2.create_date < (select max(ci2.create_time) from component_inquiry ci2
+                           where ci2.project_id = pr2.project_id
+                           and ci2.user_id = pr2.user_id)
+    and ctr2.coder_id = pr2.user_id
+    and ctr2.event_id = ctr0.event_id
+    and pr2.user_id = ctr0.coder_id) * 10 as potential_points
+
+from contest c0,
+     informixoltp:college_tour_registration ctr0
+    
+where c0.event_id = ctr0.event_id
+and c0.contest_id = @ct@
+order by 2 desc, 3 desc

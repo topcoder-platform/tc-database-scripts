@@ -1,0 +1,2 @@
+select 'has_eligibility' as has_eligibility from contest_eligibility 
+where contest_id = @pj@ and is_studio = 0

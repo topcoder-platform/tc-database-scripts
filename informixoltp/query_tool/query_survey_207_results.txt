@@ -1,0 +1,10 @@
+select u.handle
+     , a.answer_text
+     , r.response
+     , q.question_text
+  from survey_question sq, response r, outer answer a, question q, user u
+where sq.survey_id = 207 and sq.question_id = r.question_id
+ and r.answer_id = a.answer_id
+ and sq.question_id = q.question_id
+ and r.user_id = u.user_id
+order by u.handle, q.question_text

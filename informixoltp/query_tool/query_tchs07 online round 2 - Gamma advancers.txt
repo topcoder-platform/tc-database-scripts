@@ -1,0 +1,10 @@
+select u.handle, u.email as email_address
+  from email_user u
+     , room_result rr
+ where rr.advanced = 'Y'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id = 10718
+   and rr.coder_id = u.user_id
+   and u.status = 'A'
+   and coder_id not in
+(15204961,22656792,22656705,22656703,22399611,22655490,21691498,20396763,22253681,22663244,22627339,22664064,22630134,21354069,20147786,22658749,22629595)

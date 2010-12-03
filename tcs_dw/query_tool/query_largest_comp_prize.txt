@@ -1,0 +1,13 @@
+select up.gross_amount as money, up.user_id as coder_id
+     , pr.component_name || ' ' || pr.version_text as name
+     , pr.rating_date as date
+     , pr.project_id as project_id
+     FROM topcoder_dw:payment p, topcoder_dw:user_payment up, project pr, coder c
+     WHERE p.payment_type_id = 6 and p.payment_id = up.payment_id
+     and p.show_in_profile_ind = 1
+     and p.reference_id = pr.project_id
+     and pr.phase_id in (@pis@)
+     and up.user_id = c.coder_id
+     and c.status = 'A'
+     and pr.status_id in (4,5,7,8)
+    order by 1 desc

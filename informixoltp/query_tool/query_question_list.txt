@@ -1,0 +1,19 @@
+SELECT q.question_id
+     , q.question_text
+     , q.question_type_id
+     , q.question_style_id
+     , q.is_required 
+     , p.path || i.file_name as image
+     , i.link
+  FROM question q
+     , survey_question sq
+     , OUTER (question_image_xref qix, image i, path p)
+ WHERE q.question_id = sq.question_id
+   AND q.question_type_id in (1,4,5,6,7)
+   AND q.question_id = qix.question_id
+   AND qix.image_id = i.image_id
+   AND qix.display_flag = 1
+   AND i.path_id = p.path_id
+   AND i.image_type_id = 11
+   AND sq.survey_id = @sid@
+ order by question_id

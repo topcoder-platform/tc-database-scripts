@@ -1,0 +1,6 @@
+select  distinct c.contest_id, c.name
+from contest c,
+   round r
+where r.contest_id = c.contest_id
+and r.round_type_id in (2,12, 18)
+order by c.name

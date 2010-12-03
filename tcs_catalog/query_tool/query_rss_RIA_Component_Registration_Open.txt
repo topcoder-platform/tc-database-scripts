@@ -1,0 +1,40 @@
+-- Author: pulky
+-- Version: 1.0 (Studio Coding In Online Review)
+-- Copyright (C) 2004 - 2009 TopCoder Inc., All Rights Reserved.
+--
+-- Description: This query returns the Studio Component Registration Open feed data.
+--
+-- Important Note: do not include this comments in query tool since it will fail to create/update the query.
+
+SELECT 'Registration ends: ' || regpp.scheduled_end_time || '<br />' || 
+'Submission ends: ' || submpp.scheduled_end_time || '<br />' || 
+'Winning Payment: ' || round(nvl(pi16.value::decimal, 0)) || '<br />' || 
+cc.description as description
+, 'http://www.topcoder.com/tc?module=ProjectDetail&pj=' || p.project_id as link
+, cat.category_name || ' ' || 
+(select value from project_info where project_id = p.project_id and project_info_type_id = 6) || ' ' || cv.version_text as title,
+p.project_Id as guid
+FROM project p
+,project_phase submpp
+,project_phase regpp
+,categories cat
+,project_info pi_ci
+,comp_catalog cc
+,comp_versions cv
+, outer project_info pi16
+WHERE p.project_category_id = 25
+AND regpp.project_id = p.project_id
+AND regpp.phase_type_id = 1
+AND submpp.project_id = p.project_id
+AND submpp.phase_type_id = 2
+and regpp.scheduled_end_time > current
+and p.project_status_id = 1
+AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2)
+and cc.root_category_id = cat.category_id
+AND pi_ci.project_id = p.project_id 
+AND pi_ci.project_info_type_id = 1
+AND cv.comp_vers_id = pi_ci.value
+and cv.component_id= cc.component_id
+and pi16.project_info_type_id = 16
+and pi16.project_id = p.project_id
+order by regpp.scheduled_end_time desc

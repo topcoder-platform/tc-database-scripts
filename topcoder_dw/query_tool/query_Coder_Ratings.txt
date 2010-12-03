@@ -1,0 +1,15 @@
+SELECT c.coder_id
+     , c.handle
+     , r.rating
+     , r.num_competitions
+     , c.handle_lower
+     , cr.rank
+  FROM coder c
+     , rating r
+     , coder_rank cr
+ WHERE c.coder_id = r.coder_id
+   AND c.status = 'A'
+   AND cr.coder_rank_type_id = 2
+   AND cr.coder_id = c.coder_id
+   AND cr.algo_rating_type_id = 1
+ ORDER BY @sc@ @sd@

@@ -1,0 +1,16 @@
+SELECT q.question_text
+     , a.answer_text
+     , count(*)
+     , a.sort_order
+     , q.question_id
+  FROM survey_question sq
+     , question q
+     , answer a
+     , response r
+ WHERE sq.question_id = q.question_id
+   AND q.question_id = a.question_id
+   AND sq.survey_id = 214
+   and r.question_id = q.question_id
+   and r.answer_id = a.answer_id
+ group by q.question_text, a.sort_order, q.question_id, a.answer_text
+ ORDER BY q.question_id asc, 3 desc, a.sort_order

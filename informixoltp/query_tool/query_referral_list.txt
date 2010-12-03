@@ -1,0 +1,14 @@
+select u.handle
+     , c.member_since
+     , c.coder_id
+     , r.rating
+  from coder_referral cr
+     , user u
+     , coder c
+     , rating r
+ where cr.referral_id = 40
+   and cr.reference_id = @uid@
+   and cr.coder_id = u.user_id
+   and c.coder_id = cr.coder_id
+   and c.coder_id = r.coder_id
+   and u.status = 'A'

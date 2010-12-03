@@ -1,0 +1,12 @@
+select (select amount
+         from rboard_payment
+        where project_id = rp.project_id
+          and phase_id = rp.phase_id
+          and primary_ind = 1) AS primary_amount
+     , (select amount
+          from rboard_payment
+         where project_id = rp.project_id
+           and phase_id = rp.phase_id
+           and primary_ind = 0) AS amount
+from rboard_payment rp
+where rp.project_id = @pj@ and rp.phase_id = @ph@

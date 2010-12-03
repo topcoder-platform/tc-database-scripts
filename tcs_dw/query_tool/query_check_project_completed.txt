@@ -1,0 +1,4 @@
+select count(distinct project_id) as is_completed
+from project 
+where project_id = @pj@
+and status_id in (4,5,7,8)

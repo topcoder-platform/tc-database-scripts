@@ -1,0 +1,66 @@
+select user_id
+     , total_count
+     , total_algo_comp_count + total_comp_comp_count as total_comp_count
+     , handle_lower
+  from table(multiset( select
+  u.user_id
+  , u.handle_lower
+  , ( 
+    select count(*) from coder_referral cr1, user u1, coder c1 
+    where  
+      cr1.referral_id = 40 and  
+      cr1.reference_id = u.user_id and  
+      cr1.coder_id = u1.user_id and  
+      c1.coder_id = u1.user_id and 
+      c1.coder_type_id = 1 and 
+      u1.status = 'A' and 
+      c1.member_since between mdy(7,17,2006) and mdy(9,14,2006)
+  ) as total_count
+  ,( 
+    select count(distinct cr1.coder_id) from coder_referral cr1, user u1, coder c1, room_result rr
+    where cr1.referral_id = 40
+      and cr1.reference_id = u.user_id
+      and cr1.coder_id = u1.user_id
+      and c1.coder_type_id = 1
+      and rr.coder_id = c1.coder_id
+      and rr.round_id in (10093,10094,10095)
+      and rr.attended = 'Y'
+      and c1.coder_id = u1.user_id
+      and u1.status = 'A'
+      and c1.member_since between mdy(7,17,2006) and mdy(9,14,2006)
+  ) as total_algo_comp_count
+ , (select count(distinct cr1.coder_id) 
+      from coder_referral cr1
+         , user u1
+         , coder c1
+         , tcs_catalog:project_result pr
+         , user_terms_of_use_xref utx
+         , tcs_catalog:contest_project_xref cpx
+         , tcs_catalog:contest con
+         , tcs_catalog:upload sub
+    where cr1.referral_id = 40
+      and cr1.reference_id = u.user_id
+      and cr1.coder_id = u1.user_id
+      and c1.coder_type_id = 1
+      and c1.coder_id = u1.user_id
+      and u1.status = 'A'
+      and c1.member_since between mdy(7,17,2006) and mdy(9,14,2006)
+      and u1.user_id = pr.user_id
+      and pr.project_id = sub.project_id
+      and sub.upload_type_id = 1
+      and sub.upload_status_id = 1
+      and sub.resource_id = pr.user_id
+      and pr.project_id = cpx.project_id
+      and cpx.contest_id  = con.contest_id
+      and con.event_id = 6
+      and utx.user_id = u1.user_id
+      and utx.terms_of_use_id = 20503) as total_comp_comp_count
+from
+  user u,
+  student_rep sr
+where
+  u.user_id = sr.coder_id and
+  sr.event_id = 62 and 
+  u.status = 'A'
+))
+order by total_comp_count desc, total_count desc, handle_lower

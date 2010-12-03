@@ -1,0 +1,27 @@
+select 
+  u.handle,
+  u.first_name,
+  u.last_name,
+  u.middle_name,
+  e.address as email,
+  c.country_name,
+  a.state_code,
+  u.create_date,
+  (case when u.status = 'A' then 'Activated' else 'Not Activated' end)
+from 
+   user u
+   , user_group_xref ugx
+   , common_oltp:user_address_xref xa
+   , common_oltp:address a
+   , common_oltp:country c
+   , common_oltp:email e
+where 
+   u.create_date between current - @eday@ units day  and current - @sday@ units day
+   and u.user_id= ugx.login_id 
+   and ugx.group_id=14
+   and u.user_id = xa.user_id
+   and xa.address_id = a.address_id
+   and a.country_code = c.country_code
+   and u.user_id = e.user_id
+   and e.status_id = 1
+   and e.primary_ind = 1

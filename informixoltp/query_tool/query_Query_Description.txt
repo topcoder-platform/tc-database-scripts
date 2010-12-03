@@ -1,0 +1,4 @@
+
+SELECT command_desc
+FROM command
+WHERE command_id = @ci@

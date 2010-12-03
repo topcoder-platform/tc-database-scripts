@@ -1,0 +1,5 @@
+select u.handle, u.email as email_address4
+from event_registration er, email_user u
+ where er.event_id = 3005
+  and u.user_id = er.user_id
+ and er.eligible_ind = 1

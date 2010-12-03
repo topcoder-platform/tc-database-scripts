@@ -1,0 +1,22 @@
+select 
+  cr.create_date reg_date, u.handle, u.first_name, u.last_name, e.address,
+  co.country_name,
+  (select max(s.name) from common_oltp:school s, common_oltp:user_school us where us.school_id = s.school_id and us.primary_ind and us.user_id = u.user_id) as school,
+  (select count(distinct contest_id) from submission s 
+   where s.submitter_id = u.user_id) as contest_count
+from 
+  studio_oltp:contest_registration cr
+  , user u
+  , email e
+  , common_oltp:user_address_xref x
+  , common_oltp:address a
+  , common_oltp:country co
+ where 
+  cr.contest_id = @ct@
+  and cr.user_id = u.user_id
+  and e.user_id = u.user_id
+  and e.primary_ind = 1
+  and x.user_id = u.user_id
+  and a.address_id = x.address_id 
+  and co.country_code = a.country_code
+order by 1

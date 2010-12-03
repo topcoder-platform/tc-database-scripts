@@ -1,0 +1,21 @@
+select 
+  u.handle as member_referred,
+  (select num_ratings from algo_rating ar
+   where ar.coder_id = u.user_id and ar.algo_rating_type_id = 2) as num_competitions,
+  u1.handle as referred_by
+from 
+  event_registration er, 
+  coder_referral cr, 
+  user u,
+  user u1
+where er.event_id = 993
+    and cr.coder_id = er.user_id
+    and er.eligible_ind = 1
+    and er.user_id not in (select user_id from event_registration where event_id in (990, 991) and eligible_ind =1)
+    and cr.referral_id = 40
+    and cr.reference_id in (select user_id from event_registration where event_id in (993) and eligible_ind =1)
+    and cr.reference_id = u1.user_id
+    and u.user_id = er.user_id
+    and u.status = 'A'
+    and u1.status = 'A'
+order by 2 desc, 1

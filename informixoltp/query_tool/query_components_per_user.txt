@@ -1,0 +1,7 @@
+select c.class_name, ut.user_type_desc 
+    from component c, component_user_xref cu, user u, user_type ut
+    where u.handle = @ha@ 
+          and cu.user_id = u.user_id 
+          and c.component_id = cu.component_id 
+          and ut.user_type_id = cu.user_type_id 
+    order by 1;

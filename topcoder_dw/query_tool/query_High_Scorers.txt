@@ -1,0 +1,22 @@
+SELECT c.coder_id
+     , c.handle
+     , r.name as room_name
+     , rr.final_points
+     , cn.name as contest_name
+     , rr.division_id
+     , rr.new_rating
+     , rd.round_id
+     , rd.forum_id
+     , rr.division_placed
+  FROM coder c
+     , room r
+     , room_result rr
+     , round rd
+     , contest cn
+WHERE cn.contest_id = rd.contest_id 
+  and rr.round_id = rd.round_id
+  and c.coder_id = rr.coder_id 
+  and c.status = 'A' 
+  and r.room_id = rr.room_id 
+  and rd.round_id = @rd@
+ORDER by division_id, final_points desc

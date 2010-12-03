@@ -1,0 +1,33 @@
+
+
+----------------DDL STATEMENTS-------------------------------
+
+-- Create database 
+CREATE DATABASE TESTDB
+
+-- Create table
+CREATE TABLE TESTTB (
+	ID CHAR(5) NOT NULL,
+	DESCRIPTION TEXT,
+	COMMENTS VARCHAR(200)
+)
+
+-- Inserting data into the table 
+INSERT INTO TESTTB (ID, COMMENTS) VALUES ('1','TEST');
+INSERT INTO TESTTB (ID, COMMENTS) VALUES ('2','TEST2');
+INSERT INTO TESTTB (ID, COMMENTS) VALUES ('3','TEST3');
+
+--------------------------------------------------------------
+
+
+-------------EXECUTING SCRIPT EXAMPLES------------------------
+
+For Usage: updateTextColumn.sh [connectionString] [INPUT_FILE_NAME] [updateStatement]
+
+./UpdateTextColumn.sh "jdbc:informix-sqli://192.168.1.100:1527/testdb:INFORMIXSERVER=NEWSERVER1;user=informix;password=test1test"  "dbProperties" "UPDATE TESTTB SET DESCRIPTION=? where ID='1'"
+
+For USage: updateTextColumn.sh [connectionString] -c [commandsListFile]
+
+./UpdateTextColumn.sh "jdbc:informix-sqli://192.168.1.100:1527/testdb:INFORMIXSERVER=NEWSERVER1;user=informix;password=test1test"  -c "dbPropertiesMultiple"
+
+---------------------------------------------------------------

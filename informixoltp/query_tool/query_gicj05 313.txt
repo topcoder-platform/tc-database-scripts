@@ -1,0 +1,34 @@
+select u.handle, e.address as email_address
+from
+gicj05_oltp:user u,
+gicj05_oltp:coder c,
+gicj05_oltp:email e
+where 
+u.user_id = c.coder_id and
+e.user_id = u.user_id and
+u.user_id in
+(
+select unique(u.user_id) from gicj05_oltp:user u, gicj05_oltp:component_state cs1
+where u.user_id = cs1.coder_id
+and cs1.round_id > 7200 -- opened a problem
+and u.user_id not in( --didn't open before first crash
+  select cs.coder_id  from gicj05_oltp:compilation com, gicj05_oltp:component_state cs
+  where com.component_state_id = cs.component_state_id
+  and com.open_time < 1109492700000 -- 3:25
+  and cs.round_id > 7200
+)
+and u.user_id not in(--didn't between crashes
+select cs3.coder_id from gicj05_oltp:component_state cs3, gicj05_oltp:compilation com3 
+where cs3.component_state_id = com3.component_state_id
+and com3.open_time > 1109492700000+90*60*1000 --4:55
+and com3.open_time < 1109513640000 -- 9:14
+and cs3.round_id > 7200
+)
+and u.user_id not in(--didn't submit 2
+select cs2.coder_id from gicj05_oltp:component_state cs2
+where cs2.round_id >7200
+and cs2.status_id in (130,150,160)
+group by cs2.coder_id,cs2.round_id
+having count(*) = 2
+)
+)

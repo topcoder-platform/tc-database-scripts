@@ -1,0 +1,7 @@
+select e.address as email_address, u.handle
+from user u, email e, round_registration rr
+where rr.round_id = 9997
+and rr.coder_id = u.user_id
+and e.user_id = u.user_id
+and e.primary_ind = 1
+and u.status = 'A'

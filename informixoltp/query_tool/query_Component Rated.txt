@@ -1,0 +1,9 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , tcs_catalog:user_rating ur
+ WHERE u.status = 'A'
+   AND u.user_id IN (SELECT unx.user_id
+                       FROM user_notify_xref unx
+                      WHERE notify_id in (4))
+   AND u.user_id = ur.user_id

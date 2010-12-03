@@ -1,0 +1,29 @@
+select (select count(*) 
+          from long_comp_result lcr1, round r1
+          where lcr1.round_id = r1.round_id
+          and coder_id = lcr.coder_id 
+          and placed=1 
+          and ((r1.calendar_id <= r.calendar_id) or (r1.calendar_id = r.calendar_id and r1.round_id <= r.round_id))
+        ) as num_wins
+      , lcr.coder_id
+      , r.round_id
+      , cod.handle
+      , c.name as contest_name
+      , r.name as round_name
+      , r.round_type_id
+      , cal.date
+      , p.class_name as problem_name
+      , p.problem_id
+from long_comp_result lcr
+     , round r 
+     , calendar cal
+     , coder cod
+     , contest c
+     , problem p
+where lcr.round_id = r.round_id
+and cal.calendar_id = r.calendar_id
+and r.contest_id = c.contest_id
+and cod.coder_id = lcr.coder_id
+and p.round_id = r.round_id
+and placed= 1
+order by lower(handle)

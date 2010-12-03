@@ -1,0 +1,10 @@
+select old_value, new_value, timestamp 
+from audit_coder 
+where column_name = 'STATUS' 
+and user_id = @cr@ 
+union
+select old_value, new_value, timestamp 
+from common_oltp:audit_user 
+where column_name = 'STATUS' 
+and user_id = @cr@ 
+order by 3

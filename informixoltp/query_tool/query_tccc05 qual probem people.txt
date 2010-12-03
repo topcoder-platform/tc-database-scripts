@@ -1,0 +1,4 @@
+select handle, email as email_address from user where handle in 
+('andy192','marek.cygan','lord_burgos','koda','Murai','bogklug','v_ralev',
+'palmcron','pratyush','Davinator','mysteriousmaxy','pedrotc','angshumantheboy','Per',
+'Eryx','m00tz','tavbert','bsauerwine','astaroth','{rustam}','yohney','pradipthegreat')

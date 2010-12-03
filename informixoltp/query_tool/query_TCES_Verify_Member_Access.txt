@@ -1,0 +1,22 @@
+SELECT jh.user_id
+     , cjx.job_id
+     , c.campaign_id
+     , con.contact_id
+  FROM contact con
+     , campaign c
+     , campaign_job_xref cjx
+     , job_hit jh
+     , user u
+ WHERE con.contact_id = @uid@
+   AND con.company_id = c.company_id
+   AND c.campaign_id = @cid@
+   AND c.status_id = 1
+   AND cjx.campaign_id = c.campaign_id
+   AND cjx.status_id = 1
+   AND cjx.job_id = @jid@
+   AND jh.job_id = cjx.job_id
+   AND jh.user_id = @mid@
+   AND jh.user_id = u.user_id
+   AND u.status = 'A'
+   AND CURRENT > c.start_date
+   AND CURRENT < c.end_date

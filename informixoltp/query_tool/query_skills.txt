@@ -1,0 +1,4 @@
+select s.skill_id, s.skill_type_id, s.skill_desc, s.skill_order, st.skill_type_order
+from skill s, skill_type st where s.status = 'Y'
+and s.skill_type_id = st.skill_type_id
+order by 5,4

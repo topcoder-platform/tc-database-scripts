@@ -1,0 +1,13 @@
+select ri.value as reviewer_id
+     , r.score 
+     , r.review_id
+  from submission s
+     , tcs_catalog:review r
+     , tcs_catalog:resource res 
+     , tcs_catalog:resource_info ri
+ where s.or_submission_id = r.submission_id
+   and s.submission_id = @sbmid@
+   and r.resource_id = res.resource_id
+   and res.resource_role_id = 4
+   and ri.resource_id = res.resource_id
+   and ri.resource_info_type_id = 1

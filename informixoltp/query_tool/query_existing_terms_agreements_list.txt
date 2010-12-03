@@ -1,0 +1,12 @@
+-- Author: pulky
+-- Version: 1.0 (Configurable Contest Terms Release Assembly v2.0)
+-- Copyright (C) 2004 - 2009 TopCoder Inc., All Rights Reserved.
+--
+-- Description: This query returns user ids that agreed to a particular terms of use and the timestamp of the agreement.
+--
+-- Important Note: do not include this comments in query tool since it will fail to create/update the query.
+
+select u.user_id, utoux.create_date from user_terms_of_use_xref utoux, user u
+where utoux.user_id = u.user_id
+and utoux.terms_of_use_id = @tid@
+order by u.handle_lower asc

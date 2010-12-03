@@ -1,0 +1,39 @@
+SELECT CASE WHEN SUM(a.notarized) > 0 THEN 1 ELSE 0 END AS has_notarized_affidavit
+     , (SELECT count(*) FROM user_tax_form_xref ut where ut.user_id = u.user_id) AS has_tax_form
+     , (SELECT count(*) FROM coder_image_xref cix, image i WHERE cix.image_id = i.image_id AND cix.coder_id = u.user_id AND cix.display_flag = 1 AND i.image_type_id = 1) as has_image
+     , u.handle
+     , u.first_name
+     , u.last_name
+     , e.address as email
+     , ad.address1
+     , ad.address2
+     , ad.city
+     , ad.state_code
+     , ad.zip
+     , co.country_name
+     , p.phone_number
+     , ct.coder_type_desc
+     , u.user_id
+     , u.activation_code
+  FROM user u
+     , OUTER affidavit a
+     , coder c
+     , coder_type ct
+     , country co
+     , address ad
+     , user_address_xref x
+     , outer phone p
+     , email e
+ WHERE u.user_id = @cr@
+   AND u.user_id = a.user_id
+   and u.user_id = e.user_id
+   and e.primary_ind = 1
+   AND u.user_id = c.coder_id
+   AND c.coder_type_id = ct.coder_type_id
+   AND ad.country_code = co.country_code
+   and ad.address_id = x.address_id
+   and ad.address_type_id = 2
+   and x.user_id = u.user_id
+   and p.user_id = u.user_id
+   and p.primary_ind = 1
+ GROUP BY 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17

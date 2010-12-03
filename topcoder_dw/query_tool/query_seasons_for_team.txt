@@ -1,0 +1,12 @@
+SELECT s.start_calendar_id,
+        s.name,
+       s.season_id
+FROM season s
+WHERE s.season_id in (
+         SELECT c.season_id 
+           FROM contest c, round r, room_result rr
+          WHERE rr.team_id = @tmid@
+           and r.contest_id = c.contest_id
+           and rr.round_id = r.round_id)
+AND s.season_type_id = @sntid@
+ORDER BY s.start_calendar_id DESC

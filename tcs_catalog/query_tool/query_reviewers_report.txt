@@ -1,0 +1,45 @@
+select unique
+       '<a href=http://www.topcoder.com/tc?module=LegacyReport&t=profile&ha=' || u.handle || '&fn=&ln=&em=>' || u.handle || '</a>' as handle
+     , e.address as email
+     , (select count(*)
+          from rboard_user
+         where user_id = ru.user_id
+           and project_type_id = 1
+           and catalog_id = 1
+           and status_id = 100) as design_java
+     , (select count(*)
+          from rboard_user
+         where user_id = ru.user_id
+           and project_type_id = 1
+           and catalog_id = 2
+           and status_id = 100) as design_dotnet
+     , (select count(*)
+          from rboard_user
+         where user_id = ru.user_id
+           and project_type_id = 2
+           and catalog_id = 1
+           and status_id = 100) as dev_java
+     , (select count(*)
+          from rboard_user
+         where user_id = ru.user_id
+           and project_type_id = 2
+           and catalog_id = 2
+           and status_id = 100) as dev_dotnet
+     , (select count(*)
+          from project p
+              , resource r
+              , resource_info ri
+          where p.project_status_id = 1
+            and p.project_category_id in (1, 2)
+            and p.project_id = r.project_id
+            and r.resource_role_id in (4, 5, 6, 7)
+            and r.resource_id = ri.resource_id
+            and ri.resource_info_type_id = 2
+            and ri.value = u.handle) as active_reviews
+  from rboard_user ru
+     , user u
+     , email e
+ where ru.status_id = 100
+   and ru.user_id = u.user_id
+   and ru.user_id = e.user_id
+order by 1;

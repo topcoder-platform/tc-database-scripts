@@ -1,0 +1,10 @@
+select u.user_id
+     , u.handle_lower
+     , case when r.rating = 0 then null else r.rating end as rating
+  from user_terms_of_use_xref utx
+     , user u
+     , rating r
+ where u.user_id = utx.user_id
+   and utx.terms_of_use_id = 20504
+   and r.coder_id = u.user_id
+ order by 3 desc

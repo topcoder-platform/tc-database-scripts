@@ -1,0 +1,18 @@
+select (c.date - c.day_of_week units day) as week_of_first_inquiry
+     , count(*) as new_participants
+  from table(multiset(
+select c.coder_id
+     , min(date(pr.inquire_timestamp)) as first_inquiry_date
+  from project p
+     , project_result pr
+     , coder c
+ where p.phase_id = 112
+   and p.project_id = pr.project_id
+   and pr.user_id = c.coder_id
+group by 1
+)) id
+     , calendar c
+ where id.first_inquiry_date = c.date
+   and c.date > today - (@days@) units day
+group by 1
+order by 1 desc;

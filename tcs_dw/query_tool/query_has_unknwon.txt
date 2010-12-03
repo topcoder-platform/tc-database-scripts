@@ -1,0 +1,5 @@
+select count(distinct p.project_id) as has_unknown from project p, project_result pr 
+where p.project_id = pr.project_id 
+and pr.valid_submission_ind = 1 
+and (num_registrations is null or pr.raw_score is null)
+and p.project_id = @pj@

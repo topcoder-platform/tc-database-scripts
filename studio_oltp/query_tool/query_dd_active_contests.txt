@@ -1,0 +1,14 @@
+select c.contest_id
+     , c.name as contest_name
+     , c.start_time
+     , c.end_time 
+     , (select count(*)
+          from submission s
+         where s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id) as submission_count
+     , (select count(*) from contest_registration cr where cr.contest_id = c.contest_id) as registrants
+     , (select sum(p.amount) from prize p, contest_prize_xref x where x.prize_id = p.prize_id and x.contest_id = c.contest_id) as prize_total
+     , forum_id
+ from contest c
+ where current between c.start_time and c.end_time
+   and c.contest_status_id = 2

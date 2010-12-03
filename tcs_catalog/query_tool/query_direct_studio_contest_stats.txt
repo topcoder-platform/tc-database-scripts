@@ -1,0 +1,19 @@
+--
+-- create command studio_contest_stats in TCS_CATALOG 
+--
+
+select p.contest_id,
+(select count(*) from studio_oltp:contest_registration where contest_id = p.contest_id ) as number_of_registration,
+(select count(*) from studio_oltp:submission as s
+                    left outer join studio_oltp:submission_review sr
+                     on s.submission_id = sr.submission_id
+                     where contest_id = p.contest_id
+                      and s.submission_status_id = 1
+                    and rank is not null
+                     and rank <= (select NVL(property_value, 10000)
+                     from studio_oltp:contest_config
+                     where contest_id = p.contest_id and property_id = 8)
+                     and (sr.submission_id is null or (sr.review_status_id <> 2 and sr.review_status_id <> 3))) as number_of_submission,
+(select count(*) from studio_oltp:jivemessage where forumid = p.forum_id ) as number_of_forum
+from studio_oltp:contest p
+where p.contest_id = @ct@

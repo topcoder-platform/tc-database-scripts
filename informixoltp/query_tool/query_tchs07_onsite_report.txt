@@ -1,0 +1,49 @@
+select u.handle
+     , u.first_name
+     , u.last_name
+     , e.address as email
+     , a.address1
+     , a.address2
+     , a.address3
+     , a.city
+     , a.state_code
+     , a.zip
+     , a.province
+     , s.name as school
+     , co.country_name
+     , da1.demographic_answer_text as shirt_size
+--     , case when exists (select '1' from coder_image_xref where display_flag = 1 and coder_id = u.user_id) then '-' else 'no' end as has_headshot
+--     , case when (select count(*) from affidavit where user_id = u.user_id and notarized = 1) > 0 then '-' else 'no' end as notarized_affidavit
+--     , (select t.name from user_tax_form_xref x, tax_form t where x.tax_form_id = t.tax_form_id and x.user_id = u.user_id and x.status_id = 60) as tax_form
+--     , case when exists (select '1' from response where question_id = 16621 and user_id = u.user_id) then '-' else 'no' end as answered_questionaire
+  from user u
+     , coder c
+     , user_address_xref x
+     , address a
+     , country co
+     , email e
+     , coder_type ct
+     , outer (demographic_response dr1,demographic_answer da1)
+     , outer (current_school cs, school s)
+ where da1.demographic_question_id = 26
+   and da1.demographic_question_id = dr1.demographic_question_id
+   and da1.demographic_answer_id = dr1.demographic_answer_id
+   and dr1.user_id = u.user_id
+   and c.coder_id = u.user_id
+   and co.country_code = a.country_code
+   and x.user_id = u.user_id
+   and x.address_id = a.address_id
+   and a.address_type_id = 2
+   and cs.coder_id = u.user_id
+   and cs.school_id = s.school_id
+   and e.user_id = u.user_id
+   and e.primary_ind = 1
+   and c.coder_type_id = ct.coder_type_id
+   and u.user_id in (10039742,22628707,10399429,20246344,22663468,15092597,15117368,22663117,22630630,8384426,22000369,10244820,
+13298470,20147786,22399611,11994206,22260979,8384426,22253681,10039742,15092597,10244820,22664982,22662575,
+22664055,22051338,22630004,21111148,21468741,15023963,22378470,21632018,22627079,22664175,19931322,22378820,
+22663854,22655228,21174156,22661879,21868978,22654153,22636459,22627853,22660101,22395986,22640357,21691498,
+21632018,21868978,22652504,12005484,15600321,21547660,11884173,15604398,14926760,22627716,15089132,22654291,
+10205233,20036294,22653299,22658843,22656668,21290434,21507690,15604398,11972352,10440693,11941613,14886245,
+21007709,10256411,10256472,22656328,20812309,22664082,15685244,20331303,22663249,20344953,22285847,15687488,
+22652668,20093875,20330696,16144277,22630769)

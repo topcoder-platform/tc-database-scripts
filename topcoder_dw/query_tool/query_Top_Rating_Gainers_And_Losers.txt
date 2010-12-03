@@ -1,0 +1,60 @@
+SELECT 'Best' AS change_type
+     , c.handle
+     , best.change
+     , r.name AS room_name
+     , r.division_desc AS division
+     , c.coder_id
+     , ra.rating
+  FROM room_result rr
+     , room r
+     , coder c
+     , rating ra
+     , TABLE(MULTISET(
+           SELECT MAX(rr.new_rating-rr.old_rating) AS change
+                , rr.division_id
+             FROM room_result rr
+                , coder c
+            WHERE rr.round_id = @rd@
+              AND rr.old_rating <> 0
+              AND c.coder_id = rr.coder_id
+              AND c.status='A'
+            GROUP BY rr.division_id)) AS best
+ WHERE rr.coder_id = c.coder_id
+   AND rr.round_id = r.round_id
+   AND rr.room_id = r.room_id
+   AND rr.division_id = r.division_id
+   AND (rr.new_rating-rr.old_rating) = best.change
+   AND rr.division_id = best.division_id
+   AND ra.coder_id = c.coder_id
+   AND rr.round_id = @rd@
+UNION
+SELECT 'Worst' AS change_type
+     , c.handle
+     , inner.change
+     , r.name AS room_name
+     , r.division_desc AS division
+     , c.coder_id
+     , ra.rating
+  FROM room_result rr
+     , room r
+     , coder c
+     , rating ra
+     , TABLE(MULTISET(
+           SELECT MIN(rr.new_rating-rr.old_rating) AS change
+                , rr.division_id
+             FROM room_result rr
+                , coder c
+            WHERE rr.round_id = @rd@
+              AND rr.old_rating <> 0
+              AND c.coder_id = rr.coder_id
+              AND c.status='A'
+            GROUP BY rr.division_id)) AS inner
+ WHERE rr.coder_id = c.coder_id
+   AND rr.round_id = r.round_id
+   AND rr.room_id = r.room_id
+   AND rr.division_id = r.division_id
+   AND (rr.new_rating-rr.old_rating) = inner.change
+   AND rr.division_id = inner.division_id
+   AND rr.round_id = @rd@
+   AND ra.coder_id = c.coder_id
+ ORDER BY 5

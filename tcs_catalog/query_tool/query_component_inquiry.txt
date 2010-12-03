@@ -1,0 +1,4 @@
+select '1'
+  from component_inquiry ci
+ where ci.project_id = @pj@
+   and ci.user_id = @uid@

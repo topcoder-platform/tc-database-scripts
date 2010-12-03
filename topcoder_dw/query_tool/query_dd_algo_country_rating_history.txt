@@ -1,0 +1,18 @@
+select --co.country_name
+    -- , co.country_code
+      crh.round_id
+     , r.short_name
+     , date(cal.date) as date
+     , crh.rating
+    -- , crh.rank 
+    -- , crh.percentile
+from country_rank_history crh
+   , calendar cal
+   , round r
+   , country co
+where crh.algo_rating_type_id = 1
+  and cal.calendar_id = r.calendar_id
+  and crh.round_id= r.round_id
+  and crh.country_code = '@cc@'
+  and crh.country_code = co.country_code
+  and r.rated_ind = 1

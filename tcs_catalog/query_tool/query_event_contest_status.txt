@@ -1,0 +1,12 @@
+select c.contest_id
+     ,c.contest_name
+     ,end_date < current as time_over 
+     ,(select count(*) 
+      from project p,
+      contest_project_xref x
+      where p.project_id = x.project_id
+       and x.contest_id = c.contest_id
+       and p.project_status_id = 1) as active_projects 
+from contest c
+where event_id = @eid@
+order by contest_name

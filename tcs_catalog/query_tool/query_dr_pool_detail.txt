@@ -1,0 +1,27 @@
+select pcl.project_category_id as category_id
+     , sum(nvl(pipay.value::integer,0)) as total_prizes
+     , sum(nvl(pipts.value::integer,nvl(pipay.value::integer,0))) as total_DR_points
+     , sum(case when date(case when ppd.actual_start_time is not null then ppd.actual_start_time else psd.actual_start_time end) >= date(current) - @days@ units day then nvl(pipts.value::integer,nvl(pipay.value::integer,0)) else 0 end) as total_DR_points_today
+  from project p
+     , project_info pidr
+     , project_category_lu pcl
+     , project_phase ppd
+     , project_phase psd
+     , outer project_info pipay
+     , outer project_info pipts
+ where p.project_status_id in (1,7)
+   and p.project_category_id = pcl.project_category_id
+   and p.project_id = pidr.project_id
+   and pidr.project_info_type_id = 26
+   and pidr.value = "On"
+   and p.project_id = ppd.project_id
+   and ppd.phase_type_id = 1
+   and p.project_id = psd.project_id
+   and psd.phase_type_id = 2
+   and month(case when ppd.actual_start_time is not null then ppd.actual_start_time else psd.actual_start_time end) = @month@
+   and year(case when ppd.actual_start_time is not null then ppd.actual_start_time else psd.actual_start_time end) = @year@
+   and p.project_id = pipay.project_id
+   and pipay.project_info_type_id = 16
+   and p.project_id = pipts.project_id
+   and pipts.project_info_type_id = 30
+group by 1

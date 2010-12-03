@@ -1,0 +1,25 @@
+SELECT c.handle
+,c.coder_id
+,ws.length
+,r.rating
+,(SELECT calendar.date FROM calendar, round
+ WHERE calendar.calendar_id = round.calendar_id
+ AND round.round_id = ws.start_round_id) AS start_date
+,(SELECT round.short_name FROM round
+ WHERE round.round_id = ws.start_round_id) AS start_contest_name
+,(SELECT round.name FROM round
+ WHERE round.round_id = ws.start_round_id) AS start_round_name
+,(SELECT calendar.date FROM calendar, round
+ WHERE calendar.calendar_id = round.calendar_id
+ AND round.round_id = ws.end_round_id) AS end_date
+,(SELECT round.short_name FROM round
+ WHERE round.round_id = ws.end_round_id) AS end_contest_name
+,(SELECT round.name FROM round
+ WHERE round.round_id = ws.end_round_id) AS end_round_name
+,ws.is_current
+FROM streak ws, rating r, coder c
+WHERE ws.coder_id = c.coder_id
+AND c.status = 'A'
+AND ws.streak_type_id = @dn@
+AND r.coder_id = c.coder_id
+ORDER BY ws.length DESC, start_date DESC, r.rating DESC, c.handle

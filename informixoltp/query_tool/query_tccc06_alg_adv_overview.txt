@@ -1,0 +1,27 @@
+select u.user_id
+     , r.rating
+     , il.seed
+     , u.handle
+     , u.handle_lower as handle_sort
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (10097, 10100, 10104)) as round1
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (10110, 10112, 10113)) as round2
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 10111) as round3
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (10132,10133,10134)) as semi
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (10135)) as wildcard
+     , (select CASE WHEN advanced='Y' THEN 'Champion' ELSE 'Eliminated' END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 10136) as final
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (10097, 10100, 10104)), 3) as round1_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (10110, 10112, 10113)), 3) as round2_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 10111), 3) as round3_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (10132,10133,10134)), 3) as semi_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id in (10135)), 3) as wildcard_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1, round_segment rs where rs.round_id = rr1.round_id and rs.segment_id = 2 and rs.start_time < current - 3 units hour and rr1.coder_id = u.user_id and rr1.round_id = 10136), 3) as finals_sort
+     , (select case when il1.round_id = 10097 then 'A' else case when il1.round_id = 10100 then 'B' else case when il1.round_id = 10104 then 'C' else '' end end end from invite_list il1 where il1.coder_id = u.user_id and il1.round_id in (10097, 10100, 10104)) as section
+  from user u
+     , rating r
+     , invite_list il
+ where il.coder_id = u.user_id
+   and r.coder_id = u.user_id
+   and u.status = 'A'
+   and il.round_id = 10102
+ order by finals_sort, semi_sort, wildcard_sort
+, round3_sort, round2_sort, round1_sort, seed

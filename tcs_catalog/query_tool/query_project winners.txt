@@ -1,0 +1,24 @@
+select cc.component_name
+     , cat.category_name
+     , pt.project_type_name
+     , cv.version_text
+     , '<a href="mailto:' || e.address || '">' || su.user_id  || '</a>' as handle
+     , lower(cc.component_name)
+     , p.project_id
+  from project p
+     , comp_versions cv
+     , comp_catalog cc
+     , security_user su
+     , project_type pt
+     , categories cat  
+     , common_oltp:email e
+ where cc.component_id = cv.component_id
+   and cv.comp_vers_id = p.comp_vers_id
+   and p.cur_version = 1
+   and e.user_id = su.login_id
+   and e.primary_ind = 1
+   and p.winner_id = su.login_id
+   and p.project_type_id = pt.project_type_id
+   and cc.root_category_id = cat.category_id
+   and p.project_stat_id = 4
+ order by 6 asc

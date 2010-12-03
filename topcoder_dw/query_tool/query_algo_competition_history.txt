@@ -1,0 +1,35 @@
+SELECT cal.date
+     , c.name contest_name
+     , r.name round_name
+     , r.short_name
+     , rr.room_placed
+     , rr.new_rating
+     , (select rth.vol 
+          from rating_history rth 
+         where rth.coder_id = rr.coder_id 
+           and rth.round_id = rr.round_id) as vol
+     , rkh.rank
+     , rr.paid
+     , rr.payment_type_desc
+     , rr.round_id
+     , rr.room_id
+     , d.division_desc as division
+     , rkh.percentile
+     , rr.division_placed
+     , r.rating_order
+  FROM contest c
+     , round r
+     , calendar cal
+     , room_result rr
+     , division_lu d
+     , coder_rank_history rkh
+ WHERE rr.coder_id = @cr@
+   AND r.round_id = rr.round_id
+   AND c.contest_id = r.contest_id
+   AND cal.calendar_id = r.calendar_id
+   AND rr.division_id = d.division_id
+   AND r.round_type_id IN (1,2,10,20)
+   AND rkh.coder_id = rr.coder_id 
+   AND rkh.round_id = rr.round_id 
+   AND rkh.coder_rank_type_id = 2
+ORDER BY @sc@ @sd@, rr.round_id desc

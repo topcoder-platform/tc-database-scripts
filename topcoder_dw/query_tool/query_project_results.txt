@@ -1,0 +1,10 @@
+select pr.project_id, pr.user_id, c.handle,  pr.submit_timestamp, 
+case when pr.placed = 0 then '-' else ''||pr.placed end as placed, 
+pr.final_score, pr.payment,
+case when pr.placed = 0 or pr.placed is null then 999 else pr.placed end as sort_column
+from tcs_dw:project_result pr,
+coder c
+where pr.project_id = @pj@
+and c.coder_id = pr.user_id
+and pr.submit_timestamp is not null
+order by 8 asc, 6 desc

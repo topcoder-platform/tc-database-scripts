@@ -1,0 +1,10 @@
+select ct.contest_type_id,
+       ct.contest_type_desc,
+       .2 as Admin_Fee_Multiplier,
+       .1 as Points_Multiplier,
+       1 as First_Place_Prize_Multiplier,
+       min_prize.default_value as Min_First_Place_Prize
+from contest_type_lu ct,
+     contest_type_config min_prize
+where ct.contest_type_id = min_prize.contest_type_id
+  and min_prize.property_id = 26

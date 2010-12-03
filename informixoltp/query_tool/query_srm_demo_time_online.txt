@@ -1,0 +1,35 @@
+select
+      sum(case when total_time/60 >= 0 and total_time/60 < 60 then 1 else 0 end) as one_hour, 
+      sum(case when total_time/60 >= 60 and total_time/60 < 120 then 1 else 0 end) as two_hours, 
+      sum(case when total_time/60 >= 120 and total_time/60 < 180 then 1 else 0 end) as three_hours, 
+      sum(case when total_time/60 >= 180 and total_time/60 < 240 then 1 else 0 end) as four_hours, 
+      sum(case when total_time/60 >= 240 and total_time/60 < 300 then 1 else 0 end) as five_hours, 
+      sum(case when total_time/60 >= 300 then 1 else 0 end) as five_plus 
+    from table(multiset 
+    ( 
+      select 
+        u.handle, 
+        u.user_id, 
+        sum(calc_seconds(start_time, end_time)) as total_time 
+      from 
+        user u, 
+        connection_history ch, 
+        room_result rs 
+      where 
+        u.user_id = ch.coder_id and 
+        u.user_id = rs.coder_id and 
+        rs.round_id = @rd@ and 
+        rs.attended = 'Y' and 
+        u.user_id not in (select login_id from user_group_xref where group_id = 2000115) and 
+        start_time > (SELECT seg.start_time + -4 units hour 
+FROM round_segment seg
+WHERE seg.round_id=@rd@
+AND seg.segment_id=2) and 
+        start_time < (SELECT seg.start_time + 2 units hour 
+FROM round_segment seg
+WHERE seg.round_id=@rd@
+AND seg.segment_id=2) and 
+        calc_seconds(start_time, end_time) < 45000 and end_time is not null 
+      group by u.handle, u.user_id 
+    )) x 
+    where total_time < 45000

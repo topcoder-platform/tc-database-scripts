@@ -1,0 +1,12 @@
+select cs.coder_id, u.last_name, u.first_name, cs.points,
+(select count(*) from system_test_result where round_id = cs.round_id and coder_id = cs.coder_id and component_id = cs.component_id) as total,
+(select sum(succeeded) from system_test_result where round_id = cs.round_id and coder_id = cs.coder_id and component_id = cs.component_id) as succeeded,
+cs.status_id,
+cs.submission_number,
+cs.component_state_id
+from component_state cs, user u
+where cs.coder_id = u.user_id
+and cs.round_id = @rd@
+and cs.component_id = @compid@
+and cs.coder_id = @cr@
+order by u.last_name, u.first_name

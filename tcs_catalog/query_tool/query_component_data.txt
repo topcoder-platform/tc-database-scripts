@@ -1,0 +1,9 @@
+select 
+    cc.component_name, c.category_name 
+from 
+    comp_catalog cc, categories c
+where
+    -- join match
+    c.category_id = cc.root_category_id and
+    -- params
+    cc.component_id = @cd@

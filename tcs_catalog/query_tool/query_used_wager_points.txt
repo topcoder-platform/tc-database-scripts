@@ -1,0 +1,9 @@
+select 
+   sum(wager_amount) used_points 
+from 
+   project_wager pw, contest_project_xref cpx, contest c
+where 
+   pw.user_id = @uid@
+   and cpx.project_id = pw.project_id
+   and cpx.contest_id = c.contest_id
+   and c.contest_type_id = 26

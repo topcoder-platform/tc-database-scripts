@@ -1,0 +1,5 @@
+select up.value, up.user_id, u.handle
+from user_preference up, user u 
+where up.user_id in (@uids@)
+and up.user_id = u.user_id
+and up.preference_id = @pr@

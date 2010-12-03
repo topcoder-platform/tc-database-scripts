@@ -1,0 +1,14 @@
+SELECT {+AVOID_FULL(pi), AVOID_FULL(p)}
+       pi.project_id, pi.project_info_type_id, pi.value
+FROM project_info pi
+INNER JOIN project p ON p.project_id = pi.project_id
+WHERE p.project_status_id = 1
+AND p.project_id in
+(select {+AVOID_FULL(r)} r.project_id
+   from resource r
+  where r.resource_id IN
+(select {+AVOID_FULL(i)}  i.resource_id
+   from resource_info i
+  WHERE  i.resource_info_type_id = 1
+    AND  i.value = '@uid@'
+))

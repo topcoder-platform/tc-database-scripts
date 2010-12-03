@@ -1,0 +1,27 @@
+SELECT (SELECT count(*) 
+          FROM response r 
+         WHERE r.question_id = q.question_id 
+           AND r.answer_id = a.answer_id) AS count
+     , CASE WHEN (SELECT count(*) 
+                    FROM response r 
+                   WHERE r.question_id = q.question_id)=0 THEN 0.0 
+       ELSE trunc(((SELECT count(*) 
+                FROM response r 
+               WHERE r.question_id = q.question_id 
+                 AND r.answer_id = a.answer_id) / (SELECT count(*) 
+                                                     FROM response r 
+                                                    WHERE r.question_id = q.question_id) * 100), 2)
+       END AS percentage
+     , a.answer_text
+     , q.question_text
+     , a.sort_order
+     , q.question_id
+  FROM survey_question sq
+     , question q
+     , answer a
+ WHERE sq.question_id = q.question_id
+   AND q.question_id = a.question_id
+   AND q.question_id = 1455
+   AND q.question_style_id in (1,2)
+   AND q.question_type_id in (1,6)
+ ORDER BY q.question_id asc, 2 desc, a.sort_order

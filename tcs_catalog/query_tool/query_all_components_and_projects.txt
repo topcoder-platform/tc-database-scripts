@@ -1,0 +1,24 @@
+select cat.category_name as category
+     , pi6.value as component
+     , pi7.value as version
+     , pi2.value as component_id
+     , pcl.name as competition_type
+     , p.project_id as project_id
+  from project p
+     , project_info pi2
+     , project_info pi5
+     , project_info pi6
+     , project_info pi7
+     , project_category_lu pcl
+     , categories cat
+ where p.project_id = pi2.project_id
+   and pi2.project_info_type_id = 2
+   and p.project_id = pi5.project_id
+   and pi5.project_info_type_id = 5
+   and p.project_id = pi6.project_id
+   and pi6.project_info_type_id = 6
+   and p.project_id = pi7.project_id
+   and pi7.project_info_type_id = 7
+   and p.project_category_id = pcl.project_category_id
+   and pi5.value::integer = cat.category_id
+order by 1, 2, 3, 5;

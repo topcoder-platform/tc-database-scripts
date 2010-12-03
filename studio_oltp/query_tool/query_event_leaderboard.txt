@@ -1,0 +1,56 @@
+select u.user_id
+     , u.handle
+     , c.contest_id
+     , nvl(cr.placed, 99) as placed
+     , u.handle_lower
+     , 1 as completed
+     , s.submission_id
+  from user u
+     , contest c 
+     , contest_registration creg
+     , event_registration er
+     , submission s
+     , submission_review sr
+     , contest_result cr
+  where c.event_id = er.event_id
+     and er.user_id = u.user_id
+     and er.eligible_ind = 1
+     and er.event_id = @eid@
+     and creg.contest_id = c.contest_id 
+     and creg.user_id = u.user_id
+     and creg.create_date > er.create_date
+     and cr.contest_id = c.contest_id 
+     and u.user_id = s.submitter_id
+     and c.contest_id = s.contest_id
+     and u.status = 'A'
+     and cr.submission_id = s.submission_id
+     and sr.submission_id = s.submission_id
+     and sr.review_status_id = 1
+     and c.contest_status_id = 2
+     and c.contest_id in (select contest_id from contest_result)
+     and cr.placed >= 1
+     and cr.placed <= 5
+union
+-- incomplete contests
+select u.user_id
+     , u.handle
+     , c.contest_id
+     , 0 as placed
+     , u.handle_lower
+     , 0 as completed
+     , 0 as submission_id
+  from user u
+     , contest c 
+     , contest_registration creg
+     , event_registration er
+  where c.event_id = er.event_id
+     and er.user_id = u.user_id
+     and er.eligible_ind = 1
+     and er.event_id = @eid@
+     and creg.contest_id = c.contest_id 
+     and creg.user_id = u.user_id
+     and creg.create_date > er.create_date
+     and u.status = 'A'
+     and c.contest_status_id = 2
+     and c.contest_id not in (select contest_id from contest_result)
+  order by contest_id asc, placed asc

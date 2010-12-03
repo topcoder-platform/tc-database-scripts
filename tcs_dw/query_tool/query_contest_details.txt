@@ -1,0 +1,3 @@
+SELECT *
+FROM contest c
+where c.contest_id = @ct@

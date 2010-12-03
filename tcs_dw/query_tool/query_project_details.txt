@@ -1,0 +1,6 @@
+select p.category_desc || ' ' || p.component_name as component_name
+, p.component_id
+, case when p.status_id in (4,5,6,7,8) then 1 else 0 end as complete_status
+,p.project_id
+from project p
+where p.project_id = @pj@

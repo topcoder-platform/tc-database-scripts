@@ -1,0 +1,16 @@
+select calendar.date as submission_due_date
+, category_desc as catalog
+, sum(case when num_submissions > 0 then 1 else 0 end) as fulfilled
+, sum(case when num_valid_submissions > 0 then 1 else 0 end) as passed_screening
+, sum(case when num_submissions_passed_review > 0 then 1 else 0 end) as passed_review
+, count(*) as total_projects
+, round(case when count(*) = 0 then 0 else sum(case when num_submissions > 0 then 1 else 0 end) / count(*) * 100 end, 1) || '%' as pct_fulfilled
+, round(case when count(*) = 0 then 0 else sum(case when num_valid_submissions > 0 then 1 else 0 end) / count(*) * 100 end, 1) || '%' as pct_passed_screening
+, round(case when count(*) = 0 then 0 else sum(case when num_submissions_passed_review > 0 then 1 else 0 end) / count(*) * 100 end, 1) || '%' as pct_passed_review
+from project p
+, calendar
+where calendar.date = (select date from calendar cal where cal.date = date(submitby_date))
+and p.submitby_date > today - (@days@) units day
+and (category_desc = 'Java' or category_desc = '.NET')
+group by 1,2
+order by 1 desc,2

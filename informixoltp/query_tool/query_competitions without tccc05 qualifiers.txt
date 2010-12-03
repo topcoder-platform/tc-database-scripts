@@ -1,0 +1,17 @@
+SELECT LOWER(u.email) AS email_address
+     , u.handle
+  FROM email_user u
+     , coder_notify n
+ WHERE u.user_id = n.coder_id
+   AND u.status = 'A'
+   AND n.notify_id = 1
+   and u.user_id not in (
+select u.user_id
+  from user u
+     , room_result rr
+ where rr.advanced = 'Y'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.coder_id <> (select user_id from user where handle ='WishingBone')
+   and rr.round_id between 6523 and 6527
+   and rr.coder_id = u.user_id
+   and u.status = 'A')

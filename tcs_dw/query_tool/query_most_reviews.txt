@@ -1,0 +1,12 @@
+select count(distinct sr.project_id) as reviews
+     , c.coder_id
+  from submission_review sr
+     , coder c
+     , project p
+ where c.coder_id = sr.reviewer_id
+   and c.status = 'A'
+   and p.project_id = sr.project_id
+   and p.phase_id in (@pis@)
+   and p.status_id in (4,5,7,8)
+ group by c.coder_id
+ order by 1 desc

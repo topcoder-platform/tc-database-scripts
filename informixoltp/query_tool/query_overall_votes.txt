@@ -1,0 +1,4 @@
+SELECT ROUND(AVG(pr.problem_rating)) as avg
+  FROM problem_rating pr
+ WHERE pr.problem_id = @pm@
+ GROUP BY pr.coder_id

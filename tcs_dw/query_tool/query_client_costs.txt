@@ -1,0 +1,63 @@
+select p.category_desc
+     , p.component_name
+     , p.version_text
+     , (select max(pay.client) from payment pay where pay.reference_id = p.project_id) as client
+     , sum(case when p.project_category_id = 1 then nvl(prizes.cost, 0) else 0 end) as pacts_design_cost
+     , sum(case when p.project_category_id = 2 then nvl(prizes.cost, 0) else 0 end) as pacts_dev_cost
+     , sum(case when p.project_category_id = 1 then nvl(prp.cost, 0) else 0 end) as design_prizes
+     , sum(case when p.project_category_id = 2 then nvl(prp.cost, 0) else 0 end) as dev_prizes
+     , sum(case when p.project_category_id = 1 then nvl(rel.cost, 0) else 0 end) as design_reliability_cost
+     , sum(case when p.project_category_id = 2 then nvl(rel.cost, 0) else 0 end) as dev_reliability_cost
+     , sum(case when p.project_category_id = 1 then nvl(ref.cost, 0) else 0 end) as design_referral_cost
+     , sum(case when p.project_category_id = 2 then nvl(ref.cost, 0) else 0 end) as dev_referral_cost
+     , sum(case when p.project_category_id = 1 then nvl(review.cost, 0) else 0 end) as design_review_cost
+     , sum(case when p.project_category_id = 2 then nvl(review.cost, 0) else 0 end) as dev_review_cost
+     , sum(case when p.project_category_id = 1 then nvl(review_bonus.cost, 0) else 0 end) as design_review_bonus_cost
+     , sum(case when p.project_category_id = 2 then nvl(review_bonus.cost, 0) else 0 end) as dev_review_bonus_cost
+     , max(p.complete_date) as complete_date
+  from project p
+      , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 6
+                        group by p.reference_id)) prizes
+      , outer table(multiset(select pp.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up, payment pp
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 24
+                          and pp.payment_id = p.parent_payment_id
+                        group by pp.reference_id)) rel
+      , outer table(multiset(select pp.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up, payment pp
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 4
+                          and pp.payment_id = p.parent_payment_id
+                        group by pp.reference_id)) ref
+      , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 7
+                        group by p.reference_id)) review
+     , table(multiset(select distinct p.reference_id as project_id
+                        from payment p
+                       where p.client is not null)) as cp
+     , outer table(multiset(select pr.project_id, sum(pr.payment) as cost
+                        from project_result pr
+                       where pr.payment is not null
+                       group by pr.project_id)) as prp
+      , outer table(multiset(select pp.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up, payment pp
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 38
+                          and pp.payment_id = p.parent_payment_id
+                        group by pp.reference_id)) review_bonus
+ where prizes.project_id = p.project_id
+   and rel.project_id = p.project_id
+   and review.project_id = p.project_id
+   and ref.project_id = p.project_id
+   and p.project_id = cp.project_id
+   and prp.project_id = p.project_id
+   and review_bonus.project_id = p.project_id
+   and p.project_category_id in (1,2)
+ group by 1,2,3,4
+ order by complete_date desc

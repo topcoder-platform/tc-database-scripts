@@ -1,0 +1,3 @@
+select round_id
+  from campaign_round_xref
+ where campaign_id = @cid@

@@ -1,0 +1,22 @@
+select round_id
+     , c.coder_id
+     , handle
+     , old_rating
+     , new_rating
+     , old_vol as old_volatility
+     , new_vol as new_volatility
+     , ar.num_ratings
+     , placed
+     , advanced
+     , point_total as provisional_score
+     , system_point_total as final_score
+     , num_submissions
+     , rated_ind as rated_flag
+from long_comp_result lcr
+     , coder c 
+     , outer algo_rating ar
+where lcr.coder_id = c.coder_id
+and ar.coder_id = c.coder_id
+and ar.algo_rating_type_id = 3
+and lcr.attended='Y'
+and round_id = @rd@

@@ -1,0 +1,8 @@
+select e.address as email_address, u.handle, rp.paid
+from user u, email e, round_payment rp
+where rp.round_id = 9995
+and rp.coder_id = u.user_id
+and e.user_id = u.user_id
+and e.primary_ind = 1
+and rp.payment_type_id = 1
+and u.status = 'A'

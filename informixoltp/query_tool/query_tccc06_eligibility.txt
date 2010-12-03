@@ -1,0 +1,10 @@
+select '1'
+  from coder c
+     , user u
+     , user_group_xref x
+ where c.coder_id = @cr@
+   and c.coder_id = u.user_id
+   and u.status = 'A'
+   and c.coder_type_id = 1
+   and x.login_id = u.user_id
+   and x.group_id = 10

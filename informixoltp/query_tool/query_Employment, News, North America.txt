@@ -1,0 +1,17 @@
+select
+  u.handle
+  , u.email as email_address
+from
+  email_user u,
+  coder c,
+  country cy
+where
+  u.status = 'A' and
+  exists
+  (
+    select * from coder_notify cn
+    where cn.coder_id = u.user_id and cn.notify_id in (3,5)
+  ) and
+  u.user_id = c.coder_id and
+  c.country_code = cy.country_code and
+  cy.country_name in ('United States', 'Canada')

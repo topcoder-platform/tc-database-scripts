@@ -1,0 +1,18 @@
+select u.user_id,  pt.project_type_name, count(unique p.project_id) submissions
+    from project p,
+         submission s,
+         comp_versions cv,
+         comp_version_dates cvd,
+         project_type pt,
+         comp_catalog cc,
+         security_user u
+   where p.project_id = s.project_id
+     and cv.comp_vers_id = p.comp_vers_id
+     and u.login_id = s.submitter_id
+     and cvd.comp_vers_id = cv.comp_vers_id
+     and cvd.phase_id = cv.phase_id
+     and cvd.status_id = 303
+     and cc.component_id = cv.component_id
+     and p.project_type_id = pt.project_type_id
+group by user_id, project_type_name
+order by project_type_name, submissions desc, user_id

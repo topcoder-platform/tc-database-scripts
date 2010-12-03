@@ -1,0 +1,3 @@
+SELECT * FROM common_oltp:user_terms_of_use_xref
+WHERE user_id = @uid@
+and terms_of_use_id = @tid@

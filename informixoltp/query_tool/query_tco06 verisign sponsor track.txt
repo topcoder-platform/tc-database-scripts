@@ -1,0 +1,17 @@
+select
+  u.handle, 
+  u.email as email_address
+from
+  user u,
+  coder c, 
+  coder_notify n
+where
+  u.user_id = c.coder_id and
+  u.status = 'A' and
+  u.user_id = n.coder_id and
+  n.notify_id = 1 and
+  u.user_id in
+  (
+    select coder_id from demographic_response where demographic_question_id = 15 and lower(demographic_response) = 'verisign'
+  ) and
+  date(c.member_since) >= today - 60;

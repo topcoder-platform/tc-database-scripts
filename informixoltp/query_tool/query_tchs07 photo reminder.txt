@@ -1,0 +1,24 @@
+select u.handle, u.email as email_address
+  from email_user u
+ where u.handle IN
+('doh_123451',
+'hy871214',
+'brainmaster',
+'tommyboy2510',
+'bhardvaj',
+'juin',
+'RuslanSM',
+'TokarR',
+'tt05',
+'Unlucky',	
+'viveksingh',
+'ioffe',
+'tithi',
+'Achtung-Achtung',
+'rlp',
+'blindcoder',
+'khanhnhan5391',
+'namaayahsaya',
+'nelehdennis',
+'tranquilliser',
+'viclei')

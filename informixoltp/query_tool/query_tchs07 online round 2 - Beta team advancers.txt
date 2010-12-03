@@ -1,0 +1,7 @@
+select e.address as email_address, u.handle
+from user u, email e
+where e.user_id = u.user_id
+and e.primary_ind = 1
+and u.status = 'A'
+and u.user_id IN
+(15454422,22627339,22629595,10440693,15204961,20059844,21354069,22005262)

@@ -1,0 +1,18 @@
+select u.handle, u.email as email_address
+  from email_user u
+     , room_result rr
+ where rr.advanced = 'Y'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id = 10716
+   and rr.coder_id = u.user_id
+   and u.status = 'A'
+   and coder_id not in
+(15204961,22656792,22656705,22656703,22399611,22655490,21691498,20396763,22253681,22663244,22627339,22664064,22630134,21354069,20147786,22658749,22629595)
+UNION
+select u.handle, e.address as email_address
+from user u, email e
+where e.user_id = u.user_id
+and e.primary_ind = 1
+and u.status = 'A'
+and u.user_id IN
+(8384426,22253681,22260979,22664064,11994206,20147786,21233684,22252809,22399611,10399429,22662575,22664055,22664982,22665194,22666907,10039742,10244820,10535635,15092597,15141143,19951146,20246344,20396763,22655490,22656703,22656705)

@@ -1,0 +1,5 @@
+SELECT user_id
+  FROM user
+ WHERE handle_lower = LOWER('@ha@')
+   AND status = 'A'
+ order by status,user_id

@@ -1,0 +1,8 @@
+select rt.registration_type_name 
+ from security_groups g
+    , user_group_xref x
+    , registration_type_lu rt
+where x.group_id = g.group_id
+  and x.login_id = @cr@
+  and x.group_id = rt.security_group_id
+   and x.security_status_id = 1

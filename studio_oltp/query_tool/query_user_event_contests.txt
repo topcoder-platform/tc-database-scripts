@@ -1,0 +1,30 @@
+select c.name as contest_name
+     , c.start_time
+     , c.end_time
+     , (select count(*) from contest_registration where contest_id = c.contest_id) as registrants
+     , (select count(*) from submission where contest_id = c.contest_id) as submissions
+     , p.place
+     , case when p.place = 1 then 10 
+                           when p.place = 2 then 7 
+                           when p.place = 3 then 5 
+                           when p.place = 4 then 4 else 0 end as points
+     , u.handle
+     , c.contest_id
+     , exists (select 1 from contest_result where contest_id = c.contest_id) as completed
+  from contest c
+     , user u
+     , contest_registration creg
+     , event_registration er
+     , outer (submission_prize_xref spx, submission s, prize p)
+ where creg.contest_id = c.contest_id
+   and c.event_id = @eid@
+   and u.user_id = creg.user_id
+   and u.status = 'A'
+   and er.event_id = c.event_id
+   and er.create_date < creg.create_date
+   and er.user_id = u.user_id
+   and u.user_id = @uid@
+   and spx.prize_id = p.prize_id
+   and u.user_id = s.submitter_id
+   and c.contest_id = s.contest_id
+   and spx.submission_id = s.submission_id

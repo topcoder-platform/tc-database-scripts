@@ -1,0 +1,26 @@
+select
+'<a href=https://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid='||p.project_id||'>'||p.project_id||'</a>' as project_id,
+(select name from project_category_lu where project_category_lu.project_category_id=p.project_category_id) as project_category,
+(select name from project_status_lu where project_status_lu.project_status_id=p.project_status_id) as project_status,
+pa.update_reason as update_reason,
+pa.create_user as update_user_id,
+pa.create_date as update_date
+from
+project p, 
+project_audit pa,
+     project_info pi3, -- billing account
+     time_oltp:project ttp,
+     time_oltp:client_project ttcp,
+     time_oltp:client ttc
+where 1=1
+  and p.project_id=pa.project_id
+  and p.project_id = pi3.project_id
+  and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = 70014096 --IBM
+  and p.project_status_id = DECODE(@stid@, 0, p.project_status_id, @stid@)
+  and pa.create_date > current - (DECODE(@days@, 0, 100000, @days@) * 24) UNITS HOUR
+  and pa.create_date >= (select max(pa2.create_date) from project_audit pa2 where pa2.project_id=pa.project_id)
+order by pa.create_date desc

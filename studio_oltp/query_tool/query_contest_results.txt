@@ -1,0 +1,39 @@
+select s.submitter_id
+     , p.amount
+     , creg.create_date as reg_date
+     , s.create_date as submit_date
+     , s.submission_id
+     , ft.image_file_ind=1 as is_image
+     , s.height
+     , s.width
+     , cr.placed
+     , cr.final_score
+     , p.prize_type_id
+     , (select property_value from contest_config where contest_id = s.contest_id and property_id = 3) as show_submissions
+     , (select cc.property_value from contest_config cc where cc.contest_id = c.contest_id and cc.property_id = 10) as require_preview_image
+     , (select cc.property_value from contest_config cc where cc.contest_id = c.contest_id and cc.property_id = 11) as require_preview_file
+     , c.contest_channel_id
+     , (select count(*)
+        from submission_image si, image i
+        where si.submission_id = s.submission_id
+        and si.image_id = i.image_id
+        and i.image_type_id = 30) as gallery_image_count
+     , c.contest_id
+from contest_result cr
+     , submission s
+     , prize p
+     , contest_registration creg
+     , mime_type_lu mt
+     , file_type_lu ft
+     , submission_prize_xref x
+     , contest c
+where cr.submission_id = s.submission_id
+   and cr.contest_id =@ct@
+   and cr.contest_id = c.contest_id
+   and s.mime_type_id = mt.mime_type_id
+   and mt.file_type_id = ft.file_type_id
+   and x.prize_id = p.prize_id
+   and x.submission_id = s.submission_id
+   and creg.contest_id = cr.contest_id
+   and s.submitter_id = creg.user_id
+order by nvl(p.place, 99999) asc

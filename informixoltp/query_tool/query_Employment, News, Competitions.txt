@@ -1,0 +1,12 @@
+select
+  u.handle
+  , u.email as email_address
+from
+  email_user u
+where
+  u.status = 'A' and
+  exists
+  (
+    select * from coder_notify cn
+    where cn.coder_id = u.user_id and cn.notify_id in (1,3,5)
+  )

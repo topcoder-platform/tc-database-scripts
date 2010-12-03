@@ -1,0 +1,4 @@
+select u.handle, e.address as email_address from gcj05_oltp:user u, gcj05_oltp:email e
+where u.user_id = e.user_id
+and status = 'A'
+and 156 in (select country_code from gcj05_oltp:address a, gcj05_oltp:user_address_xref x where x.user_id = u.user_id and a.address_id = x.address_id)

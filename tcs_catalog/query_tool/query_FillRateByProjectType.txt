@@ -1,0 +1,31 @@
+select EXTEND(pi1.end_date, year to day)  Submission_due_date, 
+            pt.project_type_name,
+            count(unique p.project_id) NumOfProjects,
+            sum(DECODE(NVL(sub.project_id,0),0,1,0)) Num_Project_With_Zero_Submissions,
+            count(sub.submitter_id) count_of_submissions
+   from   comp_versions cv, 
+            comp_catalog cc, 
+            categories c,
+            project_Type pt,
+            phase_instance pi1,
+            project p,
+            OUTER submission sub
+where 1=1
+  and p.project_id = sub.project_id 
+  and p.modify_date >= pi1.end_date
+  and sub.cur_version = 1
+  and sub.submission_type = 1
+  and sub.is_removed = 0
+  and c.category_id in (8459260,5801776,5801777,5801778,5801779)
+and cc.root_category_id = c.category_id
+and cc.component_id = cv.component_id
+and cv.comp_vers_id = p.comp_vers_id
+and p.cur_version = 1
+and p.project_type_id = pt.project_type_id
+and pi1.project_id = p.project_id
+and pi1.phase_id = 1
+and pi1.cur_version = 1
+and pi1.end_date >= CURRENT - 90 UNITS DAY
+and pi1.end_date <= CURRENT 
+group by 1,2
+order by 1 desc, 2

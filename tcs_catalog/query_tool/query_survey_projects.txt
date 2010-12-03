@@ -1,0 +1,8 @@
+select p.project_id, cc.component_name, cv.version_text, cv.create_time, ph.description
+from project p, comp_catalog cc, comp_versions cv, phase ph
+where p.project_id IN (select distinct project_id from comp_reg_response)
+	and p.cur_version = 1
+	and p.comp_vers_id = cv.comp_vers_id
+        and cv.component_id = cc.component_id
+	and cv.phase_id = ph.phase_id
+order by create_time desc;

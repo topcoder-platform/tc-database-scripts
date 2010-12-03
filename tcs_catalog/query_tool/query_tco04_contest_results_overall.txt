@@ -1,0 +1,26 @@
+select pr.user_id, 
+NVL(ucp.payment,0) as prize_payment, u.handle, lower(u.handle),
+(select count(distinct pr3.project_id) from project_result pr3, project p3 where pr3.user_id = pr.user_id and pr3.project_id in (select project_id from contest_project_xref where contest_id = cpx.contest_id) 
+     and p3.project_id = pr3.project_id and p3.cur_version = 1 and pr3.placed > 0 and p3.project_stat_id in (4,5,6,7)) as complete_count,
+(select count(distinct pr3.project_id) from project_result pr3, project p3 where pr3.user_id = pr.user_id and pr3.project_id in (select project_id from contest_project_xref where contest_id = cpx.contest_id) 
+     and p3.project_id = pr3.project_id and p3.cur_version = 1 and p3.project_stat_id not in (4,5,6,7)) as incomplete_count,
+case when cp.place is null then 9 else cp.place end as place
+from  contest_project_xref cpx,
+project_result pr,
+project p,
+user u,
+user_event_xref uex,
+OUTER (user_contest_prize ucp, contest_prize cp)
+where pr.project_id = cpx.project_id
+and p.project_id = pr.project_id
+and p.cur_version = 1
+and u.user_id = pr.user_id
+and cpx.contest_id = @ct@
+and ucp.user_id = pr.user_id
+and cp.contest_prize_id = ucp.contest_prize_id 
+and cp.contest_id = cpx.contest_id
+and uex.user_id = u.user_id
+and uex.event_id = 2
+
+group by 1, 2, 3, 4, 5, 6, 7
+order by 2 desc, 5 asc

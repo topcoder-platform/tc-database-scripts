@@ -1,0 +1,5 @@
+select payment_type_desc, payment_type_id, show_details_ind, sum(NVL(gross_amount, 0)) AS earnings
+from payment p, user_payment up
+where p.payment_id = up.payment_id and up.user_id = @cr@ and show_in_profile_ind = 1
+group by payment_type_desc, payment_type_id, show_details_ind
+ORDER BY @sc@ @sd@;

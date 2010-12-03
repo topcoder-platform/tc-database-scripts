@@ -1,0 +1,8 @@
+select u.handle, u.email as email_address
+  from email_user u
+where u.user_id in (select coder_id from room_result where round_id = 10924 and advanced = 'Y') 
+  or u.user_id in (select coder_id from long_comp_result where round_id = 10502 and advanced = 'Y')
+  or u.handle in ('AleaActaEst','bramandia','Luca','nicka81','kakarotto','sql_lall','urtks','Vovka')
+    or  u.handle in ('serine','catcher','enefem21','fanse','lyt','PE','Yeung')
+    or  u.handle in ('abedavera','amiune','CoralBlue','Maraqja','oton','SIGCHLD','Tricia_Tjia','vlad_D')
+  or u.handle in ('aksonov','kyky','Ghostar','cnettel','dmks','Savior','kristofferrouge','dogsoldier39','nathanmcclain','roma','tywok','moh_taha_eg','zjq')

@@ -1,0 +1,63 @@
+SELECT p.class_name
+     , dlu.division_desc
+     , p.level_desc
+     , rp.problems_presented
+     , rp.problems_submitted
+     , (CASE WHEN rp.problems_presented = 0 THEN 0.0
+             ELSE rp.problems_submitted / rp.problems_presented * 100
+             END) AS submit_percent
+     , rp.problems_correct
+     , (CASE WHEN rp.problems_submitted = 0 THEN 0.0
+             ELSE rp.problems_correct / rp.problems_submitted * 100
+             END) AS submission_accuracy
+     , (CASE WHEN rp.problems_presented = 0 THEN 0.0
+             ELSE rp.problems_correct / rp.problems_presented * 100
+             END) AS overall_accuracy
+     , (SELECT AVG(cp2.final_points)
+          FROM coder_problem cp2
+         WHERE cp2.round_id = rp.round_id
+           AND cp2.division_id = rp.division_id
+           AND cp2.problem_id = rp.problem_id
+           AND cp2.end_status_id IN (150)) AS avg_submission_points
+     , rp.average_points
+     , (SELECT AVG(cp2.time_elapsed)
+          FROM coder_problem cp2
+         WHERE cp2.round_id = rp.round_id
+           AND cp2.division_id = rp.division_id
+           AND cp2.problem_id = rp.problem_id
+           AND cp2.end_status_id IN (150)) AS avg_time_elapsed
+     , cp.end_status_text
+     , cp.time_elapsed
+     , cp.final_points
+     , ps.submission_text
+     , co.name as contest_name
+  FROM coder_problem cp
+     , division_lu dlu
+     , problem p
+     , round_problem rp
+     , OUTER problem_submission ps
+     , coder c
+     , contest co
+     , round ro
+ WHERE ps.coder_id = cp.coder_id
+   AND ps.problem_id = cp.problem_id
+   AND ps.round_id = cp.round_id
+   AND cp.division_id = dlu.division_id
+   AND cp.problem_id = p.problem_id
+   AND cp.round_id = p.round_id
+   AND cp.division_id = p.division_id
+   AND cp.round_id = rp.round_id
+   AND cp.problem_id = rp.problem_id
+   AND cp.division_id = rp.division_id
+   AND (cp.coder_id = @mid@)
+   AND (cp.problem_id = @pm@)
+   AND cp.round_id = @rd@
+   AND cp.coder_id = c.coder_id
+   AND c.status = 'A'   
+   AND co.contest_id = ro.contest_id
+   AND ro.round_id = cp.round_id
+   AND ps.submission_number= (SELECT MAX(submission_number)
+                                FROM problem_submission ps1
+                               WHERE ps.coder_id = ps1.coder_id
+                                 AND ps.problem_id = ps1.problem_id
+                                 AND ps.round_id = ps1.round_id)

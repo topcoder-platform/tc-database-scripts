@@ -1,0 +1,7 @@
+select first 1 t.track_id
+from track t, track t2
+where t.track_type_id = @ttid@
+and t2.track_id = @tid@
+and t.track_start_date <= t2.track_start_date
+and t.track_end_date >= t2.track_end_date
+order by t.track_start_date asc

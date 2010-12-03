@@ -1,0 +1,11 @@
+SELECT round_id
+     , r.name as round_name
+     , c.name as contest_name
+     , r.round_type_id
+     , calendar_id
+FROM round r
+  , contest c
+WHERE c.contest_id = r.contest_id
+AND round_type_id in (13,15,19,22)
+AND r.failed = 0
+ORDER BY calendar_id desc

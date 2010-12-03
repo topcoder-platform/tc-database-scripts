@@ -1,0 +1,37 @@
+select cc.component_name as component
+     , cv.version_text as version
+     , cat.category_name as category
+     , pcl.name as type
+     , nvl(date(pp1.actual_start_time), 'N/A') as posting_date
+     , count(*) as registrants
+     , sum(case when pr.old_rating is not null then 1 else 0 end) as rated_registrants
+     , case when sum(case when pr.old_reliability is not null then 1 else 0 end) = 0 then 0.0
+            else (sum(case when pr.old_reliability is not null then pr.old_reliability else 0.0 end) * 100.0
+                  / sum(case when pr.old_reliability is not null then 1.1 else 0.0 end))::decimal(10, 2) end as average_reliability
+     , case when sum(case when pr.old_rating is not null then 1 else 0 end) = 0 then 0.0
+            else (sum(case when pr.old_rating is not null then pr.old_rating else 0.0 end)
+                  / sum(case when pr.old_rating is not null then 1.1 else 0.0 end))::decimal(10, 2) end as average_rating
+     , nvl(sum(pr.valid_submission_ind), 0) as num_submissions
+     , nvl(sum(pr.passed_review_ind), 0) as passing_submissions
+     , case when max(pr.passed_review_ind) = 1 then max(pr.final_score) else 0.0 end as winning_score
+  from comp_catalog cc
+     , comp_versions cv
+     , categories cat
+     , project_info pi1
+     , project p
+     , project_category_lu pcl
+     , project_phase pp1
+     , project_result pr
+ where cc.root_category_id in (5801776, 5801777, 5801778, 5801779)
+   and cc.component_id = cv.component_id
+   and cc.root_category_id = cat.category_id
+   and pi1.project_info_type_id = 1
+   and cv.comp_vers_id = pi1.value::integer
+   and pi1.project_id = p.project_id
+   and p.project_category_id in (1, 2)
+   and p.project_category_id = pcl.project_category_id
+   and p.project_id = pp1.project_id
+   and pp1.phase_type_id = 1
+   and p.project_id = pr.project_id
+group by 1, 2, 3, 4, 5
+order by 1, 2, 3, 4;

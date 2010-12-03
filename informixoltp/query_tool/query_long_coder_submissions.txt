@@ -1,0 +1,23 @@
+SELECT cs.component_id
+     , c.problem_id
+     , cs.round_id
+     , cs.coder_id
+     , s.submission_number
+     , s.submit_time
+     , s.submission_points
+     , case when cs.submission_number = s.submission_number then cs.status_id else 0 end as status_id
+     , l.language_name
+  FROM long_submission s
+     , long_component_state cs
+     , component c
+     , round r
+     , language l
+ WHERE cs.long_component_state_id = s.long_component_state_id
+   AND cs.round_id = @rd@
+   AND r.round_id = @rd@
+   AND cs.coder_id = @cr@
+   AND cs.component_id = @compid@
+   AND c.component_id = @compid@
+   and s.language_id = l.language_id
+   and s.example = 0
+ ORDER BY s.submission_number desc;

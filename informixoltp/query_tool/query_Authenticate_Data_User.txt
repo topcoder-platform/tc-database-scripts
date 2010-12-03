@@ -1,0 +1,7 @@
+
+SELECT 'yep'
+  FROM sector s
+       ,permission p
+ WHERE s.sector_desc = '@sector@'
+   AND s.sector_id = p.sector_id
+   AND p.secure_object_id = @cr@

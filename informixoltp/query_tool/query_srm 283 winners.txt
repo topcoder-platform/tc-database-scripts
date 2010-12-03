@@ -1,0 +1,9 @@
+select e.address as email_address, u.handle, rp.paid
+from user u, room_result rr, email e, round_payment rp
+where rr.round_id = 8080
+and rr.coder_id = u.user_id
+and e.user_id = u.user_id
+and e.primary_ind = 1
+and rp.round_payment_id = rr.round_payment_id
+and rp.payment_type_id = 1
+and u.status = 'A'

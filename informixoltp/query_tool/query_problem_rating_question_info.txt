@@ -1,0 +1,3 @@
+SELECT question_desc 
+  FROM problem_rating_question
+ WHERE question_id = @qid@

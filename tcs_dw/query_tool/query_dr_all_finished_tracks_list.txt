@@ -1,0 +1,12 @@
+--
+-- This a content of dr_all_finished_tracks_list query to be added to same named command (to be created also)
+-- to 'TCS Data Warehouse' (java:TCS_DW) DB under 'dr' group in Query Tool.  For details on Query Tool
+-- usage, please, see: http://www.topcoder.com/wiki/display/docs/TopCoder+Studio+Query+Tool+Usage
+--
+
+SELECT t.track_id, t.track_desc, t.track_type_id
+FROM track t
+WHERE t.track_status_id != 3
+AND   t.track_end_date <= CURRENT
+ORDER BY t.track_type_id ASC, t.track_start_date ASC
+

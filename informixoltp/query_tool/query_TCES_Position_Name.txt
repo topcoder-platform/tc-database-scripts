@@ -1,0 +1,4 @@
+
+SELECT j.job_desc
+  FROM job j
+ WHERE j.job_id = @jid@

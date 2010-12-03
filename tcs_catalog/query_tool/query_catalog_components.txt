@@ -1,0 +1,9 @@
+select cat.category_name as catalog
+     , cc.component_name as component
+     , cc.short_desc as description
+  from comp_catalog cc
+     , categories cat
+ where cc.status_id = 102
+   and cc.root_category_id = cat.category_id
+   and cat.category_id in (5801776, 5801777)
+order by component, catalog;

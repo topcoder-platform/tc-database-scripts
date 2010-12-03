@@ -1,0 +1,5 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+  WHERE u.user_id IN
+(select distinct coder_id from room_result where round_id in (10777,10775,10773))

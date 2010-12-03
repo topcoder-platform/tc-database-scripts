@@ -1,0 +1,9 @@
+select u.handle, q.question_text, r.response from question q, response r, user u
+where q.question_id = r.question_id 
+and r.user_id = u.user_id
+and q.question_id between 39 and 41
+and (u.user_id in (select coder_id from room_result where round_id = 9925 and advanced = 'Y')
+    or u.user_id in (select user_id from user where handle in 
+('adic','AleaActaEst', 'aubergineanode', 'kyky', 'nicka81', 'Pops', 'real_vg', 'ThinMan',
+'biotrail', 'cnettel', 'colau', 'oodinary', 'sindu', 'traugust', 'visualage', 'zjq')))
+order by u.handle

@@ -1,0 +1,5 @@
+select demographic_question_id, demographic_answer_id, demographic_answer_text, sort 
+from demographic_answer 
+where demographic_question_id in (select demographic_question_id from demographic_assignment where status = 'A')
+and demographic_answer_text <> 'Free Form'
+order by 1,4

@@ -1,0 +1,18 @@
+select cal.week_of_year
+     , cal.year
+     , count(distinct u.user_id) as total
+     , sum(case when er.event_id = 3001 and eligible_ind = 1 then 1 else 0 end) as algo_total
+     , sum(case when er.event_id = 3002 and eligible_ind = 1 then 1 else 0 end) as compo_total
+     , sum(case when er.event_id = 3003 and eligible_ind = 1 then 1 else 0 end) as mm_total
+     , sum(case when er.event_id = 3004 and eligible_ind = 1 then 1 else 0 end) as studio_total
+  from user u
+     , coder c
+     , event_registration er
+     , common_oltp:calendar cal
+ where u.user_id = er.user_id
+   and u.user_id = c.coder_id 
+   and u.user_id = er.user_id
+   and er.event_id in (3001, 3002, 3003, 3004)
+   and date(er.create_date) = cal.date
+ group by cal.week_of_year, year
+ order by cal.year, cal.week_of_year asc

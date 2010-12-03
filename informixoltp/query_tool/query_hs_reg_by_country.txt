@@ -1,0 +1,11 @@
+select co.country_name
+     , count(*) as total
+     , sum(case when u.status = 'A' then 1 else 0 end) as activated
+from user u, user_group_xref x, address a, user_address_xref uax, country co
+where u.user_id = x.login_id and u.user_id= uax.user_id
+ and uax.address_id = a.address_id
+ and a.country_code = co.country_code
+  and a.address_type_id = 2
+and x.group_id = 12
+group by 1
+order by 2 desc

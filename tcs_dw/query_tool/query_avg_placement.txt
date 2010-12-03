@@ -1,0 +1,16 @@
+select avg(pr.placed) as average
+     , c.coder_id
+  from project_result pr
+     , project p
+     , coder c
+ where pr.project_id = p.project_id
+   and p.phase_id in (@pis@)
+   and pr.user_id = c.coder_id
+   and c.status = 'A'
+   and pr.placed is not null
+   and pr.valid_submission_ind = 1
+   and pr.rating_ind = 1
+   and p.status_id in (4,5,7,8)
+ group by c.coder_id
+having count(*) >= 5
+ order by 1 asc

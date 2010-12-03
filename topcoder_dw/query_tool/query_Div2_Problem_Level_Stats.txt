@@ -1,0 +1,30 @@
+
+SELECT p.class_name as class_name
+       ,cp.level_desc as level
+       ,SUM(CASE WHEN cp.end_status_id = 150 THEN 1 ELSE 0 END) as passed_sys_test
+       ,SUM(CASE WHEN cp.end_status_id = 140 THEN 1 ELSE 0 END) as failed_by_challenge
+       ,SUM(CASE WHEN cp.end_status_id = 160 THEN 1 ELSE 0 END) as failed_by_sys_test
+       ,SUM(CASE WHEN cp.end_status_id in (140, 160, 150) THEN 1 ELSE 0 END) as number_submitted
+       ,SUM(CASE WHEN cp.end_status_id = 150 AND rr.old_rating = 0 THEN 1 ELSE 0 END) as newbie_passed_sys_test
+       ,SUM(CASE WHEN cp.end_status_id = 140 AND rr.old_rating = 0 THEN 1 ELSE 0 END) as newbie_failed_by_challenge
+       ,SUM(CASE WHEN cp.end_status_id = 160 AND rr.old_rating = 0 THEN 1 ELSE 0 END) as newbie_failed_by_sys_test
+       ,SUM(CASE WHEN cp.end_status_id in (140, 160, 150) AND rr.old_rating = 0 THEN 1 ELSE 0 END) as newbie_number_submitted
+       ,SUM(CASE WHEN cp.end_status_id = 150 AND rr.old_rating between 1 AND 899 THEN 1 ELSE 0 END) as gray_passed_sys_test
+       ,SUM(CASE WHEN cp.end_status_id = 140 AND rr.old_rating between 1 AND 899 THEN 1 ELSE 0 END) as gray_failed_by_challenge
+       ,SUM(CASE WHEN cp.end_status_id = 160 AND rr.old_rating between 1 AND 899 THEN 1 ELSE 0 END) as gray_failed_by_sys_test
+       ,SUM(CASE WHEN cp.end_status_id in (140, 160, 150) AND rr.old_rating between 1 AND 899 THEN 1 ELSE 0 END) as gray_number_submitted
+       ,SUM(CASE WHEN cp.end_status_id = 150 AND rr.old_rating between 900 AND 1199 THEN 1 ELSE 0 END) as green_passed_sys_test
+       ,SUM(CASE WHEN cp.end_status_id = 140 AND rr.old_rating between 900 AND 1199 THEN 1 ELSE 0 END) as green_failed_by_challenge
+       ,SUM(CASE WHEN cp.end_status_id = 160 AND rr.old_rating between 900 AND 1199 THEN 1 ELSE 0 END) as green_failed_by_sys_test
+       ,SUM(CASE WHEN cp.end_status_id in (140, 160, 150) AND rr.old_rating between 900 AND 1199 THEN 1 ELSE 0 END) as green_number_submitted
+  FROM coder_problem cp
+       ,problem p
+       ,room_result rr
+ WHERE cp.problem_id = p.problem_id
+   AND cp.division_id = p.division_id
+   AND cp.round_id = @rd@
+   AND cp.division_id = 2 
+   AND cp.coder_id = rr.coder_id
+   AND cp.round_id = rr.round_id
+   AND cp.division_id = rr.division_id
+ GROUP BY cp.level_id, p.class_name, cp.level_desc

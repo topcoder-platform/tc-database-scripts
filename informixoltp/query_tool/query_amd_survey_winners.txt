@@ -1,0 +1,3 @@
+select u.handle, u.email as email_address
+from email_user u
+where handle in ('Czester', 'Demasi', 'FireIce', 'Q_Q', 'Stealth_Ninja', 'UmniiPingvin', 'VC15', 'Wernie', 'Ye_Jian_Wei', '[skywalker]', 'alkali', 'bugloaf', 'carmorafael', 'dafei', 'dluUNO', 'dpkshetty', 'harsh3856', 'henkv', 'ilyakor', 'jessdoor', 'michaelvogt', 'moneygen', 'oninkxronda', 'pasenq', 'raksh', 'sampadray', 'scarabX', 'theycallhimtom', 'vik_sen')

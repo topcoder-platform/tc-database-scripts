@@ -1,0 +1,25 @@
+select '<a href=https://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>' || c.category_name || ' ' || pi_name.value || ' ' || pi_version.value || '</a>' as project
+     , count(unique u.resource_id) as num_submissions
+  from project p
+     , project_phase pp
+     , upload u
+     , project_info pi_catalog
+     , project_info pi_name
+     , project_info pi_version
+     , categories c
+ where p.project_status_id = 1
+   and p.project_id = pp.project_id
+   and pp.phase_type_id in (2, 3)
+   and pp.phase_status_id = 2
+   and p.project_id = u.project_id
+   and u.upload_type_id = 1
+   and u.upload_status_id = 1
+   and p.project_id = pi_catalog.project_id
+   and pi_catalog.project_info_type_id = 5
+   and p.project_id = pi_name.project_id
+   and pi_name.project_info_type_id = 6
+   and p.project_id = pi_version.project_id
+   and pi_version.project_info_type_id = 7
+   and pi_catalog.value::integer = c.category_id
+group by 1
+order by num_submissions desc;

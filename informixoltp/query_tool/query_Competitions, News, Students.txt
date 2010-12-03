@@ -1,0 +1,14 @@
+select
+  u.handle,
+  u.email as email_address
+from
+  email_user u, coder c
+where
+  u.user_id = c.coder_id and
+  u.status = 'A' and
+  u.user_id not in (select user_id from group_user where group_id in (13,14)) and
+  c.coder_type_id = 1 and exists
+  (
+    select * from coder_notify cn
+    where cn.coder_id = c.coder_id and cn.notify_id in (1,5)
+  )

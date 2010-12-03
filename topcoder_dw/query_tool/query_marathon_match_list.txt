@@ -1,0 +1,22 @@
+select  r.name as round_name
+       , c.name as contest_name     
+       , cal.date
+       ,(select count(*) from long_comp_result where round_id = r.round_id and attended = 'Y') as num_competitors
+       ,(select sum(num_submissions) from long_comp_result where round_id = r.round_id and attended = 'Y') as num_submissions
+       ,((select sum(num_submissions) from long_comp_result where round_id = r.round_id and attended = 'Y') / 
+         (select count(*) from long_comp_result where round_id = r.round_id and attended = 'Y')) as avg_submissions
+       , r.forum_id
+       , r.round_id
+       , r.round_type_id
+       , p.problem_id
+       , p.class_name as problem_name
+from  round r
+     , contest c
+     , calendar cal
+     , problem p
+where r.contest_id = c.contest_id
+and r.calendar_id = cal.calendar_id
+and round_type_id in (13, 15, 19, 22)
+and p.round_id = r.round_id
+and r.failed = 0
+order by r.calendar_id desc

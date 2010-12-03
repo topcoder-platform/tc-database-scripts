@@ -1,0 +1,20 @@
+SELECT r.rating 
+     , COUNT(distinct cix.image_id) as has_image
+     , u.activation_code 
+     , dev.rating as dev_rating
+     , des.rating as design_rating
+  FROM rating r
+     , OUTER coder_image_xref cix
+     , coder c
+     , user u
+     , outer tcs_catalog:user_rating dev
+     , outer tcs_catalog:user_rating des
+ WHERE r.coder_id = @cr@
+   AND r.coder_id = c.coder_id
+   and r.coder_id = u.user_id 
+   AND c.coder_id = cix.coder_id
+   and c.coder_id = dev.user_id
+   and dev.phase_id = 113
+   and c.coder_id = des.user_id
+   and des.phase_id = 112
+ GROUP BY c.coder_id, r.rating, u.activation_code,4,5

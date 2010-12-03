@@ -1,0 +1,4 @@
+select room_id, name
+ from room r
+where round_id=@rd@
+ORDER by room_id

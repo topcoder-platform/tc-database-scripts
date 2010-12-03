@@ -1,0 +1,17 @@
+select case when ugx.group_id = 200 then "AOL" else "onPoint" end as client
+   , u.handle
+   , cat.category_name
+, cc.component_name || " " || cv.version_text as component_name
+ ,date(dt.create_time) as download_date
+from download_tracking dt
+  , user_group_xref ugx
+   , comp_versions cv
+   , comp_catalog cc
+    , user u 
+    , categories cat
+where ugx.group_id in (200, 201) 
+  and ugx.login_id = dt.login_id 
+  and u.user_id = ugx.login_id 
+  and cv.comp_vers_id = dt.comp_vers_id 
+  and cv.component_id = cc.component_id
+  and cc.root_category_id = cat.category_id

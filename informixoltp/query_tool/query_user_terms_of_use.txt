@@ -1,0 +1,7 @@
+select utx.create_date as date
+     , t.title as terms
+  from user_terms_of_use_xref utx
+     , terms_of_use t
+ where utx.user_id = @cr@
+   and utx.terms_of_use_id = t.terms_of_use_id
+ order by date desc

@@ -1,0 +1,3 @@
+select count(distinct user_id) 
+from user_terms_of_use_xref
+where terms_of_use_id = 20873;

@@ -1,0 +1,7 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , job_hit j
+ WHERE u.user_id = j.user_id
+   AND u.status = 'A'
+   AND j.job_id = 390

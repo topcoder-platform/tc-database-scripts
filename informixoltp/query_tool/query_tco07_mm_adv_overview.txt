@@ -1,0 +1,29 @@
+select u.user_id
+     , r.rating
+     , il.seed
+     , u.handle
+     , u.handle_lower as handle_sort
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from long_comp_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10722)) as round1
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from long_comp_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10732)) as round2
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from long_comp_result rr1 where rr1.coder_id = u.user_id and rr1.round_id = 10747) as round3
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from long_comp_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10757)) as round4
+     , (select CASE WHEN advanced='Y' THEN 'Champion' ELSE 'Eliminated' END from long_comp_result rr1 where rr1.coder_id = u.user_id and rr1.round_id = 10845) as final
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from long_comp_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10722)), 3) as round1_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from long_comp_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10732)), 3) as round2_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from long_comp_result rr1 where rr1.coder_id = u.user_id and rr1.round_id = 10747), 3) as round3_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from long_comp_result rr1 where rr1.coder_id = u.user_id and rr1.round_id in (10757)), 3) as round4_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from long_comp_result rr1 where rr1.coder_id = u.user_id and rr1.round_id = 10845), 3) as finals_sort
+  from user u
+     , algo_rating r
+     , invite_list il
+     , long_comp_result rr
+ where il.coder_id = u.user_id
+   and r.coder_id = u.user_id
+   and u.status = 'A'
+   and r.algo_rating_type_id = 3
+   and il.round_id = 10722
+   and rr.coder_id = u.user_id
+   and rr.round_id = 10722
+   and rr.attended = 'Y'
+ order by finals_sort, round4_sort
+, round3_sort, round2_sort, round1_sort, seed

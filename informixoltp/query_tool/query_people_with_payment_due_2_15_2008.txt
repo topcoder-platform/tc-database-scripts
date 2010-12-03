@@ -1,0 +1,9 @@
+select distinct u.handle, u.email as email_address
+  from email_user u, payment p, payment_detail pd, address a, user_address_xref x
+where u.user_id= p.user_id
+ and p.most_recent_detail_id = pd.payment_detail_id
+ and pd.payment_status_id = 56
+  and date(pd.date_due) <= mdy(2,15,2008)
+  and u.user_id = x.user_id
+  and x.address_id = a.address_id
+ and a.country_code <> '840'

@@ -1,0 +1,24 @@
+select
+  distinct u.handle, u.email as email_address
+from
+  email_user u, coder c, room_result rr, rating r, coder_notify cn
+where
+  u.user_id = c.coder_id and
+  rr.coder_id = c.coder_id and
+  rr.round_id in (7226,7227,7228,7992,7993,7994,7995,7996,7997,7998,7999,8004,8005,8006,8007,8012,8000) and
+  rr.old_rating = 0 and
+  r.coder_id = c.coder_id and
+  cn.coder_id = c.coder_id and
+  u.status = 'A' and
+  r.rating > 0 and r.num_ratings > 0 and
+  rr.rated_flag = 1 and 
+  rr.attended = 'Y' and 
+  cn.notify_id = 3 and 
+  c.country_code in ('840','124','826') and
+  not exists
+  (
+    select 1
+    from common_oltp:user_preference up
+    where up.user_id = u.user_id and
+    up.preference_id in (2,7)
+  )

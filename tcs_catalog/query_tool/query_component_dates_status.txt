@@ -1,0 +1,7 @@
+select cvd.status_id
+  from comp_version_dates cvd, comp_versions cv
+ where cvd.comp_vers_id = cv.comp_vers_id
+   and cv.phase_id = @ph@
+   and cv.phase_id = cvd.phase_id
+   and cv.version = @vid@
+   and cv.component_id = @cd@

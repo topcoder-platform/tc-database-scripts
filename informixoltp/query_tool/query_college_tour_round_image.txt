@@ -1,0 +1,11 @@
+SELECT p.path || i.file_name AS file_path
+     , i.link
+     , i.height
+     , i.width
+  from image i
+     , path p
+     , college_tour_event cte
+ where p.path_id = i.path_id
+   and i.image_type_id = 15
+   and cte.image_id = i.image_id
+   and cte.event_id = @cteid@

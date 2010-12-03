@@ -1,0 +1,11 @@
+select u.handle as nominator
+     , n.email_address as prof_email
+     , n.school_name
+     , n.school_url
+     , n.name as professor
+     , n.field_of_instruction
+     , n.text
+  from nomination n
+     , user u
+ where n.nominator_id = u.user_id
+   and n.event_id = 2999

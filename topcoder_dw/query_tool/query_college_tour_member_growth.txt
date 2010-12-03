@@ -1,0 +1,13 @@
+select sum(case when c.country_code in ('840') then 1 else 0 end) as kristen
+     , sum(case when c.country_code in ( '616', '620', '642', '703', '705', '724', '752', '756', '336', '070', '191', '203', '208', '234', '246', '250', '276', '292', '300', '348', '352', '380', '428', '438', '440', '442', '807', '492', '528', '008', '020', '040', '056', '578', '100', '826', '372') then 1 else 0 end) as niall
+     , sum(case when c.country_code in ('156') then 1 else 0 end) as yingying
+     , sum(case when c.country_code in ( '804', '860', '233', '268', '398', '428', '440', '051', '031', '112') then 1 else 0 end) as lena
+     , cal.year
+     , cal.quarter_of_year
+  from calendar cal
+     , coder c
+ where cal.year in (2006, 2007)
+   and date(c.member_since) = cal.date
+   and c.status = 'A'
+ group by cal.year, cal.quarter_of_year
+ order by year asc, quarter_of_year asc

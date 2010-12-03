@@ -1,0 +1,18 @@
+select u.handle, u.email as email_address
+  from email_user u
+     , room_result rr
+ where rr.advanced = 'Y'
+   and u.status = 'A'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id in (9891)
+   and rr.coder_id = u.user_id
+   and u.handle NOT IN
+(select u.handle
+from user u, room_result rr, email e, round_payment rp
+where rr.round_id = 9891
+and rr.coder_id = u.user_id
+and e.user_id = u.user_id
+and e.primary_ind = 1
+and rp.round_payment_id = rr.round_payment_id
+and rp.payment_type_id = 1
+and u.status = 'A')

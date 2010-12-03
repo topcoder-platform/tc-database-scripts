@@ -1,0 +1,5 @@
+select '1'
+  from user_status us
+ where us.user_id = @uid@
+   and us.user_status_type_id = 1
+   and us.user_status_id = 3

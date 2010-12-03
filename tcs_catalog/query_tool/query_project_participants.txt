@@ -1,0 +1,21 @@
+SELECT 'Winner' AS role
+     , '<a href=''http://www.topcoder.com/tc?module=LegacyReport&t=profile&ha=' || u.handle || '&fn=&ln=&email=''>' || u.handle || '</a>' as handle
+  FROM project_result pr
+     , user u
+ WHERE pr.project_id = @pj@
+   AND pr.placed = 1
+   AND pr.user_id = u.user_id
+UNION
+SELECT rrl.name AS role
+     , '<a href=''http://www.topcoder.com/tc?module=LegacyReport&t=profile&ha=' || u.handle || '&fn=&ln=&email=''>' || u.handle || '</a>' as handle
+  FROM resource r
+     , resource_role_lu rrl
+     , resource_info ri
+     , user u
+ WHERE r.project_id = @pj@
+   AND r.resource_role_id IN (2, 3, 4, 5, 6, 7, 8, 9)
+   AND r.resource_role_id = rrl.resource_role_id
+   AND r.resource_id = ri.resource_id
+   AND ri.resource_info_type_id = 1
+   AND ri.value = u.user_id
+ORDER BY 1;

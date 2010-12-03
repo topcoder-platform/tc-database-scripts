@@ -1,0 +1,22 @@
+SELECT r.referral_desc AS response
+     , COUNT(DISTINCT coder.coder_id) AS resp_count
+     , r.sort
+  FROM job_hit jh
+     , coder
+     , campaign_job_xref cjx
+     , referral r
+     , coder_referral
+     , user u
+ WHERE jh.job_id = cjx.job_id
+   AND jh.user_id = coder_referral.coder_id
+   AND r.referral_id = coder_referral.referral_id
+   AND coder.coder_id = jh.user_id
+   AND cjx.status_id = 1
+   AND (cjx.campaign_id = @cid@)
+   AND (coder.coder_type_id = @ct@)
+   AND u.user_id = coder.coder_id
+   AND u.status = 'A'
+ GROUP BY r.referral_desc
+     , r.referral_id
+     , r.sort
+ ORDER BY r.sort

@@ -1,0 +1,71 @@
+select pt.project_type_name,
+         avg(pi3.start_date - pi2.start_date) as screening,
+         avg(pi9.start_date - pi3.start_date) as review,
+         avg(pi10.start_date - pi9.start_date) as appeals,
+         avg(pi4.start_date - pi10.start_date) as appeals_response,
+         avg(pi5.start_date - pi4.start_date) as aggregation,
+         avg(pi6.start_date - pi5.start_date) as aggregation_review,
+         avg(pi7.start_date - pi6.start_date) as final_fixes,
+         avg(pi8.start_date - pi7.start_date) as final_review,
+         avg(pi8.end_date - pi8.start_date) as component_prep,
+         avg(pi3.start_date - pi2.start_date) +
+         avg(pi9.start_date - pi3.start_date) +
+         avg(pi10.start_date - pi9.start_date) +
+         avg(pi4.start_date - pi10.start_date) +
+         avg(pi5.start_date - pi4.start_date) +
+         avg(pi6.start_date - pi5.start_date) +
+         avg(pi7.start_date - pi6.start_date) +
+         avg(pi8.start_date - pi7.start_date) +
+         avg(pi8.end_date - pi8.start_date) total_average_time
+    from project p,
+         project_type pt,
+         phase_instance pi2,
+         phase_instance pi3,
+         phase_instance pi4,
+         phase_instance pi5,
+         phase_instance pi6,
+         phase_instance pi7,
+         phase_instance pi8,
+         phase_instance pi9,
+         phase_instance pi10
+   where p.PROJECT_STAT_ID =4
+     and p.cur_version = 1
+     and pt.project_type_id = p.project_Type_id 
+     and pi2.project_id = p.project_id
+     and pi2.phase_id = 2
+     and pi2.cur_version = 1
+     and pi2.start_date >= CURRENT - 6 UNITS MONTH
+     and pi3.project_id = p.project_id
+     and pi3.phase_id = 3
+     and pi3.cur_version = 1
+     and pi3.start_date >= CURRENT - 6 UNITS MONTH
+     and pi4.project_id = p.project_id
+     and pi4.phase_id = 4
+     and pi4.cur_version = 1
+     and pi4.start_date >= CURRENT - 6 UNITS MONTH
+     and pi5.project_id = p.project_id
+     and pi5.phase_id = 5
+     and pi5.cur_version = 1
+     and pi5.start_date >= CURRENT - 6 UNITS MONTH
+     and pi6.project_id = p.project_id
+     and pi6.phase_id = 6
+     and pi6.cur_version = 1
+     and pi6.start_date >= CURRENT - 6 UNITS MONTH
+     and pi7.project_id = p.project_id
+     and pi7.phase_id = 7
+     and pi7.cur_version = 1
+     and pi7.start_date >= CURRENT - 6 UNITS MONTH
+     and pi8.project_id = p.project_id
+     and pi8.phase_id = 8
+     and pi8.cur_version = 1
+     and pi8.start_date >= CURRENT - 6 UNITS MONTH
+     and pi9.project_id = p.project_id
+     and pi9.phase_id = 9
+     and pi9.cur_version = 1
+     and pi9.start_date >= CURRENT - 6 UNITS MONTH
+     and pi10.project_id = p.project_id
+     and pi10.phase_id = 10
+     and pi10.cur_version = 1
+     and pi10.start_date >= CURRENT - 6 UNITS MONTH
+group by pt.project_type_name
+order by pt.project_type_name

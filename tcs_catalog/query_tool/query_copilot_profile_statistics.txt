@@ -1,0 +1,29 @@
+select * from
+
+table(multiset(select count(DISTINCT p.project_id) as total_contests_number from project p 
+     inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id != 2 and p.project_status_id != 3 and p.project_category_id != 27
+     inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1 and ri.value = @uid@)) as r1,
+
+table(multiset(select count(DISTINCT p.tc_direct_project_id) as total_projects_number from project p 
+ inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id != 2 and p.project_status_id !=3 and p.project_category_id != 27
+ inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1 and ri.value = @uid@)) as r2,
+
+table(multiset(select count(DISTINCT p.project_id) as failed_contests_number from project p 
+ inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id IN (4, 5, 6, 10, 11) and p.project_category_id != 27
+ inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1 and ri.value = @uid@)) as r3,
+
+table(multiset(select count(DISTINCT p.project_id) as reposted_contests_number from project p 
+ inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_category_id != 27
+ inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1 and ri.value = @uid@
+ inner join linked_project_xref lp on p.project_id = lp.source_project_id and lp.link_type_id = 5)) as r4,
+
+table(multiset(select count(DISTINCT p.project_id) as current_contests_number from project p 
+     inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id = 1 and p.project_category_id != 27
+     inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1 and ri.value = @uid@)) as r5,
+
+table(multiset(select count(DISTINCT p.tc_direct_project_id) as current_projects_number from project p 
+     inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id = 1 and p.project_category_id != 27
+     inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1 and ri.value = @uid@)) as r6,
+
+table(multiset(select cp.reliability, cp.suspension_count, cps.name as status_name, cps.copilot_profile_status_id as status_id from copilot_profile cp, copilot_profile_status cps 
+where cp.copilot_profile_status_id = cps.copilot_profile_status_id and cp.user_id = @uid@))  as r7

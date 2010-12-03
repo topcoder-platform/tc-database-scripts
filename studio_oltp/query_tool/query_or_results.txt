@@ -1,0 +1,5 @@
+select tcs.final_score, tcs.placement, s.submission_id
+  from tcs_catalog:submission tcs
+      , submission s
+ where s.contest_id =  @ct@
+   and s.or_submission_id = tcs.submission_id and tcs.submission_type_id = 1

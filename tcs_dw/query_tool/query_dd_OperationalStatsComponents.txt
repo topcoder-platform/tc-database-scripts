@@ -1,0 +1,35 @@
+select
+  p.project_category_id contest_type,
+  cal.week_year Year, 
+  cal.week_of_year Week_Number,  
+  min(cal.date) as Start_Date_Of_Week,
+  count(*) as Number_Of_Projects,
+  round(case when count(*) = 0 then 0 else sum(case when num_submissions_passed_review > 0 then 1 else 0 end) / count(*) * 100 end, 1) || '%' as Percent_Fulfilled,
+  sum(case when num_valid_submissions = 0 then 1 else 0 end) as Number_With_No_Submissions,
+  round(case when count(*) = 0 then 0 else sum(case when num_valid_submissions = 0 then 1 else 0 end) / count(*) * 100 end, 1) || '%' as Percent_With_No_Submissions,
+  sum(case when num_submissions_passed_review > 0 then 1 else 0 end) as Number_Of_Projects_Passing,
+  sum(num_registrations) as Number_Of_Registrations,
+  round(case when count(*) = 0 then 0 else sum(num_registrations) / count(*) end, 2) as Average_Number_Of_Registrations,
+  sum(num_submissions) as Number_Of_Submissions,
+  round(case when count(*) = 0 then 0 else sum(num_submissions) / count(*) end, 2) as Average_Number_Of_Submissions,
+  sum(num_valid_submissions) as Valid_Submissions,
+  sum(num_submissions_passed_review) as Passing_Submissions,
+  round(case when count(*) = 0 then 0 else sum(num_submissions_passed_review) / count(*) end, 2) as Average_Passing_Submissions,
+  round(case when sum(num_submissions) = 0 then 0 else sum(num_submissions_passed_review) / sum(num_submissions) * 100 end, 1) || '%' as Submission_Effectiveness,
+  round(case when sum(num_registrations) = 0 then 0 else sum(num_submissions_passed_review) / sum(num_registrations) * 100 end, 1) || '%' as Registration_Effectiveness,
+  avg(p.complete_date - p.posting_date) Duration,
+  round( avg (p.avg_final_score) ) Average_Score,
+  sum( case when p.avg_final_score >= 90 then 1 else 0 end ) as Number_Over_90,
+  sum( case when p.avg_final_score < 90 and p.avg_final_score >= 80 then 1 else 0 end ) as Number_Between_80_and_90,
+  sum( case when p.avg_final_score < 80 then 1 else 0 end ) as Number_Less_than_80
+from
+  project p,
+  calendar cal
+where
+  cal.date = date(p.complete_date)
+  and p.complete_date is not null
+--  and p.complete_date < (today-7)
+  and p.project_category_id = @pc@ -- 1 = Design, 2 = Dev
+--  and cal.date between (today-365/2) and today
+--  and category_desc != 'Application'
+group by 1,2,3

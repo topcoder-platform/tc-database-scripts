@@ -1,0 +1,12 @@
+select 
+    num_ratings, count(*) as num_coders
+from
+    rating cr,
+    room_result rs
+where
+    num_ratings > 0 and
+    cr.coder_id = rs.coder_id and
+    rs.round_id = @rd@ and
+    rs.attended = 'Y'
+group by num_ratings
+order by num_ratings desc

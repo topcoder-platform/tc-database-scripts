@@ -1,0 +1,6 @@
+select coder_id, count(*) as wins
+  from division_winners
+ where division_id = @dn@
+   and round_type_id = 1
+group by coder_id
+order by 2 desc

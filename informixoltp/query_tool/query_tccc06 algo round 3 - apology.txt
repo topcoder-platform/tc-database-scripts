@@ -1,0 +1,3 @@
+SELECT email AS email_address
+     , handle
+FROM email_temp

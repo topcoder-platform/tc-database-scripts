@@ -1,0 +1,5 @@
+SELECT u.email AS email_address
+     , u.handle
+FROM email_user u
+WHERE u.user_id IN
+(select user_id from user_terms_of_use_xref where terms_of_use_id = 20523)

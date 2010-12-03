@@ -1,0 +1,61 @@
+select u.handle
+     , u.first_name
+     , u.last_name
+     , e.address as email
+     , a.address1
+     , a.address2
+     , a.address3
+     , a.city
+     , a.state_code
+     , a.zip
+     , a.province
+     , s.name
+     , co.country_name
+     , da1.demographic_answer_text as degree_program
+     , da2.demographic_answer_text as major
+     , dr3.demographic_response as major_desc
+     , da4.demographic_answer_text as employer
+     , case when (select count(*) from affidavit where user_id = u.user_id and notarized = 1) > 0 then 'yes' else 'no' end as notorized_affidavit
+     , (select t.name from user_tax_form_xref x, tax_form t where x.tax_form_id = t.tax_form_id and x.user_id = u.user_id and x.status_id = 60) as tax_form
+     , case when exists (select '1' from response where question_id = 58 and user_id = u.user_id) then 'yes' else 'no' end as answered_questionaire
+     , case when exists (select '1' from coder_image_xref x, image i where i.image_type_id = 1 and x.image_id = i.image_id and display_flag = 1 and coder_id = u.user_id) then 'yes' else 'no' end as has_headshot
+     , ct.coder_type_desc
+  from user u
+     , coder c
+     , user_address_xref x
+     , address a
+     , country co
+     , email e
+     , coder_type ct
+     , outer (demographic_response dr1,demographic_answer da1)
+     , outer (demographic_response dr2,demographic_answer da2)
+     , outer demographic_response dr3
+     , outer (demographic_response dr4,demographic_answer da4)
+     , outer (current_school cs, school s)
+ where da1.demographic_question_id = 16
+   and da1.demographic_question_id = dr1.demographic_question_id
+   and da1.demographic_answer_id = dr1.demographic_answer_id
+   and dr1.user_id = u.user_id
+   and da2.demographic_question_id = 17
+   and da2.demographic_question_id = dr2.demographic_question_id
+   and da2.demographic_answer_id = dr2.demographic_answer_id
+   and dr2.user_id = u.user_id
+   and dr3.user_id = u.user_id
+   and dr3.demographic_question_id = 14
+   and c.coder_id = u.user_id
+   and co.country_code = a.country_code
+   and x.user_id = u.user_id
+   and x.address_id = a.address_id
+   and a.address_type_id = 2
+   and cs.coder_id = u.user_id
+   and cs.school_id = s.school_id
+   and e.user_id = u.user_id
+   and e.primary_ind = 1
+   and c.coder_type_id = ct.coder_type_id
+   and da4.demographic_question_id = 15
+   and da4.demographic_question_id = dr4.demographic_question_id
+   and da4.demographic_answer_id = dr4.demographic_answer_id
+   and dr4.user_id = u.user_id
+   and (u.user_id in (select coder_id from room_result where round_id = 10111  and advanced = 'Y')
+    or u.user_id in (select user_id from user where handle in 
+('kiveol','PE','zjq','smallka','vividmxx','daiwb','kakarotto','magicpig','maone','nicka81','marijnk','sql_lall','antimatter','Indemar','oldbam','finrod')))

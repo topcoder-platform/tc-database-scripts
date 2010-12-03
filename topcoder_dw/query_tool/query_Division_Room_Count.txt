@@ -1,0 +1,10 @@
+SELECT NVL(RANGE(room_id) + 1, 0)
+    FROM room
+    WHERE round_id = 
+    (SELECT MAX(round_id) AS round_id
+     FROM round
+     WHERE calendar_id =
+     (SELECT MAX(calendar_id)
+      FROM round
+       WHERE round_type_id IN (1,2,10,20)))
+    AND division_id = @dn@

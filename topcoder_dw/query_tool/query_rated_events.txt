@@ -1,0 +1,4 @@
+select r.coder_id, r.num_ratings
+  from algo_rating r
+ where r.algo_rating_type_id = 1
+ order by r.num_ratings desc

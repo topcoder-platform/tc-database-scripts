@@ -1,0 +1,36 @@
+select 
+sum(case when cp.final_points = 0 then 1 else 0 end) as bucket1,
+sum(case when cp.final_points >= ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .30) and
+        cp.final_points < ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .40) then 1 else 0 end) as bucket2,
+sum(case when cp.final_points >= ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .40) and
+        cp.final_points < ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .50) then 1 else 0 end) as bucket3,
+sum(case when cp.final_points >= ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .50) and
+        cp.final_points < ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .60) then 1 else 0 end) as bucket4,
+sum(case when cp.final_points >= ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .60) and
+        cp.final_points < ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .70) then 1 else 0 end) as bucket5,
+sum(case when cp.final_points >= ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .70) and
+        cp.final_points < ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .80) then 1 else 0 end) as bucket6,
+sum(case when cp.final_points >= ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .80) and
+        cp.final_points < ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .90) then 1 else 0 end) as bucket7,
+sum(case when cp.final_points >= ((select points from problem where problem.problem_id = @pm@  and problem.division_id = @dn@ and problem.round_id = @rd@) * .90) then 1 else 0 end) as bucket8,
+'#C99' as bucket1color,
+'#9C9' as bucket2color,
+'#99C' as bucket3color,
+'#CC9' as bucket4color,
+'#9CC' as bucket5color,
+'#C96' as bucket6color,
+'#999' as bucket7color,
+'#CFC' as bucket8color,
+'bucket1label' as bucket1label,
+'bucket1label' as bucket2label,
+'bucket1label' as bucket3label,
+'bucket1label' as bucket4label,
+'bucket1label' as bucket5label,
+'bucket1label' as bucket6label,
+'bucket1label' as bucket7label,
+'bucket1label' as bucket8label
+from coder_problem cp
+where cp.problem_id = @pm@
+and cp.submit_time > 0
+and cp.round_id = @rd@
+and cp.division_id = @dn@

@@ -1,0 +1,9 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , user_notify_xref n
+ WHERE u.user_id = n.user_id
+   AND u.status = 'A'
+   AND n.notify_id IN (10,11)
+   AND u.user_id NOT IN
+(select user_id from event_registration where event_id = 3004)

@@ -1,0 +1,17 @@
+select q.question_text
+     , a.answer_text
+     , q.question_id
+     , count(*)
+  from survey_question sq
+     , question q
+     , answer a
+     , response r
+     , user u
+ where sq.survey_id = 216
+   and sq.question_id = q.question_id
+   and q.question_id = r.question_id
+   and r.question_id = a.question_id
+   and r.answer_id = a.answer_id
+   and u.user_id = r.user_id
+group by 1,2,3
+  order by q.question_id asc

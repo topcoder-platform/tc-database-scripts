@@ -1,0 +1,5 @@
+select c.name, count(*)
+  from csf_oltp:contest c, csf_oltp:contest_registration cr
+where c.contest_id = cr.contest_id
+  and c.contest_status_id = 2
+group by c.name

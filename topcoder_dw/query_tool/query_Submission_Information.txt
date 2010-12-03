@@ -1,0 +1,20 @@
+
+SELECT c.handle, p.class_name, p.method_name, ps.status_desc, ps.submission_text
+  FROM problem_submission ps
+       ,coder c
+       ,room_result rr
+       ,problem p
+ WHERE c.coder_id = rr.coder_id
+   AND ps.coder_id = c.coder_id
+   AND ps.coder_id = rr.coder_id
+   AND ps.round_id = rr.round_id
+   AND ps.problem_id = p.problem_id
+   AND p.round_id = rr.round_id
+   AND p.round_id = ps.round_id
+   AND p.division_id = rr.division_id
+   AND ps.last_submission = 1
+   AND p.division_id = @dn@
+   AND ps.status_id in (@pss@)
+   AND rr.round_id = @rd@
+   AND rr.round_id > 4100
+ ORDER BY p.class_name

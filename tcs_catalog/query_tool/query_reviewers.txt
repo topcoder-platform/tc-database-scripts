@@ -1,0 +1,12 @@
+select (select su.user_id
+          from security_user su
+         where su.login_id = ra.user_id) as handle
+     , ra.user_id
+     , ra.primary_ind as primary
+     , rr.review_resp_name as reviewer_type
+     , rr.review_resp_id
+  from outer rboard_application ra
+     , review_resp rr
+ where project_id = @pj@
+   and rr.phase_id = @ph@
+   and ra.review_resp_id = rr.review_resp_id

@@ -1,0 +1,48 @@
+select
+  u.handle, u.email as email_address
+from
+  email_user u
+where
+  u.handle in
+  (
+    '0xFF', '80x86', 'Achilles_2005', 'adamg', 'adic', 'agsharath', 'ajie', 'AK_47', 'akhil_bansal',
+    'aksonov', 'alancer', 'albertwang', 'AleaActaEst', 'Alexus', 'ali_raza_shaikh', 'Altrag', 'aminallam', 'antimatter',
+    'argolite', 'arunprakashb', 'arylio', 'aspnetFlex', 'assistant', 'aubergineanode', 'aussie', 'azure_lim', 'basuki',
+    'bbskill', 'bbxiong', 'BeBetter', 'beckx', 'being', 'bendlund', 'BigDaddy', 'billow', 'biotrail',
+    'BLE', 'Blues', 'boba5551', 'bohuss', 'brain_cn', 'bwoodward', 'Cadla', 'CagedRat', 'capitalist',
+    'carlogiordano', 'caru', 'Charizard', 'Chenhong', 'chippydip', 'ch_music', 'chuchao333', 'cluster2006', 'cnettel',
+    'codedoc', 'Code-Guru', 'codenameHarmony', 'colau', 'cosherx', 'crazyb0y', 'crazypigs', 'ctt', 'cucu',
+    'custos', 'cyberjag', 'daddum', 'DanLazar', 'danno', 'darko_aleksic', 'DaTwinkDaddy', 'dauphin', 'dcp',
+    'deadairspace', 'dfn', 'disorder', 'ditzone', 'djackmania', 'dmks', 'dplass', 'duner', 'duxiaoyang',
+    'edx', 'Effect', 'emka207', 'enefem21', 'evilisneo', 'extra', 'fabrizyo', 'fastprogrammer', 'FatMou',
+    'fiercedrake', 'FireIce', 'fivestarwy', 'flytoj2ee', 'fuyun', 'fvillaf', 'garyk', 'ged', 'georgepf',
+    'gevak', 'Ghostar', 'gladius', 'gniuxiao', 'goer', 'Gongsi', 'googlesmkm', 'GuanBin', 'Hacker_QC',
+    'hanno', 'hardstone', 'hbphinex', 'hefeng', 'hfx', 'hohosky', 'holeycheez', 'holmana', 'hotblue',
+    'humblefool', 'iamajia', 'idx', 'Igor_Y', 'iKnown', 'ilovewii', 'Indemar', 'index', 'Iquadrat',
+    'iRabbit', 'irori', 'isv', 'ivan_metelsky', 'ivern', 'j3_guile', 'janusz.p', 'jfjiang', 'JGeeks',
+    'jorsef', 'jueyey', 'kakarotto', 'kangkangakak', 'kaqi072821', 'Karalabe', 'kats', 'Ken26', 'KickDream',
+    'kinfkong', 'King_Bette', 'KingStone', 'kinzz', 'kiveol', 'kkkk9', 'KLW', 'knuthocean', 'krabishe',
+    'KSD', 'kshatriyan', 'kudlatyPL', 'kyky', 'kzhu', 'leben', 'linke1125', 'linwe', 'littleboss',
+    'littlebull', 'littleken', 'liulike', 'liuliquan', 'lmmortal', 'loneknightpy', 'LostHunter', 'ltdtl', 'Luca',
+    'lunarkid', 'Lunarmony', 'ly', 'Mafy', 'magicat', 'magicpig', 'malcin', 'maone', 'Margarita',
+    'maritza', 'marius_buzea', 'marius_neo', 'marsavic', 'masknull', 'mateuszek', 'matias', 'maxsense', 'mayday',
+    'McDez', 'mgmg', 'MiG-29', 'minhu', 'mishagam', 'misof', 'mistr305', 'moavenat', 'mohamede1945',
+    'moonli', 'MoreLucky', 'MPhk', 'msnbgood', 'muxjvduo', 'myrtactle', 'myxgyy', 'n0vice', 'neera',
+    '_NeT_', 'netsafe', 'nhzp339', 'nicka81', 'oldbig', 'Olesya', 'Olexiy', 'oninkxronda', 'OnlyChoice',
+    'onsky', 'oodinary', 'opi', 'OtakuDesign', 'oton', 'PabloGilberto', 'PE', 'peony', 'peppino1105',
+    'pindut', 'pinoydream', 'pixelcurves', 'ploh', 'pmadden', 'poddd', 'Poggale', 'Pops', 'preben',
+    'prunthaban', 'quazee', 'quesks', 'r1cs1', 'RachaelLCook', 'radium', 'rage_true', 'Ragnarok', 'raidenx2',
+    'RatsOnParade', 'restarter', 'retunsky', 'rhyme', 'rnielsen', 'Rockets', 'roma', 'romanoTC', 'royappa',
+    'RoyItaqi', 'RRLevering', 'ry4nsm1th', 'saarixx', 'saevio', 'samatva.net', 'sanjaya', 'Savior', 'sekarmg',
+    'serine', 'sghao126', 'shell', 'shen75', 'shevaknu', 'ShindouHikaru', 'sidonath', 'sinaddcos', 'sindu',
+    'skatou', '_skip_', 'slion', 'smallka', 'SmarterHammer', 'smnaha', 'snguyen', 'snower', 'SO?',
+    'sourav24783', 'southwang', 'SpaceFlyer', 'sparemax', 'sql_lall', 'srowen', 'Standlove', 'stevenfrog', 'still',
+    'stylecheck', 'superZZ', 'tactoth', 'TAG', 'TangentZ', 'tangliangl', 'tberthelot', 'tc', 'telly12',
+    'the_best', 'TheCois', 'ThinMan', 'tingyifang', 'Tricia_Tjia', 'tushak', 'tweg', 'u2001137', 'uhmateush',
+    'Urmass', 'urtks', 'valeriy', 'Vasyl(alphacom)', 'venco', 'Veonax', 'victor_lxd', 'victorsam', 'vikasrohit',
+    'viking_hz', 'virose', 'visualage', 'vividmxx', 'vlad_D', 'volt', 'Vovka', 'waits', 'wang_liang',
+    'wangqing', 'Wendell', 'wf', 'wiedzmin', 'will.xie', 'WishingBone', 'woodjhon', 'WSX', 'xiaowulang',
+    'xin135', 'xOberon', 'xor_freecity', 'Xuchen', 'XuChuan', 'xxiyy', 'Yarin', 'Yeung', 'yext',
+    'Yi_Zhang', 'youzai', 'yrt', 'zaixiang', 'zhangling', 'zhengjuyu', 'zhuzeyuan', 'zjq', 'zjupigeon',
+    'zjutangtl', 'znyyddf', 'zsudraco', 'Zulander', 'zz_zju'
+  )

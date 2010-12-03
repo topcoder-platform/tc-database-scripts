@@ -1,0 +1,18 @@
+select 
+calendar.year
+, case
+  when project_category_id = 1 then 'Design'
+  when project_category_id = 2 then 'Development'
+end as phase
+, count(unique component_id) as components
+from project p,
+calendar
+where calendar.date = (select min(date(posting_date) - (cal.day_of_year - 1) units day)
+      from project p2, calendar cal
+      where cal.date = date(posting_date)
+      and p.project_id = p2.project_id
+)
+and p.status_id not in (3)
+and p.project_category_id in (1,2)
+group by 1,2
+order by 1 desc,2

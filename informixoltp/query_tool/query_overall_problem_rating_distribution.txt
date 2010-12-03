@@ -1,0 +1,17 @@
+SELECT pr.question_id
+     , LOWER(prq.question) || 'All' AS name
+     , SUM(CASE WHEN pr.problem_rating = 1 THEN 1 ELSE 0 END) as rating_1
+     , SUM(CASE WHEN pr.problem_rating = 2 THEN 1 ELSE 0 END) as rating_2
+     , SUM(CASE WHEN pr.problem_rating = 3 THEN 1 ELSE 0 END) as rating_3
+     , SUM(CASE WHEN pr.problem_rating = 4 THEN 1 ELSE 0 END) as rating_4
+     , SUM(CASE WHEN pr.problem_rating = 5 THEN 1 ELSE 0 END) as rating_5
+     , SUM(CASE WHEN pr.problem_rating = 6 THEN 1 ELSE 0 END) as rating_6
+     , SUM(CASE WHEN pr.problem_rating = 7 THEN 1 ELSE 0 END) as rating_7
+     , SUM(CASE WHEN pr.problem_rating = 8 THEN 1 ELSE 0 END) as rating_8
+     , SUM(CASE WHEN pr.problem_rating = 9 THEN 1 ELSE 0 END) as rating_9
+     , SUM(CASE WHEN pr.problem_rating = 10 THEN 1 ELSE 0 END) as rating_10
+  FROM problem_rating pr
+     , problem_rating_question prq
+ WHERE pr.question_id = prq.question_id
+   AND pr.problem_id = @pm@
+ GROUP BY pr.question_id, prq.question

@@ -1,0 +1,6 @@
+select distinct e.address 
+ from rboard_user r, email e
+where r.project_type_id = DECODE(@pt@, 0, r.project_type_id, @pt@)
+  and r.catalog_id = DECODE(@catID@, 0,  r.catalog_id, @catID@)
+  and r.status_id = 100
+  and r.user_id = e.user_id

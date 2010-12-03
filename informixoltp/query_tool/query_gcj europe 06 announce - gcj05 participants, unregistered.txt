@@ -1,0 +1,20 @@
+select u.handle, e.address AS email_address
+from gcj05_oltp:user u, gcj05_oltp:address a, gcj05_oltp:user_address_xref xref, gcj05_oltp:country cy, gcj05_oltp:email e
+where u.user_id = xref.user_id
+	and xref.address_id = a.address_id
+	and a.country_code = cy.country_code
+ 	and u.user_id = e.user_id
+   	and u.status = 'A'
+and cy.country_name IN ('Bahrain', 'Cyprus', 'Egypt', 'Iran (Islamic Republic of)', 'Iraq', 'Israel', 'Jordan', 'Kuwait', 'Lebanon', 'Oman', 'Qatar', 'Saudi Arabia', 'Syrian Arab Republic', 'Turkey', 'United Arab Emirates', 'Yemen',
+'Algeria', 'Libyan Arab Jamahiriya', 'Morocco', 'Sudan', 'Tunisia', 'Western Sahara',
+'Benin', 'Burkina Faso', 'Cape Verde', 'Cote D''Ivoire', 'Gambia', 'Ghana', 'Guinea', 'Guinea-Bissau', 'Liberia', 'Mali', 'Mauritania', 'Niger', 'Nigeria', 'Senegal', 'Sierra Leone', 'Togo',
+'Angola', 'Cameroon', 'Central African Republic', 'Chad', 'Congo', 'Equatorial Guinea', 'Gabon', 'Zaire', 'Sao Tome and Principe',
+'Burundi', 'Comoros', 'Djibouti', 'Eritrea', 'Ethiopia', 'Kenya', 'Madagascar', 'Malawi', 'Mauritius', 'Mozambique', 'Rwanda', 'Seychelles', 'Somalia', 'Tanzania, United Republic of', 'Uganda', 'Zambia', 'Zimbabwe',
+'Botswana', 'Lesotho', 'Namibia', 'South Africa', 'Swaziland', 'St. Helena', 'Mayotte', 'Reunion', 'Belarus', 'Bulgaria', 'Czech Republic', 'Hungary', 'Moldova, Republic of', 'Poland', 'Romania', 'Russian Federation', 'Slovakia', 'Ukraine',
+'Denmark', 'Estonia', 'Faroe Islands', 'Finland', 'Iceland', 'Ireland', 'Latvia', 'Lithuania', 'Norway', 'Svalbard and Jan Mayen Islands', 'Sweden', 'United Kingdom',
+'Albania', 'Andorra', 'Bosnia and Herzegowina', 'Croatia', 'Gibraltar', 'Greece', 'Italy', 'Macedonia, Former Yugoslav Rep. of', 'Malta', 'Portugal', 'San Marino', 'Slovenia', 'Spain', 'Vatican City State (Holy See)',
+'Austria', 'Belgium', 'France', 'Germany', 'Liechtenstein', 'Luxembourg', 'Monaco', 'Netherlands', 'Switzerland', 'Turkey', 'Armenia')
+and e.address NOT IN
+(select e.address 
+from gcje06_oltp:user u, gcje06_oltp:email e
+where u.user_id = e.user_id)

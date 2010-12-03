@@ -1,0 +1,9 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , user_notify_xref n
+ WHERE u.status = 'A'
+   AND u.user_id = n.user_id
+   AND n.notify_id = 1
+   AND u.user_id NOT IN
+(select user_id from user_terms_of_use_xref where terms_of_use_id = 20595)

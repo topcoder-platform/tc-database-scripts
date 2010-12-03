@@ -1,0 +1,31 @@
+select m.year
+     , m.month
+     , m.project_name
+     , case when sum(case when project_category_id = 1 then 1 else 0 end) = 0 then interval(0) day to day else
+         (sum(case when project_category_id = 1 then duration else interval(0) day to day end) 
+          / sum(case when project_category_id = 1 then 1 else 0 end)) end as des_duration
+     , sum(case when project_category_id = 1 then 1 else 0 end) as des_num_projects
+     , case when sum(case when project_category_id = 2 then 1 else 0 end) = 0 then interval(0) day to day else
+         (sum(case when project_category_id = 2 then duration else interval(0) day to day end) 
+          / sum(case when project_category_id = 2 then 1 else 0 end)) end as dev_duration
+     , sum(case when project_category_id = 2 then 1 else 0 end) as dev_num_projects
+  from table(multiset(
+select year(min(pp.actual_start_time)) as year
+     , month(min(pp.actual_start_time)) as month
+     , pi.value as project_name
+     , pcl.project_category_id as project_category_id
+     , max(pp.actual_end_time) - min(pp.actual_start_time) as duration
+  from project p
+     , project_phase pp
+     , project_category_lu pcl
+     , project_info pi
+ where p.project_status_id = 7
+   and p.project_category_id = pcl.project_category_id
+   and pcl.project_type_id = 1
+   and p.project_id = pp.project_id
+   and p.project_id = pi.project_id
+   and pi.project_info_type_id = 6
+group by pp.project_id, pcl.project_category_id, pi.value
+)) m
+group by m.year, m.month, m.project_name
+order by m.year desc, m.month desc, m.project_name desc

@@ -1,0 +1,38 @@
+select total_contests_number, total_projects_number, failed_contests_number, reposted_contests_number, current_contests_number, current_projects_number, r1.user_id
+from
+table(multiset(select count(DISTINCT p.project_id) as total_contests_number, cp.user_id from project p
+     inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id != 2 and p.project_status_id != 3 and p.project_category_id != 27
+     inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1
+     right outer join copilot_profile cp on cp.user_id = ri.value group by cp.user_id)) as r1
+,
+table(multiset(select count(DISTINCT p.tc_direct_project_id) as total_projects_number, cp.user_id from project p
+     inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id != 2 and p.project_status_id !=3 and p.project_category_id != 27
+     inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1
+     right outer join copilot_profile cp on cp.user_id = ri.value group by cp.user_id)) as r2
+,
+table(multiset(select count(DISTINCT p.project_id) as failed_contests_number, cp.user_id from project p
+     inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id IN (4, 5, 6, 10, 11) and p.project_category_id != 27
+     inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1
+     right outer join copilot_profile cp on cp.user_id = ri.value group by cp.user_id)) as r3
+,
+table(multiset(select count(DISTINCT p.project_id) as reposted_contests_number, cp.user_id from project p
+     inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_category_id != 27
+     inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1
+     inner join linked_project_xref lp on p.project_id = lp.source_project_id and lp.link_type_id = 5
+     right outer join copilot_profile cp on cp.user_id = ri.value group by cp.user_id)) as r4
+,
+table(multiset(select count(DISTINCT p.project_id) as current_contests_number, cp.user_id from project p
+     inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id = 1 and p.project_category_id != 27
+     inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1
+     right outer join copilot_profile cp on cp.user_id = ri.value group by cp.user_id)) as r5
+,
+table(multiset(select count(DISTINCT p.tc_direct_project_id) as current_projects_number, cp.user_id from project p
+     inner join resource r on r.project_id = p.project_id and r.resource_role_id = 14 and p.project_status_id = 1 and p.project_category_id != 27
+     inner join resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1
+     right outer join copilot_profile cp on cp.user_id = ri.value group by cp.user_id)) as r6
+where
+r2.user_id = r1.user_id and
+r2.user_id = r3.user_id and
+r3.user_id = r4.user_id and
+r4.user_id = r5.user_id and
+r5.user_id = r6.user_id

@@ -1,0 +1,12 @@
+select sum(case when cs.status_id = 130 then 1 else 0 end), 
+u.handle, e.address as email_address
+ from gicj05_oltp:user u, gicj05_oltp:compilation c, gicj05_oltp:component_state cs, gicj05_oltp:email e
+where c.open_time > 1109492760000 
+and cs.component_state_id = c.component_state_id 
+and cs.round_id > 2000 
+and cs.round_id < 7241 
+and u.user_id = cs.coder_id 
+and u.user_id = e.user_id
+ and e.primary_ind = 1
+group by 2,3
+ having sum(case when cs.status_id = 130 then 1 else 0 end) < 2

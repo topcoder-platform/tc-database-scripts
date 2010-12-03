@@ -1,0 +1,4 @@
+select level_id
+     , level
+     , level_desc
+  from level_lu

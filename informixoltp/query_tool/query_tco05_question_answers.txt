@@ -1,0 +1,14 @@
+select u.handle
+     , q.question_text as question
+     , r.response
+     , lower(u.handle)
+     , q.question_id
+  from user u
+     , survey_question sq
+     , question q
+     , response r
+ where r.user_id = u.user_id
+   and r.question_id = q.question_id
+   and q.question_id = sq.question_id
+   and sq.survey_id = 210
+ order by 4, q.question_id

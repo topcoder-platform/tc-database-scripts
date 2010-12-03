@@ -1,0 +1,34 @@
+SELECT r.short_name AS contest_name
+     , TO_CHAR(seg.start_time, '%iY-%m-%d') AS contest_date
+     , TO_CHAR(seg.start_time, '%R') AS start_time
+     , TO_CHAR(seg.start_time, '%A') as day_of_week
+     , nums.registrants
+     , nums.participants
+     , case when nums.registrants = 0 then 0 else trunc(nums.participants/nums.registrants*100,2) end as participate_pct
+     , nums.new_participants
+     , case when nums.participants = 0 then 0 else trunc(nums.new_participants/nums.participants*100,2) end as new_participate_pct
+     , nums.pro_participants
+     , case when nums.participants = 0 then 0 else trunc(nums.pro_participants/nums.participants*100,2) end as pro_participate_pct
+     , case when nums.participants = 0 then 0 else trunc(nums.new_pro_participants/nums.participants*100,2) end as new_pro_participate_pct
+     , (select sum(rp.paid) from round_payment rp where rp.round_id= r.round_id) as money
+  FROM round r
+     , round_segment seg
+     , table(multiset(select sum(case when 1=1 then 1 else 0 end) as registrants
+                           , SUM(case WHEN attended = 'Y' THEN 1 ELSE 0 END) AS participants
+                           , SUM(case WHEN attended = 'Y' AND old_rating = 0 THEN 1 ELSE 0 END) AS new_participants
+                           , SUM(case WHEN attended = 'Y' AND co.coder_type_id = 2 THEN 1 ELSE 0 END) AS pro_participants
+                           , SUM(case WHEN attended = 'Y' AND old_rating = 0 AND co.coder_type_id=2 THEN 1 ELSE 0 END) AS new_pro_participants
+                           , r.round_id
+                       from room_result rr
+                           , coder co
+                           , round r
+                       where rr.coder_id = co.coder_id
+                         and rr.round_id = r.round_id
+                         and r.round_type_id = 1
+                       group by r.round_id)) nums
+ where r.round_type_id = 1
+   and seg.round_id = r.round_id
+   and seg.segment_id= 2
+   and r.short_name is not null
+   and r.round_id = nums.round_id
+ ORDER BY 2

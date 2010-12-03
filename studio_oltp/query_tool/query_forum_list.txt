@@ -1,0 +1,1 @@
+select forumid as forum_id, name from studio_jive:jiveforum where categoryid = 3

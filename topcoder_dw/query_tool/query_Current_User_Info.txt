@@ -1,0 +1,12 @@
+
+SELECT (SELECT count(*)
+          FROM coder_image_xref cix
+               ,image i
+         WHERE cix.image_id = i.image_id
+           AND cix.coder_id = c.coder_id
+           AND i.image_type_id = 1) as has_image
+       ,c.activation_code
+       ,c.handle
+       ,c.coder_id
+  FROM coder c
+ WHERE c.coder_id = @cu@

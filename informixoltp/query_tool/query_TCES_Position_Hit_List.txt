@@ -1,0 +1,69 @@
+SELECT c.coder_id
+     , jh.job_id
+     , u.handle
+     , (CASE WHEN r.num_ratings = 0 THEN 'Not Rated' ELSE ''||r.rating END) AS rating
+     , r.rating AS rating_sort
+     , (CASE WHEN a.state_code = 'ZZ' THEN '' ELSE a.state_code END) as state_code
+     , (CASE WHEN NVL(a.state_code, '') = '' THEN 'ZZ' ELSE a.state_code END) as state_code_sort 
+     , country.country_name AS country_code
+     , ct.coder_type_desc
+     , (CASE WHEN c.coder_type_id = 1 THEN CASE WHEN NVL(s.short_name, s.name)='None Specified' THEN '' ELSE NVL(s.short_name, s.name) END
+             ELSE 'N/A' END) AS school_name
+     , (CASE WHEN NVL(s.short_name, NVL(s.name, 'None Specified')) = 'None Specified' THEN 'zzzzzz' ELSE NVL(s.short_name, s.name) END) as school_name_sort
+     , (CASE WHEN NVL(a.state_code, '') = '' THEN 'ZZ' ELSE a.state_code END) as state_code_sort 
+     , TO_CHAR(jh.timestamp, '%m/%d/%iY') as hit_date
+     , jh.timestamp as hit_date_sort
+     , trim((CASE WHEN c.coder_type_id = 1 THEN cs.gpa || '/' || cs.gpa_scale
+             ELSE 'N/A' END)) as gpa
+     , (CASE WHEN c.coder_type_id = 1 AND NVL(cs.gpa_scale, 0) <> 0 
+             THEN cs.gpa/cs.gpa_scale ELSE 0 END) as gpa_sort 
+     , da2.demographic_answer_text AS grad_month
+     , da1.demographic_answer_text AS grad_year
+     , NVL(da1.demographic_answer_text, 'zzzzz') as grad_year_sort
+     , (SELECT count(*)
+          FROM resume r
+         WHERE r.coder_id = c.coder_id) as has_resume
+     , l.language_name
+     , rdev.rating as dev_rating
+     , rdes.rating as design_rating
+  FROM user u
+     , rating r
+     , job_hit jh
+     , coder_type ct
+     , country
+     , coder c
+     , address a
+     , user_address_xref uax
+     , OUTER tcs_catalog:user_rating rdev
+     , outer tcs_catalog:user_rating rdes
+     , OUTER (current_school cs, OUTER school s)
+     , OUTER (demographic_response dr1, OUTER demographic_answer da1)
+     , OUTER (demographic_response dr2, OUTER demographic_answer da2)
+     , language l
+ WHERE jh.job_id = @jid@
+   and uax.user_id = u.user_id
+   and uax.address_id = a.address_id
+   and a.address_type_id = 2
+   AND u.user_id = jh.user_id
+   AND r.coder_id = jh.user_id
+   AND c.coder_id = jh.user_id
+   AND cs.coder_id = c.coder_id
+   AND ct.coder_type_id = c.coder_type_id
+   AND country.country_code = a.country_code
+   AND dr1.user_id = c.coder_id
+   AND dr1.demographic_question_id = 18
+   AND dr1.demographic_answer_id = da1.demographic_answer_id
+   AND dr1.demographic_question_id = da1.demographic_question_id
+
+   AND dr2.user_id = c.coder_id
+   AND dr2.demographic_question_id = 23
+   AND dr2.demographic_answer_id = da2.demographic_answer_id
+   AND dr2.demographic_question_id = da2.demographic_question_id
+   AND u.status = 'A'
+   AND c.language_id = l.language_id
+   AND cs.school_id = s.school_id
+   and rdev.user_id = u.user_id
+   and rdev.phase_id = 113
+   and rdes.user_id= u.user_id
+   and rdes.phase_id = 112
+ ORDER BY rating_sort DESC

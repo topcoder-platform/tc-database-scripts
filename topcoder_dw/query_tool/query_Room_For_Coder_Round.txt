@@ -1,0 +1,5 @@
+
+SELECT NVL(MAX(room_id), 0)
+FROM room_result
+WHERE round_id = @rd@
+AND coder_id = @cr@

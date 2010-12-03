@@ -1,0 +1,10 @@
+select first 15 cs.coder_id, u.handle, sum(points) as points 
+from component_state cs,
+user u
+where cs.status_id = 150
+and cs.round_id = 7229
+and u.user_id = cs.coder_id
+and cs.coder_id not in (select user_id from group_user where group_id in (13,14))
+group by 1,2
+having sum(points) > 0
+order by points desc

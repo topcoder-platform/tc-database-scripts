@@ -1,0 +1,81 @@
+select u.user_id
+     , u.handle
+     , (select count(*) 
+          from contest_registration cr
+             , contest c
+             , event_registration er
+         where cr.contest_id = c.contest_id
+           and cr.user_id = u.user_id
+           and c.event_id = @eid@
+           and c.end_time < current
+           and er.user_id = u.user_id
+           and exists (select 1 from contest_result where contest_id = c.contest_id)
+           and er.eligible_ind = 1
+           and er.event_id = c.event_id
+           and er.create_date < cr.create_date) as completed_contests
+     , completed.points
+     , curr.current_contests
+     , curr.potential_points
+     , nvl(completed.points, 0) + curr.potential_points as total_potential_points
+     , u.handle_lower
+  from user u
+     , outer table(multiset(
+          select sum(case when p.place = 1 then 17 
+                          when p.place = 2 then 15
+                          when p.place = 3 then 13
+                          when p.place = 4 then 10
+                          when p.place = 5 then 7
+                          else 0 end) as points
+               , s.submitter_id
+            from submission_prize_xref spx
+               , prize p,submission s
+               , submission_review sr
+               , contest c 
+               , event_registration er
+               , contest_registration creg
+           where spx.submission_id = s.submission_id
+             and creg.user_id = s.submitter_id
+             and creg.contest_id = c.contest_id
+             and s.contest_id = c.contest_id
+             and spx.prize_id = p.prize_id
+             and c.event_id = @eid@
+             and er.event_id = c.event_id
+             and er.eligible_ind = 1
+             and er.user_id = creg.user_id
+             and er.create_date < creg.create_date
+             and sr.submission_id = s.submission_id
+             and sr.review_status_id = 1
+             and c.end_time < current
+             and c.contest_status_id = 2
+           group by s.submitter_id)) completed
+     , outer table(multiset(
+          select count(*) as current_contests
+               , count(*) * 10 as potential_points
+               , cr.user_id
+            from contest_registration cr
+               , contest c 
+               , event_registration er
+           where cr.contest_id = c.contest_id 
+             and c.event_id = @eid@
+             and er.event_id = c.event_id
+             and er.user_id = cr.user_id
+             and er.eligible_ind = 1
+             and er.create_date < cr.create_date
+             and c.contest_status_id = 2
+             and ((c.end_time > current and c.start_time < current) 
+              or not exists (select 1 from contest_result where contest_id = c.contest_id))
+           group by cr.user_id)) curr
+ where u.status= 'A'
+   and u.user_id = completed.submitter_id
+   and u.user_id = curr.user_id
+   and u.user_id in (select cr.user_id 
+                 from contest_registration cr
+                    , contest c
+                    , event_registration er
+                where cr.contest_id = c.contest_id
+                  and er.event_id = @eid@
+                  and c.event_id= er.event_id
+                  and er.user_id = cr.user_id
+                  and er.eligible_ind = 1
+                  and cr.create_date > er.create_date)
+order by completed.points desc, total_potential_points desc, u.handle_lower asc

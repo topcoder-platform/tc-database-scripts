@@ -1,0 +1,35 @@
+select --+ ORDERED
+       rr.coder_id as user_id
+     , rdn.rating > rdo.rating as color_increase
+     , rdo.color as old_color
+     , rdn.color as new_color
+     , rdo.rating as old_rating
+     , rdn.rating as new_rating
+     , r.short_name
+     , r.round_id
+     , c.handle_lower
+     , rdn.color_sort
+     , cal.date
+  from round r
+     , round_type_lu rt
+     , calendar cal
+     , room_result rr
+     , coder c
+     , algo_rating ra
+     , rating_dim rdo
+     , rating_dim rdn
+ where cal.date > current - 30 units day
+   and r.calendar_id = cal.calendar_id
+   and r.round_id = rr.round_id
+   and rt.algo_rating_type_id = @ratid@
+   and rr.old_rating_id = rdo.rating_id
+   and rr.new_rating_id = rdn.rating_id
+   and rdn.color <> rdo.color
+   and rdo.rating > 0
+   and r.round_type_id = rt.round_type_id
+   and c.coder_id = rr.coder_id
+   and c.status = 'A'
+   and ra.coder_id = c.coder_id
+   and rr.num_ratings > 2
+   and ra.algo_rating_type_id = @ratid@
+ order by color_increase desc, new_rating desc

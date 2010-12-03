@@ -1,0 +1,70 @@
+select date(p.create_date) as payment_date
+     , cat.category_name as catalog
+     , pi_name.value as component
+     , pi_version.value as version
+     , ptl.payment_type_desc as payment_type
+     , u.handle as handle
+     , pd.gross_amount as gross_amount
+     , cv.comments as comments
+  from informixoltp:payment p
+     , informixoltp:payment_detail pd
+     , informixoltp:payment_type_lu ptl
+     , project_info pi_comp_vers_id
+     , project_info pi_catalog
+     , project_info pi_name
+     , project_info pi_version
+     , categories cat
+     , user u
+     , comp_versions cv
+ where p.most_recent_detail_id = pd.payment_detail_id
+   and pd.component_project_id is not null
+   and pd.payment_type_id = ptl.payment_type_id
+   and pd.component_project_id = pi_comp_vers_id.project_id
+   and pi_comp_vers_id.project_info_type_id = 1
+   and pd.component_project_id = pi_catalog.project_id
+   and pi_catalog.project_info_type_id = 5
+   and pd.component_project_id = pi_name.project_id
+   and pi_name.project_info_type_id = 6
+   and pd.component_project_id = pi_version.project_id
+   and pi_version.project_info_type_id = 7
+   and pi_catalog.value::integer = cat.category_id
+   and p.user_id = u.user_id
+   and pi_comp_vers_id.value::integer = cv.comp_vers_id
+union
+select date(p.create_date) as payment_date
+     , cat.category_name as catalog
+     , pi_name.value as component
+     , pi_version.value as version
+     , ptl2.payment_type_desc as payment_type
+     , u2.handle as handle
+     , pd2.gross_amount as gross_amount
+     , cv.comments as comments
+  from informixoltp:payment p
+     , informixoltp:payment_detail pd
+     , project_info pi_comp_vers_id
+     , project_info pi_catalog
+     , project_info pi_name
+     , project_info pi_version
+     , categories cat
+     , informixoltp:payment_detail pd2
+     , informixoltp:payment p2
+     , informixoltp:payment_type_lu ptl2
+     , user u2
+     , comp_versions cv
+ where p.most_recent_detail_id = pd.payment_detail_id
+   and pd.component_project_id is not null
+   and pd.component_project_id = pi_catalog.project_id
+   and pd.component_project_id = pi_comp_vers_id.project_id
+   and pi_comp_vers_id.project_info_type_id = 1
+   and pi_catalog.project_info_type_id = 5
+   and pd.component_project_id = pi_name.project_id
+   and pi_name.project_info_type_id = 6
+   and pd.component_project_id = pi_version.project_id
+   and pi_version.project_info_type_id = 7
+   and pi_catalog.value::integer = cat.category_id
+   and p.payment_id = pd2.parent_payment_id
+   and pd2.payment_detail_id = p2.most_recent_detail_id
+   and pd2.payment_type_id = ptl2.payment_type_id
+   and p2.user_id = u2.user_id
+   and pi_comp_vers_id.value::integer = cv.comp_vers_id
+order by 1 desc, 2, 3, 4, 5, 6;

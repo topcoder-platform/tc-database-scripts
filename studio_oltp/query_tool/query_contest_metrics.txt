@@ -1,0 +1,52 @@
+select c.name,
+       conf1.property_value client,
+       c.contest_id,
+       ct.contest_type_desc contest_type,
+       cc.contest_channel_desc contest_origin,
+       cs.contest_status_desc status,
+       c.start_time,
+       c.end_time,
+       (c.end_time - c.start_time) duration,
+       MAX(CASE WHEN p.place = 1 THEN p.amount ELSE 0 END) first_prize,
+       sum(p.amount) total_prize_purse,
+       max(conf2.property_value) studio_cup_points,
+       max((select count(submission_id) from submission where contest_id = c.contest_id and submission_status_id = 1)) num_subs,
+       max((select count(s2.submission_id) from submission s2, submission_review sr where s2.submission_id = sr.submission_id and sr.review_status_id = 1 and s2.contest_id = c.contest_id)) num_passing_subs,
+       max((select count( distinct user_id) from contest_registration where contest_id = c.contest_id)) num_registrants,
+       max((select count( distinct submitter_id) from submission where contest_id = c.contest_id)) num_submitters,
+       max((select count(sp.submission_id) 
+        from submission_payment sp, 
+             submission s2 
+       where sp.submission_id = s2.submission_id 
+         and s2.contest_id = c.contest_id 
+         and sp.payment_status_id = 1)) num_purchased,
+       max((CASE WHEN (select count(placed) from contest_result where contest_id = c.contest_id) = 0 THEN 'NO' ELSE 'YES' END)) winner_picked,
+       min ((select min(create_date) from contest_result where contest_id = c.contest_id)) winner_picked_date
+from contest c,
+     contest_prize_xref cpx,
+     prize p,
+     contest_type_lu ct,
+     contest_channel_lu cc,
+     contest_status_lu cs,
+     contest_config conf1,
+     contest_config conf2
+where c.contest_id = cpx.contest_id
+  and cpx.prize_id = p.prize_id
+  and c.contest_status_id in (2,4,10,11)
+  and c.contest_type_id = ct.contest_type_id
+  and c.contest_channel_id = cc.contest_channel_id
+  and c.contest_status_id = cs.contest_status_id
+  and c.contest_id = conf1.contest_id
+  and conf1.property_id = 22
+  and c.contest_id = conf2.contest_id
+  and conf2.property_id = 24
+group by c.name,
+         conf1.property_value,
+         c.contest_id,
+         ct.contest_type_desc,
+         cc.contest_channel_desc,
+         cs.contest_status_desc,
+         c.start_time,
+         c.end_time
+order by c.end_time desc,
+         c.contest_id asc

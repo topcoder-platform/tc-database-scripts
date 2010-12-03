@@ -1,0 +1,4 @@
+select '1'
+  from campaign 
+ where campaign_type_id = 2
+   and campaign_id = @cid@

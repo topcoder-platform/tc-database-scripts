@@ -1,0 +1,17 @@
+select 
+    u.user_id, u.handle, ur.rating, pw.wager_amount 
+from 
+    contest_project_xref cpx, project_result pr, user u, outer project_wager pw, user_rating ur, project p
+where 
+    -- join match
+    pr.project_id = cpx.project_id and
+    cpx.project_id = pw.project_id and
+    u.user_id = pr.user_id and
+    u.user_id = pw.user_id and 
+    u.user_id = ur.user_id and
+    p.project_id = cpx.project_id and
+    -- choose design or development rating
+    (p.project_category_id = 1 and ur.phase_id = 112 or
+    p.project_category_id = 2 and ur.phase_id = 113) and
+    -- params
+    cpx.contest_id = @ct@

@@ -1,0 +1,19 @@
+select component_name, count(unique u.user_id),  pt.project_type_name, st.description
+    from project p,
+         submission s,
+         comp_versions cv,
+         comp_version_dates cvd,
+         project_type pt,
+         comp_catalog cc,
+         security_user u,
+         status st
+   where p.project_id = s.project_id
+     and cv.comp_vers_id = p.comp_vers_id
+     and u.login_id = s.submitter_id
+     and cvd.comp_vers_id = cv.comp_vers_id
+     and cvd.phase_id = cv.phase_id
+     and cvd.status_id = st.status_id
+     and cc.component_id = cv.component_id
+     and p.project_type_id = pt.project_type_id
+group by component_name, project_type_name, st.description
+order by project_type_name, component_name, st.description

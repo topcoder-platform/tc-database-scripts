@@ -1,0 +1,19 @@
+select
+  distinct u.handle, u.email as email_address
+from
+  email_user u, coder c, coder_notify cn, rating r
+where
+  u.user_id = c.coder_id and
+  cn.coder_id = c.coder_id and
+  r.coder_id = c.coder_id and
+  r.rating > 0 and
+  u.status = 'A' and
+  cn.notify_id = 3 and 
+  c.country_code in ('840','124','484') and
+  not exists
+  (
+    select 1
+    from common_oltp:user_preference up
+    where up.user_id = u.user_id and
+    up.preference_id in (2,7)
+  )

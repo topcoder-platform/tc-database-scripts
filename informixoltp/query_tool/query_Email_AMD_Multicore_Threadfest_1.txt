@@ -1,0 +1,7 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , round_registration rr
+ WHERE  u.status = 'A'
+   AND rr.round_id = 12166
+   AND rr.coder_id=u.user_id

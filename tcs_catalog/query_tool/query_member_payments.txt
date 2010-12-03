@@ -1,0 +1,85 @@
+SELECT DATE(pi.start_date) AS date_completed
+     , cat.category_name AS language
+     , cc.component_name AS component
+     , cv.version_text AS version
+     , DECODE(p.project_type_id, 1, 'Design', 2, 'Development') AS phase
+     , DECODE(pr.placed, 1, 'Winner', 2, '2nd place') AS role
+     , CASE WHEN pr.old_reliability >= 0.95 THEN (cvd.price / pr.placed) * 1.20
+       	    WHEN pr.old_reliability >= 0.90 THEN (cvd.price / pr.placed) * 1.15
+            WHEN pr.old_reliability >= 0.80 THEN (cvd.price / pr.placed) * 1.10
+            ELSE (cvd.price / pr.placed)
+       END AS payment
+  FROM project_result pr
+     , user u
+     , project p
+     , comp_version_dates cvd
+     , phase_instance pi
+     , comp_catalog cc
+     , comp_versions cv
+     , categories cat
+ WHERE pr.user_id = @uid@
+   AND pr.placed in (1, 2)
+   AND (pr.reliable_submission_ind = 1
+        OR (pr.reliable_submission_ind IS NULL
+            AND pr.final_score >= 75.0))
+   AND pr.valid_submission_ind = 1
+   AND pr.user_id = u.user_id
+   AND pr.project_id = p.project_id
+   AND p.project_stat_id = 4
+   AND p.cur_version = 1
+   AND p.comp_vers_id = cvd.comp_vers_id
+   AND p.project_type_id + 111 = cvd.phase_id
+   AND p.project_id = pi.project_id
+   AND pi.phase_id = 8
+   AND pi.cur_version = 1
+   AND p.comp_vers_id = cv.comp_vers_id
+   AND cv.component_id = cc.component_id
+   AND cc.root_category_id = cat.category_id
+UNION
+SELECT DATE(pi.start_date) AS date_completed
+     , cat.category_name AS language
+     , cc.component_name AS component
+     , cv.version_text AS version
+     , DECODE(p.project_type_id, 1, 'Design', 2, 'Development') AS phase
+     , DECODE(NVL(rur.r_resp_id, (SELECT r_resp_id
+                                    FROM r_user_role
+                                   WHERE project_id = rur.project_id
+                                     AND login_id = rur.login_id
+                                     AND cur_version = 1
+                                     AND r_resp_id IS NOT NULL))
+              , 1, 'DRB2', 2, 'DRB1', 3, 'DRB3', 4, 'ARB1', 5, 'ARB2', 6, 'ARB3') AS role
+     , SUM(CASE WHEN p.project_stat_id = 4 THEN pay.payment
+                WHEN p.project_stat_id = 5 AND r_role_id = 3 THEN pay.payment
+                WHEN p.project_stat_id = 6 AND r_role_id IN (2, 3) THEN pay.payment
+                ELSE 0
+            END) AS payment
+  FROM r_user_role rur
+     , user u
+     , payment_info pay
+     , phase_instance pi
+     , project p
+     , comp_catalog cc
+     , comp_versions cv
+     , categories cat
+ WHERE rur.login_id = @uid@
+   AND rur.r_role_id in (2, 3, 4, 5)
+   AND rur.cur_version = 1
+   AND rur.login_id = u.user_id
+   AND rur.payment_info_id = pay.payment_info_id
+   AND pay.cur_version = 1
+   AND rur.project_id = p.project_id
+   AND p.project_stat_id IN (4, 5, 6)
+   AND p.cur_version = 1
+   AND p.project_id = pi.project_id
+   AND pi.phase_id = 8
+   AND pi.cur_version = 1
+   AND p.comp_vers_id = cv.comp_vers_id
+   AND cv.component_id = cc.component_id
+   AND cc.root_category_id = cat.category_id
+GROUP BY 1, 2, 3, 4, 5, 6
+HAVING SUM(CASE WHEN p.project_stat_id = 4 THEN pay.payment
+                WHEN p.project_stat_id = 5 AND r_role_id = 3 THEN pay.payment
+                WHEN p.project_stat_id = 6 AND r_role_id IN (2, 3) THEN pay.payment
+                ELSE 0
+            END) > 0
+ORDER BY 1 DESC;

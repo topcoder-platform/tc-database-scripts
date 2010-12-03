@@ -1,0 +1,13 @@
+--
+-- This a content of dr_track_contest_payments query to be added to same named command (to be created also)
+-- to 'TCS Data Warehouse' (java:TCS_DW) DB under 'dr' group in Query Tool.  For details on Query Tool
+-- usage, please, see: http://www.topcoder.com/wiki/display/docs/TopCoder+Studio+Query+Tool+Usage
+--
+-- Don't forget to add ct input to created query
+--
+
+SELECT r.track_contest_placement AS place, r.user_id AS coder_id, r.track_contest_prize AS prize
+FROM   track_contest_results r
+WHERE  r.track_contest_id = @ct@
+AND    r.track_contest_prize > 0
+ORDER BY r.track_contest_placement

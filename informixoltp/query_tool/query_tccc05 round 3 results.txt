@@ -1,0 +1,13 @@
+select u.handle
+     , u.email as email_address
+     , case when rr.advanced = 'Y' and room_placed <=3 then 'advanced_money' else
+       case when rr.advanced = 'Y' and room_placed > 3 then 'advanced_no_money' else
+       case when rr.advanced = 'N' and room_placed <=3 then 'money' else 
+       case when rr.advanced = 'N' and room_placed > 3 then 'no_money' else '' 
+       end end end end as win_flag
+  from room_result rr
+     , email_user u
+ where rr.coder_id = u.user_id
+   and rr.attended = 'Y'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id = 6530

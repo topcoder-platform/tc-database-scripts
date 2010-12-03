@@ -1,0 +1,4 @@
+SELECT round_id, qu.question_id, question_text, status_id, question_type_id, question_style_id FROM round_question rq, question qu
+WHERE
+rq.question_id = qu.question_id AND
+rq.round_id = @rd@

@@ -1,0 +1,23 @@
+select first 3 pr.user_id,
+NVL((case cd.level_id when 100 then
+                        (case pr.placed when 1 then 10 when 2 then 7 when 3 then 5 when 4 then 4 else 0 end)
+                when 200 then
+                        (case pr.placed when 1 then 12 when 2 then 9 when 3 then 7 when 4 then 6 else 0 end)
+                end)     ,0) as position_points,
+case when p.project_stat_id in (4,5,6,7) or (pr.placed is null or pr.placed = 0)  then 1 else 0 end as complete_status
+from  contest_project_xref cpx,
+project_result pr,
+project p,
+comp_versions cv,
+comp_version_dates cd,
+user u
+where pr.project_id = cpx.project_id
+and p.project_id = pr.project_id
+and p.cur_version = 1
+and u.user_id = pr.user_id
+and cpx.contest_id = @ct@
+and u.user_id = @uid@
+and cv.comp_vers_id = p.comp_vers_id
+and cd.comp_vers_id = cv.comp_vers_id
+and cd.phase_id = (p.project_type_id + 111)
+order by 2 desc

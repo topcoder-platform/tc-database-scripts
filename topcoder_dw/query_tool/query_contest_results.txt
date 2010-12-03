@@ -1,0 +1,13 @@
+select p.project_id, p.category_desc || ' ' || p.component_name as component_name,
+pr.submit_timestamp, pr.final_score, pr.payment, p.component_id,
+c.handle, pr.user_id, case when p.status_id in (4,5,6,7) then 1 else 0 end as complete_status
+from tcs_dw:contest_project_xref cpx,
+tcs_dw:project p,
+tcs_dw:project_result pr,
+coder c
+where cpx.contest_id = @ct@
+and p.project_id = cpx.project_id
+and pr.project_id = p.project_id
+and c.coder_id = pr.user_id
+and pr.final_score is not null
+order by 4 DESC

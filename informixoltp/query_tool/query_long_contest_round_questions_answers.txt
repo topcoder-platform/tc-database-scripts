@@ -1,0 +1,1 @@
+SELECT * FROM answer WHERE question_id = @qid@ ORDER BY sort_order

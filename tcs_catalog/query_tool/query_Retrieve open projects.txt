@@ -1,0 +1,106 @@
+select distinct cv.version,
+         pi1.start_date posting_date,
+         pi1.end_date initial_submission_date,
+         pi5.end_date winner_announced_date,
+         pi6.end_date final_submission_date,
+         pi8.end_date estimated_dev_date,
+         cvd.price,
+         cd.document_id,
+         cvd.status_id,
+         cc.component_name,
+         cc.component_id,
+         cv.comp_vers_id,
+         cv.phase_id,
+         cl.description,
+         cv.comp_vers_id,
+         pcat.category_name catalog_name,
+         (select count(*) 
+          from component_inquiry ci
+         where ci.component_id = cc.component_id
+           and ci.phase = cv.phase_id
+           and ci.project_id = p.project_id
+           and ci.version = cv.version) as total_inquiries,
+         (select count(*) 
+          from component_inquiry ci, user_rating ur
+         where ci.component_id = cc.component_id
+           and ci.phase = cv.phase_id
+           and ci.project_id = p.project_id
+           and ci.phase = ur.phase_id
+           and ci.user_id = ur.user_id
+           and ci.version = cv.version) as total_rated_inquiries,
+         (select count(*) 
+          from component_inquiry ci
+         where ci.component_id = cc.component_id
+           and ci.phase = cv.phase_id
+           and ci.project_id = p.project_id
+           and ci.version = cv.version
+           and not exists (select '1'
+                             from user_rating ur
+                            where ur.user_id = ci.user_id
+                              and ur.phase_id = ci.phase
+                              and ur.num_ratings > 0)) as total_unrated_inquiries,
+         (SELECT count(submission_id)
+            FROM submission sb
+           where sb.project_id = p.project_id
+             and sb.cur_version = 1
+             and sb.submission_type = 1
+             and sb.is_removed = 0 )  total_submissions,
+         p.project_id,
+         cv.version_text,
+  (pi1.start_date + 3 UNITS DAY) reg_end_date,
+         p.max_unrated_registrants,
+         p.max_rated_registrants,
+         (SELECT COUNT(*)
+            FROM contest_project_xref
+           WHERE project_id = p.project_id
+             AND contest_id IN (228, 229)) as in_tco
+       , case when exists (select '1' 
+                            from comp_categories 
+                           where component_id = cc.component_id 
+                             and category_id = 15257626) 
+         then 'JSF' else '' end as is_jsf
+    from comp_versions cv,
+         comp_version_dates cvd,
+         comp_documentation cd,
+         comp_catalog cc,
+         comp_level cl,
+         categories pcat,
+         project p,
+         OUTER r_user_role rur,
+         phase_instance pi1,
+         phase_instance pi5,
+         phase_instance pi6,
+         phase_instance pi8
+   where cv.comp_vers_id = p.comp_vers_id
+     and cv.phase_id-111 = p.project_type_id
+     and p.cur_version = 1
+     and rur.cur_version = 1
+     and rur.project_id = p.project_id
+     and rur.r_role_id = 1
+     and cvd.comp_vers_id = cv.comp_vers_id
+     and cvd.phase_id = cv.phase_id
+     and cvd.level_id = cl.level_id
+     and cd.document_type_id = 0
+     and cv.phase_id in (112,113)
+     and cc.component_id = cv.component_id
+     and cc.status_id = 102
+     and cd.comp_vers_id = cvd.comp_vers_id
+     and EXTEND(pi1.start_date, YEAR TO HOUR) <= EXTEND(CURRENT, YEAR TO HOUR) -- cvd.posting_date
+     and EXTEND(pi1.end_date, YEAR TO HOUR) > EXTEND(CURRENT, YEAR TO HOUR) -- cvd.initial_submission_date
+     and pcat.category_id = cc.root_category_id
+     and pi1.project_id = p.project_id
+     and pi1.phase_id = 1
+     and pi1.cur_version = 1
+     and pi5.project_id = p.project_id
+     and pi5.phase_id = 5
+     and pi5.cur_version = 1
+     and pi6.project_id = p.project_id
+     and pi6.phase_id = 6
+     and pi6.cur_version = 1
+     and pi8.project_id = p.project_id
+     and pi8.phase_id = 8
+     and p.PROJECT_STAT_ID in (1,3)
+     and pi8.cur_version = 1
+     and pcat.category_id in (8459260,5801776,5801777,5801778,5801779)
+     and p.project_id not in (24370978, 24371011, 24385880, 24385906, 24095844, 24095878, 24130094, 24130067, 23358246, 21298488, 21298522, 21306079, 21306123, 21505040, 21505247, 21542912, 21542960, 21632776, 21657411, 21657449, 21663385, 21663427)
+order by initial_submission_date, pcat.category_name, cc.component_name

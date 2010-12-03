@@ -1,0 +1,24 @@
+select track_id, track_desc, track_start_date, track_end_date, ttl.track_type_desc, tsl.track_status_desc,
+  (select sum(dp.amount)
+   from dr_points dp
+   where dp.track_id = t.track_id
+   and not dp.is_potential) as awarded_points,
+   (
+   nvl((select sum(nvl(pi_dr.value::decimal, pi_price.value::decimal)) from project p, outer project_info pi_dr, outer project_info pi_price where
+   pi_price.project_info_type_id = 16 and
+   pi_price.project_id = p.project_id and
+   pi_dr.project_info_type_id = 30 and
+   pi_dr.project_id = p.project_id and
+   p.project_id in (select distinct reference_id from dr_points dp2
+   where dp2.track_id = t.track_id and dp2.is_potential and dp2.dr_points_reference_type_id = 1)),0)
+   +
+   nvl((select sum(cc.property_value::decimal) from studio_oltp:contest_config cc where
+   cc.property_id = 24 and
+   cc.contest_id in (select distinct reference_id from dr_points dp2
+   where dp2.track_id = t.track_id and dp2.is_potential and dp2.dr_points_reference_type_id = 3)),0)
+   ) as potential_points,
+   '<a href=''http://www.topcoder.com/tc?module=LegacyReport&t=new_report&db=java:TCS_CATALOG&c=dr_totals_per_track&trid=' || t.track_id || '''>View details...</a>'  as details,
+   '<a href=''http://www.topcoder.com/dr?module=ViewLeaderBoard&tid=' || t.track_id || '''>View leaderboard...</a>' as leaderboard
+from track t, track_type_lu ttl, track_status_lu tsl
+where t.track_type_id = ttl.track_type_id
+and t.track_status_id = tsl.track_status_id

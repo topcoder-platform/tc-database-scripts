@@ -1,0 +1,27 @@
+SELECT cp.language_id
+     , llu.language_name
+     , COUNT(cp.problem_id) AS submitted
+     , (CASE WHEN cd.problems_presented = 0 THEN 0.0
+             ELSE COUNT(cp.problem_id) / cd.problems_presented * 100
+             END) AS submit_percent
+     , SUM(CASE WHEN cp.end_status_id = 150 THEN 1 ELSE 0 END) AS num_correct
+     , AVG(CASE WHEN cp.end_status_id = 150 THEN 1 ELSE 0 END) * 100 AS submission_accuracy
+     , AVG(cp.final_points) AS avg_submission_points
+     , AVG(cp.time_elapsed) AS avg_submit_time
+  FROM coder_problem cp
+     , language_lu llu
+     , coder_division cd
+     , coder c
+ WHERE cp.language_id = llu.language_id
+   AND cp.coder_id = cd.coder_id
+   AND cp.division_id = cd.division_id
+   AND (cp.coder_id = @mid@)
+   AND (cp.end_status_id IN (140,150,160))
+   AND (cp.division_id = 1)
+   AND c.coder_id = cp.coder_id
+   AND c.status = 'A'
+   AND cd.algo_rating_type_id = 1 
+ GROUP BY cp.language_id
+     , llu.language_name
+     , cd.problems_presented
+ ORDER BY cp.language_id

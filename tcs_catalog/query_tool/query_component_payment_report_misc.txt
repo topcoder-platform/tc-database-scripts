@@ -1,0 +1,12 @@
+select year(p.create_date) as payment_year
+     , month(p.create_date) as payment_month
+     , ptl.payment_type_desc as payment_type
+     , sum(pd.gross_amount) as amount
+  from informixoltp:payment p
+     , informixoltp:payment_detail pd
+     , informixoltp:payment_type_lu ptl
+ where p.most_recent_detail_id = pd.payment_detail_id
+   and pd.payment_type_id in (17, 18, 16, 19, 20, 25)
+   and pd.payment_type_id = ptl.payment_type_id
+group by 1, 2, 3
+order by 1 desc, 2 desc, 3;

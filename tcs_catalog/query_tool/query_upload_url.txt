@@ -1,0 +1,13 @@
+select component_name, p.description phase, 'http://software.topcoder.com/pages/s_upload_submission.jsp?version=' ||
+        round(cv.version) || '&phase=' || round(cv.phase_id) || '&compvers=' || round(cv.comp_vers_id) ||
+        '&comp_id='|| round(cv.component_id) || '&Project=' || c.component_name
+  from comp_versions cv,
+       comp_catalog c,
+       comp_version_dates cvd,
+       phase p
+ where initial_submission_date >= EXTEND(CURRENT - 2 UNITS DAY, YEAR TO DAY)
+   and cvd.comp_vers_id = cv.comp_vers_id
+   and cvd.phase_id = cv.phase_id
+   and c.component_id = cv.component_id
+   and p.phase_id = cv.phase_id
+order by p.description, component_name

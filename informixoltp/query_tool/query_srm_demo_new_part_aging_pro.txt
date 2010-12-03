@@ -1,0 +1,29 @@
+select 
+  referral_desc,
+  sum(case when (date(co.start_date)-date(member_since)) between 0 and 2 then 1 else 0 end) as zerotwo,
+  sum(case when (date(co.start_date)-date(member_since)) between 3 and 7 then 1 else 0 end) as threeseven,
+  sum(case when (date(co.start_date)-date(member_since)) between 8 and 14 then 1 else 0 end) as eightfourteen,
+  sum(case when (date(co.start_date)-date(member_since)) between 15 and 30 then 1 else 0 end) as fifteenthirty,
+  sum(case when (date(co.start_date)-date(member_since)) between 31 and 60 then 1 else 0 end) as thirtyonesixty,
+  sum(case when (date(co.start_date)-date(member_since)) between 61 and 90 then 1 else 0 end) as sixtyoneninety,
+  sum(case when (date(co.start_date)-date(member_since)) > 90 then 1 else 0 end) as ninetyplus
+from
+  coder c,
+  coder_referral cr,
+  referral re,
+  user u,
+  contest co,
+  round r,
+  room_result rs
+where
+  c.coder_id = u.user_id and
+  rs.coder_id = c.coder_id and
+  rs.round_id = r.round_id and
+  cr.coder_id = c.coder_id and 
+  re.referral_id = cr.referral_id and
+  co.contest_id = r.contest_id and
+  rs.old_rating = 0 and
+  rs.attended = 'Y' and
+  rs.round_id = @rd@
+  and coder_type_id between 2 and 2 
+group by referral_desc

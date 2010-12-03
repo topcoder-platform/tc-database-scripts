@@ -1,0 +1,12 @@
+select s.survey_id
+     , s.name
+     , s.start_date
+     , s.end_date
+     , sl.status_desc
+     , s.text
+     , (select count(*) from survey_question where survey_id = s.survey_id) as question_count
+     , case when s.results_viewable = 1 then 'true' else 'false' end as results_viewable
+  from survey s
+     , status_lu sl
+ where s.status_id = sl.status_id
+ order by s.start_date desc

@@ -1,0 +1,13 @@
+SELECT a.answer_id
+     , a.answer_text
+     , a.question_id
+     , a.sort_order
+  FROM survey_question sq
+     , question q
+     , answer a
+ WHERE sq.question_id = q.question_id
+   AND q.question_id = a.question_id
+   AND q.question_id = @qid@
+   AND q.question_style_id in (1,2)
+   AND q.question_type_id in (1,4,5,6,7)
+ ORDER BY a.sort_order

@@ -1,0 +1,18 @@
+select c.coder_id
+     , pr.new_rating as rating
+     , pr.project_id
+     , p.component_name || ' ' || p.version_text as name
+     , rating_date as date     
+from project_result pr
+     , project p
+     , coder c
+where pr.project_id = p.project_id
+and pr.user_id = c.coder_id
+and c.status = 'A'
+and p.phase_id in (@pis@)
+and pr.rating_ind = 1
+and pr.valid_submission_ind = 1
+and p.status_id in (4,5,7,8)
+and new_rating > 1500
+and old_rating is null
+order by pr.new_rating desc

@@ -1,0 +1,20 @@
+select pcl.project_category_id as category_id
+     , pcl.name as category_name
+     , sum(1) as total_contests
+     , sum(pi.value::integer) as total_prizes
+     , sum(dr.value::integer) as total_DR_points
+  from project p
+     , project_info pi
+     , project_info dr
+     , project_phase pp
+     , project_category_lu pcl
+ where p.project_status_id in (1,7)
+   and p.project_id = pi.project_id
+   and pi.project_info_type_id = 16
+   and p.project_id = pp.project_id
+   and pp.phase_type_id = 1
+   and pp.actual_start_time >= mdy(07,01,2008)
+   and p.project_category_id = pcl.project_category_id
+   and p.project_id = dr.project_id
+   and dr.project_info_type_id = 30
+group by 1, 2

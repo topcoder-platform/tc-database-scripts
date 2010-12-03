@@ -1,0 +1,65 @@
+SELECT (SELECT count(*) 
+
+          FROM response r 
+
+         WHERE r.question_id = q.question_id 
+
+           AND r.answer_id = a.answer_id) AS count
+
+     , q.question_id
+
+     , q.question_style_id
+
+     , a.answer_id
+
+     , a.answer_text
+
+     , CASE WHEN (SELECT count(*) 
+
+                    FROM response r 
+
+                   WHERE r.question_id = q.question_id)=0 THEN 0.0 
+
+       ELSE ((SELECT count(*) 
+
+                FROM response r 
+
+               WHERE r.question_id = q.question_id 
+
+                 AND r.answer_id = a.answer_id) / (SELECT count(distinct user_id) 
+
+                                                     FROM response r 
+
+                                                    WHERE r.question_id = q.question_id) * 100)
+
+       END AS percentage
+
+     , a.sort_order
+
+     , nvl((SELECT 1
+
+          FROM response r 
+
+         WHERE r.question_id = q.question_id 
+
+           AND r.user_id = @cr@
+
+           AND r.answer_id = a.answer_id),0) AS my_vote
+
+  FROM survey_question sq
+
+     , question q
+
+     , answer a
+
+ WHERE sq.question_id = q.question_id
+
+   AND q.question_id = a.question_id
+
+   AND q.question_id = @qid@
+
+   AND q.question_style_id in (1,2)
+
+   AND q.question_type_id in (1)
+
+ ORDER BY a.sort_order

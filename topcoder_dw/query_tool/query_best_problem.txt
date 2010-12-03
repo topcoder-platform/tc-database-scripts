@@ -1,0 +1,10 @@
+select problem_id, level_id, rr.round_id
+ from coder_problem cp, room_result rr, round r, round_type_lu rt
+ where cp.round_id = rr.round_id
+  and cp.coder_id = rr.coder_id
+  and r.round_id = cp.round_id
+  and r.round_type_id = rt.round_type_id
+  and rt.algo_rating_type_id = 1
+  and cp.end_status_id = 150
+  and cp.coder_id = @cr@
+ order by rr.new_rating desc, cp.level_id desc

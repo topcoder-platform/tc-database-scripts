@@ -1,0 +1,13 @@
+SELECT stc.args
+     , stc.expected_result
+     , str.received
+     , (CASE WHEN str.succeeded = 0 THEN 'Failed'
+             ELSE 'Succeeded'
+             END) AS status
+  FROM system_test_case stc
+     , system_test_result str
+ WHERE str.coder_id = @cr@
+   AND str.round_id = @rd@
+   AND str.problem_id = @pm@
+   AND stc.test_case_id = str.test_case_id
+   AND stc.problem_id = str.problem_id

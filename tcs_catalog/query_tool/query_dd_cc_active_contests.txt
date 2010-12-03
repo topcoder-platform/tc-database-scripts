@@ -1,0 +1,67 @@
+SELECT c.end_time as registration_end 
+     , c.end_time as submission_end
+    , (select cc.property_value e from studio_oltp:contest_config cc where cc.contest_id = c.contest_id and cc.property_id = 1) as description
+     , c.name as title
+     , c.contest_id as guid
+     , c.contest_id as contestID
+     , c.forum_id as forumID
+     , round(nvl((select sum(p.amount) from studio_oltp:prize p, studio_oltp:contest_prize_xref x where x.prize_id = p.prize_id and x.contest_id = c.contest_id)::decimal, 0)) as prize
+     , 'http://studio.topcoder.com/?module=ViewContestDetails&ct=' || c.contest_id as details_link
+     , 'http://studio.topcoder.com/forums?module=ThreadList&forumID=' || c.forum_id as forum_link
+     , 'http://studio.topcoder.com/?module=ViewRegistration&ct=' || c.contest_id as registration_link
+  FROM studio_oltp:contest c,
+       studio_oltp:contest_config cc1, 
+       time_oltp:project ttp, 
+       time_oltp:client_project ttcp, 
+       time_oltp:client ttc
+ WHERE current between c.start_time and c.end_time
+     and c.contest_status_id = 2
+     and c.contest_id = cc1.contest_id
+     and cc1.property_id = 28
+     and cc1.property_value = ttp.project_id
+     and ttp.project_id = ttcp.project_id
+     and ttcp.client_id = ttc.client_id
+     and ttp.project_id in (@pj@)
+UNION
+SELECT reg_phase.scheduled_end_time as registration_end 
+     , sub_phase.scheduled_end_time as submission_end
+     , (select detailed_requirements from project_spec where project_id = p.project_id and project_spec_id = (select max(project_spec_id) from project_spec where project_id = p.project_id)) as description
+     , project_name.value as title
+     , project_name.project_id as guid
+     , project_name.project_id as contestID
+     , project_forum.value::int as forumID
+     , ((payments.value::decimal) * 1.5) as prize
+     , 'http://www.topcoder.com/tc?module=ProjectDetail&pj=' || project_name.project_id as details_link
+     , 'http://forums.topcoder.com/?module=Category&categoryID=' || project_forum.value::int as forum_link
+     , 'http://www.topcoder.com/tc?module=ViewRegistration&pj=' || project_name.project_id as registration_link
+  FROM project p,
+       project_phase reg_phase, 
+       project_phase sub_phase,
+       project_info project_name,
+       project_info project_forum,
+       project_info payments,
+       project_info pi3, -- billing account
+       time_oltp:project ttp,
+       time_oltp:client_project ttcp,
+       time_oltp:client ttc
+ WHERE 
+     p.project_id = reg_phase.project_id
+     and project_name.project_info_type_id = 6
+     and project_name.project_Id = reg_phase.project_id
+     and project_name.project_Id = sub_phase.project_id
+     and reg_phase.phase_type_id = 1 
+     and sub_phase.phase_type_id = 2
+     and project_name.project_id = project_forum.project_id
+     and project_forum.project_info_type_id = 4
+     and sub_phase.phase_status_id = 2
+     and payments.project_id = project_name.project_Id
+     and payments.project_info_type_id = 16
+     and project_name.project_id = pi3.project_id
+     and pi3.project_info_type_id = 32
+     and pi3.value = ttp.project_id
+     and ttp.project_id = ttcp.project_id
+     and ttcp.client_id = ttc.client_id
+     and ttp.project_id in (@pj@)
+     and p.project_status_id = 1
+     and p.project_category_id not in (27) --exclude spec reviews
+order by 2 desc;

@@ -1,0 +1,25 @@
+select ri.value as handle
+     , cat.category_name as category
+     , pi6.value as project
+     , pi7.value as version
+     , '<a href=http://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>online review</a>' as online_review
+  from project p
+     , resource r
+     , resource_info ri
+     , project_info pi5
+     , project_info pi6
+     , project_info pi7
+     , categories cat
+ where p.project_status_id = 1
+   and p.project_id = r.project_id
+   and r.resource_id = ri.resource_id
+   and ri.resource_info_type_id = 2
+   and p.project_id = pi5.project_id
+   and pi5.project_info_type_id = 5
+   and p.project_id = pi6.project_id
+   and pi6.project_info_type_id = 6
+   and p.project_id = pi7.project_id
+   and pi7.project_info_type_id = 7
+   and pi5.value::integer = cat.category_id
+group by 1, 2, 3, 4, 5
+order by 1, 2, 3, 4;

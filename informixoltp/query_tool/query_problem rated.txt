@@ -1,0 +1,1 @@
+SELECT count(*) as count FROM problem_rating WHERE problem_id = @pm@ AND coder_id = @cr@

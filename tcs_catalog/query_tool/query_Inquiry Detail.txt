@@ -1,0 +1,16 @@
+select EXTEND(ci.create_time, YEAR TO DAY)  inquiry_date,
+       su.user_id handle,
+       ci.rating,
+       cc.component_name component,
+       p.description phase,
+       ci.comment
+ from component_inquiry ci, comp_catalog cc,
+      security_user su, phase p
+ where ci.component_id = cc.component_id
+   and ci.user_id = su.login_id
+   and p.phase_id = ci.phase
+   and ci.create_time > (CURRENT - 14 UNITS DAY)
+ group by ci.component_id, ci.phase, ci.version,
+      cc.component_name, 1, ci.rating,
+      p.description, comment, su.user_id
+order by inquiry_date desc, cc.component_name

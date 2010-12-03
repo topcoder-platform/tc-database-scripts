@@ -1,0 +1,11 @@
+select r.rating, r.num_ratings, cr.rank, cr.percentile, 
+(select count(*) from coder_rank where coder_rank_type_id = cr.coder_rank_type_id and algo_rating_type_id=1) as lowest_rank,
+cps.challenge_attempts_made, cps.challenges_made_successful,
+cps.problems_submitted, cps.problems_presented, cps.problems_correct
+from rating r, coder_rank cr, coder_problem_summary cps
+where r.coder_id = @cr@
+and cr.coder_id = r.coder_id
+and cr.coder_rank_type_id = 1
+and cps.coder_id = cr.coder_id
+and cr.algo_rating_type_id=1
+and cps.algo_rating_type_id=1

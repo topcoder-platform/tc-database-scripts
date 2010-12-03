@@ -1,0 +1,11 @@
+SELECT MAX(round_id) AS round_id
+FROM round r, contest c
+WHERE r.contest_id = c.contest_id
+AND round_type_id IN (17, 18)
+AND c.season_id = @snid@
+AND calendar_id =
+(SELECT MAX(calendar_id)
+ FROM round r2, contest c2
+ WHERE r2.contest_id = c2.contest_id
+  AND round_type_id IN (17, 18)
+  AND c2.season_id = @snid@)

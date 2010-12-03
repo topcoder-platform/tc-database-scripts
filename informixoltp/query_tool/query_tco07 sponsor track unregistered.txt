@@ -1,0 +1,35 @@
+SELECT u.handle, e.address as email_address
+  FROM    company comp,
+    contact con,
+    coder c,
+    user u,
+    user_address_xref x,
+    address a,
+    email e,
+    country cry
+  WHERE 1 = 1
+    AND u.user_id = c.coder_id
+    AND u.status = 'A'
+    AND cry.country_code = a.country_code
+    and x.user_id = u.user_id 
+    and x.address_id = a.address_id 
+    and a.address_type_id = 2 
+    AND e.user_id = u.user_id
+    AND e.primary_ind = 1
+    AND c.coder_id = con.contact_id
+    AND con.company_id = comp.company_id
+    AND (lower(comp.company_name) LIKE 'aol %' or lower(comp.company_name) = 'america online' or lower(comp.company_name) LIKE '%verisign%')
+    and exists (select 1 from user_notify_xref cn where cn.user_id = u.user_id 
+    AND cn.notify_id in (1))
+    AND u.user_id NOT IN (select user_id from user_terms_of_use_xref where terms_of_use_id = 20574)
+UNION 
+select distinct u.handle, e.address AS email_address
+from vsign_oltp:user u, vsign_oltp:email e
+where u.user_id = e.user_id
+and u.status = 'A'
+and u.modify_date > '2006-11-01 00:00:00'
+and u.user_id NOT IN
+(select u.user_id 
+from vsign_oltp:user u, vsign_oltp:group_user g
+where g.group_id in (13,14) and u.user_id = g.user_id)
+and u.user_id NOT IN (select user_id from informixoltp:user_terms_of_use_xref where terms_of_use_id = 20574)

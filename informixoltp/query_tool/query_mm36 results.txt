@@ -1,0 +1,14 @@
+select e.address as email_address, u.handle, 
+CASE WHEN lcr.placed=1 then 2500
+     WHEN lcr.placed=2 then 1000
+     WHEN lcr.placed=3 then 750
+     WHEN lcr.placed=4 then 500
+     WHEN lcr.placed=5 then 250
+END as paid
+from long_comp_result lcr, user u, email e
+where lcr.round_id=12202
+	and lcr.placed is not null
+	and lcr.coder_id=u.user_id
+	and e.user_id=u.user_id
+	and lcr.placed<=5
+order by lcr.placed

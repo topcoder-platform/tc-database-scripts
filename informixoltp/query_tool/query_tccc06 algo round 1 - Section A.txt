@@ -1,0 +1,4 @@
+select u.handle, u.email as email_address
+from email_user u, invite_list i
+where i.round_id = 10097
+	and u.user_id = i.coder_id

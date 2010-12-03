@@ -1,0 +1,4 @@
+select old_value, new_value, timestamp
+  from audit_coder
+ where user_id = @cr@
+   and column_name = 'USER_NAME'

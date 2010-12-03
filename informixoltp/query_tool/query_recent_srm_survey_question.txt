@@ -1,0 +1,17 @@
+SELECT FIRST 1 s.survey_id, q.question_text, TO_CHAR(rs.start_time, '%m.%d.%iY') as date, start_time
+  FROM round_question rq
+     , round_segment rs
+     , round r
+     , survey s
+     , survey_question sq
+     , question q
+ WHERE rq.round_id = rs.round_id
+   AND r.round_id = rs.round_id
+   AND rs.segment_id = 2
+   AND r.round_type_id in (1,2)
+   AND rs.start_time < CURRENT
+   AND s.survey_id = sq.survey_id
+   AND sq.question_id = rq.question_id
+   AND sq.question_id = q.question_id
+   AND q.question_type_id in (1)
+ORDER BY start_time desc

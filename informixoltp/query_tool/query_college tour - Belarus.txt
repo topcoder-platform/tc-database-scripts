@@ -1,0 +1,13 @@
+select u.handle, e.address as email_address
+from user u, email e, coder c
+where e.user_id = u.user_id
+and e.primary_ind = 1
+and u.status = 'A'
+and u.user_id = c.coder_id
+and comp_country_code = 112
+and c.coder_type_id = 1
+and u.user_id NOT IN
+(select user_id from user_group_xref x, user u
+where x.login_id = u.user_id
+and x.group_id = 12 
+and x.security_status_id = 1)

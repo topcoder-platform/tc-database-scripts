@@ -1,0 +1,36 @@
+select '<a href="mailto:' || e.address || '">' || u.user_id  || '</a>' as handle
+     , cc.component_name
+     , rr.review_role_name
+     , pt.project_type_name
+     , ph.review_phase_name phase
+     , end_date current_review_phase_end
+     , lower(u.user_id)
+    from project p,
+         r_user_role rur,
+         project_type pt,
+         comp_catalog cc,
+         comp_versions cv,
+         security_user u,
+         review_phase ph,
+         phase_instance pi,
+         review_role rr,
+         project_status ps,
+         common_oltp:email e
+   where p.project_id = rur.project_id
+     and u.login_id = e.user_id
+     and e.primary_ind = 1
+     and p.project_id = pi.project_id
+     and p.comp_vers_id = cv.comp_vers_id
+     and cv.component_id = cc.component_id
+     and u.login_id = rur.login_id
+     and p.project_type_id = pt.project_type_id
+     and p.phase_instance_id = pi.phase_instance_id
+     and pi.phase_id = ph.review_phase_id
+     and rr.review_role_id = rur.r_role_id
+     and ps.project_stat_id = p.project_stat_id
+     and p.project_stat_id in (1,3)
+     and rur.r_role_id in (2,3)
+     and p.cur_version = 1
+     and rur.cur_version = 1
+     and pi.cur_version = 1
+order by 7,pt.project_type_name,cc.component_name,rr.review_role_name

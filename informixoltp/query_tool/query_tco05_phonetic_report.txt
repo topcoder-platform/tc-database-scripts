@@ -1,0 +1,11 @@
+select u.handle
+     , (select response from response where question_id = 50 and user_id = u.user_id) as handle
+     , (select response from response where question_id = 51 and user_id = u.user_id) as name
+  from user u
+ where (u.user_id in (
+select coder_id from room_result where round_id = 8036 and advanced = 'Y')
+or u.user_id in (
+select user_id from user where handle in 
+('Pops','victor_lxd','aubergineanode','dmks','nicka81',
+'ThinMan','kyky','ShindouHikaru','oldbig','sindu',
+'visualage','colau','arylio','matmis','cnettel')))

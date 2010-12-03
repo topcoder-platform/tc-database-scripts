@@ -1,0 +1,11 @@
+SELECT q.question_id
+     , q.question_text
+     , r.response
+  FROM survey_question sq
+     , question q
+     , response r
+ WHERE sq.question_id = q.question_id
+   AND sq.survey_id = 214
+   and q.question_style_id in (3,4)
+   and r.question_id = q.question_id
+ ORDER BY q.question_id asc

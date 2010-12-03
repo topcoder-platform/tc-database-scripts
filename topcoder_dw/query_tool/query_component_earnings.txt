@@ -1,0 +1,37 @@
+SELECT 1, 
+DECODE(p.phase_id,112,'Design',113,'Development'),
+round(p.component_id) as component_id,
+s.submit_timestamp,
+p.component_name,
+nvl(round(s.placed), ' '), 
+round(nvl(s.payment, 0),2),
+2,
+round(s.final_score, 2),
+nvl(round(s.placed), '9999999') as placed_sort,
+p.project_id, p.viewable_category_ind
+FROM tcs_dw:project_result s,
+tcs_dw:project p
+WHERE s.user_id = @cr@
+and p.project_id = s.project_id
+and p.project_id not in (12037140, 12037185, 12037229, 12037274)
+and p.phase_id = @ph@
+and s.valid_submission_ind = 1
+and s.payment > 0
+and p.status_id in (4,5,7,8)
+UNION ALL
+SELECT 1,
+DECODE(ct.phase_id,112,'Design',113,'Development'),
+-1 as component_id,
+EXTEND(ct.contest_end_timestamp, YEAR TO MINUTE) as submit_timestamp,
+p.prize_description as component_name,
+nvl(round(p.place), ' '),
+round(nvl(p.prize_payment, 0),2),
+2,
+null::decimal,
+nvl(round(p.place), '9999999') as placed_sort,
+null::decimal as project_id, null::decimal
+from tcs_dw:user_contest_prize p, tcs_dw:contest ct
+where ct.contest_id = p.contest_id
+and p.user_id = @cr@
+and ct.phase_id = @ph@
+ORDER BY @sc@ @sd@

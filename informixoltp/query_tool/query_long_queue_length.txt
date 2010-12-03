@@ -1,0 +1,5 @@
+select count(distinct cs.coder_id) as length 
+from long_test_queue q, long_component_state cs
+ where q.status_id in (1,2)
+   and q.long_component_state_id = cs.long_component_state_id
+   and q.test_action = 10

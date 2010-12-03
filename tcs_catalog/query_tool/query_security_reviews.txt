@@ -1,0 +1,24 @@
+select cat.category_name as catalog
+     , pi_name.value as component
+     , pi_version.value as version
+     , nvl(s.final_score, 'PENDING') as score
+     , '<a href=https://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>online_review</a>' as online_review
+  from project p
+     , project_info pi_catalog
+     , project_info pi_name
+     , project_info pi_version
+     , categories cat
+     , upload u
+     , submission s
+ where p.project_category_id = 3
+   and p.project_id = pi_catalog.project_id
+   and pi_catalog.project_info_type_id = 5
+   and p.project_id = pi_name.project_id
+   and pi_name.project_info_type_id = 6
+   and p.project_id = pi_version.project_id
+   and pi_version.project_info_type_id = 7
+   and pi_catalog.value::integer = cat.category_id
+   and p.project_id = u.project_id
+   and u.upload_id = s.upload_id
+   and s.submission_type_id = 1
+order by catalog, component, version;

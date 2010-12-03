@@ -1,0 +1,26 @@
+SELECT r.round_id
+     , c.name AS contest_name
+     , r.name AS round_name
+     , c.contest_id
+     , (select start_time 
+          from round_segment rs 
+         where rs.round_id = r.round_id 
+           and segment_id = 1) as registration_start
+     , (select start_time 
+          from round_segment rs 
+         where rs.round_id = r.round_id 
+           and segment_id = 2) as coding_start
+  FROM round r
+     , contest c
+ WHERE r.contest_id = c.contest_id
+   AND r.round_id = (SELECT MIN(r.round_id)
+                       FROM round r
+                          , round_segment rs
+                      WHERE r.round_id = rs.round_id
+                        AND rs.end_time = (SELECT MIN(end_time)
+                                             FROM round r
+                                                , round_segment rs
+                                            WHERE r.round_id = rs.round_id
+                                              AND r.round_type_id = 1
+                                              AND rs.segment_id = 1
+                                              AND rs.end_time > CURRENT))

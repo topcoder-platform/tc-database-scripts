@@ -1,0 +1,10 @@
+select distinct pc.problem_category_id as category_id
+     , problem_category_desc as category
+     , lower(problem_category_desc)
+  from problem_category_lu pc
+     , problem p
+     , problem_category_xref x
+ where pc.problem_category_id = x.problem_category_id
+   and p.problem_id = x.problem_id
+   and p.viewable =1
+ order by 3

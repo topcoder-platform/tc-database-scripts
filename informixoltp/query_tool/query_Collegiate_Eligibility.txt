@@ -1,0 +1,17 @@
+SELECT CASE WHEN r.num_ratings > 1 THEN 'T' ELSE 'F' END AS has_enough_ratings
+     , CASE WHEN r.last_rated_event >= '2002-08-01 00:00:00.000' THEN 'T' ELSE 'F' END AS has_recent_competition
+     , CASE WHEN c.coder_type_id = 1 THEN 'T' ELSE 'F' END AS is_student
+     , CASE WHEN NVL(da.demographic_answer_text, '2002') > '2002' THEN 'T' ELSE 'F' END AS in_school
+     , CASE WHEN r.num_ratings > 1
+        AND r.last_rated_event >= '2002-08-01 00:00:00.000'
+        AND c.coder_type_id = 1        
+        AND NVL(da.demographic_answer_text, '2002') > '2002' THEN 'T' ELSE 'F' END AS is_eligible
+  FROM coder c
+     , rating r
+     , OUTER (demographic_response dr, OUTER demographic_answer da)
+ WHERE c.coder_id = @cr@
+   AND r.coder_id = c.coder_id
+   AND dr.demographic_question_id = 18
+   AND dr.demographic_question_id = da.demographic_question_id
+   AND dr.demographic_answer_id = da.demographic_answer_id
+   AND dr.coder_id = c.coder_id

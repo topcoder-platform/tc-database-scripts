@@ -1,0 +1,7 @@
+SELECT DISTINCT(problem_category_desc)
+  FROM problem p
+  JOIN problem_category_xref pcx
+    ON pcx.problem_id = p.problem_id
+  JOIN problem_category_lu pcl
+    ON pcx.problem_category_id = pcl.problem_category_id
+ WHERE round_id = @rd@;

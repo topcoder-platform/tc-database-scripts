@@ -1,0 +1,22 @@
+select
+  lu.language_name,
+  sum(case when cp.level_id = 1 then 1 else 0 end) as lev1_subs,
+  sum(case when cp.level_id = 1 and cp.end_status_id = 150 then 1 else 0 end) as lev1_succ,
+  sum(case when cp.level_id = 2 then 1 else 0 end) as lev2_subs,
+  sum(case when cp.level_id = 2 and cp.end_status_id = 150 then 1 else 0 end) as lev2_succ,
+  sum(case when cp.level_id = 3 then 1 else 0 end) as lev3_subs,
+  sum(case when cp.level_id = 3 and cp.end_status_id = 150 then 1 else 0 end) as lev3_succ
+from
+  coder_problem cp,
+  language_lu lu,
+  room_result rr
+where
+  cp.round_id = @rd@ and
+  cp.division_id = 2 and
+  rr.old_rating between 0 and 0 and
+  rr.coder_id = cp.coder_id and
+  rr.round_id = cp.round_id and
+  lu.language_id = cp.language_id and
+  cp.end_status_id >= 130
+group by 1
+order by 1

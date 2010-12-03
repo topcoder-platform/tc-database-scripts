@@ -1,0 +1,13 @@
+select q.question_text, a.answer_text, count(*) as cnt, cc.component_name
+from comp_reg_response r, comp_reg_answer a, comp_reg_question q, informixoltp:user u, project p,
+	comp_catalog cc, comp_versions cv
+where r.comp_reg_question_id = q.comp_reg_question_id
+	and r.comp_reg_answer_id = a.comp_reg_answer_id
+	and r.user_id = u.user_id
+	and r.project_id = @pj@
+	and r.project_id = p.project_id
+	and p.cur_version = 1
+	and p.comp_vers_id = cv.comp_vers_id
+        and cv.component_id = cc.component_id
+group by q.question_text, a.answer_text, cc.component_name
+order by cnt desc;

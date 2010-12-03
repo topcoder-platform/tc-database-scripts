@@ -1,0 +1,5 @@
+select c.contest_id, c.contest_type_id, c.contest_name, x.top_trip_winners
+from contest_stage_xref x, contest c
+where x.contest_id = c.contest_id
+and x.stage_id = @staid@
+and c.project_category_id = @pt@

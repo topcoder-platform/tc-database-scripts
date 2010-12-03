@@ -1,0 +1,30 @@
+select r.short_name as name
+      ,rd1.num_coders as numcompetitors1
+      ,rd2.num_coders as numcompetitors2
+      ,nvl(rd1.num_coders,0) + nvl(rd2.num_coders,0) as numcompetitors
+      ,rd1.problems_submitted as submitted1
+      ,rd2.problems_submitted as submitted2
+      ,case when rd1.num_coders = 0 then 0 else rd1.problems_submitted / rd1.num_coders end as avgsubmitted1
+      ,case when rd2.num_coders = 0 then 0 else rd2.problems_submitted / rd2.num_coders end as avgsubmitted2
+      ,rd1.challenges_made_successful as challengessuccessful1
+      ,rd2.challenges_made_successful as challengessuccessful2
+      ,case when rd1.num_coders = 0 then 0 else rd1.challenges_made_successful / rd1.num_coders end as avgchallengessuccessful1
+      ,case when rd2.num_coders = 0 then 0 else rd2.challenges_made_successful / rd2.num_coders end as avgchallengessuccessful2
+      ,cal.date as start_date
+      ,r.round_id
+      ,r.forum_id
+      ,r.calendar_id
+  from  contest c
+      , round r
+      , outer round_division rd1
+      , outer round_division rd2
+      , calendar cal
+where  r.contest_id = c.contest_id
+   and r.round_type_id in (1, 2, 10)
+   and rd1.round_id = r.round_id
+   and rd2.round_id = r.round_id
+   and rd1.division_id = 1
+   and rd2.division_id = 2
+   and r.failed = 0
+   and r.calendar_id = cal.calendar_id
+ order by r.calendar_id desc

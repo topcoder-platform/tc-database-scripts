@@ -1,0 +1,14 @@
+select FIRST 15 distinct c.category_name || ' ' || cc.component_name || ' - ' || production_date as title, 
+           'http://software.topcoder.com/catalog/c_component.jsp?comp=' || cc.component_id as link,
+           cc.short_desc as description,
+           cv.version, production_date
+       from comp_version_dates cvd, 
+                comp_versions cv, 
+                comp_catalog cc,
+                categories c
+    where cc.component_id = cv.component_id
+        and cvd.comp_Vers_id = cv.comp_vers_id
+        and c.category_id = cc.root_category_id
+        and cc.root_category_id in (5801776, 5801777)
+       and cvd.production_date >= CURRENT - 60 UNITS DAY
+order by 5 desc

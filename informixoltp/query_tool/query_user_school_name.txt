@@ -1,0 +1,3 @@
+SELECT school_name
+  FROM current_school cs
+ WHERE coder_id = @cr@

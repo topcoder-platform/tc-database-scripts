@@ -1,0 +1,2 @@
+select distinct r.resource_role_id from project p, resource r
+where p.project_id = r.project_id and p.project_id = @pj@

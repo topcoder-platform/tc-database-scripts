@@ -1,0 +1,20 @@
+select '<a href="http://studio.topcoder.com/?module=ViewContestDetails&ct=' \|\| c.contest_id \|\| '">' \|\| c.contest_id \|\| '</a>' as contest_link,
+       nvl((select max(cl.name) from time_oltp:project p, time_oltp:client_project clp, time_oltp:client cl where p.project_id = clp.project_id and clp.client_id = cl.client_id and p.po_box_number = cp.sale_reference_id), 'Self-Serviced') as client,
+       nvl((select max(p.name) from time_oltp:project p, time_oltp:client_project clp, time_oltp:client cl where p.project_id = clp.project_id and clp.client_id = cl.client_id and p.po_box_number = cp.sale_reference_id), 'Self-Serviced') as project,
+       c.name,
+       cp.create_date payment_date,
+       c.start_time contest_start_date,
+       ct.contest_type_desc contest_type,
+       cds.contest_detailed_status_desc contest_status,
+       cp.price amount,
+       cp.sale_reference_id,
+       DECODE (sale_type_id, 1, 'Credit Card', 2, 'Invoice', 'Invoice') payment_type,
+       c.contest_id as contest_id
+from contest c,
+     contest_payment cp,
+     contest_type_lu ct,
+     contest_detailed_status_lu cds
+where c.contest_id = cp.contest_id
+  and c.contest_type_id = ct.contest_type_id
+  and c.contest_detailed_status_id = cds.contest_detailed_status_id
+order by create_date desc

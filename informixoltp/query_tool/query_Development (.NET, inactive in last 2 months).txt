@@ -1,0 +1,25 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , tcs_catalog:user_rating ur
+ WHERE u.status = 'A'
+   AND u.user_id IN (SELECT unx.user_id
+                       FROM user_notify_xref unx
+                      WHERE notify_id in (4))
+   AND u.user_id = ur.user_id
+   AND ur.phase_id = 113
+   AND EXISTS (SELECT *
+                 FROM tcs_catalog:component_inquiry ci
+                    , tcs_catalog:comp_catalog cc
+                WHERE ci.tc_user_id = u.user_id
+                  AND ci.phase = ur.phase_id
+                  AND ci.component_id = cc.component_id
+                  AND cc.root_category_id in (5801777, 5801779))
+   AND NOT EXISTS (SELECT *
+                     FROM tcs_catalog:component_inquiry ci
+                        , tcs_catalog:comp_catalog cc
+                    WHERE ci.tc_user_id = u.user_id
+                      AND ci.phase = ur.phase_id
+                      AND ci.create_time > current - 2 units month
+                      AND ci.component_id = cc.component_id
+                      AND cc.root_category_id in (5801777, 5801779))

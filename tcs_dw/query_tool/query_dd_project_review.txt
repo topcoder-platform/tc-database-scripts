@@ -1,0 +1,15 @@
+select reviewer_id
+       ,c.handle as reviewer_handle
+       ,sr.review_resp_id
+       ,rr.review_resp_desc
+       ,num_appeals
+       ,num_successful_appeals
+       ,raw_score
+       ,final_score
+ from submission_review  sr
+      ,review_resp rr
+      ,coder c
+where sr.review_resp_id = rr.review_resp_id
+and c.coder_id = reviewer_id
+and project_id = @pj@
+and user_id = @cr@

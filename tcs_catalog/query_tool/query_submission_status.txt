@@ -1,0 +1,61 @@
+select distinct
+       component_name,
+       c.root_category_id,
+       cv.phase_id phase,
+       cv.version,
+       u.user_id,
+       ci.create_time as inquiry_date,
+       s.submission_date as submission_date,
+       round(ur.rating) rating,
+       cv.component_id,
+ (SELECT min(submission_date)
+          FROM submission sb2
+         WHERE sb2.project_id = p.project_id
+          AND sb2.cur_version = 1
+          AND sb2.submission_type = 1
+          AND sb2.is_removed = 0) as min_sub_date,
+       s.submission_id,
+       cv.version_text,
+       u.login_id as coder_id
+  from r_user_role rur,
+       comp_versions cv,
+       security_user u,
+       project p,
+       phase_instance pi,
+       comp_catalog c,
+       OUTER submission s,
+       OUTER user_rating ur,
+       component_inquiry ci
+ where 1 =  1
+  and ci.component_id = cv.component_id
+  and ci.phase = cv.phase_id
+  and ci.version = cv.version  
+  and p.project_id = rur.project_id
+  and ci.user_id = u.login_id
+  and ci.project_id = p.project_id
+  and u.login_id = rur.login_id
+  and p.comp_vers_id = cv.comp_vers_id
+  and p.cur_version = 1
+  and c.component_id = cv.component_id
+  and ((p.project_type_id = 1  AND cv.phase_id = 112)
+       OR (p.project_type_id = 2  AND cv.phase_id = 113))
+  and s.project_id = p.project_id
+  and s.cur_version = 1
+  and s.submitter_id = rur.login_id
+  and s.is_removed = 0
+  and p.project_stat_id in(1,3)
+  and s.submission_type = 1
+  and rur.cur_version = 1
+  and rur.r_role_id = 1
+  and ur.user_id = u.login_Id
+  and ur.phase_id = cv.phase_id
+  and pi.project_id = p.project_id
+  and pi.phase_id = 1
+  and p.project_id =  @pj@
+  and EXTEND(pi.end_date, YEAR TO HOUR)  > 
+    EXTEND(CURRENT, YEAR TO HOUR)
+group by component_name, root_category_id,
+         cv.phase_id, cv.version, u.user_id , s.submission_date, ur.rating,
+       cv.component_id,
+         s.submission_id,10,cv.version_text,6,u.login_id
+order by 7 desc, 6 desc

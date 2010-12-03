@@ -1,0 +1,8 @@
+select u.handle, e.address as email_address
+  from vsign_oltp:user u
+      , vsign_oltp:email e
+ where u.user_id = e.user_id
+ and u.status = 'A'
+ and e.primary_ind = 1
+  and u.user_id not in (select user_id from vsign_oltp:group_user where group_id in (13,14))
+ and u.user_id not in (select login_id from user_group_xref where group_id = 2000115)

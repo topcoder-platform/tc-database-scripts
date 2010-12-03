@@ -1,0 +1,17 @@
+select c.coder_id, pr.new_rating - pr.old_rating as rating_change
+    , p.component_name || ' ' || p.version_text as name
+    , rating_date as date
+    , p.project_id
+from project_result pr
+    , project p
+     , coder c
+where pr.project_id = p.project_id
+and pr.user_id = c.coder_id
+and c.status = 'A'
+and p.phase_id in (@pis@)
+and pr.rating_ind = 1
+and pr.valid_submission_ind = 1
+and p.status_id in (4,5,7,8)
+and pr.new_rating - pr.old_rating > 200
+and not old_rating is null
+order by rating_change desc

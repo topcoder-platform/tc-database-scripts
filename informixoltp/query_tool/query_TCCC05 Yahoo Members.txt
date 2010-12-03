@@ -1,0 +1,19 @@
+select 
+  distinct u.handle, handle_lower
+from 
+  campaign c, 
+  campaign_job_xref x, 
+  job_hit jh, 
+  user u 
+where
+  ( 
+    c.campaign_id in (146,147,154,156,160) or
+    (
+      c.campaign_id = 145 and x.job_id = 253
+    )
+  ) and
+  x.campaign_id = c.campaign_id and 
+  x.job_id = jh.job_id and 
+  jh.user_id = u.user_id and
+  date(c.end_date) >= today
+order by 2

@@ -1,0 +1,6 @@
+select 
+      sq.question_text 
+    from
+      question sq,  round_question rq 
+where rq.round_id = @rd@ and 
+ rq.question_id = sq.question_id and   sq.question_type_id in (1,3)

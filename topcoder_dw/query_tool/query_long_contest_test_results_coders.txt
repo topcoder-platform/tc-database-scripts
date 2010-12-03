@@ -1,0 +1,15 @@
+select lcr.coder_id
+     , c.handle
+     , lcr.system_point_total
+     , (select score 
+          from long_system_test_result 
+         where coder_id = lcr.coder_id
+           and round_id = lcr.round_id
+           and example = 0
+           and test_case_id = @tid@) as score_sort
+  from long_comp_result lcr
+     , coder c
+ where lcr.round_id = @rd@
+   and exists (select '1' from long_system_test_result where coder_id = c.coder_id and round_id = lcr.round_id and example = 0)
+   and lcr.coder_id = c.coder_id
+   and c.status = 'A'

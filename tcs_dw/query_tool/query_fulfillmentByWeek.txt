@@ -1,0 +1,26 @@
+select  case  project_category_id when 1 then 'Design' else 'Development' end 
+     ,  count(*) num_projects
+     ,  year
+     ,  week_of_year
+     ,  sum(num_registrations) num_of_registrations
+     ,  sum(num_submissions) num_submissions
+     ,  sum(num_valid_submissions) passed_review
+     ,  ROUND(sum(num_submissions)/count(*),1) avg_num_of_submissions
+     ,  ROUND(sum(num_valid_submissions)/count(*),1) avg_num_of_subs_pass_review
+     ,  ROUND((count(*) - sum(case num_submissions when 0 then 1 else 0 end))/ count(*),2) * 100  sub_fulfillmentRate
+     ,  ROUND((count(*) - sum(case num_valid_submissions when 0 then 1 else 0 end))/ count(*),2) * 100  passrev_fulfillmentRate
+     ,  sum(case num_submissions when 0 then 1 else 0 end) num_0_subs
+     ,  round(avg(pr.final_score),2) as avg_winning_score
+from project p
+   , calendar c
+   , outer project_result pr 
+where 1=1 
+and date(posting_date) =  c.date
+and status_id in(1,4,5,6,7)
+and c.year >= @yr@
+and submitby_date <= CURRENT - 1 UNITs day
+and pr.project_id = p.project_id
+and pr.placed = 1
+and p.project_category_id in (1,2)
+group by project_category_id, week_of_year, year
+order by year desc, week_of_year desc, 1 desc

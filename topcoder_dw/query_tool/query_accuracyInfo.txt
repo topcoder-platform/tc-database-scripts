@@ -1,0 +1,25 @@
+SELECT (CASE WHEN num_competed=0 THEN 0
+             ELSE ROUND(successful_submissions/num_competed*100,2)
+             END) AS overall_accuracy
+     , (CASE WHEN submissions=0 THEN 0
+             ELSE ROUND(successful_submissions/submissions*100,2)
+             END) AS submission_accuracy
+     , (CASE WHEN num_competed=0 THEN 0
+             ELSE ROUND(submissions/num_competed*100,2)
+             END) AS submission_percentage
+  FROM TABLE(MULTISET(SELECT count(rr.coder_id) AS num_competed
+                           , SUM(CASE WHEN end_status_id IN (131, 140, 150, 160)
+                                      THEN 1
+                                      ELSE 0
+                                      END) AS submissions
+                           , SUM(CASE WHEN end_status_id = 150 THEN 1
+                                      ELSE 0
+                                      END) AS successful_submissions
+                        FROM room_result rr
+                           , OUTER coder_problem cp
+                       WHERE cp.problem_id = @pm@
+                         AND rr.round_id = @rd@
+                         AND rr.division_id = @dn@
+                         AND cp.coder_id = rr.coder_id
+                         AND cp.round_id = rr.round_id
+                         AND cp.division_id = rr.division_id))

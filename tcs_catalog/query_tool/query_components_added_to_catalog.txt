@@ -1,0 +1,15 @@
+SELECT UNIQUE DATE(cd.production_date) AS catalog_date
+     , cat.category_name AS language
+     , cc.component_name AS component
+     , cv.version_text AS version
+  FROM comp_catalog cc
+     , comp_versions cv
+     , comp_version_dates cd
+     , categories cat
+ WHERE cc.component_id = cv.component_id
+   AND cv.phase_id = 114
+   AND cv.comp_vers_id = cd.comp_vers_id
+   AND cd.production_date IS NOT NULL
+   AND cc.root_category_id IN (5801776, 5801777)
+   AND cc.root_category_id = cat.category_id
+ORDER BY 1 desc, 3, 4, 2;

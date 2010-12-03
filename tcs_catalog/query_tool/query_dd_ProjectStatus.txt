@@ -1,0 +1,99 @@
+                                       select 
+    -- name
+    (select value from project_info where project_info.project_id = p.project_id and project_info_type_id = 6) as name, 
+    -- phase
+    pt.name as phase_name,
+    --catalog
+    (select substring(c.catalog_name from 1 for 4) from category_catalog cc join project_info pi on pi.value = cc.category_id and pi.project_id = p.project_id and pi.project_info_type_id = 5 join catalog c on cc.catalog_id = c.catalog_id) as catalog,
+    --activity
+    substring(pc.name from 1 for 12) as activity,
+    --start
+    (select min(scheduled_start_time) from project_phase where project_phase.project_id = p.project_id) as start,
+    --end
+    (select max(scheduled_end_time) from project_phase where project_phase.project_id = p.project_id) as end,
+    --phase end
+    (select max(pp.scheduled_end_time) from project_phase pp where pp.phase_status_id = 2 and pp.project_id = p.project_id) as phase_end,
+    --status - phase_status_lu
+    ps.name as status,
+    --registrants
+    (select count(*) from resource r, resource_info ri where ri.resource_id = r.resource_id and ri.resource_info_type_id = 4 and r.project_id = p.project_id and r.resource_role_id = 1 and ri.value <> 'N/A') as rated_registrants,
+    (select 
+count (*) 
+from
+table (multiset(
+select 
+  r.*, ri.*
+from 
+  resource r, 
+  outer table (multiset(select 
+  ir.project_id pid, ir.resource_id rid, ir.resource_role_id rrid, nvl(iri.resource_info_type_id,4) rti, nvl(iri.value, 'N/A') val
+from 
+  resource ir, 
+  outer resource_info as iri 
+where 
+  iri.resource_id = ir.resource_id and 
+  ir.resource_role_id = 1 and
+  iri.resource_info_type_id = 4 and
+  ir.project_id = @pj@)) ri 
+where 
+  ri.rid = r.resource_id and 
+  r.resource_role_id = 1 and
+  ri.rti = 4 and
+  r.project_id = @pj@)) ti
+where 
+  ti.val ='N/A') as unrated_registrants,
+    --submissions
+    (select count(*) from submission s, upload u where u.upload_id = s.upload_id
+     and u.project_id = p.project_id and s.submission_type_id=1 and s.submission_status_id in (1,2,3,4)) as submissions,
+    --forum
+    'http://forums.topcoder.com/?module=Category&categoryID=' || pi_forum.value as forum_link,
+    --OR
+    'http://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id as OR_Link
+from 
+    project p join
+    project_status_lu ps on p.project_status_id = ps.project_status_id join
+    project_category_lu pc on p.project_category_id = pc.project_category_id join
+    project_info pi_forum on p.project_id = pi_forum.project_id and pi_forum.project_info_type_id = 4 join
+    project_phase pp_current_phase on  pp_current_phase.phase_status_id = 2 
+                      and pp_current_phase.project_id = p.project_id join 
+    phase_type_lu pt on pp_current_phase.phase_type_id = pt.phase_type_id 
+WHERE
+  p.project_id =  @pj@
+UNION
+Select 
+    ct.name as name,
+    "Studio" as phase_name,
+    "Studio" as catalog,
+    "activity" as activity,
+    ct.start_time as start,
+    ct.end_time as end,
+    ct.end_time as phase_end,
+    (select substring (contest_status_desc from 1 for 8) from studio_oltp:contest_status_lu csl where ct.contest_status_id = csl.contest_status_id) as status,
+    0 as rated_registrants,
+    (select count(*) from studio_oltp:contest_registration cr where cr.contest_id = ct.contest_id) as unrated_registrants,
+    (select count(*) from studio_oltp:submission sm where sm.contest_id = ct.contest_id and sm.submission_status_id = 1) as submissions,
+    "http://studio.topcoder.com/forums?module=ThreadList&forumID=" || ct.forum_id as forum_link,
+    "http://studio.topcoder.com/?module=ViewContestDetails&ct=" || ct.contest_id as OR_Link
+    
+FROM
+  studio_oltp:contest ct
+WHERE ct.contest_id = @pj@
+UNION
+Select 
+    oct.name as name,
+    "Studio" as phase_name,
+    "Studio" as catalog,
+    "activity" as activity,
+    oct.start_time as start,
+    oct.end_time as end,
+    oct.end_time as phase_end,
+    (select contest_status_desc from openaim_oltp:contest_status_lu csl where oct.contest_status_id = csl.contest_status_id) as status,
+    0 as rated_registrants,
+    (select count(*) from openaim_oltp:contest_registration cr where cr.contest_id = oct.contest_id) as unrated_registrants,
+    (select count(*) from openaim_oltp:submission sm where sm.contest_id = oct.contest_id and sm.submission_status_id = 1) as submissions,
+    "http://www.topcoder.com/openaim/forums"  as forum_link,
+    "http://www.topcoder.com/openaim/?module=ViewContestDetails&ct=" || oct.contest_id as OR_Link
+    
+FROM
+  openaim_oltp:contest oct
+WHERE oct.contest_id = @pj@

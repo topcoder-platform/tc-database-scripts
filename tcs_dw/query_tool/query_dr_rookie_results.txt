@@ -1,0 +1,17 @@
+select  cr.coder_id
+       , c.handle
+       , cr.final_points
+       , cr.potential_points
+       , cr.current_place
+       , cr.current_prize
+       , r.confirmed_ind
+from contest_result cr
+     , rookie r
+     , coder c
+where cr.coder_id = r.user_id
+and cr.coder_id = c.coder_id
+and cr.contest_id = @ct@
+and r.phase_id = @ph@
+and r.season_id = @seid@
+and (cr.initial_points > 0 or cr.potential_points > 0)
+order by current_place

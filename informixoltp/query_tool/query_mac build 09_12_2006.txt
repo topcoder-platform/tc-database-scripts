@@ -1,0 +1,33 @@
+SELECT u.handle,
+	u.email as email_address
+FROM coder c,
+    email_user u,
+    user uu,
+    user_address_xref x,
+    address a,
+    rating r,
+ tcs_catalog:user_rating devr,
+    coder_skill cs47, 
+    coder_skill cs7, 
+    country cry,
+    outer state st
+  WHERE 1 = 1
+    AND uu.user_id = u.user_id
+    AND devr.user_id = c.coder_id
+    AND devr.phase_id = 113
+    AND r.coder_id = c.coder_id
+    AND u.user_id = c.coder_id
+    AND u.status = 'A'
+    AND cry.country_code = a.country_code
+    and x.user_id = u.user_id 
+    and x.address_id = a.address_id 
+    and a.address_type_id = 2 
+    AND a.state_code = st.state_code
+    and exists (select 1 from user_notify_xref cn where cn.user_id = u.user_id 
+    AND cn.notify_id in (4))
+    AND cs7.skill_id = 7 AND cs7.ranking >= 3 AND cs7.coder_id = c.coder_id
+    AND cs47.skill_id = 47 AND cs47.ranking >= 3 AND cs47.coder_id = c.coder_id
+    AND devr.rating >= 1
+    AND devr.rating <= 9999
+    AND c.coder_id IN (select up1.user_id FROM user_preference up1 WHERE up1.preference_value_id IN (32, 34))
+    AND u.handle NOT IN ('cnettel','dmaverick')

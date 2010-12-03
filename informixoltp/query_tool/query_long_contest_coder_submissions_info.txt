@@ -1,0 +1,26 @@
+SELECT r.round_id AS round_id
+     , comp.problem_id AS problem_id
+     , comp.component_id AS component_id
+     , c.name AS contest_name
+     , r.name AS round_name
+     , p.name AS problem_name
+     , r.round_type_id
+     , (SELECT COUNT(s.submission_number)
+          FROM long_component_state cs
+             , long_submission s
+         WHERE cs.round_id = r.round_id
+           AND cs.coder_id = @cr@
+           and s.example = 0
+           AND s.long_component_state_id = cs.long_component_state_id
+           AND cs.component_id = rc.component_id) AS num_submissions
+  FROM round r
+     , round_component rc
+     , component comp
+     , problem p
+     , contest c
+ WHERE r.round_id = @rd@
+   AND rc.component_id = @compid@
+   AND rc.round_id = r.round_id
+   AND comp.component_id = rc.component_id
+   AND p.problem_id = comp.problem_id
+   AND c.contest_id = r.contest_id;

@@ -1,0 +1,32 @@
+select c.component_name as component
+     , cat.category_name as catalog
+     , cv.version_text as version
+     , pt.project_type_name
+     , '<a href="mailto:' || e.address || '">' || u.user_id  || '</a>' as handle
+     , r.review_role_name as role
+     , ps.project_stat_name
+     , p.project_id
+  from r_user_role rur
+     , comp_versions cv
+     , security_user u
+     , review_role r
+     , comp_catalog c
+     , common_oltp:email e
+     , categories cat
+     , project p
+     , project_type pt
+     , project_status ps
+ where rur.login_id = u.login_id
+   and rur.project_id = p.project_id
+   and rur.cur_version = 1
+   and rur.r_role_id <> 1
+   and r.review_role_id = rur.r_role_id
+   and p.comp_vers_id = cv.comp_vers_id
+   and p.cur_version = 1
+   and cv.component_id = c.component_id
+   and e.user_id = u.login_id 
+   and e.primary_ind = 1
+   and c.root_category_id = cat.category_id
+   and p.project_type_id = pt.project_type_id
+   and p.project_stat_id = ps.project_stat_id
+ order by c.component_name asc, cat.category_name, cv.version_text, pt.project_type_name, r.review_role_name

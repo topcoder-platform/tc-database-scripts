@@ -1,0 +1,51 @@
+select count(distinct u.user_id) as total_signups
+     , sum(case when up.preference_value_id = 32 then 1 else 0 end) as contract_interest
+     , sum(case when up.preference_value_id = 34 then 1 else 0 end) as fulltime_interest
+     , (select count(distinct up.user_id)
+          from coder c
+             , common_oltp:user_preference up 
+         where c.coder_id = up.user_id 
+           and up.preference_id in (2,7) 
+           and c.country_code in ('484', '124', '840')) as total_north_american
+     , (select count(distinct up.user_id)
+          from coder c
+             , common_oltp:user_preference up 
+             , rating r
+         where c.coder_id = up.user_id 
+           and c.coder_id = r.coder_id
+           and r.num_ratings > 0
+           and up.preference_id in (2,7) 
+           and c.country_code in ('484', '124', '840')) as total_rated_north_american
+     , '<a href=''http://www.topcoder.com/tc?revise=on&maxdays=&city=&email=&minrating==840&country=124&country=484&lastname=&order=7&mindays=&pro=on&maxdayssincerating=&sort=1&handle=&company=&placement=either&lang_5=on&lang_4=on&lang_3=on&lang_1=on&school=&firstname=&zipcode=&module=ProfileSearch&maxrating=&t=&minevents=''>' || (select count(distinct up.user_id)
+          from coder c
+             , common_oltp:user_preference up 
+         where c.coder_id = up.user_id 
+           and c.coder_type_id = 2
+           and up.preference_id in (2,7) 
+           and c.country_code in ('484', '124', '840')) || '</a>' as total_north_american_pro
+     , '<a href=''http://www.topcoder.com/tc?revise=on&maxdays=&city=&email=&minrating=1&country=840&country=124&country=484&lastname=&order=7&mindays=&pro=on&maxdayssincerating=&sort=1&handle=&company=&placement=either&lang_5=on&lang_4=on&lang_3=on&lang_1=on&school=&firstname=&zipcode=&module=ProfileSearch&maxrating=&t=&minevents=''>' || (select count(distinct up.user_id)
+          from coder c
+             , common_oltp:user_preference up 
+             , rating r
+         where c.coder_id = up.user_id 
+           and c.coder_id = r.coder_id
+           and c.coder_type_id = 2
+           and r.num_ratings > 0
+           and up.preference_id in (2,7) 
+           and c.country_code in ('484', '124', '840')) || '</a>' as total_rated_north_american_pro
+     , (select count(distinct up.user_id)
+          from coder c
+             , common_oltp:user_preference up 
+             , rating r
+         where c.coder_id = up.user_id 
+           and c.coder_type_id = 2
+           and c.coder_id = r.coder_id
+           and up.preference_id in (2,7) 
+           and r.num_ratings > 0
+	   and (c.contact_date is null or c.contact_date <= CURRENT )
+           and c.country_code in ('484', '124', '840')) as total_north_american_pro_contactable
+  from common_oltp:user_preference up
+     , user u
+ where up.preference_id in (2,7)
+   and u.user_id = up.user_id
+ group by 4,5,6,7,8

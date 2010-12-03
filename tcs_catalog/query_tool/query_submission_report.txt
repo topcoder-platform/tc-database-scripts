@@ -1,0 +1,25 @@
+select cat.category_name catalog, component_name, cl.description level, u.user_id,  pt.project_type_name, st.description, cvd.price, s.modify_date submission_date
+    from project p,
+         table(multiset(select project_id, submitter_id, max(modify_date) as modify_date 
+         from submission
+         where cur_version = 1 and submission_type = 1 group by project_id, submitter_id)) s,
+         comp_versions cv,
+         comp_version_dates cvd,
+         project_type pt,
+         comp_catalog cc,
+         security_user u,
+         status st,
+         comp_level cl,
+         categories cat
+   where cvd.level_id = cl.level_id
+     and cat.category_id = cc.root_category_id
+     and p.project_id = s.project_id
+     and cv.comp_vers_id = p.comp_vers_id
+     and u.login_id = s.submitter_id
+     and cvd.comp_vers_id = cv.comp_vers_id
+     and cvd.phase_id = cv.phase_id
+     and cvd.status_id = st.status_id
+     and cc.component_id = cv.component_id
+     and p.project_type_id = pt.project_type_id
+     and p.cur_version = 1
+order by s.modify_date desc, st.description desc, component_name, user_id, project_type_name

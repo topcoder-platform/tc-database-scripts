@@ -1,0 +1,17 @@
+SELECT c.handle,
+c.coder_id,
+r.rating,
+SUM(CASE 
+    WHEN (rr.room_placed = 1 and rr.division_id = @dn@) THEN 1 
+    ELSE 0 
+    END) AS division_wins
+FROM rating r, coder c, room_result rr, round
+WHERE r.coder_id = c.coder_id 
+AND c.status = 'A'
+AND c.coder_id = rr.coder_id 
+AND rr.room_placed = 1
+AND rr.round_id = round.round_id
+AND round.round_type_id in (1,2,10)
+and rr.rated_flag = 1
+GROUP BY c.handle, c.coder_id, r.rating 
+ORDER BY division_wins DESC, r.rating DESC, c.handle

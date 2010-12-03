@@ -1,0 +1,4 @@
+query_accumulated_dr_points_by_month.txt|UPDATE query SET text= ? WHERE query_id=29056
+query_reporter_total.txt|UPDATE query SET text = ? WHERE query_id = 30856
+
+

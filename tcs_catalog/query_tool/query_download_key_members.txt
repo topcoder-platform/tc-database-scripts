@@ -1,0 +1,3 @@
+select sg.description as group, pc.code, (select count(*) from user_group_xref ugx where ugx.group_id = sg.group_id) as members 
+from permission_code pc, security_groups sg
+where pc.group_id = sg.group_id

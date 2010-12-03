@@ -1,0 +1,9 @@
+select s.submission_text
+  from long_submission s
+     , long_component_state cs
+ where cs.coder_id = @cr@
+   and cs.round_id = @rd@
+   and cs.component_id = @compid@
+   and s.submission_number = @subnum@
+   and cs.long_component_state_id = s.long_component_state_id
+   and s.example = @ex@

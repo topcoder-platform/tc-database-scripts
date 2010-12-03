@@ -1,0 +1,37 @@
+select u.handle
+     , case when (select count(*) from affidavit where user_id = u.user_id and affirmed = 1 and affidavit_type_id = 35) > 0 then '-' else 'no' end as affirmed_semifinal_affidavit
+     , case when exists (select '1' from coder_image_xref where display_flag = 1 and coder_id = u.user_id) then '-' else 'no' end as has_headshot
+     , case when (select count(*) from affidavit where user_id = u.user_id and notarized = 1) > 0 then '-' else 'no' end as notarized_affidavit
+     , (select t.name from user_tax_form_xref x, tax_form t where x.tax_form_id = t.tax_form_id and x.user_id = u.user_id and x.status_id = 60) as tax_form
+     , case when exists (select '1' from response where question_id = 36 and user_id = u.user_id) then '-' else 'no' end as answered_travel
+     , case when exists (select '1' from response where question_id in (select question_id from survey_question where survey_id = 22020) and user_id = u.user_id) then '-' else 'no' end as answered_questionaire
+  from user u
+     , coder c
+     , coder_type ct
+     , outer (demographic_response dr1,demographic_answer da1)
+     , outer (demographic_response dr2,demographic_answer da2)
+     , outer demographic_response dr3
+     , outer (demographic_response dr4,demographic_answer da4)
+     , outer (current_school cs, school s)
+ where da1.demographic_question_id = 16
+   and da1.demographic_question_id = dr1.demographic_question_id
+   and da1.demographic_answer_id = dr1.demographic_answer_id
+   and dr1.user_id = u.user_id
+   and da2.demographic_question_id = 17
+   and da2.demographic_question_id = dr2.demographic_question_id
+   and da2.demographic_answer_id = dr2.demographic_answer_id
+   and dr2.user_id = u.user_id
+   and dr3.user_id = u.user_id
+   and dr3.demographic_question_id = 14
+   and c.coder_id = u.user_id
+   and cs.coder_id = u.user_id
+   and cs.school_id = s.school_id
+   and c.coder_type_id = ct.coder_type_id
+   and da4.demographic_question_id = 15
+   and da4.demographic_question_id = dr4.demographic_question_id
+   and da4.demographic_answer_id = dr4.demographic_answer_id
+   and dr4.user_id = u.user_id
+   and (
+     u.user_id in (select coder_id from room_result where round_id = 12014 and advanced = 'Y')
+    )
+order by 2 desc,3 desc,4 desc,5 desc,6 desc

@@ -1,0 +1,27 @@
+SELECT sq.survey_id
+     , q.question_text
+     , (select count(*) from response where question_id = q.question_id and user_id = @cr@) as answered_flag
+     , rs.start_time as date
+     , p.path || i.file_name as image
+     , i.link
+     , case when s.start_date < current and s.end_date > current then 1 else 0 end as survey_open
+  FROM survey_question sq
+     , question q
+     , round_question rq
+     , round_segment rs
+     , OUTER (question_image_xref qix, image i, path p)
+     , survey s
+ WHERE sq.question_id = q.question_id
+   AND q.question_style_id in (1,2)
+   AND q.question_type_id in (1,6)
+   AND q.question_id = rq.question_id
+   AND rq.round_id = rs.round_id
+   AND rs.segment_id = 2
+   AND rs.start_time < CURRENT
+   AND q.question_id = qix.question_id
+   AND qix.image_id = i.image_id
+   AND qix.display_flag = 1
+   AND i.path_id = p.path_id
+   AND i.image_type_id = 10
+   and sq.survey_id = s.survey_id
+ ORDER BY 4 DESC

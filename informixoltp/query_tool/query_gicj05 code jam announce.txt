@@ -1,0 +1,22 @@
+select 
+  e.address as email_address
+  , u.handle
+from
+  email_user u,
+  google_oltp:coder c,
+  google_oltp:user_address_xref x,
+  google_oltp:address a,
+  google_oltp:country co,
+  google_oltp:email e
+where
+  u.user_id = c.coder_id and
+  u.status = 'A' and
+  e.user_id = u.user_id and
+  e.email_type_id = 1 and
+  x.user_id = c.coder_id and
+  a.address_id = x.address_id and
+  a.country_code = co.country_code and
+  a.country_code in 
+  ('356','360','458',
+   '462','104','524',
+   '702','764')

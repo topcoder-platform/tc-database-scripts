@@ -1,0 +1,22 @@
+select
+  school_name, count(*) as cnt,
+  avg(cr.rating) as avg_rating,
+  lower(school_name)
+from
+  user u,
+  coder c,
+  room_result rs,
+  room r,
+  current_school cs,
+  rating cr
+where
+  u.user_id = c.coder_id and
+  rs.coder_id = c.coder_id and
+  cs.coder_id = c.coder_id and
+  cr.coder_id = c.coder_id and
+  rs.round_id = @rd@ and school_name != '' and
+  r.room_id = rs.room_id and
+  room_type_id <> 1 and
+  coder_type_id = 1
+group by school_name
+order by 4

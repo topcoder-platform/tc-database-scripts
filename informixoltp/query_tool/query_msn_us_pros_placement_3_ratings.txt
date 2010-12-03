@@ -1,0 +1,9 @@
+select count(*)
+  from coder c 
+     , rating r
+ where exists (select '1' from user_preference up where up.user_id= c.coder_id and up.preference_id in (2,7) and up.preference_value_id in (32,34))
+  and exists (select '1' from campaign_job_xref x, job_hit jh where x.job_id = jh.job_id and jh.user_id = c.coder_id and x.campaign_id = 167)
+  and c.country_code = '840' 
+  and c.coder_type_id = 2
+  and r.num_ratings > 2
+  and c.coder_id = r.coder_id;

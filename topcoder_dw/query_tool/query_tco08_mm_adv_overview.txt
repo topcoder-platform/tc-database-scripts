@@ -1,0 +1,27 @@
+select c.coder_id
+     , ar.rating     
+     , cc.seed  
+     , c.handle
+     , c.handle_lower as handle_sort
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from long_comp_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 11130) as round1
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from long_comp_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 11131) as round2
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from long_comp_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 11132) as round3
+     , (select CASE WHEN advanced='Y' THEN 'Champion' ELSE 'Eliminated' END from long_comp_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 12020) as final
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from long_comp_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 11130), 3) as round1_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from long_comp_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 11131), 3) as round2_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from long_comp_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 11132), 3) as round3_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from long_comp_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 12020), 3) as finals_sort
+  from coder c
+     , algo_rating ar
+     , contest_coder cc
+     , long_comp_result lcr
+ where 
+   cc.coder_id = c.coder_id
+   and ar.coder_id = c.coder_id
+   and ar.algo_rating_type_id = 3
+--   and c.status = 'A'
+   and cc.contest_id = 10369
+   and lcr.coder_id = c.coder_id
+   and lcr.round_id = 11130
+   and lcr.attended = 'Y'
+ order by finals_sort, round3_sort, round2_sort, round1_sort, seed

@@ -1,0 +1,63 @@
+select
+  cv.comp_vers_id,
+  cat.category_name as catalog,
+  max(pi_name.value) as component_name,
+  max(replace(pi_version.value, ",", ".")) as component_version,
+  sum(Component_Payment) as component_payment,
+  sum(Review_Payment) as review_payment,
+  sum(Referral_Payment) as referral_payment,
+  sum(reliability_payment) as reliability_payment,
+  sum(review_bonus_payment) as review_bonus_payment,
+  sum(total_payment) as total_payment,
+  max(quarter) as quarter
+from
+tcs_catalog:project proj,
+tcs_catalog:project_phase pp1     ,
+tcs_catalog:project_info pi_comp_vers_id     ,
+tcs_catalog:project_info pi_catalog     ,
+tcs_catalog:project_info pi_name     ,
+tcs_catalog:project_info pi_version,
+tcs_catalog:categories cat,
+tcs_catalog:comp_versions cv,
+table (multiset(
+select
+      cpid.component_project_id,
+        Review.date_paid,
+        nvl(Component.gross_amount,0) as Component_Payment,
+    nvl(Review.gross_amount, 0) as Review_Payment,
+    nvl(Referral.gross_amount, 0) as Referral_Payment,
+        nvl(Reliability.gross_amount,0) as Reliability_Payment,
+        nvl(Review_Bonus.gross_amount,0) as Review_Bonus_Payment,
+        nvl(Component.gross_amount, 0) + nvl(Review.gross_amount, 0) +  nvl(Referral.gross_amount, 0) + nvl(Reliability.gross_amount,0) + nvl(Review_Bonus.gross_amount,0) as total_payment,
+    trunc((YEAR(Review.date_paid) * 100) + 1 + (MONTH(Review.date_paid) - 1) / 3) Quarter
+from
+  table (multiset(select component_project_id from informixoltp:payment_detail where payment_type_id in (4, 6, 7, 24, 38) and date_paid is not null group by component_project_id)) as cpid,
+  outer table (multiset ( select component_project_id, min(date_paid) as date_paid, sum(gross_amount) as gross_amount from informixoltp:payment_detail where payment_type_id = 7 and date_paid is not null group by component_project_id)) as Review,
+  outer table (multiset ( select component_project_id,  sum(gross_amount) as gross_amount from informixoltp:payment_detail where payment_type_id = 6 and date_paid is not null group by component_project_id)) as Component,
+  outer table (multiset ( select pid.component_project_id, sum(pdsrc.gross_amount) as gross_amount from informixoltp:payment_detail pdsrc, informixoltp:payment_detail pid, informixoltp:payment p where pdsrc.payment_type_id = 4 and pdsrc.date_paid is not null and pdsrc.parent_payment_id = p.payment_id and p.most_recent_detail_id = pid.payment_detail_id group by pid.component_project_id )) as Referral,
+  outer table (multiset ( select pid.component_project_id, sum(pdsrc.gross_amount) as gross_amount from informixoltp:payment_detail pdsrc, informixoltp:payment_detail pid, informixoltp:payment p where pdsrc.payment_type_id = 24 and pdsrc.date_paid is not null and pdsrc.parent_payment_id = p.payment_id and p.most_recent_detail_id = pid.payment_detail_id group by pid.component_project_id )) as Reliability,
+  outer table (multiset ( select pid.component_project_id, sum(pdsrc.gross_amount) as gross_amount from informixoltp:payment_detail pdsrc, informixoltp:payment_detail pid, informixoltp:payment p where pdsrc.payment_type_id = 38 and pdsrc.date_paid is not null and pdsrc.parent_payment_id = p.payment_id and p.most_recent_detail_id = pid.payment_detail_id group by pid.component_project_id )) as Review_Bonus
+where
+  cpid.component_project_id = review.component_project_id and
+  cpid.component_project_id = component.component_project_id and
+  cpid.component_project_id = referral.component_project_id and
+  cpid.component_project_id = reliability.component_project_id and
+  cpid.component_project_id = review_bonus.component_project_id
+)) as payment_data
+where
+  proj.project_id = payment_data.component_project_id and
+  pi_comp_vers_id.project_id = payment_data.component_project_id and
+  pi_comp_vers_id.project_info_type_id = 1 and
+  pp1.project_id = payment_data.component_project_id and
+  pp1.phase_type_id = 2 and
+  pi_catalog.project_id = payment_data.component_project_id and
+  pi_catalog.project_info_type_id = 5 and
+  pi_name.project_id = payment_data.component_project_id and
+  pi_name.project_info_type_id = 6 and
+  pi_version.project_id = payment_data.component_project_id and
+  pi_version.project_info_type_id = 7 and
+  pi_catalog.value::integer = cat.category_id and
+  pi_comp_vers_id.value::integer = cv.comp_vers_id
+group by
+  cv.comp_vers_id,
+  cat.category_name

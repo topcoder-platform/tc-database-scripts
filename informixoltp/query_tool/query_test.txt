@@ -1,0 +1,3 @@
+select * from system_test_case 
+where component_id in (2232, 2084, 2234, 2231, 2226)
+and status <> 1

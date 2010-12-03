@@ -1,0 +1,9 @@
+select u.handle, u.email as email_address
+  from email_user u
+ where exists (select 1 from user_notify_xref where notify_id = 5 and user_id = u.user_id)
+  and u.user_id not in (select u.user_id
+  from email_user u
+     , room_result rr
+ where rr.advanced = 'Y'
+   and rr.round_id in (12011)
+   and rr.coder_id = u.user_id)

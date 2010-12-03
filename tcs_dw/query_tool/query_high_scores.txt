@@ -1,0 +1,16 @@
+select pr.final_score as score
+     , c.coder_id
+     , p.component_name || ' ' || p.version_text as name
+     , rating_date as date
+     , p.project_id as project_id
+  from project_result pr
+     , project p
+     , coder c
+ where pr.project_id = p.project_id
+   and p.phase_id in (@pis@)
+   and pr.user_id = c.coder_id
+   and c.status = 'A'
+   and pr.rating_ind = 1
+   and pr.valid_submission_ind = 1
+   and p.status_id in (4,5,7,8)
+ order by pr.final_score desc

@@ -1,0 +1,13 @@
+SELECT u.handle
+     , q.question_text
+     , r.response
+  FROM survey_question sq
+     , question q
+     , response r
+     , user u
+ WHERE sq.question_id = q.question_id
+   and sq.survey_id = @sid@
+   and q.question_style_id in (3,4)
+   and r.question_id = q.question_id
+   and r.user_id = u.user_id
+ ORDER BY u.handle_lower, q.question_id asc

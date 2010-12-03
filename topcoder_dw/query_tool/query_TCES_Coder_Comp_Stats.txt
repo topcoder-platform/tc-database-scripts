@@ -1,0 +1,57 @@
+SELECT (CASE WHEN round.round_type_id = 2
+             THEN contest.name || ' ' || round.name
+             ELSE contest.name END) AS contest_name
+     , dlu.division_desc
+     , (SELECT COUNT(*)
+          FROM room_result rr2
+         WHERE rr2.round_id = rr.round_id
+           AND rr2.division_id = rr.division_id
+           AND attended = 'Y') AS num_competitors
+     , rd.average_points AS overall_avg_points
+     , rd.point_standard_deviation AS overall_std_dev
+     , rd.problems_submitted AS overall_problems_submitted
+     , (CASE WHEN rd.problems_submitted = 0 THEN 0.0
+             ELSE rd.problems_correct / rd.problems_submitted * 100
+             END) AS overall_submission_accuracy
+     , rr.final_points
+     , rr.point_standard_deviation
+     , rr.problems_submitted
+     , rr.problems_correct
+     , rd.problems_presented AS overall_problems_presented
+     , rd.problems_correct AS overall_problems_correct
+     , (CASE WHEN rd.problems_presented = 0 THEN 0.0
+             ELSE rd.problems_submitted / rd.problems_presented * 100
+             END) AS overall_submit_percent
+     , (CASE WHEN rd.problems_presented = 0 THEN 0.0
+             ELSE rd.problems_correct / rd.problems_presented * 100
+             END) AS overall_accuracy
+     , (SELECT AVG(final_points)
+          FROM coder_problem cp
+         WHERE cp.round_id = rr.round_id
+           AND cp.division_id = rr.division_id
+           AND cp.end_status_id IN (140,150,160)) AS overall_points_per_submission
+     , (SELECT AVG(final_points)
+          FROM coder_problem cp
+         WHERE cp.round_id = rr.round_id
+           AND cp.division_id = rr.division_id) AS overall_points_per_problem
+     , (SELECT AVG(cp.time_elapsed)
+          FROM coder_problem cp
+         WHERE cp.round_id = rr.round_id
+           AND cp.division_id = rr.division_id
+           AND cp.end_status_id IN (140,150,160)) AS overall_time_per_problem
+     , rd.round_id
+  FROM room_result rr
+     , division_lu dlu
+     , round_division rd
+     , round
+     , contest
+     , coder c
+ WHERE rr.division_id = dlu.division_id
+   AND rr.round_id = rd.round_id
+   AND rr.division_id = rd.division_id
+   AND rd.round_id = round.round_id
+   AND round.contest_id = contest.contest_id
+   AND (rr.coder_id = @mid@)
+   AND (rr.round_id = @rd@)
+   AND c.coder_id = rr.coder_id
+   AND c.status = 'A'

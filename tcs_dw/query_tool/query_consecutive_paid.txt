@@ -1,0 +1,21 @@
+select s.coder_id
+     , s.length
+     , p1.project_id as start_project_id
+     , p1.component_name || ' ' || p1.version_text as start_project_name
+     , p1.rating_date as start_date     
+     , p2.project_id as end_project_id
+     , p2.component_name || ' ' || p1.version_text as end_project_name
+     , p2.rating_date as end_date     
+     , s.is_current
+from streak s
+    , coder c
+    , project p1
+    , project p2
+where streak_type_id = 2
+and c.coder_id = s.coder_id
+and c.status = 'A'
+and s.phase_id in (@pis@)
+and s.start_project_id = p1.project_id
+and s.end_project_id = p2.project_id
+and s.length > 8
+order by length desc

@@ -1,0 +1,10 @@
+SELECT concat(concat(c.name,' > '), r.name) as name,
+       r.round_id,
+       r.forum_id,
+       r.calendar_id
+FROM round r, contest c
+WHERE r.contest_id = c.contest_id
+AND c.season_id = @snid@
+AND round_type_id in (17, 18)
+AND EXISTS (SELECT 1 FROM room_result where round_id = r.round_id and team_id = @tmid@)
+ORDER BY r.calendar_id DESC

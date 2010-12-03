@@ -1,0 +1,7 @@
+SELECT name
+, sort
+FROM user_notify_xref cn
+, notify_lu n
+WHERE n.notify_id = cn.notify_id
+AND cn.user_id = @cr@
+ORDER BY n.sort

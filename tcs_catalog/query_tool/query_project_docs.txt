@@ -1,0 +1,8 @@
+select * from comp_documentation cd, project_info pi
+   where cd.comp_vers_id = pi.value
+   and pi.project_id = @pj@
+   and pi.project_info_type_id = 1
+   and (cd.document_type_id in (0, 24) -- req specs and supporting docs   
+        or cd.document_type_id in (select 25 from project pr where pr.project_id = pi.project_id and pr.project_category_id = 1)   -- design distribution
+        or cd.document_type_id in (select 26 from project pr where pr.project_id = pi.project_id and pr.project_category_id = 2))  -- development distribution
+order by cd.document_type_id asc

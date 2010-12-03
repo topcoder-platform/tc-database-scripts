@@ -1,0 +1,29 @@
+select c.category_name as category
+     , (select count(unique cc.component_id)
+          from comp_catalog cc
+             , comp_versions cv
+         where cc.root_category_id = c.category_id
+           and cc.component_id = cv.component_id
+           and cv.phase_id = 114) as catalog_components
+     , (select count(unique cv.comp_vers_id)
+          from comp_catalog cc
+             , comp_versions cv
+         where cc.root_category_id = c.category_id
+           and cc.component_id = cv.component_id
+           and cv.phase_id = 114) as catalog_versions
+     , (select count(unique cv.comp_vers_id)
+          from comp_catalog cc
+             , comp_versions cv
+             , project_info pi1
+             , project p
+         where cc.root_category_id = c.category_id
+           and cc.component_id = cv.component_id
+           and cv.phase_id = 113
+           and cv.comp_vers_id = pi1.value::integer
+           and pi1.project_info_type_id = 1
+           and pi1.project_id = p.project_id
+           and p.project_category_id = 2
+           and p.project_status_id = 7) as version_backlog
+  from categories c
+ where c.parent_category_id is null
+order by c.category_name;

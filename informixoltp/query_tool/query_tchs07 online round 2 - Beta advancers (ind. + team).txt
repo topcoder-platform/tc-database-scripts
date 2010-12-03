@@ -1,0 +1,17 @@
+select u.handle, u.email as email_address
+  from email_user u
+     , room_result rr
+ where rr.advanced = 'Y'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id = 10715
+   and rr.coder_id = u.user_id
+   and u.status = 'A'
+   and user_id NOT IN (15454422,22627339,22629595,10440693,15204961,20059844,21354069,22005262)
+UNION 
+select e.address as email_address, u.handle
+from user u, email e
+where e.user_id = u.user_id
+and e.primary_ind = 1
+and u.status = 'A'
+and u.user_id IN
+(15454422,22627339,22629595,10440693,15204961,20059844,21354069,22005262)

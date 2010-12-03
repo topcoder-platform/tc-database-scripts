@@ -1,0 +1,5 @@
+SELECT rc.round_id AS round_id, c.component_id AS component_id, p.problem_id AS problem_id, name 
+FROM component c, problem p, round_component rc WHERE 
+rc.round_id = @rd@ AND 
+rc.component_id = c.component_id AND 
+c.problem_id = p.problem_id

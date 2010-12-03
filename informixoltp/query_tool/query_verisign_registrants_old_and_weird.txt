@@ -1,0 +1,10 @@
+select u.handle, e.address as email_address
+  from vsign_oltp:user u
+      , vsign_oltp:email e
+ where u.user_id = e.user_id
+ and u.status = 'A'
+ and e.primary_ind = 1
+  and u.user_id not in (select user_id from vsign_oltp:demographic_response where demographic_question_id = 300)
+ and e.address not like '%@topcoder.com'
+  and u.user_id not in (select user_id from vsign_oltp:group_user where group_id in (14,13))
+and u.create_date < mdy(1,1,2008)

@@ -1,0 +1,7 @@
+select *
+from project_result pr, project p
+where p.project_id = pr.project_id and p.cur_version = 1
+and pr.placed = 1
+and p.comp_vers_id = (select comp_vers_id from project where project_id = @pj@ and cur_version = 1)
+and pr.user_id = @uid@
+and p.project_type_id = 1

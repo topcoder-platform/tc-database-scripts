@@ -1,0 +1,25 @@
+select 1
+  from round r1
+     , round r2
+     , round_segment rs1
+     , round_segment rs2
+     , round_component rc1
+     , round_component rc2
+     , invite_list il
+ where r1.round_type_id = 13
+   and r1.round_id <> r2.round_id
+   and r1.invitational <> 1
+   and r2.invitational = 1
+   and r2.round_type_id = 13
+   and r1.round_id = rs1.round_id
+   and r2.round_id = rs2.round_id
+   and rs1.segment_id = 2
+   and rs2.segment_id = 2
+   and rs1.start_time = rs2.start_time
+   and rs2.end_time = rs1.end_time
+   and rc1.round_id = r1.round_id
+   and rc2.round_id = r2.round_id
+   and rc1.component_id = rc2.component_id
+   and il.round_id = r2.round_id
+   and il.coder_id = @cr@
+   and r1.round_id = @rd@

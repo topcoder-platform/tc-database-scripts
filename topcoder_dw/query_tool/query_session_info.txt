@@ -1,0 +1,5 @@
+SELECT rank
+  FROM coder_rank
+ WHERE coder_id = @cr@
+   AND coder_rank_type_id = 2
+   AND algo_rating_type_id = 1

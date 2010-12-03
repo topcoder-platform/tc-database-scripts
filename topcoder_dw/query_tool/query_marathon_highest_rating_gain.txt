@@ -1,0 +1,19 @@
+SELECT c.handle, 
+      c.coder_id,
+      (lcr.new_rating - lcr.old_rating) AS rating_gain,
+       r.name,
+       lcr.new_rating,
+       r.round_id,
+       r.short_name
+FROM contest con, 
+     round r, 
+     coder c, 
+     long_comp_result lcr
+WHERE c.coder_id = lcr.coder_id
+AND c.status = 'A'
+AND lcr.old_rating > 0
+AND lcr.new_rating >= lcr.old_rating + 200.0
+AND lcr.round_id = r.round_id
+AND r.round_type_id in (13,19)
+AND con.contest_id = r.contest_id
+ORDER BY rating_gain DESC, lcr.new_rating DESC, c.handle

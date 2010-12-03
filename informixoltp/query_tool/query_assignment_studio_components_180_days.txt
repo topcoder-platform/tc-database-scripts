@@ -1,0 +1,10 @@
+select distinct u.handle, u.email as email_address
+  from email_user u, studio_oltp:submission s
+where u.user_id = s.submitter_id
+  and s.create_date > current - 180 units day
+union
+select distinct u.handle, u.email as email_address
+  from tcs_catalog:project_result pr, email_user u
+ where pr.user_id = u.user_id
+  and pr.create_date > current - 180 units day
+   and pr.valid_submission_ind = 1

@@ -1,0 +1,17 @@
+select cat.category_name AS category
+     , jc2.name AS component
+     , '<a href=http://forums.topcoder.com/?module=Category&categoryID=' || jc2.categoryid || '>Developer Forum</a>' AS forum
+     , '<a href=http://forums.topcoder.com/?module=RSS&categoryID=' || jc2.categoryid || '>RSS Feed</a>' AS rss_feed
+  from jive:jivecategory jc1
+     , jive:jivecategory jc2
+     , jive:jivecategoryprop jcp
+     , comp_catalog cc
+     , categories cat
+ where jc1.categoryid = 22
+   and jc2.lft > jc1.lft
+   and jc2.rgt < jc1.rgt
+   and jc2.categoryid = jcp.categoryid
+   and jcp.name = 'componentId'
+   and jcp.propvalue::integer = cc.component_id
+   and cc.root_category_id = cat.category_id
+order by 1, 2;

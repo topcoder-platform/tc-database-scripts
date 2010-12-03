@@ -1,0 +1,19 @@
+select unique
+    u.user_id, u.handle, CASE WHEN ur.rating IS NULL THEN 0 else ur.rating end as rating
+from 
+    contest_project_xref cpx, user u, resource r, resource_info ri, user_rating ur, project p
+where 
+    -- join match
+    r.project_id = cpx.project_id and
+    r.resource_id = ri.resource_id and
+    ri.resource_info_type_id = 1 and
+    ri.value = u.user_id and
+    u.user_id = ur.user_id and
+    p.project_id = cpx.project_id and
+    -- only reviewers
+    r.resource_role_id in (4, 5, 6, 7) and 
+    -- choose design or development rating
+    (p.project_category_id = 1 and ur.phase_id = 112 or
+    p.project_category_id = 2 and ur.phase_id = 113) and
+    -- params
+    cpx.contest_id = @ct@

@@ -1,0 +1,7 @@
+select i.*
+from sample_inquiry i
+--     OUTER common_oltp:email e,
+--     common_oltp:user u
+where i.email_address not like '%topcoder%'
+and i.email_Address != 'mess34@yahoo.com'
+and EXTEND(create_date_time, YEAR TO DAY) >= EXTEND(CURRENT - 6 UNITS MONTH, YEAR TO DAY)

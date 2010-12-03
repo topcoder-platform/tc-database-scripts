@@ -1,0 +1,13 @@
+select e.address as email_address
+     , u.handle
+ from gicj05_oltp:user u
+    , gicj05_oltp:email e
+    , gicj05_oltp:room_result rr
+ where u.user_id = e.user_id
+   and e.primary_ind = 1
+   and u.status = 'A'
+   and u.user_id = rr.coder_id
+   and rr.round_id between 7231 and 7250
+   and rr.attended = 'Y'
+   and rr.advanced = 'N'
+   and not exists (select '1' from group_user where user_id = u.user_id and group_id in (13,14))

@@ -1,0 +1,45 @@
+select 
+    sum(case when pr.final_points is null then 0 when pr.rating_ind = 0 then 0 else pr.final_points end) total_points, pr.user_id, c.handle_lower, r.confirmed_ind, s.season_id,
+    nvl((select sum(case when p2.digital_run_ind = 0 then 0
+       when p2.num_valid_submissions = 1 then 500
+       when p2.num_valid_submissions = 2 then 325
+       when p2.num_valid_submissions = 3 then 270
+       when p2.num_valid_submissions = 4 then 250
+       when p2.num_valid_submissions = 5 then 245
+       when p2.num_valid_submissions = 6 then 240
+       when p2.num_valid_submissions = 7 then 235
+       else 235
+       end) 
+	from project p2, project_result pr2, stage s2 where p2.project_id = pr2.project_id and
+	pr2.valid_submission_ind = 1 and pr2.user_id = pr.user_id and 
+	s2.stage_id = p2.stage_id and s2.season_id = @seid@ and
+	p2.status_id in (1) and p2.phase_id = @ph@), 0) as outstanding_points
+from 
+    project_result pr, project p, coder c, stage s, rookie r
+where 
+    pr.project_id = p.project_id and
+    pr.user_id = c.coder_id and
+    p.stage_id = s.stage_id and
+    r.user_id = pr.user_id and
+    r.season_id = s.season_id and
+    r.phase_id = p.phase_id and
+    pr.valid_submission_ind = 1 and
+    --pr.rating_ind = 1 and
+    p.phase_id = @ph@ and
+    s.season_id = @seid@
+group by 
+    pr.user_id, c.handle_lower, r.confirmed_ind, s.season_id
+having sum(case when pr.final_points is null then 0 when pr.rating_ind = 0 then 0 else pr.final_points end) > 0 or (select sum(case when num_valid_submissions = 1 then 500
+		when num_valid_submissions = 2 then 325
+		when num_valid_submissions = 3 then 270
+		when num_valid_submissions = 4 then 250
+		when num_valid_submissions = 5 then 245
+		when num_valid_submissions = 6 then 240
+		when num_valid_submissions = 7 then 235
+		else 235 
+	   end) 
+	from project p2, project_result pr2, stage s2 where p2.project_id = pr2.project_id and
+	pr2.valid_submission_ind = 1 and pr2.user_id = pr.user_id and 
+	s2.stage_id = p2.stage_id and s2.season_id = @seid@ and
+	p2.status_id in (1) and p2.phase_id = @ph@) > 0
+ORDER BY 1 desc, 6 asc

@@ -1,0 +1,9 @@
+select u.handle, u.first_name, u.last_name, e.address , a.demographic_answer_text
+from user u, email e, demographic_response r, demographic_answer a
+where u.user_id =e.user_id 
+and e.primary_ind = 1
+and u.user_id = r.user_id
+ and r.demographic_answer_id = a.demographic_answer_id
+ and r.demographic_question_id = 26
+and (u.user_id in (select coder_id from room_result where round_id = 10924 and advanced = 'Y') 
+  or u.user_id in (select coder_id from long_comp_result where round_id = 10502 and advanced = 'Y'))

@@ -1,0 +1,49 @@
+select p.payment_id
+     , p.payment_type_desc
+     , (select handle from coder where coder_id = up.user_id) as member_handle
+     , up.gross_amount
+     , p.payment_status_desc
+     , p.payment_desc
+     , pr.phase_desc
+     , cal1.date as due_date
+     , cal2.date as paid_date
+     , p.client as client_name
+  from topcoder_dw:payment p
+     , topcoder_dw:user_payment up
+     , topcoder_dw:coder c
+     , topcoder_dw:calendar cal1
+     , tcs_dw:project pr
+     , outer topcoder_dw:calendar cal2
+ where p.payment_id = up.payment_id
+   and c.coder_id = up.user_id
+   and cal1.calendar_id = up.due_calendar_id
+   and pr.component_id = (select component_id from tcs_dw:project where project_id = @pj@)
+   and pr.version_id = (select version_id from tcs_dw:project where project_id = @pj@)
+   and p.reference_id = pr.project_id
+   and up.paid_calendar_id = cal2.calendar_id
+union
+select p.payment_id
+     , p.payment_type_desc
+     , (select handle from coder where coder_id = up.user_id) as member_handle
+     , up.gross_amount
+     , p.payment_status_desc
+     , p.payment_desc
+     , pr.phase_desc
+     , cal1.date as due_date
+     , cal2.date as paid_date
+     , p.client as client_name
+  from topcoder_dw:payment p
+     , topcoder_dw:user_payment up
+     , topcoder_dw:payment pp
+     , topcoder_dw:coder c
+     , topcoder_dw:calendar cal1
+     , tcs_dw:project pr
+     , outer topcoder_dw:calendar cal2
+ where p.payment_id = up.payment_id
+   and c.coder_id = up.user_id
+   and cal1.calendar_id = up.due_calendar_id
+   and pr.component_id = (select component_id from tcs_dw:project where project_id = @pj@)
+   and pr.version_id = (select version_id from tcs_dw:project where project_id = @pj@)
+   and pp.payment_id = p.parent_payment_id
+   and pr.project_id = pp.reference_id
+   and up.paid_calendar_id = cal2.calendar_id

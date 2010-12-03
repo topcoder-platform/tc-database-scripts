@@ -1,0 +1,35 @@
+SELECT rp.level_id
+     , rp.level_desc
+     , rp.problems_presented
+     , rp.problems_submitted
+     , (CASE WHEN rp.problems_presented = 0 THEN 0.0
+             ELSE rp.problems_submitted / rp.problems_presented * 100
+             END) AS submit_percent
+     , rp.problems_correct
+     , (CASE WHEN rp.problems_submitted = 0 THEN 0.0
+             ELSE rp.problems_correct / rp.problems_submitted * 100
+             END) AS submission_accuracy
+     , (CASE WHEN rp.problems_presented = 0 THEN 0.0
+             ELSE rp.problems_correct / rp.problems_presented * 100
+             END) AS overall_accuracy
+     , (CASE WHEN rp.problems_submitted = 0 THEN 0.0
+             ELSE rp.final_points / rp.problems_submitted
+             END) AS avg_submission_points
+     , rp.average_points
+     , (SELECT AVG(cp.time_elapsed)
+          FROM coder_problem cp
+         WHERE cp.round_id = rp.round_id
+           AND cp.division_id = rp.division_id
+           AND cp.problem_id = rp.problem_id
+           AND cp.end_status_id IN (140,150,160)) AS avg_time_elapsed
+     , rr.round_id
+  FROM round_problem rp
+     , room_result rr
+     , coder c
+ WHERE rp.round_id = rr.round_id
+   AND rp.division_id = rr.division_id
+   AND (rp.round_id = @rd@)
+   AND (rr.coder_id = @mid@)
+   AND rr.coder_id = c.coder_id
+   AND c.status = 'A'
+ ORDER BY rp.level_id

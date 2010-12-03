@@ -1,0 +1,91 @@
+SELECT ps.scheduled_end_time as initial_submission_date, 
+  (select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id) as price,
+ (select value from project_info where project_id = p.project_id and project_info_type_id = 6) 
+  as component_name,
+ cat.category_name as catalog_name,
+ (SELECT COUNT(*)
+  FROM resource r, resource_info ri
+  WHERE ri.resource_id = r.resource_id
+  AND ri.resource_info_type_id = 4
+  AND r.project_id = p.project_id
+  AND r.resource_role_id = 1
+  AND ri.value <> 'N/A')
+  as total_rated_inquiries,
+ ((SELECT COUNT(*)
+  FROM resource
+  where resource_role_id = 1
+  and project_id = p.project_id)
+ -  
+ (SELECT COUNT(*)
+  FROM resource r, resource_info ri
+  WHERE ri.resource_id = r.resource_id
+  AND ri.resource_info_type_id = 4
+  AND r.project_id = p.project_id
+  AND r.resource_role_id = 1
+  AND ri.value <> 'N/A'))
+  as total_unrated_inquiries,
+ (SELECT COUNT(*)
+  FROM submission s, upload u
+  WHERE u.upload_id = s.upload_id
+  AND u.project_id = p.project_id
+  and s.submission_type_id = 1
+  and s.submission_status_id in (1,2,3,4))
+  as total_submissions,
+ (SELECT COUNT(*) 
+  FROM resource 
+  WHERE project_id = p.project_id 
+  AND resource_role_id = 1) 
+  as total_inquiries,
+ p.project_id,
+  cv.version_text,
+ regpp.scheduled_end_time as reg_end_date,
+   0 as max_unrated_registrants,
+   (select count(*) from contest_project_xref where project_id = p.project_id) 
+    as tourny_project
+--  , (select category_id from comp_categories where component_id = pi_ci.value and category_id = 22774808)
+--    as aol_brand 
+-- turning aol_brand off for the time being
+  , (select category_id from comp_categories where component_id = cc.component_id and category_id = 22774808423432)
+    as aol_brand 
+,  (select category_id from comp_categories where component_id = cc.component_id and category_id in (27416670, 27416669, 27416668, 27416667, 27416666, 27416665, 27416664, 27416663, 27416662, 27416661, 27416660, 27416659, 27416658))
+   as paypal_brand
+, regpp.scheduled_end_time < current as is_reg_closed
+, case when pidr.value = 'On' then 
+  NVL((select value::decimal from project_info pi_dr where pi_dr.project_info_type_id = 30 and pi_dr.project_id = p.project_id), (select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id)) 
+  else null end as dr_points
+, "Design" as type
+  , (select count(*) from comp_categories where category_id = 27240258 and component_id = cc.component_id) as sensations_project
+  , p.project_category_id
+  , (select NVL(NVL(ppd.actual_start_time, psd.actual_start_time), ppd.scheduled_start_time)
+       from project proj
+          , OUTER project_phase psd
+          , OUTER project_phase ppd
+      where psd.project_id = proj.project_id
+        and psd.phase_type_id = 2
+        and ppd.project_id = proj.project_id
+        and proj.project_id = p.project_id
+        and ppd.phase_type_id = 1) as posting_date
+ FROM project p, 
+   project_phase ps, 
+   project_phase regpp, 
+   project_info pi_cv, 
+   project_info pidr, 
+   comp_catalog cc,
+   categories cat,
+   comp_versions cv
+ WHERE p.project_status_id = 1
+ AND p.project_category_id = 1 
+and (ps.phase_status_id = 2 or regpp.phase_status_id = 2)
+ AND ps.project_id = p.project_id 
+AND ps.phase_type_id = 2
+ and pidr.project_id = p.project_id
+  and pidr.project_info_type_id = 26
+ AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+ AND pi_cv.project_id = p.project_id AND pi_cv.project_info_type_id = 1
+ AND cv.comp_vers_id = pi_cv.value and cc.root_category_id = cat.category_id
+ and cv.component_id = cc.component_id
+ AND cat.category_id in (select distinct category_id from category_catalog where catalog_id != 4)
+ AND regpp.project_id = p.project_id and regpp.phase_type_id = 1
+-- order by regpp.scheduled_end_time desc, initial_submission_date, catalog_name, component_name
+order by @sc@ @sd@

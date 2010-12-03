@@ -1,0 +1,25 @@
+SELECT c.campaign_id
+     , c.campaign_name
+     , TO_CHAR(c.start_date, '%m/%d/%iY') as start_date
+     , TO_CHAR(c.end_date, '%m/%d/%iY') as end_date
+     , co.company_id
+     , co.company_name
+     , (SELECT MAX(jh.timestamp)
+          FROM job_hit jh
+             , campaign_job_xref cjx
+             , user u
+         WHERE jh.job_id = cjx.job_id
+           AND u.user_id = jh.user_id
+           AND u.status = 'A'
+           AND cjx.campaign_id = c.campaign_id) AS most_recent_hit
+  FROM contact con
+     , campaign c
+     , company co
+ WHERE con.contact_id = @uid@
+   AND c.company_id = con.company_id
+   AND c.company_id = co.company_id
+   AND con.company_id = co.company_id
+   AND c.status_id = 1
+   AND CURRENT > c.start_date
+   AND CURRENT < c.end_date
+ ORDER BY co.company_name

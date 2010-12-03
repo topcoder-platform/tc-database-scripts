@@ -1,0 +1,16 @@
+
+SELECT p.class_name,
+p.method_name,
+p.problem_id,
+p.level_desc,
+p.level_id,
+cp.time_elapsed,
+cp.end_status_text,
+cp.submission_points
+FROM problem p, coder_problem cp
+WHERE cp.coder_id = @cr@
+AND cp.round_id = @rd@
+AND p.problem_id = cp.problem_id
+AND p.round_id = cp.round_id
+AND p.division_id = cp.division_id
+ORDER BY p.level_id ASC

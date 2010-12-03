@@ -1,0 +1,25 @@
+select
+  region_name, 
+  count(*) as total,
+  sum(case when rr.attended = 'Y' and rr.old_rating = 0 then 1 else 0 end) as new
+from
+  user u,
+  coder c,
+  region_state rs,
+  region reg,
+  room_result rr,
+  room r
+where
+  u.user_id = c.coder_id and
+  rr.coder_id = u.user_id and
+  rr.round_id = @rd@ and
+  r.round_id = rr.round_id and
+  r.room_id = rr.room_id and
+  r.room_type_id = 2 and
+  c.country_code = '840' and
+  c.state_code = rs.state_code and
+  rs.region_code = reg.region_code and
+  rs.region_code != 'INT' and
+  rs.user_type_id = 1
+group by region_name
+order by 1

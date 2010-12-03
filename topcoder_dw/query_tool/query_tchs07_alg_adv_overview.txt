@@ -1,0 +1,32 @@
+select c.coder_id
+     , r.rating
+     , c.handle
+     , c.handle_lower as handle_sort
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (10702, 10703, 10705, 10706)) as round1
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (10718,10714,10715,10716)) as round2
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (10720, 10729,10713,10721)) as round3
+     , (select CASE WHEN advanced='Y' THEN 'Advanced' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (10763)) as semi
+     , (select CASE WHEN advanced='Y' THEN 'Champion' ELSE 'Eliminated' END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 10764) as final
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (10702, 10703, 10705, 10706)), 3) as round1_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (10718,10714,10715,10716)), 3) as round2_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id  in (10720, 10729,10713,10721)), 3) as round3_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id in (10763)), 3) as semi_sort
+     , NVL((select CASE WHEN advanced='Y' THEN 0 ELSE 1 END from room_result rr1 where rr1.coder_id = c.coder_id and rr1.round_id = 10764), 3) as finals_sort
+     , reg.region_name
+     , t.name as team_name
+     , lower(t.name) as team_name_sort
+  from coder c
+     , algo_rating r
+     , room_result rr
+     , round ro
+     , region reg
+     , team t
+ where r.coder_id = c.coder_id
+   and c.status = 'A'
+   and ro.round_id = rr.round_id
+   and ro.region_id = reg.region_id
+   and rr.round_id in (10702, 10703, 10705, 10706)
+   and rr.coder_id = c.coder_id
+   and r.algo_rating_type_id = 2
+   and t.team_id = rr.team_id
+  order by finals_sort, semi_sort, round3_sort, round2_sort, round1_sort, reg.region_name, team_name_sort, handle_sort

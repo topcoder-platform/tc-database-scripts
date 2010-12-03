@@ -1,0 +1,8 @@
+select u.handle
+     , u.email as email_address
+  from room_result rr
+     , round_payment rp
+     , email_user u
+ where rr.round_id = 8019
+   and rp.round_payment_id = rr.round_payment_id
+   and rr.coder_id = u.user_id

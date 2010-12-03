@@ -1,0 +1,5 @@
+select 1
+  from event e, contest c, contest_project_xref cp
+ where e.event_id = c.event_id
+  and c.contest_id = cp.contest_id
+  and cp.project_id = @pj@

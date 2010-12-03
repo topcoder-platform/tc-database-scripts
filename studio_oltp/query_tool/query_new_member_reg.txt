@@ -1,0 +1,10 @@
+select 
+   count(*) as new_studio_members
+   , sum(case when u.status = 'A' then 1 else 0 end) as activated
+from 
+   user u
+   , user_group_xref ugx
+where 
+   u.create_date between current - @eday@ units day  and current - @sday@ units day and
+   u.user_id= ugx.login_id and
+   ugx.group_id=14

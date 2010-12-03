@@ -1,0 +1,22 @@
+select a.answer_text
+
+     , sq.question_id
+
+     , r.user_id
+     , a.sort_order
+
+  from response r
+
+     , survey_question sq
+
+     , answer a
+
+ where sq.survey_id = @sid@
+
+   and sq.question_id = r.question_id
+
+   and r.question_id = a.question_id
+
+   and r.answer_id = a.answer_id
+
+ order by r.user_id

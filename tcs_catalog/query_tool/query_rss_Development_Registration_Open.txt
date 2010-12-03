@@ -1,0 +1,31 @@
+SELECT 'Registration ends: ' || regpp.scheduled_end_time || '<br />'  || 
+      'Submission ends: ' || ps.scheduled_end_time || '<br />'  || 
+      'First Place: ' || round(nvl(pi16.value::decimal, 0)) || '<br />'  || 
+      'Second Place: ' || round(nvl(pi16.value::decimal, 0) * 0.5) || '<br />'  || 
+      cc.description as description
+     , 'http://www.topcoder.com/tc?module=ProjectDetail&pj=' || p.project_id as link
+     , cat.category_name || ' ' || 
+     (select value from project_info where project_id = p.project_id and project_info_type_id = 6) || ' ' || cv.version_text as title
+ FROM project p, 
+   project_phase ps, 
+   project_phase regpp, 
+   project_info pi_ci, 
+   comp_catalog cc,
+   categories cat,
+   comp_versions cv
+   , outer project_info pi16
+ WHERE p.project_status_id = 1
+ AND p.project_category_id = 2 and (ps.phase_status_id = 2 or regpp.phase_status_id = 2)
+ AND ps.project_id = p.project_id 
+AND ps.phase_type_id = 2 
+AND regpp.scheduled_end_time > CURRENT
+ AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+ AND pi_ci.project_id = p.project_id AND pi_ci.project_info_type_id = 2
+ and cv.component_id = cc.component_id
+ AND cc.component_id = pi_ci.value and cc.root_category_id = cat.category_id
+ AND cat.category_id in (select distinct category_id from category_catalog where catalog_id != 4)
+ AND regpp.project_id = p.project_id and regpp.phase_type_id = 1 AND regpp.scheduled_start_time <= CURRENT
+and pi16.project_info_type_id = 16
+and pi16.project_id = p.project_id
+order by regpp.scheduled_end_time desc

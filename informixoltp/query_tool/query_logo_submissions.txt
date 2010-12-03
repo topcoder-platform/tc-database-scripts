@@ -1,0 +1,6 @@
+select count(distinct u.user_id) as num_competitors
+     , count(*) as num_submissions
+  from image i, coder_image_xref x, user u
+ where i.image_id = x.image_id 
+   and x.coder_id = u.user_id
+   and i.image_type_id = 14

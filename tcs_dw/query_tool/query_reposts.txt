@@ -1,0 +1,15 @@
+select calendar.year
+, calendar.month_numeric
+, component_name || ' ' || version_text as component
+, case
+  when project_category_id = 1 then 'Design'
+  when project_category_id = 2 then 'Development'
+  end as phase
+, count(*) as times_reposted
+ from project
+, calendar
+where status_id = 6 -- Remove for reposting
+and calendar.date = date(posting_date)
+and project_category_id in (1,2)
+group by 1,2,3,4
+order by 1 desc,2 desc,3,4

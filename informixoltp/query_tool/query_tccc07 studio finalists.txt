@@ -1,0 +1,3 @@
+select handle, email as email_address
+ from email_user 
+where handle in ('abedavera', 'billow', 'Tricia_Tjia', 'Jurka', 'ali_raza_shaikh', 'SIGCHLD', 'dktrooper', 'erty')

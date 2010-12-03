@@ -1,0 +1,13 @@
+select distinct '<a href=http://www.topcoder.com/tc?module=LegacyReport&t=profile&ha='|| u.handle || '>'||u.handle||'</a>'
+    ,r.rating
+         from campaign_job_xref x
+             , job_hit jh 
+             , coder c, user u, rating r
+         where x.campaign_id = 167 
+           and jh.job_id = x.job_id
+     and c.coder_id = u.user_id
+           and jh.user_id = c.coder_id
+           and c.country_code = '840'
+           and c.coder_type_id = 1
+           and r.coder_id = u.user_id
+   and c.coder_id in (select coder_id from demographic_response where demographic_question_id = 18 and demographic_answer_id in (127, 128, 129, 130, 149))

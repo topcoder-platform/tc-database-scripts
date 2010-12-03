@@ -1,0 +1,25 @@
+select u.handle
+     , c.contact_date
+     , c.first_name
+     , c.last_name
+     , c.city
+     , c.state_code
+     , co.country_name
+     , r.rating
+     , r.num_ratings
+     , '<a href=http://www.topcoder.com/tc?module=PlacementInfoDetail&uid='|| u.user_id || '>View Placement Information</a>'
+from user u
+   , coder c
+   , country co
+   , rating r
+where u.user_id = c.coder_id 
+  and r.coder_id = c.coder_id 
+  and co.country_code = c.country_code 
+  and u.user_id in(
+    select c1.coder_id
+    from user u1, coder c1
+    where
+      u1.user_id = c1.coder_id and
+      u1.status = 'A' and
+      c1.contact_date between (today-30) and today )
+order by 2 desc

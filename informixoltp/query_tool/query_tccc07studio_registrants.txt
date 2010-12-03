@@ -1,0 +1,8 @@
+select u.user_id, u.handle, u.handle_lower
+from 
+event_registration er, 
+user u
+where er.event_id = @eid@
+and er.eligible_ind = 1
+and u.user_id = er.user_id
+order by 3 asc

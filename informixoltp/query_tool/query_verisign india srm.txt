@@ -1,0 +1,11 @@
+select u.email as email_address,
+u.handle
+from
+email_user u,
+coder c,
+coder_notify n
+where c.coder_id = u.user_id
+and n.coder_id = u.user_id
+and u.status = 'A'
+and n.notify_id = 1
+and (c.comp_country_code = 356 or c.country_code = 356)

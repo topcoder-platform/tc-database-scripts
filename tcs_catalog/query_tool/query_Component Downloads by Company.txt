@@ -1,0 +1,24 @@
+select 
+  lower(co.company_name) as company,
+  sum(case when date(dt.create_time) >= today-30 then 1 else 0 end) as past_30_days,
+  sum(case when date(dt.create_time) >= today-60 then 1 else 0 end) as past_60_days,
+  sum(case when date(dt.create_time) >= today-90 then 1 else 0 end) as past_90_days,
+  sum(case when date(dt.create_time) >= today-1800 then 1 else 0 end) as past_180_days,
+  count(distinct su.login_id) Users
+from 
+  security_user su, 
+  download_tracking dt, 
+  comp_catalog c,
+  comp_versions cv, 
+  OUTER (company co, contact con)
+where 
+  su.login_id = dt.login_id
+  and con.contact_id = su.login_id
+  and con.company_id = co.company_id
+  and dt.comp_vers_id = cv.comp_vers_id
+  and c.component_id = cv.component_id 
+  and date(dt.create_time) >= today - 180
+  and su.login_id not in 
+    (select login_id from user_group_xref where group_id = 2000115)
+group by 1
+order by 1

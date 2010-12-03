@@ -1,0 +1,9 @@
+SELECT COUNT(DISTINCT coder.coder_id) AS coder_type_count
+  FROM job_hit jh
+     , coder
+     , user u
+ WHERE jh.user_id = coder.coder_id
+   AND (jh.job_id = @jid@)
+   AND (coder.coder_type_id = @ct@)
+   AND coder.coder_id = u.user_id
+   AND u.status = 'A'

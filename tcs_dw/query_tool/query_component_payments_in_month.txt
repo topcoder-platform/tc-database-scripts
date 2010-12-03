@@ -1,0 +1,51 @@
+select cal.year
+     , cal.month_alpha
+     , p.category_desc
+     , p.component_name
+     , p.version_text
+     , sum(case when p.project_category_id = 1 then nvl(direct.cost, 0) else 0 end)
+       + sum(case when p.project_category_id = 1 then nvl(indirect.cost, 0) else 0 end) as design_cost
+     , sum(case when p.project_category_id = 2 then nvl(direct.cost, 0) else 0 end)
+       + sum(case when p.project_category_id = 2 then nvl(indirect.cost, 0) else 0 end) as dev_cost
+  from project p
+      , calendar cal
+      , outer table(multiset(select p.reference_id as project_id, up.due_calendar_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up, calendar cal
+                        where up.payment_id = p.payment_id
+                          and up.due_calendar_id = cal.calendar_id
+			   and cal.year = @yr@
+			   and cal.month_numeric = @mo@
+                        group by p.reference_id, up.due_calendar_id)) direct
+      , outer table(multiset(select pp.reference_id as project_id, up.due_calendar_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up, payment pp, calendar cal
+                        where up.payment_id = p.payment_id
+                          and up.due_calendar_id = cal.calendar_id
+			   and cal.year = @yr@
+			   and cal.month_numeric = @mo@
+                          and pp.payment_id = p.parent_payment_id
+                        group by pp.reference_id, up.due_calendar_id)) indirect
+--this one is just to limit to results to only projects that had a relevant payment
+     , table(multiset(
+		select p.reference_id
+                         from payment p, user_payment up, calendar cal
+                        where up.payment_id = p.payment_id
+                          and up.due_calendar_id = cal.calendar_id
+			   and cal.year = @yr@
+			   and cal.month_numeric = @mo@
+			union	
+			select pp.reference_id
+                         from payment p, user_payment up, payment pp, calendar cal
+                        where up.payment_id = p.payment_id
+                          and up.due_calendar_id = cal.calendar_id
+			   and cal.year = @yr@
+			   and cal.month_numeric = @mo@
+                          and pp.payment_id = p.parent_payment_id)) tb
+ where direct.project_id = p.project_id
+   and indirect.project_id = p.project_id
+   and tb.reference_id = p.project_id
+   and cal.calendar_id = direct.due_calendar_id
+   and cal.calendar_id = indirect.due_calendar_id
+   and cal.year = @yr@
+   and cal.month_numeric = @mo@
+   and p.project_category_id in (1,2)
+group by 1,2,3,4,5

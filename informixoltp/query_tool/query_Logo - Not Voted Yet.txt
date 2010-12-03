@@ -1,0 +1,28 @@
+select
+  u.handle,
+  u.email as email_address
+from
+  email_user u,
+  rating r,
+  coder c,
+  coder_notify cn
+where
+  u.user_id = r.coder_id and
+  c.coder_id = r.coder_id and
+  u.status ='A' and
+  cn.coder_id = c.coder_id and
+  cn.notify_id = 5 and
+  r.rating > 0 and
+  u.user_id not in
+  (
+    select
+      u.user_id
+    from
+      user u,
+      coder c,
+      response r
+    where
+      u.user_id = c.coder_id and
+      c.coder_id = r.user_id and
+      r.question_id = 1505
+  )

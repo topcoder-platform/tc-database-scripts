@@ -1,0 +1,16 @@
+select distinct e.address as email_address
+     , u.handle
+  from tcs_catalog:rboard_user ru
+     , common_oltp:email e
+     , common_oltp:email_user u
+ where ru.status_id = 100
+   and ru.user_id = e.user_id
+   and u.user_id = e.user_id
+   and e.primary_ind = 1
+   and (ru.java_ind = 1 or ru.net_ind = 1)
+   and u.user_id not in (select cix.coder_id
+                           from coder_image_xref cix
+                              , image i
+                          where cix.display_flag = 1
+                            and cix.image_id = i.image_id
+                            and i.image_type_id = 1)

@@ -1,0 +1,28 @@
+select m.year
+     , m.month
+     , sum(case when project_category_id = 1 then 1 else 0 end) as des_total_projects
+     , sum(case when project_category_id = 1 and project_status_id != 7 then 1 else 0 end) as des_failed_projects
+     , sum(case when project_category_id = 1 and project_status_id = 4 then 1 else 0 end) as des_failed_screening
+     , sum(case when project_category_id = 1 and project_status_id = 5 then 1 else 0 end) as des_failed_review
+     , sum(case when project_category_id = 1 and project_status_id = 6 then 1 else 0 end) as des_no_submissions
+     , (case when sum(case when project_category_id = 1 then 1 else 0 end) != 0 then sum(case when project_category_id = 1 and project_status_id = 7 then 1 else 0 end) * 100 / sum(case when project_category_id = 1 then 1 else 0 end) else 100 end)::decimal(10, 2) as des_fulfillment
+     , sum(case when project_category_id = 2 then 1 else 0 end) as dev_total_projects
+     , sum(case when project_category_id = 2 and project_status_id != 7 then 1 else 0 end) as dev_failed_projects
+     , sum(case when project_category_id = 2 and project_status_id = 4 then 1 else 0 end) as dev_failed_screening
+     , sum(case when project_category_id = 2 and project_status_id = 5 then 1 else 0 end) as dev_failed_review
+     , sum(case when project_category_id = 2 and project_status_id = 6 then 1 else 0 end) as dev_no_submissions
+     , (case when sum(case when project_category_id = 1 then 1 else 0 end) != 0 then sum(case when project_category_id = 2 and project_status_id = 7 then 1 else 0 end) * 100 / sum(case when project_category_id = 2 then 1 else 0 end) else 100 end)::decimal(10, 2) as dev_fulfillment
+  from table(multiset(
+select year(min(pp.actual_start_time)) as year
+     , month(min(pp.actual_start_time)) as month
+     , p.project_category_id
+     , p.project_status_id
+  from project p
+     , project_phase pp
+ where p.project_category_id in (1, 2)
+   and p.project_status_id in (4, 5, 6, 7)
+   and p.project_id = pp.project_id
+   and pp.actual_start_time is not null
+group by p.project_id, p.project_category_id, p.project_status_id)) m
+group by m.year, m.month
+order by year, month;

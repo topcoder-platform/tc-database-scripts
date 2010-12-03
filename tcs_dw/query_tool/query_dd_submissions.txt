@@ -1,0 +1,21 @@
+select user_id, 
+       c.handle as coder,
+       pr.placed,
+       pr.old_rating,
+       pr.new_rating,
+       pr.old_reliability,
+       pr.new_reliability,
+       pr.num_appeals as total_num_appeals,
+       case when pr.num_successful_appeals=0 then null else pr.num_successful_appeals end as total_num_successful_appeals,
+       inquire_timestamp,
+       submit_timestamp, 
+       (select final_score from submission_screening ss where project_id = pr.project_id and user_id = pr.user_id) as screening_score,
+       valid_submission_ind as passed_screening,
+       raw_score,
+       final_score,
+       final_points as dr_points
+ from project_result pr, coder c
+where project_id = @pj@
+  and submit_ind = 1
+  and pr.user_id = c.coder_id
+order by valid_submission_ind desc, final_score desc, screening_score desc

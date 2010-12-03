@@ -1,0 +1,16 @@
+select co.company_name
+     , c.campaign_name
+     , j.job_desc
+     , jh.timestamp
+  from job j
+     , job_hit jh
+     , campaign c
+     , campaign_job_xref cjx
+     , company co
+ where co.company_id = c.company_id
+   and co.company_id = j.company_id
+   and c.campaign_id = cjx.campaign_id
+   and cjx.job_id = j.job_id
+   and jh.job_id = j.job_id
+   and jh.user_id = @cr@
+  order by timestamp desc

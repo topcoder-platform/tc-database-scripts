@@ -1,0 +1,18 @@
+select cc.component_name
+     , cv.version_text as version
+     , cat.category_name as catalog
+     , pr.user_id
+     , pr.final_score as points
+     , pr.placed
+  from project p
+     , comp_versions cv
+     , comp_catalog cc
+     , outer project_result pr
+     , categories cat
+ where p.project_id = @pj@
+   and p.project_id = pr.project_id
+   and cv.comp_vers_id = p.comp_vers_id
+   and p.cur_version = 1
+   and cv.component_id = cc.component_id
+   and cat.category_id = cc.root_category_id
+   and placed is not null

@@ -1,0 +1,13 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+    , user_address_xref x
+    , address a
+    , country co
+  WHERE u.user_id IN
+(select distinct coder_id from room_result where round_id in (10738,10742,10743))
+  AND u.user_id = x.user_id
+  AND x.address_id = a.address_id
+  AND a.country_code = co.country_code
+  AND co.country_name in 
+('Russian Federation', 'Belarus', 'Latvia', 'Lithuania', 'Serbia', 'Ukraine', 'Moldova, Republic of', 'Kazakhstan', 'Kyrgyzstan')

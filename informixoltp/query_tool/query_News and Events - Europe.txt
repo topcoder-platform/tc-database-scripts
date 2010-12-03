@@ -1,0 +1,18 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , coder c
+     , user_notify_xref n
+     , country cy
+ WHERE u.user_id = n.user_id
+   AND u.user_id = c.coder_id
+   AND u.status = 'A'
+   AND n.notify_id = 5
+   AND c.comp_country_code = cy.country_code
+   AND cy.country_name IN ('Austria',
+'Belarus','Belgium','Bosnia and Herzegowina','Bulgaria','Croatia',
+'Czech Republic','Denmark','Estonia','Finland','France',
+'Germany','Greece','Hungary','Ireland','Italy','Latvia',
+'Lithuania','Macedonia, Former Yugoslav Rep. of','Moldova, Republic of','Montenegro','Netherlands','Norway',
+'Poland','Portugal','Romania','Serbia','Slovakia',
+'Slovenia','Spain','Sweden','Switzerland','Turkey','Ukraine','United Kingdom')

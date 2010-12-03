@@ -1,0 +1,6 @@
+select u.user_id, 
+       u.handle
+  from studio_oltp:contest_registration cr
+     , user u
+ where cr.contest_id = @ct@
+   and cr.user_id = u.user_id

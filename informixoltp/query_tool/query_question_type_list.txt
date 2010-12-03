@@ -1,0 +1,3 @@
+select question_type_id
+     , question_type_desc
+  from question_type

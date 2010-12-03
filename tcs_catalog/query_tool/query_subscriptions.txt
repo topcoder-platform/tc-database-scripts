@@ -1,0 +1,10 @@
+select r.description,  ou.handle, ou.first_name, lower(last_name) lastname, company_name
+from user_role_xref x , security_roles r
+, security_user u, common_oltp:user ou, outer (company co, contact con)
+where x.role_id in(21,22,20)
+and x.login_id = u.login_id
+and ou.user_id = u.login_id
+and r.role_id = x.role_id
+and con.contact_id = ou.user_id
+and con.company_id = co.company_id
+order by 4

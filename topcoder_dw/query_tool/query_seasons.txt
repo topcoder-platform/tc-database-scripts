@@ -1,0 +1,7 @@
+SELECT s.name,
+       s.season_id,
+       s.start_calendar_id
+FROM season s
+WHERE EXISTS (SELECT 1 FROM contest c, round r WHERE c.season_id = s.season_id and r.contest_id = c.contest_id)
+AND s.season_type_id = @sntid@
+ORDER BY s.start_calendar_id DESC

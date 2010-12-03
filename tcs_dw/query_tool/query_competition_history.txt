@@ -1,0 +1,23 @@
+select p.project_id
+     , p.component_id
+     , pr.user_id
+     , pr.rating_order
+     , p.component_name 
+     , p.num_submissions_passed_review
+     , pr.placed
+     , pr.final_points
+     , pr.final_score
+     , round(pr.new_rating) as new_rating
+     , p.viewable_category_ind
+     , p.num_submissions
+     , p.rating_date
+     , category_desc
+     , case when p.project_category_id = 2 then "Development" else "Testing" end as type
+  from project_result pr
+     , project p
+ where p.project_id = pr.project_id 
+   and pr.placed > 0 
+   and p.status_id in (4,5,7) 
+   and p.project_category_id in (@pts@)
+   and user_id = @cr@
+order by @sc@ @sd@, 1 desc

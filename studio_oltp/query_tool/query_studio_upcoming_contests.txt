@@ -1,0 +1,20 @@
+select c.contest_id,
+       c.name,
+       c.start_time,
+       c.end_time,
+       c.contest_status_id,
+       cs.name status,
+       c.contest_detailed_status_id,
+       cds.name detailed_status,
+       (CASE WHEN c.contest_detailed_status_id = 9 THEN 'Likely' ELSE 'Uncertain' END) liklihood,
+       c.forum_id,
+       c.contest_type_id,
+       c.contest_detailed_status_id
+from contest c,
+     contest_status_lu cs,
+     contest_detailed_status_lu cds
+where c.contest_detailed_status_id in (9, 15)
+  and c.contest_status_id in (1,2)
+  and c.contest_status_id = cs.contest_status_id
+  and c.contest_detailed_status_id = cds.contest_detailed_status_id
+order by c.start_time desc

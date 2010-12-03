@@ -1,0 +1,9 @@
+select 
+     s.season_id, s.name, s.start_calendar_id
+from 
+     season s, calendar c
+where 
+	c.calendar_id = s.start_calendar_id and
+	c.date <= DATE(current)
+order by 
+     s.start_calendar_id asc;

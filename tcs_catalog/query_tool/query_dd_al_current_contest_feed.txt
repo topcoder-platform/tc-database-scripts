@@ -1,0 +1,71 @@
+select 
+       p.project_id,
+       (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
+       ttc.name as client,
+       ttp.name as billing_project,
+       tdp.name as project_name,
+       DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
+       pi.value as contest_name,
+       '' as contest_version,
+       (select value from project_info pi where project_info_type_id = 16 and pi.project_id = p.project_id)::integer as first_place_prize,
+       (select value/2 from project_info pi where project_info_type_id = 16 and pi.project_id = p.project_id)::integer as second_place_prize,
+       (select value from project_info pi where project_info_type_id = 30 and pi.project_id = p.project_id) as dr_points
+from project p,
+     outer tc_direct_project tdp,
+     project_status_lu ps,
+     project_category_lu pc,
+     project_info pi, -- project name
+     project_info pi2, -- project version
+     project_info pi3, -- billing account
+     time_oltp:project ttp,
+     time_oltp:client_project ttcp,
+     time_oltp:client ttc
+where p.project_status_id = 1
+  and p.project_status_id = ps.project_status_id
+  and p.project_category_id = pc.project_category_id
+  and p.project_category_id not in (27) --exclude spec reviews
+  and p.project_id = pi.project_id
+  and pi.project_info_type_id = 6
+  and p.project_id = pi2.project_id
+  and pi2.project_info_type_id = 7
+  and p.project_id = pi3.project_id
+  and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = 70014174 --Alcatel-Lucent
+  and p.tc_direct_project_id = tdp.project_id
+  and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) <= today
+UNION
+select 
+c.contest_id as project_id,
+c.start_time as launch_date,
+ttc.name as client,
+ttp.name as billing_project,
+NVL(tdp.name, 'One-Off') as project_name,
+cc.contest_type_desc as category,
+c.name as contest_name,
+'1.0' as contest_version,
+(select pr.amount from studio_oltp:contest_prize_xref px, studio_oltp:prize pr where px.prize_id = pr.prize_id and pr.place = 1 and px.contest_id = c.contest_id) as first_place_prize,
+(select pr.amount from studio_oltp:contest_prize_xref px, studio_oltp:prize pr where px.prize_id = pr.prize_id and pr.place = 2 and px.contest_id = c.contest_id) as second_place_prize,
+(select property_value from studio_oltp:contest_config where contest_id = c.contest_id and property_id = 24) as dr_points
+from studio_oltp:contest c,
+     studio_oltp:contest_config cc1, time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc,
+     tc_direct_project tdp,
+     studio_oltp:contest_type_lu cc,
+     studio_oltp:contest_status_lu cs,
+     studio_oltp:contest_detailed_status_lu cds
+where c.contest_id = cc1.contest_id
+  and cc1.property_id = 28
+  and cc1.property_value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = 70014174 --Alcatel-Lucent
+  and c.tc_direct_project_id = tdp.project_id
+  and c.contest_status_id in (2)
+  and c.contest_status_id = cs.contest_status_id
+  and c.contest_detailed_status_id = cds.contest_detailed_status_id
+  and cds.contest_detailed_status_id in (2, 5)
+  and c.contest_type_id = cc.contest_type_id
+  and c.start_time <= today
+order by 1 asc;

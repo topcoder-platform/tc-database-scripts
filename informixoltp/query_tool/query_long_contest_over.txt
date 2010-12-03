@@ -1,0 +1,5 @@
+SELECT current > end_time or r.round_type_id in (14,16)
+ from round_segment rs, round r WHERE
+r.round_id = @rd@ AND
+rs.round_id = @rd@ AND
+rs.segment_id = 2

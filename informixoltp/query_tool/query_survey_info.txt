@@ -1,0 +1,9 @@
+SELECT survey_id
+     , name
+     , status_id
+     , text
+     , start_date
+     , end_date
+     , results_viewable
+  FROM survey
+ WHERE survey_id = @sid@

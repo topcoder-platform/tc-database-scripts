@@ -1,0 +1,7 @@
+SELECT p.project_id, pi.value AS project_name, p.project_status_id, lt.link_type_name
+FROM linked_project_xref lpx
+INNER JOIN link_type_lu lt ON lpx.link_type_id = lt.link_type_id
+INNER JOIN project p ON p.project_id = lpx.dest_project_id
+INNER JOIN project_info pi ON p.project_id = pi.project_id AND pi.project_info_type_id = 6
+WHERE lt.allow_overlap = 0
+AND   lpx.source_project_id = @pj@

@@ -1,0 +1,35 @@
+select u.handle, u.email as email_address
+  from email_user u
+     , room_result rr
+ where rr.advanced = 'N'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id = 10729
+   and rr.coder_id = u.user_id
+   and u.status = 'A'
+   and u.handle NOT IN
+('acuteangle87',
+'dobbyzhang',
+'doh_123451',
+'hy871214',
+'kazenokizu',
+'brainmaster',
+'EmilyMiller',
+'Penguincode',
+'tommyboy2510',
+'AnonnymousT',
+'arvindthiagaraj',
+'bvargo',
+'FMako',
+'frostedlilies',
+'hmao',
+'jchen123',
+'LynValente',
+'raiame',
+'t3hg0suazn',
+'xhuwin',
+'Duluxan',
+'gurugan1',
+'prideofmagus',
+'rymwoo',
+'SourSpinach',
+'v3ctor')

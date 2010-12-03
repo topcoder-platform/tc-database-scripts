@@ -1,0 +1,19 @@
+SELECT name
+        ,TRUNC(CASE WHEN rated_count=0 THEN 0 ELSE sum_rating/rated_count END, 2) AS avg_rating 
+        ,rated_count
+   FROM TABLE(MULTISET(
+          SELECT s.state_name AS name
+                 ,s.state_code
+                 ,SUM(CASE WHEN cr.rating > 0 THEN 1 ELSE 0 END) AS rated_count
+                 ,SUM(CASE WHEN cr.rating > 0 THEN cr.rating ELSE 0 END) as sum_rating
+            FROM coder c
+                 ,state s
+                 ,rating cr
+           WHERE cr.coder_id = c.coder_id
+           AND s.state_code = c.state_code
+           AND c.status = 'A'
+           AND s.state_code <> 'ZZ'
+           AND s.state_code <> ''
+         GROUP BY s.state_name, s.state_code))
+  WHERE rated_count >= @nrn@
+  ORDER BY 2 DESC

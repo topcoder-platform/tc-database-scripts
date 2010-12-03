@@ -1,0 +1,10 @@
+SELECT MAX(s.season_id) as season_id
+FROM season s, contest c, round r 
+WHERE c.season_id = s.season_id
+AND r.contest_id = c.contest_id
+AND s.start_calendar_id = 
+	(SELECT MAX(start_calendar_id) FROM season s2,  contest c2, round r2
+	WHERE  c2.season_id = s2.season_id
+	AND r2.contest_id = c2.contest_id
+	AND s2.season_type_id = @sntid@)
+AND s.season_type_id = @sntid@

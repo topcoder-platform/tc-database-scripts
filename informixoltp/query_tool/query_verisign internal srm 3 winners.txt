@@ -1,0 +1,5 @@
+select u.handle, e.address as email_address
+from vsign_oltp:user u, vsign_oltp:email e
+WHERE u.user_id = e.user_id
+AND u.handle IN
+('jdubb','H2O','rrajutc')

@@ -1,0 +1,1116 @@
+query_active google people.txt|UPDATE query SET text= ? WHERE query_id=19532
+query_Address Change Report.txt|UPDATE query SET text= ? WHERE query_id=12192
+query_address_history.txt|UPDATE query SET text= ? WHERE query_id=12221
+query_admin_survey_list.txt|UPDATE query SET text= ? WHERE query_id=26334
+query_Affidavit_Info.txt|UPDATE query SET text= ? WHERE query_id=11001
+query_amd_mm3_registrants.txt|UPDATE query SET text= ? WHERE query_id=29229
+query_amd_survey_winners.txt|UPDATE query SET text= ? WHERE query_id=28747
+query_annemarie_custom1.txt|UPDATE query SET text= ? WHERE query_id=29286
+query_answer_info.txt|UPDATE query SET text= ? WHERE query_id=12276
+query_AOL + Bloomberg employees.txt|UPDATE query SET text= ? WHERE query_id=26926
+query_AOL + VeriSign employees - Competitions.txt|UPDATE query SET text= ? WHERE query_id=27490
+query_AOL employees.txt|UPDATE query SET text= ? WHERE query_id=26789
+query_AOL Truveo Winners.txt|UPDATE query SET text= ? WHERE query_id=29177
+query_aol_round_data.txt|UPDATE query SET text= ? WHERE query_id=27067
+query_assignment_problem_results_all.txt|UPDATE query SET text= ? WHERE query_id=28346
+query_assignment_problem_results_student.txt|UPDATE query SET text= ? WHERE query_id=28347
+query_assignment_results_all.txt|UPDATE query SET text= ? WHERE query_id=28348
+query_assignment_results_student.txt|UPDATE query SET text= ? WHERE query_id=28349
+query_assignment_studio_components_180_days.txt|UPDATE query SET text= ? WHERE query_id=28816
+query_Authenticate_Data_User.txt|UPDATE query SET text= ? WHERE query_id=60
+query_black_list_count.txt|UPDATE query SET text= ? WHERE query_id=26836
+query_brooks email 2nd chunk.txt|UPDATE query SET text= ? WHERE query_id=17717
+query_brooks email 3rd chunk.txt|UPDATE query SET text= ? WHERE query_id=17723
+query_brooks email 4th chunk.txt|UPDATE query SET text= ? WHERE query_id=17732
+query_brooks email 5th chunk.txt|UPDATE query SET text= ? WHERE query_id=19521
+query_brooks email first chunk.txt|UPDATE query SET text= ? WHERE query_id=17698
+query_brooks email missing password.txt|UPDATE query SET text= ? WHERE query_id=19522
+query_campaign_rounds.txt|UPDATE query SET text= ? WHERE query_id=16003
+query_classroom_assignments_overview.txt|UPDATE query SET text= ? WHERE query_id=28350
+query_coder_all_ratings.txt|UPDATE query SET text= ? WHERE query_id=21542
+query_coder_demographics.txt|UPDATE query SET text= ? WHERE query_id=12219
+query_coders of the month (before 8_1_2007).txt|UPDATE query SET text= ? WHERE query_id=28168
+query_college tour - Belarus.txt|UPDATE query SET text= ? WHERE query_id=27611
+query_college tour 06 announce.txt|UPDATE query SET text= ? WHERE query_id=26376
+query_College Tour: Belarus - registration.txt|UPDATE query SET text= ? WHERE query_id=27679
+query_college_tour_brown.txt|UPDATE query SET text= ? WHERE query_id=28367
+query_college_tour_cornell.txt|UPDATE query SET text= ? WHERE query_id=28368
+query_college_tour_event_config.txt|UPDATE query SET text= ? WHERE query_id=26413
+query_college_tour_event_info.txt|UPDATE query SET text= ? WHERE query_id=26414
+query_college_tour_member_growth.txt|UPDATE query SET text= ? WHERE query_id=28298
+query_college_tour_ncsu.txt|UPDATE query SET text= ? WHERE query_id=28370
+query_college_tour_princeton.txt|UPDATE query SET text= ? WHERE query_id=28369
+query_college_tour_registrants.txt|UPDATE query SET text= ? WHERE query_id=26416
+query_college_tour_round_image.txt|UPDATE query SET text= ? WHERE query_id=26415
+query_college_tour_school_list.txt|UPDATE query SET text= ? WHERE query_id=27156
+query_college_tour_utdallas.txt|UPDATE query SET text= ? WHERE query_id=28366
+query_Collegiate Challenge Sign-ups.txt|UPDATE query SET text= ? WHERE query_id=12138
+query_collegiate women in NE USA.txt|UPDATE query SET text= ? WHERE query_id=27176
+query_Collegiate_Eligibility.txt|UPDATE query SET text= ? WHERE query_id=11024
+query_com_history.txt|UPDATE query SET text= ? WHERE query_id=21594
+query_company_datasource.txt|UPDATE query SET text= ? WHERE query_id=12260
+query_Competition Not Registered For TCO 2005 Component Competition.txt|UPDATE query SET text= ? WHERE query_id=21579
+query_Competitions + News.txt|UPDATE query SET text= ? WHERE query_id=21565
+query_Competitions - college students.txt|UPDATE query SET text= ? WHERE query_id=26806
+query_competitions without tccc05 qualifiers.txt|UPDATE query SET text= ? WHERE query_id=17710
+query_competitions, latin america.txt|UPDATE query SET text= ? WHERE query_id=27307
+query_Competitions, News, Students.txt|UPDATE query SET text= ? WHERE query_id=17678
+query_Competitions, News.txt|UPDATE query SET text= ? WHERE query_id=21564
+query_Component Rated.txt|UPDATE query SET text= ? WHERE query_id=28787
+query_component schedule change.txt|UPDATE query SET text= ? WHERE query_id=26412
+query_component_subscriptions.txt|UPDATE query SET text= ? WHERE query_id=13697
+query_components_per_user.txt|UPDATE query SET text= ? WHERE query_id=29107
+query_condorcet_schulze_results.txt|UPDATE query SET text= ? WHERE query_id=26299
+query_contact_datasource.txt|UPDATE query SET text= ? WHERE query_id=12259
+query_contact_date.txt|UPDATE query SET text= ? WHERE query_id=21535
+query_contest info.txt|UPDATE query SET text= ? WHERE query_id=12320
+query_contracting_user_notes.txt|UPDATE query SET text= ? WHERE query_id=16041
+query_country_list.txt|UPDATE query SET text= ? WHERE query_id=12290
+query_Country_List.txt|UPDATE query SET text= ? WHERE query_id=68
+query_country_list_usa.txt|UPDATE query SET text= ? WHERE query_id=19538
+query_crpf_donation_list.txt|UPDATE query SET text= ? WHERE query_id=12262
+query_crpf_donation_total.txt|UPDATE query SET text= ? WHERE query_id=12263
+query_csdn07_eligibility.txt|UPDATE query SET text= ? WHERE query_id=27440
+query_csf_reg.txt|UPDATE query SET text= ? WHERE query_id=27460
+query_damn rule change.txt|UPDATE query SET text= ? WHERE query_id=17682
+query_datasource_info.txt|UPDATE query SET text= ? WHERE query_id=28508
+query_db 2007 10 12.txt|UPDATE query SET text= ? WHERE query_id=28316
+query_demographic_answer_list.txt|UPDATE query SET text= ? WHERE query_id=12291
+query_Demographic_Graph.txt|UPDATE query SET text= ? WHERE query_id=65
+query_demographic_question_list.txt|UPDATE query SET text= ? WHERE query_id=12292
+query_demographics_answers.txt|UPDATE query SET text= ? WHERE query_id=19536
+query_demographics_questions.txt|UPDATE query SET text= ? WHERE query_id=19534
+query_designers.txt|UPDATE query SET text= ? WHERE query_id=15978
+query_dev top 100 .net developers.txt|UPDATE query SET text= ? WHERE query_id=28489
+query_Development (.NET, inactive in last 2 months).txt|UPDATE query SET text= ? WHERE query_id=28927
+query_Development + News.txt|UPDATE query SET text= ? WHERE query_id=26519
+query_Development - Top 400 rated in component development.txt|UPDATE query SET text= ? WHERE query_id=28746
+query_Development in TCCC05.txt|UPDATE query SET text= ? WHERE query_id=17701
+query_Development NOT in TCCC05.txt|UPDATE query SET text= ? WHERE query_id=17702
+query_Development OR TCO05.txt|UPDATE query SET text= ? WHERE query_id=21593
+query_Development, component rated.txt|UPDATE query SET text= ? WHERE query_id=16039
+query_Development.txt|UPDATE query SET text= ? WHERE query_id=11009
+query_digital_run_2007.5_stage_1_winners.txt|UPDATE query SET text= ? WHERE query_id=28386
+query_div1_overall_votes.txt|UPDATE query SET text= ? WHERE query_id=12303
+query_div1_problem_rating_distribution.txt|UPDATE query SET text= ? WHERE query_id=12300
+query_div2_overall_votes.txt|UPDATE query SET text= ? WHERE query_id=12304
+query_div2_problem_rating_distribution.txt|UPDATE query SET text= ? WHERE query_id=12302
+query_dr_pay_fix.txt|UPDATE query SET text= ? WHERE query_id=28374
+query_Email Report.txt|UPDATE query SET text= ? WHERE query_id=12172
+query_Email_AMD_Multicore_Threadfest_1.txt|UPDATE query SET text= ? WHERE query_id=28756
+query_Email_Queries.txt|UPDATE query SET text= ? WHERE query_id=51
+query_Employment in USA.txt|UPDATE query SET text= ? WHERE query_id=12136
+query_Employment, CT, NY, NJ, Pro.txt|UPDATE query SET text= ? WHERE query_id=17725
+query_Employment, FL, AL, SC, GA, Pro.txt|UPDATE query SET text= ? WHERE query_id=17728
+query_Employment, News, Competitions.txt|UPDATE query SET text= ? WHERE query_id=13726
+query_Employment, News, North America.txt|UPDATE query SET text= ? WHERE query_id=26557
+query_Employment, News.txt|UPDATE query SET text= ? WHERE query_id=26446
+query_Employment, pro north america.txt|UPDATE query SET text= ? WHERE query_id=19519
+query_Employment, Rated, US, Pro.txt|UPDATE query SET text= ? WHERE query_id=17720
+query_Employment, USA, Canada, Mexico, Pro.txt|UPDATE query SET text= ? WHERE query_id=17726
+query_Employment.txt|UPDATE query SET text= ? WHERE query_id=11007
+query_Employment.txt|UPDATE query SET text= ? WHERE query_id=27277
+query_employment_rating_2000.txt|UPDATE query SET text= ? WHERE query_id=28926
+query_european_survey.txt|UPDATE query SET text= ? WHERE query_id=27495
+query_event_name.txt|UPDATE query SET text= ? WHERE query_id=28107
+query_event_reg_school_info.txt|UPDATE query SET text= ? WHERE query_id=28326
+query_event_registrants.txt|UPDATE query SET text= ? WHERE query_id=28106
+query_event_registration.txt|UPDATE query SET text= ? WHERE query_id=27461
+query_file_types.txt|UPDATE query SET text= ? WHERE query_id=16044
+query_find_forums.txt|UPDATE query SET text= ? WHERE query_id=27730
+query_fulfillment.txt|UPDATE query SET text= ? WHERE query_id=27946
+query_gcj europe 06 announce - gcj05 participants, unregistered.txt|UPDATE query SET text= ? WHERE query_id=26617
+query_gcj europe 06 announce - gcj05 participants.txt|UPDATE query SET text= ? WHERE query_id=26599
+query_gcj europe 06 announce - residents.txt|UPDATE query SET text= ? WHERE query_id=26600
+query_gcj04 registrants excluding tc people.txt|UPDATE query SET text= ? WHERE query_id=21600
+query_gcj05 dup accounts.txt|UPDATE query SET text= ? WHERE query_id=21645
+query_gcj05 qual announce.txt|UPDATE query SET text= ? WHERE query_id=21644
+query_gcj05 qual losers.txt|UPDATE query SET text= ? WHERE query_id=21655
+query_gcj05 qual winners.txt|UPDATE query SET text= ? WHERE query_id=21656
+query_gcj05 reg reminder.txt|UPDATE query SET text= ? WHERE query_id=21620
+query_gcj05 registrants - non-TC.txt|UPDATE query SET text= ? WHERE query_id=26876
+query_gcj05 round 1 losers.txt|UPDATE query SET text= ? WHERE query_id=21665
+query_gcj05 round 1 winners.txt|UPDATE query SET text= ? WHERE query_id=21664
+query_gcj05 round 2 losers.txt|UPDATE query SET text= ? WHERE query_id=21670
+query_gcj05 round 2 winners.txt|UPDATE query SET text= ? WHERE query_id=21671
+query_gcj06 announce - 05 registrants.txt|UPDATE query SET text= ? WHERE query_id=26886
+query_gcj06 qual losers - employees.txt|UPDATE query SET text= ? WHERE query_id=26991
+query_gcj06 qual losers.txt|UPDATE query SET text= ? WHERE query_id=26989
+query_gcj06 qual winners - employees.txt|UPDATE query SET text= ? WHERE query_id=26990
+query_gcj06 qual winners.txt|UPDATE query SET text= ? WHERE query_id=26988
+query_gcj06 reg reminder.txt|UPDATE query SET text= ? WHERE query_id=26936
+query_gcj06 registrants.txt|UPDATE query SET text= ? WHERE query_id=26966
+query_gcj06 round 1 losers - employee track.txt|UPDATE query SET text= ? WHERE query_id=27049
+query_gcj06 round 1 losers.txt|UPDATE query SET text= ? WHERE query_id=27046
+query_gcj06 round 1 winners - employee track.txt|UPDATE query SET text= ? WHERE query_id=27048
+query_gcj06 round 1 winners.txt|UPDATE query SET text= ? WHERE query_id=27047
+query_gcj06 round 2 losers - employee track.txt|UPDATE query SET text= ? WHERE query_id=27055
+query_gcj06 round 2 losers.txt|UPDATE query SET text= ? WHERE query_id=27053
+query_gcj06 round 2 winners - employee track.txt|UPDATE query SET text= ? WHERE query_id=27054
+query_gcj06 round 2 winners.txt|UPDATE query SET text= ? WHERE query_id=27052
+query_gcj06 sponsor track.txt|UPDATE query SET text= ? WHERE query_id=26967
+query_gcjc announce 2.txt|UPDATE query SET text= ? WHERE query_id=26290
+query_gcjc announce.txt|UPDATE query SET text= ? WHERE query_id=26289
+query_gcjc_registration_reminder.txt|UPDATE query SET text= ? WHERE query_id=26318
+query_gcje06 qual losers.txt|UPDATE query SET text= ? WHERE query_id=26625
+query_gcje06 qual winners.txt|UPDATE query SET text= ? WHERE query_id=26624
+query_gcje06 registrants.txt|UPDATE query SET text= ? WHERE query_id=26623
+query_gcje06 round 1 losers.txt|UPDATE query SET text= ? WHERE query_id=26634
+query_gcje06 round 1 winners.txt|UPDATE query SET text= ? WHERE query_id=26633
+query_gcje06 round 2 losers.txt|UPDATE query SET text= ? WHERE query_id=26653
+query_gcje06 round 2 winners.txt|UPDATE query SET text= ? WHERE query_id=26652
+query_gcji06 qual losers.txt|UPDATE query SET text= ? WHERE query_id=26533
+query_gcji06 qual winners.txt|UPDATE query SET text= ? WHERE query_id=26532
+query_gcji06 reg reminder.txt|UPDATE query SET text= ? WHERE query_id=26515
+query_gcji06 registrants.txt|UPDATE query SET text= ? WHERE query_id=26525
+query_gcjla07 announce - residents.txt|UPDATE query SET text= ? WHERE query_id=27306
+query_gcjla07 announce - unregistered.txt|UPDATE query SET text= ? WHERE query_id=27316
+query_gcjla07 qual losers.txt|UPDATE query SET text= ? WHERE query_id=27336
+query_gcjla07 qual winners.txt|UPDATE query SET text= ? WHERE query_id=27337
+query_gcjla07 registrants.txt|UPDATE query SET text= ? WHERE query_id=27327
+query_gcjla07 round 1 losers.txt|UPDATE query SET text= ? WHERE query_id=27347
+query_gcjla07 round 1 winners.txt|UPDATE query SET text= ? WHERE query_id=27346
+query_gcjla07 round 2 losers.txt|UPDATE query SET text= ? WHERE query_id=27356
+query_gcjla07 round 2 winners.txt|UPDATE query SET text= ? WHERE query_id=27357
+query_get_round_type.txt|UPDATE query SET text= ? WHERE query_id=28218
+query_gicj05 313.txt|UPDATE query SET text= ? WHERE query_id=19542
+query_gicj05 code jam announce.txt|UPDATE query SET text= ? WHERE query_id=19517
+query_gicj05 no need to make up.txt|UPDATE query SET text= ? WHERE query_id=19547
+query_gicj05 not practiced.txt|UPDATE query SET text= ? WHERE query_id=19523
+query_gicj05 qual losers.txt|UPDATE query SET text= ? WHERE query_id=19545
+query_gicj05 qual make up.txt|UPDATE query SET text= ? WHERE query_id=19549
+query_gicj05 qual makeup losers.txt|UPDATE query SET text= ? WHERE query_id=19552
+query_gicj05 qual makeup winners.txt|UPDATE query SET text= ? WHERE query_id=19551
+query_gicj05 qual winners.txt|UPDATE query SET text= ? WHERE query_id=19546
+query_gicj05 round 1 advancers.txt|UPDATE query SET text= ? WHERE query_id=19556
+query_gicj05 round 1 losers.txt|UPDATE query SET text= ? WHERE query_id=19557
+query_gicj05 tc member announce.txt|UPDATE query SET text= ? WHERE query_id=19516
+query_gicj06 prev participants.txt|UPDATE query SET text= ? WHERE query_id=26465
+query_gicj06 residents.txt|UPDATE query SET text= ? WHERE query_id=26463
+query_gicj06 round 1 losers with t shirt.txt|UPDATE query SET text= ? WHERE query_id=26554
+query_gicj06 round 1 losers.txt|UPDATE query SET text= ? WHERE query_id=26553
+query_gicj06 round 1 winners.txt|UPDATE query SET text= ? WHERE query_id=26555
+query_gicj299.txt|UPDATE query SET text= ? WHERE query_id=19540
+query_google 04 round 1 losers.txt|UPDATE query SET text= ? WHERE query_id=16016
+query_google 04 round 1 winners.txt|UPDATE query SET text= ? WHERE query_id=16021
+query_google 04 round 2 losers.txt|UPDATE query SET text= ? WHERE query_id=16029
+query_google 04 round 2 winners.txt|UPDATE query SET text= ? WHERE query_id=16028
+query_google04 qual losers.txt|UPDATE query SET text= ? WHERE query_id=16014
+query_google04 qual winners.txt|UPDATE query SET text= ? WHERE query_id=16015
+query_guangdong_reg.txt|UPDATE query SET text= ? WHERE query_id=27777
+query_handle_history.txt|UPDATE query SET text= ? WHERE query_id=12220
+query_has_notes.txt|UPDATE query SET text= ? WHERE query_id=17667
+query_hs_news_events_users.txt|UPDATE query SET text= ? WHERE query_id=28936
+query_hs_news_events_users_nonUS.txt|UPDATE query SET text= ? WHERE query_id=29037
+query_hs_news_events_users_US.txt|UPDATE query SET text= ? WHERE query_id=29036
+query_hs_reg.txt|UPDATE query SET text= ? WHERE query_id=26847
+query_hs_reg_by_country.txt|UPDATE query SET text= ? WHERE query_id=26846
+query_hs_reg_by_state.txt|UPDATE query SET text= ? WHERE query_id=27231
+query_india beta.txt|UPDATE query SET text= ? WHERE query_id=19554
+query_Intel Multi-Threading Competition 10 participants.txt|UPDATE query SET text= ? WHERE query_id=27229
+query_Intel Multi-Threading Competition 11 participants.txt|UPDATE query SET text= ? WHERE query_id=27266
+query_Intel Multi-Threading Competition 12 participants.txt|UPDATE query SET text= ? WHERE query_id=27308
+query_Intel Multi-Threading Competition 2 participants.txt|UPDATE query SET text= ? WHERE query_id=26510
+query_Intel Multi-Threading Competition 3 participants.txt|UPDATE query SET text= ? WHERE query_id=26570
+query_Intel Multi-Threading Competition 4 participants.txt|UPDATE query SET text= ? WHERE query_id=26611
+query_Intel Multi-Threading Competition 4 winners.txt|UPDATE query SET text= ? WHERE query_id=26612
+query_Intel Multi-Threading Competition 5 participants.txt|UPDATE query SET text= ? WHERE query_id=26655
+query_Intel Multi-Threading Competition 6 participants.txt|UPDATE query SET text= ? WHERE query_id=26776
+query_Intel Multi-Threading Competition 7 participants.txt|UPDATE query SET text= ? WHERE query_id=26856
+query_Intel Multi-Threading Competition 8 participants.txt|UPDATE query SET text= ? WHERE query_id=26980
+query_Intel Multi-Threading Competition 9 participants.txt|UPDATE query SET text= ? WHERE query_id=27095
+query_Intel MultiThread 1 Update.txt|UPDATE query SET text= ? WHERE query_id=26443
+query_Intel MultiThread 1.txt|UPDATE query SET text= ? WHERE query_id=26432
+query_interested in placement but did not register.txt|UPDATE query SET text= ? WHERE query_id=17673
+query_intro_event_algo_results.txt|UPDATE query SET text= ? WHERE query_id=28264
+query_intro_event_competitor_report.txt|UPDATE query SET text= ? WHERE query_id=28296
+query_Invitational_Eligibility.txt|UPDATE query SET text= ? WHERE query_id=84
+query_Is_Registered.txt|UPDATE query SET text= ? WHERE query_id=86
+query_job hits - Eli Lilly (08_29_2007).txt|UPDATE query SET text= ? WHERE query_id=28147
+query_job hits - UBS.txt|UPDATE query SET text= ? WHERE query_id=27766
+query_job hits - Yodlee.txt|UPDATE query SET text= ? WHERE query_id=27816
+query_job_list.txt|UPDATE query SET text= ? WHERE query_id=21603
+query_Job_Log.txt|UPDATE query SET text= ? WHERE query_id=57
+query_Jobs_By_Date.txt|UPDATE query SET text= ? WHERE query_id=53
+query_Jobs_By_Sender.txt|UPDATE query SET text= ? WHERE query_id=54
+query_Jobs_By_Subject.txt|UPDATE query SET text= ? WHERE query_id=55
+query_killerapp_reg_count.txt|UPDATE query SET text= ? WHERE query_id=29297
+query_killerapp_reg_details.txt|UPDATE query SET text= ? WHERE query_id=29296
+query_languages.txt|UPDATE query SET text= ? WHERE query_id=19533
+query_Logo - Not Voted Yet.txt|UPDATE query SET text= ? WHERE query_id=21562
+query_logo submitters.txt|UPDATE query SET text= ? WHERE query_id=26564
+query_logo_results.txt|UPDATE query SET text= ? WHERE query_id=21557
+query_logo_submissions.txt|UPDATE query SET text= ? WHERE query_id=21537
+query_long_coder_examples.txt|UPDATE query SET text= ? WHERE query_id=26456
+query_long_coder_submissions.txt|UPDATE query SET text= ? WHERE query_id=26340
+query_long_contest_accept_submissions.txt|UPDATE query SET text= ? WHERE query_id=26436
+query_long_contest_active_contests.txt|UPDATE query SET text= ? WHERE query_id=26341
+query_long_contest_check_ids.txt|UPDATE query SET text= ? WHERE query_id=27358
+query_long_contest_check_invite_list.txt|UPDATE query SET text= ? WHERE query_id=27441
+query_long_contest_check_parallel_round.txt|UPDATE query SET text= ? WHERE query_id=27442
+query_long_contest_coder_examples_info.txt|UPDATE query SET text= ? WHERE query_id=26457
+query_long_contest_coder_submissions_info.txt|UPDATE query SET text= ? WHERE query_id=26342
+query_long_contest_example_results.txt|UPDATE query SET text= ? WHERE query_id=26421
+query_long_contest_find_room.txt|UPDATE query SET text= ? WHERE query_id=26343
+query_long_contest_last_submission.txt|UPDATE query SET text= ? WHERE query_id=26422
+query_long_contest_original_rounds.txt|UPDATE query SET text= ? WHERE query_id=28219
+query_long_contest_over.txt|UPDATE query SET text= ? WHERE query_id=26344
+query_long_contest_pass_contests.txt|UPDATE query SET text= ? WHERE query_id=26345
+query_long_contest_problem_component.txt|UPDATE query SET text= ? WHERE query_id=26346
+query_long_contest_queue_status.txt|UPDATE query SET text= ? WHERE query_id=26455
+query_long_contest_recent_compilation.txt|UPDATE query SET text= ? WHERE query_id=26347
+query_long_contest_recent_example_compilation.txt|UPDATE query SET text= ? WHERE query_id=26527
+query_long_contest_round_component_info.txt|UPDATE query SET text= ? WHERE query_id=26420
+query_long_contest_round_information.txt|UPDATE query SET text= ? WHERE query_id=26348
+query_long_contest_round_list.txt|UPDATE query SET text= ? WHERE query_id=26439
+query_long_contest_round_num_participants.txt|UPDATE query SET text= ? WHERE query_id=26349
+query_long_contest_round_practice.txt|UPDATE query SET text= ? WHERE query_id=26350
+query_long_contest_round_practice_standings.txt|UPDATE query SET text= ? WHERE query_id=26351
+query_long_contest_round_problems.txt|UPDATE query SET text= ? WHERE query_id=26352
+query_long_contest_round_questions.txt|UPDATE query SET text= ? WHERE query_id=26353
+query_long_contest_round_questions_answers.txt|UPDATE query SET text= ? WHERE query_id=26354
+query_long_contest_round_registrants.txt|UPDATE query SET text= ? WHERE query_id=26355
+query_long_contest_round_registrants_info.txt|UPDATE query SET text= ? WHERE query_id=26356
+query_long_contest_round_standings.txt|UPDATE query SET text= ? WHERE query_id=26357
+query_long_contest_round_terms.txt|UPDATE query SET text= ? WHERE query_id=26358
+query_long_contest_sponsor_image.txt|UPDATE query SET text= ? WHERE query_id=26322
+query_long_contest_started.txt|UPDATE query SET text= ? WHERE query_id=26360
+query_long_contest_submission.txt|UPDATE query SET text= ? WHERE query_id=26391
+query_long_contest_submission_text.txt|UPDATE query SET text= ? WHERE query_id=26441
+query_long_contest_submissions.txt|UPDATE query SET text= ? WHERE query_id=26440
+query_long_problem_xml.txt|UPDATE query SET text= ? WHERE query_id=26361
+query_long_queue_length.txt|UPDATE query SET text= ? WHERE query_id=26362
+query_mac build 09_12_2006.txt|UPDATE query SET text= ? WHERE query_id=27016
+query_main_profile_info.txt|UPDATE query SET text= ? WHERE query_id=12222
+query_marathon match 18 winners - phase 2.txt|UPDATE query SET text= ? WHERE query_id=27888
+query_marathon match 18 winners.txt|UPDATE query SET text= ? WHERE query_id=27866
+query_member_contact_count.txt|UPDATE query SET text= ? WHERE query_id=26837
+query_member_contact_enabled.txt|UPDATE query SET text= ? WHERE query_id=26816
+query_member_contact_message_count.txt|UPDATE query SET text= ? WHERE query_id=26838
+query_MIT students (current, active).txt|UPDATE query SET text= ? WHERE query_id=26563
+query_mm36 results.txt|UPDATE query SET text= ? WHERE query_id=29076
+query_msn_breakdown.txt|UPDATE query SET text= ? WHERE query_id=26321
+query_msn_old_grad_dates.txt|UPDATE query SET text= ? WHERE query_id=26327
+query_msn_pros_by_state.txt|UPDATE query SET text= ? WHERE query_id=26320
+query_msn_us_pros.txt|UPDATE query SET text= ? WHERE query_id=26328
+query_msn_us_pros_interested_in_placement.txt|UPDATE query SET text= ? WHERE query_id=26381
+query_msn_us_pros_placement.txt|UPDATE query SET text= ? WHERE query_id=26384
+query_msn_us_pros_placement_3_ratings.txt|UPDATE query SET text= ? WHERE query_id=26386
+query_msn_us_pros_placment_colors.txt|UPDATE query SET text= ? WHERE query_id=26385
+query_msn_wants_topcoders.txt|UPDATE query SET text= ? WHERE query_id=26323
+query_msn_wants_topcoders_2.txt|UPDATE query SET text= ? WHERE query_id=26330
+query_name change report.txt|UPDATE query SET text= ? WHERE query_id=28487
+query_new_placement_people.txt|UPDATE query SET text= ? WHERE query_id=21528
+query_News and Events - college students.txt|UPDATE query SET text= ? WHERE query_id=27026
+query_News and Events - Europe.txt|UPDATE query SET text= ? WHERE query_id=27319
+query_News and Events - HS.txt|UPDATE query SET text= ? WHERE query_id=27246
+query_News and Events - NorthEastUSA.txt|UPDATE query SET text= ? WHERE query_id=29246
+query_News and Events - USA.txt|UPDATE query SET text= ? WHERE query_id=27078
+query_News and Events.txt|UPDATE query SET text= ? WHERE query_id=11018
+query_Next Competition, no tco04 round 2.txt|UPDATE query SET text= ? WHERE query_id=16017
+query_Next Competition, no tco05 round 2 adv.txt|UPDATE query SET text= ? WHERE query_id=21661
+query_Next Competition, pros.txt|UPDATE query SET text= ? WHERE query_id=15880
+query_Next Competition, pros.txt|UPDATE query SET text= ? WHERE query_id=21543
+query_Next Competition, students.txt|UPDATE query SET text= ? WHERE query_id=15881
+query_Next Competition.txt|UPDATE query SET text= ? WHERE query_id=58
+query_Next Competitions, members around santa clara.txt|UPDATE query SET text= ? WHERE query_id=16042
+query_Next Competitions, no tco04 round 3.txt|UPDATE query SET text= ? WHERE query_id=16033
+query_Next TCHS Competition.txt|UPDATE query SET text= ? WHERE query_id=26654
+query_Next_SRM.txt|UPDATE query SET text= ? WHERE query_id=11011
+query_note_list.txt|UPDATE query SET text= ? WHERE query_id=17671
+query_notifications.txt|UPDATE query SET text= ? WHERE query_id=21522
+query_notify.txt|UPDATE query SET text= ? WHERE query_id=12218
+query_overall_problem_rating_distribution.txt|UPDATE query SET text= ? WHERE query_id=12301
+query_overall_votes.txt|UPDATE query SET text= ? WHERE query_id=12305
+query_password_email.txt|UPDATE query SET text= ? WHERE query_id=12269
+query_payments owed 08_15_2007.txt|UPDATE query SET text= ? WHERE query_id=28126
+query_pending_teachers.txt|UPDATE query SET text= ? WHERE query_id=28351
+query_people_with_payment_due_2_15_2008.txt|UPDATE query SET text= ? WHERE query_id=28530
+query_perl survey.txt|UPDATE query SET text= ? WHERE query_id=17681
+query_placement_counts.txt|UPDATE query SET text= ? WHERE query_id=16052
+query_placement_north_america.txt|UPDATE query SET text= ? WHERE query_id=26316
+query_placement_people.txt|UPDATE query SET text= ? WHERE query_id=16053
+query_preference_groups.txt|UPDATE query SET text= ? WHERE query_id=16045
+query_preference_values.txt|UPDATE query SET text= ? WHERE query_id=16046
+query_preferences_by_group.txt|UPDATE query SET text= ? WHERE query_id=16047
+query_Privacy Change.txt|UPDATE query SET text= ? WHERE query_id=19555
+query_problem name.txt|UPDATE query SET text= ? WHERE query_id=12296
+query_problem rated.txt|UPDATE query SET text= ? WHERE query_id=12297
+query_problem rating questions.txt|UPDATE query SET text= ? WHERE query_id=12295
+query_problem rating results.txt|UPDATE query SET text= ? WHERE query_id=12299
+query_problem_rating_question_info.txt|UPDATE query SET text= ? WHERE query_id=12306
+query_Profile_Detail.txt|UPDATE query SET text= ? WHERE query_id=71
+query_Profile_List.txt|UPDATE query SET text= ? WHERE query_id=69
+query_Query_Description.txt|UPDATE query SET text= ? WHERE query_id=56
+query_Query_Metadata.txt|UPDATE query SET text= ? WHERE query_id=50
+query_question_list.txt|UPDATE query SET text= ? WHERE query_id=12280
+query_question_style_list.txt|UPDATE query SET text= ? WHERE query_id=26335
+query_question_type_list.txt|UPDATE query SET text= ? WHERE query_id=26336
+query_rated count.txt|UPDATE query SET text= ? WHERE query_id=12298
+query_recent_contacts.txt|UPDATE query SET text= ? WHERE query_id=21552
+query_Recent_Jobs.txt|UPDATE query SET text= ? WHERE query_id=52
+query_recent_placement.txt|UPDATE query SET text= ? WHERE query_id=21526
+query_recent_srm_survey_question.txt|UPDATE query SET text= ? WHERE query_id=12277
+query_Referral_Graph.txt|UPDATE query SET text= ? WHERE query_id=66
+query_referral_list.txt|UPDATE query SET text= ? WHERE query_id=15887
+query_Regional_Tourney_Advancers.txt|UPDATE query SET text= ? WHERE query_id=12165
+query_Regional_Tourney_Competitors.txt|UPDATE query SET text= ? WHERE query_id=12170
+query_registered_for_placement.txt|UPDATE query SET text= ? WHERE query_id=17668
+query_registration_types.txt|UPDATE query SET text= ? WHERE query_id=27278
+query_Relocate_Answers.txt|UPDATE query SET text= ? WHERE query_id=72
+query_Rep Referrals.txt|UPDATE query SET text= ? WHERE query_id=11019
+query_response_detail.txt|UPDATE query SET text= ? WHERE query_id=27286
+query_response_info.txt|UPDATE query SET text= ? WHERE query_id=12281
+query_restricted_campaign.txt|UPDATE query SET text= ? WHERE query_id=15986
+query_restricted_TCES_Competition_History.txt|UPDATE query SET text= ? WHERE query_id=15987
+query_restricted_TCES_Problem_Submissions.txt|UPDATE query SET text= ? WHERE query_id=15988
+query_review board - all.txt|UPDATE query SET text= ? WHERE query_id=13735
+query_Reviewers with no member photo.txt|UPDATE query SET text= ? WHERE query_id=21566
+query_rnament_contests.txt|UPDATE query SET text= ? WHERE query_id=27476
+query_round_competitors.txt|UPDATE query SET text= ? WHERE query_id=13788
+query_round_forum_id.txt|UPDATE query SET text= ? WHERE query_id=26380
+query_round_sponsor.txt|UPDATE query SET text= ? WHERE query_id=28626
+query_rounds_per_component.txt|UPDATE query SET text= ? WHERE query_id=29106
+query_Schedule_SRMS.txt|UPDATE query SET text= ? WHERE query_id=11008
+query_School_Membership.txt|UPDATE query SET text= ? WHERE query_id=63
+query_session_info.txt|UPDATE query SET text= ? WHERE query_id=12268
+query_showdown_recent_set_a.txt|UPDATE query SET text= ? WHERE query_id=16056
+query_showdown_recent_set_b.txt|UPDATE query SET text= ? WHERE query_id=16058
+query_showdown_survey.txt|UPDATE query SET text= ? WHERE query_id=15974
+query_showdown_tccc05_recent_set_a.txt|UPDATE query SET text= ? WHERE query_id=19529
+query_showdown_tccc05_recent_set_b.txt|UPDATE query SET text= ? WHERE query_id=19530
+query_showdown_tccc05_top_set_a.txt|UPDATE query SET text= ? WHERE query_id=19527
+query_showdown_tccc05_top_set_b.txt|UPDATE query SET text= ? WHERE query_id=19528
+query_showdown_top_set_a.txt|UPDATE query SET text= ? WHERE query_id=16055
+query_showdown_top_set_b.txt|UPDATE query SET text= ? WHERE query_id=16057
+query_skill update.txt|UPDATE query SET text= ? WHERE query_id=17674
+query_skill_list.txt|UPDATE query SET text= ? WHERE query_id=16048
+query_skill_note.txt|UPDATE query SET text= ? WHERE query_id=17669
+query_skill_types.txt|UPDATE query SET text= ? WHERE query_id=16049
+query_skill_types.txt|UPDATE query SET text= ? WHERE query_id=19535
+query_skills.txt|UPDATE query SET text= ? WHERE query_id=19537
+query_software_survey_results.txt|UPDATE query SET text= ? WHERE query_id=13790
+query_Sponsor_Image.txt|UPDATE query SET text= ? WHERE query_id=74
+query_srm 248 winners.txt|UPDATE query SET text= ? WHERE query_id=21580
+query_SRM 252 email.txt|UPDATE query SET text= ? WHERE query_id=21598
+query_srm 253 winners.txt|UPDATE query SET text= ? WHERE query_id=21602
+query_srm 257 winners.txt|UPDATE query SET text= ? WHERE query_id=21614
+query_srm 265 participants.txt|UPDATE query SET text= ? WHERE query_id=21701
+query_srm 265 winners.txt|UPDATE query SET text= ? WHERE query_id=21699
+query_srm 272 winners.txt|UPDATE query SET text= ? WHERE query_id=26292
+query_srm 273 ipod.txt|UPDATE query SET text= ? WHERE query_id=26294
+query_srm 273 winners.txt|UPDATE query SET text= ? WHERE query_id=26295
+query_srm 276 winners.txt|UPDATE query SET text= ? WHERE query_id=26338
+query_srm 277 winners.txt|UPDATE query SET text= ? WHERE query_id=26388
+query_srm 279 winners.txt|UPDATE query SET text= ? WHERE query_id=26411
+query_srm 283 winners.txt|UPDATE query SET text= ? WHERE query_id=26426
+query_srm 286 winners.txt|UPDATE query SET text= ? WHERE query_id=26434
+query_srm 291 winners.txt|UPDATE query SET text= ? WHERE query_id=26459
+query_srm 294 winners.txt|UPDATE query SET text= ? WHERE query_id=26556
+query_srm 295 winners.txt|UPDATE query SET text= ? WHERE query_id=26562
+query_srm 299 winners.txt|UPDATE query SET text= ? WHERE query_id=26598
+query_srm 301 winners.txt|UPDATE query SET text= ? WHERE query_id=26614
+query_srm 315 winners.txt|UPDATE query SET text= ? WHERE query_id=26916
+query_srm 317 registrants.txt|UPDATE query SET text= ? WHERE query_id=26927
+query_srm 318 winners.txt|UPDATE query SET text= ? WHERE query_id=26946
+query_srm 319 winners.txt|UPDATE query SET text= ? WHERE query_id=27051
+query_srm 322 winners.txt|UPDATE query SET text= ? WHERE query_id=27136
+query_srm 325 winners.txt|UPDATE query SET text= ? WHERE query_id=27207
+query_srm 335 winners.txt|UPDATE query SET text= ? WHERE query_id=27326
+query_srm 339 winners.txt|UPDATE query SET text= ? WHERE query_id=27386
+query_srm 341 winners.txt|UPDATE query SET text= ? WHERE query_id=27494
+query_srm 342 winners.txt|UPDATE query SET text= ? WHERE query_id=27516
+query_srm 345 winners.txt|UPDATE query SET text= ? WHERE query_id=27666
+query_srm 350 winners.txt|UPDATE query SET text= ? WHERE query_id=27796
+query_srm 351 winners.txt|UPDATE query SET text= ? WHERE query_id=27806
+query_srm 353 winners.txt|UPDATE query SET text= ? WHERE query_id=27826
+query_srm 354 winners.txt|UPDATE query SET text= ? WHERE query_id=27827
+query_srm 355 winners.txt|UPDATE query SET text= ? WHERE query_id=27828
+query_srm 357 winners.txt|UPDATE query SET text= ? WHERE query_id=27906
+query_srm 359 winners.txt|UPDATE query SET text= ? WHERE query_id=27936
+query_srm 361 winners.txt|UPDATE query SET text= ? WHERE query_id=27988
+query_srm 361-363 participants.txt|UPDATE query SET text= ? WHERE query_id=28032
+query_srm 362 winners.txt|UPDATE query SET text= ? WHERE query_id=28008
+query_srm 364 winners.txt|UPDATE query SET text= ? WHERE query_id=28199
+query_srm 371 winners.txt|UPDATE query SET text= ? WHERE query_id=28318
+query_srm 388 winners.txt|UPDATE query SET text= ? WHERE query_id=28488
+query_srm 392 winners.txt|UPDATE query SET text= ? WHERE query_id=28702
+query_srm 397 winners.txt|UPDATE query SET text= ? WHERE query_id=28828
+query_srm 400 winners.txt|UPDATE query SET text= ? WHERE query_id=28866
+query_srm 405 winners.txt|UPDATE query SET text= ? WHERE query_id=29006
+query_srm stress test winners.txt|UPDATE query SET text= ? WHERE query_id=27366
+query_srm_demo_add_companies.txt|UPDATE query SET text= ? WHERE query_id=13676
+query_srm_demo_add_degrees.txt|UPDATE query SET text= ? WHERE query_id=13677
+query_srm_demo_add_schools.txt|UPDATE query SET text= ? WHERE query_id=13675
+query_srm_demo_language_stats_count_div1.txt|UPDATE query SET text= ? WHERE query_id=13670
+query_srm_demo_language_stats_count_div2.txt|UPDATE query SET text= ? WHERE query_id=13671
+query_srm_demo_language_stats_count_new.txt|UPDATE query SET text= ? WHERE query_id=13669
+query_srm_demo_language_stats_subs_div1.txt|UPDATE query SET text= ? WHERE query_id=13672
+query_srm_demo_language_stats_subs_div2.txt|UPDATE query SET text= ? WHERE query_id=13673
+query_srm_demo_language_stats_subs_new.txt|UPDATE query SET text= ? WHERE query_id=13674
+query_srm_demo_last_match.txt|UPDATE query SET text= ? WHERE query_id=13665
+query_srm_demo_logged_in.txt|UPDATE query SET text= ? WHERE query_id=13663
+query_srm_demo_new_part_aging_all.txt|UPDATE query SET text= ? WHERE query_id=13668
+query_srm_demo_new_part_aging_pro.txt|UPDATE query SET text= ? WHERE query_id=13666
+query_srm_demo_new_part_aging_student.txt|UPDATE query SET text= ? WHERE query_id=13667
+query_srm_demo_part_by_country.txt|UPDATE query SET text= ? WHERE query_id=13662
+query_srm_demo_part_by_region.txt|UPDATE query SET text= ? WHERE query_id=13707
+query_srm_demo_time_online.txt|UPDATE query SET text= ? WHERE query_id=13664
+query_srm_demo_total_part.txt|UPDATE query SET text= ? WHERE query_id=13679
+query_srm_match_info.txt|UPDATE query SET text= ? WHERE query_id=13678
+query_srm_qry_chooser.txt|UPDATE query SET text= ? WHERE query_id=13661
+query_srm_summary.txt|UPDATE query SET text= ? WHERE query_id=21697
+query_srm_survey_answers.txt|UPDATE query SET text= ? WHERE query_id=13660
+query_srm_survey_groups.txt|UPDATE query SET text= ? WHERE query_id=13658
+query_srm_survey_question.txt|UPDATE query SET text= ? WHERE query_id=13657
+query_srm_survey_total.txt|UPDATE query SET text= ? WHERE query_id=13659
+query_state_list.txt|UPDATE query SET text= ? WHERE query_id=12293
+query_State_List.txt|UPDATE query SET text= ? WHERE query_id=67
+query_status_changed.txt|UPDATE query SET text= ? WHERE query_id=13757
+query_status_list.txt|UPDATE query SET text= ? WHERE query_id=26337
+query_student_results_all.txt|UPDATE query SET text= ? WHERE query_id=28352
+query_Studio + Competitions.txt|UPDATE query SET text= ? WHERE query_id=26947
+query_Studio + Development.txt|UPDATE query SET text= ? WHERE query_id=27359
+query_Studio + Graphic Design + High School.txt|UPDATE query SET text= ? WHERE query_id=27113
+query_Studio + Graphic Design + News & Events.txt|UPDATE query SET text= ? WHERE query_id=27232
+query_Studio + Graphic Design.txt|UPDATE query SET text= ? WHERE query_id=26906
+query_Studio + News & Events.txt|UPDATE query SET text= ? WHERE query_id=27208
+query_studio creator people.txt|UPDATE query SET text= ? WHERE query_id=21610
+query_Studio News & Events.txt|UPDATE query SET text= ? WHERE query_id=27175
+query_Studio.txt|UPDATE query SET text= ? WHERE query_id=27011
+query_studio_reg.txt|UPDATE query SET text= ? WHERE query_id=27310
+query_studio_reg_by_country.txt|UPDATE query SET text= ? WHERE query_id=27309
+query_studio_reg_by_state.txt|UPDATE query SET text= ? WHERE query_id=27311
+query_studio_registrants.txt|UPDATE query SET text= ? WHERE query_id=28016
+query_submission_system_tests.txt|UPDATE query SET text= ? WHERE query_id=28353
+query_sun studio creator license keys.txt|UPDATE query SET text= ? WHERE query_id=21686
+query_survey_207_results.txt|UPDATE query SET text= ? WHERE query_id=19514
+query_survey_info.txt|UPDATE query SET text= ? WHERE query_id=12278
+query_survey_list.txt|UPDATE query SET text= ? WHERE query_id=12279
+query_survey_results.txt|UPDATE query SET text= ? WHERE query_id=28371
+query_survey_results_agg.txt|UPDATE query SET text= ? WHERE query_id=28372
+query_survey_results_choice.txt|UPDATE query SET text= ? WHERE query_id=28700
+query_survey_results_header.txt|UPDATE query SET text= ? WHERE query_id=28701
+query_survey_results_long_answer.txt|UPDATE query SET text= ? WHERE query_id=28699
+query_tccc04 non-US registrants by school.txt|UPDATE query SET text= ? WHERE query_id=13733
+query_tccc04 reg count.txt|UPDATE query SET text= ? WHERE query_id=13715
+query_tccc04 US registrants by school.txt|UPDATE query SET text= ? WHERE query_id=13734
+query_tccc04_alg_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=13759
+query_tccc04_alg_qual.txt|UPDATE query SET text= ? WHERE query_id=13752
+query_tccc04_eligibility.txt|UPDATE query SET text= ? WHERE query_id=13696
+query_tccc04_question_answers.txt|UPDATE query SET text= ? WHERE query_id=13778
+query_tccc05 algo reg reminder.txt|UPDATE query SET text= ? WHERE query_id=17697
+query_tccc05 component reg end reminder.txt|UPDATE query SET text= ? WHERE query_id=17686
+query_tccc05 component tshirt.txt|UPDATE query SET text= ? WHERE query_id=21520
+query_tccc05 div1 reg reminder.txt|UPDATE query SET text= ? WHERE query_id=17689
+query_tccc05 div2 reg reminder.txt|UPDATE query SET text= ? WHERE query_id=17688
+query_tccc05 finals reminder.txt|UPDATE query SET text= ? WHERE query_id=19558
+query_tccc05 onsite invite.txt|UPDATE query SET text= ? WHERE query_id=19544
+query_tccc05 qual losers.txt|UPDATE query SET text= ? WHERE query_id=17706
+query_tccc05 qual probem people.txt|UPDATE query SET text= ? WHERE query_id=17703
+query_tccc05 qual reminder.txt|UPDATE query SET text= ? WHERE query_id=17699
+query_tccc05 qual winners.txt|UPDATE query SET text= ? WHERE query_id=17707
+query_tccc05 round 2 advancers.txt|UPDATE query SET text= ? WHERE query_id=17721
+query_tccc05 round 2 announce.txt|UPDATE query SET text= ? WHERE query_id=17716
+query_tccc05 round 2 reminder.txt|UPDATE query SET text= ? WHERE query_id=17715
+query_tccc05 round 2 results.txt|UPDATE query SET text= ? WHERE query_id=17718
+query_tccc05 round 3 advancers.txt|UPDATE query SET text= ? WHERE query_id=17734
+query_tccc05 round 3 announce.txt|UPDATE query SET text= ? WHERE query_id=17722
+query_tccc05 round 3 results.txt|UPDATE query SET text= ? WHERE query_id=17727
+query_tccc05 round 4 announce.txt|UPDATE query SET text= ? WHERE query_id=17735
+query_tccc05 round 4 losers.txt|UPDATE query SET text= ? WHERE query_id=19511
+query_tccc05 round 4 winners.txt|UPDATE query SET text= ? WHERE query_id=19512
+query_TCCC05 Yahoo Members.txt|UPDATE query SET text= ? WHERE query_id=21556
+query_tccc05_alg_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=17713
+query_tccc05_alg_qual.txt|UPDATE query SET text= ? WHERE query_id=17704
+query_tccc05_eligibility.txt|UPDATE query SET text= ? WHERE query_id=17679
+query_tccc05_question_answers.txt|UPDATE query SET text= ? WHERE query_id=17733
+query_tccc05_reg.txt|UPDATE query SET text= ? WHERE query_id=17680
+query_tccc05_round1_results.txt|UPDATE query SET text= ? WHERE query_id=17711
+query_tccc05_student_reps.txt|UPDATE query SET text= ? WHERE query_id=16050
+query_tccc06 algo qual 1 - losers.txt|UPDATE query SET text= ? WHERE query_id=26994
+query_tccc06 algo qual 1 - winners.txt|UPDATE query SET text= ? WHERE query_id=26993
+query_tccc06 algo qual 2 - eligible.txt|UPDATE query SET text= ? WHERE query_id=26995
+query_tccc06 algo qual 2 - losers.txt|UPDATE query SET text= ? WHERE query_id=27006
+query_tccc06 algo qual 2 - spectators.txt|UPDATE query SET text= ? WHERE query_id=26996
+query_tccc06 algo qual 2 - winners.txt|UPDATE query SET text= ? WHERE query_id=27007
+query_tccc06 algo qual 3 - eligible.txt|UPDATE query SET text= ? WHERE query_id=27009
+query_tccc06 algo qual 3 - losers.txt|UPDATE query SET text= ? WHERE query_id=27017
+query_tccc06 algo qual 3 - spectators.txt|UPDATE query SET text= ? WHERE query_id=27010
+query_tccc06 algo qual 3 - winners.txt|UPDATE query SET text= ? WHERE query_id=27018
+query_tccc06 algo round 1 - Section A spectators.txt|UPDATE query SET text= ? WHERE query_id=27050
+query_tccc06 algo round 1 - Section A.txt|UPDATE query SET text= ? WHERE query_id=27037
+query_tccc06 algo round 1 - Section B spectators.txt|UPDATE query SET text= ? WHERE query_id=27076
+query_tccc06 algo round 1 - Section B.txt|UPDATE query SET text= ? WHERE query_id=27038
+query_tccc06 algo round 1 - Section C spectators.txt|UPDATE query SET text= ? WHERE query_id=27077
+query_tccc06 algo round 1 - Section C.txt|UPDATE query SET text= ? WHERE query_id=27039
+query_tccc06 algo round 1A - losers.txt|UPDATE query SET text= ? WHERE query_id=27080
+query_tccc06 algo round 1A - winners.txt|UPDATE query SET text= ? WHERE query_id=27079
+query_tccc06 algo round 1B - losers.txt|UPDATE query SET text= ? WHERE query_id=27082
+query_tccc06 algo round 1B - winners.txt|UPDATE query SET text= ? WHERE query_id=27081
+query_tccc06 algo round 1C - losers.txt|UPDATE query SET text= ? WHERE query_id=27088
+query_tccc06 algo round 1C - winners.txt|UPDATE query SET text= ? WHERE query_id=27087
+query_tccc06 algo round 2 - Section A spectators.txt|UPDATE query SET text= ? WHERE query_id=27106
+query_tccc06 algo round 2 - Section A.txt|UPDATE query SET text= ? WHERE query_id=27109
+query_tccc06 algo round 2 - Section B spectators.txt|UPDATE query SET text= ? WHERE query_id=27107
+query_tccc06 algo round 2 - Section B.txt|UPDATE query SET text= ? WHERE query_id=27110
+query_tccc06 algo round 2 - Section C spectators.txt|UPDATE query SET text= ? WHERE query_id=27108
+query_tccc06 algo round 2 - Section C.txt|UPDATE query SET text= ? WHERE query_id=27111
+query_tccc06 algo round 2A - losers.txt|UPDATE query SET text= ? WHERE query_id=27115
+query_tccc06 algo round 2A - winners.txt|UPDATE query SET text= ? WHERE query_id=27114
+query_tccc06 algo round 2B - losers.txt|UPDATE query SET text= ? WHERE query_id=27116
+query_tccc06 algo round 2B - winners.txt|UPDATE query SET text= ? WHERE query_id=27117
+query_tccc06 algo round 2C - losers.txt|UPDATE query SET text= ? WHERE query_id=27119
+query_tccc06 algo round 2C - winners.txt|UPDATE query SET text= ? WHERE query_id=27118
+query_tccc06 algo round 3 - apology.txt|UPDATE query SET text= ? WHERE query_id=27170
+query_tccc06 algo round 3 - eligible.txt|UPDATE query SET text= ? WHERE query_id=27168
+query_tccc06 algo round 3 - losers.txt|UPDATE query SET text= ? WHERE query_id=27171
+query_tccc06 algo round 3 - spectators.txt|UPDATE query SET text= ? WHERE query_id=27169
+query_tccc06 algo round 3 - winners.txt|UPDATE query SET text= ? WHERE query_id=27172
+query_tccc06 algo sponsor qual - advancers.txt|UPDATE query SET text= ? WHERE query_id=27036
+query_tccc06 algo sponsor qual - losers.txt|UPDATE query SET text= ? WHERE query_id=27020
+query_tccc06 algo sponsor qual - winners.txt|UPDATE query SET text= ? WHERE query_id=27021
+query_tccc06 algo sponsor round 1 - losers.txt|UPDATE query SET text= ? WHERE query_id=27090
+query_tccc06 algo sponsor round 1 - winners.txt|UPDATE query SET text= ? WHERE query_id=27089
+query_tccc06 algo sponsor round 2 - losers.txt|UPDATE query SET text= ? WHERE query_id=27166
+query_tccc06 algo sponsor round 2 - winners.txt|UPDATE query SET text= ? WHERE query_id=27167
+query_tccc06 algo sponsor round 3 - losers.txt|UPDATE query SET text= ? WHERE query_id=27174
+query_tccc06 algo sponsor round 3 - winners.txt|UPDATE query SET text= ? WHERE query_id=27173
+query_tccc06 algorithm byes.txt|UPDATE query SET text= ? WHERE query_id=26956
+query_tccc06 algorithm registered.txt|UPDATE query SET text= ? WHERE query_id=26976
+query_tccc06 algorithm spectators.txt|UPDATE query SET text= ? WHERE query_id=26977
+query_tccc06 algorithm unregistered - div i.txt|UPDATE query SET text= ? WHERE query_id=26986
+query_tccc06 algorithm unregistered - div ii.txt|UPDATE query SET text= ? WHERE query_id=26987
+query_tccc06 algorithm unregistered.txt|UPDATE query SET text= ? WHERE query_id=26968
+query_tccc06 component finalists.txt|UPDATE query SET text= ? WHERE query_id=27091
+query_tccc06 component unregistered.txt|UPDATE query SET text= ? WHERE query_id=26896
+query_tccc06 finalists - US citizens.txt|UPDATE query SET text= ? WHERE query_id=27206
+query_tccc06 onsite - algo semifinalists.txt|UPDATE query SET text= ? WHERE query_id=27228
+query_tccc06 onsite - all.txt|UPDATE query SET text= ? WHERE query_id=27216
+query_tccc06 onsite - finalists.txt|UPDATE query SET text= ? WHERE query_id=27233
+query_tccc06 onsite invitation.txt|UPDATE query SET text= ? WHERE query_id=27187
+query_tccc06 sponsor track registered.txt|UPDATE query SET text= ? WHERE query_id=27008
+query_tccc06_alg_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=27056
+query_tccc06_alg_qual.txt|UPDATE query SET text= ? WHERE query_id=26992
+query_tccc06_alg_registrants.txt|UPDATE query SET text= ? WHERE query_id=26829
+query_tccc06_comp_registrants.txt|UPDATE query SET text= ? WHERE query_id=26828
+query_tccc06_eligibility.txt|UPDATE query SET text= ? WHERE query_id=26797
+query_tccc06_onsite_report.txt|UPDATE query SET text= ? WHERE query_id=27093
+query_tccc06_phonetic_report.txt|UPDATE query SET text= ? WHERE query_id=27226
+query_tccc06_question_answers.txt|UPDATE query SET text= ? WHERE query_id=27092
+query_tccc06_reg.txt|UPDATE query SET text= ? WHERE query_id=26808
+query_tccc06_registrants.txt|UPDATE query SET text= ? WHERE query_id=26851
+query_tccc06_semifinal_report.txt|UPDATE query SET text= ? WHERE query_id=27094
+query_tccc06_spon_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=27112
+query_tccc06_spon_qual.txt|UPDATE query SET text= ? WHERE query_id=27019
+query_tccc06_student_reps.txt|UPDATE query SET text= ? WHERE query_id=26807
+query_tccc06_trend.txt|UPDATE query SET text= ? WHERE query_id=26809
+query_tccc07 algo onsite.txt|UPDATE query SET text= ? WHERE query_id=28358
+query_tccc07 algo qual round - byes.txt|UPDATE query SET text= ? WHERE query_id=28056
+query_tccc07 algo qual round 1 - advancers.txt|UPDATE query SET text= ? WHERE query_id=28087
+query_tccc07 algo qual round 1 - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28086
+query_tccc07 algo qual round 1 - spectators.txt|UPDATE query SET text= ? WHERE query_id=28047
+query_tccc07 algo qual round 2 - advancers.txt|UPDATE query SET text= ? WHERE query_id=28116
+query_tccc07 algo qual round 2 - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28117
+query_tccc07 algo qual round 2 - participants.txt|UPDATE query SET text= ? WHERE query_id=28089
+query_tccc07 algo qual round 2 - spectators.txt|UPDATE query SET text= ? WHERE query_id=28088
+query_tccc07 algo qual round 3 - advancers.txt|UPDATE query SET text= ? WHERE query_id=28136
+query_tccc07 algo qual round 3 - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28137
+query_tccc07 algo qual round 3 - participants.txt|UPDATE query SET text= ? WHERE query_id=28096
+query_tccc07 algo qual round 3 - spectators.txt|UPDATE query SET text= ? WHERE query_id=28097
+query_tccc07 algo registrants (no byes).txt|UPDATE query SET text= ? WHERE query_id=28046
+query_tccc07 algo registrants.txt|UPDATE query SET text= ? WHERE query_id=28006
+query_tccc07 algo round 1A - advancers.txt|UPDATE query SET text= ? WHERE query_id=28149
+query_tccc07 algo round 1A - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28148
+query_tccc07 algo round 1A - spectators.txt|UPDATE query SET text= ? WHERE query_id=28130
+query_tccc07 algo round 1A.txt|UPDATE query SET text= ? WHERE query_id=28127
+query_tccc07 algo round 1B - advancers.txt|UPDATE query SET text= ? WHERE query_id=28150
+query_tccc07 algo round 1B - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28151
+query_tccc07 algo round 1B - spectators.txt|UPDATE query SET text= ? WHERE query_id=28131
+query_tccc07 algo round 1B.txt|UPDATE query SET text= ? WHERE query_id=28128
+query_tccc07 algo round 1C - advancers.txt|UPDATE query SET text= ? WHERE query_id=28153
+query_tccc07 algo round 1C - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28152
+query_tccc07 algo round 1C - spectators.txt|UPDATE query SET text= ? WHERE query_id=28132
+query_tccc07 algo round 1C.txt|UPDATE query SET text= ? WHERE query_id=28129
+query_tccc07 algo round 2 - advancers.txt|UPDATE query SET text= ? WHERE query_id=28239
+query_tccc07 algo round 2 - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28238
+query_tccc07 algo round 2 - spectators.txt|UPDATE query SET text= ? WHERE query_id=28203
+query_tccc07 algo round 2.txt|UPDATE query SET text= ? WHERE query_id=28202
+query_tccc07 algo round 3 - spectators.txt|UPDATE query SET text= ? WHERE query_id=28247
+query_tccc07 algo round 3 losers.txt|UPDATE query SET text= ? WHERE query_id=28259
+query_tccc07 algo round 3 winners.txt|UPDATE query SET text= ? WHERE query_id=28258
+query_tccc07 algo sponsor round 1 - advancers.txt|UPDATE query SET text= ? WHERE query_id=28201
+query_tccc07 algo sponsor round 1 - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28200
+query_tccc07 algo sponsor round 2 - advancers.txt|UPDATE query SET text= ? WHERE query_id=28236
+query_tccc07 algo sponsor round 2 - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28237
+query_tccc07 algo sponsor track registrants.txt|UPDATE query SET text= ? WHERE query_id=28146
+query_tccc07 algo unregistered.txt|UPDATE query SET text= ? WHERE query_id=28026
+query_tccc07 component finalists.txt|UPDATE query SET text= ? WHERE query_id=28246
+query_tccc07 component onsite.txt|UPDATE query SET text= ? WHERE query_id=28356
+query_tccc07 component unregistered.txt|UPDATE query SET text= ? WHERE query_id=28034
+query_tccc07 marathon registrants.txt|UPDATE query SET text= ? WHERE query_id=28007
+query_tccc07 marathon round 1 advancers.txt|UPDATE query SET text= ? WHERE query_id=28077
+query_tccc07 marathon round 1 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28076
+query_tccc07 marathon round 2 advancers.txt|UPDATE query SET text= ? WHERE query_id=28166
+query_tccc07 marathon round 2 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=28167
+query_tccc07 marathon unregistered.txt|UPDATE query SET text= ? WHERE query_id=27987
+query_tccc07 mm onsite.txt|UPDATE query SET text= ? WHERE query_id=28359
+query_tccc07 onsite people.txt|UPDATE query SET text= ? WHERE query_id=28336
+query_tccc07 onsite t shirts.txt|UPDATE query SET text= ? WHERE query_id=28283
+query_tccc07 prize notification group 1.txt|UPDATE query SET text= ? WHERE query_id=28373
+query_tccc07 prize notification group 2.txt|UPDATE query SET text= ? WHERE query_id=28376
+query_tccc07 prize notification group 3.txt|UPDATE query SET text= ? WHERE query_id=28387
+query_tccc07 prize notification group 4.txt|UPDATE query SET text= ? WHERE query_id=28396
+query_tccc07 prize notification group 5.txt|UPDATE query SET text= ? WHERE query_id=28397
+query_tccc07 prize notification group 6.txt|UPDATE query SET text= ? WHERE query_id=28398
+query_tccc07 round 4 algo losers.txt|UPDATE query SET text= ? WHERE query_id=28282
+query_tccc07 round 4 algo winners.txt|UPDATE query SET text= ? WHERE query_id=28281
+query_tccc07 round 4 announce.txt|UPDATE query SET text= ? WHERE query_id=28276
+query_tccc07 round 4 competitors.txt|UPDATE query SET text= ? WHERE query_id=28278
+query_tccc07 round 4 mm losers.txt|UPDATE query SET text= ? WHERE query_id=28280
+query_tccc07 round 4 mm winners.txt|UPDATE query SET text= ? WHERE query_id=28279
+query_tccc07 round 4 sponsor track.txt|UPDATE query SET text= ? WHERE query_id=28277
+query_tccc07 section preferences.txt|UPDATE query SET text= ? WHERE query_id=27956
+query_tccc07 sponsor round 3 losers.txt|UPDATE query SET text= ? WHERE query_id=28257
+query_tccc07 sponsor round 3 winners.txt|UPDATE query SET text= ? WHERE query_id=28256
+query_tccc07 sponsor round 4 losers.txt|UPDATE query SET text= ? WHERE query_id=28286
+query_tccc07 sponsor round 4 winners.txt|UPDATE query SET text= ? WHERE query_id=28287
+query_tccc07 studio finalists.txt|UPDATE query SET text= ? WHERE query_id=28266
+query_tccc07 studio onsite.txt|UPDATE query SET text= ? WHERE query_id=28357
+query_tccc07 studio unregistered.txt|UPDATE query SET text= ? WHERE query_id=28035
+query_tccc07_alg_sections.txt|UPDATE query SET text= ? WHERE query_id=28157
+query_tccc07_fix.txt|UPDATE query SET text= ? WHERE query_id=27937
+query_tccc07_info.txt|UPDATE query SET text= ? WHERE query_id=27916
+query_tccc07_onsite_media.txt|UPDATE query SET text= ? WHERE query_id=28297
+query_tccc07_phonetic_report.txt|UPDATE query SET text= ? WHERE query_id=28261
+query_tccc07_professor_nominations.txt|UPDATE query SET text= ? WHERE query_id=28040
+query_tccc07_question_answers.txt|UPDATE query SET text= ? WHERE query_id=28260
+query_tccc07_reg.txt|UPDATE query SET text= ? WHERE query_id=28036
+query_tccc07_reg_trend.txt|UPDATE query SET text= ? WHERE query_id=28037
+query_tccc07_semifinal_report.txt|UPDATE query SET text= ? WHERE query_id=28262
+query_tccc07algorithm_registrants.txt|UPDATE query SET text= ? WHERE query_id=27917
+query_tccc07component_registrants.txt|UPDATE query SET text= ? WHERE query_id=27918
+query_tccc07marathon_registrants.txt|UPDATE query SET text= ? WHERE query_id=27921
+query_tccc07sponsortrack_registrants.txt|UPDATE query SET text= ? WHERE query_id=28041
+query_tccc07studio_info.txt|UPDATE query SET text= ? WHERE query_id=27919
+query_tccc07studio_registrants.txt|UPDATE query SET text= ? WHERE query_id=27920
+query_TCES_Admin_Campaign_List.txt|UPDATE query SET text= ? WHERE query_id=12139
+query_TCES_Campaign_Coders_By_Type.txt|UPDATE query SET text= ? WHERE query_id=1008
+query_TCES_Campaign_Demographic_Responses.txt|UPDATE query SET text= ? WHERE query_id=1011
+query_TCES_Campaign_Hit_Info.txt|UPDATE query SET text= ? WHERE query_id=1003
+query_TCES_Campaign_Hit_List.txt|UPDATE query SET text= ? WHERE query_id=1005
+query_TCES_Campaign_Info.txt|UPDATE query SET text= ? WHERE query_id=1002
+query_TCES_Campaign_List.txt|UPDATE query SET text= ? WHERE query_id=1001
+query_TCES_Campaign_Notify_Responses.txt|UPDATE query SET text= ? WHERE query_id=1010
+query_TCES_Campaign_Referral_Responses.txt|UPDATE query SET text= ? WHERE query_id=1009
+query_tces_coder_all_ratings.txt|UPDATE query SET text= ? WHERE query_id=21634
+query_TCES_Company_Name.txt|UPDATE query SET text= ? WHERE query_id=1000
+query_tces_demographic_questions.txt|UPDATE query SET text= ? WHERE query_id=26438
+query_TCES_Member_Demographics.txt|UPDATE query SET text= ? WHERE query_id=1052
+query_TCES_Member_Handle.txt|UPDATE query SET text= ? WHERE query_id=1050
+query_TCES_Member_Hit_List.txt|UPDATE query SET text= ? WHERE query_id=1053
+query_TCES_Member_Profile.txt|UPDATE query SET text= ? WHERE query_id=1051
+query_TCES_Position_Coders_By_Type.txt|UPDATE query SET text= ? WHERE query_id=1012
+query_TCES_Position_Demographic_Responses.txt|UPDATE query SET text= ? WHERE query_id=1015
+query_TCES_Position_Hit_List.txt|UPDATE query SET text= ? WHERE query_id=1007
+query_TCES_Position_List.txt|UPDATE query SET text= ? WHERE query_id=1004
+query_TCES_Position_Name.txt|UPDATE query SET text= ? WHERE query_id=1006
+query_TCES_Position_Notify_Responses.txt|UPDATE query SET text= ? WHERE query_id=1014
+query_TCES_Position_Referral_Responses.txt|UPDATE query SET text= ? WHERE query_id=1013
+query_TCES_User_And_Password.txt|UPDATE query SET text= ? WHERE query_id=1100
+query_TCES_Verify_Campaign_Access.txt|UPDATE query SET text= ? WHERE query_id=1099
+query_TCES_Verify_Job_Access.txt|UPDATE query SET text= ? WHERE query_id=1098
+query_TCES_Verify_Member_Access.txt|UPDATE query SET text= ? WHERE query_id=1097
+query_tchs season 2 eligibility.txt|UPDATE query SET text= ? WHERE query_id=27907
+query_tchs07 finalists (onsite).txt|UPDATE query SET text= ? WHERE query_id=27706
+query_tchs07 finalists.txt|UPDATE query SET text= ? WHERE query_id=27646
+query_tchs07 online round 1 - Alpha advancers.txt|UPDATE query SET text= ? WHERE query_id=27436
+query_tchs07 online round 1 - Alpha non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27437
+query_tchs07 online round 1 - Beta advancers.txt|UPDATE query SET text= ? WHERE query_id=27463
+query_tchs07 online round 1 - Beta non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27464
+query_tchs07 online round 1 - Delta advancers.txt|UPDATE query SET text= ? WHERE query_id=27465
+query_tchs07 online round 1 - Delta non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27466
+query_tchs07 online round 1 - Gamma advancers.txt|UPDATE query SET text= ? WHERE query_id=27439
+query_tchs07 online round 1 - Gamma non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27438
+query_tchs07 online round 2 - Alpha advancers.txt|UPDATE query SET text= ? WHERE query_id=27486
+query_tchs07 online round 2 - Alpha non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27487
+query_tchs07 online round 2 - Alpha team advancers.txt|UPDATE query SET text= ? WHERE query_id=27492
+query_tchs07 online round 2 - Alpha team non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27493
+query_tchs07 online round 2 - Beta advancers (ind. + team).txt|UPDATE query SET text= ? WHERE query_id=27556
+query_tchs07 online round 2 - Beta advancers.txt|UPDATE query SET text= ? WHERE query_id=27499
+query_tchs07 online round 2 - Beta non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27500
+query_tchs07 online round 2 - Beta team advancers.txt|UPDATE query SET text= ? WHERE query_id=27501
+query_tchs07 online round 2 - Delta advancers.txt|UPDATE query SET text= ? WHERE query_id=27497
+query_tchs07 online round 2 - Delta non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27498
+query_tchs07 online round 2 - Gamma advancers.txt|UPDATE query SET text= ? WHERE query_id=27488
+query_tchs07 online round 2 - Gamma non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27489
+query_tchs07 online round 2 - Gamma team advancers.txt|UPDATE query SET text= ? WHERE query_id=27491
+query_tchs07 online round 3 - Alpha advancers.txt|UPDATE query SET text= ? WHERE query_id=27547
+query_tchs07 online round 3 - Alpha non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27548
+query_tchs07 online round 3 - Alpha reminder.txt|UPDATE query SET text= ? WHERE query_id=27530
+query_tchs07 online round 3 - Alpha team advancers (not traveling onsite).txt|UPDATE query SET text= ? WHERE query_id=27551
+query_tchs07 online round 3 - Alpha team advancers - Jarvis Collegiate Institute.txt|UPDATE query SET text= ? WHERE query_id=27537
+query_tchs07 online round 3 - Alpha team advancers - Midlothian High School.txt|UPDATE query SET text= ? WHERE query_id=27538
+query_tchs07 online round 3 - Alpha team advancers - TJHSST.txt|UPDATE query SET text= ? WHERE query_id=27539
+query_tchs07 online round 3 - Alpha team advancers - Woburn Collegiate Institute.txt|UPDATE query SET text= ? WHERE query_id=27540
+query_tchs07 online round 3 - Alpha team advancers.txt|UPDATE query SET text= ? WHERE query_id=27549
+query_tchs07 online round 3 - Beta advancers.txt|UPDATE query SET text= ? WHERE query_id=27577
+query_tchs07 online round 3 - Beta non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27578
+query_tchs07 online round 3 - Beta team advancers (not traveling onsite).txt|UPDATE query SET text= ? WHERE query_id=27583
+query_tchs07 online round 3 - Beta team advancers - High School of Natural Science and Mathematics.txt|UPDATE query SET text= ? WHERE query_id=27570
+query_tchs07 online round 3 - Beta team advancers - ICHB.txt|UPDATE query SET text= ? WHERE query_id=27571
+query_tchs07 online round 3 - Beta team advancers - Liviu Rebreanu National College Bistrita.txt|UPDATE query SET text= ? WHERE query_id=27569
+query_tchs07 online round 3 - Beta team advancers - V. Gimnazija.txt|UPDATE query SET text= ? WHERE query_id=27572
+query_tchs07 online round 3 - Beta team advancers.txt|UPDATE query SET text= ? WHERE query_id=27582
+query_tchs07 online round 3 - Delta advancers.txt|UPDATE query SET text= ? WHERE query_id=27575
+query_tchs07 online round 3 - Delta non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27576
+query_tchs07 online round 3 - Gamma advancers.txt|UPDATE query SET text= ? WHERE query_id=27546
+query_tchs07 online round 3 - Gamma non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27545
+query_tchs07 online round 3 - Gamma reminder.txt|UPDATE query SET text= ? WHERE query_id=27531
+query_tchs07 online round 3 - Gamma team advancers (not traveling onsite).txt|UPDATE query SET text= ? WHERE query_id=27552
+query_tchs07 online round 3 - Gamma team advancers - PS Senior Secondary School.txt|UPDATE query SET text= ? WHERE query_id=27541
+query_tchs07 online round 3 - Gamma team advancers - SPb PTHS.txt|UPDATE query SET text= ? WHERE query_id=27542
+query_tchs07 online round 3 - Gamma team advancers.txt|UPDATE query SET text= ? WHERE query_id=27550
+query_tchs07 onsite advancer - Gamma subs.txt|UPDATE query SET text= ? WHERE query_id=27588
+query_tchs07 onsite advancer - Kevin Tao.txt|UPDATE query SET text= ? WHERE query_id=27587
+query_tchs07 photo reminder.txt|UPDATE query SET text= ? WHERE query_id=27626
+query_tchs07 reg announce.txt|UPDATE query SET text= ? WHERE query_id=27367
+query_tchs07 reg reminder.txt|UPDATE query SET text= ? WHERE query_id=27408
+query_tchs07 reg team correction - round 2.txt|UPDATE query SET text= ? WHERE query_id=27467
+query_tchs07 reg team correction.txt|UPDATE query SET text= ? WHERE query_id=27398
+query_tchs07 registrants - alpha.txt|UPDATE query SET text= ? WHERE query_id=27416
+query_tchs07 registrants - beta.txt|UPDATE query SET text= ? WHERE query_id=27417
+query_tchs07 registrants - delta.txt|UPDATE query SET text= ? WHERE query_id=27419
+query_tchs07 registrants - gamma.txt|UPDATE query SET text= ? WHERE query_id=27418
+query_tchs07_eligibility.txt|UPDATE query SET text= ? WHERE query_id=27360
+query_tchs07_onsite_report.txt|UPDATE query SET text= ? WHERE query_id=27607
+query_tchs07_question_answers.txt|UPDATE query SET text= ? WHERE query_id=27580
+query_tchs07_registrants.txt|UPDATE query SET text= ? WHERE query_id=27376
+query_tchs07_semifinal_report.txt|UPDATE query SET text= ? WHERE query_id=27606
+query_tchs08 news no registrants.txt|UPDATE query SET text= ? WHERE query_id=28456
+query_tchs08 news no round 1 advancers.txt|UPDATE query SET text= ? WHERE query_id=28486
+query_tchs08 news no round 2 advancers.txt|UPDATE query SET text= ? WHERE query_id=28513
+query_tchs08 registrants.txt|UPDATE query SET text= ? WHERE query_id=28457
+query_tchs08 round 1 losers.txt|UPDATE query SET text= ? WHERE query_id=28466
+query_tchs08 round 1 winners.txt|UPDATE query SET text= ? WHERE query_id=28467
+query_tchs08 round 2 losers.txt|UPDATE query SET text= ? WHERE query_id=28498
+query_tchs08 round 2 winners.txt|UPDATE query SET text= ? WHERE query_id=28499
+query_tchs08 round 3 losers.txt|UPDATE query SET text= ? WHERE query_id=28516
+query_tchs08 round 3 winners.txt|UPDATE query SET text= ? WHERE query_id=28517
+query_tchs08_eligibility.txt|UPDATE query SET text= ? WHERE query_id=28427
+query_tchs08_finalists.txt|UPDATE query SET text= ? WHERE query_id=28668
+query_tchs08_onsite_report.txt|UPDATE query SET text= ? WHERE query_id=28519
+query_tchs08_question_answers.txt|UPDATE query SET text= ? WHERE query_id=28528
+query_tchs08_reg_announce.txt|UPDATE query SET text= ? WHERE query_id=28428
+query_tchs08_reg_reminder.txt|UPDATE query SET text= ? WHERE query_id=28446
+query_tchs08_registrants.txt|UPDATE query SET text= ? WHERE query_id=28426
+query_tchs08_tshirts.txt|UPDATE query SET text= ? WHERE query_id=28827
+query_tchs09 registrants.txt|UPDATE query SET text= ? WHERE query_id=29007
+query_tchs09_china.txt|UPDATE query SET text= ? WHERE query_id=29228
+query_tchs_referral_info.txt|UPDATE query SET text= ? WHERE query_id=29016
+query_tchs_reg_info.txt|UPDATE query SET text= ? WHERE query_id=29026
+query_TCO 08 T-shirt recipients.txt|UPDATE query SET text= ? WHERE query_id=28876
+query_tco03_advancers.txt|UPDATE query SET text= ? WHERE query_id=12319
+query_tco03_bracket.txt|UPDATE query SET text= ? WHERE query_id=12339
+query_tco03_question_answers.txt|UPDATE query SET text= ? WHERE query_id=12399
+query_tco04 reviewers no response.txt|UPDATE query SET text= ? WHERE query_id=16034
+query_tco04 round 2 losers.txt|UPDATE query SET text= ? WHERE query_id=16012
+query_tco04 round 2 winners.txt|UPDATE query SET text= ? WHERE query_id=16013
+query_tco04 round 3 losers.txt|UPDATE query SET text= ? WHERE query_id=16022
+query_tco04 round 3 winners.txt|UPDATE query SET text= ? WHERE query_id=16023
+query_tco04 round 4 losers.txt|UPDATE query SET text= ? WHERE query_id=16036
+query_tco04 round 4 winners.txt|UPDATE query SET text= ? WHERE query_id=16037
+query_tco04_alg_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=16008
+query_tco04_alg_qual.txt|UPDATE query SET text= ? WHERE query_id=16000
+query_tco04_eligibility.txt|UPDATE query SET text= ? WHERE query_id=15962
+query_tco04_question_answers.txt|UPDATE query SET text= ? WHERE query_id=16030
+query_tco04_reg.txt|UPDATE query SET text= ? WHERE query_id=15964
+query_tco05 ca resident invitation.txt|UPDATE query SET text= ? WHERE query_id=21702
+query_tco05 comp finalists.txt|UPDATE query SET text= ? WHERE query_id=21625
+query_tco05 div1 reg reminder.txt|UPDATE query SET text= ? WHERE query_id=21618
+query_tco05 div2 reg reminder.txt|UPDATE query SET text= ? WHERE query_id=21615
+query_tco05 finalist survey.txt|UPDATE query SET text= ? WHERE query_id=26269
+query_tco05 gicj05 reminder.txt|UPDATE query SET text= ? WHERE query_id=21613
+query_tco05 onsite events.txt|UPDATE query SET text= ? WHERE query_id=21695
+query_tco05 qual losers.txt|UPDATE query SET text= ? WHERE query_id=21638
+query_tco05 qual reminder.txt|UPDATE query SET text= ? WHERE query_id=21619
+query_tco05 qual winners.txt|UPDATE query SET text= ? WHERE query_id=21639
+query_tco05 round 1 affidavit mistake.txt|UPDATE query SET text= ? WHERE query_id=21652
+query_tco05 round 1 announce.txt|UPDATE query SET text= ? WHERE query_id=21642
+query_tco05 round 2 announce.txt|UPDATE query SET text= ? WHERE query_id=21653
+query_tco05 round 2 reminder.txt|UPDATE query SET text= ? WHERE query_id=21654
+query_tco05 round 2 results.txt|UPDATE query SET text= ? WHERE query_id=21658
+query_tco05 round 3 announce.txt|UPDATE query SET text= ? WHERE query_id=21663
+query_tco05 round 3 reminder.txt|UPDATE query SET text= ? WHERE query_id=21662
+query_tco05 round 3 results.txt|UPDATE query SET text= ? WHERE query_id=21667
+query_tco05 round 4 announce.txt|UPDATE query SET text= ? WHERE query_id=21672
+query_tco05 round 4 reminder.txt|UPDATE query SET text= ? WHERE query_id=21673
+query_tco05 round 4 results.txt|UPDATE query SET text= ? WHERE query_id=21677
+query_tco05 round1 results.txt|UPDATE query SET text= ? WHERE query_id=21647
+query_tco05 sponsor qual losers.txt|UPDATE query SET text= ? WHERE query_id=21636
+query_tco05 sponsor qual reminder.txt|UPDATE query SET text= ? WHERE query_id=21621
+query_tco05 sponsor qual winners.txt|UPDATE query SET text= ? WHERE query_id=21637
+query_tco05 sponsor round 2 losers.txt|UPDATE query SET text= ? WHERE query_id=21660
+query_tco05 sponsor round 2 winners.txt|UPDATE query SET text= ? WHERE query_id=21659
+query_tco05 sponsor round 3 losers.txt|UPDATE query SET text= ? WHERE query_id=21668
+query_tco05 sponsor round 3 winners.txt|UPDATE query SET text= ? WHERE query_id=21669
+query_tco05 sponsor round 4 losers.txt|UPDATE query SET text= ? WHERE query_id=21678
+query_tco05 sponsor round 4 winner.txt|UPDATE query SET text= ? WHERE query_id=21679
+query_tco05 sponsor track announce.txt|UPDATE query SET text= ? WHERE query_id=21607
+query_tco05 sponsor track reminder.txt|UPDATE query SET text= ? WHERE query_id=21612
+query_tco05_alg_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=21646
+query_tco05_alg_qual.txt|UPDATE query SET text= ? WHERE query_id=21640
+query_tco05_alg_registrants.txt|UPDATE query SET text= ? WHERE query_id=21591
+query_tco05_comp_registrants.txt|UPDATE query SET text= ? WHERE query_id=21590
+query_tco05_eligibility.txt|UPDATE query SET text= ? WHERE query_id=21577
+query_tco05_media_report.txt|UPDATE query SET text= ? WHERE query_id=21682
+query_tco05_phonetic_report.txt|UPDATE query SET text= ? WHERE query_id=21683
+query_tco05_question_answers.txt|UPDATE query SET text= ? WHERE query_id=21648
+query_tco05_reg.txt|UPDATE query SET text= ? WHERE query_id=21578
+query_tco05_semifinal_report.txt|UPDATE query SET text= ? WHERE query_id=21681
+query_tco05_spon_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=21650
+query_tco05_spon_qual.txt|UPDATE query SET text= ? WHERE query_id=21649
+query_tco06 cddc passed screening.txt|UPDATE query SET text= ? WHERE query_id=26445
+query_tco06 comp finalists.txt|UPDATE query SET text= ? WHERE query_id=26489
+query_tco06 component participation survey.txt|UPDATE query SET text= ? WHERE query_id=26448
+query_tco06 component reg reminder.txt|UPDATE query SET text= ? WHERE query_id=26418
+query_tco06 div1 reg reminder.txt|UPDATE query SET text= ? WHERE query_id=26460
+query_tco06 div2 reg reminder.txt|UPDATE query SET text= ? WHERE query_id=26461
+query_tco06 finalists (all).txt|UPDATE query SET text= ? WHERE query_id=26568
+query_tco06 local non-finalists.txt|UPDATE query SET text= ? WHERE query_id=26596
+query_tco06 pickme reminder.txt|UPDATE query SET text= ? WHERE query_id=26535
+query_tco06 qual advancers.txt|UPDATE query SET text= ? WHERE query_id=26479
+query_tco06 qual bye.txt|UPDATE query SET text= ? WHERE query_id=26471
+query_tco06 qual losers.txt|UPDATE query SET text= ? WHERE query_id=26476
+query_tco06 qual reminder.txt|UPDATE query SET text= ? WHERE query_id=26467
+query_tco06 qual sorry sorry.txt|UPDATE query SET text= ? WHERE query_id=26470
+query_tco06 qual winners.txt|UPDATE query SET text= ? WHERE query_id=26475
+query_tco06 round 1 advancers, non-prize winners.txt|UPDATE query SET text= ? WHERE query_id=26487
+query_tco06 round 1 advancers, prize winners.txt|UPDATE query SET text= ? WHERE query_id=26486
+query_tco06 round 1 advancers.txt|UPDATE query SET text= ? WHERE query_id=26506
+query_tco06 round 1 announce.txt|UPDATE query SET text= ? WHERE query_id=26480
+query_tco06 round 1 losers.txt|UPDATE query SET text= ? WHERE query_id=26488
+query_tco06 round 2 advancers, non-prize winners.txt|UPDATE query SET text= ? WHERE query_id=26512
+query_tco06 round 2 advancers, prize winners.txt|UPDATE query SET text= ? WHERE query_id=26511
+query_tco06 round 2 advancers.txt|UPDATE query SET text= ? WHERE query_id=26517
+query_tco06 round 2 announce.txt|UPDATE query SET text= ? WHERE query_id=26507
+query_tco06 round 2 non-advancers, non-prize winners.txt|UPDATE query SET text= ? WHERE query_id=26513
+query_tco06 round 3 advancers, non-prize winners.txt|UPDATE query SET text= ? WHERE query_id=26523
+query_tco06 round 3 advancers, prize winners.txt|UPDATE query SET text= ? WHERE query_id=26522
+query_tco06 round 3 advancers.txt|UPDATE query SET text= ? WHERE query_id=26529
+query_tco06 round 3 announce.txt|UPDATE query SET text= ? WHERE query_id=26518
+query_tco06 round 3 non-advancers, non-prize winners.txt|UPDATE query SET text= ? WHERE query_id=26524
+query_tco06 round 4 advancers, non-prize winners.txt|UPDATE query SET text= ? WHERE query_id=26551
+query_tco06 round 4 advancers, prize winners.txt|UPDATE query SET text= ? WHERE query_id=26550
+query_tco06 round 4 advancers.txt|UPDATE query SET text= ? WHERE query_id=26560
+query_tco06 round 4 announce.txt|UPDATE query SET text= ? WHERE query_id=26530
+query_tco06 round 4 non-advancers, non-prize winners.txt|UPDATE query SET text= ? WHERE query_id=26552
+query_tco06 sponsor round 1 losers.txt|UPDATE query SET text= ? WHERE query_id=26485
+query_tco06 sponsor round 1 winners.txt|UPDATE query SET text= ? WHERE query_id=26484
+query_tco06 sponsor track qual losers.txt|UPDATE query SET text= ? WHERE query_id=26477
+query_tco06 sponsor track qual winners.txt|UPDATE query SET text= ? WHERE query_id=26478
+query_tco06 sponsor track reminder.txt|UPDATE query SET text= ? WHERE query_id=26468
+query_tco06 verisign sponsor track.txt|UPDATE query SET text= ? WHERE query_id=26462
+query_tco06_alg_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=26482
+query_tco06_alg_qual.txt|UPDATE query SET text= ? WHERE query_id=26473
+query_tco06_alg_registrants.txt|UPDATE query SET text= ? WHERE query_id=26409
+query_tco06_comp_registrants.txt|UPDATE query SET text= ? WHERE query_id=26408
+query_tco06_component_choice.txt|UPDATE query SET text= ? WHERE query_id=26450
+query_tco06_component_long_answer.txt|UPDATE query SET text= ? WHERE query_id=26449
+query_tco06_eligibility.txt|UPDATE query SET text= ? WHERE query_id=26399
+query_tco06_media.txt|UPDATE query SET text= ? WHERE query_id=26559
+query_tco06_onsite_report.txt|UPDATE query SET text= ? WHERE query_id=26531
+query_tco06_phonetic_report.txt|UPDATE query SET text= ? WHERE query_id=26589
+query_tco06_post_tourney_survey.txt|UPDATE query SET text= ? WHERE query_id=26613
+query_tco06_post_tourney_survey_agg.txt|UPDATE query SET text= ? WHERE query_id=26615
+query_tco06_question_answers.txt|UPDATE query SET text= ? WHERE query_id=26520
+query_tco06_reg.txt|UPDATE query SET text= ? WHERE query_id=26401
+query_tco06_reg_trend.txt|UPDATE query SET text= ? WHERE query_id=26402
+query_tco06_semifinal_report.txt|UPDATE query SET text= ? WHERE query_id=26509
+query_tco06_spon_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=26483
+query_tco06_spon_qual.txt|UPDATE query SET text= ? WHERE query_id=26474
+query_tco07 algo qual 1 advancers.txt|UPDATE query SET text= ? WHERE query_id=27590
+query_tco07 algo qual 1 announce - spectators.txt|UPDATE query SET text= ? WHERE query_id=27574
+query_tco07 algo qual 1 announce.txt|UPDATE query SET text= ? WHERE query_id=27573
+query_tco07 algo qual 1 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27591
+query_tco07 algo qual 2 advancers.txt|UPDATE query SET text= ? WHERE query_id=27592
+query_tco07 algo qual 2 announce - spectators.txt|UPDATE query SET text= ? WHERE query_id=27597
+query_tco07 algo qual 2 announce.txt|UPDATE query SET text= ? WHERE query_id=27596
+query_tco07 algo qual 2 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27593
+query_tco07 algo qual 3 advancers.txt|UPDATE query SET text= ? WHERE query_id=27594
+query_tco07 algo qual 3 announce - spectators.txt|UPDATE query SET text= ? WHERE query_id=27610
+query_tco07 algo qual 3 announce.txt|UPDATE query SET text= ? WHERE query_id=27609
+query_tco07 algo qual 3 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27595
+query_tco07 algo qual advancers - sponsors.txt|UPDATE query SET text= ? WHERE query_id=27619
+query_tco07 algo qual announce - byes.txt|UPDATE query SET text= ? WHERE query_id=27579
+query_tco07 algo qual announce - sponsor track.txt|UPDATE query SET text= ? WHERE query_id=27608
+query_tco07 algo qual non-advancers - sponsors.txt|UPDATE query SET text= ? WHERE query_id=27620
+query_tco07 algo round 1A advancers.txt|UPDATE query SET text= ? WHERE query_id=27640
+query_tco07 algo round 1A announce.txt|UPDATE query SET text= ? WHERE query_id=27621
+query_tco07 algo round 1A non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27641
+query_tco07 algo round 1A reminder - spectators.txt|UPDATE query SET text= ? WHERE query_id=27636
+query_tco07 algo round 1B advancers.txt|UPDATE query SET text= ? WHERE query_id=27642
+query_tco07 algo round 1B announce.txt|UPDATE query SET text= ? WHERE query_id=27622
+query_tco07 algo round 1B non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27643
+query_tco07 algo round 1B reminder - spectators.txt|UPDATE query SET text= ? WHERE query_id=27637
+query_tco07 algo round 1C advancers.txt|UPDATE query SET text= ? WHERE query_id=27645
+query_tco07 algo round 1C announce.txt|UPDATE query SET text= ? WHERE query_id=27623
+query_tco07 algo round 1C non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27644
+query_tco07 algo round 1C reminder - spectators.txt|UPDATE query SET text= ? WHERE query_id=27638
+query_tco07 algo round 2 advancers.txt|UPDATE query SET text= ? WHERE query_id=27655
+query_tco07 algo round 2 announce - spectators.txt|UPDATE query SET text= ? WHERE query_id=27650
+query_tco07 algo round 2 announce.txt|UPDATE query SET text= ? WHERE query_id=27649
+query_tco07 algo round 2 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27656
+query_tco07 algo round 3 advancers.txt|UPDATE query SET text= ? WHERE query_id=27681
+query_tco07 algo round 3 announce - spectators.txt|UPDATE query SET text= ? WHERE query_id=27676
+query_tco07 algo round 3 announce.txt|UPDATE query SET text= ? WHERE query_id=27677
+query_tco07 algo round 3 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27680
+query_tco07 algo round 4 advancers.txt|UPDATE query SET text= ? WHERE query_id=27716
+query_tco07 algo round 4 announce - spectators.txt|UPDATE query SET text= ? WHERE query_id=27696
+query_tco07 algo round 4 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27717
+query_tco07 algo sponsor round 1 - advancers.txt|UPDATE query SET text= ? WHERE query_id=27648
+query_tco07 algo sponsor round 1 - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27647
+query_tco07 algo sponsor round 2 - advancers.txt|UPDATE query SET text= ? WHERE query_id=27654
+query_tco07 algo sponsor round 2 - non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27653
+query_tco07 algo unregistered.txt|UPDATE query SET text= ? WHERE query_id=27529
+query_tco07 component finalists.txt|UPDATE query SET text= ? WHERE query_id=27686
+query_tco07 component reg.txt|UPDATE query SET text= ? WHERE query_id=27506
+query_tco07 digital run travel form.txt|UPDATE query SET text= ? WHERE query_id=27776
+query_tco07 digital run trip winners.txt|UPDATE query SET text= ? WHERE query_id=27536
+query_tco07 finalists + contest winners - USA.txt|UPDATE query SET text= ? WHERE query_id=27856
+query_tco07 finalists + contest winners.txt|UPDATE query SET text= ? WHERE query_id=27817
+query_tco07 finalists: Algo + Bloggers.txt|UPDATE query SET text= ? WHERE query_id=27896
+query_tco07 finalists: Component + DR.txt|UPDATE query SET text= ? WHERE query_id=27897
+query_tco07 finalists: Marathon.txt|UPDATE query SET text= ? WHERE query_id=27898
+query_tco07 finalists: Studio.txt|UPDATE query SET text= ? WHERE query_id=27899
+query_tco07 local non-finalists.txt|UPDATE query SET text= ? WHERE query_id=27836
+query_tco07 marathon reg.txt|UPDATE query SET text= ? WHERE query_id=27456
+query_tco07 marathon round 1 advancers.txt|UPDATE query SET text= ? WHERE query_id=27544
+query_tco07 marathon round 1 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27543
+query_tco07 marathon round 2 advancers.txt|UPDATE query SET text= ? WHERE query_id=27584
+query_tco07 marathon round 2 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27585
+query_tco07 marathon round 3 advancers.txt|UPDATE query SET text= ? WHERE query_id=27651
+query_tco07 marathon round 3 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27652
+query_tco07 marathon round 4 advancers.txt|UPDATE query SET text= ? WHERE query_id=27746
+query_tco07 marathon round 4 non-advancers.txt|UPDATE query SET text= ? WHERE query_id=27747
+query_tco07 prize winners - Russia et al..txt|UPDATE query SET text= ? WHERE query_id=28033
+query_tco07 registrants (all) + Studio.txt|UPDATE query SET text= ? WHERE query_id=27682
+query_tco07 registrants (all).txt|UPDATE query SET text= ? WHERE query_id=27678
+query_tco07 sponsor track unregistered.txt|UPDATE query SET text= ? WHERE query_id=27528
+query_tco07 studio design finalists.txt|UPDATE query SET text= ? WHERE query_id=27756
+query_tco07 studio design visas.txt|UPDATE query SET text= ? WHERE query_id=27736
+query_tco07 studio reg.txt|UPDATE query SET text= ? WHERE query_id=27457
+query_tco07_alg_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=27639
+query_tco07_alg_qual.txt|UPDATE query SET text= ? WHERE query_id=27589
+query_tco07_info.txt|UPDATE query SET text= ? WHERE query_id=27387
+query_tco07_mm_adv_overview.txt|UPDATE query SET text= ? WHERE query_id=27557
+query_tco07_phonetic_report.txt|UPDATE query SET text= ? WHERE query_id=27876
+query_tco07_question_answers.txt|UPDATE query SET text= ? WHERE query_id=27707
+query_tco07_reg.txt|UPDATE query SET text= ? WHERE query_id=27446
+query_tco07_reg_trend.txt|UPDATE query SET text= ? WHERE query_id=27447
+query_tco07_semifinal_report.txt|UPDATE query SET text= ? WHERE query_id=27697
+query_tco07_spon_qual.txt|UPDATE query SET text= ? WHERE query_id=27618
+query_tco07algorithm_registrants.txt|UPDATE query SET text= ? WHERE query_id=27388
+query_tco07component_registrants.txt|UPDATE query SET text= ? WHERE query_id=27389
+query_tco07marathon_registrants.txt|UPDATE query SET text= ? WHERE query_id=27390
+query_tco07studio_info.txt|UPDATE query SET text= ? WHERE query_id=27391
+query_tco07studio_registrants.txt|UPDATE query SET text= ? WHERE query_id=27392
+query_tco08 attendees.txt|UPDATE query SET text= ? WHERE query_id=28826
+query_tco08 competitions no algo registrants.txt|UPDATE query SET text= ? WHERE query_id=28518
+query_tco08 competitions no mm registrants.txt|UPDATE query SET text= ? WHERE query_id=28514
+query_tco08 suspension report.txt|UPDATE query SET text= ? WHERE query_id=28521
+query_tco08_algo_byes.txt|UPDATE query SET text= ? WHERE query_id=28546
+query_tco08_algo_onsite_report.txt|UPDATE query SET text= ? WHERE query_id=28706
+query_tco08_algo_qual3_losers.txt|UPDATE query SET text= ? WHERE query_id=28596
+query_tco08_algo_qual3_winners.txt|UPDATE query SET text= ? WHERE query_id=28597
+query_tco08_algo_qual_1_losers.txt|UPDATE query SET text= ? WHERE query_id=28567
+query_tco08_algo_qual_1_winners.txt|UPDATE query SET text= ? WHERE query_id=28566
+query_tco08_algo_qual_2_losers.txt|UPDATE query SET text= ? WHERE query_id=28570
+query_tco08_algo_qual_2_winners.txt|UPDATE query SET text= ? WHERE query_id=28571
+query_tco08_algo_registrants.txt|UPDATE query SET text= ? WHERE query_id=28547
+query_tco08_algo_registrants_no_byes.txt|UPDATE query SET text= ? WHERE query_id=28548
+query_tco08_algo_round1_losers.txt|UPDATE query SET text= ? WHERE query_id=28617
+query_tco08_algo_round1_winners.txt|UPDATE query SET text= ? WHERE query_id=28616
+query_tco08_algo_round2_losers.txt|UPDATE query SET text= ? WHERE query_id=28638
+query_tco08_algo_round2_winners.txt|UPDATE query SET text= ? WHERE query_id=28639
+query_tco08_algo_round3_losers.txt|UPDATE query SET text= ? WHERE query_id=28666
+query_tco08_algo_round3_winners.txt|UPDATE query SET text= ? WHERE query_id=28667
+query_tco08_algo_round4_losers.txt|UPDATE query SET text= ? WHERE query_id=28704
+query_tco08_algo_round4_winners.txt|UPDATE query SET text= ? WHERE query_id=28703
+query_tco08_attendees.txt|UPDATE query SET text= ? WHERE query_id=28896
+query_tco08_comp_passed_screening.txt|UPDATE query SET text= ? WHERE query_id=28578
+query_tco08_competitions_no_component_reg.txt|UPDATE query SET text= ? WHERE query_id=28620
+query_tco08_component_finalists.txt|UPDATE query SET text= ? WHERE query_id=28728
+query_tco08_component_onsite_report.txt|UPDATE query SET text= ? WHERE query_id=28730
+query_tco08_dr_people.txt|UPDATE query SET text= ? WHERE query_id=28637
+query_tco08_info.txt|UPDATE query SET text= ? WHERE query_id=28463
+query_tco08_marathon_onsite_report.txt|UPDATE query SET text= ? WHERE query_id=28731
+query_tco08_mm_finalists.txt|UPDATE query SET text= ? WHERE query_id=28736
+query_tco08_mm_registrants.txt|UPDATE query SET text= ? WHERE query_id=28529
+query_tco08_mm_round1_losers.txt|UPDATE query SET text= ? WHERE query_id=28568
+query_tco08_mm_round1_winners.txt|UPDATE query SET text= ? WHERE query_id=28569
+query_tco08_mm_round2_losers.txt|UPDATE query SET text= ? WHERE query_id=28646
+query_tco08_mm_round2_winners.txt|UPDATE query SET text= ? WHERE query_id=28647
+query_tco08_mm_round3_losers.txt|UPDATE query SET text= ? WHERE query_id=28696
+query_tco08_mm_round3_winners.txt|UPDATE query SET text= ? WHERE query_id=28697
+query_tco08_news_no_qual_advancers.txt|UPDATE query SET text= ? WHERE query_id=28577
+query_tco08_news_no_reg_include_byes.txt|UPDATE query SET text= ? WHERE query_id=28549
+query_tco08_news_no_round1_winners.txt|UPDATE query SET text= ? WHERE query_id=28636
+query_tco08_news_no_round2_winners.txt|UPDATE query SET text= ? WHERE query_id=28657
+query_tco08_news_no_round3_winners.txt|UPDATE query SET text= ? WHERE query_id=28698
+query_tco08_phonetic_report.txt|UPDATE query SET text= ? WHERE query_id=28887
+query_tco08_qual2_winners_minus_round2_winners.txt|UPDATE query SET text= ? WHERE query_id=28644
+query_tco08_qual_advancers.txt|UPDATE query SET text= ? WHERE query_id=28606
+query_tco08_reg.txt|UPDATE query SET text= ? WHERE query_id=28526
+query_tco08_reg_trend.txt|UPDATE query SET text= ? WHERE query_id=28527
+query_tco08_registrants_no_qual_advancers.txt|UPDATE query SET text= ? WHERE query_id=28576
+query_tco08_round2_winners_minus_qual2_winners.txt|UPDATE query SET text= ? WHERE query_id=28645
+query_tco08_studio_finalists.txt|UPDATE query SET text= ? WHERE query_id=28716
+query_tco08_studio_no_registrants.txt|UPDATE query SET text= ? WHERE query_id=28658
+query_tco08_studio_onsite_report.txt|UPDATE query SET text= ? WHERE query_id=28729
+query_tco08_sunday_arrivals.txt|UPDATE query SET text= ? WHERE query_id=28877
+query_tco08algorithm_registrants.txt|UPDATE query SET text= ? WHERE query_id=28462
+query_tco08component_registrants.txt|UPDATE query SET text= ? WHERE query_id=28461
+query_tco08marathon_registrants.txt|UPDATE query SET text= ? WHERE query_id=28460
+query_tco08studio_info.txt|UPDATE query SET text= ? WHERE query_id=28459
+query_tco08studio_registrants.txt|UPDATE query SET text= ? WHERE query_id=28458
+query_technical_assessment_session_status.txt|UPDATE query SET text= ? WHERE query_id=21558
+query_terms_list.txt|UPDATE query SET text= ? WHERE query_id=21540
+query_terms_of_use_type_list.txt|UPDATE query SET text= ? WHERE query_id=21539
+query_test.txt|UPDATE query SET text= ? WHERE query_id=13777
+query_test_dr_pay_fix.txt|UPDATE query SET text= ? WHERE query_id=28375
+query_tournament_contests.txt|UPDATE query SET text= ? WHERE query_id=27477
+query_Tourney_Advancers.txt|UPDATE query SET text= ? WHERE query_id=94
+query_Truveo Voting Results.txt|UPDATE query SET text= ? WHERE query_id=29116
+query_unlock_count.txt|UPDATE query SET text= ? WHERE query_id=15889
+query_unlock_people.txt|UPDATE query SET text= ? WHERE query_id=15890
+query_user exists.txt|UPDATE query SET text= ? WHERE query_id=12391
+query_user_company_name.txt|UPDATE query SET text= ? WHERE query_id=11020
+query_user_email.txt|UPDATE query SET text= ? WHERE query_id=28317
+query_user_id.txt|UPDATE query SET text= ? WHERE query_id=12273
+query_user_preference.txt|UPDATE query SET text= ? WHERE query_id=27886
+query_user_preference_all.txt|UPDATE query SET text= ? WHERE query_id=27887
+query_user_school_name.txt|UPDATE query SET text= ? WHERE query_id=11021
+query_user_timezone.txt|UPDATE query SET text= ? WHERE query_id=26826
+query_user_to_password.txt|UPDATE query SET text= ? WHERE query_id=21596
+query_userid_to_password.txt|UPDATE query SET text= ? WHERE query_id=12178
+query_verisign india srm.txt|UPDATE query SET text= ? WHERE query_id=21689
+query_verisign internal 06 srm 1 losers.txt|UPDATE query SET text= ? WHERE query_id=26595
+query_verisign internal 06 srm 2 losers.txt|UPDATE query SET text= ? WHERE query_id=26622
+query_verisign internal 06.txt|UPDATE query SET text= ? WHERE query_id=26591
+query_verisign internal 07 srm 1 losers.txt|UPDATE query SET text= ? WHERE query_id=27287
+query_verisign internal 07 srm 1 participants.txt|UPDATE query SET text= ? WHERE query_id=27296
+query_verisign internal 07 srm 2 losers.txt|UPDATE query SET text= ? WHERE query_id=27397
+query_verisign internal 07.txt|UPDATE query SET text= ? WHERE query_id=27276
+query_verisign internal 2007 srm 3 losers.txt|UPDATE query SET text= ? WHERE query_id=27847
+query_verisign internal srm 3 winners.txt|UPDATE query SET text= ? WHERE query_id=27846
+query_verisign_registrants.txt|UPDATE query SET text= ? WHERE query_id=28556
+query_verisign_registrants_old_and_weird.txt|UPDATE query SET text= ? WHERE query_id=28640
+query_violations.txt|UPDATE query SET text= ? WHERE query_id=13698
+query_winformula_reg_count.txt|UPDATE query SET text= ? WHERE query_id=29126
+query_winformula_reg_details.txt|UPDATE query SET text= ? WHERE query_id=29127
+query_winning_formula_participants.txt|UPDATE query SET text= ? WHERE query_id=29267
+query_existing_terms_agreements_list.txt|UPDATE query SET text= ? WHERE query_id=29836
+query_user_terms_of_use.txt|UPDATE query SET text= ? WHERE query_id=29996
+query_spec_review_stats.txt|UPDATE query SET text= ? WHERE query_id=30086
+

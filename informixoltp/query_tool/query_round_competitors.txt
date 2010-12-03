@@ -1,0 +1,9 @@
+select rr.coder_id, rr.room_seed 
+  from room_result rr
+     , room r
+ where rr.round_id = @rd@
+   and rr.round_id = r.round_id
+   and rr.room_id = r.room_id
+   and r.room_type_id = 2
+--   and rr.attended = 'Y'
+ order by room_seed asc

@@ -1,0 +1,6 @@
+select sum(p.amount) as total_prize_paid
+from prize p, submission_prize_xref sx, contest c, submission s 
+where p.prize_id=sx.prize_id 
+and sx.submission_id=s.submission_id 
+and s.contest_id=c.contest_id 
+and c.contest_status_id=2;

@@ -1,0 +1,10 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+ WHERE u.status = 'A'
+   AND u.user_id NOT IN (SELECT user_id
+                           FROM common_oltp:user_terms_of_use_xref
+                          WHERE terms_of_use_id = 23)
+   AND u.user_id IN (SELECT cn.coder_id
+                       FROM coder_notify cn
+                      WHERE notify_id in (4))

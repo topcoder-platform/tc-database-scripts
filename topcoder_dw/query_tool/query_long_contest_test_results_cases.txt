@@ -1,0 +1,5 @@
+SELECT test_case_id
+  FROM system_test_case
+ WHERE problem_id = @pm@ 
+   and example_flag= 0
+   and system_flag = 1

@@ -1,0 +1,41 @@
+select component_name,
+       pcat.category_name catalog_name,
+       short_desc,
+       p.description phase,
+       EXTEND(production_date, YEAR to DAY)
+  from comp_catalog c,
+       comp_versions cv,
+       phase p,
+       comp_version_dates cvd,
+       comp_categories ccat,
+       categories cat,
+       categories pcat
+ where 1=1
+  and c.component_id = cv.component_id
+  and cvd.comp_vers_id = cv.comp_vers_id
+  and p.phase_id = cv.phase_id 
+  and p.phase_id != 114
+  and cv.phase_id = cvd.phase_id
+  and ccat.component_id = c.component_id
+  and cat.category_id = ccat.category_id
+  and pcat.category_id = cat.parent_category_id
+UNION
+select component_name,
+       pcat.category_name catalog_name,
+       short_desc,
+       p.description phase,
+       EXTEND(CURRENT, YEAR to DAY )
+  from comp_catalog c,
+       comp_versions cv,
+       phase p,
+       comp_categories ccat,
+       categories cat,
+       categories pcat
+ where 1=1
+  and c.component_id = cv.component_id
+  and p.phase_id = cv.phase_id
+  and p.phase_id = 114
+  and ccat.component_id = c.component_id
+  and cat.category_id = ccat.category_id
+  and pcat.category_id = cat.parent_category_id
+order by 4, 1

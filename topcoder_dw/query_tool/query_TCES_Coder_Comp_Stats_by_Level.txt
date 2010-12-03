@@ -1,0 +1,18 @@
+SELECT cp.problem_id
+     , cp.level_id
+     , cp.level_desc
+     , cp.end_status_id
+     , cp.end_status_text
+     , cp.final_points
+     , cp.time_elapsed
+     , langlu.language_name
+     , cp.round_id
+  FROM coder_problem cp
+     , language_lu langlu
+     , coder c
+ WHERE cp.language_id = langlu.language_id
+   AND (cp.coder_id = @mid@)
+   AND (cp.round_id = @rd@)
+   AND cp.coder_id = c.coder_id 
+   AND c.status = 'A'
+ ORDER BY cp.level_id

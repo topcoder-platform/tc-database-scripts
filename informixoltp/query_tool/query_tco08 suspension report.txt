@@ -1,0 +1,11 @@
+select e.event_desc, u.handle, ua.achievement_date, ua.description
+  from user_achievement ua, user u, event_registration er, event e
+where u.user_id = er.user_id
+and er.eligible_ind = 1
+and u.user_id = ua.user_id
+and e.event_id = er.event_id
+and u.status = 'A'
+ and ua.achievement_type_id = 2
+and e.event_id between 3005 and 3008
+and lower(ua.description) not like '%extra code%'
+order by e.event_desc, ua.achievement_date desc

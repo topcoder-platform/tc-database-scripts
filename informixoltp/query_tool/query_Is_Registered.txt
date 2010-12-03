@@ -1,0 +1,4 @@
+SELECT count(*) AS is_registered
+  FROM invite_list
+ WHERE coder_id = @cr@
+   AND contest_id = @cd@

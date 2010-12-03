@@ -1,0 +1,15 @@
+select u.handle
+     , (select response from response where question_id = 50 and user_id = u.user_id) as handle
+     , (select response from response where question_id = 51 and user_id = u.user_id) as name
+  from user u
+ where (
+u.user_id in (select coder_id from room_result where round_id = 12014 and advanced = 'Y')
+or
+u.handle in ('oninkxronda','abedavera','djackmania','mahestro','oton','Tricia_Tjia','Elizabethhee','dogsoldier39','lunarkid','cartholitz','formula','maxsense')
+or
+u.handle in ('hotblue','oldbig','PE','hefeng','jueyey','Orange_Cloud','Xuchen','enefem21','actonwang','cyberjag','sparemax','shen75')
+or
+u.handle in('argolite','fabrizyo','humblefool','kyky','Pops','saevio','Standlove','urtks','Wendell','dmks','Luca','tushak') 
+or
+u.handle_lower in ('doudouille','venco','ratonulbolnav','psyho','tpelkone','paranoia','iquadrat','delicato','brinky','rahulgarg123','bhzhan','wata')
+)

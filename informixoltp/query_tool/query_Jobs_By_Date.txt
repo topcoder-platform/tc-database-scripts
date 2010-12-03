@@ -1,0 +1,6 @@
+SELECT sched_job_id,
+start_after_date
+FROM sched_job
+WHERE start_after_date > DATETIME(@sda@) YEAR TO DAY
+AND start_after_date < DATETIME(@ed@) YEAR TO DAY
+ORDER BY start_after_date DESC

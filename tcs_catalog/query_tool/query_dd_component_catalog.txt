@@ -1,0 +1,28 @@
+select cc.component_id
+     , cc.component_name
+     , cat.category_id
+     , cat.category_name
+     , cv.phase_id
+     , max(cv.comp_vers_id) as comp_vers_id
+     , max(cc.short_desc) as short_desc
+     , max(cc.description) as long_desc
+     , max(category_list(cc.component_id)) as category_list
+     , max(technology_list(cv.comp_vers_id)) as technology_list
+     , max((SELECT cat.categoryid FROM jive:jivecategory cat, jive:jivecategoryprop p, comp_versions v,  comp_jive_category_xref x, comp_catalog c WHERE x.jive_category_id = cat.categoryid  AND x.comp_vers_id = v.comp_vers_id  AND c.component_id = cc.component_id  AND c.component_id = v.component_id  AND cat.categoryid = p.categoryid  AND p.name = 'archivalStatus'  AND c.current_version = v.version)) as forum_category_id
+     , max('http://software.topcoder.com/catalog/c_component.jsp?comp=' || cc.component_id) as url
+     , max('http://software.topcoder.com/tcs?module=ViewComponentTerms&comp=' || cc.component_id) as download_url
+     , max((select max(cv.version_text) from comp_versions cv4 where cv4.component_id = cc.component_id)) as version_text
+     , max((select max(cvd.production_date) from comp_version_dates cvd, comp_versions cv3 where cvd.comp_vers_id = cv3.comp_vers_id and cv3.component_id = cc.component_id and cvd.production_date is not null)) release_date
+     , max((select count(*) from download_tracking dt, comp_versions cv2 where dt.comp_vers_id = cv2.comp_vers_id and cv2.comp_vers_id = cv.comp_vers_id)) component_downloads
+     , max((select count(*) from download_tracking dt, comp_versions cv2 where dt.comp_vers_id = cv2.comp_vers_id and cv2.comp_vers_id = cv.comp_vers_id)) version_downloads
+from comp_versions cv,
+     comp_catalog cc,
+     categories cat,
+     status s
+where cv.component_id = cc.component_id
+--  and cv.phase_id = 114 -- completed
+  and cc.root_category_id = cat.category_id
+  and category_id in (5801776, 5801777, 26805357, 27202903, 27202905, 27202907, 27202909, 27202911, 27202913)
+  and cc.status_id = s.status_id
+  and cc.status_id in (102)
+group by 1,2,3,4,5;

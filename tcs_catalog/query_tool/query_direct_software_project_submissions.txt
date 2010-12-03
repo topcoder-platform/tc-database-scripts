@@ -1,0 +1,25 @@
+SELECT
+    s.submission_id,
+    s.upload_id,
+    s.screening_score,
+    s.initial_score,
+    s.final_score,
+    s.placement,
+    s.create_date,
+    ri1.value AS submitter_id,
+    ri2.value AS submitter_handle,
+    s.submission_status_id = 2 AS failed_screening,
+    s.submission_status_id = 3 AS failed_review
+FROM
+    submission s
+    INNER JOIN upload u ON s.upload_id = u.upload_id
+    INNER JOIN resource r ON u.resource_id = r.resource_id
+    INNER JOIN resource_info ri1 ON r.resource_id = ri1.resource_id
+    INNER JOIN resource_info ri2 ON r.resource_id = ri2.resource_id
+WHERE u.project_id = @pj@
+AND   u.upload_type_id = 1
+AND   s.submission_type_id = 1
+AND   s.submission_status_id <> 5
+AND   ri1.resource_info_type_id = 1
+AND   ri2.resource_info_type_id = 2
+ORDER BY NVL(s.placement, 1000), s.create_date

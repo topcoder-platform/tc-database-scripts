@@ -1,0 +1,24 @@
+select u.handle, e.address as email_address
+from user u, email e
+where e.user_id = u.user_id
+and e.primary_ind = 1
+and u.status = 'A'
+and u.handle IN
+('blindcoder',
+'ghostyo',
+'Spiri',
+'cheater_no1',
+'exod40',
+'mi6091',
+'donalexey',
+'sims',
+'wefgef',
+'psir',
+'sluga',
+'Zuza',
+'blazej',
+'jerzy.kozera',
+'tomekkulczynski',
+'bkovacic',
+'icanadi',
+'rmedic')

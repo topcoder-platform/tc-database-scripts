@@ -1,0 +1,28 @@
+select 
+     count(distinct sur.user_id) as cnt
+    from 
+     coder_type ct,
+    round_question rq, 
+    question sq, 
+    answer sa, 
+     response sur, 
+    coder c, 
+    user u, 
+    room_result rr 
+    where 
+	ct.coder_type_id = c.coder_type_id and
+      rq.round_id = rr.round_id and 
+      rq.question_id = sq.question_id and 
+      rr.round_id = @rd@ and 
+      rr.coder_id = c.coder_id and 
+      c.coder_id = u.user_id and 
+      u.status = 'A' and 
+      sq.question_type_id in (1,3) and 
+      sq.question_id = sa.question_id and 
+      sa.question_id = sur.question_id and 
+      sa.answer_id = sur.answer_id and 
+      c.coder_id = sur.user_id and 
+      sur.user_id not in 
+      ( 
+         select user_id from group_user where group_id = 13
+       )

@@ -1,0 +1,28 @@
+SELECT rp.problems_submitted
+     , rp.problems_correct
+     , CASE WHEN rp.problems_submitted = 0 THEN 0 ELSE rp.problems_correct/rp.problems_submitted END AS submission_accuracy
+     , rp.problems_failed_by_challenge
+     , rp.problems_failed_by_system_test
+     , rp.challenge_attempts_made
+     , CASE WHEN rp.challenge_attempts_made = 0 THEN 0 ELSE rp.problems_failed_by_challenge/rp.challenge_attempts_made END AS challenge_accuracy
+     , cp.time_elapsed as best_time
+     , rp.avg_time_elapsed as avg_time
+     , rp.round_id
+     , rp.problem_id
+     , min(cp.coder_id) as coder_id
+  FROM round_problem rp
+    , outer coder_problem cp
+ WHERE rp.round_id = @rd@
+   AND rp.problem_id = @pm@
+   AND rp.division_id = @dn@
+   and cp.round_id = rp.round_id
+   and cp.problem_id = rp.problem_id
+   and cp.division_id = rp.division_id
+   and cp.placed = 1
+   AND EXISTS (SELECT '1'
+                 FROM problem p
+                WHERE p.problem_id = rp.problem_id
+                  AND p.round_id = rp.round_id
+                  AND p.division_id = rp.division_id
+                  AND p.viewable = 1)
+ group by 1,2,3,4,5,6,7,8,9,10,11

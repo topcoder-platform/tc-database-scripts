@@ -1,0 +1,35 @@
+--Updated per TCS 2.2.0
+select distinct u.handle
+     , u.user_id
+     , lower(u.handle) as lower_handle
+     , p.path || i.file_name as image_path
+  from rboard_user ru
+     , user u
+     , outer(informixoltp:coder_image_xref cix, informixoltp:image i, informixoltp:path p)
+ where ru.user_id = u.user_id
+   and ru.status_id = 100
+   and ru.project_type_id = @pt@
+   and cix.coder_id = u.user_id
+   and cix.display_flag = 1
+   and cix.image_id = i.image_id
+   and i.image_type_id = 1
+   and i.path_id = p.path_id
+ order by 3 asc
+
+
+--select u.handle
+--     , u.user_id
+--    , lower(u.handle) as lower_handle
+--     , p.path || i.file_name as image_path
+--  from rboard_user ru
+--    , user u
+--     , outer(informixoltp:coder_image_xref cix, informixoltp:image i, informixoltp:path p)
+-- where ru.user_id = u.user_id
+--   and ru.status_id = 100
+--   and ru.phase_id = @ph@
+--   and cix.coder_id = u.user_id
+--   and cix.display_flag = 1   
+--   and cix.image_id = i.image_id
+--   and i.image_type_id = 1
+--   and i.path_id = p.path_id
+-- order by 3 asc

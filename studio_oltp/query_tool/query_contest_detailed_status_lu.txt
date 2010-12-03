@@ -1,0 +1,2 @@
+select *
+from contest_detailed_status_lu

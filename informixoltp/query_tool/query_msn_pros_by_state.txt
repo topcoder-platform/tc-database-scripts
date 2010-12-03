@@ -1,0 +1,13 @@
+select count(distinct jh.user_id), state_name
+  from campaign_job_xref x
+     , job_hit jh 
+     , coder c
+     , state s
+ where x.campaign_id = 167 
+   and jh.job_id = x.job_id
+   and jh.user_id = c.coder_id
+   and c.country_code = '840'
+   and c.coder_type_id = 2
+   and c.state_code = s.state_code
+ group by 2
+ order by 2

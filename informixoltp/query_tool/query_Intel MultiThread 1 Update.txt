@@ -1,0 +1,10 @@
+select distinct u.handle, u.email AS email_address 
+from component_state cs, submission s, system_test_result str, user u
+where cs.round_id = 9881
+and s.component_State_id = cs.component_state_id
+and s.submission_number = cs.submission_number
+and s.submit_time <= 1139540400000
+and str.coder_id = cs.coder_id
+and str.round_id = cs.round_id
+and str.score = -1 and (str.processing_time = 0 or str.processing_time >= 20000)
+and u.user_id = cs.coder_id

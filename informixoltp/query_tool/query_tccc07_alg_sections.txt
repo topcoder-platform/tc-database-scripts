@@ -1,0 +1,12 @@
+select il.coder_id
+     , il.rating
+     , il.seed
+     , c.handle
+     , c.handle_lower as handle_sort
+  from user c
+     , invite_list il
+ where
+   il.coder_id = c.user_id
+   and c.status = 'A'
+   and il.round_id = @rd@
+ order by seed asc

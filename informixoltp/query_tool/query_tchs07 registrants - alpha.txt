@@ -1,0 +1,25 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+ WHERE u.status = 'A'
+   AND u.user_id IN
+(select u.user_id
+from 
+event_registration er, 
+user u,
+user_address_xref uax,
+address a,
+country_region_xref crx,
+region r,
+OUTER(algo_rating ar)
+where er.event_id = 2000
+and er.eligible_ind = 1
+and u.user_id = er.user_id
+and ar.coder_id = u.user_id
+and ar.algo_rating_type_id = 2
+and uax.user_id = u.user_id
+and a.address_type_id = 2
+and uax.address_id = a.address_id
+and a.country_code = crx.country_code
+and crx.region_id = r.region_id
+and r.region_name = 'Alpha')

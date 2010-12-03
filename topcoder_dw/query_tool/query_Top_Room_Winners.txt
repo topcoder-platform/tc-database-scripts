@@ -1,0 +1,28 @@
+
+SELECT ro.name as round_name
+       ,ro.round_id as round_id
+       ,r.name as room_name
+       ,r.room_id as room_id
+       ,c.handle as handle
+       ,c.coder_id as coder_id
+       ,rr.final_points as final_points
+       ,rr.new_rating as rating
+       ,co.name as contest_name
+  FROM room_result rr
+       ,room r
+       ,coder c
+       ,round ro
+       ,contest co
+ WHERE rr.room_id = r.room_id
+   AND ro.contest_id = co.contest_id
+   AND rr.round_id = r.round_id
+   AND ro.round_id = rr.round_id
+   AND r.round_id = ro.round_id
+   AND rr.division_id = r.division_id 
+   AND rr.coder_id = c.coder_id
+   AND r.division_id = @dn@
+   AND rr.room_placed = 1
+   AND ro.calendar_id = (SELECT max(calendar_id) 
+                           FROM round r
+                          WHERE r.round_type_id = 1)
+ ORDER BY final_points desc

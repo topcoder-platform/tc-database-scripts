@@ -1,0 +1,10 @@
+SELECT c.campaign_id
+     , con.contact_id
+  FROM contact con
+     , campaign c
+ WHERE con.contact_id = @uid@
+   AND con.company_id = c.company_id
+   AND c.campaign_id = @cid@
+   AND c.status_id = 1
+   AND CURRENT > c.start_date
+   AND CURRENT < c.end_date

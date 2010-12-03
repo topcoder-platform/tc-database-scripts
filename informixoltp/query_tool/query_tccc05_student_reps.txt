@@ -1,0 +1,73 @@
+select user_id, school_id,
+  lower(handle), handle,
+  name  as school_name,
+  poster_referrals,
+  handle_referrals,
+  poster_referrals + handle_referrals as total_count,
+  comp_poster_referrals,
+  comp_handle_referrals,
+  comp_poster_referrals + comp_handle_referrals as total_comp_count 
+from table(multiset( select
+  u.user_id,u.handle, s.name, s.school_id,
+  ( 
+    select count(*) from coder_referral cr1, user u1, coder c1 
+    where  
+      cr1.referral_id = 40 and  
+      cr1.reference_id = u.user_id and  
+      cr1.coder_id = u1.user_id and  
+      c1.coder_id = u1.user_id and 
+      u1.status = 'A' and 
+      c1.member_since between mdy(9,20,2004) and mdy(3,13,2005)
+  ) as handle_referrals,
+  ( 
+    select count(*)  
+    from coder_referral cr2, user u2, current_school cs2, coder c2 
+    where 
+      cs2.school_id = s.school_id and  
+      cs2.coder_id = cr2.coder_id and  
+      u2.user_id = cr2.coder_id and  
+      c2.coder_id = u2.user_id and 
+      cr2.referral_id = 80 and  
+      u2.status = 'A' and 
+      c2.coder_type_id = 1 and 
+      c2.member_since between mdy(9,20,2004) and mdy(3,13,2005)
+  ) as poster_referrals,
+  ( 
+    select count(*)  
+    from coder_referral cr2, user u2, current_school cs2, coder c2, room_result rr 
+    where 
+      cs2.school_id = s.school_id and  
+      cs2.coder_id = cr2.coder_id and  
+      u2.user_id = cr2.coder_id and  
+      rr.coder_id = c2.coder_id and 
+      rr.round_id between 6523 and 6527 and 
+      rr.attended = 'Y' and  
+      c2.coder_id = u2.user_id and 
+      cr2.referral_id = 80 and  
+      u2.status = 'A' and 
+      c2.coder_type_id = 1 and 
+      c2.member_since between mdy(9,20,2004) and mdy(3,13,2005)
+  ) as comp_poster_referrals,
+  ( 
+    select count(*) from coder_referral cr1, user u1, coder c1, room_result rr 
+    where  
+      cr1.referral_id = 40 and  
+      cr1.reference_id = u.user_id and  
+      cr1.coder_id = u1.user_id and  
+      rr.coder_id = c1.coder_id and 
+      rr.round_id between 6523 and 6527 and 
+      rr.attended = 'Y' and 
+      c1.coder_id = u1.user_id and 
+      u1.status = 'A' and 
+      c1.member_since between mdy(9,20,2004) and mdy(3,13,2005)
+  ) as comp_handle_referrals
+from
+  user u,
+  student_rep sr,
+  school s
+where
+  u.user_id = sr.coder_id and
+  sr.school_id = s.school_id and
+  sr.event_id = 61
+))
+order by total_comp_count desc, 3

@@ -1,0 +1,8 @@
+select n.note_id
+     , n.note_type_id 
+     , n.text
+  from note n
+     , user_note_xref un
+ where un.note_id = n.note_id
+   and un.user_id = @uid@
+   and n.note_type_id in (10, 11, 12, 13, 14)

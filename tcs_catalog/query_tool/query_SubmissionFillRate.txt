@@ -1,0 +1,37 @@
+select     cc.component_id,
+           EXTEND(pi1.scheduled_end_time, year to minute)  Submission_due_date, 
+            category_name,
+            DECODE(cv.phase_id,112,'Design','Dev') phase,
+            cc.component_name,
+            cv.comments, 
+--            count(unique p.project_id) NumOfProjects,
+--            sum(DECODE(NVL(u.project_id,0),0,1,0)) Num_Project_With_Zero_Submissions,
+            count(u.resource_id) count_of_submissions
+   from   comp_versions cv, 
+            comp_catalog cc, 
+            categories c,
+            project_info pi,
+            project_phase pi1,
+            project p,
+            OUTER upload u
+  --          ,OUTER submission sub
+where 1=1
+  and p.project_id = u.project_id 
+--  and sub.upload_id = u.upload_id
+  and u.upload_type_id = 1
+--  and sub.submission_status_id  != 5
+  and c.category_id in (8459260,5801776,5801777,5801778,5801779)
+and cc.root_category_id = c.category_id
+and cc.component_id = cv.component_id
+and cv.component_id = pi.value
+and cv.phase_id in (112,113)
+and upload_status_id = 1
+ and pi.project_info_type_id in (2)
+ and pi.project_id = p.project_id
+ and pi1.project_id = p.project_id
+ and pi1.phase_type_id = 2
+ and project_status_id = 1
+ and pi1.scheduled_end_time >= CURRENT - 90 UNITS DAY
+ and pi1.scheduled_end_time <= CURRENT 
+group by 1,2,3,4, 5,6
+order by 2 desc, 3

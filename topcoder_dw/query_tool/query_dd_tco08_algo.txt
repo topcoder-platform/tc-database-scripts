@@ -1,0 +1,21 @@
+select
+sar.coder_id, handle, ar.rating as rating, cc_country.country_name, latitude, longitude, im.file_name as image_name, shared_rounds as overlap
+from 
+table(multiset(select coder_id, count(round_id) as shared_rounds
+               from table(multiset(select mylist.round_id, clist.coder_id
+                                   from table(multiset (select round_id from room_result where coder_id=@cr@)) mylist
+                                        left join
+                                        table(multiset(select coder_id,round_id
+                                                       from table(multiset( select ss2.coder_id, rr2.round_id
+                                                                            from room_result rr2 left join round r2 on rr2.round_id=r2.round_id,
+                                                                                 table(multiset(select coder_id from tco08_onsite where coder_id <> @cr@)) ss2
+                                                                            where ss2.coder_id=rr2.coder_id and r2.round_type_id in (1,2) order by round_id
+                                                               )) rrs
+                                        )) clist
+                                        on mylist.round_id=clist.round_id
+                      )) wtf
+                where coder_id is not null group by coder_id
+)) sar left join algo_rating ar on sar.coder_id=ar.coder_id and ar.algo_rating_type_id=1,
+coder cc left join coder_image_xref cix on cc.coder_id=cix.coder_id and cix.display_flag=1 left join image im on cix.image_id=im.image_id,
+country cc_country
+where sar.coder_id=cc.coder_id and cc.comp_country_code=cc_country.country_code

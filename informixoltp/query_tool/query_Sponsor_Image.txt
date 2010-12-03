@@ -1,0 +1,12 @@
+SELECT p.path || i.file_name AS file_path
+     , i.link
+     , i.height
+     , i.width
+  FROM image i,
+       path p,
+       company_image_xref cix
+ WHERE i.image_type_id = @it@
+   AND cix.company_id = @cm@
+   AND i.path_id = p.path_id
+   AND cix.image_id = i.image_id
+   AND cix.status = 1

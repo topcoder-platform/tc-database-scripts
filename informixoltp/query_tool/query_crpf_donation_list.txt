@@ -1,0 +1,15 @@
+SELECT c.coder_id
+     , SUM(cd.amount) as amount
+     , r.rating
+     , u.handle
+     , lower(u.handle) as handle_sort
+  FROM coder c
+     , charity_donation cd
+     , rating r
+     , user u
+ WHERE cd.coder_id = c.coder_id
+   AND cd.donation_type_id = 1
+   AND r.coder_id = c.coder_id
+   AND u.user_id = c.coder_id
+ GROUP BY c.coder_id, r.rating, u.handle, 5
+ ORDER BY 2 DESC, r.rating DESC

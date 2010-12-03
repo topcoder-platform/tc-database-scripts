@@ -1,0 +1,8 @@
+select '1'
+  from coder c
+     , demographic_response dr1
+ where dr1.demographic_question_id = 18
+   and dr1.coder_id = c.coder_id
+   and c.coder_id = @cr@
+   and c.coder_type_id = 1
+   and dr1.demographic_answer_id between 129 and 137

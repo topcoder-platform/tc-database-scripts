@@ -1,0 +1,7 @@
+select distinct user_id
+from contest c, project_result pr, contest_project_xref x
+where c.contest_id = x.contest_id
+and pr.project_id = x.project_id
+and c.event_id = @eid@
+and pr.passed_review_ind = 1
+group by user_id

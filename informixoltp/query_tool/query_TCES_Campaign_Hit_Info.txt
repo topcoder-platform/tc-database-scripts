@@ -1,0 +1,10 @@
+SELECT COUNT(*) AS total_hits,
+       MAX(jh.timestamp) AS most_recent
+  FROM job_hit jh
+     , campaign_job_xref cjx
+     , user u
+ WHERE cjx.campaign_id = @cid@
+   AND cjx.status_id = 1
+   AND jh.job_id = cjx.job_id
+   AND jh.user_id = u.user_id
+   AND u.status = 'A'

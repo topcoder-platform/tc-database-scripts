@@ -1,0 +1,37 @@
+select 
+  sg.description as access_group, 
+  pc.code, 
+  (select count(*) from user_group_xref ugx where ugx.group_id = sg.group_id) as members,
+  (
+    select count(*) 
+    from download_tracking dt, user_group_xref ugx
+    where ugx.group_id = sg.group_id and
+    dt.login_id = ugx.login_id and
+    date(dt.create_time) >= today-30
+  ) as dwnlds_last_30,
+  (
+    select count(*) 
+    from download_tracking dt, user_group_xref ugx
+    where ugx.group_id = sg.group_id and
+    dt.login_id = ugx.login_id and
+    date(dt.create_time) >= today-60
+  ) as dwnlds_last_60,
+  (
+    select count(*) 
+    from download_tracking dt, user_group_xref ugx
+    where ugx.group_id = sg.group_id and
+    dt.login_id = ugx.login_id and
+    date(dt.create_time) >= today-90
+  ) as dwnlds_last_90,
+  (
+    select count(*) 
+    from download_tracking dt, user_group_xref ugx
+    where ugx.group_id = sg.group_id and
+    dt.login_id = ugx.login_id and
+    date(dt.create_time) >= today-180
+  ) as dwnlds_last_180
+from 
+  permission_code pc, 
+  security_groups sg
+where 
+  pc.group_id = sg.group_id

@@ -1,0 +1,13 @@
+select * 
+from r_user_role rur, 
+project p 
+where 
+rur.r_role_id = 3 
+and rur.cur_version = 1 
+and p.project_id = rur.project_id 
+and p.cur_version = 1 
+and rur.login_id = @uid@ 
+and p.project_id in (select project_id from project where comp_vers_id = (select comp_vers_id from project where project_id = @pj@ and cur_version = 1)) 
+and not exists (select p2 project_id from project p2 
+	where p2.comp_vers_id = (select comp_vers_id from project where project_id = @pj@  and cur_version = 1) and p2.cur_version = 1 
+	and p2.project_stat_id in (5,6,7) and p2.project_type_id = (select project_type_id from project where project_id = @pj@  and cur_version = 1) )

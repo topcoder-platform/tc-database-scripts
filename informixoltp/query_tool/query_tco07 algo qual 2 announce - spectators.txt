@@ -1,0 +1,37 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , user_notify_xref n
+ WHERE u.user_id = n.user_id
+   AND u.status = 'A'
+   AND n.notify_id = 1
+   AND u.user_id NOT IN
+(select u.user_id
+from 
+event_registration er, 
+user u,
+email_user eu,
+OUTER(algo_rating ar)
+where er.event_id = 2010
+and er.eligible_ind = 1
+and u.user_id = er.user_id
+and ar.coder_id = u.user_id
+and ar.algo_rating_type_id = 1
+and eu.user_id = u.user_id
+and u.handle NOT IN
+(select u.handle
+from user u, email e, invite_list il
+where e.user_id = u.user_id
+and e.primary_ind = 1
+and u.status = 'A'
+and u.user_id = il.coder_id
+and il.round_id = 10739))
+UNION
+select u.email as email_address, u.handle
+  from email_user u
+     , room_result rr
+ where rr.advanced = 'Y'
+   and rr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and rr.round_id = 10730
+   and rr.coder_id = u.user_id
+   and u.status = 'A'

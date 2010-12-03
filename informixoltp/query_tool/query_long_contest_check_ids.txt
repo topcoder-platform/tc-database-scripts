@@ -1,0 +1,7 @@
+select 'consistent_ids'
+from round r, contest c, round_component rc
+where r.round_id = @rd@
+and c.contest_id = @cd@
+and rc.component_id = @compid@
+and r.contest_id = c.contest_id
+and r.round_id = rc.round_id

@@ -1,0 +1,10 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , coder_notify n
+     , coder c
+ WHERE u.user_id = n.coder_id
+   AND u.status = 'A'
+   AND n.notify_id = 1
+   AND c.coder_id = u.user_id
+   and c.state_code in ('CA', 'OR', 'NV', 'WA')

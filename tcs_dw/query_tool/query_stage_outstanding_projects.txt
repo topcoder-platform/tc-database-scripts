@@ -1,0 +1,10 @@
+select p.project_id, p.posting_date, p.component_id, p.component_name, p.viewable_category_ind, 
+	p.num_valid_submissions,         
+        pr.potential_points as outstanding_points,
+        case when p.project_category_id = 2 then "Development" else "Testing" end as type
+	from project p, project_result pr where p.project_id = pr.project_id and
+	pr.valid_submission_ind = 1 and pr.user_id = @cr@ and 
+	p.status_id in (1) 
+        and p.stage_id = @staid@ 
+        and p.project_category_id in (@pts@)
+        and p.digital_run_ind = 1

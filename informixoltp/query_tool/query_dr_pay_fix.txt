@@ -1,0 +1,3 @@
+select u.handle, u.email as email_address, f.old_payment, f.new_payment
+ from email_user u, temp_dr_pay_fix f
+where u.user_id =f.user_id

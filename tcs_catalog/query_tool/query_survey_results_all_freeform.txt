@@ -1,0 +1,11 @@
+select q.question_text, r.response_text, u.handle, cc.component_name
+from comp_reg_response r, comp_reg_question q, informixoltp:user u, project p,
+	comp_catalog cc, comp_versions cv
+where r.comp_reg_question_id = q.comp_reg_question_id
+	and r.comp_reg_answer_id IS NULL
+	and r.user_id = u.user_id
+	and r.project_id = p.project_id
+	and p.cur_version = 1
+	and p.comp_vers_id = cv.comp_vers_id
+        and cv.component_id = cc.component_id
+order by question_text asc, component_name asc;

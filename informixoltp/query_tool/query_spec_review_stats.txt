@@ -1,0 +1,23 @@
+select pcl.name as track
+     , count(*) as reviews
+     , sum(case when p_ori.project_status_id = 7 then 1 else 0 end) as successful
+     , 100*sum(case when p_ori.project_status_id = 7 then 1 else 0 end) / count(*) as success_rate
+  from tcs_catalog:project p_rev
+     , tcs_catalog:linked_project_xref lpx
+     , tcs_catalog:project p_ori
+     , tcs_catalog:project_category_lu pcl
+     , tcs_catalog:resource r
+     , tcs_catalog:resource_info ri
+ where p_rev.project_category_id = 27
+   and p_rev.project_status_id in (4, 5, 6, 7, 8, 9, 10)
+   and p_rev.project_id = lpx.dest_project_id
+   and lpx.link_type_id = 3
+   and lpx.source_project_id = p_ori.project_id
+   and p_ori.project_status_id not in (1, 2, 3)
+   and p_ori.project_category_id = pcl.project_category_id
+   and p_rev.project_id = r.project_id
+   and r.resource_role_id = 4
+   and r.resource_id = ri.resource_id
+   and ri.resource_info_type_id = 1
+   and ri.value = @cr@
+group by pcl.name

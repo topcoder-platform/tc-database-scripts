@@ -1,0 +1,37 @@
+SELECT dq.demographic_question_id
+     , dq.demographic_question_text
+     , da.demographic_answer_text AS response
+     , x.resp_count AS resp_count
+     , da.sort
+  FROM demographic_question dq
+     , demographic_answer da
+     , demographic_assignment dass
+     , table(multiset(
+    SELECT dr.demographic_question_id
+         , dr.demographic_answer_id 
+         , COUNT(dr.user_id) AS resp_count
+         , c.coder_type_id
+      FROM coder c
+         , demographic_response dr
+         , job_hit jh
+         , user u
+     WHERE dr.user_id = c.coder_id
+       AND dr.user_id = jh.user_id
+       AND jh.user_id = c.coder_id
+       AND jh.job_id = @jid@
+       AND dr.demographic_question_id NOT IN (1,2,12,24,25,23)
+       AND c.coder_type_id = @ct@
+       AND u.user_id = c.coder_id
+       AND u.status = 'A'
+     GROUP BY dr.demographic_question_id
+         , dr.demographic_answer_id
+         , c.coder_type_id
+  )) as x
+ WHERE dq.demographic_question_id = x.demographic_question_id
+  AND da.demographic_answer_id = x.demographic_answer_id 
+  AND dass.coder_type_id = x.coder_type_id
+  AND dass.demographic_question_id = x.demographic_question_id
+  AND dass.status = 'A'
+  AND dq.selectable in ('Y', 'M')
+ ORDER BY dq.demographic_question_id
+     , da.sort

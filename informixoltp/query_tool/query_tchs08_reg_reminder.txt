@@ -1,0 +1,11 @@
+select u.handle, u.email as email_address
+ from email_user u, user_notify_xref x
+where u.user_id = x.user_id
+ and x.notify_id = 7
+ and (select count(*) from round r, contest c, room_result rr
+where r.round_id = rr.round_id
+and r.contest_id = c.contest_id
+ and rr.rated_flag = 1
+  and rr.coder_id = u.user_id
+and c.season_id = 2) > 2
+and u.user_id not in (select user_id from event_registration where event_id = 992)

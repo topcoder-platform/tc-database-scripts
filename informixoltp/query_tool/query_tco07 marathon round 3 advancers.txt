@@ -1,0 +1,8 @@
+select u.handle, u.email as email_address
+  from email_user u
+     , long_comp_result lr
+ where lr.advanced = 'Y'
+   and lr.coder_id not in (select user_id from group_user where group_id in (13,14))
+   and lr.round_id = 10747
+   and lr.coder_id = u.user_id
+   and u.status = 'A'

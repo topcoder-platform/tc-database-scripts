@@ -1,0 +1,13 @@
+select first 10 cat.category_name || ' ' || cc.component_name as component_name
+     , (select count(*) 
+          from download_tracking dt, comp_versions cv
+         where dt.comp_vers_id = cv.comp_vers_id
+           and date(dt.create_time) >= (today-60)
+           and cv.component_id = cc.component_id) as num_downloads
+     , cc.current_version as version
+     , cc.component_id
+  from comp_catalog cc
+     , categories cat
+ where cc.root_category_id = cat.category_id
+   and cat.viewable = 1
+ order by 2 desc, 1

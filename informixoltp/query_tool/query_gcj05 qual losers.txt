@@ -1,0 +1,8 @@
+select u.handle, e.address as email_address
+  from gcj05_oltp:user u, gcj05_oltp:email e, gcj05_oltp:room_result rr
+ where u.user_id = e.user_id
+   and rr.coder_id = u.user_id
+   and rr.round_id between 8037 and 8041
+   and rr.advanced = 'N'
+   and rr.attended = 'Y'
+   and u.status = 'A'

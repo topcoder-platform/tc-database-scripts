@@ -1,0 +1,4 @@
+select sum(num_passed) as num_passed, sum(num_tests) as num_tests from testcase_response
+where project_id = @pj@
+and user_id = @cr@
+and scorecard_question_id in (41, 1376, 1876, 2125, 2225)

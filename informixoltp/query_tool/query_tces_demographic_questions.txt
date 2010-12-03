@@ -1,0 +1,7 @@
+select dq.demographic_question_id
+     , dq.demographic_question_text 
+  from demographic_question dq
+ where dq.selectable = 'Y' 
+   and exists (select '1' from demographic_assignment where demographic_question_id = dq.demographic_question_id and status = 'A')
+   and dq.demographic_question_id in (1,5,7,8,9,10,11,12,16,17,18,21,23)
+ order by 1

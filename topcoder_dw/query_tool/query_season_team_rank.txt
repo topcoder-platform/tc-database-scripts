@@ -1,0 +1,9 @@
+select str.team_id
+       ,t.name
+       ,str.rank
+       ,(select count(*) from team_coder_xref where team_id = str.team_id) as member_count
+       ,team_points
+FROM season_team_rank str
+     , team t
+WHERE str.team_id = t.team_id
+AND season_id = @snid@

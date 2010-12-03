@@ -1,0 +1,108 @@
+select p.category_desc
+     , p.component_name
+     , p.version_text
+     , p.status_desc
+     , p.phase_desc
+     , (select max(pay.client) from payment pay where pay.reference_id = p.project_id) as client
+     , p.complete_date
+     , sum(case when p.project_category_id = 1 then nvl(prizes.cost, 0) else 0 end) as pacts_design
+     , sum(case when p.project_category_id = 2 then nvl(prizes.cost, 0) else 0 end) as pacts_dev
+     , sum(case when p.project_category_id = 1 then nvl(prp.cost, 0) else 0 end) as design_prizes
+     , sum(case when p.project_category_id = 2 then nvl(prp.cost, 0) else 0 end) as dev_prizes
+     , sum(case when p.project_category_id = 1 then nvl(prp.dr_points, 0) else 0 end) as design_dr_points
+     , sum(case when p.project_category_id = 2 then nvl(prp.dr_points, 0) else 0 end) as dev_dr_points
+     , sum(case when p.project_category_id = 1 then nvl(rel.cost, 0) else 0 end) as design_reliability
+     , sum(case when p.project_category_id = 2 then nvl(rel.cost, 0) else 0 end) as dev_reliability
+     , sum(case when p.project_category_id = 1 then nvl(ref.cost, 0) else 0 end) as design_referral
+     , sum(case when p.project_category_id = 2 then nvl(ref.cost, 0) else 0 end) as dev_referral_cost
+     , sum(case when p.project_category_id = 1 then nvl(actual_review.cost, 0) else 0 end) as design_actual_review
+     , sum(case when p.project_category_id = 2 then nvl(actual_review.cost, 0) else 0 end) as dev_actual_review
+     , sum(case when p.project_category_id = 1 then nvl(projected_review.cost, 0) else 0 end) as design_projected_review
+     , sum(case when p.project_category_id = 2 then nvl(projected_review.cost, 0) else 0 end) as dev_projected_review
+     , sum(case when p.project_category_id = 1 then nvl(review_bonus.cost, 0) else 0 end) as design_review_fulfillment_bonus
+     , sum(case when p.project_category_id = 2 then nvl(review_bonus.cost, 0) else 0 end) as dev_review_fulfillment_bonus
+     , nvl(sum(build.cost),0) build
+     , nvl(sum(bug_fix.cost),0) bug_fixes
+     , nvl(sum(enhancement.cost),0) enhancements
+     , max(updated.max_date) as last_payment_update
+  from project p
+      , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 6
+                        group by p.reference_id)) prizes
+      , outer table(multiset(select pp.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up, payment pp
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 24
+                          and pp.payment_id = p.parent_payment_id
+                        group by pp.reference_id)) rel
+      , outer table(multiset(select pp.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up, payment pp
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 4
+                          and pp.payment_id = p.parent_payment_id
+                        group by pp.reference_id)) ref
+      , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 7
+                        group by p.reference_id)) actual_review
+      , outer table(multiset(select p.reference_id as project_id, sum(up.total_amount) as cost
+                         from payment p, user_payment up
+                        where up.payment_id = p.payment_id
+                          and p.installment_number = 1
+                          and p.payment_type_id = 7
+                        group by p.reference_id)) projected_review
+     , table(multiset(select distinct p.reference_id as project_id
+                        from payment p
+                       where p.client is not null)) as cp
+     , outer table(multiset(select pr.project_id, sum(pr.final_points) as dr_points, sum(pr.payment) as cost
+                        from project_result pr
+                       where 1=1
+                         -- and pr.payment is not null
+                       group by pr.project_id)) as prp
+      , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 39
+                        group by p.reference_id)) build
+      , outer table(multiset(select pp.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up, payment pp
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 38
+                          and pp.payment_id = p.parent_payment_id
+                        group by pp.reference_id)) review_bonus
+      , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 23
+                        group by p.reference_id)) bug_fix
+      , outer table(multiset(select p.reference_id as project_id, sum(up.gross_amount) as cost
+                         from payment p, user_payment up
+                        where up.payment_id = p.payment_id
+                          and p.payment_type_id = 37
+                        group by p.reference_id)) enhancement
+      , outer table(multiset(select p.reference_id as project_id, 
+                            max(extend(date, year to minute) + t.hour UNITS hour + t.minute UNITS minute) as max_date
+                         from payment p, calendar cal, time t
+			where p.payment_type_id in (6,24,4,7,39,23,37) 
+                        and p.modified_calendar_id = cal.calendar_id
+                        and p.modified_time_id = t.time_id
+                        group by p.reference_id))  updated
+ where prizes.project_id = p.project_id
+   and rel.project_id = p.project_id
+   and actual_review.project_id = p.project_id
+   and projected_review.project_id = p.project_id
+   and ref.project_id = p.project_id
+   and p.project_id = cp.project_id
+   and prp.project_id = p.project_id
+   and review_bonus.project_id = p.project_id
+   and bug_fix.project_id = p.project_id
+   and enhancement.project_id = p.project_id
+   and build.project_id = p.project_id
+   and updated.project_id = p.project_id 
+   and p.project_category_id in (1,2)
+   and p.complete_date >= (today - @days@ )
+ group by 1,2,3,4,5,6,7, p.project_id, p.complete_date
+ order by p.complete_date desc

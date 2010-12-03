@@ -1,0 +1,8 @@
+select distinct u.handle, e.address as email_address
+from gcjla07_oltp:user u, gcjla07_oltp:email e, gcjla07_oltp:room_result rr
+where u.user_id = e.user_id
+   and rr.coder_id = u.user_id
+   and rr.round_id between 10686 and 10690
+   and rr.advanced = 'Y'
+   and rr.attended = 'Y'
+   and u.status = 'A'

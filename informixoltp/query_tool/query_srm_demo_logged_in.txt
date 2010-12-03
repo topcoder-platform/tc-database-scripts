@@ -1,0 +1,51 @@
+select
+    count(distinct coder_id) as num_logged_in
+    , (SELECT seg.start_time - 2 units hour 
+         FROM round_segment seg
+        WHERE seg.round_id=@rd@
+          AND seg.segment_id=2)
+    from
+    connection_history ch
+    where
+    not exists (select 1 from user_group_xref where group_id = 2000115 and login_id = ch.coder_id) and
+    start_time < (SELECT seg.start_time - 2 units hour FROM round_segment seg WHERE seg.round_id=@rd@ AND seg.segment_id=2) AND  end_time > (SELECT seg.start_time - 2 units hour FROM round_segment seg WHERE seg.round_id=@rd@ AND seg.segment_id=2) group by 2 union select
+    count(distinct coder_id) as num_logged_in
+    , (SELECT seg.start_time - 1 units hour 
+         FROM round_segment seg
+        WHERE seg.round_id=@rd@
+          AND seg.segment_id=2)
+    from
+    connection_history ch
+    where
+    not exists (select 1 from user_group_xref where group_id = 2000115 and login_id = ch.coder_id) and
+    start_time < (SELECT seg.start_time - 1 units hour FROM round_segment seg WHERE seg.round_id=@rd@ AND seg.segment_id=2) AND  end_time > (SELECT seg.start_time - 1 units hour FROM round_segment seg WHERE seg.round_id=@rd@ AND seg.segment_id=2) group by 2 union select
+    count(distinct coder_id) as num_logged_in
+    , (SELECT seg.start_time
+         FROM round_segment seg
+        WHERE seg.round_id=@rd@
+          AND seg.segment_id=2)
+    from
+    connection_history ch
+    where
+    not exists (select 1 from user_group_xref where group_id = 2000115 and login_id = ch.coder_id) and
+    start_time < (SELECT seg.start_time FROM round_segment seg WHERE seg.round_id=@rd@ AND seg.segment_id=2) AND  end_time > (SELECT seg.start_time FROM round_segment seg WHERE seg.round_id=@rd@ AND seg.segment_id=2) group by 2 union select
+    count(distinct coder_id) as num_logged_in
+    , (SELECT seg.start_time + 1 units hour 
+         FROM round_segment seg
+        WHERE seg.round_id=@rd@
+          AND seg.segment_id=2)
+    from
+    connection_history ch
+    where
+    not exists (select 1 from user_group_xref where group_id = 2000115 and login_id = ch.coder_id) and
+    start_time < (SELECT seg.start_time + 1 units hour FROM round_segment seg WHERE seg.round_id=@rd@ AND seg.segment_id=2) AND  end_time > (SELECT seg.start_time + 1 units hour FROM round_segment seg WHERE seg.round_id=@rd@ AND seg.segment_id=2) group by 2 union select
+    count(distinct coder_id) as num_logged_in
+    , (SELECT seg.start_time + 2 units hour 
+         FROM round_segment seg
+        WHERE seg.round_id=@rd@
+          AND seg.segment_id=2)
+    from
+    connection_history ch
+    where
+    not exists (select 1 from user_group_xref where group_id = 2000115 and login_id = ch.coder_id) and
+    start_time < (SELECT seg.start_time + 2 units hour FROM round_segment seg WHERE seg.round_id=@rd@ AND seg.segment_id=2) AND  end_time > (SELECT seg.start_time + 2 units hour FROM round_segment seg WHERE seg.round_id=@rd@ AND seg.segment_id=2) group by 2 order by 2

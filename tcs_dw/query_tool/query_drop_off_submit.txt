@@ -1,0 +1,15 @@
+select calendar.year
+, calendar.month_numeric
+, count(*) as submit_once
+from project_result
+, calendar
+where user_id in
+(select pr.user_id
+  from project_result pr
+  where pr.submit_ind = 1
+  group by 1
+  having count(*) = 1
+)
+and date(inquire_timestamp) = calendar.date 
+group by 1,2
+order by 1 desc, 2 desc

@@ -1,0 +1,32 @@
+SELECT rd.round_id
+     , rd.contest_id
+     , rd.name AS round_name
+     , rd.status
+     , round_type_id
+     , ct.name AS contest_name
+     , rs1.start_time
+     , rs1.end_time 
+     , (select count(*) from round_registration where round_id = rd.round_id) as num_registrants
+     , (select count(*) from long_comp_result where round_id = rd.round_id and attended = 'Y') as num_competitors
+     , rd.forum_id
+     , rs2.start_time as reg_start
+     , rs2.end_time as reg_end
+     , rd.invitational
+     , p.problem_id
+     , p.name as problem_name
+  FROM round rd       
+     , contest ct
+     , round_segment rs1
+     , round_segment rs2 
+     , round_component rc
+     , problem p
+     , component c 
+WHERE rs1.segment_id = 2 
+  and rd.round_id = @rd@
+  and rd.contest_id = ct.contest_id
+  and rs1.round_id = rd.round_id
+  and rs2.segment_id = 1
+  and rs2.round_id = rd.round_id
+  and rc.round_id = rd.round_id 
+  and rc.component_id = c.component_id
+  and c.problem_id = p.problem_id

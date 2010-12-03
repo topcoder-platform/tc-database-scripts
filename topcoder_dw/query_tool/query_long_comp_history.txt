@@ -1,0 +1,22 @@
+select lcr.round_id
+     , p.problem_id
+     , lcr.placed
+     , lcr.point_total
+     , lcr.system_point_total
+     , r.calendar_id
+     , lcr.coder_id
+     , c.name as contest_name
+     , r.name as round_name
+     , r.round_type_id
+     , lcr.new_rating
+     , lcr.new_vol
+  from long_comp_result lcr
+     , round r
+     , problem p
+     , contest c
+ where lcr.round_id = r.round_id
+   and lcr.coder_id =@cr@
+   and p.round_id = r.round_id
+   and r.contest_id = c.contest_id
+   and lcr.attended = 'Y'
+ order by r.calendar_id desc

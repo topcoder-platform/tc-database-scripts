@@ -1,0 +1,4 @@
+select text 
+  from note
+ where submitted_by = @uid@
+   and note_type_id = @ntid@

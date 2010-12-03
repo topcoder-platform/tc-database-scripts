@@ -1,0 +1,16 @@
+SELECT u.email AS email_address
+     , u.handle
+  FROM email_user u
+     , user_notify_xref n
+ WHERE u.user_id = n.user_id
+   AND u.status = 'A'
+   AND n.notify_id = 7
+   AND u.user_id IN 
+(select coder_id
+from room_result rr 
+where rr.attended='Y' and rr.rated_flag = 1 and rr.round_id IN
+(select round_id from round where short_name like 'TCHS%')
+group by coder_id
+having count(*) >= 4)
+   AND u.user_id NOT IN
+(select user_id from user_terms_of_use_xref where terms_of_use_id = 20553)

@@ -1,0 +1,11 @@
+select 
+    cpx.contest_id, pp.scheduled_start_time, pp.scheduled_end_time
+from 
+    contest_project_xref cpx, project_phase pp
+where 
+    -- join match
+    pp.project_id = cpx.project_id and
+    -- appeal phase
+    pp.phase_type_id = 5 and
+    -- params
+     cpx.contest_id = @ct@

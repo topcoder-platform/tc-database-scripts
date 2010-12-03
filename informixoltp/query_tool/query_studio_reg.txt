@@ -1,0 +1,5 @@
+select count(*) as total
+     , sum(case when u.status = 'A' then 1 else 0 end) as activated
+  from user u, user_group_xref x
+where u.user_id = x.login_id
+  and x.group_id = 14

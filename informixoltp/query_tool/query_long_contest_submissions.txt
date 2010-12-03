@@ -1,0 +1,34 @@
+select u.handle
+     , l.language_name
+     , s.submission_number
+     , s.submission_points
+     , st.status_desc
+     , u.handle_lower
+     , u.user_id as coder_id
+     , cs.component_id
+     , cs.round_id
+     , c.contest_id
+     , l.language_id
+     , p.problem_id
+     , r.round_type_id
+  from long_submission s
+     , long_component_state cs
+     , user u
+     , language l
+     , component_status_lu st   
+     , contest c
+     , round r
+     , problem p
+     , component comp
+ where s.long_component_state_id = cs.long_component_state_id
+   and comp.component_id = cs.component_id
+   and ((@ex@ =0 and s.submission_number = cs.submission_number) or (@ex@ =1 and s.submission_number = cs.example_submission_number))
+   and comp.problem_id = p.problem_id
+   and cs.round_id = @rd@
+   and cs.coder_id = u.user_id
+   and cs.round_id = r.round_id
+   and r.contest_id = c.contest_id
+   and s.language_id = l.language_id
+   and cs.status_id = st.component_status_id
+   and s.example = @ex@
+ order by @sc@ @sdir@

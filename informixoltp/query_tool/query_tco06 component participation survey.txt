@@ -1,0 +1,10 @@
+select u.email as email_address, u.handle
+  from common_oltp:user_terms_of_use_xref utoux, informixoltp:user u
+ where utoux.terms_of_use_id = 20384
+ and utoux.user_id NOT IN 
+    (select s.submitter_id
+     from tcs_catalog:submission s
+                        , tcs_catalog:contest_project_xref cpx
+     where s.project_id = cpx.project_id and s.submission_type_id=1
+              and cpx.contest_id in (236, 237))
+and utoux.user_id = u.user_id

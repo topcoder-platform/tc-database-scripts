@@ -1,0 +1,4 @@
+select distinct u.handle, e.address AS email_address
+from vsign_oltp:user u, vsign_oltp:email e
+where u.user_id = e.user_id
+and u.status = 'A'

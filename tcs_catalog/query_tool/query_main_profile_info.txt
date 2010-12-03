@@ -1,0 +1,38 @@
+SELECT u.user_id 
+, u.first_name 
+, u.middle_name 
+, u.last_name 
+, e.address as email
+, a.address1 
+, a.address2 
+, a.city 
+, a.state_code 
+, a.zip 
+, co.country_name
+, p.phone_number as home_phone 
+, p2.phone_number as work_phone 
+, u.handle 
+, us.user_status_desc 
+FROM user u 
+, informixoltp:user_status_lu us 
+, email e
+, outer(common_oltp:user_address_xref uax, common_oltp:address a, common_oltp:country co)
+, OUTER(common_oltp:phone p)
+, OUTER(common_oltp:phone p2)
+WHERE LOWER(u.handle) like LOWER('@ha@') 
+AND LOWER(u.first_name) like LOWER('@fn@') 
+AND LOWER(u.last_name) like LOWER('@ln@') 
+AND LOWER(e.address) like LOWER('@email@') 
+AND u.status = us.user_status_id 
+AND a.country_code = co.country_code
+AND e.user_id = u.user_id
+AND e.primary_ind = 1
+AND uax.user_id = u.user_id
+AND a.address_id = uax.address_id
+AND a.address_type_id = 1
+AND p.user_id = u.user_id
+AND p.primary_ind = 1
+AND p.phone_type_id = 2
+AND p2.user_id = u.user_id
+AND p2.primary_ind = 1
+AND p2.phone_type_id = 1

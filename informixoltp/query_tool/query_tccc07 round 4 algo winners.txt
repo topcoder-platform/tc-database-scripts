@@ -1,0 +1,8 @@
+select u.handle, u.email as email_address
+  from email_user u, room_result rr
+where rr.coder_id = u.user_id
+  and rr.round_id = 10924
+   and rr.advanced = 'Y' 
+   and rr.attended = 'Y'
+   and not exists (select 1 from user_group_xref where login_id= u.user_id and security_status_id= 1 and group_id= 2000115)
+   and not exists (select 1 from group_user g where g.user_id = u.user_id  and g.group_id in (13,14))

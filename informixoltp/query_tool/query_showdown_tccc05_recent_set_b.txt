@@ -1,0 +1,11 @@
+select first 15 cs.coder_id, u.handle, sum(points) as points, max(s.submit_time)
+from component_state cs,
+user u,
+submission s
+where cs.status_id in ( 150, 160)
+and cs.round_id = 7230
+and u.user_id = cs.coder_id
+and cs.coder_id not in (select user_id from group_user where group_id in (13,14))
+and s.component_state_id = cs.component_state_id
+group by 1,2
+order by 4 desc

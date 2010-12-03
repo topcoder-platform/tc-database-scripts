@@ -1,0 +1,24 @@
+SELECT (CASE WHEN r.round_type_id = 2
+             THEN c.name || ' ' || r.name
+             ELSE c.name END) AS contest_name
+     , dlu.division_desc
+     , p.class_name
+     , p.problem_text
+     , cp.language_id
+  FROM problem p
+     , round r
+     , contest c
+     , division_lu dlu
+     , coder_problem cp
+     , coder co
+ WHERE p.round_id = r.round_id
+   AND r.contest_id = c.contest_id
+   AND p.division_id = dlu.division_id
+   AND cp.round_id = p.round_id
+   AND cp.division_id = p.division_id
+   AND cp.problem_id = p.problem_id
+   AND (cp.problem_id = @pm@)
+   AND (cp.coder_id = @mid@)
+   AND r.round_id = @rd@
+   AND co.coder_id = cp.coder_id
+   AND co.status = 'A'

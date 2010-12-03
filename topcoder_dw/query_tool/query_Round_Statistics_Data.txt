@@ -1,0 +1,34 @@
+SELECT c.handle,
+c.coder_id,
+con.name,
+r.name,
+rr.room_id,
+room.name,
+rr.room_placed,
+rr.submission_points,
+(rr.challenge_points + rr.defense_points) AS challenge_points,
+rr.system_test_points,
+rr.final_points,
+CASE WHEN r.round_type_id = 1 THEN 'N/A' ELSE rr.advanced END,
+rr.old_rating,
+(rr.new_rating - rr.old_rating) AS rating_change,
+rr.new_rating,
+r.round_id AS round_id,
+rr.division_placed,
+rr.final_points - rr.submission_points as point_change,
+c.handle_lower,
+r.forum_id
+FROM contest con, round r, coder c, room_result rr, room
+WHERE rr.round_id = 
+   (SELECT MAX(round_id) AS round_id
+    FROM round
+    WHERE round_type_id in (1,2,10,20) and calendar_id =
+    (SELECT MAX(calendar_id)
+     FROM round
+     WHERE round_type_id IN (1,2,10,20)))
+AND rr.division_id = @dn@
+AND r.round_id = rr.round_id
+AND c.coder_id = rr.coder_id
+AND con.contest_id = r.contest_id
+AND room.room_id = rr.room_id
+ORDER BY @sc@ @sd@

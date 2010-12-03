@@ -1,0 +1,9 @@
+select u.handle
+     , u.email as email_address
+  from google_oltp:room_result rr
+     , email_user u
+ where u.status='A'
+   and u.user_id = rr.coder_id
+   and rr.attended = 'Y'
+   and rr.advanced = 'N'
+   and rr.round_id in (5910)

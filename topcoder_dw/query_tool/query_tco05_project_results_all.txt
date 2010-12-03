@@ -1,0 +1,21 @@
+select pr.project_id
+     , pr.user_id
+     , c.handle
+     , pr.submit_timestamp
+     , pr.final_score
+     , pr.payment
+     , case when pr.placed = 0 or pr.placed is null then 999 else pr.placed end as sort_column
+     , pr.submit_ind
+     , p.viewable_category_ind
+  from tcs_dw:project_result pr
+     , coder c
+     , tcs_dw:user_event_xref uex
+     , tcs_dw:project p
+ where pr.project_id = @pj@
+   and pr.project_id = p.project_id
+   and c.coder_id = pr.user_id
+   and uex.user_id = c.coder_id
+   and uex.create_date <= inquire_timestamp
+   and uex.event_id = 4
+   and c.status = 'A'
+ order by 7 asc, 6 desc

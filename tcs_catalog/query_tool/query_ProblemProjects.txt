@@ -1,0 +1,34 @@
+select projtl.name as type
+     , pcl.name as category
+     , (case when pcl.project_type_id = 1 then cat.category_name else 'N/A' end) as language
+     , '<a href=https://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>' || pi6.value || '</a>' as component
+     , pi7.value as version
+     , ptl.name as phase
+     , current::datetime year to minute - pp.scheduled_end_time::datetime year to minute days_late
+     , p.project_id
+ from project p
+    , project_info pi5
+    , project_info pi6
+    , project_info pi7
+    , project_phase pp
+    , phase_type_lu ptl
+    , categories cat
+    , project_category_lu pcl
+    , project_type_lu projtl
+ where p.project_status_id = 1
+   and p.project_category_id != 27 -- Don't show specification reviews.
+   and p.project_id not in (select contest_id from contest_eligibility)
+   and p.project_id = pi5.project_id
+   and pi5.project_info_type_id = 5
+   and pi5.value::integer = cat.category_id
+   and p.project_id = pi6.project_id
+   and pi6.project_info_type_id = 6
+   and p.project_id = pi7.project_id
+   and pi7.project_info_type_id = 7
+   and p.project_id = pp.project_id
+   and pp.phase_status_id = 2
+   and pp.scheduled_end_time < current
+   and pp.phase_type_id = ptl.phase_type_id
+   and p.project_category_id = pcl.project_category_id
+   and pcl.project_type_id = projtl.project_type_id
+order by 7 desc, 1;

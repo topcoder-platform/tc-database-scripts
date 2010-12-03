@@ -1,0 +1,10 @@
+
+SELECT i.input_id AS input_id,
+i.input_code AS input_code,
+i.input_desc AS input_desc
+FROM command_query_xref AS cq,
+query_input_xref AS qi,
+input_lu AS i
+WHERE cq.query_id = qi.query_id
+AND qi.input_id = i.input_id
+AND cq.command_id = @ci@

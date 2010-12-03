@@ -1,0 +1,18 @@
+select '' as field, old_value, new_value, timestamp
+  from audit_coder
+ where user_id = @cr@
+   and column_name = 'CODER_ADDRESS'
+union
+select column_name as field
+   , case when column_name = 'ADDRESS_COUNTRY' 
+            then (select country_name from country where country_code = old_value) 
+            else old_value end as old_value
+  , case when column_name = 'ADDRESS_COUNTRY' 
+            then (select country_name from country where country_code = new_value) 
+            else new_value end as new_value
+  , timestamp
+ from common_oltp:audit_user
+ where column_name in ('ADDRESS1', 'ADDRESS2', 'ADDRESS3', 'ADDRESS_CITY', 'ADDRESS_STATE',
+'ADDRESS_PROVINCE','ADDRESS_ZIP', 'ADDRESS_COUNTRY')
+ and user_id = @cr@
+order by timestamp

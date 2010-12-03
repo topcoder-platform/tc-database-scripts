@@ -1,0 +1,10 @@
+SELECT cd.document_id,
+	cd.document_name,
+	cd.url,
+	cd.document_type_id,
+	dt.description
+FROM comp_documentation cd,
+     doc_types dt
+WHERE cd.comp_vers_id = @cv@
+  and cd.document_type_id = dt.document_type_id;
+  

@@ -1,0 +1,23 @@
+SELECT 'pm-project-calendar-' || p.project_id || '@topcoder.com' AS uid
+     , TO_CHAR(min(pp.scheduled_start_time), '%Y%m%dT%H%M%S') AS start_time
+     , TO_CHAR(max(pp.scheduled_end_time), '%Y%m%dT%H%M%S') AS end_time
+     , pi6.value || ' - ' || pcl.name AS summary
+     , 'Online Review project:\nhttp://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id AS description
+     , 'http://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id AS url
+  FROM resource_info ri
+     , resource r
+     , project p
+     , project_info pi6
+     , project_phase pp
+     , project_category_lu pcl
+ WHERE ri.resource_info_type_id = 1
+   AND ri.value::integer = @uid@
+   AND ri.resource_id = r.resource_id
+   AND r.resource_role_id IN (12, 13)
+   AND r.project_id = p.project_id
+   AND p.project_status_id = 1
+   AND p.project_id = pi6.project_id
+   AND pi6.project_info_type_id = 6
+   AND p.project_id = pp.project_id
+   AND p.project_category_id = pcl.project_category_id
+group by 1, 4, 5, 6;

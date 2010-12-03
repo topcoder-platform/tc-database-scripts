@@ -1,0 +1,17 @@
+SELECT rr.round_id, 
+r.name,
+r.contest_id,
+cal.date,
+c.name,
+rr.room_placed, 
+rr.paid,
+rr.room_id,
+rr.payment_type_desc
+FROM contest c, round r, calendar cal, room_result rr
+WHERE rr.coder_id = @cr@
+AND rr.paid > 0.0
+AND r.round_id = rr.round_id
+AND c.contest_id = r.contest_id
+AND cal.calendar_id = r.calendar_id
+AND r.round_type_id IN (1,2,10)
+ORDER BY @sc@ @sd@

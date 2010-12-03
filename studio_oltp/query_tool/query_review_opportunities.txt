@@ -1,0 +1,9 @@
+select ctl.contest_type_desc, c.name, c.start_time, c.contest_id, sr.spec_review_id, srrx.review_user_id
+from contest c, contest_type_lu ctl, spec_review sr, outer (spec_review_reviewer_xref srrx)
+where c.contest_type_id = ctl.contest_type_id
+and c.contest_id = sr.contest_id and sr.is_studio = 1
+and sr.review_status_type_id in (1,2, 3, 4, 5) 
+and sr.spec_review_id = srrx.spec_review_id
+and srrx.is_active = 1
+and c.start_time > current and date(c.start_time) <= date(current) + 2
+order by c.start_time desc

@@ -1,0 +1,4 @@
+select distinct u.handle, e.address as email_address
+  from gcji06_oltp:user u, gcji06_oltp:email e
+ where u.user_id = e.user_id
+   and u.status = 'A'

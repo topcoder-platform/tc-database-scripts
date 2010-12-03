@@ -1,0 +1,16 @@
+SELECT con.name,
+r.name,
+ro.name,
+c.handle,
+r.forum_id,
+rt.algo_rating_type_id,
+ro.room_id
+FROM contest con, round r, room ro, coder c, round_type_lu rt, room_result rr
+WHERE c.coder_id = @cr@
+AND r.round_id = @rd@
+and r.round_id = rr.round_id
+and rr.coder_id = c.coder_id
+and rr.room_id = ro.room_id
+and rr.round_id = ro.round_id
+AND con.contest_id = r.contest_id
+AND rt.round_type_id = r.round_type_id

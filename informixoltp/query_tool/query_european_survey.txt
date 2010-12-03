@@ -1,0 +1,13 @@
+select q.question_text, r.response, co1.country_name country_of_residence, co2.country_name as country_to_represent
+from survey_question sq, question q, response r
+, address a, user_address_xref x, coder c, country co1, country co2
+where r.question_id = q.question_id
+and sq.question_id = q.question_id
+and sq.survey_id= 16640
+and x.user_id = r.user_id
+ and x.address_id = a.address_id
+and a.country_code = co1.country_code
+and c.coder_id = r.user_id
+and c.comp_country_code = co2.country_code
+
+order by q.question_id

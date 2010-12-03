@@ -1,0 +1,8 @@
+SELECT demographic_question_id
+     , demographic_answer_id
+     , demographic_answer_text
+     , sort
+  FROM demographic_answer
+ WHERE demographic_question_id = @dq@
+   AND status = 'A'
+ ORDER BY sort ASC

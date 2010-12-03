@@ -1,0 +1,11 @@
+select ctl.contest_type_desc as type
+     , c.name as contest
+     , csl.contest_status_desc as status
+     , c.start_time as start_time
+     , c.contest_id as studio_id
+  from contest c
+     , contest_status_lu csl
+     , contest_type_lu ctl
+ where c.contest_status_id = csl.contest_status_id
+   and c.contest_type_id = ctl.contest_type_id
+order by contest, type, start_time

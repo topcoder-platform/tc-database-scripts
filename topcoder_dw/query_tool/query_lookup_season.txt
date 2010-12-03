@@ -1,0 +1,5 @@
+select s.season_id, s.name
+from season s, contest c, round r
+where s.season_id = c.season_id
+and c.contest_id = r.contest_id
+and r.round_id = @rd@

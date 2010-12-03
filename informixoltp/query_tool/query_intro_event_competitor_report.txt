@@ -1,0 +1,66 @@
+select e.event_desc as event
+     , rs.start_time as round_start
+     , (select count(*) from room_result rr, current_school cs where cs.coder_id = rr.coder_id and cs.school_id = ie.school_id and rr.round_id = ie.competition_round_id and rr.attended = 'Y') as participants
+     , (select count(*) from room_result rr, current_school cs where rr.round_id = ie.competition_round_id  and cs.coder_id = rr.coder_id and cs.school_id = ie.school_id and rr.attended = 'Y' and rr.old_rating =0) as first_timers
+     , (select count(*) 
+             from coder c, room_result rr, current_school cs, event_registration er
+             where rr.round_id = ie.competition_round_id and rr.attended = 'Y' 
+              and rr.coder_id = c.coder_id 
+              and cs.coder_id = c.coder_id
+              and er.event_id = ea.event_id 
+              and er.user_id = c.coder_id
+              and er.eligible_ind = 1
+              --and cs.school_id = ie.school_id 
+              and c.member_since > rs.start_time - 10 units day) as reg_in_10_days_prior_to_round_start
+     , (select count(*) 
+             from coder c, current_school cs
+             where cs.school_id = ie.school_id and cs.coder_id = c.coder_id
+               and c.member_since > rs.start_time
+               and c.member_since < (rs.start_time + 30 units day)) as reg_within_30_days_after
+     , (select count(*) 
+             from coder c, current_school cs
+             where cs.school_id = ie.school_id and cs.coder_id = c.coder_id
+               and c.member_since > rs.start_time
+               and c.member_since < rs.start_time + 30 units day
+               and exists (select 1 from room_result rr, round r
+                                  where r.round_id = rr.round_id
+                                   and r.round_type_id = 1
+                                  and rr.coder_id = c.coder_id 
+                                  and rr.attended = 'Y')) as reg_within_30_days_after_and_competed
+     , (select count(*) 
+          from room_result rr, current_school cs
+           where rr.round_id = ie.competition_round_id 
+             and rr.attended = 'Y'
+             and cs.coder_id = rr.coder_id
+             and cs.school_id = ie.school_id
+             and exists (select 1
+                          from room_result rr1, round_segment rs1, round r
+                          where rr1.round_id = rs1.round_id
+                            and r.round_id =rr1.round_id
+                            and rs.segment_id = 2 and rs1.start_time > rs.start_time
+                            and r.round_type_id =1
+                            and rr1.coder_id = rr.coder_id)) as participants_that_returned_30_days
+     , (select count(*) 
+          from room_result rr , current_school cs
+           where rr.round_id = ie.competition_round_id 
+             and rr.old_rating = 0
+             and cs.coder_id = rr.coder_id
+             and cs.school_id = ie.school_id
+             and rr.attended = 'Y'
+             and exists (select 1
+                          from room_result rr1, round_segment rs1, round r
+                          where rr1.round_id = rs1.round_id
+                            and r.round_id =rr1.round_id
+                            and rs.segment_id = 2 and rs1.start_time > rs.start_time
+                            and r.round_type_id =1
+                            and rr1.coder_id = rr.coder_id)) as first_timers_that_returned_30_days
+
+  from intro_event ie
+     , event e
+     , event ea
+     , round_segment rs
+ where ea.parent_event_id = e.event_id
+   and e.event_id = ie.event_id
+   and rs.round_id = ie.competition_round_id
+   and rs.segment_id = 2
+   and ie.school_id is not null

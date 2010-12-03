@@ -1,0 +1,35 @@
+SELECT (SELECT AVG(rr.final_points)
+          FROM room_result rr
+         WHERE rr.coder_id = cd.coder_id
+           AND rr.division_id = cd.division_id) AS avg_contest_points
+     , cd.problems_presented AS total_presented
+     , cd.problems_submitted AS total_submitted
+     , (CASE WHEN cd.problems_presented = 0 THEN 0.0
+             ELSE cd.problems_submitted / cd.problems_presented * 100
+             END) AS total_submit_percent
+     , cd.problems_correct AS correct
+     , (CASE WHEN cd.problems_submitted = 0 THEN 0.0
+             ELSE cd.problems_correct / cd.problems_submitted * 100
+             END) AS total_submission_accuracy
+     , (CASE WHEN cd.problems_presented = 0 THEN 0.0
+             ELSE cd.problems_correct / cd.problems_presented * 100
+             END) AS total_overall_accuracy
+     , (CASE WHEN cd.problems_submitted = 0 THEN 0.0
+             ELSE (cd.submission_points + cd.defense_points + cd.system_test_points) / cd.problems_submitted
+             END) AS avg_submission_points
+     , (CASE WHEN cd.problems_submitted = 0 THEN 0.0
+             ELSE (cd.submission_points + cd.defense_points + cd.system_test_points) / cd.problems_presented
+             END) AS avg_overall_points
+     , (CASE WHEN cd.problems_submitted = 0 THEN 0.0
+             ELSE (SELECT AVG(cp.time_elapsed)
+          FROM coder_problem cp
+         WHERE cp.coder_id = cd.coder_id
+           AND cp.division_id = cd.division_id
+           AND cp.end_status_id IN (140,150,160)) END) AS avg_time_elapsed
+  FROM coder_division cd
+     , coder c
+ WHERE (cd.coder_id = @mid@)
+   AND (cd.division_id = 1)
+   AND c.coder_id = cd.coder_id
+   AND c.status = 'A'
+   AND cd.algo_rating_type_id = 1
