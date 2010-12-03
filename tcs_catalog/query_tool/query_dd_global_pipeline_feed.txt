@@ -93,7 +93,7 @@ where p.project_status_id not in (3)
       WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
   and @software@ = 1 
   and ps.project_status_id not in (DECODE(@completed@,1,1,-1),DECODE(@completed@,1,2,-1),DECODE(@completed@,1,3,-1))
-  and ps.project_status_id in (DECODE(@cancelled@,1,4,-1),DECODE(@completed@,1,5,-1),DECODE(@completed@,1,6,-1),DECODE(@completed@,1,8,-1),DECODE(@completed@,1,9,-1),DECODE(@completed@,1,10,-1),DECODE(@completed@,1,11,-1))
+  and ps.project_status_id in (DECODE(@cancelled@,1,4,-1),DECODE(@cancelled@,1,5,-1),DECODE(@cancelled@,1,6,-1),DECODE(@cancelled@,1,8,-1),DECODE(@cancelled@,1,9,-1),DECODE(@cancelled@,1,10,-1),DECODE(@cancelled@,1,11,-1))
 UNION
 select 
 c.contest_id as project_id,
@@ -144,5 +144,5 @@ where c.contest_id = cc1.contest_id
   and c.start_time >= (TODAY - @days@)
   and @studio@ = 1 
   and cds.contest_detailed_status_id in (DECODE(@completed@,1,7,-1),DECODE(@completed@,1,8,-1),DECODE(@completed@,1,4,-1))
-  and cds.contest_detailed_status_id in (DECODE(@cancelled@,1,3,-1),DECODE(@completed@,1,16,-1),DECODE(@completed@,1,17,-1))
+  and cds.contest_detailed_status_id in (DECODE(@cancelled@,1,3,-1),DECODE(@cancelled@,1,16,-1),DECODE(@cancelled@,1,17,-1))
 order by 5 asc;
