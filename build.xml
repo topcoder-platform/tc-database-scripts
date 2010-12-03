@@ -42,14 +42,13 @@
 
   <macrodef name="updatetextcolumn">
     <attribute name="database"/>
-    <attribute name="branch" />
     <attribute name="outfile" />
     <attribute name="append" />
     <attribute name="failonerror" default="true" />
     <sequential>
-      <echo message="Update text column from file @{database}/@{branch}/query_tool/queries.txt" />
+      <echo message="Update text column from file @{database}/query_tool/queries.txt" />
       <java classname="com.topcoder.tools.UpdateTextColumn"
-          dir="@{database}/@{branch}/query_tool"
+          dir="@{database}/query_tool"
           fork="true"
           output="logs/@{outfile}" append="@{append}"
           failonerror="@{failonerror}">
@@ -57,8 +56,8 @@
         <arg line="F jdbc:informix-sqli://${database.server}:${database.port}/@{database}:informixserver=${INFORMIXSERVER};user=${database.username};password=${database.password};DB_LOCALE=${locale};CLIENT_LOCALE=${locale} queries.txt"/>
 
         <classpath>
-          <fileset file="tools/${tools_branch}/UpdateTextColumn/ifxjdbc.jar"/>
-          <fileset file="tools/${tools_branch}/UpdateTextColumn/UpdateTextColumn1.3.jar"/>
+          <fileset file="tools/UpdateTextColumn/ifxjdbc.jar"/>
+          <fileset file="tools/UpdateTextColumn/UpdateTextColumn1.3.jar"/>
         </classpath>
       </java>
     </sequential>
@@ -92,97 +91,97 @@
     <delete dir="logs" />
     <!-- create common_oltp -->
     <echo message="Creating database common_oltp" />
-    <downsizeDDL file="common_oltp/${common_oltp_branch}/01_common_oltp_main_schema.sql" database="common_oltp" />
+    <downsizeDDL file="common_oltp/01_common_oltp_main_schema.sql" database="common_oltp" />
     <dbaccess file="downsized_scripts/common_oltp/01_common_oltp_main_schema.sql" outfile="common_oltp.log" append="false" />
-    <dbaccess file="common_oltp/${common_oltp_branch}/02_common_oltp_data_setup.sql" outfile="common_oltp.log" append="true"  />
-    <dbaccess file="common_oltp/${common_oltp_branch}/03_common_oltp_constraints_and_indexes.sql" outfile="common_oltp.log" append="true"  />
-    <dbaccess file="common_oltp/${common_oltp_branch}/04_common_oltp_synonyms_procedures_and_triggers.sql" outfile="common_oltp.log" append="true"  />
-    <dbaccess file="common_oltp/${common_oltp_branch}/05_common_oltp_test_data.sql" outfile="common_oltp.log" append="true"  />
+    <dbaccess file="common_oltp/02_common_oltp_data_setup.sql" outfile="common_oltp.log" append="true"  />
+    <dbaccess file="common_oltp/03_common_oltp_constraints_and_indexes.sql" outfile="common_oltp.log" append="true"  />
+    <dbaccess file="common_oltp/04_common_oltp_synonyms_procedures_and_triggers.sql" outfile="common_oltp.log" append="true"  />
+    <dbaccess file="common_oltp/05_common_oltp_test_data.sql" outfile="common_oltp.log" append="true"  />
 
     <!-- create time_oltp -->
     <echo message="Creating database time_oltp" />
-    <downsizeDDL file="time_oltp/${time_oltp_branch}/01_time_oltp_main_schema.sql" database="time_oltp" />
+    <downsizeDDL file="time_oltp/01_time_oltp_main_schema.sql" database="time_oltp" />
     <dbaccess file="downsized_scripts/time_oltp/01_time_oltp_main_schema.sql" outfile="time_oltp.log" append="false" />
-    <dbaccess file="time_oltp/${time_oltp_branch}/02_time_oltp_data_setup.sql" outfile="time_oltp.log" append="true"  />
-    <dbaccess file="time_oltp/${time_oltp_branch}/03_time_oltp_constraints_and_indexes.sql" outfile="time_oltp.log" append="true"  />
-    <dbaccess file="time_oltp/${time_oltp_branch}/04_time_oltp_synonyms_procedures_and_triggers.sql" outfile="time_oltp.log" append="true"  />
+    <dbaccess file="time_oltp/02_time_oltp_data_setup.sql" outfile="time_oltp.log" append="true"  />
+    <dbaccess file="time_oltp/03_time_oltp_constraints_and_indexes.sql" outfile="time_oltp.log" append="true"  />
+    <dbaccess file="time_oltp/04_time_oltp_synonyms_procedures_and_triggers.sql" outfile="time_oltp.log" append="true"  />
 
     <!-- create corporate_oltp -->
     <echo message="Creating database corporate_oltp" />
-    <downsizeDDL file="corporate_oltp/${corporate_oltp_branch}/01_corporate_oltp_main_schema.sql" database="corporate_oltp" />
+    <downsizeDDL file="corporate_oltp/01_corporate_oltp_main_schema.sql" database="corporate_oltp" />
     <dbaccess file="downsized_scripts/corporate_oltp/01_corporate_oltp_main_schema.sql" outfile="corporate_oltp.log" append="false"/>
-    <dbaccess file="corporate_oltp/${corporate_oltp_branch}/02_corporate_oltp_data_setup.sql" outfile="corporate_oltp.log" append="true" />
-    <dbaccess file="corporate_oltp/${corporate_oltp_branch}/03_corporate_oltp_constraints_and_indexes.sql" outfile="corporate_oltp.log" append="true" />
-    <dbaccess file="corporate_oltp/${corporate_oltp_branch}/04_corporate_oltp_synonyms_procedures_and_triggers.sql" outfile="corporate_oltp.log" append="true" />
+    <dbaccess file="corporate_oltp/02_corporate_oltp_data_setup.sql" outfile="corporate_oltp.log" append="true" />
+    <dbaccess file="corporate_oltp/03_corporate_oltp_constraints_and_indexes.sql" outfile="corporate_oltp.log" append="true" />
+    <dbaccess file="corporate_oltp/04_corporate_oltp_synonyms_procedures_and_triggers.sql" outfile="corporate_oltp.log" append="true" />
 
     <!-- started creating jive -->
     <echo message="Creating database jive" />
-    <downsizeDDL file="jive/${jive_branch}/01_jive_main_schema.sql" database="jive" />
+    <downsizeDDL file="jive/01_jive_main_schema.sql" database="jive" />
     <dbaccess file="downsized_scripts/jive/01_jive_main_schema.sql" outfile="jive.log" append="false" />
-    <dbaccess file="jive/${jive_branch}/02_jive_data_setup.sql" outfile="jive.log" append="true"  />
-    <dbaccess file="jive/${jive_branch}/03_jive_constraints_and_indexes.sql" outfile="jive.log" append="true"  />
+    <dbaccess file="jive/02_jive_data_setup.sql" outfile="jive.log" append="true"  />
+    <dbaccess file="jive/03_jive_constraints_and_indexes.sql" outfile="jive.log" append="true"  />
  	
     <!-- create tcs_catalog. Must be called before informixoltp is created. -->
     <echo message="Creating database tcs_catalog" />
-    <downsizeDDL file="tcs_catalog/${tcs_catalog_branch}/01_tcs_catalog_main_schema.sql" database="tcs_catalog" />
+    <downsizeDDL file="tcs_catalog/01_tcs_catalog_main_schema.sql" database="tcs_catalog" />
     <dbaccess file="downsized_scripts/tcs_catalog/01_tcs_catalog_main_schema.sql" outfile="tcs_catalog.log" append="false" />
-    <dbaccess file="tcs_catalog/${tcs_catalog_branch}/02_tcs_catalog_data_setup.sql" outfile="tcs_catalog.log" append="true" />
-    <updatetextcolumn database="tcs_catalog" outfile="tcs_catalog.log" append="true" branch="${tcs_catalog_branch}" />
-    <dbaccess file="tcs_catalog/${tcs_catalog_branch}/03_tcs_catalog_constraints_and_indexes.sql" outfile="tcs_catalog.log" append="true" />
-    <dbaccess file="tcs_catalog/${tcs_catalog_branch}/04_tcs_catalog_synonyms_procedures_and_triggers.sql" outfile="tcs_catalog.log" append="true" />
-    <dbaccess file="tcs_catalog/${tcs_catalog_branch}/05_tcs_catalog_test_data.sql" outfile="tcs_catalog.log" append="true" />
-    <dbaccess file="tcs_catalog/${tcs_catalog_branch}/06_tcs_catalog_test_project_data.sql" outfile="tcs_catalog.log" append="true" />
+    <dbaccess file="tcs_catalog/02_tcs_catalog_data_setup.sql" outfile="tcs_catalog.log" append="true" />
+    <updatetextcolumn database="tcs_catalog" outfile="tcs_catalog.log" append="true" />
+    <dbaccess file="tcs_catalog/03_tcs_catalog_constraints_and_indexes.sql" outfile="tcs_catalog.log" append="true" />
+    <dbaccess file="tcs_catalog/04_tcs_catalog_synonyms_procedures_and_triggers.sql" outfile="tcs_catalog.log" append="true" />
+    <dbaccess file="tcs_catalog/05_tcs_catalog_test_data.sql" outfile="tcs_catalog.log" append="true" />
+    <dbaccess file="tcs_catalog/06_tcs_catalog_test_project_data.sql" outfile="tcs_catalog.log" append="true" />
 
     <!-- create informixoltp -->
     <echo message="Creating database informixoltp" />
-    <downsizeDDL file="informixoltp/${informixoltp_branch}/01_informixoltp_main_schema.sql" database="informixoltp" />
+    <downsizeDDL file="informixoltp/01_informixoltp_main_schema.sql" database="informixoltp" />
     <dbaccess file="downsized_scripts/informixoltp/01_informixoltp_main_schema.sql" outfile="informixoltp.log" append="false"  />
-    <dbaccess file="informixoltp/${informixoltp_branch}/02_informixoltp_data_setup.sql" outfile="informixoltp.log" append="true" />
-    <updatetextcolumn database="informixoltp" outfile="informixoltp.log" append="true" branch="${informixoltp_branch}"  />
-    <dbaccess file="informixoltp/${informixoltp_branch}/03_informixoltp_constraints_and_indexes.sql" outfile="informixoltp.log" append="true" />
-    <dbaccess file="informixoltp/${informixoltp_branch}/04_informixoltp_synonyms_procedures_and_triggers.sql" outfile="informixoltp.log" append="true" />
-    <dbaccess file="informixoltp/${informixoltp_branch}/05_informixoltp_test_data.sql" outfile="informixoltp.log" append="true" />
+    <dbaccess file="informixoltp/02_informixoltp_data_setup.sql" outfile="informixoltp.log" append="true" />
+    <updatetextcolumn database="informixoltp" outfile="informixoltp.log" append="true"  />
+    <dbaccess file="informixoltp/03_informixoltp_constraints_and_indexes.sql" outfile="informixoltp.log" append="true" />
+    <dbaccess file="informixoltp/04_informixoltp_synonyms_procedures_and_triggers.sql" outfile="informixoltp.log" append="true" />
+    <dbaccess file="informixoltp/05_informixoltp_test_data.sql" outfile="informixoltp.log" append="true" />
 
     <!-- create studio_oltp -->
     <echo message="Creating database studio_oltp" />
-    <downsizeDDL file="studio_oltp/${studio_oltp_branch}/01_studio_oltp_main_schema.sql" database="studio_oltp" />
+    <downsizeDDL file="studio_oltp/01_studio_oltp_main_schema.sql" database="studio_oltp" />
     <dbaccess file="downsized_scripts/studio_oltp/01_studio_oltp_main_schema.sql" outfile="studio_oltp.log" append="false" />
-    <dbaccess file="studio_oltp/${studio_oltp_branch}/02_studio_oltp_data_setup.sql" outfile="studio_oltp.log" append="true" />
-    <updatetextcolumn database="studio_oltp" outfile="studio_oltp.log" append="true" branch="${studio_oltp_branch}" />
-    <dbaccess file="studio_oltp/${studio_oltp_branch}/03_studio_oltp_constraints_and_indexes.sql" outfile="studio_oltp.log" append="true" />
-    <dbaccess file="studio_oltp/${studio_oltp_branch}/04_studio_oltp_synonyms_procedures_and_triggers.sql" outfile="studio_oltp.log" append="true" />
+    <dbaccess file="studio_oltp/02_studio_oltp_data_setup.sql" outfile="studio_oltp.log" append="true" />
+    <updatetextcolumn database="studio_oltp" outfile="studio_oltp.log" append="true" />
+    <dbaccess file="studio_oltp/03_studio_oltp_constraints_and_indexes.sql" outfile="studio_oltp.log" append="true" />
+    <dbaccess file="studio_oltp/04_studio_oltp_synonyms_procedures_and_triggers.sql" outfile="studio_oltp.log" append="true" />
 
     <!-- create common_dw -->
     <echo message="Creating database common_dw" />
-    <downsizeDDL file="common_dw/${common_dw_branch}/01_common_dw_main_schema.sql" database="common_dw" />
+    <downsizeDDL file="common_dw/01_common_dw_main_schema.sql" database="common_dw" />
     <dbaccess file="downsized_scripts/common_dw/01_common_dw_main_schema.sql" outfile="common_dw.log" append="false"  />
-    <dbaccess file="common_dw/${common_dw_branch}/02_common_dw_data_setup.sql" outfile="common_dw.log" append="true"  />
+    <dbaccess file="common_dw/02_common_dw_data_setup.sql" outfile="common_dw.log" append="true"  />
 
     <!-- started creating tcs_dw -->
     <echo message="Started creating database tcs_dw" />
-    <downsizeDDL file="tcs_dw/${tcs_dw_branch}/01_tcs_dw_main_schema.sql" database="tcs_dw" />
+    <downsizeDDL file="tcs_dw/01_tcs_dw_main_schema.sql" database="tcs_dw" />
     <dbaccess file="downsized_scripts/tcs_dw/01_tcs_dw_main_schema.sql" outfile="tcs_dw.log" append="false" />
 
     <!-- create topcoder_dw -->
     <echo message="Creating database topcoder_dw" />
-    <downsizeDDL file="topcoder_dw/${topcoder_dw_branch}/01_topcoder_dw_main_schema.sql" database="topcoder_dw" />
+    <downsizeDDL file="topcoder_dw/01_topcoder_dw_main_schema.sql" database="topcoder_dw" />
     <dbaccess file="downsized_scripts/topcoder_dw/01_topcoder_dw_main_schema.sql" outfile="topcoder_dw.log" append="false"   />
-    <dbaccess file="topcoder_dw/${topcoder_dw_branch}/02_topcoder_dw_data_setup.sql" outfile="topcoder_dw.log" append="true"  />
-    <updatetextcolumn database="topcoder_dw" outfile="topcoder_dw.log" append="true" branch="${topcoder_dw_branch}" />
-    <dbaccess file="topcoder_dw/${topcoder_dw_branch}/03_topcoder_dw_constraints_and_indexes.sql" outfile="topcoder_dw.log" append="true"  />
-    <dbaccess file="topcoder_dw/${topcoder_dw_branch}/04_topcoder_dw_synonyms_procedures_and_triggers.sql" outfile="topcoder_dw.log" append="true"  />
+    <dbaccess file="topcoder_dw/02_topcoder_dw_data_setup.sql" outfile="topcoder_dw.log" append="true"  />
+    <updatetextcolumn database="topcoder_dw" outfile="topcoder_dw.log" append="true" />
+    <dbaccess file="topcoder_dw/03_topcoder_dw_constraints_and_indexes.sql" outfile="topcoder_dw.log" append="true"  />
+    <dbaccess file="topcoder_dw/04_topcoder_dw_synonyms_procedures_and_triggers.sql" outfile="topcoder_dw.log" append="true"  />
 
     <!-- completing creating tcs_dw -->
     <echo message="Completing creating database tcs_dw" />
-    <dbaccess file="tcs_dw/${tcs_dw_branch}/02_tcs_dw_data_setup.sql" outfile="tcs_dw.log" append="true"  />
-    <updatetextcolumn database="tcs_dw" outfile="tcs_dw.log" append="true" branch="${tcs_dw_branch}" />
-    <dbaccess file="tcs_dw/${tcs_dw_branch}/03_tcs_dw_constraints_and_indexes.sql" outfile="tcs_dw.log" append="true"  />
-    <dbaccess file="tcs_dw/${tcs_dw_branch}/04_tcs_dw_synonyms_procedures_and_triggers.sql" outfile="tcs_dw.log" append="true"  />
-    <dbaccess file="tcs_dw/${tcs_dw_branch}/05_tcs_dw_test_data.sql" outfile="tcs_dw.log" append="true"  />
+    <dbaccess file="tcs_dw/02_tcs_dw_data_setup.sql" outfile="tcs_dw.log" append="true"  />
+    <updatetextcolumn database="tcs_dw" outfile="tcs_dw.log" append="true" />
+    <dbaccess file="tcs_dw/03_tcs_dw_constraints_and_indexes.sql" outfile="tcs_dw.log" append="true"  />
+    <dbaccess file="tcs_dw/04_tcs_dw_synonyms_procedures_and_triggers.sql" outfile="tcs_dw.log" append="true"  />
+    <dbaccess file="tcs_dw/05_tcs_dw_test_data.sql" outfile="tcs_dw.log" append="true"  />
 	
 	<!-- completing creating jive -->
-	<dbaccess file="jive/${jive_branch}/04_jive_synonyms_procedures_and_triggers.sql" outfile="jive.log" append="true"  />
-    <dbaccess file="jive/${jive_branch}/05_jive_test_data.sql" outfile="jive.log" append="true"  />
+	<dbaccess file="jive/04_jive_synonyms_procedures_and_triggers.sql" outfile="jive.log" append="true"  />
+    <dbaccess file="jive/05_jive_test_data.sql" outfile="jive.log" append="true"  />
 
 	    
   </target>
@@ -190,7 +189,7 @@
   <!-- Drops db schema -->
   <target name="drop_db" if="dropdatabase" depends="tokenize">
     <echo message="Dropping all databases" />
-    <dbaccess file="tools/${tools_branch}/dropDatabase.sql" outfile="dropDatabase.log" append="false" failonerror="false" />
+    <dbaccess file="tools/dropDatabase.sql" outfile="dropDatabase.log" append="false" failonerror="false" />
   </target>
   
   <!-- update database scripts -->

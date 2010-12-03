@@ -32,20 +32,6 @@ svn.password=xxx
 # if set, database scripts will be updated before setting up db.
 # svn.update=yes
 
-# branches to use when setting up databases. Use branches/branch_name (or tags/tag_name) if you don't want to use trunk.
-common_dw_branch=trunk
-common_oltp_branch=trunk
-corporate_oltp_branch=trunk
-informixoltp_branch=trunk
-studio_oltp_branch=trunk
-tcs_catalog_branch=trunk
-tcs_dw_branch=trunk
-time_oltp_branch=trunk
-topcoder_dw_branch=trunk
-jive_branch=trunk
-tools_branch=trunk
-
-
 # Important, a security lock to avoid dropping all databases
 dropdatabase=yes
 
