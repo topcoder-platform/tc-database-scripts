@@ -1,0 +1,148 @@
+select p.project_id,
+       ttc.name client,
+       ttp.name billing_project,
+       tdp.name project_name,
+       (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
+       (select max (nvl(actual_end_time, scheduled_end_time)) from project_phase where phase_type_id = 10 and project_id = p.project_id) completion_date,
+       DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
+       pi.value as contest_name,
+       pi2.value version,
+       CASE 
+       WHEN ps.project_status_id not in (1,2,3)
+          THEN ps.name --'Completed'
+       WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
+          THEN 'Scheduled'
+       WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
+          THEN 'Live'
+       ELSE
+          'Live'
+       END as contest_status,
+       '<a href=http://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>' || pi.value || '</a>' as contest_link,
+       'http://www.topcoder.com/tc?module=ProjectDetail&pj=' || p.project_id as contest_details,
+ (SELECT COUNT(*) FROM resource r, resource_info ri WHERE ri.resource_id = r.resource_id AND ri.resource_info_type_id = 4 AND r.project_id = p.project_id AND r.resource_role_id = 1 AND ri.value <> 'N/A') as total_rated_registrants,
+ ((SELECT COUNT(*)
+  FROM resource
+  where resource_role_id = 1
+  and project_id = p.project_id)
+ -  
+ (SELECT COUNT(*)
+  FROM resource r, resource_info ri
+  WHERE ri.resource_id = r.resource_id
+  AND ri.resource_info_type_id = 4
+  AND r.project_id = p.project_id
+  AND r.resource_role_id = 1
+  AND ri.value <> 'N/A'))
+  as total_unrated_registrants,
+ (SELECT COUNT(*) 
+  FROM resource 
+  WHERE project_id = p.project_id 
+  AND resource_role_id = 1) 
+  as total_inquiries,
+ (SELECT COUNT(*)
+  FROM submission s, upload u
+  WHERE u.upload_id = s.upload_id
+  AND u.project_id = p.project_id
+  and s.submission_type_id = 1
+  and s.submission_status_id in (1,2,3,4))
+  as total_submissions,
+ (SELECT count(DISTINCT ri.value) 
+  FROM resource r, resource_info ri 
+  WHERE r.project_id = p.project_id 
+  AND r.resource_role_id in (2, 3, 4, 5, 6, 7, 8, 9)
+  AND r.resource_id = ri.resource_id
+  AND ri.resource_info_type_id = 2)
+  as total_reviewers,
+  (select max (scheduled_end_time) from project_phase where phase_type_id = 1 and project_id = p.project_id ) as registration_end,
+  (select max (scheduled_end_time) from project_phase where phase_type_id = 2 and project_id = p.project_id ) as submission_end,
+  (select max(value) from project_info pif where p.project_id = pif.project_id and pif.project_info_type_id = 4 )::INTEGER as forum_id,
+  (select max(dest_project_id) from linked_project_xref where link_type_id = 3 and source_project_id = p.project_id) as spec_review_id,
+  DECODE((select dest_project_id from linked_project_xref where link_type_id = 5 and source_project_id = p.project_id), null, 'No', 'Yes') as repost,
+  NVL((select u.handle from project_result pr, user u where pr.project_id = p.project_id and pr.user_id = u.user_id and pr.placed = 1), '***') as first_place,
+  NVL((select u.handle from project_result pr, user u where pr.project_id = p.project_id and pr.user_id = u.user_id and pr.placed = 2), '***') as second_place,
+  (select dest_project_id from linked_project_xref where link_type_id = 5 and source_project_id = p.project_id) as original_id,
+  (select value from project_info pi where project_info_type_id = 36 and pi.project_id = p.project_id)::integer as first_place_prize,
+  'http://www.topcoder.com/tc?module=DownloadSubmission&st=1&ph=' || p.project_category_id + 111 || '&pj=' || p.project_id as download_link
+from project p,
+     outer tc_direct_project tdp,
+     project_status_lu ps,
+     project_category_lu pc,
+     project_info pi, -- project name
+     project_info pi2, -- project version
+     project_info pi3, -- billing account
+     time_oltp:project ttp,
+     time_oltp:client_project ttcp,
+     time_oltp:client ttc
+where p.project_status_id not in (3)
+  and p.project_status_id = ps.project_status_id
+  and p.project_category_id = pc.project_category_id
+  and p.project_category_id not in (27) --exclude spec reviews
+  and p.project_id = pi.project_id
+  and pi.project_info_type_id = 6
+  and p.project_id = pi2.project_id
+  and pi2.project_info_type_id = 7
+  and p.project_id = pi3.project_id
+  and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = DECODE(@clientid@, -1, ttc.client_id, @clientid@) --client id param
+  and ttp.project_id = DECODE(@billingaccountid@, -1, ttp.project_id, @billingaccountid@) --tt_project id param
+  and p.tc_direct_project_id = tdp.project_id
+  and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) >= (TODAY - @days@)
+  AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+      WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+  and @software@ = 1 
+  and ps.project_status_id not in (DECODE(@completed@,1,1,-1),DECODE(@completed@,1,2,-1),DECODE(@completed@,1,3,-1))
+  and ps.project_status_id in (DECODE(@cancelled@,1,4,-1),DECODE(@completed@,1,5,-1),DECODE(@completed@,1,6,-1),DECODE(@completed@,1,8,-1),DECODE(@completed@,1,9,-1),DECODE(@completed@,1,10,-1),DECODE(@completed@,1,11,-1))
+UNION
+select 
+c.contest_id as project_id,
+NVL(ttc.name, 'One-Off') client,
+NVL(ttp.name, 'One-Off' ) billing_project,
+NVL(tdp.name, 'One-Off') project_name,
+c.start_time launch_date,
+c.end_time completion_date,
+cc.contest_type_desc category,
+c.name as contest_name,
+'1.0' version,
+DECODE(cds.contest_detailed_status_id, 14, 'Cancelled', 3, 'Cancelled', 13, 'Cancelled', 11, 'Cancelled', 4, 'Cancelled', 7, 'Cancelled', 17, 'Cancelled', 15, 'Scheduled', 1, 'Scheduled', 6, 'Live', 5, 'Live', 2, 'Live', 12, 'Live', 10, 'Live', cds.name) contest_status,
+'<a href="http://studio.topcoder.com/?module=ViewContestDetails&ct=' || c.contest_id || '">' || c.name || '</a>' as contest_link,
+'http://studio.topcoder.com/?module=ViewContestDetails&ct=' || c.contest_id as contest_details,
+0 total_rated_registrants,
+(select count(*) from studio_oltp:contest_registration where contest_id = c.contest_id) total_unrated_registrants,
+(select count(*) from studio_oltp:contest_registration where contest_id = c.contest_id) total_inquiries,
+(select count(*) from studio_oltp:submission where contest_id = c.contest_id and submission_status_id = 1 and rank <= (select property_value from studio_oltp:contest_config where contest_id = c.contest_id and property_id = 8 )) total_submissions,
+0 total_reviewers,
+c.end_time registration_end,
+c.end_time submission_end,
+c.forum_id forum_id,
+0 as spec_review_link,
+'No' as repost,
+NVL((select u.handle from studio_oltp:contest_result cr, studio_oltp:submission s, user u where c.contest_id = cr.contest_id and cr.submission_id = s.submission_id and s.submitter_id = u.user_id and cr.placed = 1), '***') as first_place,
+NVL((select u.handle from studio_oltp:contest_result cr, studio_oltp:submission s, user u where c.contest_id = cr.contest_id and cr.submission_id = s.submission_id and s.submitter_id = u.user_id and cr.placed = 2), '***') as second_place,
+''::integer as original_id,
+(select pr.amount from studio_oltp:contest_prize_xref px, studio_oltp:prize pr where px.prize_id = pr.prize_id and pr.place = 1 and px.contest_id = c.contest_id) as first_place_prize,
+'http://studio.topcoder.com/?module=ViewContestResults&ct=' || c.contest_id as download_link
+from studio_oltp:contest c,
+     studio_oltp:contest_config cc1, time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc,
+     tc_direct_project tdp,
+     studio_oltp:contest_type_lu cc,
+     studio_oltp:contest_status_lu cs,
+     studio_oltp:contest_detailed_status_lu cds
+where c.contest_id = cc1.contest_id
+  and cc1.property_id = 28
+  and cc1.property_value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = DECODE(@clientid@, -1, ttc.client_id, @clientid@) --client id param
+  and ttp.project_id = DECODE(@billingaccountid@, -1, ttp.project_id, @billingaccountid@) --tt_project id param
+  and c.tc_direct_project_id = tdp.project_id
+  and c.contest_status_id in (1,2,4,10,11)
+  and c.contest_status_id = cs.contest_status_id
+  and c.contest_detailed_status_id = cds.contest_detailed_status_id
+  and c.contest_type_id = cc.contest_type_id
+  and c.start_time >= (TODAY - @days@)
+  and @studio@ = 1 
+  and cds.contest_detailed_status_id in (DECODE(@completed@,1,7,-1),DECODE(@completed@,1,8,-1),DECODE(@completed@,1,4,-1))
+  and cds.contest_detailed_status_id in (DECODE(@cancelled@,1,3,-1),DECODE(@completed@,1,16,-1),DECODE(@completed@,1,17,-1))
+order by 5 asc;
