@@ -12,7 +12,6 @@
   <!-- EXECUTION TAGS -->
   <property name="debug" value="off" />
   <property name="verbose" value="no" />
-  <property name="scripts.base.repository" value="https://coder.topcoder.com/internal/database/scripts/" />
   <property name="connfile" value="connfile.sql" />
   <property name="locale" value="en_us.utf8" />
 
