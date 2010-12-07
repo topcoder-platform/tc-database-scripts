@@ -1,0 +1,6 @@
+SELECT t.phase_type_id, t.name AS phase_type_name, ph.project_phase_id, ph.project_id
+FROM project_phase ph
+INNER JOIN phase_type_lu t ON ph.phase_type_id = t.phase_type_id
+WHERE ph.phase_status_id = 2
+AND   ph.project_id IN (@pids@)
+ORDER BY ph.scheduled_end_time
