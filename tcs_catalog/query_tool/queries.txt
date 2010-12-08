@@ -275,7 +275,6 @@ query_pipeline_drafts_ratio_manager.txt|UPDATE query SET text = ? WHERE query_id
 query_pipeline_drafts_ratio_project.txt|UPDATE query SET text = ? WHERE query_id = 30862
 query_tc_copilot_contests.txt|UPDATE query SET text = ? WHERE query_id = 30866
 query_tc_copilot_projects.txt|UPDATE query SET text = ? WHERE query_id = 30867
-
 query_current_project_phases.txt|UPDATE query SET text = ? WHERE query_id = 30876 
 
 
