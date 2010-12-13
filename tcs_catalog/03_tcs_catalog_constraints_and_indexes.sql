@@ -805,6 +805,10 @@ alter table 'informix'.late_deliverable add constraint primary key
   (late_deliverable_id)
   constraint pk_late_deliverable;
 
+alter table 'informix'.project_reliability add constraint primary key
+    (project_id, user_id)
+    constraint pk_project_reliability;
+
 alter table 'informix'.comp_categories add constraint foreign key 
 	(category_id)
 	references 'informix'.categories
@@ -1805,6 +1809,12 @@ alter table 'informix'.late_deliverable add constraint foreign key
     references 'informix'.deliverable_lu
     (deliverable_id)
     constraint fk_latedeliverable_deliverablelu_deliverableid;
+
+alter table 'informix'.project_reliability add constraint foreign key 
+	(project_id)
+	references 'informix'.project
+	(project_id) 
+	constraint fk_projectreliability_project_projectid;
 
 ALTER TABLE copilot_project ADD CONSTRAINT
     FOREIGN KEY (copilot_project_status_id )

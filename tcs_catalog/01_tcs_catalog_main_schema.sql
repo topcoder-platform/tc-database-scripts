@@ -2421,6 +2421,19 @@ extent size 3000 next size 3000
 lock mode row;
 revoke all on "informix".late_deliverable from public as "informix";
 
+CREATE TABLE "informix".project_reliability (
+    project_id INT NOT NULL,
+    user_id DECIMAL(10,0) NOT NULL,
+    resolution_date DATETIME YEAR TO FRACTION NOT NULL,
+    reliability_before_resolution DECIMAL(5,4),
+    reliability_after_resolution DECIMAL(5,4) NOT NULL,
+    reliability_on_registration DECIMAL(5,4),
+    reliable_ind DECIMAL(1,0) NOT NULL
+)
+extent size 5000 next size 5000
+lock mode row;
+revoke all on "informix".project_reliability from public as "informix";
+
 CREATE TABLE copilot_project_status (
   copilot_project_status_id DECIMAL(10,0) NOT NULL,
   name VARCHAR(10) NOT NULL,
@@ -4264,6 +4277,7 @@ grant select on "informix".PROJECT_USER_AUDIT_SEQ to "public" as "informix";
 grant select,insert,update,delete on "informix".client_billing_config to public as "informix";
 grant select,insert,update,delete on "informix".client_billing_config_type_lu to public as "informix";
 grant select,insert,update,delete on "informix".late_deliverable to public as "informix";
+grant select,insert,update,delete on "informix".project_reliability to public as "informix";
 
 grant select,insert,update,delete on "informix".copilot_project_status to public as informix;
 grant select,insert,update,delete on "informix".copilot_type to public as informix;
