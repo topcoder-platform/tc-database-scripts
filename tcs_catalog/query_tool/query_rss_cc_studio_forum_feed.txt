@@ -1,0 +1,21 @@
+select first 10 j.subject as title,  
+       'http://studio.topcoder.com/forums?module=Thread&threadID=' || j.threadid as link,
+       j.body as description, 
+       millis_to_time(j.modificationdate) as pubdate, 
+       u.handle as author
+from studio_oltp:jivemessage j, 
+     studio_oltp:contest c, 
+     studio_oltp:contest_config cf, 
+     time_oltp:project ttp, 
+     time_oltp:client_project ttcp, 
+     time_oltp:client ttc,
+     user u
+where j.forumid = c.forum_id 
+  and c.contest_id = cf.contest_id 
+  and cf.property_id = 28
+  and cf.property_value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = @clientid@
+  and j.userid = u.user_id
+order by 4 desc;
