@@ -169,7 +169,7 @@ where c.contest_id = cc1.contest_id
   and c.contest_type_id = cc.contest_type_id
   and c.start_time >= (TODAY - @days@)
   and @studio@ = 1 
-  and (DECODE(@completed@,1,cds.contest_detailed_status_id,-1) in (7,8,4)
+  and (DECODE(@completed@,1,cds.contest_detailed_status_id,-1) in (6,7,8,4)
   OR DECODE(@cancelled@,1,cds.contest_detailed_status_id,-1) in (3,16,17)
   OR cds.contest_detailed_status_id in (2,5) )
 order by 5 asc;
