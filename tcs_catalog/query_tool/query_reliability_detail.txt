@@ -1,8 +1,8 @@
-select pr.user_id 
+select FIRST 15 pr.user_id 
      , cc.component_name
      , cv.version_text
      , c.category_name as catalog_name 
-     , case when pr.reliable_submission_ind = 1 then 'Yes' else 'No' end as reliable
+     , case when pr.reliable_ind = 1 then 'Yes' else 'No' end as reliable
      , ci.create_time
      , (select category_id from comp_categories where component_id = cc.component_id and category_id = 823948230948329) as aol_brand -- 22774808
      , (select category_id from comp_categories where component_id = cc.component_id and category_id in (27416670, 27416669, 27416668, 27416667, 27416666, 27416665, 27416664, 27416663, 27416662, 27416661, 27416660, 27416659, 27416658, 27416657))
@@ -10,10 +10,10 @@ select pr.user_id
      , c.viewable
      , cc.component_id
      , cv.version
-     , pr.old_reliability
-     , pr.new_reliability
+     , pr.reliability_before_resolution as old_reliability
+     , pr.reliability_after_resolution as new_reliability
      , (select max(actual_end_time) from project_phase where project_id = p.project_id) as completion_date
-  from project_result pr
+  from project_reliability pr
      , project p
      , comp_versions cv
      , comp_catalog cc
@@ -23,7 +23,6 @@ select pr.user_id
  where pr.user_id = @uid@
    and pr.project_id = p.project_id
    and p.project_category_id +111 = @ph@
-   and pr.current_reliability_ind = 1
    and pi.value = cv.comp_vers_id
    and cv.component_id = cc.component_id
    and cc.root_category_id = c.category_id
@@ -32,4 +31,4 @@ select pr.user_id
    and ci.project_id = pr.project_id 
    and pi.project_id = p.project_id
    and pi.project_info_type_id = 1
- order by completion_date desc
+ order by resolution_date desc
