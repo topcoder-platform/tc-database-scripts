@@ -5,12 +5,7 @@ select cc.component_name as component
      , nvl(date(pp1.actual_start_time), 'N/A') as posting_date
      , count(*) as registrants
      , sum(case when pr.old_rating is not null then 1 else 0 end) as rated_registrants
-     , case when
-       (select sum(nvl(p_rel.reliability_before_resolution,0)) from project_reliability p_rel where p_rel.project_id=p.project_id) = 0 then 0.0
-       else
-       ((select sum(nvl(p_rel.reliability_before_resolution,0))*100 from project_reliability p_rel where p_rel.project_id=p.project_id)/
-       (select sum(case when p_rel.reliability_before_resolution is not null then 1.1 else 0.0 end) from project_reliability p_rel where p_rel.project_id=p.project_id))::decimal(10, 2)
-       end as average_reliability
+     , (select AVG(p_rel.reliability_on_registration)*100.0 from project_reliability p_rel where p_rel.project_id=p.project_id and p_rel.reliability_on_registration is not null)::decimal(10, 2) as average_reliability
      , case when sum(case when pr.old_rating is not null then 1 else 0 end) = 0 then 0.0
             else (sum(case when pr.old_rating is not null then pr.old_rating else 0.0 end)
                   / sum(case when pr.old_rating is not null then 1.1 else 0.0 end))::decimal(10, 2) end as average_rating
