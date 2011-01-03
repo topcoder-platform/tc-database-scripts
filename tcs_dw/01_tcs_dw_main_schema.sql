@@ -751,7 +751,7 @@ revoke all on tcd_project_stat from 'public';
 
 
 CREATE TABLE 'informix'.client_project_dim (
-    client_project_id SERIAL NOT NULL,
+    client_project_id INTEGER NOT NULL,
     client_id DECIMAL(12, 0) NOT NULL,
     client_name VARCHAR(64) NOT NULL,
     client_create_date DATETIME YEAR TO SECOND NOT NULL,
