@@ -10,5 +10,5 @@ FROM tcs_dw:project_result c,
 tcs_dw:project p
 WHERE p.project_id = c.project_id
 and c.user_id = @cr@
-and c.reliability_ind = 1
+and c.new_reliability is not null
 order by @sc@ @sd@, 3
