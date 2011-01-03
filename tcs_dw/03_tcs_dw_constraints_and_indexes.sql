@@ -217,6 +217,14 @@ alter table 'informix'.track_contest_results add constraint primary key
 	(track_contest_id, user_id)
 	constraint pk_track_contest_results;
 
+alter table 'informix'.client_project_dim add constraint primary key 
+	(client_project_id)
+	constraint client_project_dim_pkey;
+
+alter table 'informix'.weekly_contest_stats add constraint primary key 
+	(client_project_id, tc_direct_project_id, project_category_id, week, month, year)
+	constraint weekly_contest_stats_pkey;
+
 alter table 'informix'.update_log add constraint foreign key 
 	(log_type_id)
 	references 'informix'.log_type_lu
@@ -480,3 +488,15 @@ alter table 'informix'.project_spec_review_xref add constraint foreign key
     references 'informix'.project  
 	(project_id)
 	constraint 'informix'.project_spec_rv_x_project_fk;
+
+alter table 'informix'.project add constraint foreign key 
+	(client_project_id)
+	references 'informix'.client_project_dim
+	(client_project_id) 
+	constraint project_client_project_dim_id_fk;
+
+alter table 'informix'.weekly_contest_stats add constraint foreign key
+	(client_project_id)
+	references 'informix'.client_project_dim
+	(client_project_id)
+	constraint weekly_contest_status_client_project_dim_id_fk;

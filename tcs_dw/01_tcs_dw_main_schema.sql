@@ -77,7 +77,10 @@ create table 'informix'.project (
     project_category_name VARCHAR(254),
     tc_direct_project_id INT,
     admin_fee DECIMAL(10, 2),
-    contest_prizes_total DECIMAL(10, 2)
+    contest_prizes_total DECIMAL(10, 2),
+    start_date_calendar_id DECIMAL(12, 0),
+    duration DECIMAL(10, 2),
+    fulfillment DECIMAL(10, 2)
 )
 extent size 512 next size 512
 lock mode page;
@@ -747,6 +750,40 @@ lock mode page;
 revoke all on tcd_project_stat from 'public';
 
 
+CREATE TABLE 'informix'.client_project_dim (
+    client_project_id SERIAL NOT NULL,
+    client_id DECIMAL(12, 0) NOT NULL,
+    client_name VARCHAR(64) NOT NULL,
+    client_create_date DATETIME YEAR TO SECOND NOT NULL,
+    client_modification_date DATETIME YEAR TO SECOND NOT NULL,
+    billing_project_id DECIMAL(12, 0) NOT NULL,
+    project_name VARCHAR(64) NOT NULL,
+    project_create_date DATETIME YEAR TO SECOND NOT NULL,
+    project_modification_date DATETIME YEAR TO SECOND NOT NULL,
+    billing_account_code VARCHAR(64) NOT NULL
+)
+extent size 128 next size 128
+lock mode page;
+revoke all on client_project_dim from 'public';
+
+CREATE TABLE 'informix'.weekly_contest_stats (
+    client_project_id INTEGER NOT NULL,
+    tc_direct_project_id DECIMAL(12, 0) NOT NULL,
+    project_category_id DECIMAL(12, 0) NOT NULL,
+    week DECIMAL(4, 0) NOT NULL,
+    month DECIMAL(2, 0) NOT NULL,
+    year DECIMAL(5, 0) NOT NULL,
+    avg_contest_fees DECIMAL(10, 2) NOT NULL,
+    avg_member_fees DECIMAL(10, 2) NOT NULL,
+    avg_duration DECIMAL(10, 2) NOT NULL,
+    avg_fulfillment DECIMAL(10, 2) NOT NULL,
+    total_completed_contests DECIMAL(8, 0) NOT NULL,
+    total_failed_contests DECIMAL(8, 0) NOT NULL
+)
+extent size 128 next size 128
+lock mode page;
+revoke all on weekly_contest_stats from 'public';
+
 revoke all on track_contest_results from 'public';
 create view "informix".active_developers (user_id) as
    select x0.user_id 
@@ -1364,4 +1401,17 @@ grant delete on project_spec_review_xref to 'public' as 'informix';
 grant insert on project_spec_review_xref to 'public' as 'informix';
 
 grant select, delete, update, insert on tcd_project_stat to 'public' as 'informix';
+
+
+grant index on client_project_dim to 'public' as 'informix';
+grant update on client_project_dim to 'public' as 'informix';
+grant delete on client_project_dim to 'public' as 'informix';
+grant select on client_project_dim to 'public' as 'informix';
+grant insert on client_project_dim to 'public' as 'informix';
+
+grant index on weekly_contest_stats to 'public' as 'informix';
+grant update on weekly_contest_stats to 'public' as 'informix';
+grant delete on weekly_contest_stats to 'public' as 'informix';
+grant select on weekly_contest_stats to 'public' as 'informix';
+grant insert on weekly_contest_stats to 'public' as 'informix';
 
