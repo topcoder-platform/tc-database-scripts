@@ -784,7 +784,6 @@ extent size 128 next size 128
 lock mode page;
 revoke all on weekly_contest_stats from 'public';
 
-revoke all on track_contest_results from 'public';
 create view "informix".active_developers (user_id) as
    select x0.user_id 
    from "informix".user_rating x0 ,"informix".project x1 
