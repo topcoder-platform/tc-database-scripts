@@ -78,6 +78,7 @@ create table 'informix'.project (
     tc_direct_project_id INT,
     admin_fee DECIMAL(10, 2),
     contest_prizes_total DECIMAL(10, 2),
+    client_project_id INTEGER,
     start_date_calendar_id DECIMAL(12, 0),
     duration DECIMAL(10, 2),
     fulfillment DECIMAL(10, 2)
