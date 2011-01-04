@@ -489,14 +489,3 @@ alter table 'informix'.project_spec_review_xref add constraint foreign key
 	(project_id)
 	constraint 'informix'.project_spec_rv_x_project_fk;
 
-alter table 'informix'.project add constraint foreign key 
-	(client_project_id)
-	references 'informix'.client_project_dim
-	(client_project_id) 
-	constraint project_client_project_dim_id_fk;
-
-alter table 'informix'.weekly_contest_stats add constraint foreign key
-	(client_project_id)
-	references 'informix'.client_project_dim
-	(client_project_id)
-	constraint weekly_contest_status_client_project_dim_id_fk;
