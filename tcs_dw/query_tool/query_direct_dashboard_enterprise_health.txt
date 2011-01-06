@@ -5,11 +5,11 @@ SELECT
        SUM(s.fulfillment) / CASE WHEN SUM(s.project_count) = 0 THEN 1 ELSE SUM(s.project_count) END * 100 AS average_fulfillment,
        SUM(s.cost) AS total_cost,
        SUM(s.project_count) AS total_contest_count
-FROM (SELECT client_project_id, tc_direct_project_id, project_category_id, year, week, 
+FROM  table(multiset(SELECT client_project_id, tc_direct_project_id, project_category_id, year, week, 
       total_completed_contests AS project_count,
       (avg_contest_fees + avg_member_fees) * total_completed_contests AS cost,
       avg_duration * total_completed_contests AS duration,
       avg_fulfillment * total_completed_contests AS fulfillment
-      FROM weekly_contest_stats) s
+      FROM weekly_contest_stats)) s
 WHERE s.tc_direct_project_id IN (@tdpis@)
 GROUP BY s.tc_direct_project_id
