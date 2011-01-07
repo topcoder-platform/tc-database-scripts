@@ -137,3 +137,4 @@ query_dr_track_contest_payments.txt|UPDATE query SET text= ? WHERE query_id=3011
 query_direct_dashboard_enterprise_health.txt|UPDATE query SET text= ? WHERE query_id=30766
 query_direct_dashboard_enterprise_detailed_stats.txt|UPDATE query SET text= ? WHERE query_id=30767
 query_direct_dashboard_enterprise_detailed_stats_overall.txt|UPDATE query SET text= ? WHERE query_id=30768
+query_software_billing_report.txt|UPDATE query SET text= ? WHERE query_id=29342
