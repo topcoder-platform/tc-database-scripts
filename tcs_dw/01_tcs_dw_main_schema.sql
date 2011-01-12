@@ -765,6 +765,19 @@ extent size 128 next size 128
 lock mode page;
 revoke all on client_project_dim from 'public';
 
+create table "informix".direct_project_dim 
+  (
+    direct_project_id integer not null,
+    name varchar(200) not null,
+    description lvarchar(10000),
+    project_status_id INT default 1 not null,
+    project_create_date DATETIME YEAR TO SECOND NOT NULL,
+    project_modification_date DATETIME YEAR TO SECOND NOT NULL
+  )  
+extent size 128 next size 128
+lock mode page;
+revoke all on direct_project_dim from 'public';
+
 CREATE TABLE 'informix'.weekly_contest_stats (
     client_project_id INTEGER NOT NULL,
     tc_direct_project_id DECIMAL(12, 0) NOT NULL,
@@ -1412,4 +1425,7 @@ grant update on weekly_contest_stats to 'public' as 'informix';
 grant delete on weekly_contest_stats to 'public' as 'informix';
 grant select on weekly_contest_stats to 'public' as 'informix';
 grant insert on weekly_contest_stats to 'public' as 'informix';
+
+grant index, update, delete, select, insert on direct_project_dim to 'public' as 'informix';
+
 

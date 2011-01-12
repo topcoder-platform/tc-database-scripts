@@ -225,6 +225,10 @@ alter table 'informix'.weekly_contest_stats add constraint primary key
 	(client_project_id, tc_direct_project_id, project_category_id, week, month, year)
 	constraint weekly_contest_stats_pkey;
 
+alter table 'informix'.direct_project_dim add constraint primary key 
+	(direct_project_id)
+	constraint direct_project_dim_pkey;
+
 alter table 'informix'.update_log add constraint foreign key 
 	(log_type_id)
 	references 'informix'.log_type_lu
