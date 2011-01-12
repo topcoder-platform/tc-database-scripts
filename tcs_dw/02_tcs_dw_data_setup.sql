@@ -119,8 +119,8 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30609, 'direct_dashboard_enterprise_detailed_stats_project', 24750);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30610, 'direct_dashboard_enterprise_detailed_stats_client', 24750);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30611, 'direct_dashboard_enterprise_detailed_stats_billing', 24750);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30612, 'non_admin_client_projects', 24750);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30613, 'admin_client_projects', 24750);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30612, 'non_admin_client_billing_accounts', 24750);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30613, 'admin_client_billing_accounts', 24750);
 
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (20447, 'Data Dump');
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (20449, 'Statistics');
@@ -335,8 +335,8 @@ INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (30
 INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (30946, null, 'direct_dashboard_enterprise_detailed_stats_project', 0, null);
 INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (30956, null, 'direct_dashboard_enterprise_detailed_stats_client', 0, null);
 INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (30947, null, 'direct_dashboard_enterprise_detailed_stats_billing', 0, null);
-INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (30948, null, 'non_admin_client_projects', 0, null);
-INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (30949, null, 'admin_client_projects', 0, null);
+INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (30948, null, 'non_admin_client_billing_accounts', 0, null);
+INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (30949, null, 'admin_client_billing_accounts', 0, null);
 
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (21617, NULL, NULL, 20479, NULL);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (21627, 'N', NULL, 20483, 1);
