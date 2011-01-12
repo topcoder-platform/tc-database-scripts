@@ -142,5 +142,5 @@ query_software_billing_report.txt|UPDATE query SET text= ? WHERE query_id=29342
 query_direct_dashboard_enterprise_detailed_stats_project.txt|UPDATE query SET text= ? WHERE query_id=30946
 query_direct_dashboard_enterprise_detailed_stats_client.txt|UPDATE query SET text= ? WHERE query_id=30956
 query_direct_dashboard_enterprise_detailed_stats_billing.txt|UPDATE query SET text= ? WHERE query_id=30947
-query_non_admin_client_projects.txt|UPDATE query SET text= ? WHERE query_id=30948
-query_admin_client_projects.txt|UPDATE query SET text= ? WHERE query_id=30949
+query_non_admin_client_billing_accounts.txt|UPDATE query SET text= ? WHERE query_id=30948
+query_admin_client_billing_accounts.txt|UPDATE query SET text= ? WHERE query_id=30949
