@@ -1,11 +1,13 @@
 SELECT
        week_start_date AS stat_date,
-       SUM(s.cost) / CASE WHEN SUM(s.project_count) = 0 THEN 1 ELSE SUM(s.project_count) END AS cost,
-       SUM(s.duration) / CASE WHEN SUM(s.project_count) = 0 THEN 1 ELSE SUM(s.project_count) END / 60 AS duration,
+       SUM(s.cost) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END AS cost,
+       SUM(s.duration) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END / 60 AS duration,
        SUM(s.fulfillment) / CASE WHEN SUM(s.project_count) = 0 THEN 1 ELSE SUM(s.project_count) END * 100 AS fulfillment,
+       SUM(s.completed_project_count) AS total_completed_project,
        SUM(s.project_count) AS total_project
-FROM TABLE(MULTISET(SELECT client_project_id, tc_direct_project_id, project_category_id, year, week, 
-      total_completed_contests AS project_count,
+FROM table(multiset(SELECT client_project_id, tc_direct_project_id, project_category_id, year, week, 
+      total_completed_contests AS completed_project_count,
+      total_completed_contests + total_failed_contests AS project_count,
       (avg_contest_fees + avg_member_fees) * total_completed_contests AS cost,
       avg_duration * total_completed_contests AS duration,
       avg_fulfillment * total_completed_contests AS fulfillment
