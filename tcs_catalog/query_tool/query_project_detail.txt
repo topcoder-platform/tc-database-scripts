@@ -78,7 +78,7 @@ select cc.component_name
    and pi.project_info_type_id = 1
    and pi.value = cv.comp_vers_id
    and cv.component_id= cc.component_id
-   and p.project_category_id in (1,2,6,5,7,13,14,23,19,24,25,26,29)
+   and p.project_category_id in (1,2,6,5,7,13,14,23,19,24,25,26,29,35)
    and cv.comp_vers_id = cvd.comp_vers_id
    and cv.phase_id = cvd.phase_id
 --these dates make this query return more than one row

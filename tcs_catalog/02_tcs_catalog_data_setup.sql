@@ -347,6 +347,7 @@ INSERT INTO 'informix'.phase(phase_id, description) VALUES (135, 'RIA Build Comp
 INSERT INTO 'informix'.phase(phase_id, description) VALUES (136, 'RIA Component Competition');
 INSERT INTO 'informix'.phase(phase_id, description) VALUES (137, 'Test Scenarios');
 insert into 'informix'.phase(phase_id, description) values (140, 'Copilot');
+insert into 'informix'.phase(phase_id, description) values (146, 'Content Creation');
 
 INSERT INTO 'informix'.price_tiers(tier_id,discount_percent) VALUES (1, 5.00);
 INSERT INTO 'informix'.price_tiers(tier_id,discount_percent) VALUES (2, 10.00);
@@ -677,6 +678,7 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30529, 'tc_copilot_projects', 13337);
 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30539, 'current_project_phases', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30629, 'content_creation_active_contests_summary', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -937,6 +939,7 @@ insert into 'informix'.project_category_lu(project_category_id,project_type_id,n
 insert into 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) values (27, 2, 'Spec Review', 'Spec Review', 'System', current, 'System', current, null, null);
 insert into 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) values (28, 4, 'Generic Scorecards', 'Generic scorecards are available for selection when creating projects of all categories', 'System', current, 'System', current, null, null);
 insert into 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) values (29, 2, "Copilot Posting", "Copilot Posting", "System", current, "System", current, 't', 12); 
+insert into 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) values (35, 2, 'Content Creation', 'Content Creation', 'System', current, 'System', current, 't', 13);
 
 INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Screening', 'Screening', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Review', 'Review', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1190,11 +1193,9 @@ INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, 
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (4, 'Design Reviewer 1', 112, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (5, 'Design Reviewer 2', 112, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (6, 'Design Reviewer 3', 112, 4);
--- Next 3 lines inserted as part of TCS 2.2.0 (Assembly Review Board
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (7, 'Assembly Reviewer 1', 125, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (8, 'Assembly Reviewer 2', 125, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (9, 'Assembly Reviewer 3', 125, 4);
-
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (10,'Architecture Reviewer 1', 118, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (11,'Architecture Reviewer 2', 118, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (12,'Architecture Reviewer 3', 118, 4);
@@ -1238,6 +1239,10 @@ INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, 
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (60, 'Copilot Posting Reviewer 1', 140, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (61, 'Copilot Posting Reviewer 2', 140, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (62, 'Copilot Posting Reviewer 3', 140, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (50,'Content Creation Spec Reviewer',1146, 18);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (63, 'Content Creation Reviewer 1', 146, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (64, 'Content Creation Reviewer 2', 146, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (65, 'Content Creation Reviewer 3', 146, 4);
 
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (11010, null, 'User_List', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (12154, null, 'Inquiry Detail', 0, null);
@@ -1514,8 +1519,9 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30862, null, 'pipeline_drafts_ratio_project', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30866, null, 'tc_copilot_contests', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30867, null, 'tc_copilot_projects', 0, null);
-
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30876, null, 'current_project_phases', 0, null);
+
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30966, null, 'content_creation_active_contests_summary', 0, null);
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (13717, 'N', NULL, 25190, 1);
@@ -1718,8 +1724,8 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30861, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30862, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30866, NULL, NULL, 13347, 0);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30867, NULL, NULL, 13347, 0);
 
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30867, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30876, NULL, NULL, 25561, 0);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (11010, 11010, NULL);
@@ -2025,6 +2031,7 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (30529, 30867, 0);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (30539, 30876, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (30629, 30966, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);

@@ -2241,6 +2241,8 @@ INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment
 INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,pay_on_day,requires_client_ind,global_ad_ind) VALUES ('Studio Submission Screening Payment', 56, 4, 1, 1, null, current, current, 15, 2, 't');
 INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,pay_on_day,requires_client_ind,global_ad_ind) VALUES ('Studio Copilot Payment', 57, 4, 1, 1, null, current, current, 15, 2, 't');
 INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,pay_on_day,requires_client_ind,global_ad_ind) VALUES ('Copilot Posting Payment', 60, 2, 1, 1, null, current, current, 15, 1, 't');
+INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,pay_on_day,requires_client_ind,global_ad_ind) VALUES ('Content Creation Payment', 61, 2, 1, 1, null, current, current, 15, 1, 't');
+
 INSERT INTO 'informix'.affidavit_template (affidavit_template_id, country_code, affidavit_type_id, text) values (1, 840, 1, null);
 INSERT INTO 'informix'.affidavit_template (affidavit_template_id, country_code, affidavit_type_id, text) values (10, 850, 1, null);
 INSERT INTO 'informix'.affidavit_template (affidavit_template_id, country_code, affidavit_type_id, text) values (101, null, 2, null);
