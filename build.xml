@@ -207,4 +207,8 @@
     <antcall target="setup_db" />    
   </target>
 
+  <target name="update_properties" >
+    <ant antfile="build-configuration.xml" target="update_properties" />
+  </target>
+
 </project>
