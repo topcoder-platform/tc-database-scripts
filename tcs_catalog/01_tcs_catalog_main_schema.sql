@@ -639,21 +639,16 @@ create table 'informix'.project_result (
     project_id DECIMAL(10,0),
     old_rating DECIMAL(5,0),
     new_rating DECIMAL(5,0),
-    old_reliability DECIMAL(5,4),
-    new_reliability DECIMAL(5,4),
     raw_score DECIMAL(5,2),
     final_score DECIMAL(5,2),
     payment DECIMAL(10,2),
     placed DECIMAL(6,0),
     rating_ind DECIMAL(1,0),
     valid_submission_ind DECIMAL(1,0),
-    reliability_ind DECIMAL(1,0),
     create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
-    reliable_submission_ind DECIMAL(1,0),
     passed_review_ind DECIMAL(1,0),
     point_adjustment FLOAT,
-    current_reliability_ind DECIMAL(1,0),
     rating_order INT
 )
 extent size 5000 next size 5000
