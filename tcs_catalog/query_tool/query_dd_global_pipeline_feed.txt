@@ -115,7 +115,7 @@ from project p,
      outer table(multiset(select pd.component_project_id as project_id, sum(pd.total_amount) as cost
                               from informixoltp:payment p, informixoltp:payment_detail pd
                              where pd.payment_detail_id = p.most_recent_detail_id
-                               and pd.payment_type_id not in (6, 29, 10, 42, 43, 44, 7, 24, 26, 4, 24, 49, 50, 51, 55)
+                               and pd.payment_type_id not in (24,7, 24, 26, 27, 6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 45,57)
                                and pd.payment_status_id in  (53,55,56,68,70,71)
                                group by pd.component_project_id)) as misc,       
      outer tc_direct_project tdp,
