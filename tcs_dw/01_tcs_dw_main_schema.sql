@@ -715,7 +715,8 @@ create table 'informix'.track_contest_results (
     track_contest_id DECIMAL(10,0) not null,
     user_id DECIMAL(10,0) not null,
     track_contest_placement INT not null,
-    track_contest_prize DECIMAL(12,2)
+    track_contest_prize DECIMAL(12,2),
+	taxable_track_contest_prize DECIMAL(12,2)
 )
 extent size 64 next size 64
 lock mode page;
