@@ -1,0 +1,59 @@
+select 
+    'Registration starts: ' || (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as description,
+    DECODE(pc.name, 'Design', 'Component Design', 'Development', 'Component Development', pc.name) || ' - ' || pi.value || ' ' || pi2.value as title,
+    'http://www.topcoder.com/tc?module=ProjectDetail&pj=' || p.project_id as link,
+    '-project-' || p.project_id as guid
+from project p,
+     project_status_lu ps,
+     project_category_lu pc,
+     project_info pi, -- project name
+     project_info pi2, -- project version
+--     project_info pi3, -- billing account
+     time_oltp:project ttp,
+     time_oltp:client_project ttcp,
+     time_oltp:client ttc,
+     tc_direct_project tdp
+where p.project_status_id in (1,2,7)  and 
+  lower(pi.value) not like '%delete%' and 
+  p.project_status_id = ps.project_status_id
+  and p.project_category_id = pc.project_category_id
+  and p.project_category_id not in (27) --exclude spec reviews
+  and p.project_id = pi.project_id
+  and pi.project_info_type_id = 6
+  and p.project_id = pi2.project_id
+  and pi2.project_info_type_id = 7
+--  and p.project_id = pi3.project_id
+--  and pi3.project_info_type_id = 32 -- billing account might be null
+--  and pi3.value = ttp.project_id -- billing account might be null
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and p.tc_direct_project_id = tdp.project_id
+AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+  and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) >= today -1
+UNION
+select 
+    'Registration starts: ' || start_time as description,
+    'Studio ' || cc.contest_type_desc || ' - ' || c.name as title,
+    'http://studio.topcoder.com/?module=ViewContestDetails&ct=' || c.contest_id as link,
+    '-studio-' || c.contest_id as guid
+from studio_oltp:contest c,
+     time_oltp:project ttp,
+     time_oltp:client_project ttcp,
+     time_oltp:client ttc,
+     tc_direct_project tdp,
+     studio_oltp:contest_config cc1,
+     studio_oltp:contest_type_lu cc
+where c.start_time >= today -1
+  and c.contest_id = cc1.contest_id
+  and cc1.property_id = 28
+  and cc1.property_value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and c.tc_direct_project_id = tdp.project_id
+  and c.contest_status_id in (1,2)
+AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 1 AND ce.contest_id = c.contest_id)
+  and c.contest_type_id = cc.contest_type_id
+  and c.contest_id not in (1001973) -- HIDE TCO CONTESTS
+order by 1 asc;

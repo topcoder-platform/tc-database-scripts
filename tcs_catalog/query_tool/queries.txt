@@ -281,3 +281,4 @@ query_rss_cc_studio_forum_feed.txt|UPDATE query SET text = ? WHERE query_id = 30
 query_dd_cc_scheduled_contests.txt|UPDATE query SET text = ? WHERE query_id = 30936
 
 query_content_creation_active_contests_summary.txt|UPDATE query SET text = ? WHERE query_id = 30966
+query_rss_Pipeline.txt|UPDATE query SET text = ? WHERE query_id = 29867
