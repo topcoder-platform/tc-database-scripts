@@ -12,6 +12,8 @@ select FIRST 15 pr.user_id
      , cv.version
      , pr.reliability_before_resolution as old_reliability
      , pr.reliability_after_resolution as new_reliability
+     , pr.resolution_date
+     , pr.reliability_on_registration
      , (select max(actual_end_time) from project_phase where project_id = p.project_id) as completion_date
   from project_reliability pr
      , project p
