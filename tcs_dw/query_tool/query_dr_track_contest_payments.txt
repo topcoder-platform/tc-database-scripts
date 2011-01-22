@@ -6,7 +6,7 @@
 -- Don't forget to add ct input to created query
 --
 
-SELECT r.track_contest_placement AS place, r.user_id AS coder_id, r.track_contest_prize AS prize
+SELECT r.track_contest_placement AS place, r.user_id AS coder_id, r.track_contest_prize AS total_prize, r.taxable_track_contest_prize AS taxable_prize
 FROM   track_contest_results r
 WHERE  r.track_contest_id = @ct@
 AND    r.track_contest_prize > 0
