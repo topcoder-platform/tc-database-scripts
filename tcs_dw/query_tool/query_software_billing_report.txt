@@ -70,14 +70,14 @@ select decode(p.project_category_name,
      , outer table(multiset(select pr.project_id, sum(pr.final_points) as dr_points
                               from project_result pr
                              group by pr.project_id)) as dr
-     , outer table(multiset(select p.reference_id as project_id
+     , table(multiset(select p.reference_id as project_id
                                  , max(extend(mdy(c.month_numeric, c.day_of_month, c.year), year to minute) + t.hour_24 units hour + t.minute units minute) as modified
                               from payment p
                                  , calendar c
                                  , time t
                              where p.modified_calendar_id = c.calendar_id
                                and p.modified_time_id = t.time_id
-                             group by p.reference_id)) mod
+                             group by p.reference_id)) mod  -- Since this is not an outer oin, it should return only the contests that have payments generated already.
  where rel.project_id = p.project_id
    and review.project_id = p.project_id
    and spec_review.project_id = p.project_id
@@ -92,4 +92,3 @@ select decode(p.project_category_name,
    and p.status_id <> 1
  group by 1, 2, 3, 4, 5, 6, p.project_id, p.complete_date, modified, 17,18, 22, p.posting_date
  order by p.complete_date desc;
- 
