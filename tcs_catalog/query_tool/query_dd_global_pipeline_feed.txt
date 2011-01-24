@@ -76,18 +76,28 @@ from informixoltp:payment p2
    and pd.component_project_id = p.project_id) 
   as actual_Member_Costs,
   sum(nvl(rel.cost, 0)) as contest_reliability_cost,
+  sum(nvl(ref.cost, 0)) as referral_cost,
   sum(nvl(review.cost, 0)) as review_cost,
   sum(nvl(spec_review.cost, 0)) as spec_review_cost,
   sum(nvl(prizes.cost, 0)) as prizes_cost,
+  (select value from project_info where project_info_type_id = 30 and project_id = p.project_id) as dr_cost,
   sum(nvl(copilot.cost, 0)) as copilot_cost,
   sum(nvl(misc.cost, 0)) as misc_cost
 from project p,
-     outer table(multiset(select pd.component_project_id as project_id, sum(pd.total_amount) as cost
-                              from informixoltp:payment p, informixoltp:payment_detail pd
+     outer table(multiset(select pd.component_project_id as project_id, sum(pp.total_amount) as cost
+                              from informixoltp:payment p, informixoltp:payment_detail pd, informixoltp:payment_detail pp
                              where pd.payment_detail_id = p.most_recent_detail_id
-                               and pd.payment_type_id = 24 -- reliability bonus
+                               and pp.payment_type_id = 24 -- reliability bonus
                                and pd.payment_status_id  in (53,55,56,68,70,71)
-                               group by pd.component_project_id)) rel,
+                               and pp.parent_payment_id = p.payment_id
+                          group by pd.component_project_id)) rel,
+     outer table(multiset(select pd.component_project_id as project_id, sum(pp.total_amount) as cost
+                              from informixoltp:payment p, informixoltp:payment_detail pd, informixoltp:payment_detail pp
+                             where pd.payment_detail_id = p.most_recent_detail_id
+                               and pp.payment_type_id = 4 -- referral bonus
+                               and pd.payment_status_id  in (53,55,56,68,70,71)
+                               and pp.parent_payment_id = p.payment_id
+                          group by pd.component_project_id)) ref,
      outer table(multiset(select pd.component_project_id as project_id, sum(pd.total_amount) as cost
                               from informixoltp:payment p, informixoltp:payment_detail pd
                              where pd.payment_detail_id = p.most_recent_detail_id
@@ -137,6 +147,7 @@ where p.project_status_id not in (3)
      and prizes.project_id = p.project_id
      and copilot.project_id = p.project_id
      and misc.project_id = p.project_id
+     and ref.project_id = p.project_id
   and p.project_id = pi.project_id
   and pi.project_info_type_id = 6
   and p.project_id = pi2.project_id
@@ -155,7 +166,7 @@ where p.project_status_id not in (3)
   and @software@ = 1 
   and ((DECODE(@completed@,1,ps.project_status_id,-1) in (7) OR DECODE(@cancelled@,1,ps.project_status_id,-1) in (4,5,6,8,9,10,11))
   OR ps.project_status_id in (1))
-group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,35
 UNION
 select 
 c.contest_id as project_id,
@@ -199,9 +210,11 @@ from informixoltp:payment pm
    and pd.payment_status_id not in (65,68,69)
    and pd.studio_contest_id = c.contest_id) as actual_Member_Costs,
   0 as contest_reliability_cost,
+  0 as referral_cost,
   0 as review_cost,
   0 as spec_review_cost,
   0 as prizes_cost,
+  (select property_value from studio_oltp:contest_config where property_id = 24 and contest_id = c.contest_id) as dr_cost,
   0 as copilot_cost,
   0 as misc_cost   
 from studio_oltp:contest c,
