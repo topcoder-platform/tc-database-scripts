@@ -1,0 +1,17 @@
+SELECT
+        s.project_category_id AS project_category_id,
+        SUM(s.cost) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END AS marketavg_cost,
+        SUM(s.duration) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END / (60*24) AS marketavg_duration,
+        SUM(s.fulfillment) / CASE WHEN SUM(s.project_count) = 0 THEN 1 ELSE SUM(s.project_count) END * 100 AS marketavg_fulfillment
+FROM table(multiset(SELECT project_category_id, year, week,
+      total_completed_contests AS completed_project_count,
+      total_completed_contests + total_failed_contests AS project_count,
+      (avg_contest_fees + avg_member_fees) * total_completed_contests AS cost,
+      avg_duration * total_completed_contests AS duration,
+      avg_fulfillment * (total_completed_contests + total_failed_contests) AS fulfillment
+      FROM weekly_contest_stats)) s
+INNER JOIN table(multiset(SELECT year, week_of_year, MIN(date) AS week_start_date FROM calendar GROUP BY year, week_of_year)) cal
+      ON cal.year = s.year AND cal.week_of_year = s.week
+WHERE s.project_category_id IN (@pcids@)
+AND   cal.week_start_date BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
+GROUP BY s.project_category_id

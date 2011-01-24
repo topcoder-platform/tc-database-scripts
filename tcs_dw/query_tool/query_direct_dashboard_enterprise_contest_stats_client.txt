@@ -1,0 +1,19 @@
+SELECT
+       p.project_id AS project_id,
+       d.direct_project_id AS direct_project_id,
+       p.project_category_id AS project_category_id,
+       p.posting_date  AS posting_date,
+       p.complete_date AS contest_date,
+       c.client_name   AS customer_name,
+       d.name  AS project_name,
+       p.component_name AS contest_name,
+       p.project_category_name AS contest_type,
+       p.fulfillment*100 AS contest_fulfillment,
+       p.admin_fee+p.contest_prizes_total AS contest_cost,
+       p.duration/(60*24)  AS contest_duration
+FROM project p
+INNER JOIN client_project_dim c ON p.client_project_id = c.client_project_id
+INNER JOIN direct_project_dim d ON p.tc_direct_project_id = d.direct_project_id
+WHERE p.posting_date BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
+AND   p.project_category_id IN (@pcids@)
+AND   c.client_id IN (@clids@)
