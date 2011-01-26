@@ -2034,7 +2034,7 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (30539, 30876, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28730, 30966, 0);
 
-INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (30669, 30996);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (30669, 30996, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);
