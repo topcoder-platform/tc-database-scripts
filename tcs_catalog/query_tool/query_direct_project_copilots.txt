@@ -1,0 +1,5 @@
+SELECT cp.user_id AS copilot_user_id, cp.copilot_profile_id, u.handle, tdp.name as project_name, tdp.project_id 
+FROM copilot_project cpr, copilot_profile cp, user u, tc_direct_project tdp 
+WHERE cpr.tc_direct_project_id = @tcdirectid@ AND tdp.project_id = cpr.tc_direct_project_id
+AND cpr.copilot_profile_id = cp.copilot_profile_id 
+AND cp.user_id = u.user_id AND cp.copilot_profile_status_id = 1;
