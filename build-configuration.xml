@@ -1,8 +1,12 @@
 <project name="TopCoder Configuration Scripts" basedir="." default="update_properties">
   <property file="build.properties"/>
+
+  <path id="svnant.lib" >
+    <fileset dir="${basedir}/tools/svnant" includes="*.jar" />
+  </path>
   
   <!-- subversion tasks -->
-  <typedef resource="org/tigris/subversion/svnant/svnantlib.xml"/>
+  <typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.lib"/>
   
   <!-- ant contrib tasks (if, then)-->
   <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
