@@ -41,7 +41,13 @@
             <fail>Unsupported environment</fail>
           </then>
           <else>
-            <move_properties url="${base_url}/${env}" />
+            <checkout_properties url="${base_url}/${env}" />
+            <copy todir="${basedir}">
+              <fileset dir="${prop_dir}">
+                <include name="**/*.properties" />
+                <include name="**/*.xml" />
+              </fileset>
+            </copy>
           </else>
         </if>        
       </else>
@@ -49,7 +55,7 @@
   </target>
 
   <!-- this macro synchronizes properties directory with svn repository and copies *.properties to proper locations. -->
-  <macrodef name="move_properties" >
+  <macrodef name="ckeckout_properties" >
     <attribute name="url" />
     <sequential>
       <if>
@@ -84,12 +90,6 @@
           </svnex>
         </else>
       </if>
-      <copy todir="${basedir}">
-        <fileset dir="${prop_dir}">
-          <include name="**/*.properties" />
-          <include name="**/*.xml" />
-        </fileset>
-      </copy>
     </sequential>
   </macrodef>
 
