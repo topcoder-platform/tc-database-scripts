@@ -55,7 +55,7 @@
   </target>
 
   <!-- this macro synchronizes properties directory with svn repository and copies *.properties to proper locations. -->
-  <macrodef name="ckeckout_properties" >
+  <macrodef name="checkout_properties" >
     <attribute name="url" />
     <sequential>
       <if>
