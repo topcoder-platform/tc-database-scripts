@@ -12,7 +12,7 @@ SELECT  p.project_id
   
   (
   SELECT COUNT(*)
-  FROM copilot_profile where user_id = @uid@
+  FROM copilot_profile where user_id = @uid@ and copilot_profile_status_id = 1
   )
   as in_copilot_pool,
   
