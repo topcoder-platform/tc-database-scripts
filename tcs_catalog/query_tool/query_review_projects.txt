@@ -31,7 +31,7 @@ select distinct
    , aggreviewpp.scheduled_start_time as agg_review_start
    , aggreviewpp.scheduled_end_time as agg_review_end
    ,
-  (select 3-round(count(*))
+  (select ph.parameter::int-round(count(*))
     from rboard_application ra
     where ra.project_id = p.project_id and ra.phase_id<1000)   as available_spots
    , cvd.status_id
@@ -78,6 +78,7 @@ select distinct
      , project_phase screenpp
      , project_phase reviewpp
      , project_phase aggreviewpp
+     , phase_criteria ph
      , comp_version_dates cvd
      , project_info pi_prize
      , project_info pi_is_dr
@@ -95,6 +96,8 @@ select distinct
    AND screenpp.phase_type_id = 3
    and reviewpp.phase_type_id = 4
    and reviewpp.project_id =  p.project_id
+   and ph.project_phase_id = reviewpp.project_phase_id
+   and ph.phase_criteria_type_id = 6
    and aggreviewpp.project_id =  p.project_id
    and aggreviewpp.phase_type_id = 8
    AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2 or screenpp.phase_status_id = 2 or reviewpp.phase_status_id = 2)
@@ -127,7 +130,7 @@ select distinct
  AND p.project_id = pi_dr_points.project_id
  AND pi_dr_points.project_info_type_id = 30
  and p.project_category_id = @pt@
- and (select 3-round(count(*))
+ and (select ph.parameter::int-round(count(*))
       from rboard_application ra
       where ra.project_id = p.project_id and ra.phase_id<1000) > 0
 order by component_name desc, category_id, price_changes desc

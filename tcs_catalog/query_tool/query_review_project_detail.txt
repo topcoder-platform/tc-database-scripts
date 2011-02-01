@@ -22,6 +22,7 @@ select c.component_name
      , pi7.scheduled_end_time as final_review_end
      , pi8.scheduled_start_time as appeals_start
      , pi8.scheduled_end_time as appeals_end
+     , ph.parameter::int reviewers_required
      , cl.description as level
      , (select count(distinct u.resource_id)
                     from upload u, submission s
@@ -66,6 +67,7 @@ select c.component_name
      , project_phase pi6
      , project_phase pi7
      , project_phase pi8
+     , phase_criteria ph
      , comp_catalog c
      , categories cat
      , comp_version_dates cvd
@@ -93,6 +95,8 @@ select c.component_name
    and pi7.phase_type_id = 10
    and p.project_id = pi8.project_id
    and pi8.phase_type_id = 5
+   and ph.project_phase_id = pi3.project_phase_id
+   and ph.phase_criteria_type_id = 6
    and p.project_id = @pj@
    and c.component_id = cv.component_id
    and c.root_category_id = cat.category_id
