@@ -165,3 +165,21 @@ alter table "informix".jivemessage add constraint (foreign key
 alter table "informix".jivemessageprop add constraint (foreign 
     key (messageid) references "informix".jivemessage  constraint 
     "informix".jivemessageprop_msgid_fk);
+
+alter table question_thread_xref add constraint foreign key
+		(thread_id)
+    references jivethread
+    (threadid) 
+    constraint question_thread_xref_thread_fk;
+
+alter table question_thread_xref add constraint foreign key
+		(forum_id)
+    references jiveforum
+    (forumid) 
+    constraint question_thread_xref_forum_fk;
+	
+alter table comment_message_xref add constraint foreign key
+		(message_id)
+    references jivemessage
+    (messageid) 
+    constraint comment_message_xref_message_fk;

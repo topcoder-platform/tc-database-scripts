@@ -651,6 +651,25 @@ create table "informix".template_forum
   lock mode page;
 revoke all on "informix".template_forum from "public" as "informix";
 
+create table "informix".question_thread_xref (
+  question_id INT NOT NULL,
+  thread_id INT NOT NULL,
+  forum_id INT NOT NULL,
+  PRIMARY KEY (question_id, forum_id)
+)
+extent size 64 next size 64
+lock mode row;
+revoke all on "informix".question_thread_xref from "public" as "informix";
+
+create table "informix".comment_message_xref (
+  comment_id SERIAL NOT NULL,
+  message_id INT NOT NULL,
+  PRIMARY KEY (comment_id)
+)
+extent size 64 next size 64
+lock mode row;
+revoke all on "informix".comment_message_xref from "public" as "informix";
+
 
 grant select on "informix".dual to "public" as "informix";
 grant update on "informix".dual to "public" as "informix";
@@ -890,3 +909,6 @@ grant select on "informix".template_forum to "public" as "informix";
 grant update on "informix".template_forum to "public" as "informix";
 grant insert on "informix".template_forum to "public" as "informix";
 grant delete on "informix".template_forum to "public" as "informix";
+
+grant select, insert, update, delete, index on "informix".question_thread_xref to "public" as "informix";
+grant select, insert, update, delete, index on "informix".comment_message_xref to "public" as "informix";
