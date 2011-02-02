@@ -22,13 +22,24 @@ case when p.project_status_id != 1 then psl.name
        else 'Draft' end as status,
 0 as is_studio,
 
-(select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
-    where project_info_type_id in (30, 31, 33, 35, 16, 38, 39)
-    and project_id = p.project_id) 
-+ 
-(select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
-    where project_info_type_id = 16
-    and project_id = p.project_id)/2 as contest_payment
+case when p.project_status_id in (1, 2) then
+    ((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (30, 31, 33, 35, 16, 38, 39)
+        and project_id = p.project_id) 
+    + 
+    (select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 16
+        and project_id = p.project_id)/2)
+else  (SELECT SUM(total_amount) 
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id 
+        AND NOT pmd.payment_status_id IN (65, 69))
+    +
+    (select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 31
+        and project_id = p.project_id)
+end
+as contest_payment
 
 from tc_direct_project tdp, user_permission_grant upg, 
 project_category_lu pcl, project_status_lu psl, 
@@ -71,6 +82,20 @@ cast (p.forum_id as  VARCHAR(255)) as forum_id,
 ds.name as status,
 1 as is_studio,
 
+case when p.contest_detailed_status_id = 8 then
+
+(select m.amount * (select count(submission_id) from studio_oltp:submission where contest_id = p.contest_id and award_milestone_prize ='t')
+        from studio_oltp:contest cc  
+        left outer join studio_oltp:contest_milestone_prize m on m.contest_milestone_prize_id = cc.contest_milestone_prize_id
+        where  cc.contest_id = p.contest_id)  +
+(select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 25
+        and cfg.contest_id = p.contest_id) +
+(select nvl(sum(amount), 0) from studio_oltp:submission_prize_xref x, studio_oltp:prize pz, studio_oltp:submission s
+        where x.submission_id = s.submission_id and s.contest_id = p.contest_id and x.prize_id  = pz.prize_id)
+ else
+
 (select nvl(sum(nvl(pr.amount, 0)), 0)
         from studio_oltp:contest_prize_xref x, studio_oltp:prize pr, studio_oltp:contest cc  
         where x.prize_id = pr.prize_id and x.contest_id = cc.contest_id
@@ -82,7 +107,8 @@ ds.name as status,
 (select nvl( sum(cast(m.amount*number_of_submissions as DECIMAL(10,2))), 0)
         from studio_oltp:contest cc  
         left outer join studio_oltp:contest_milestone_prize m on m.contest_milestone_prize_id = cc.contest_milestone_prize_id
-        where  cc.contest_id = p.contest_id) as contest_payment
+        where  cc.contest_id = p.contest_id) 
+ end as contest_payment
 
 from user_permission_grant upg, tc_direct_project tdp, studio_oltp:contest p,
 studio_oltp:contest_detailed_status_lu ds 
