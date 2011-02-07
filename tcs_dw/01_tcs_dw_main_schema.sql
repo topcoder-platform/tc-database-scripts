@@ -797,6 +797,23 @@ extent size 128 next size 128
 lock mode page;
 revoke all on weekly_contest_stats from 'public';
 
+CREATE TABLE 'informix'.monthly_contest_stats (
+    client_project_id INTEGER NOT NULL,
+    tc_direct_project_id DECIMAL(12, 0) NOT NULL,
+    project_category_id DECIMAL(12, 0) NOT NULL,
+    month DECIMAL(2, 0) NOT NULL,
+    year DECIMAL(5, 0) NOT NULL,
+    avg_contest_fees DECIMAL(10, 2) NOT NULL,
+    avg_member_fees DECIMAL(10, 2) NOT NULL,
+    avg_duration DECIMAL(10, 2) NOT NULL,
+    avg_fulfillment DECIMAL(10, 2) NOT NULL,
+    total_completed_contests DECIMAL(8, 0) NOT NULL,
+    total_failed_contests DECIMAL(8, 0) NOT NULL
+)
+extent size 128 next size 128
+lock mode page;
+revoke all on monthly_contest_stats from 'public';
+
 create view "informix".active_developers (user_id) as
    select x0.user_id 
    from "informix".user_rating x0 ,"informix".project x1 
@@ -1428,5 +1445,7 @@ grant select on weekly_contest_stats to 'public' as 'informix';
 grant insert on weekly_contest_stats to 'public' as 'informix';
 
 grant index, update, delete, select, insert on direct_project_dim to 'public' as 'informix';
+
+grant index, update, delete, select, insert on monthly_contest_stats to 'public' as 'informix';
 
 
