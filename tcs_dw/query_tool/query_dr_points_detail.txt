@@ -1,8 +1,16 @@
-select dr_points_id, dr_points_reference_type_id, dr_points_operation_id, 
-dr_points_type_id, dr_points_status_id, dr_points_desc, reference_id, 
-amount, is_potential, application_date, award_date 
-from dr_points
-where track_id = @tid@
-and user_id = @cr@
-and is_potential = "@pf@"
+select dp.dr_points_id, dp.dr_points_reference_type_id, dp.dr_points_operation_id, 
+dp.dr_points_type_id, dp.dr_points_status_id, dp.dr_points_desc, dp.reference_id, 
+dp.amount, dp.is_potential, dp.application_date, dp.award_date,
+(
+ -- We started withholding taxes only since January 2011 which has the minimum track_id of 2090
+ case when dp.dr_points_reference_type_id = 1 and dp.track_id>=2090 then
+  (select (case when pr.payment is null or pr.payment=0 then 't' else 'f' end) from project_result pr where pr.user_id = dp.user_id and pr.project_id = dp.reference_id)
+ else
+  'f'
+ end
+) as taxable
+from dr_points dp
+where dp.track_id = @tid@
+and dp.user_id = @cr@
+and dp.is_potential = "@pf@"
 order by award_date desc
