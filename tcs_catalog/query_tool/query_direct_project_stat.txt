@@ -1,0 +1,55 @@
+SELECT  s.tc_direct_project_id AS tc_direct_project_id,
+	SUM(s.member_cost) AS total_member_cost,
+	SUM(case when s.status='Completed' then s.member_cost else 0 end)/SUM(case when s.status='Completed' then 1 else 0 end) AS average_member_cost,
+	SUM(s.contest_fee) AS total_contest_fee,
+	SUM(s.contest_fee)/SUM(case when s.status='Completed' then 1 else 0 end) AS average_contest_fee,
+	SUM(s.contest_fee+s.member_cost) AS total_cost,
+	SUM(case when s.status='Completed' then 1 else 0 end)*100/COUNT(*) AS fullfillment
+FROM table(MULTISET(SELECT
+p.tc_direct_project_id as tc_direct_project_id,  
+case when ppd.actual_start_time is not null then ppd.actual_start_time else psd.actual_start_time end as posting_date,
+to_date(pi1.value[1,16], '%m.%d.%Y %H:%M') as complete_date,
+(SELECT nvl(SUM(total_amount), 0)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id 
+        AND NOT pmd.payment_status_id IN (65, 69)) as member_cost,
+(select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 31
+        and project_id = p.project_id) as contest_fee,
+
+case when project_status_id = 7 then 'Completed'
+else 'Failed' end as status
+from project p, user_permission_grant upg, OUTER project_phase psd, OUTER project_phase ppd, outer project_info pi1
+where p.tc_direct_project_id = upg.resource_id
+and upg.user_id = @uid@
+and upg.permission_type_id in (1,2,3)
+and p.project_id = ppd.project_id and psd.phase_type_id = 2 and ppd.phase_type_id = 1 and psd.project_id = p.project_id
+and pi1.project_id = p.project_id  and pi1.project_info_type_id = 21
+and p.tc_direct_project_id = @tcdirectid@ and project_status_id in (7,4,5,6,8,9,10,11) 
+and p.project_category_id != 27
+
+union
+
+SELECT
+p.tc_direct_project_id as tc_direct_project_id, 
+p.start_time as posting_date,
+p.winner_announcement_time as complete_date,
+(select m.amount * (select count(submission_id) from studio_oltp:submission where contest_id = p.contest_id and award_milestone_prize ='t')
+        from studio_oltp:contest cc  
+        left outer join studio_oltp:contest_milestone_prize m on m.contest_milestone_prize_id = cc.contest_milestone_prize_id
+        where  cc.contest_id = p.contest_id) +
+(select nvl(sum(amount), 0) from studio_oltp:submission_prize_xref x, studio_oltp:prize pz, studio_oltp:submission s
+        where x.submission_id = s.submission_id and s.contest_id = p.contest_id and x.prize_id  = pz.prize_id) as member_cost,
+
+(select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 25
+        and cfg.contest_id = p.contest_id) as contest_fee,
+'Completed' as status
+from studio_oltp:contest p, user_permission_grant upg
+where p.tc_direct_project_id = upg.resource_id
+and upg.user_id = @uid@
+and upg.permission_type_id in (1,2,3)
+and p.tc_direct_project_id = @tcdirectid@ and p.contest_detailed_status_id = 8
+and (p.deleted is null or p.deleted = 0))) AS s
+GROUP BY tc_direct_project_id;

@@ -284,3 +284,4 @@ query_rss_Pipeline.txt|UPDATE query SET text = ? WHERE query_id = 29867
 query_dd_pipeline_feed.txt|UPDATE query SET text = ? WHERE query_id = 30977
 query_current_project_phases.txt|UPDATE query SET text = ? WHERE query_id = 30996
 query_cockpit_projects.txt|UPDATE query SET text = ? WHERE query_id = 31017
+query_direct_project_stat.txt|UPDATE query SET text = ? WHERE query_id = 31026
