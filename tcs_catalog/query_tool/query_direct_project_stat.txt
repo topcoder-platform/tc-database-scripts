@@ -12,18 +12,26 @@ FROM table(MULTISET(SELECT
 p.tc_direct_project_id as tc_direct_project_id,  
 case when ppd.actual_start_time is not null then ppd.actual_start_time else psd.actual_start_time end as posting_date,
 to_date(pi1.value[1,16], '%m.%d.%Y %H:%M') as complete_date,
-nvl((SELECT nvl(SUM(total_amount), 0)
-       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-        WHERE pmd.component_project_id = p.project_id and installment_number = 1
-        AND NOT pmd.payment_status_id IN (65, 69)), 0) + 
-nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
-        where project_info_type_id = 30
-        and project_id = p.project_id), 0) as member_cost,
+
+case when p.project_status_id = 7 then
+    nvl((SELECT nvl(SUM(total_amount), 0)
+           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+            WHERE pmd.component_project_id = p.project_id and installment_number = 1
+            AND NOT pmd.payment_status_id IN (65, 69)), 0) + 
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+            where project_info_type_id = 30
+            and project_id = p.project_id), 0)
+ else nvl((SELECT nvl(SUM(total_amount), 0)
+           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+            WHERE pmd.component_project_id = p.project_id and installment_number = 1
+            AND NOT pmd.payment_status_id IN (65, 69)), 0) 
+ end as member_cost,
+
 (select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
         where project_info_type_id = 31
         and project_id = p.project_id) as contest_fee,
 
-case when project_status_id = 7 then 'Completed'
+case when p.project_status_id = 7 then 'Completed'
 else 'Failed' end as status
 from project p, user_permission_grant upg, OUTER project_phase psd, OUTER project_phase ppd, outer project_info pi1
 where p.tc_direct_project_id = upg.resource_id
