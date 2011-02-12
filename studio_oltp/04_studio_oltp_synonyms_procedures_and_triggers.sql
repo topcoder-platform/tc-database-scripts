@@ -93,8 +93,11 @@ for common_oltp:'informix'.contest_eligibility;
 create synonym 'informix'.group_contest_eligibility
 for common_oltp:'informix'.group_contest_eligibility;
 
-create synonym "informix".informixoltp_payment for informixoltp:"informix".payment;
-create synonym "informix".informixoltp_payment_detail for informixoltp:"informix".payment_detail;
+create synonym "informix".informixoltp_payment 
+for informixoltp:"informix".payment;
+
+create synonym "informix".informixoltp_payment_detail 
+for informixoltp:"informix".payment_detail;
 
 create procedure "informix".get_current() returning datetime year to fraction(3);
   return CURRENT;
