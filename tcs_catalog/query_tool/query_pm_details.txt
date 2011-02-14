@@ -10,3 +10,6 @@ select *
    and ri.value = u.user_id
    and e.user_id = u.user_id
    and e.primary_ind = 1
+
+   -- exclude "Components", "Applications" and "LCSUPPORT" dummy users
+   and u.user_id not in (22719217, 22770213, 22873364)
