@@ -1731,7 +1731,7 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30866, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30867, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30876, NULL, NULL, 25561, 0);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30996, NULL, NULL, 25561, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (30996, NULL, NULL, 25430, 0);
 
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31026, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31026, NULL, NULL, 25430, 0);
