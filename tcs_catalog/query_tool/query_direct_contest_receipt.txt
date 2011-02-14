@@ -1,0 +1,218 @@
+select 
+
+case when p.project_status_id in (1, 2) then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (16)
+        and project_id = p.project_id), 0)
+else (SELECT max(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61)
+        AND NOT pmd.payment_status_id IN (65, 69)) 
+ end as first_place_prize,
+ 
+
+case when p.project_status_id in (1, 2) then
+    nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 16
+        and project_id = p.project_id)/2), 0)
+else (SELECT min(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1 
+        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61) 
+        AND NOT pmd.payment_status_id IN (65, 69) having max(total_amount) != min(total_amount) )
+ end as second_place_prize,
+
+0 as third_place_prize,0 as fourth_place_prize, 0 as fifth_place_place, 0 as milestone_prize,
+
+(select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 30
+        and project_id = p.project_id) as dr_points,
+
+(select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 31
+        and project_id = p.project_id) as contest_fee,
+
+case when p.project_status_id in (1, 2) then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (38)
+        and project_id = p.project_id), 0)
+else (SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (24)
+        AND NOT pmd.payment_status_id IN (65, 69))
+end as reliability_bonus,
+
+case when p.project_status_id in (1, 2) then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (35)
+        and project_id = p.project_id), 0)
+else  (SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (27)
+        AND NOT pmd.payment_status_id IN (65, 69))
+end as spec_review_cost,
+
+case when p.project_status_id in (1, 2) then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (33)
+        and project_id = p.project_id), 0)
+else  (SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (7, 26, 28, 38)
+        AND NOT pmd.payment_status_id IN (65, 69)) 
+end as review_cost,
+
+case when p.project_status_id in (1, 2) then 0
+else (SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (45)
+        AND NOT pmd.payment_status_id IN (65, 69)) 
+end as copilot_cost,
+
+case when p.project_status_id in (1, 2) then 0
+else  (SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (23)
+        AND NOT pmd.payment_status_id IN (65, 69)) 
+end as bug_fix_cost,
+
+case when p.project_status_id in (1, 2) then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (30, 31, 33, 35, 16, 38, 39)
+        and project_id = p.project_id), 0)
+    +
+    nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 16
+        and project_id = p.project_id)/2), 0)
+else nvl((SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        AND NOT pmd.payment_status_id IN (65, 69)), 0) +
+nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (30, 31)
+        and project_id = p.project_id), 0)
+end as total_cost,
+
+case when p.project_status_id in (7,4,5,6,8,9,10,11) then 'Finished' else 'Not Finished' end as status
+
+from project p 
+
+where p.project_id = @pj@
+
+
+union
+
+
+select 
+
+case when c.contest_detailed_status_id = 8 then
+(select nvl(sum(amount), 0) from studio_oltp:submission_prize_xref x, studio_oltp:prize pz, studio_oltp:submission s
+        where x.submission_id = s.submission_id and s.contest_id = c.contest_id and x.prize_id  = pz.prize_id and pz.place = 1)
+else 
+(select nvl(sum(nvl(pr.amount, 0)), 0)
+        from studio_oltp:contest_prize_xref x, studio_oltp:prize pr, studio_oltp:contest cc  
+        where x.prize_id = pr.prize_id and x.contest_id = cc.contest_id and pr.place = 1
+        and cc.contest_id = c.contest_id)
+end as first_place_prize,
+
+case when c.contest_detailed_status_id = 8 then
+(select nvl(sum(amount), 0) from studio_oltp:submission_prize_xref x, studio_oltp:prize pz, studio_oltp:submission s
+        where x.submission_id = s.submission_id and s.contest_id = c.contest_id and x.prize_id  = pz.prize_id and pz.place = 2)
+else 
+(select nvl(sum(nvl(pr.amount, 0)), 0)
+        from studio_oltp:contest_prize_xref x, studio_oltp:prize pr, studio_oltp:contest cc  
+        where x.prize_id = pr.prize_id and x.contest_id = cc.contest_id and pr.place = 2
+        and cc.contest_id = c.contest_id)
+end as second_place_prize,
+
+case when c.contest_detailed_status_id = 8 then
+(select nvl(sum(amount), 0) from studio_oltp:submission_prize_xref x, studio_oltp:prize pz, studio_oltp:submission s
+        where x.submission_id = s.submission_id and s.contest_id = c.contest_id and x.prize_id  = pz.prize_id and pz.place = 3)
+else 
+(select nvl(sum(nvl(pr.amount, 0)), 0)
+        from studio_oltp:contest_prize_xref x, studio_oltp:prize pr, studio_oltp:contest cc  
+        where x.prize_id = pr.prize_id and x.contest_id = cc.contest_id and pr.place = 3
+        and cc.contest_id = c.contest_id)
+end as third_place_prize,
+
+case when c.contest_detailed_status_id = 8 then
+(select nvl(sum(amount), 0) from studio_oltp:submission_prize_xref x, studio_oltp:prize pz, studio_oltp:submission s
+        where x.submission_id = s.submission_id and s.contest_id = c.contest_id and x.prize_id  = pz.prize_id and pz.place = 4)
+else 
+(select nvl(sum(nvl(pr.amount, 0)), 0)
+        from studio_oltp:contest_prize_xref x, studio_oltp:prize pr, studio_oltp:contest cc  
+        where x.prize_id = pr.prize_id and x.contest_id = cc.contest_id and pr.place = 4
+        and cc.contest_id = c.contest_id)
+end as fourth_place_prize,
+
+case when c.contest_detailed_status_id = 8 then
+(select nvl(sum(amount), 0) from studio_oltp:submission_prize_xref x, studio_oltp:prize pz, studio_oltp:submission s
+        where x.submission_id = s.submission_id and s.contest_id = c.contest_id and x.prize_id  = pz.prize_id and pz.place = 5)
+else 
+(select nvl(sum(nvl(pr.amount, 0)), 0)
+        from studio_oltp:contest_prize_xref x, studio_oltp:prize pr, studio_oltp:contest cc  
+        where x.prize_id = pr.prize_id and x.contest_id = cc.contest_id and pr.place = 5
+        and cc.contest_id = c.contest_id)
+end as fifth_place_prize,
+
+case when c.contest_detailed_status_id = 8 then
+
+(select m.amount * (select count(submission_id) from studio_oltp:submission where contest_id = c.contest_id and award_milestone_prize ='t')
+        from studio_oltp:contest cc  
+        left outer join studio_oltp:contest_milestone_prize m on m.contest_milestone_prize_id = cc.contest_milestone_prize_id
+        where  cc.contest_id = c.contest_id)
+else 
+
+(select nvl( sum(cast(m.amount*number_of_submissions as DECIMAL(10,2))), 0)
+        from studio_oltp:contest cc  
+        left outer join studio_oltp:contest_milestone_prize m on m.contest_milestone_prize_id = cc.contest_milestone_prize_id
+        where  cc.contest_id = c.contest_id) 
+end as milestone_prize,
+
+nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 24
+        and cfg.contest_id = c.contest_id), 0) as dr_points,
+
+nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 25
+        and cfg.contest_id = c.contest_id), 0) as contest_fee,
+
+0 as reliability_bonus,
+
+nvl((SELECT SUM(total_amount) 
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.studio_contest_id = c.contest_id and installment_number = 1 and payment_type_id = 48
+        AND NOT pmd.payment_status_id IN (65, 69)), 0) as spec_review_cost,
+
+nvl((SELECT SUM(total_amount) 
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.studio_contest_id = c.contest_id and installment_number = 1 and payment_type_id in (56, 36)
+        AND NOT pmd.payment_status_id IN (65, 69)), 0) as review_cost,
+
+nvl((SELECT SUM(total_amount) 
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.studio_contest_id = c.contest_id and installment_number = 1 and payment_type_id in (57)
+        AND NOT pmd.payment_status_id IN (65, 69)), 0) as copilot_cost,
+
+nvl((SELECT SUM(total_amount) 
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.studio_contest_id = c.contest_id and installment_number = 1 and payment_type_id in (46)
+        AND NOT pmd.payment_status_id IN (65, 69)), 0) as bug_fix_cost,
+
+nvl((SELECT SUM(total_amount) 
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.studio_contest_id = c.contest_id and installment_number = 1 
+        AND NOT pmd.payment_status_id IN (65, 69)), 0) as total_cost,
+
+case when c.contest_detailed_status_id = 8  then 'Finished' else 'Not Finished' end as status
+from studio_oltp:contest c
+
+where c.contest_id =  @pj@
