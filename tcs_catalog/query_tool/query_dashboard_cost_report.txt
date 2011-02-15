@@ -23,18 +23,35 @@ select p.project_id,
           'Active'
        END as contest_status,
   NVL((select max(price) from contest_sale where contest_id = p.project_id), 0) as estimated_member_costs,
-  NVL((select SUM(NVL((select sum(pd1.total_amount)
-     from informixoltp:payment p1, informixoltp:payment_detail pd1
-    where p1.most_recent_detail_id = pd1.payment_detail_id and pd1.parent_payment_id = p2.payment_id), 0)
-  + pd.total_amount)
-from informixoltp:payment p2
-     , informixoltp:payment_detail pd
-     , informixoltp:payment_type_lu ptl
-where p2.most_recent_detail_id = pd.payment_detail_id
-   and pd.payment_type_id = ptl.payment_type_id
-   and pd.payment_status_id not in (65,68,69)
-   and pd.component_project_id = p.project_id),0)
-  as actual_Member_Costs
+
+  SUM(case when p.project_status_id = 7 then
+      NVL((select SUM(NVL((select sum(pd1.total_amount)
+         from informixoltp:payment p1, informixoltp:payment_detail pd1
+        where p1.most_recent_detail_id = pd1.payment_detail_id and pd1.parent_payment_id = p2.payment_id), 0)
+      + pd.total_amount)
+    from informixoltp:payment p2
+         , informixoltp:payment_detail pd
+         , informixoltp:payment_type_lu ptl
+    where p2.most_recent_detail_id = pd.payment_detail_id
+       and pd.payment_type_id = ptl.payment_type_id
+       and pd.payment_status_id not in (65,68,69)
+       and pd.component_project_id = p.project_id),0) 
+     +
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 30
+        and project_id = p.project_id), 0)
+  else NVL((select SUM(NVL((select sum(pd1.total_amount)
+         from informixoltp:payment p1, informixoltp:payment_detail pd1
+        where p1.most_recent_detail_id = pd1.payment_detail_id and pd1.parent_payment_id = p2.payment_id), 0)
+      + pd.total_amount)
+    from informixoltp:payment p2
+         , informixoltp:payment_detail pd
+         , informixoltp:payment_type_lu ptl
+    where p2.most_recent_detail_id = pd.payment_detail_id
+       and pd.payment_type_id = ptl.payment_type_id
+       and pd.payment_status_id not in (65,68,69)
+       and pd.component_project_id = p.project_id),0)
+  end) as actual_Member_Costs
 from project p,      
      tc_direct_project tdp,
      project_status_lu ps,
@@ -92,15 +109,29 @@ DECODE(cds.contest_detailed_status_id, 2, 'Active', 5, 'Active', 6, 'Active', 10
 from studio_oltp:contest c2
 where contest_id = c.contest_id) as estimated_member_costs,
 
-
-NVL((select sum(pd.total_amount)
-from informixoltp:payment pm
-     , informixoltp:payment_detail pd
-     , informixoltp:payment_type_lu ptl
-where pm.most_recent_detail_id = pd.payment_detail_id
-   and pd.payment_type_id = ptl.payment_type_id
-   and pd.payment_status_id not in (65,68,69)
-   and pd.studio_contest_id = c.contest_id),0) as actual_Member_Costs
+case when c.contest_detailed_status_id = 8 then
+    NVL((select sum(pd.total_amount)
+    from informixoltp:payment pm
+         , informixoltp:payment_detail pd
+         , informixoltp:payment_type_lu ptl
+    where pm.most_recent_detail_id = pd.payment_detail_id
+       and pd.payment_type_id = ptl.payment_type_id
+       and pd.payment_status_id not in (65,68,69)
+       and pd.studio_contest_id = c.contest_id),0) 
+     + 
+     nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+            from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+            where cfg.contest_id = cc.contest_id and property_id = 24
+            and cfg.contest_id = c.contest_id), 0)
+ else NVL((select sum(pd.total_amount)
+    from informixoltp:payment pm
+         , informixoltp:payment_detail pd
+         , informixoltp:payment_type_lu ptl
+    where pm.most_recent_detail_id = pd.payment_detail_id
+       and pd.payment_type_id = ptl.payment_type_id
+       and pd.payment_status_id not in (65,68,69)
+       and pd.studio_contest_id = c.contest_id),0) 
+end  as actual_Member_Costs
    
 from studio_oltp:contest c,
      studio_oltp:contest_config cc1, studio_oltp:contest_config cc2, time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc,
