@@ -23,7 +23,7 @@ else (SELECT min(total_amount)
         AND NOT pmd.payment_status_id IN (65, 69) having max(total_amount) != min(total_amount) )
  end as second_place_prize,
 
-0 as third_place_prize,0 as fourth_place_prize, 0 as fifth_place_place, 0 as milestone_prize,
+0 as third_place_prize,0 as fourth_place_prize, 0 as fifth_place_prize, 0 as milestone_prize,
 
 (select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
         where project_info_type_id = 30
