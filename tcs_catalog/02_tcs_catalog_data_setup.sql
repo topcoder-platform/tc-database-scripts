@@ -1026,6 +1026,7 @@ insert into 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 insert into 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) values (46, 'Member Payments Eligible', 'Member Payments Eligible', 'System', current, 'System', current);
 insert into 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) values (47, 'Phase Dependencies Editable', 'Phase Dependencies Editable', 'System', current, 'System', current);
 insert into 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) values (48, 'Track Late Deliverables', 'Track Late Deliverables', 'System', current, 'System', current);
+insert into 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) values (49, 'Copilot Cost', 'Copilot Cost', 'System', current, 'System', current);
 
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scheduled', 'Scheduled', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Open', 'Open', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
