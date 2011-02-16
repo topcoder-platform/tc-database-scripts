@@ -1,5 +1,23 @@
 database studio_oltp;
 
+
+alter table submission_declaration add constraint primary key
+    (submission_declaration_id)
+    constraint submission_declaration_pk;
+
+alter table external_content_type add constraint primary key
+    (external_content_type_id)
+    constraint external_content_type_pk;
+
+alter table submission_external_content add constraint primary key
+    (external_content_id)
+    constraint submission_external_content_pk;
+
+alter table external_content_property add constraint primary key
+    (external_content_property_id)
+    constraint external_content_property_pk;
+
+
 alter table "informix".command add constraint (foreign key (command_group_id) 
     references "informix".command_group_lu  constraint "informix"
     .command_command_group_fk);
@@ -230,6 +248,28 @@ alter table 'informix'.studio_competition_change_history add constraint foreign 
     references 'informix'.submission 
     (submission_id) 
     constraint electronic_affirmation_fk;
+
+
+ 
+alter table submission_declaration add constraint foreign key
+    (submission_id)
+    references submission
+    (submission_id)
+    constraint submission_declaration_to_submission_fk;
+
+
+alter table submission_external_content add constraint foreign key
+    (submission_declaration_id)
+    references submission_declaration
+    (submission_declaration_id)
+    constraint submission_external_content_to_submission_declaration_fk;
+
+
+alter table external_content_property add constraint foreign key
+    (external_content_id)
+    references submission_external_content
+    (external_content_id)
+    constraint external_content_property_to_submission_external_content_fk;
 
 
 

@@ -621,5 +621,8 @@ insert into resource_role_lu(resource_role_id, name, description) values (1003, 
 
 insert into resource_role_lu(resource_role_id, name, description) values (1004, 'Salesperson', 'Salesperson');
 
+insert into external_content_type (external_content_type_id, name) values (1, "Fonts");
+insert into external_content_type (external_content_type_id, name) values (2, "Stock Art");
+
 
  

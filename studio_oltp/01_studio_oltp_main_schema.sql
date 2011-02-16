@@ -135,6 +135,7 @@ create table "informix".contest
     contest_general_info_id DECIMAL(10,0),
     contest_multi_round_information_id DECIMAL(10,0),
     contest_specifications_id DECIMAL(10,0),
+    allow_stock_art CHAR(1),
     primary key (contest_id)  constraint "informix".contest_pk
   ) 
   extent size 100 next size 100
@@ -613,6 +614,8 @@ create table "informix".submission
     feedback_thumb decimal(3,0),
     user_rank decimal(5,0),
     award_milestone_prize boolean(1),
+    file_size DECIMAL(18,0),
+    view_count DECIMAL(10,0),
     primary key (submission_id)  constraint "informix".submission_pk
   ) 
   extent size 2000 next size 2000 
@@ -828,7 +831,47 @@ lock mode row;
 
 revoke all on 'informix'.electronic_affirmation from public as informix;
 
+create table submission_declaration (
+	submission_declaration_id DECIMAL(10,0) NOT NULL,
+	submission_id DECIMAL(10,0) NOT NULL,
+	comment text NOT NULL,
+	has_external_content CHAR(1)
+) 
+extent size 32 next size 32 
+lock mode row;
+revoke all on "informix".submission_declaration from "public" as "informix";
 
+
+create table external_content_type (
+	external_content_type_id DECIMAL(10, 0) NOT NULL,
+	name VARCHAR(50) NOT NULL
+)
+extent size 8 next size 8
+lock mode row;
+revoke all on "informix".external_content_type from "public" as "informix";
+
+
+
+create table submission_external_content (
+	external_content_id DECIMAL(10, 0) NOT NULL,
+	external_content_type_id DECIMAL(10, 0) NOT NULL,
+	display_position INTEGER NOT NULL,
+	submission_declaration_id DECIMAL(10, 0) NOT NULL
+)
+extent size 32 next size 32 
+lock mode row;
+revoke all on "informix".submission_external_content from "public" as "informix";
+
+
+create table external_content_property (
+	external_content_property_id DECIMAL(10, 0) NOT NULL,
+	external_content_id DECIMAL(10, 0) NOT NULL,
+	name VARCHAR(50) NOT NULL,
+	value VARCHAR(100) NOT NULL
+)
+extent size 32 next size 32 
+lock mode row;
+revoke all on "informix".external_content_property from "public" as "informix";
 
 
 
@@ -1152,7 +1195,10 @@ grant select,insert,update,delete on 'informix'.studio_competition_change_histor
 grant select,insert,update,delete on 'informix'.studio_competition_pipeline_resources  to public as informix;
 
 grant select,insert,update,delete on 'informix'.electronic_affirmation  to public as informix;
-
+grant select,insert,update,delete on 'informix'.submission_declaration  to public as informix;
+grant select,insert,update,delete on 'informix'.external_content_type  to public as informix;
+grant select,insert,update,delete on 'informix'.submission_external_content  to public as informix;
+grant select,insert,update,delete on 'informix'.external_content_property  to public as informix;
 
 grant select on "informix".studio_contest_seq to "public" as "informix";
 grant select on "informix".studio_document_seq to "public" as "informix";
