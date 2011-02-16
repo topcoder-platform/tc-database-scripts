@@ -1,4 +1,4 @@
-select p.contest_id, name as contest_name, tc_direct_project_id as project_id, (select name from tc_direct_project dp where dp.project_id = tc_direct_project_id) as project_name,
+select p.contest_id, p.name as contest_name, tc_direct_project_id as project_id, (select name from tc_direct_project dp where dp.project_id = tc_direct_project_id) as project_name,
 (select count(*) from studio_oltp:contest_registration where contest_id = p.contest_id ) as number_of_registration, 
 (select count(*) from studio_oltp:submission as s 
                     left outer join studio_oltp:submission_review sr 
@@ -10,9 +10,10 @@ select p.contest_id, name as contest_name, tc_direct_project_id as project_id, (
                      from studio_oltp:contest_config 
                      where contest_id = p.contest_id and property_id = 8) 
                      and (sr.submission_id is null or (sr.review_status_id <> 2 and sr.review_status_id <> 3))) as number_of_submission, 
-(select count(*) from studio_oltp:jivemessage where forumid = p.forum_id ) as number_of_forum, p.forum_id::varchar(255) as forum_id, p.start_time as start_date, p.end_time as end_date, "Studio" as type
-from studio_oltp:contest p 
-where p.contest_id = @ct@
+(select count(*) from studio_oltp:jivemessage where forumid = p.forum_id ) as number_of_forum, p.forum_id::varchar(255) as forum_id, p.start_time as start_date, p.end_time as end_date, "Studio" as type, 
+l.contest_detailed_status_desc as status
+from studio_oltp:contest p, studio_oltp:contest_detailed_status_lu l
+where p.contest_id = @ct@ and l.contest_detailed_status_id = p.contest_detailed_status_id
 
 UNION
 
@@ -25,6 +26,6 @@ p.tc_direct_project_id as project_id, (select name from tc_direct_project where 
 and c.categoryid = pi.value and c.categoryid = f.categoryid and m.forumid = f.forumid and pi.project_id = p.project_id) as number_of_forum,
 (select value from project_info where project_id = p.project_id and project_info_type_id =4) as forum_id,
 (select min(nvl(actual_start_time, scheduled_start_time)) from project_phase ph where ph.project_id=p.project_id) as start_date,
-(select max(nvl(actual_end_time, scheduled_end_time)) from project_phase ph where ph.project_id=p.project_id) as end_date, "Software" as type
-
-from tcs_catalog:project p where p.project_id = @ct@
+(select max(nvl(actual_end_time, scheduled_end_time)) from project_phase ph where ph.project_id=p.project_id) as end_date, "Software" as type,
+l.name as status
+from tcs_catalog:project p, tcs_catalog:project_status_lu l where p.project_id = @ct@ and p.project_status_id = l.project_status_id

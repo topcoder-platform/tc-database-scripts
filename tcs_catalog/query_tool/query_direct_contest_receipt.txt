@@ -207,10 +207,39 @@ nvl((SELECT SUM(total_amount)
         WHERE pmd.studio_contest_id = c.contest_id and installment_number = 1 and payment_type_id in (46)
         AND NOT pmd.payment_status_id IN (65, 69)), 0) as bug_fix_cost,
 
+case when c.contest_detailed_status_id = 8 then
+
 nvl((SELECT SUM(total_amount) 
        FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-        WHERE pmd.studio_contest_id = c.contest_id and installment_number = 1 
-        AND NOT pmd.payment_status_id IN (65, 69)), 0) as total_cost,
+        WHERE pmd.studio_contest_id = c.contest_id and installment_number = 1
+        AND NOT pmd.payment_status_id IN (65, 69)), 0)  +
+nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 24
+        and cfg.contest_id = c.contest_id), 0) +
+nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 25
+        and cfg.contest_id = c.contest_id), 0)
+ else
+
+nvl((select nvl(sum(nvl(pr.amount, 0)), 0)
+        from studio_oltp:contest_prize_xref x, studio_oltp:prize pr, studio_oltp:contest cc  
+        where x.prize_id = pr.prize_id and x.contest_id = cc.contest_id
+        and cc.contest_id = c.contest_id), 0) +
+nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 24
+        and cfg.contest_id = c.contest_id), 0) +
+nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 25
+        and cfg.contest_id = c.contest_id), 0) +
+nvl((select nvl( sum(cast(m.amount*number_of_submissions as DECIMAL(10,2))), 0)
+        from studio_oltp:contest cc  
+        left outer join studio_oltp:contest_milestone_prize m on m.contest_milestone_prize_id = cc.contest_milestone_prize_id
+        where  cc.contest_id = c.contest_id), 0)
+ end as total_cost,
 
 case when c.contest_detailed_status_id = 8  then 'Finished' else 'Not Finished' end as status
 from studio_oltp:contest c
