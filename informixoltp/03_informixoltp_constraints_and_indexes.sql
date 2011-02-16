@@ -3103,3 +3103,7 @@ alter table 'informix'.long_system_test_data add constraint foreign key
 	(test_case_id) 
 	constraint longsystemtestdata_testcase_fk;
 
+create index 'informix'.paymnt_dtl_studio_cntst_idx on 'informix'.payment_detail
+	(
+	studio_contest_id
+	);
