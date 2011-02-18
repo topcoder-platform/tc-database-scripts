@@ -10,7 +10,7 @@ SELECT
        p.project_category_name AS contest_type,
        nvl(p.fulfillment, 0)*100 AS contest_fulfillment,
        nvl(p.admin_fee, 0)+ nvl(p.contest_prizes_total, 0) AS contest_cost,
-       nvl(p.duration, 0)/(60*24)  AS contest_duration
+       ROUND ((nvl(p.duration, 0)/(60*24), 2)  AS contest_duration
 FROM project p
 INNER JOIN client_project_dim c ON p.client_project_id = c.client_project_id
 INNER JOIN direct_project_dim d ON p.tc_direct_project_id = d.direct_project_id

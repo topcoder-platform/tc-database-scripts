@@ -1,24 +1,22 @@
 SELECT
-       week_start_date AS stat_date,
+       month_start_date AS stat_date,
        ROUND (SUM(s.cost) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END, 2) AS cost,
-       ROUND (SUM(s.duration) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END / (60*24), 2)  AS duration,
+       ROUND (SUM(s.duration) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END /(60*24), 2) AS duration,
        ROUND (SUM(s.fulfillment) / CASE WHEN SUM(s.project_count) = 0 THEN 1 ELSE SUM(s.project_count) END * 100, 2) AS fulfillment,
        SUM(s.completed_project_count) AS total_completed_project,
        SUM(s.project_count) AS total_project
-FROM table(multiset(SELECT client_project_id, tc_direct_project_id, project_category_id, year, week, 
+FROM table(multiset(SELECT client_project_id, tc_direct_project_id, project_category_id, year, month,
       total_completed_contests AS completed_project_count,
       total_completed_contests + total_failed_contests AS project_count,
       (avg_contest_fees + avg_member_fees) * total_completed_contests AS cost,
       avg_duration * total_completed_contests AS duration,
       avg_fulfillment * (total_completed_contests + total_failed_contests) AS fulfillment
-      FROM weekly_contest_stats)) s
+      FROM monthly_contest_stats)) s
 INNER JOIN client_project_dim c ON s.client_project_id = c.client_project_id
-INNER JOIN table(multiset(SELECT year, week_of_year, MIN(date) AS week_start_date FROM calendar GROUP BY year, week_of_year)) cal 
-      ON cal.year = s.year AND cal.week_of_year = s.week
-WHERE s.tc_direct_project_id IN (@tdpis@)
-AND   s.project_category_id IN (@pcids@)
-AND   c.client_id IN (@clids@)
+INNER JOIN TABLE(MULTISET(SELECT year, month_numeric, MIN(date) AS month_start_date FROM calendar GROUP BY year, month_numeric)) cal
+      ON cal.year = s.year AND cal.month_numeric = s.month
+WHERE s.project_category_id IN (@pcids@)
 AND   c.billing_project_id IN (@bpids@)
-AND   cal.week_start_date BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
-GROUP BY cal.week_start_date
-ORDER BY cal.week_start_date
+AND   cal.month_start_date BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
+GROUP BY cal.month_start_date
+ORDER BY cal.month_start_date
