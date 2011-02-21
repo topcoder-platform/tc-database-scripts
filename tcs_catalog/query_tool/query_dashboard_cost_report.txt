@@ -25,19 +25,39 @@ select p.project_id,
   NVL((select max(price) from contest_sale where contest_id = p.project_id), 0) as estimated_member_costs,
 
   SUM(case when p.project_status_id = 7 then
-      nvl((SELECT nvl(SUM(total_amount), 0)
-           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-            WHERE pmd.component_project_id = p.project_id and installment_number = 1
-            AND NOT pmd.payment_status_id IN (65,68, 69)), 0)
+      NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+    +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
      +
     nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
         where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
         and pi26.value = 'On'
         and pi26.project_id =  p.project_id ), 0)
-  else nvl((SELECT nvl(SUM(total_amount), 0)
-           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-            WHERE pmd.component_project_id = p.project_id and installment_number = 1
-            AND NOT pmd.payment_status_id IN (65,68, 69)), 0)
+  else NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+    +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
   end) as actual_Member_Costs
 from project p,      
      tc_direct_project tdp,
@@ -98,19 +118,39 @@ from studio_oltp:contest c2
 where contest_id = c.contest_id) as estimated_member_costs,
 
 case when c.contest_detailed_status_id = 8 then
-    nvl((SELECT nvl(SUM(total_amount), 0)
-           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-            WHERE pmd.studio_contest_id = c.contest_id and installment_number = 1
-            AND NOT pmd.payment_status_id IN (65,68, 69)), 0)
+    NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.studio_contest_id = c.contest_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
++
+NVL((SELECT sum(pmd2.total_amount) 
+       FROM  informixoltp:payment_detail pmd,  
+             informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+             informixoltp:payment pm2 
+        WHERE pmd.studio_contest_id = c.contest_id and pmd2.installment_number = 1 
+        and pm.most_recent_detail_id = pmd.payment_detail_id  
+        and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+        AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
      + 
      nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
             from studio_oltp:contest_config cfg, studio_oltp:contest cc  
             where cfg.contest_id = cc.contest_id and property_id = 24
             and cfg.contest_id = c.contest_id), 0)
- else nvl((SELECT nvl(SUM(total_amount), 0)
-           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-            WHERE pmd.studio_contest_id = c.contest_id and installment_number = 1
-            AND NOT pmd.payment_status_id IN (65,68, 69)), 0)
+ else NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.studio_contest_id = c.contest_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
++
+NVL((SELECT sum(pmd2.total_amount) 
+       FROM  informixoltp:payment_detail pmd,  
+             informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+             informixoltp:payment pm2 
+        WHERE pmd.studio_contest_id = c.contest_id and pmd2.installment_number = 1 
+        and pm.most_recent_detail_id = pmd.payment_detail_id  
+        and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+        AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
 end  as actual_Member_Costs
    
 from studio_oltp:contest c,

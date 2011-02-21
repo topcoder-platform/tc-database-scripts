@@ -40,11 +40,14 @@ case when p.project_status_id in (1, 2) then
     nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
         where project_info_type_id in (38)
         and project_id = p.project_id), 0)
-else nvl((SELECT sum(total_amount)
-       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-        WHERE pmd.component_project_id = p.project_id and installment_number = 1
-        and payment_type_id in (24)
-        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+else nvl((SELECT sum(pmd2.total_amount) 
+       FROM  informixoltp:payment_detail pmd,  
+             informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+             informixoltp:payment pm2 
+        WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+        and pm.most_recent_detail_id = pmd.payment_detail_id  
+        and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+        AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
 end as reliability_bonus,
 
 case when p.project_status_id in (1, 2) then
@@ -84,7 +87,7 @@ case when p.project_status_id in (1, 2) then 0
 else  nvl((SELECT sum(total_amount)
        FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
         WHERE pmd.component_project_id = p.project_id and installment_number = 1
-        and payment_type_id in (23)
+        and payment_type_id in (23, 37)
         AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
 end as bug_fix_cost,
 
