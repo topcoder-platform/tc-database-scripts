@@ -50,7 +50,7 @@ case when p.project_status_id = 7 then
  end as member_cost,
 
 (select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
-        where project_info_type_id = 31
+        where project_info_type_id = 31 and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
         and project_id = p.project_id) as contest_fee,
 
 case when p.project_status_id = 7 then 'Completed'

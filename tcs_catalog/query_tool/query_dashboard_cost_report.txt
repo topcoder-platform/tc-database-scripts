@@ -11,7 +11,11 @@ select p.project_id,
        pc.project_category_id,
        pi.value as contest_name,
        0 as is_studio,
-       pi2.value::DECIMAL(10,2) as contest_fee,
+       case when p.project_status_id in (9, 10) and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+            then pi2.value::DECIMAL(10,2)
+            when p.project_status_id in (9, 10) and not exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+            then 0 
+            else pi2.value::DECIMAL(10,2) end as contest_fee,
        CASE
        WHEN ps.project_status_id not in (1,2,3)
           THEN 'Finished'
