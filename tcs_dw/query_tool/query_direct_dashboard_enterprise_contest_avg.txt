@@ -2,7 +2,7 @@ SELECT
         s.project_category_id AS project_category_id,
         ROUND (SUM(s.cost) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END, 2) AS marketavg_cost,
         ROUND (SUM(s.duration) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END / (60*24), 2) AS marketavg_duration,
-        ROUND (SUM(s.fulfillment) / CASE WHEN SUM(s.project_count) = 0 THEN 1 ELSE SUM(s.project_count) END * 100), 2) AS marketavg_fulfillment
+        ROUND (SUM(s.fulfillment) / CASE WHEN SUM(s.project_count) = 0 THEN 1 ELSE SUM(s.project_count) END * 100, 2) AS marketavg_fulfillment
 FROM table(multiset(SELECT project_category_id, year, week,
       total_completed_contests AS completed_project_count,
       total_completed_contests + total_failed_contests AS project_count,
