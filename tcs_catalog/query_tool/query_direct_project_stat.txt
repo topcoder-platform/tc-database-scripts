@@ -1,5 +1,6 @@
 SELECT  s.tc_direct_project_id AS tc_direct_project_id,
 	SUM(case when s.status='Completed' then 1 else 0 end) AS completed_number,
+        SUM(case when (s.status='Cancelled' ) then 1 else 0 end) AS cancelled_number,  
 	SUM(s.member_cost) AS total_member_cost,
 	ROUND ((SUM(case when s.status='Completed' then s.member_cost else 0 end)/(case when SUM(case when s.status='Completed' then 1 else 0 end)=0 
 				then 1 else SUM(case when s.status='Completed' then 1 else 0 end) end)), 2) AS average_member_cost,
@@ -7,7 +8,7 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
 	ROUND (SUM(s.contest_fee)/(case when SUM(case when s.status='Completed' then 1 else 0 end)=0 
 				then 1 else SUM(case when s.status='Completed' then 1 else 0 end) end), 2) AS average_contest_fee,
 	SUM(s.contest_fee+s.member_cost) AS total_cost,
-	ROUND (SUM(case when s.status='Completed' then 1 else 0 end)*100/COUNT(*), 2) AS fullfillment
+	ROUND (SUM(case when s.status='Completed' then 1 else 0 end)*100/SUM (case when s.status!='Cancelled' then 1 else 0 end), 2) AS fullfillment
 FROM table(MULTISET(SELECT
 p.tc_direct_project_id as tc_direct_project_id,  
 case when ppd.actual_start_time is not null then ppd.actual_start_time else psd.actual_start_time end as posting_date,
@@ -54,6 +55,7 @@ case when p.project_status_id = 7 then
         and project_id = p.project_id) as contest_fee,
 
 case when p.project_status_id = 7 then 'Completed'
+when p.project_status_id in (9, 10) then 'Cancelled'
 else 'Failed' end as status
 from project p, user_permission_grant upg, OUTER project_phase psd, OUTER project_phase ppd, outer project_info pi1
 where p.tc_direct_project_id = upg.resource_id
