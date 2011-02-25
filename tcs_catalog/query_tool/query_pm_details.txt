@@ -4,7 +4,7 @@ select *
      , email e
      , resource_info ri
  where rur.project_id = @pj@
-   and rur.resource_role_id in (12, 13, 14)
+   and rur.resource_role_id in (13, 14)
    and rur.resource_id = ri.resource_id
    and ri.resource_info_type_id = 1
    and ri.value = u.user_id
