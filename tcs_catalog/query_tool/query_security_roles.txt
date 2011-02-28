@@ -1,0 +1,12 @@
+SELECT security_roles.role_id, description  
+FROM   user_role_xref, security_roles 
+WHERE  user_role_xref.login_id = @uid@
+AND    user_role_xref.role_id = security_roles.role_id
+AND    user_role_xref.security_status_id = 1 
+UNION SELECT security_roles.role_id, description 
+FROM   security_roles, user_group_xref, group_role_xref 
+WHERE  user_group_xref.login_id = @uid@
+AND    user_group_xref.group_id = group_role_xref.group_id 
+AND    user_group_xref.security_status_id = 1 
+AND    group_role_xref.security_status_id = 1 
+AND    group_role_xref.role_id = security_roles.role_id

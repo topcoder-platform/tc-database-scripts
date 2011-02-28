@@ -288,3 +288,4 @@ query_direct_project_stat.txt|UPDATE query SET text = ? WHERE query_id = 31026
 
 query_direct_contest_receipt.txt|UPDATE query SET text = ? WHERE query_id = 31036
 query_dashboard_cost_report.txt|UPDATE query SET text = ? WHERE query_id = 31046
+query_security_roles.txt|UPDATE query SET text = ? WHERE query_id = 31047
