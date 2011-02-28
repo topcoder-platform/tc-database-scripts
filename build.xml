@@ -108,6 +108,7 @@
     <dbaccess file="time_oltp/02_time_oltp_data_setup.sql" outfile="time_oltp.log" append="true"  />
     <dbaccess file="time_oltp/03_time_oltp_constraints_and_indexes.sql" outfile="time_oltp.log" append="true"  />
     <dbaccess file="time_oltp/04_time_oltp_synonyms_procedures_and_triggers.sql" outfile="time_oltp.log" append="true"  />
+    <dbaccess file="time_oltp/05_time_oltp_test_data.sql" outfile="time_oltp.log" append="true"  />
 
     <!-- create corporate_oltp -->
     <echo message="Creating database corporate_oltp" />

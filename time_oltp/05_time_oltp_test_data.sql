@@ -212,12 +212,6 @@ insert into project_contest_fee(project_contest_fee_id, project_id, is_studio, c
 values(2007, 1, 1, 26, 5008, 0);
 
 insert into project_contest_fee(project_contest_fee_id, project_id, is_studio, contest_type_id, contest_fee, is_deleted)
-values(2007, 1, 1, 26, 5008, 0);
-
-insert into project_contest_fee(project_contest_fee_id, project_id, is_studio, contest_type_id, contest_fee, is_deleted)
-values(2007, 1, 1, 26, 5008, 0);
-
-insert into project_contest_fee(project_contest_fee_id, project_id, is_studio, contest_type_id, contest_fee, is_deleted)
 values(2010, 1, 0, 1, 6000, 0);
 
 insert into project_contest_fee(project_contest_fee_id, project_id, is_studio, contest_type_id, contest_fee, is_deleted)
