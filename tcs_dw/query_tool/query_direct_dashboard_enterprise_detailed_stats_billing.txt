@@ -2,7 +2,7 @@ SELECT
        week_start_date AS stat_date,
        ROUND (SUM(s.cost) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END, 2) AS cost,
        ROUND (SUM(s.duration) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END /(60*24), 2) AS duration,
-       ROUND (SUM(s.fulfillment) / CASE WHEN SUM(s.project_count) = 0 THEN 1 ELSE SUM(s.project_count) END * 100, 2) AS fulfillment,
+       ROUND (SUM(s.completed_project_count)/SUM(s.project_count) * 100, 2) AS fulfillment,
        SUM(s.completed_project_count) AS total_completed_project,
        SUM(s.project_count) AS total_project
 FROM table(multiset(SELECT client_project_id, tc_direct_project_id, project_category_id, year, week, 

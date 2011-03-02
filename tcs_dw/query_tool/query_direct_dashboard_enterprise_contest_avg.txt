@@ -1,17 +1,15 @@
 SELECT
-        s.project_category_id AS project_category_id,
-        ROUND (SUM(s.cost) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END, 2) AS marketavg_cost,
-        ROUND (SUM(s.duration) / CASE WHEN SUM(s.completed_project_count) = 0 THEN 1 ELSE SUM(s.completed_project_count) END / (60*24), 2) AS marketavg_duration,
-        ROUND (SUM(s.fulfillment) / CASE WHEN SUM(s.project_count) = 0 THEN 1 ELSE SUM(s.project_count) END * 100, 2) AS marketavg_fulfillment
-FROM table(multiset(SELECT project_category_id, year, week,
-      total_completed_contests AS completed_project_count,
-      total_completed_contests + total_failed_contests AS project_count,
-      (avg_contest_fees + avg_member_fees) * total_completed_contests AS cost,
-      avg_duration * total_completed_contests AS duration,
-      avg_fulfillment * (total_completed_contests + total_failed_contests) AS fulfillment
-      FROM weekly_contest_stats)) s
-INNER JOIN table(multiset(SELECT year, week_of_year, MIN(date) AS week_start_date FROM calendar GROUP BY year, week_of_year)) cal
-      ON cal.year = s.year AND cal.week_of_year = s.week
-WHERE s.project_category_id IN (@pcids@)
-AND   cal.week_start_date BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
-GROUP BY s.project_category_id
+       project_category_id,
+       ROUND(SUM(nvl(p.fulfillment, 0)*100)/Count(project_id),2) AS marketavg_fulfillment,
+       ROUND( SUM((case when (nvl(p.fulfillment, 0)) =0 then 0 else nvl(p.admin_fee, 0)+ nvl(p.contest_prizes_total, 0) end))
+         / (case when SUM(nvl(p.fulfillment, 0)) =0 then 1 else SUM(nvl(p.fulfillment, 0)) end), 2) AS marketavg_cost,
+       ROUND( SUM((case when (nvl(p.fulfillment, 0)) =0 then 0 else nvl(p.duration, 0)/(60*24) end))
+         / (case when SUM(nvl(p.fulfillment, 0)) =0 then 1 else SUM(nvl(p.fulfillment, 0)) end), 2) AS marketavg_duration
+FROM project p
+INNER JOIN client_project_dim c ON p.client_project_id = c.client_project_id
+INNER JOIN direct_project_dim d ON p.tc_direct_project_id = d.direct_project_id
+WHERE p.project_category_id IN (@pcids@)
+AND p.complete_date is not null AND p.posting_date is not null
+AND Date(p.complete_date) BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
+AND p.status_id in (4, 5, 6, 7, 8, 9, 10, 11)
+group by project_category_id
