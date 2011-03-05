@@ -14,8 +14,6 @@ select c.component_name
      , pi3.scheduled_end_time as review_end
      , pi4.scheduled_start_time as aggregation_start
      , pi4.scheduled_end_time as aggregation_end
-     , pi5.scheduled_start_time as agg_review_start
-     , pi5.scheduled_end_time as agg_review_end
      , pi6.scheduled_start_time as final_fix_start
      , pi6.scheduled_end_time as final_fix_end
      , pi7.scheduled_start_time as final_review_start
@@ -65,7 +63,6 @@ select c.component_name
      , project_phase pi2
      , project_phase pi3
      , project_phase pi4
-     , project_phase pi5
      , project_phase pi6
      , project_phase pi7
      , project_phase pi8
@@ -89,8 +86,6 @@ select c.component_name
    and pi3.phase_type_id = 4
    and p.project_id = pi4.project_id
    and pi4.phase_type_id = 7
-   and p.project_id = pi5.project_id
-   and pi5.phase_type_id = 8
    and p.project_id = pi6.project_id
    and pi6.phase_type_id = 9
    and p.project_id = pi7.project_id

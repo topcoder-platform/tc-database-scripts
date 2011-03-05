@@ -28,8 +28,6 @@ select distinct
    , p.project_id
    , reviewpp.scheduled_start_time as review_start
    , reviewpp.scheduled_end_time as review_end
-   , aggreviewpp.scheduled_start_time as agg_review_start
-   , aggreviewpp.scheduled_end_time as agg_review_end
    ,
   (select ph.parameter::int-round(count(*))
     from rboard_application ra
@@ -77,7 +75,6 @@ select distinct
      , project_phase submpp
      , project_phase screenpp
      , project_phase reviewpp
-     , project_phase aggreviewpp
      , phase_criteria ph
      , comp_version_dates cvd
      , project_info pi_prize
@@ -98,8 +95,6 @@ select distinct
    and reviewpp.project_id =  p.project_id
    and ph.project_phase_id = reviewpp.project_phase_id
    and ph.phase_criteria_type_id = 6
-   and aggreviewpp.project_id =  p.project_id
-   and aggreviewpp.phase_type_id = 8
    AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2 or screenpp.phase_status_id = 2 or reviewpp.phase_status_id = 2)
    and regpp.scheduled_start_time <= CURRENT
  --  AND reviewpp.scheduled_end_time > CURRENT
