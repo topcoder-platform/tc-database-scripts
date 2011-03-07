@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+
+<project name="Test Data Generator" default="dist" basedir=".">
+
+    <property file="build.properties"/>
+
+    <!-- COMPONENT PARAMETERS -->
+    <property name="component" value="test_data_generator"/>
+    <property name="package" value="com.topcoder.onlinereview"/>
+    <property name="packagedir" value="com/topcoder/onlinereview"/>
+    <property name="distfilename" value="test_data_generator"/>
+    <property name="component_version" value="1.0"/>
+    <property name="component_path" value="${distfilename}/${component_version}"/>
+
+    <!-- DIRECTORY SETUP -->
+    <property name="srcdir" value="src"/>
+    <property name="tcs_libdir" value="lib/tcs"/>
+    <property name="ext_libdir" location="lib/third_party"/>
+    <property name="shared_libdir" value="lib/shared"/>
+    <property name="jar_tcs_libdir" value="lib/tcs"/>
+    <property name="jar_ext_libdir" location="lib/third_party"/>
+    <property name="jar_shared_libdir" location="lib/shared"/>
+    <property name="docsdir" value="docs"/>
+    <property name="configdir" value="conf"/>
+
+    <property name="javasrc" value="${srcdir}/java"/>
+    <property name="javamain" value="${javasrc}/main"/>
+    <property name="sqlsrc" value="${srcdir}/sql"/>
+    <property name="testfiles" value="test_files"/>
+
+    <property name="builddir" value="build/ant"/>
+    <property name="build_classdir" value="${builddir}/classes"/>
+    <property name="build_distdir" value="${builddir}/dist"/>
+    <property name="build_lib" value="${builddir}/lib"/>
+
+    <!-- Server installation directories -->
+    <property name="cactus.home.tomcat5x" value="d:\tomcat"/>
+    <property name="deploy-dir" value="d:\tomcat\webapps\${distfilename}.war"/>
+
+    <!-- EXECUTION TAGS -->
+    <property name="debug" value="off"/>
+    <property name="verbose" value="no"/>
+
+    <!-- COMPONENT DISTRIBUTION STRUCTURE -->
+    <property name="dist_lib" value="${build_distdir}/lib/tcs"/>
+
+    <!-- NAME FOR .JAR AND .WAR FILES -->
+    <property name="component.jar" value="${dist_lib}/${component_path}/${distfilename}.jar"/>
+
+    <!-- TCS Dependencies -->
+    <property name="command_line_utility.version" value="1.0"/>
+    <property name="command_line_utility.jar.name" value="command_line_utility.jar"/>
+    <property name="command_line_utility.path" value="command_line_utility/${command_line_utility.version}"/>
+    <property name="command_line_utility.jar"
+              value="${tcs_libdir}/${command_line_utility.path}/${command_line_utility.jar.name}"/>
+
+
+    <!-- 3rd Party Dependencies  -->
+    <property name="ifxjdbc.jar" value="${ext_libdir}/ifxjdbc.jar"/>
+
+    <path id="buildlibs">
+        <pathelement location="${command_line_utility.jar}"/>
+        <pathelement location="${ifxjdbc.jar}"/>
+    </path>
+
+    <path id="runtime.classpath">
+        <pathelement location="${build_classdir}"/>
+        <path refid="buildlibs"/>
+    </path>
+
+    <target name="compile">
+        <mkdir dir="${build_classdir}"/>
+        <javac srcdir="${javamain}"
+               destdir="${build_classdir}"
+               includes="**/*.java"
+               debug="true"
+               verbose="${verbose}"
+               source="1.5"
+               target="1.5"
+                >
+            <classpath refid="buildlibs"/>
+        </javac>
+    </target>
+
+    <target name="clean">
+        <delete failonerror="false">
+            <fileset dir="${builddir}" includes="**/*.class"/>
+        </delete>
+    </target>
+
+    <target name="run" depends="compile">
+        <java classname="com.cronos.onlinereview.test.data.generator.BulkTestDataGenerator" fork="true" 
+              maxmemory="1024M">
+            <arg value="-clientsCount"/>
+            <arg value="${number_of_clients}"/>
+            <arg value="-minBillingCount"/>
+            <arg value="${min_number_of_billing_accounts_per_client}"/>
+            <arg value="-maxBillingCount"/>
+            <arg value="${max_number_of_billing_accounts_per_client}"/>
+            <arg value="-minDirectCount"/>
+            <arg value="${min_number_of_direct_projects_per_account}"/>
+            <arg value="-maxDirectCount"/>
+            <arg value="${max_number_of_direct_projects_per_account}"/>
+            <arg value="-minContestsCount"/>
+            <arg value="${min_number_of_contests_per_project}"/>
+            <arg value="-maxContestsCount"/>
+            <arg value="${max_number_of_contests_per_project}"/>
+            <arg value="-outputFile"/>
+            <arg value="${out}"/>
+            <arg value="-idGeneratorStart"/>
+            <arg value="${id_generator_start}"/>
+            <classpath refid="runtime.classpath"/>
+        </java>
+    </target>
+
+    <!-- ************************************************************************** -->
+    <!-- ************ REMOVE EVERYTHING BELOW HERE FOR THE DISTRIBUTION ************* -->
+    <!-- ************************************************************************** -->
+
+
+    <!-- ************************************************************************** -->
+    <!-- ************************ END REMOVE EVERYTHING ***************************** -->
+    <!-- ************************************************************************** -->
+
+
+    <target name="bulk-test-data-load" description="loads the test data">
+        <sql driver="com.informix.jdbc.IfxDriver" password="${db_password}"
+             url="jdbc:informix-sqli://${db_host}:${db_port}/tcs_catalog:INFORMIXSERVER=${db_server}"
+             userid="${db_user}" autocommit="true" src="${out}" classpathref="buildlibs"/>
+    </target>
+</project>
