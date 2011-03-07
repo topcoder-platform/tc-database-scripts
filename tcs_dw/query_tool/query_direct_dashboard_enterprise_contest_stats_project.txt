@@ -18,5 +18,5 @@ WHERE p.complete_date is not null AND p.posting_date is not null
 AND Date(p.complete_date) BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
 AND   p.tc_direct_project_id IN (@tdpis@)
 AND   p.project_category_id IN (@pcids@)
-AND p.status_id in (4, 5, 6, 7, 8, 9, 10, 11)
+AND p.status_id in (4, 5, 6, 7, 8, 11)
 AND p.project_category_id not in (29, 35)

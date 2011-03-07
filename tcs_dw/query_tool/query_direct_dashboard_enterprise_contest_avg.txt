@@ -11,6 +11,6 @@ INNER JOIN direct_project_dim d ON p.tc_direct_project_id = d.direct_project_id
 WHERE p.project_category_id IN (@pcids@)
 AND p.complete_date is not null AND p.posting_date is not null
 AND Date(p.complete_date) BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
-AND p.status_id in (4, 5, 6, 7, 8, 9, 10, 11)
+AND p.status_id in (4, 5, 6, 7, 8, 11)
 AND project_category_id not in (29, 35)
 group by project_category_id
