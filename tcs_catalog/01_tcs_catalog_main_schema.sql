@@ -2405,6 +2405,7 @@ CREATE TABLE "informix".late_deliverable (
     resource_id INTEGER NOT NULL,
     deliverable_id INTEGER NOT NULL,
     deadline DATETIME YEAR TO FRACTION NOT NULL,
+    compensated_deadline DATETIME YEAR TO FRACTION,
     create_date DATETIME YEAR TO FRACTION NOT NULL,
     forgive_ind DECIMAL(1,0) NOT NULL,
     last_notified DATETIME YEAR TO FRACTION,
