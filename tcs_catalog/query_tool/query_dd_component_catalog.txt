@@ -20,9 +20,9 @@ from comp_versions cv,
      categories cat,
      status s
 where cv.component_id = cc.component_id
---  and cv.phase_id = 114 -- completed
+  and cv.phase_id in (112,113,114)
   and cc.root_category_id = cat.category_id
   and category_id in (5801776, 5801777, 26805357, 27202903, 27202905, 27202907, 27202909, 27202911, 27202913)
   and cc.status_id = s.status_id
   and cc.status_id in (102)
-group by 1,2,3,4,5;
+group by 1,2,3,4,5
