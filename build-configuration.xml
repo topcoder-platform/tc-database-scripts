@@ -42,7 +42,7 @@
           </then>
           <else>
             <checkout_properties url="${base_url}/${env}" />
-            <copy todir="${basedir}">
+            <copy todir="${basedir}" overwrite="true" >
               <fileset dir="${prop_dir}">
                 <include name="**/*.properties" />
                 <include name="**/*.xml" />
