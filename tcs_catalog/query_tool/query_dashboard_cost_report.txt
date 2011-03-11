@@ -26,7 +26,18 @@ select p.project_id,
        ELSE
           'Active'
        END as contest_status,
-  NVL((select max(price) from contest_sale where contest_id = p.project_id), 0) as estimated_member_costs,
+        nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+                where project_info_type_id in (33, 35, 16, 38, 39, 49)
+                and project_id = p.project_id), 0)
+            +
+            nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+                where project_info_type_id = 16
+                and project_id = p.project_id)/2), 0)
+            +
+            nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+                where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+                and pi26.value = 'On'
+                and pi26.project_id =  p.project_id ), 0) as estimated_member_costs,
 
   SUM(case when p.project_status_id = 7 then
       NVL((SELECT sum(total_amount)

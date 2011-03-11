@@ -24,7 +24,7 @@ case when p.project_status_id != 1 then psl.name
 
 case when p.project_status_id in (1, 2) then
     nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
-        where project_info_type_id in (31, 33, 35, 16, 38, 39)
+        where project_info_type_id in (31, 33, 35, 16, 38, 39, 49)
         and project_id = p.project_id), 0)
     +
     nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
