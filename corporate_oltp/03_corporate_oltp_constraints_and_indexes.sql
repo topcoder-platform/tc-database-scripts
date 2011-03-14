@@ -41,3 +41,7 @@ alter table 'informix'.tc_direct_project add constraint foreign key
 
 create unique index "informix".inputlu_inputcode_idx on "informix"
     .input_lu (input_code) using btree  in datadbs ;
+
+CREATE INDEX 'informix'.userpermissiongrant_resource_idx ON 'informix'.user_permission_grant(resource_id);
+
+CREATE INDEX 'informix'.userpermissiongrant_user_resource_idx ON 'informix'.user_permission_grant(user_id, resource_id);
