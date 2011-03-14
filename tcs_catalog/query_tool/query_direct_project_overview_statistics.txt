@@ -1,0 +1,153 @@
+select  tdp.project_id as tc_direct_project_id, tdp.name as tc_direct_project_name, 
+(select value from project_info where project_id = p.project_id and project_info_type_id =6) as contest_name, p.project_id as contest_id,
+case when p.project_status_id != 1 then psl.name 
+       when exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id = 2 and phase_status_id = 1)
+             and exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id = 14 and phase_status_id = 3)
+           then 'Passed Spec Review'
+       when p.project_status_id = 1 and not exists (select project_phase_id from project_phase where project_id = p.project_id and (phase_status_id = 2 or phase_status_id = 1))
+           then 'Completed'
+       when ptl.name is not null and p.project_status_id = 1 then ptl.name
+        when sale.contest_sale_id is not null and p.project_status_id = 1 then 'Scheduled'
+       else 'Draft' end as status,
+0 as is_studio,
+case when p.project_status_id in (1, 2) then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (31, 33, 35, 16, 38, 39)
+        and project_id = p.project_id), 0)
+    +
+    nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 16
+        and project_id = p.project_id)/2), 0)
+    +
+    nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+        where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+        and pi26.value = 'On'
+        and pi26.project_id =  p.project_id ), 0)
+
+when p.project_status_id = 7 then
+  NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+    +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+    +
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 31
+        and project_id = p.project_id), 0)
+    +
+    nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+        where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+        and pi26.value = 'On'
+        and pi26.project_id =  p.project_id ), 0)
+else  NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+    +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+     +
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 31 and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+        and project_id = p.project_id), 0)
+end
+as contest_payment
+
+from tc_direct_project tdp, user_permission_grant upg, 
+project_category_lu pcl, project_status_lu psl, 
+
+project p left outer join project_phase ph 
+      on (p.project_id = ph.project_id and ph.project_phase_id = 
+                                     (select min(project_phase_id) from project_phase  where phase_status_id = 2 and project_id=p.project_id))
+left outer join phase_type_lu ptl on (ph.phase_type_id = ptl.phase_type_id)
+ left outer join contest_sale sale on (p.project_id = sale.contest_id and sale.contest_sale_id  = (select min(contest_sale_id) from contest_sale where contest_id = p.project_id))
+where tdp.project_id = upg.resource_id
+and upg.user_id = @uid@
+and upg.permission_type_id in (1,2,3)
+and p.tc_direct_project_id = @tcdirectid@
+and p.project_category_id = pcl.project_category_id 
+and p.project_status_id = psl.project_status_id
+and p.tc_direct_project_id = tdp.project_id
+and p.project_status_id != 3 and p.project_category_id != 27
+
+union
+
+select  tdp.project_id as tc_direct_project_id, tdp.name as tc_direct_project_name, 
+p.name as contest_name, p.contest_id as contest_id,
+
+ds.name as status,
+1 as is_studio,
+
+case when p.contest_detailed_status_id = 8 then
+
+NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.studio_contest_id = p.contest_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
++
+NVL((SELECT sum(pmd2.total_amount) 
+       FROM  informixoltp:payment_detail pmd,  
+             informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+             informixoltp:payment pm2 
+        WHERE pmd.studio_contest_id = p.contest_id and pmd2.installment_number = 1 
+        and pm.most_recent_detail_id = pmd.payment_detail_id  
+        and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+        AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)  +
+nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 24
+        and cfg.contest_id = p.contest_id), 0) +
+nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 25
+        and cfg.contest_id = p.contest_id), 0)
+ else
+
+nvl((select nvl(sum(nvl(pr.amount, 0)), 0)
+        from studio_oltp:contest_prize_xref x, studio_oltp:prize pr, studio_oltp:contest cc  
+        where x.prize_id = pr.prize_id and x.contest_id = cc.contest_id
+        and cc.contest_id = p.contest_id), 0) +
+nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 24
+        and cfg.contest_id = p.contest_id), 0) +
+nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
+        from studio_oltp:contest_config cfg, studio_oltp:contest cc  
+        where cfg.contest_id = cc.contest_id and property_id = 25
+        and cfg.contest_id = p.contest_id), 0) +
+nvl((select nvl( sum(cast(m.amount*number_of_submissions as DECIMAL(10,2))), 0)
+        from studio_oltp:contest cc  
+        left outer join studio_oltp:contest_milestone_prize m on m.contest_milestone_prize_id = cc.contest_milestone_prize_id
+        where  cc.contest_id = p.contest_id), 0)
+ end as contest_payment
+
+from user_permission_grant upg, tc_direct_project tdp, studio_oltp:contest p,
+studio_oltp:contest_detailed_status_lu ds 
+ 
+where (p.deleted is null or p.deleted = 0) and (p.contest_detailed_status_id is null or p.contest_detailed_status_id!=3 )
+and upg.resource_id = tdp.project_id
+and upg.user_id = @uid@
+and upg.permission_type_id in (1,2,3)
+and tdp.project_id = @tcdirectid@
+and p.tc_direct_project_id = tdp.project_id 
+and p.contest_detailed_status_id = ds.contest_detailed_status_id 
+
+order by contest_name
+
