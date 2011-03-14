@@ -205,9 +205,6 @@
 
   <!-- Target to automatically stop jboss and reinstall databases. Used for CI mostly -->
   <target name="reinstall_db" >
-    <ant antfile="${or_path}/build.xml" dir="${or_path}" target="stop_tools"
-         inheritall="false" inheritrefs="true" />
-
     <antcall target="drop_db" />
     <antcall target="setup_db" />    
   </target>
