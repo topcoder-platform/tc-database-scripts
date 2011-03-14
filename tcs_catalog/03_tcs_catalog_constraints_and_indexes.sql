@@ -1835,3 +1835,10 @@ ALTER TABLE copilot_project_info ADD CONSTRAINT
 ALTER TABLE copilot_project_info ADD CONSTRAINT
     FOREIGN KEY (copilot_project_info_type_id )
     REFERENCES copilot_project_info_type(copilot_project_info_type_id ) ON DELETE CASCADE CONSTRAINT fk_copilot_project_info_copilot_project_info_type;
+
+create index 'informix'.project_idx_dpi 
+on 'informix'.project
+(
+tc_direct_project_id
+);
+
