@@ -1,0 +1,75 @@
+SELECT  
+    tdp.project_id as tc_direct_project_id, 
+    tdp.name as tc_direct_project_name, 
+    (SELECT value FROM project_info WHERE project_id = p.project_id AND project_info_type_id = 6) AS contest_name, 
+    p.project_id AS contest_id,
+    p.project_category_id AS contest_type_id,
+    CASE 
+        WHEN p.project_status_id != 1 THEN psl.name 
+        WHEN EXISTS (SELECT project_phase_id 
+                     FROM project_phase 
+                     WHERE project_id = p.project_id 
+                     AND phase_type_id = 2 and phase_status_id = 1)
+             AND 
+             EXISTS (SELECT project_phase_id 
+                     FROM project_phase 
+                     WHERE project_id = p.project_id 
+                     AND phase_type_id = 14 
+                     AND phase_status_id = 3)
+        THEN 'Passed Spec Review'
+        WHEN p.project_status_id = 1 AND NOT EXISTS (SELECT project_phase_id 
+                                                     FROM project_phase 
+                                                     WHERE project_id = p.project_id 
+                                                     AND (phase_status_id = 2 or phase_status_id = 1))
+        THEN 'Completed'
+        WHEN ptl.name IS NOT NULL AND p.project_status_id = 1 THEN ptl.name
+        WHEN sale.contest_sale_id IS NOT NULL AND p.project_status_id = 1 THEN 'Scheduled'
+        ELSE 'Draft' 
+    END AS status,
+    0 AS is_studio,
+   (SELECT MIN(nvl(actual_start_time, scheduled_start_time)) 
+    FROM project_phase ph 
+    WHERE ph.project_id=p.project_id 
+    AND ph.phase_type_id = 1) AS start_date
+FROM tc_direct_project tdp
+INNER JOIN user_permission_grant upg ON tdp.project_id = upg.resource_id
+INNER JOIN project p ON p.tc_direct_project_id = tdp.project_id
+INNER JOIN project_status_lu psl ON p.project_status_id = psl.project_status_id 
+LEFT OUTER JOIN project_phase ph ON (p.project_id = ph.project_id 
+                                      AND ph.project_phase_id = (SELECT MIN(project_phase_id) 
+                                                                 FROM project_phase 
+                                                                 WHERE phase_status_id = 2 
+                                                                 AND project_id=p.project_id))
+LEFT OUTER JOIN phase_type_lu ptl ON (ph.phase_type_id = ptl.phase_type_id)
+LEFT OUTER JOIN contest_sale sale ON (p.project_id = sale.contest_id 
+                                      AND sale.contest_sale_id = (SELECT MIN(contest_sale_id) 
+                                      FROM contest_sale 
+                                      WHERE contest_id = p.project_id))
+WHERE upg.user_id = @uid@
+AND upg.permission_type_id in (1, 2, 3)
+AND p.tc_direct_project_id = @tcdirectid@
+AND p.project_status_id != 3 
+AND p.project_category_id != 27
+
+UNION
+
+SELECT
+    tdp.project_id AS tc_direct_project_id, 
+    tdp.name AS tc_direct_project_name, 
+    p.name AS contest_name, 
+    p.contest_id AS contest_id,
+    p.contest_type_id AS contest_type_id,
+    ds.name AS status,
+    1 AS is_studio,
+    p.start_time AS start_date
+FROM user_permission_grant upg 
+INNER JOIN tc_direct_project tdp ON upg.resource_id = tdp.project_id
+INNER JOIN studio_oltp:contest p ON p.tc_direct_project_id = tdp.project_id
+INNER JOIN studio_oltp:contest_detailed_status_lu ds ON p.contest_detailed_status_id = ds.contest_detailed_status_id 
+WHERE (p.deleted IS NULL OR p.deleted = 0) 
+AND (p.contest_detailed_status_id IS NULL OR p.contest_detailed_status_id != 3)
+AND upg.user_id = @uid@
+AND upg.permission_type_id in (1,2,3)
+AND tdp.project_id = @tcdirectid@
+ORDER BY start_date DESC, contest_name
+
