@@ -42,7 +42,9 @@ where p.project_status_id in (1,2,7)  and
   and p.tc_direct_project_id = tdp.project_id
 AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
  WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
-  and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) >= today -1
+  and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) between (today -1) and (today + 365) 
+  and pc.name like '@contesttypename@'
+  and tdp.project_id not in (840) -- exclude test projects
 UNION
 select 
     to_char(start_time, '%Y-%m-%d %R') as registration_start,
@@ -63,7 +65,7 @@ from studio_oltp:contest c,
      studio_oltp:contest_config cc1,
      studio_oltp:contest_type_lu cc,
      studio_oltp:contest_detailed_status_lu ds
-where c.start_time >= today -1
+where c.start_time between (today -1) and (today + 365) 
   and c.contest_id = cc1.contest_id
   and cc1.property_id = 28
   and cc1.property_value = ttp.project_id
@@ -76,4 +78,6 @@ AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
   and c.contest_type_id = cc.contest_type_id
   and c.contest_id not in (1001973) -- HIDE TCO CONTESTS
   and c.contest_detailed_status_id = ds.contest_detailed_status_id
+  and cc.contest_type_desc like '@contesttypename@'
+  and tdp.project_id not in (840) -- exclude test projects
 order by 1 asc;
