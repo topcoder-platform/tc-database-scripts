@@ -291,6 +291,7 @@ query_security_roles.txt|UPDATE query SET text = ? WHERE query_id = 31047
 query_direct_project_overview_contests_health.txt|UPDATE query SET text = ? WHERE query_id = 31076
 query_direct_my_copilot_postings.txt|UPDATE query SET text = ? WHERE query_id = 31077
 query_direct_project_overview_statistics.txt|UPDATE query SET text = ? WHERE query_id = 31078
-
 query_direct_my_typed_contests.txt|UPDATE query SET text = ? WHERE query_id = 31079
+
+query_dashboard_billing_cost_report.txt|UPDATE query SET text = ? WHERE query_id = 31096
 
