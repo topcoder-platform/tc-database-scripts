@@ -31,3 +31,4 @@ INSERT INTO id_sequences (name, next_block_start, block_size,exhausted) VALUES (
 
 insert into audit_action values (1, 'Insert', current, 'test', current, 'test');
 insert into audit_action values (2, 'Update', current, 'test', current, 'test');
+INSERT INTO audit_action VALUES (3, 'Delete', CURRENT, 132456, CURRENT, 132456);
