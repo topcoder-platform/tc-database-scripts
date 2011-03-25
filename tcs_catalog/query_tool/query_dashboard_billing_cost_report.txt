@@ -200,15 +200,7 @@ end  as actual_total_member_costs,
          THEN 'Misc'
          ELSE 'Not Sure'
     END as line_item_category,
-    CASE WHEN c.contest_detailed_status_id = 8
-      THEN pmd.total_amount
-      +
-      (select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
-            from studio_oltp:contest_config cfg, studio_oltp:contest cc 
-            where cfg.contest_id = cc.contest_id and property_id = 24
-            and cfg.contest_id = c.contest_id)
-      ELSE pmd.total_amount
-    END as line_item_amount,
+    pmd.total_amount as line_item_amount,
     ttc.client_id,
     ttp.project_id billing_project_id,
     tdp.project_id direct_project_id,
