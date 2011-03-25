@@ -1,4 +1,12 @@
 SELECT
     (select count(cp.copilot_profile_id) from copilot_profile cp where cp.copilot_profile_status_id = 1) AS available_copilots_count,
-    (SELECT count(project_id) FROM project where project_category_id = 29 and project_status_id = 1) AS available_copilot_projects_count
+    (SELECT count(p.project_id) 
+FROM project p,
+     project_phase pp
+where p.project_category_id = 29 
+  and p.project_status_id = 1
+  and p.project_id = pp.project_id
+  and pp.phase_type_id = 2
+  and current between pp.actual_start_time and NVL(pp.actual_end_time, current)
+) AS available_copilot_projects_count
 FROM dual;
