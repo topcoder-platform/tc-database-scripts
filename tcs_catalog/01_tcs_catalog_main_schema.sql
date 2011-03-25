@@ -864,7 +864,8 @@ create table 'informix'.project_type_lu (
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
-    modify_date DATETIME YEAR TO FRACTION not null
+    modify_date DATETIME YEAR TO FRACTION not null,
+	version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -880,7 +881,8 @@ create table 'informix'.project_category_lu (
     modify_user VARCHAR(64) not null,
     modify_date DATETIME YEAR TO FRACTION not null,
     display boolean(1),
-    display_order INT
+    display_order INT,
+	version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -893,7 +895,8 @@ create table 'informix'.scorecard_type_lu (
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
-    modify_date DATETIME YEAR TO FRACTION not null
+    modify_date DATETIME YEAR TO FRACTION not null,
+	version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -906,7 +909,8 @@ create table 'informix'.scorecard_status_lu (
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
-    modify_date DATETIME YEAR TO FRACTION not null
+    modify_date DATETIME YEAR TO FRACTION not null,
+	version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -924,7 +928,8 @@ create table 'informix'.scorecard (
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
-    modify_date DATETIME YEAR TO FRACTION not null
+    modify_date DATETIME YEAR TO FRACTION not null,
+	version_number DECIMAL(12,0) default 0 not null
 )
 extent size 128 next size 128
 lock mode row;
@@ -939,7 +944,8 @@ create table 'informix'.scorecard_group (
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
-    modify_date DATETIME YEAR TO FRACTION not null
+    modify_date DATETIME YEAR TO FRACTION not null,
+	version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -952,7 +958,8 @@ create table 'informix'.scorecard_question_type_lu (
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
-    modify_date DATETIME YEAR TO FRACTION not null
+    modify_date DATETIME YEAR TO FRACTION not null,
+	version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -971,7 +978,8 @@ create table 'informix'.scorecard_question (
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
-    modify_date DATETIME YEAR TO FRACTION not null
+    modify_date DATETIME YEAR TO FRACTION not null,
+	version DECIMAL(12,0) default 0 not null
 )
 extent size 25000 next size 10000
 lock mode row;
@@ -1704,7 +1712,8 @@ create table 'informix'.scorecard_section (
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
-    modify_date DATETIME YEAR TO FRACTION not null
+    modify_date DATETIME YEAR TO FRACTION not null,
+	version DECIMAL(12,0) default 0 not null
 )
 extent size 512 next size 512
 lock mode row;
