@@ -703,7 +703,6 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30775, 'direct_my_contests_replatforming', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30776, 'has_cockpit_permissions', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30772, 'direct_contest_stats_replatforming', 13337);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30772, 'direct_contest_stats_replatforming', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30777, 'studio_can_view_contest_details', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
