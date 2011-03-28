@@ -1,0 +1,19 @@
+SELECT 
+    pcl.name AS contest_type_desc
+    , (SELECT pi.value FROM project_info pi WHERE pi.project_id = p.project_id AND pi.project_info_type_id = 6) AS name 
+    , (SELECT pp1.actual_start_time 
+       FROM project_phase pp1 
+       WHERE pp1.project_id = p.project_id 
+       AND pp1.phase_type_id = 1) AS start_time
+    , p.project_id AS contest_id 
+    , pps.scheduled_start_time AS screening_start_time
+    , ppm.scheduled_start_time AS milestone_screening_start_time
+FROM project p
+INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
+INNER JOIN project_phase pps ON p.project_id = pps.project_id AND pps.phase_type_id = 3
+LEFT  JOIN project_phase ppm ON p.project_id = ppm.project_id AND ppm.phase_type_id = 16
+WHERE p.project_status_id = 1
+AND   pcl.project_type_id = 3
+AND   (ppm.phase_status_id = 1 OR pps.phase_status_id = 1)
+AND   NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id IN (2, 19)) 
+ORDER BY 3 DESC  

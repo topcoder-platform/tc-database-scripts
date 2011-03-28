@@ -1,0 +1,13 @@
+SELECT 'user_has_permission_over_contest' 
+FROM user_permission_grant upg
+WHERE upg.resource_id = @pj@ 
+AND upg.permission_type_id IN (4,5,6) -- CONTEST_READ, CONTEST_WRITE, CONTEST_FULL
+AND upg.is_studio = 1 
+AND upg.user_id = @uid@
+UNION
+SELECT 'user_has_permission_over_tc_direct_project' 
+FROM user_permission_grant upg, project c
+WHERE c.project_id = @pj@ 
+AND upg.resource_id = c.tc_direct_project_id
+AND upg.permission_type_id IN (1,2,3) -- PROJECT_READ, PROJECT_WRITE, PROJECT_FULL
+AND upg.user_id = @uid@

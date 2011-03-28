@@ -292,6 +292,16 @@ query_direct_project_overview_contests_health.txt|UPDATE query SET text = ? WHER
 query_direct_my_copilot_postings.txt|UPDATE query SET text = ? WHERE query_id = 31077
 query_direct_project_overview_statistics.txt|UPDATE query SET text = ? WHERE query_id = 31078
 query_direct_my_typed_contests.txt|UPDATE query SET text = ? WHERE query_id = 31079
-
 query_dashboard_billing_cost_report.txt|UPDATE query SET text = ? WHERE query_id = 31096
+
+query_studio_active_contests.txt|UPDATE query SET text = ? WHERE query_id = 31107
+query_studio_review_opportunities.txt|UPDATE query SET text = ? WHERE query_id = 31108
+query_direct_active_contests_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31109
+query_studio_past_contests.txt|UPDATE query SET text = ? WHERE query_id = 31110
+query_direct_my_contests_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31111
+query_has_cockpit_permissions.txt|UPDATE query SET text = ? WHERE query_id = 31112
+query_direct_contest_stats_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31113
+query_studio_can_view_contest_details.txt|UPDATE query SET text = ? WHERE query_id = 31114
+
+
 

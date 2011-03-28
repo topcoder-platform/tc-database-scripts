@@ -1,0 +1,68 @@
+SELECT
+    p.project_id AS contest_id
+    , (SELECT pi.value FROM project_info pi WHERE pi.project_id = p.project_id AND pi.project_info_type_id = 6) AS name
+    , (SELECT pp1.actual_start_time 
+       FROM project_phase pp1 
+       WHERE pp1.project_id = p.project_id 
+       AND pp1.phase_type_id = 1) AS start_time
+    , (SELECT pp2.scheduled_end_time 
+       FROM project_phase pp2 
+       WHERE pp2.project_id = p.project_id 
+       AND pp2.phase_type_id = 2) AS end_time
+    , (SELECT pi.value FROM project_info pi WHERE pi.project_id = p.project_id AND pi.project_info_type_id = 36)::DECIMAL(10,2) 
+       AS amount
+    , (SELECT COUNT(*) 
+       FROM submission s1 
+       INNER JOIN upload u1 ON s1.upload_id = u1.upload_id
+       INNER JOIN resource r1 ON u1.resource_id = r1.resource_id
+       WHERE s1.submission_status_id <> 5
+       AND s1.submission_type_id IN (1, 3)
+       AND r1.project_id = p.project_id) AS submission_count
+    , (SELECT (LOWER(pi.value) = 'true' OR LOWER(pi.value) = 'yes') 
+       FROM project_info pi 
+       WHERE pi.project_id = p.project_id 
+       AND pi.project_info_type_id = 49) AS show_submissions
+    , CASE WHEN EXISTS (SELECT 1 
+                        FROM resource r 
+                        INNER JOIN resource_info ri ON r.resource_id = ri.resource_id 
+                        WHERE r.project_id = p.project_id 
+                        AND r.resource_role_id = 1
+                        AND ri.resource_info_type_id = 1
+                        AND ri.value = '@uid@') 
+           THEN 1 
+           ELSE 0 
+      END AS is_user_registered
+    , (SELECT pi.value 
+       FROM project_info pi 
+       WHERE pi.project_id = p.project_id 
+       AND pi.project_info_type_id = 50)::DECIMAL(10,0) 
+      AS event_id
+    , (SELECT COUNT(*) FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 1) AS registrants
+    , (SELECT SUM(pr.prize_amount * pr.number_of_submissions) 
+       FROM prize pr 
+       INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
+       WHERE prx.project_id = p.project_id
+       AND pr.prize_type_id IN (14, 15))::DECIMAL(10,2) AS prize_total
+    , (SELECT pi.value 
+       FROM project_info pi 
+       WHERE pi.project_id = p.project_id 
+       AND pi.project_info_type_id = 30)::DECIMAL(10, 2) AS dr_points
+    , (SELECT pp.scheduled_end_time 
+       FROM project_phase pp 
+       WHERE pp.project_id = p.project_id 
+       AND pp.phase_type_id = 15) AS milestone_date
+    , EXISTS (SELECT 1 
+               FROM resource r 
+               INNER JOIN resource_info ri ON r.resource_id = ri.resource_id 
+               WHERE r.project_id = p.project_id 
+               AND ri.resource_info_type_id = 1
+               AND ri.value = '@uid@') AS user_resource_exists
+    , p.create_user = '@uid@' AS user_is_contest_author 
+FROM project p
+INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
+INNER JOIN project_phase ppr ON p.project_id = ppr.project_id AND ppr.phase_type_id = 1
+INNER JOIN project_phase pps ON p.project_id = pps.project_id AND pps.phase_type_id = 2
+WHERE p.project_status_id = 1
+AND   pcl.project_type_id = 3
+AND   (ppr.phase_status_id = 2 OR pps.phase_status_id = 2)
+ORDER BY @sc@ @sd@

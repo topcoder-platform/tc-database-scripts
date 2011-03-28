@@ -1,0 +1,15 @@
+select p.project_id as contest_id, (select value from project_info where project_id = p.project_id and project_info_type_id =6) as contest_name,
+p.tc_direct_project_id as project_id, (select name from tc_direct_project where project_id = p.tc_direct_project_id) as project_name,
+(select count(resource_id) from resource r where r.project_id = p.project_id and resource_role_id = 1) as number_of_registration,
+(select count (distinct resource_id) from upload u where u.project_id = p.project_id  and u.upload_status_id = 1 and u.upload_type_id = 1 
+  and exists (select * from submission sub where sub.upload_id=u.upload_id and sub.submission_type_id=1)
+) as number_of_submission,
+(select count(messageid) from jivecategory c, jiveforum f, jivemessage m, project_info pi where pi.project_info_type_id =4 
+and c.categoryid = pi.value and c.categoryid = f.categoryid and m.forumid = f.forumid and pi.project_id = p.project_id) as number_of_forum,
+(select value from project_info where project_id = p.project_id and project_info_type_id =4) as forum_id,
+(select min(nvl(actual_start_time, scheduled_start_time)) from project_phase ph where ph.project_id=p.project_id) as start_date,
+(select max(nvl(actual_end_time, scheduled_end_time)) from project_phase ph where ph.project_id=p.project_id) as end_date,
+case when (select pc.project_type_id from project_category_lu pc where pc.project_category_id=p.project_category_id)=3 then "Studio" else "Software" end as type,
+l.name as status,
+(select value from project_info where project_id=p.project_id and project_info_type_id=8) as svn 
+from tcs_catalog:project p, tcs_catalog:project_status_lu l where p.project_id = @ct@ and p.project_status_id = l.project_status_id
