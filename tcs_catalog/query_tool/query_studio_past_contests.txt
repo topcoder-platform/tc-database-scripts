@@ -69,6 +69,6 @@ WHERE p.project_status_id IN (1, 7)
 AND   pcl.project_type_id = 3
 AND   ppr.phase_status_id = 3 
 AND   pps.phase_status_id = 3
-AND   NVL(ppr.actual_start_time, pps.actual_start_time) >= '@std@'
+AND   NVL(ppr.actual_start_time, pps.actual_start_time) >= '@sdt@'
 AND   NVL(ppr.actual_start_time, pps.actual_start_time) <= '@edt@'
 ORDER BY @sc@ @sd@
