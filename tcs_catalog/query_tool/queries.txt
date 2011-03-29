@@ -302,6 +302,3 @@ query_direct_my_contests_replatforming.txt|UPDATE query SET text = ? WHERE query
 query_has_cockpit_permissions.txt|UPDATE query SET text = ? WHERE query_id = 31112
 query_direct_contest_stats_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31113
 query_studio_can_view_contest_details.txt|UPDATE query SET text = ? WHERE query_id = 31114
-
-
-
