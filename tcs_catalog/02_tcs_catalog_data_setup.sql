@@ -348,6 +348,11 @@ INSERT INTO 'informix'.phase(phase_id, description) VALUES (136, 'RIA Component 
 INSERT INTO 'informix'.phase(phase_id, description) VALUES (137, 'Test Scenarios');
 insert into 'informix'.phase(phase_id, description) values (140, 'Copilot');
 insert into 'informix'.phase(phase_id, description) values (146, 'Content Creation');
+INSERT INTO 'informix'.phase(phase_id, description) values (133, 'Studio Specification');
+INSERT INTO 'informix'.phase(phase_id, description) values (141, 'Widget or Mobile Screen Design');
+INSERT INTO 'informix'.phase(phase_id, description) values (142, 'Front-End Flash');
+INSERT INTO 'informix'.phase(phase_id, description) values (143, 'Application Front-End Design');
+INSERT INTO 'informix'.phase(phase_id, description) values (145, 'Other');
 
 INSERT INTO 'informix'.price_tiers(tier_id,discount_percent) VALUES (1, 5.00);
 INSERT INTO 'informix'.price_tiers(tier_id,discount_percent) VALUES (2, 10.00);
@@ -815,6 +820,8 @@ INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (10, 
 INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (11, 'Digital Rookie of the Year');
 INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (12, 'Introductory Event Weekly');
 INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (13, 'Introductory Event Overall');
+INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (14, 'Milestone Prize');
+INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (15, 'Contest Prize');
 INSERT INTO 'informix'.notification_mail_type_lu(notification_mail_type_id,mail_template,subject,from) VALUES (1, 'forum_post.xsl', 'Notification: new forum post', 'competitions@topcoder.com');
 INSERT INTO 'informix'.notification_mail_type_lu(notification_mail_type_id,mail_template,subject,from) VALUES (2, 'component_requested.xsl', 'Notification: component requested', 'competitions@topcoder.com');
 INSERT INTO 'informix'.question_style(question_style_id,question_style_desc,status_id) VALUES (1, 'Single Choice', 1);
@@ -962,7 +969,7 @@ INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,n
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (16, 3, 'Icon Sets', 'Icon Sets', 'System', '2007-07-23 18:45:52.000', 'System', '2007-07-23 18:45:52.000', null, null);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (17, 3, 'Storyboards', 'Storyboards', 'System', '2007-07-23 18:45:54.000', 'System', '2007-07-23 18:45:54.000', null, null);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (18, 3, 'Wireframes', 'Wireframes', 'System', '2007-07-23 18:45:56.000', 'System', '2007-07-23 18:45:56.000', null, null);
-INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (19, 3, 'UI Prototypes', 'UI Prototypes', 'System', '2007-07-23 18:45:57.000', 'System', '2007-07-23 18:45:57.000', 't', 8);
+INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (19, 2, 'UI Prototypes', 'UI Prototypes', 'System', '2007-07-23 18:45:57.000', 'System', '2007-07-23 18:45:57.000', 't', 8);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (20, 3, 'Logos', 'Logos', 'System', '2007-07-23 18:45:59.000', 'System', '2007-07-23 18:45:59.000', null, null);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (21, 3, 'Print', 'Print', 'System', '2007-07-23 18:46:01.000', 'System', '2007-07-23 18:46:01.000', null, null);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (22, 3, 'Specification', 'Specification', 'System', '2007-07-23 18:46:01.000', 'System', '2007-07-23 18:46:01.000', null, null);
@@ -973,6 +980,10 @@ insert into 'informix'.project_category_lu(project_category_id,project_type_id,n
 insert into 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) values (27, 2, 'Spec Review', 'Spec Review', 'System', current, 'System', current, null, null);
 insert into 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) values (28, 4, 'Generic Scorecards', 'Generic scorecards are available for selection when creating projects of all categories', 'System', current, 'System', current, null, null);
 insert into 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) values (29, 2, "Copilot Posting", "Copilot Posting", "System", current, "System", current, 't', 12); 
+INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (30, 3, 'Widget or Mobile Screen Design', 'Widget or Mobile Screen Design', 'System', current, 'System', current, null, null);
+INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (31, 3, 'Front-End Flash', 'Front-End Flash', 'System', current, 'System', current, null, null);
+INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (32, 3, 'Application Front-End Design', 'Application Front-End Design', 'System', current, 'System', current, null, null);
+INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (34, 3, 'Other', 'Other', 'System', current, 'System', current, null, null);
 insert into 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) values (35, 2, 'Content Creation', 'Content Creation', 'System', current, 'System', current, 't', 13);
 
 INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Screening', 'Screening', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -980,6 +991,8 @@ INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,crea
 INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Approval', 'Approval', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (4, 'Post-Mortem', 'Post-Mortem', 'System', current, 'System', current);
 INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (5, 'Specification Review', 'Specification Review', 'System', current, 'System', current);
+INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (6, 'Milestone Screening', 'Milestone Screening', 'System', current, 'System', current);
+INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (7, 'Milestone Review', 'Milestone Review', 'System', current, 'System', current);
 INSERT INTO 'informix'.scorecard_status_lu(scorecard_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Active', 'Active', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.scorecard_status_lu(scorecard_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Inactive', 'Inactive', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.scorecard_status_lu(scorecard_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Deleted', 'Deleted', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1050,6 +1063,10 @@ insert into 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 insert into 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) values (47, 'Phase Dependencies Editable', 'Phase Dependencies Editable', 'System', current, 'System', current);
 insert into 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) values (48, 'Track Late Deliverables', 'Track Late Deliverables', 'System', current, 'System', current);
 insert into 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) values (49, 'Copilot Cost', 'Copilot Cost', 'System', current, 'System', current);
+insert into 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) values (51, 'Maximum Submissions', 'Maximum Submissions', 'System', current, 'System', current);
+INSERT INTO 'informix'.project_info_type_lu (project_info_type_id, name, description, create_user, create_date, modify_user, modify_date) VALUES ('52', 'Allow stock art', 'Allow stock art', 'System', current, 'System', current);
+INSERT INTO 'informix'.project_info_type_lu (project_info_type_id, name, description, create_user, create_date, modify_user, modify_date) VALUES ('53', 'Viewable Submissions Flag', 'Viewable Submissions Flag', current, '2011-03-11 10:00:00', 'System', current);
+INSERT INTO 'informix'.project_info_type_lu (project_info_type_id, name, description, create_user, create_date, modify_user, modify_date) VALUES ('54', 'Viewable Submitters', 'Viewable Submitters', 'System', current, 'System', current);
 
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scheduled', 'Scheduled', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Open', 'Open', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1068,6 +1085,9 @@ INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,
 INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (12, 'Post-Mortem', 'Post-Mortem', 'System', current, 'System', current);
 INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (13, 'Specification Submission', 'Specification Submission', 'System', current, 'System', current);
 INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (14, 'Specification Review', 'Specification Review', 'System', current, 'System', current);
+INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (15, 'Milestone Submission', 'Milestone Submission', 'System', current, 'System', current);
+INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (16, 'Milestone Screening', 'Milestone Screening', 'System', current, 'System', current);
+INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (17, 'Milestone Review', 'Milestone Review', 'System', current, 'System', current);
 INSERT INTO 'informix'.phase_criteria_type_lu(phase_criteria_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scorecard ID', 'Scorecard ID', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_criteria_type_lu(phase_criteria_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Registration Number', 'Registration Number', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_criteria_type_lu(phase_criteria_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Submission Number', 'Submission Number', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1096,6 +1116,8 @@ INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,desc
 INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1002, NULL, 'Free Agent', 'Free Agent', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1003, NULL, 'Payment Manager', 'Payment Manager', 'System', '2009-03-16 20:27:00.000', 'System', '2009-03-16 20:27:00.000');
 INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (86, NULL, 'Deactivated', 'Deactivated', 'System', '2008-12-04 14:51:25.000', 'System', '2008-12-04 14:51:25.000');
+INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (19, 16, 'Milestone Screener', 'Milestone Screener', 'System', '2010-12-04 14:51:25.000', 'System', '2010-12-04 14:51:25.000');
+INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (20, 17, 'Milestone Reviewer', 'Milestone Reviewer', 'System', '2010-12-04 14:51:25.000', 'System', '2010-12-04 14:51:25.000');
 INSERT INTO 'informix'.resource_info_type_lu(resource_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'External Reference ID', 'External Reference ID', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.resource_info_type_lu(resource_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Handle', 'Handle', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.resource_info_type_lu(resource_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Email', 'Email', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1121,8 +1143,11 @@ INSERT INTO 'informix'.submission_status_lu(submission_status_id,name,descriptio
 INSERT INTO 'informix'.submission_status_lu(submission_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Failed Review', 'Failed Review', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.submission_status_lu(submission_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (4, 'Completed Without Win', 'Completed Without Win', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.submission_status_lu(submission_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (5, 'Deleted', 'Deleted', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
+INSERT INTO 'informix'.submission_status_lu(submission_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (6, 'Failed Milestone Screening', 'Failed Milestone Screening', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
+INSERT INTO 'informix'.submission_status_lu(submission_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (7, 'Failed Milestone Review', 'Failed Milestone Review', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.submission_type_lu(submission_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Contest Submission', 'Contest Submission', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.submission_type_lu(submission_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Specification Submission', 'Specification Submission', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.submission_type_lu(submission_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Milestone Submission', 'Milestone Submission', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.comment_type_lu(comment_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Comment', 'Comment', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.comment_type_lu(comment_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Recommended', 'Recommended', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.comment_type_lu(comment_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Required', 'Required', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1163,6 +1188,9 @@ INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role
 INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (24, 12, 16, 'Post-Mortem Review', 'Post-Mortem Review', 1, NULL, 'System', current, 'System', current);
 INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (25, 13, 17, 'Specification Submission', 'Specification Submission', 1, NULL, 'System', current, 'System', current);
 INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (26, 14, 18, 'Specification Review', 'Specification Review', 1, 2, 'System', current, 'System', current);
+INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (27, 15, 1, 'Milestone Submission', 'Milestone Submission', 0, NULL, 'System', current, 'System', current);
+INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (28, 16, 19, 'Milestone Screening Scorecard', 'Milestone Screening Scorecard', 1, 3, 'System', current, 'System', current);
+INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (29, 17, 20, 'Milestone Review Scorecard', 'Milestone Review Scorecard', 1, 3, 'System', current, 'System', current);
 INSERT INTO 'informix'.notification_type_lu(notification_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Timeline Notification', 'Timeline Notification', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.screening_status_lu(screening_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Pending', 'Pending', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.screening_status_lu(screening_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Screening', 'Screening', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1278,6 +1306,18 @@ INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, 
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (63, 'Content Creation Reviewer 1', 146, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (64, 'Content Creation Reviewer 2', 146, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (65, 'Content Creation Reviewer 3', 146, 4);
+
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (66, 'Icon Sets Reviewer', 127 , 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (67, 'Storyboards Reviewer', 128, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (68,'Wireframes Reviewer', 129, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (69,'Logos Reviewer', 131, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (70,'Print Reviewer', 132, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (71,'Studio Specification Reviewer', 133, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (72,'Widget or Mobile Screen Design Reviewer', 141, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (73,'Front-End Flash Reviewer', 142, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (74,'Application Front-End Design Reviewer', 143, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (75,'Other Reviewer', 144, 4);
+
 
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (11010, null, 'User_List', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (12154, null, 'Inquiry Detail', 0, null);
@@ -2229,3 +2269,67 @@ insert into copilot_project_status (copilot_project_status_id, name, create_user
 values (2, 'Finished (Successful)', 'heffan', current, 'heffan', current); 
 insert into copilot_project_status (copilot_project_status_id, name, create_user, create_date, modify_user, modify_date)
 values (3, 'InComplete (Failed)', 'heffan', current, 'heffan', current); 
+
+insert into external_content_type (external_content_type_id, name) values (1, "Fonts");
+insert into external_content_type (external_content_type_id, name) values (2, "Stock Art");
+
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(1, 'MS Word', 1, 'f', 'doc', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file	, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(2, 'Plain Text', 2, 'f', 'txt', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(3, 'PDF - Adobe Acrobat', 3, 'f', 'pdf', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(4, 'Postscript', 4, 'f', 'ps', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(5, 'HTML', 5, 'f', 'html', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(6, 'Rich Text', 6, 'f', 'rtf', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(9, 'JPG - Image', 9, 't', 'jpg', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(10, 'GIF - Image', 10, 't', 'gif', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(11, 'PNG - Image', 11, 't', 'png', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(12, 'BMP Image', 12, 't', 'bmp', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(13, 'MS Excel', 13, 'f', 'xls', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(14, 'ZIP Archive', 13, 'f', 'zip', 't', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(15, 'MP3', 15, 'f', 'mp3', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(16, 'Java Archive', 16, 'f', 'jar', 't', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(17, 'PSD - Photoshop', 17, 'f', 'psd', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(18, 'AI - Illustrator', 18, 'f', 'ai', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(19, 'EPS - Encapsulated PostScript', 19, 'f', 'eps', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(20, 'TIFF- Image', 20, 'f', 'tiff', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(21, 'CSS', 21, 'f', 'css', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(22, 'FLA - Flash source', 22, 'f', 'fla', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(23, 'SWF - Shockwave Flash', 23, 'f', 'swf', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(24, 'INDD - InDesign', 24, 'f', 'indd', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(25, 'MS PowerPoint', 25, 'f', 'ppt', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(26, 'Icon', 26, 't', 'ico', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(27, 'FO document', 25, 'f', 'fo', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(28, 'XML - Extensible Markup Language', 28, 'f', 'xml', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(29, 'MXML - Flex Interface Component', 29, 'f', 'mxml', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(30, 'AS - ActionScript', 30, 'f', 'as', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(31, 'SWC - Flash Component', 31, 'f', 'swc', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(32, 'JS - JavaScript', 32, 'f', 'js', 'f', 'System', Current, 'System', Current);

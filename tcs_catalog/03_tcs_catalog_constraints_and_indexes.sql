@@ -808,6 +808,30 @@ alter table 'informix'.late_deliverable add constraint primary key
 alter table 'informix'.project_reliability add constraint primary key
     (project_id, user_id)
     constraint pk_project_reliability;
+    
+alter table 'informix'.file_type_lu add constraint primary key
+    (file_type_id)
+    constraint pk_file_type_lu;
+
+alter table 'informix'.prize add constraint primary key
+    (prize_id)
+    constraint pk_prize;
+
+alter table 'informix'.project_studio_specification add constraint primary key
+    (project_studio_spec_id)
+    constraint pk_project_studio_spec;
+
+alter table 'informix'.project_prize_xref add constraint primary key
+    (project_id, prize_id)
+    constraint pk_project_prize_xref;
+
+alter table 'informix'.project_file_type_xref add constraint primary key
+    (project_id, file_type_id)
+    constraint pk_project_file_type_xref;
+
+alter table 'informix'.mime_type_lu add constraint primary key
+    (mime_type_id)
+    constraint pk_mime_type_lu;    
 
 alter table 'informix'.comp_categories add constraint foreign key 
 	(category_id)
@@ -1841,4 +1865,93 @@ on 'informix'.project
 (
 tc_direct_project_id
 );
+
+    
+alter table 'informix'.prize add constraint foreign key 
+	(prize_type_id) 
+    references 'informix'.prize_type_lu 
+    (prize_type_id) 
+    constraint prize_file_type_fk;
+
+alter table 'informix'.project add constraint foreign key 
+	(project_studio_spec_id) 
+    references 'informix'.project_studio_specification 
+    (project_studio_spec_id) 
+    constraint project_project_studio_spec_fk;
+
+alter table 'informix'.project_prize_xref add constraint foreign key 
+	(project_id) 
+    references 'informix'.project
+    (project_id) 
+    constraint project_project_prize_xref_fk;
+
+alter table 'informix'.project_prize_xref add constraint foreign key 
+	(prize_id) 
+    references 'informix'.prize 
+    (prize_id) 
+    constraint prize_project_prize_xref_fk;
+
+alter table 'informix'.project_file_type_xref add constraint foreign key 
+	(project_id) 
+    references 'informix'.project 
+    (project_id) 
+    constraint project_project_file_type_xref_fk;
+
+alter table 'informix'.project_file_type_xref add constraint foreign key 
+	(file_type_id) 
+    references 'informix'.file_type_lu 
+    (file_type_id) 
+    constraint file_type_project_file_type_xref_fk;
+
+alter table 'informix'.submission add constraint foreign key 
+	(prize_id) 
+    references 'informix'.prize 
+    (prize_id) 
+    constraint prize_submission_fk;
+
+alter table 'informix'.mime_type_lu add constraint foreign key 
+	(file_type_id) 
+    references 'informix'.file_type_lu 
+    (file_type_id) 
+    constraint mime_type_file_type_fk;
+
+alter table 'informix'.submission_image add constraint foreign key 
+	(submission_id) 
+    references 'informix'.submission 
+    (submission_id) on delete cascade
+    constraint submission_submission_image_fk;
+
+alter table 'informix'.submission_declaration add constraint primary key
+    (submission_declaration_id)
+    constraint submission_declaration_pk;
+
+alter table 'informix'.external_content_type add constraint primary key
+    (external_content_type_id)
+    constraint external_content_type_pk;
+
+alter table 'informix'.submission_external_content add constraint primary key
+    (external_content_id)
+    constraint submission_external_content_pk;
+
+alter table 'informix'.external_content_property add constraint primary key
+    (external_content_property_id)
+    constraint external_content_property_pk;
+
+alter table 'informix'.submission_declaration add constraint foreign key
+    (submission_id)
+    references 'informix'.submission
+    (submission_id)
+    constraint submission_declaration_to_submission_fk;
+
+alter table 'informix'.submission_external_content add constraint foreign key
+    (submission_declaration_id)
+    references 'informix'.submission_declaration
+    (submission_declaration_id)
+    constraint submission_external_content_to_submission_declaration_fk;
+
+alter table 'informix'.external_content_property add constraint foreign key
+    (external_content_id)
+    references 'informix'.submission_external_content
+    (external_content_id)
+    constraint external_content_property_to_submission_external_content_fk;
 

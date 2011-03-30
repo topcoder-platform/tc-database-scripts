@@ -865,7 +865,7 @@ create table 'informix'.project_type_lu (
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
     modify_date DATETIME YEAR TO FRACTION not null,
-	version DECIMAL(12,0) default 0 not null
+    version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -882,7 +882,7 @@ create table 'informix'.project_category_lu (
     modify_date DATETIME YEAR TO FRACTION not null,
     display boolean(1),
     display_order INT,
-	version DECIMAL(12,0) default 0 not null
+    version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -896,7 +896,7 @@ create table 'informix'.scorecard_type_lu (
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
     modify_date DATETIME YEAR TO FRACTION not null,
-	version DECIMAL(12,0) default 0 not null
+    version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -910,7 +910,7 @@ create table 'informix'.scorecard_status_lu (
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
     modify_date DATETIME YEAR TO FRACTION not null,
-	version DECIMAL(12,0) default 0 not null
+    version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -929,7 +929,7 @@ create table 'informix'.scorecard (
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
     modify_date DATETIME YEAR TO FRACTION not null,
-	version_number DECIMAL(12,0) default 0 not null
+    version_number DECIMAL(12,0) default 0 not null
 )
 extent size 128 next size 128
 lock mode row;
@@ -945,7 +945,7 @@ create table 'informix'.scorecard_group (
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
     modify_date DATETIME YEAR TO FRACTION not null,
-	version DECIMAL(12,0) default 0 not null
+    version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -959,7 +959,7 @@ create table 'informix'.scorecard_question_type_lu (
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
     modify_date DATETIME YEAR TO FRACTION not null,
-	version DECIMAL(12,0) default 0 not null
+    version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -979,7 +979,7 @@ create table 'informix'.scorecard_question (
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
     modify_date DATETIME YEAR TO FRACTION not null,
-	version DECIMAL(12,0) default 0 not null
+    version DECIMAL(12,0) default 0 not null
 )
 extent size 25000 next size 10000
 lock mode row;
@@ -1002,6 +1002,7 @@ create table 'informix'.project (
     project_id INT not null,
     project_status_id INT not null,
     project_category_id INT not null,
+    project_studio_spec_id INTEGER,                        
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -1009,9 +1010,9 @@ create table 'informix'.project (
     tc_direct_project_id INT
 )
 extent size 1000 next size 1000
-lock mode row;
+lock mode row;   
+revoke all on 'informix'.project from public;
 
-revoke all on project from 'public';
 create table 'informix'.project_info_type_lu (
     project_info_type_id INT not null,
     name VARCHAR(64) not null,
@@ -1186,6 +1187,7 @@ create table 'informix'.upload (
     upload_type_id INT not null,
     upload_status_id INT not null,
     parameter VARCHAR(254) not null,
+    upload_desc VARCHAR(254),
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -1233,7 +1235,13 @@ create table 'informix'.submission (
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
-    modify_date DATETIME YEAR TO FRACTION not null
+    modify_date DATETIME YEAR TO FRACTION not null,
+    feedback_thumb BOOLEAN(1),
+    user_rank DECIMAL(5,0),
+    mark_for_purchase BOOLEAN(1),
+    prize_id INTEGER,
+    file_size DECIMAL(18,0),
+    view_count DECIMAL(10,0)
 )
 extent size 5000 next size 2000
 lock mode row;
@@ -1713,7 +1721,7 @@ create table 'informix'.scorecard_section (
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
     modify_date DATETIME YEAR TO FRACTION not null,
-	version DECIMAL(12,0) default 0 not null
+    version DECIMAL(12,0) default 0 not null
 )
 extent size 512 next size 512
 lock mode row;
@@ -2522,6 +2530,147 @@ extent size 16 next size 16
 lock mode row; 
 revoke all on "informix".copilot_project_info from public;
 
+create table 'informix'.file_type_lu (
+  file_type_id INTEGER not null,
+  description VARCHAR(254) not null,
+  sort INTEGER not null,
+  image_file BOOLEAN not null,
+  extension  VARCHAR(20) not null,
+  bundled_file BOOLEAN not null,
+  create_user VARCHAR(64) not null,
+  create_date DATETIME YEAR TO FRACTION(3) not null,
+  modify_user VARCHAR(64)  not null,
+  modify_date DATETIME YEAR TO FRACTION(3) not null
+)
+extent size 16 next size 16
+lock mode row; 
+revoke all on 'informix'.file_type_lu from public;
+
+create table 'informix'.prize (
+  prize_id INTEGER not null,
+  place INTEGER not null,
+  prize_amount FLOAT not null,
+  prize_type_id DECIMAL(5,0) not null,
+  number_of_submissions INTEGER not null,
+  create_user VARCHAR(64) not null,
+  create_date DATETIME YEAR TO FRACTION(3) not null,
+  modify_user VARCHAR(64) not null,
+  modify_date DATETIME YEAR TO FRACTION(3) not null
+)
+extent size 16 next size 16
+lock mode row; 
+revoke all on 'informix'.prize from public;
+
+create table 'informix'.project_studio_specification (
+  project_studio_spec_id INTEGER not null,
+  goals LVARCHAR (2000),
+  target_audience LVARCHAR (2000),
+  branding_guidelines LVARCHAR (2000),
+  disliked_design_websites LVARCHAR (2000),
+  other_instructions LVARCHAR (2000),
+  winning_criteria LVARCHAR (2000),
+  submitters_locked_between_rounds BOOLEAN,
+  round_one_introduction LVARCHAR (2000),
+  round_two_introduction LVARCHAR (2000),
+  colors LVARCHAR (2000),
+  fonts LVARCHAR (2000),
+  layout_and_size LVARCHAR (2000),
+  contest_introduction LVARCHAR (2000),
+  contest_description LVARCHAR (2000),
+  content_requirements LVARCHAR (2000),
+  general_feedback lvarchar(2000),
+  create_user VARCHAR(64) not null,
+  create_date DATETIME YEAR TO FRACTION(3) not null,
+  modify_user VARCHAR(64) not null,
+  modify_date DATETIME YEAR TO FRACTION(3) not null
+)
+extent size 16 next size 16
+lock mode row; 
+revoke all on 'informix'.project_studio_specification from public;
+
+create table 'informix'.project_prize_xref (
+  project_id INTEGER not null,
+  prize_id INTEGER not null
+)
+extent size 16 next size 16
+lock mode row;   
+revoke all on 'informix'.project_prize_xref from public;
+
+create table 'informix'.project_file_type_xref (
+  project_id INTEGER not null,
+  file_type_id INTEGER not null
+)
+extent size 16 next size 16
+lock mode row;   
+revoke all on 'informix'.project_file_type_xref from public;
+
+create table 'informix'.default_terms (
+    project_category_id INT not null,
+    resource_role_id INT not null,
+    terms_of_use_id DECIMAL(10,0) not null,
+    cca BOOLEAN
+)
+extent size 16 next size 16
+lock mode row;   
+revoke all on 'informix'.default_terms from public; 
+
+create table 'informix'.mime_type_lu (
+  mime_type_id DECIMAL(12,0) not null,
+  file_type_id INTEGER not null,
+  mime_type_desc VARCHAR(100) not null
+)    
+extent size 16 next size 16
+lock mode row;   
+revoke all on 'informix'.mime_type_lu from public;
+
+create table 'informix'.submission_image (
+  submission_id INTEGER not null,
+  image_id DECIMAL(10,0) not null,
+  sort_order INTEGER not null,
+  modify_date DATETIME YEAR TO FRACTION(3) DEFAULT CURRENT YEAR TO FRACTION(3),
+  create_date DATETIME YEAR TO FRACTION(3) DEFAULT CURRENT YEAR TO FRACTION(3)
+)  
+extent size 16 next size 16
+lock mode row;   
+revoke all on 'informix'.submission_image from public;
+
+create table 'informix'.submission_declaration (
+	submission_declaration_id DECIMAL(10,0) NOT NULL,
+	submission_id INTEGER NOT NULL,
+	comment text NOT NULL,
+	has_external_content CHAR(1)
+) 
+extent size 32 next size 32 
+lock mode row;
+revoke all on "informix".submission_declaration from "public";
+
+create table 'informix'.external_content_type (
+	external_content_type_id DECIMAL(10, 0) NOT NULL,
+	name VARCHAR(50) NOT NULL
+)
+extent size 8 next size 8
+lock mode row;
+revoke all on "informix".external_content_type from "public";
+
+create table 'informix'.submission_external_content (
+	external_content_id DECIMAL(10, 0) NOT NULL,
+	external_content_type_id DECIMAL(10, 0) NOT NULL,
+	display_position INTEGER NOT NULL,
+	submission_declaration_id DECIMAL(10, 0) NOT NULL
+)
+extent size 32 next size 32 
+lock mode row;
+revoke all on "informix".submission_external_content from "public";
+
+create table 'informix'.external_content_property (
+	external_content_property_id DECIMAL(10, 0) NOT NULL,
+	external_content_id DECIMAL(10, 0) NOT NULL,
+	name VARCHAR(50) NOT NULL,
+	value VARCHAR(100) NOT NULL
+)
+extent size 32 next size 32 
+lock mode row;
+revoke all on "informix".external_content_property from "public";
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -4293,3 +4442,16 @@ grant select,insert,update,delete on "informix".copilot_project to public as inf
 grant select,insert,update,delete on "informix".copilot_project_info_type to public as informix;
 grant select,insert,update,delete on "informix".copilot_project_info to public as informix;
 
+grant select,insert,update,delete on "informix".file_type_lu to public as informix;
+grant select,insert,update,delete on "informix".prize to public as informix;
+grant select,insert,update,delete on "informix".project_studio_specification to public as informix;
+grant select,insert,update,delete on "informix".project_prize_xref to public as informix;
+grant select,insert,update,delete on "informix".project_file_type_xref to public as informix;
+grant select,insert,update,delete on "informix".default_terms to public as informix;
+grant select,insert,update,delete on "informix".mime_type_lu to public as informix;
+grant select,insert,update,delete on "informix".submission_image to public as informix;
+
+grant select,insert,update,delete on "informix".submission_declaration to public as "informix";
+grant select,insert,update,delete on "informix".submission_external_content to public as "informix";
+grant select,insert,update,delete on "informix".external_content_type to public as "informix";
+grant select,insert,update,delete on "informix".external_content_property to public as "informix";
