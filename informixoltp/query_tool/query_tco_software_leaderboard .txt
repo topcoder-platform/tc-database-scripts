@@ -1,0 +1,25 @@
+SELECT cpr.user_id,
+       u.handle,
+       count(cpr.project_id) as complete_projects,
+       (SELECT COUNT (distinct pr.project_id) FROM tcs_catalog:project_result pr
+          INNER JOIN tcs_catalog:contest_project_xref cpx ON cpx.project_id=pr.project_id
+          INNER JOIN tcs_catalog:contest c ON c.contest_id=cpx.contest_id and c.contest_id=cpr.contest_id
+          INNER JOIN common_oltp:event_registration er ON er.user_id=cpr.user_id and er.event_id=c.event_id and pr.create_date > er.create_date
+          INNER JOIN tcs_catalog:resource r ON r.project_id=pr.project_id
+          INNER JOIN tcs_catalog:resource_info ri ON r.resource_id=ri.resource_id and ri.resource_info_type_id=1 and ri.value=cpr.user_id
+          INNER JOIN tcs_catalog:upload up ON up.resource_id=r.resource_id
+          INNER JOIN tcs_catalog:submission s ON s.upload_id=up.upload_id and s.submission_status_id!=5 and s.submission_type_id=1
+          WHERE pr.user_id=cpr.user_id and pr.passed_review_ind is null
+        ) as projects_in_progress,
+       SUM(cpr.points) as placement_points
+    FROM tcs_catalog:contest_project_result cpr,
+         informixoltp:user u
+   WHERE cpr.contest_id = @cd@
+     AND cpr.user_id = u.user_id
+GROUP BY 1,2,4
+ORDER BY placement_points DESC,
+         SUM(CASE WHEN cpr.place=1 THEN 1 ELSE 0 END) DESC,
+         SUM(CASE WHEN cpr.place=2 THEN 1 ELSE 0 END) DESC,
+         SUM(CASE WHEN cpr.place=3 THEN 1 ELSE 0 END) DESC,
+         SUM(CASE WHEN cpr.place=4 THEN 1 ELSE 0 END) DESC;
+         

@@ -1,0 +1,17 @@
+select cpr.project_id,
+       pi6.value as project_name,
+       pi7.value as project_version,
+       s.create_date as submit_date,
+       s.final_score as score,
+       cpr.place as placed,
+       cpr.points as placement_points
+  from tcs_catalog:contest_project_result cpr
+        INNER JOIN tcs_catalog:project_info pi6 ON pi6.project_id=cpr.project_id and pi6.project_info_type_id=6
+        INNER JOIN tcs_catalog:project_info pi7 ON pi7.project_id=cpr.project_id and pi7.project_info_type_id=7
+        INNER JOIN tcs_catalog:resource r ON r.project_id=cpr.project_id
+        INNER JOIN tcs_catalog:resource_info ri ON r.resource_id=ri.resource_id and ri.resource_info_type_id=1 and ri.value=cpr.user_id
+        INNER JOIN tcs_catalog:upload up ON up.resource_id=r.resource_id
+        INNER JOIN tcs_catalog:submission s ON s.upload_id=up.upload_id and s.submission_status_id!=5 and s.submission_type_id=1
+   where cpr.contest_id = @cd@
+     AND cpr.user_id = @cr@
+order by submit_date desc;
