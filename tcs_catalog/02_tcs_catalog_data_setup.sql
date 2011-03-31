@@ -2333,3 +2333,35 @@ INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file,
 VALUES(31, 'SWC - Flash Component', 31, 'f', 'swc', 'f', 'System', Current, 'System', Current);
 INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
 VALUES(32, 'JS - JavaScript', 32, 'f', 'js', 'f', 'System', Current, 'System', Current);
+
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(1, 1, 'application/msword');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(2, 6, 'application/rtf');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(3, 2, 'text/plain');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(4, 3, 'application/pdf');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(5, 4, 'application/postscript');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(6, 5, 'text/html');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(7, 6, 'text/rtf');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(8, 9, 'image/jpeg');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(9, 10, 'image/gif');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(10, 11, 'image/png');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(11, 12, 'image/bmp');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(12, 13, 'application/vnd.ms-excel');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(13, 9, 'image/pjpeg');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(14, 11, 'image/x-png');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(15, 14, 'application/zip');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(16, 14, 'application/x-zip-compressed');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(17, 15, 'audio/mpeg');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(18, 15, 'audio/mp3');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(19, 14, 'application/x-zip');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(20, 16, 'application/java-archive');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(21, 16, 'application/x-java-archive');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(22, 25, 'application/vnd.ms-powerpoint');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(23, 17, 'image/photoshop');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(24, 17, 'image/x-photoshop');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(25, 17, 'image/psd');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(26, 17, 'application/photoshop');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(27, 17, 'application/psd');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(28, 17, 'zz-application/zz-winassoc-psd');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(29, 26, 'image/ico');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(30, 26, 'image/x-ico');
+INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(31, 17, 'application/octet-stream');
