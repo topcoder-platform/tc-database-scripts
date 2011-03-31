@@ -1,0 +1,25 @@
+select trim(payee.stringvalue) as handle,
+       sum(points.stringvalue) as tco_points, 
+       count(*) as num_competitions,
+       max(i.created) as last_competition
+from jiraissue i,
+     customfieldvalue points,
+     customfieldvalue payee,
+     resolution res,
+     issuestatus status
+where i.id = points.issue
+  and points.customfield = 10080
+  and points.issue = i.id
+  and payee.customfield = 10040
+  and payee.issue = i.id
+  and i.resolution = res.id
+  and i.issuestatus = status.id
+  and status.id in (5,6,10,11,12)
+  and res.id in (1,12,11,7,10,8,9)
+  and points.stringvalue <> '0'
+  and i.created >= IFNULL('@sdate@', DATE '2010-03-29')
+  and i.created <= IFNULL('@edate@', DATE '2010-07-30')
+group by handle
+order by 2 desc,
+         1 asc;
+         
