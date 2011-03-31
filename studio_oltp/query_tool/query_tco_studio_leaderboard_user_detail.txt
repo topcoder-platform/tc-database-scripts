@@ -1,0 +1,79 @@
+select c.name
+     , c.contest_id
+     , c.start_time
+     , c.end_time
+     , (select count(*) from contest_registration creg2 where creg2.contest_id = c.contest_id) as registrants
+     , (select count(*)
+          from submission s
+         where s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id) as submissions
+     , u.user_id
+     , u.handle
+     , nvl(cr.placed, 99) as placed
+     , u.handle_lower
+     , 1 as completed
+     , s.submission_id
+  from user u
+     , contest c 
+     , contest_registration creg
+     , event_registration er
+     , submission s
+     , submission_review sr
+--     , outer(contest_result cr)
+     , contest_result cr
+  where c.event_id = er.event_id
+     and er.user_id = u.user_id
+     and er.eligible_ind = 1
+     and er.event_id = @eid@
+     and creg.contest_id = c.contest_id 
+     and creg.user_id = u.user_id
+     and creg.create_date > er.create_date
+     and cr.contest_id = c.contest_id 
+     and u.user_id = s.submitter_id
+     and c.contest_id = s.contest_id
+     and u.status = 'A'
+     and cr.submission_id = s.submission_id
+     and sr.submission_id = s.submission_id
+     and sr.review_status_id = 1
+     and c.contest_status_id = 2
+     and exists (select 'user_registered' from contest_registration creg2
+                 where creg2.contest_id = c.contest_id and creg2.user_id = @cr@)
+--     and exists (select 'finished' from contest_result cr2 where cr2.contest_id = c.contest_id)
+     and c.contest_id in (select contest_id from contest_result)
+     and cr.placed >= 1
+     and cr.placed <= 5
+union
+-- incomplete contests
+select c.name
+     , c.contest_id
+     , c.start_time
+     , c.end_time
+     , (select count(*) from contest_registration creg2 where creg2.contest_id = c.contest_id) as registrants
+     , (select count(*)
+          from submission s
+         where s.rank <= (case when (select count(*) from contest_config where contest_id = c.contest_id and property_id = 8 and property_value is not null) > 0 then (select property_value from contest_config where contest_id = c.contest_id and property_id = 8)::decimal else 1000 end)
+           and s.contest_id = c.contest_id) as submissions
+     , u.user_id
+     , u.handle
+     , 0 as placed
+     , u.handle_lower
+     , 0 as completed
+     , 0 as submission_id
+  from user u
+     , contest c 
+     , contest_registration creg
+     , event_registration er
+  where c.event_id = er.event_id
+     and er.user_id = u.user_id
+     and er.eligible_ind = 1
+     and er.event_id = @eid@
+     and creg.contest_id = c.contest_id 
+     and creg.user_id = u.user_id
+     and creg.create_date > er.create_date
+     and u.status = 'A'
+     and c.contest_status_id = 2
+     and c.contest_id not in (select contest_id from contest_result)
+     and exists (select 'user_registered' from contest_registration creg2
+     where creg2.contest_id = c.contest_id and creg2.user_id = @cr@)
+  order by contest_id asc, placed asc;
+  

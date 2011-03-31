@@ -52,3 +52,6 @@ query_total_prize_paid.txt|UPDATE query SET text= ? WHERE query_id=29276;
 query_user_event_contests.txt|UPDATE query SET text= ? WHERE query_id=27526;
 query_studio_registration_status.txt|UPDATE query SET text= ? WHERE query_id=30807;
 query_studio_contest_forum_stats.txt|UPDATE query SET text= ? WHERE query_id=30826;
+query_tco_studio_leaderboard.txt|UPDATE query SET text= ? WHERE query_id=31121;
+query_tco_studio_leaderboard_user_detail.txt|UPDATE query SET text= ? WHERE query_id=31122;
+
