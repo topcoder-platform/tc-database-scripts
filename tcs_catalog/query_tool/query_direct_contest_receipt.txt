@@ -16,11 +16,11 @@ case when p.project_status_id in (1, 2) then
     nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
         where project_info_type_id = 16
         and project_id = p.project_id)/2), 0)
-else nvl((SELECT min(total_amount)
+else nvl((SELECT (total_amount)
        FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
         WHERE pmd.component_project_id = p.project_id and installment_number = 1 
         and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61) 
-        AND NOT pmd.payment_status_id IN (65, 68, 69) having max(total_amount) != min(total_amount) ), 0)
+        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 2) ), 0)
  end as second_place_prize,
 
 0 as third_place_prize,0 as fourth_place_prize, 0 as fifth_place_prize, 0 as milestone_prize,
