@@ -1,0 +1,161 @@
+select p.project_category_id as id,
+  sum(case when p.project_status_id in (9, 10) and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+            then pi2.value::DECIMAL(10,2)
+            when p.project_status_id in (9, 10) and not exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+            then 0 
+            else pi2.value::DECIMAL(10,2) end) / count(*) as contest_fee,
+
+  sum((NVL((SELECT sum(pmd.total_amount)
+          FROM informixoltp:payment_detail pmd, informixoltp:payment pm
+            WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+            AND pm.most_recent_detail_id = pmd.payment_detail_id 
+            AND NOT pmd.payment_status_id IN (65, 68, 69)
+            AND pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61)), 0)
+   +
+   NVL((SELECT sum(pmd2.total_amount)
+          FROM informixoltp:payment_detail pmd,  
+               informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+               informixoltp:payment pm2 
+          WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+          AND pm.most_recent_detail_id = pmd.payment_detail_id  
+          AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
+          AND pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61)
+          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+   )) / count(*) AS prizes,
+
+  sum((NVL((SELECT sum(pmd.total_amount)
+          FROM informixoltp:payment_detail pmd, informixoltp:payment pm
+            WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+            AND pm.most_recent_detail_id = pmd.payment_detail_id 
+            AND NOT pmd.payment_status_id IN (65, 68, 69)
+            AND pmd.payment_type_id in (27)), 0)
+   +
+   NVL((SELECT sum(pmd2.total_amount)
+          FROM informixoltp:payment_detail pmd,  
+               informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+               informixoltp:payment pm2 
+          WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+          AND pm.most_recent_detail_id = pmd.payment_detail_id  
+          AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
+          AND pmd2.payment_type_id in (27)
+          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+   )) / count(*) AS spec_review,   
+
+  sum((NVL((SELECT sum(pmd.total_amount)
+          FROM informixoltp:payment_detail pmd, informixoltp:payment pm
+            WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+            AND pm.most_recent_detail_id = pmd.payment_detail_id 
+            AND NOT pmd.payment_status_id IN (65, 68, 69)
+            AND pmd.payment_type_id in (7, 28, 26)), 0)
+   +
+   NVL((SELECT sum(pmd2.total_amount)
+          FROM informixoltp:payment_detail pmd,  
+               informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+               informixoltp:payment pm2 
+          WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+          AND pm.most_recent_detail_id = pmd.payment_detail_id  
+          AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
+          AND pmd2.payment_type_id in (7, 28, 26)
+          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+   )) / count(*) AS review,   
+
+   sum((NVL((SELECT sum(pmd.total_amount)
+          FROM informixoltp:payment_detail pmd, informixoltp:payment pm
+            WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+            AND pm.most_recent_detail_id = pmd.payment_detail_id 
+            AND NOT pmd.payment_status_id IN (65, 68, 69)
+            AND pmd.payment_type_id in (24)), 0)
+   +
+   NVL((SELECT sum(pmd2.total_amount)
+          FROM informixoltp:payment_detail pmd,  
+               informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+               informixoltp:payment pm2 
+          WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+          AND pm.most_recent_detail_id = pmd.payment_detail_id  
+          AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
+          AND pmd2.payment_type_id in (24)
+          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+   )) / count(*) AS reliability,   
+
+   sum(NVL((SELECT NVL(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+        where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+        and pi26.value = 'On'
+        and pi26.project_id =  p.project_id ), 0)) / count(*) as digital_run,
+
+   SUM((NVL((SELECT sum(pmd.total_amount)
+          FROM informixoltp:payment_detail pmd, informixoltp:payment pm
+            WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+            AND pm.most_recent_detail_id = pmd.payment_detail_id 
+            AND NOT pmd.payment_status_id IN (65, 68, 69)
+            AND pmd.payment_type_id in (45,57)), 0)
+   +
+   NVL((SELECT sum(pmd2.total_amount)
+          FROM informixoltp:payment_detail pmd,  
+               informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+               informixoltp:payment pm2 
+          WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+          AND pm.most_recent_detail_id = pmd.payment_detail_id  
+          AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
+          AND pmd2.payment_type_id in (45,57)
+          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+   )) / count(*) AS copilot,  
+
+   sum((NVL((SELECT sum(pmd.total_amount)
+          FROM informixoltp:payment_detail pmd, informixoltp:payment pm
+            WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+            AND pm.most_recent_detail_id = pmd.payment_detail_id 
+            AND NOT pmd.payment_status_id IN (65, 68, 69)
+            AND pmd.payment_type_id in (39)), 0)
+   +
+   NVL((SELECT sum(pmd2.total_amount)
+          FROM informixoltp:payment_detail pmd,  
+               informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+               informixoltp:payment pm2 
+          WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+          AND pm.most_recent_detail_id = pmd.payment_detail_id  
+          AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
+          AND pmd2.payment_type_id in (39)
+          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+   )) / count(*) AS build, 
+
+   sum((NVL((SELECT sum(pmd.total_amount)
+          FROM informixoltp:payment_detail pmd, informixoltp:payment pm
+            WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+            AND pm.most_recent_detail_id = pmd.payment_detail_id 
+            AND NOT pmd.payment_status_id IN (65, 68, 69)
+            AND pmd.payment_type_id in (23,37,46,47)), 0)
+   +
+   NVL((SELECT sum(pmd2.total_amount)
+          FROM informixoltp:payment_detail pmd,  
+               informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+               informixoltp:payment pm2 
+          WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+          AND pm.most_recent_detail_id = pmd.payment_detail_id  
+          AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
+          AND pmd2.payment_type_id in (23,37,46,47)
+          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+   )) / count(*) AS bugs, 
+
+   sum((NVL((SELECT sum(pmd.total_amount)
+          FROM informixoltp:payment_detail pmd, informixoltp:payment pm
+            WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+            AND pm.most_recent_detail_id = pmd.payment_detail_id 
+            AND NOT pmd.payment_status_id IN (65, 68, 69)
+            AND pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,28,27,7, 24, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61)), 0)
+   +
+   NVL((SELECT sum(pmd2.total_amount)
+          FROM informixoltp:payment_detail pmd,  
+               informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+               informixoltp:payment pm2 
+          WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+          AND pm.most_recent_detail_id = pmd.payment_detail_id  
+          AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
+          AND pmd2.payment_type_id NOT in (39,23,37,46,47,45,57,4,28,27,7, 24, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61)
+          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+   )) / count(*) AS misc
+ FROM project p,
+      project_info pi2 -- contest_fee
+ where p.project_id = pi2.project_id
+  and pi2.project_info_type_id = 31
+  and p.project_category_id in (@pcids@)
+  group by 1
