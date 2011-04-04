@@ -4,7 +4,8 @@ SELECT 'Registration ends: ' || regpp.scheduled_end_time || '<br />'  ||
       cc.description as description
      , 'http://www.topcoder.com/registration/actions/ProjectDetails.do?method=displayProjectDetails&projectId=' || p.project_id as link
      , cat.category_name || ' ' || 
-     (select value from project_info where project_id = p.project_id and project_info_type_id = 6) || ' ' || cv.version_text as title
+     (select value from project_info where project_id = p.project_id and project_info_type_id = 6) || ' ' || cv.version_text as title,
+     p.project_Id as guid
 FROM project p
    ,project_phase submpp
    ,project_phase regpp
