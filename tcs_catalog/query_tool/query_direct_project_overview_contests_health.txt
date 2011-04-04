@@ -19,42 +19,30 @@ SELECT tdp.project_id AS tc_direct_project_id,
         FROM project_phase pp 
         WHERE pp.project_id = p.project_id AND phase_type_id = 1) 
        AS registration_phase_status,
-       (SELECT COUNT(user_id) 
-        FROM  
-        TABLE(
-            MULTISET( 
-                SELECT 
-                    (SELECT u.user_id 
-                     FROM jivemessage jm 
-                     INNER JOIN user u ON jm.userid = u.user_id  
-                     WHERE jm.threadid = latest_threads.threadid 
-                     AND jm.modificationdate = latest_threads.modificationdate 
-                     AND NOT EXISTS (SELECT value 
-                                     FROM resource r
-                                     INNER JOIN resource_info ri ON r.resource_id = ri.resource_id 
-                                     WHERE r.project_id = p.project_id  
-                                     AND r.resource_role_id in (11,12,13,14,15) 
-                                     AND ri.resource_info_type_id = 1 
-                                     AND value = u.user_id) 
-                    ) user_id 
-                FROM 
-                    TABLE(
-                        MULTISET( 
-                            SELECT m.threadid,
-                                   MAX(m.modificationdate) modificationdate 
-                            FROM jivecategory c 
-                            INNER JOIN jiveforum f ON c.categoryid = f.categoryid  
-                            INNER JOIN jivemessage m ON m.forumid = f.forumid 
-                            INNER JOIN project_info pi ON c.categoryid = pi.value 
-                            WHERE pi.project_info_type_id = 4  
-                            AND pi.project_id = p.project_id  
-                            GROUP BY m.threadid
-                        )
-                    ) latest_threads 
-            )
-        )
-        WHERE user_id IS NOT NULL
-       ) AS unanswered_threads,
+       (select count(user_id) from  
+table(multiset( 
+select 
+       (select u.user_id from jivemessage jm, user u  
+        where jm.userid = u.user_id and jm.threadid = latest_threads.threadid and jm.modificationdate = latest_threads.modificationdate 
+        and  not exists (select value from resource r, resource_info ri where r.project_id = p.project_id  and r.resource_role_id in (11,12,13,14,15) 
+                            and r.resource_id = ri.resource_id and ri.resource_info_type_id = 1 and value = u.user_id) 
+        ) user_id 
+  from table(multiset( 
+        select m.threadid, 
+               max(m.modificationdate) modificationdate 
+          from jivecategory c,  
+               jiveforum f,  
+               jivemessage m,  
+               project_info pi 
+         where pi.project_info_type_id = 4  
+           and c.categoryid = pi.value  
+           and c.categoryid = f.categoryid  
+           and m.forumid = f.forumid  
+           and pi.project_id = p.project_id  
+      group by m.threadid 
+      )) latest_threads 
+))
+where user_id is not null ) unanswered_threads,
        (SELECT NVL(pc.parameter::INT, 0) AS required_reviewers_count
         FROM project_phase pp
         LEFT JOIN phase_criteria pc ON pp.project_phase_id = pc.project_phase_id AND pc.phase_criteria_type_id = 6
