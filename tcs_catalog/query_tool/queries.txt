@@ -1,7 +1,6 @@
 query_-deleted.txt|UPDATE query SET text= ? WHERE query_id=26283
 query_accumulated_dr_points_by_month.txt|UPDATE query SET text= ? WHERE query_id=29056
 query_Active Competition Registrants.txt|UPDATE query SET text= ? WHERE query_id=28406
-query_active_architecture_contests.txt|UPDATE query SET text= ? WHERE query_id=28418
 query_active_assembly_contests.txt|UPDATE query SET text= ? WHERE query_id=27317
 query_active_contests_list.txt|UPDATE query SET text= ? WHERE query_id=28857
 query_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=28776

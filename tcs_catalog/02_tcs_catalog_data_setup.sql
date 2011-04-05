@@ -600,7 +600,6 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28180, 'users_for_project', 13343);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28189, 'component_cost', 13343);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28190, 'architecture_registrants', 13337);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28191, 'active_architecture_contests', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28279, 'rss_Development_Registration_Open', 24984);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28280, 'datasource_info', 11004);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28282, 'rss_Design_Registration_Open', 24984);
@@ -1401,7 +1400,6 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28408, null, 'project_info', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28416, null, 'component_cost', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28417, null, 'architecture_registrants', 0, null);
-INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28418, null, 'active_architecture_contests', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28506, null, 'rss_Development_Registration_Open', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28507, null, 'datasource_info', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28509, null, 'rss_Design_Registration_Open', 0, null);
@@ -1731,8 +1729,6 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (28407, NULL, NULL, 13342, NULL);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (28408, NULL, NULL, 13342, NULL);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (28417, NULL, NULL, 13342, NULL);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (28418, 'Y', '2', 16916, 1);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (28418, 'Y', 'desc', 16917, 2);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (28507, NULL, NULL, 25140, NULL);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (26451, NULL, NULL, 0, NULL);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (28536, NULL, NULL, 25150, NULL);
@@ -2061,7 +2057,6 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28180, 28408, 1);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28189, 28416, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28190, 28417, NULL);
-INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28191, 28418, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28279, 28506, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28280, 28507, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28282, 28509, NULL);

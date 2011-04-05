@@ -51,6 +51,7 @@ SELECT submpp.scheduled_end_time as initial_submission_date
         and ppd.project_id = proj.project_id
         and proj.project_id = p.project_id
         and ppd.phase_type_id = 1) as posting_date
+  , not exists (select * from project_info pi where pi.project_info_type_id=45 and pi.project_id=p.project_id and (pi.value='false' or pi.value='False')) as reliability_bonus_eligible
 FROM project p
    ,project_phase submpp
    ,project_phase regpp
