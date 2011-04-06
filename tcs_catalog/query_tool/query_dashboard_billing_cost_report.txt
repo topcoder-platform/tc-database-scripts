@@ -1,4 +1,4 @@
-SELECT pmd.create_date payment_date,
+SELECT pm.create_date payment_date,
        p.project_id as contest_id,
        ttc.name client,	
        ttp.name billing_project_name,
@@ -149,7 +149,7 @@ group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22
 UNION
  
 select
-pmd.create_date payment_date,
+pm.create_date payment_date,
 c.contest_id as contest_id,
 NVL(ttc.name, 'One-Off') client,
 NVL(ttp.name, 'One-Off') billing_project_name,
