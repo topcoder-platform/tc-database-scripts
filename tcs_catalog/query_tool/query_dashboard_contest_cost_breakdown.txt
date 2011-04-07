@@ -87,6 +87,7 @@ select p.project_id as id,
       project_info pi2 -- contest_fee
  where p.project_id = pi2.project_id
   and pi2.project_info_type_id = 31
+  and p.project_status_id = 7
   and p.project_id in (@pids@)
 
 UNION
