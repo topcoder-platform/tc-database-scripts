@@ -120,7 +120,7 @@ FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.mo
      time_oltp:project ttp,
      time_oltp:client_project ttcp,
      time_oltp:client ttc,
-     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 10 GROUP BY project_id))) ct
+     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 11 GROUP BY project_id))) ct
 where  pmd.component_project_id = p.project_id
    and pmd.payment_type_id = pt.payment_type_id
    and installment_number = 1
