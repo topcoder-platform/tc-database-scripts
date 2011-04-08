@@ -1236,7 +1236,6 @@ create table 'informix'.submission (
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
     modify_date DATETIME YEAR TO FRACTION not null,
-    feedback_thumb BOOLEAN(1),
     user_rank DECIMAL(5,0),
     mark_for_purchase BOOLEAN(1),
     prize_id INTEGER,
