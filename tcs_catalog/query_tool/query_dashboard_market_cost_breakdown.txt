@@ -58,7 +58,6 @@ select p.project_category_id as id,
             AND pm.most_recent_detail_id = pmd.payment_detail_id 
             AND NOT pmd.payment_status_id IN (65, 68, 69)
             AND pmd.payment_type_id in (45,57)), 0)
-
    )) / count(*) AS copilot,  
 
    sum((NVL((SELECT sum(pmd.total_amount)
@@ -85,9 +84,13 @@ select p.project_category_id as id,
             AND pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,28,27,7, 24, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61)), 0)
    )) / count(*) AS misc
  FROM project p,
-      project_info pi2 -- contest_fee
+      project_info pi2, -- contest_fee
+      table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 11 GROUP BY project_id))) ct
  where p.project_id = pi2.project_id
   and pi2.project_info_type_id = 31
   and p.project_status_id = 7
+  and p.project_category_id not in (29)
   and p.project_category_id in (@pcids@)
+  and p.project_id = ct.project_id
+  and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
   group by 1

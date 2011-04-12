@@ -1,4 +1,6 @@
 select p.project_id as id,
+  case when p.project_status_id = 7 then 1 else 0 end as fullfillment,
+
   case when p.project_status_id in (9, 10) and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
             then pi2.value::DECIMAL(10,2)
             when p.project_status_id in (9, 10) and not exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
@@ -93,6 +95,8 @@ select p.project_id as id,
 UNION
 
 select c.contest_id as id,
+  case when c.contest_detailed_status_id = 8 then 1 else 0 end as fullfillment,
+
   cc2.property_value::DECIMAL(10,2) as contest_fee,
 
   (NVL((SELECT sum(pmd.total_amount)
