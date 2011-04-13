@@ -832,3 +832,11 @@ alter table 'informix'.vm_instance add constraint foreign key
     references vm_contest_type
     (vm_contest_type_id) 
     constraint fk_vm_instance_contest_type;
+
+ALTER TABLE 'informix'.member_image
+        ADD CONSTRAINT FOREIGN KEY(image_id)
+        REFERENCES photo_image(image_id) CONSTRAINT member_image_photo_fk;
+        
+ALTER TABLE 'informix'.member_image
+        ADD CONSTRAINT FOREIGN KEY(member_id)
+        REFERENCES user(user_id) CONSTRAINT member_image_user_fk;

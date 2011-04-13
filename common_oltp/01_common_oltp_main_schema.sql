@@ -1051,6 +1051,34 @@ lock mode row;
 
 revoke all on vm_instance_audit from 'public';
 
+CREATE TABLE 'informix'.photo_image (
+  image_id              SERIAL8,
+  file_name             VARCHAR(50) NOT NULL,
+  PRIMARY KEY (image_id) CONSTRAINT "informix".image_pk
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on photo_image from 'public';
+
+
+CREATE TABLE 'informix'.member_image (
+  member_image_id       SERIAL8,
+  member_id             DECIMAL(10,0) NOT NULL,
+  image_id              INT8 NOT NULL,
+  removed               BOOLEAN NOT NULL,
+  created_by            VARCHAR(50) NOT NULL,
+  created_date          DATETIME YEAR TO FRACTION NOT NULL,
+  updated_by            VARCHAR(50) NOT NULL,
+  updated_date          DATETIME YEAR TO FRACTION NOT NULL,
+  PRIMARY KEY (member_image_id) CONSTRAINT "informix".member_image_pk
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on member_image from 'public';
+
+
 CREATE SEQUENCE "informix".CONTEST_ELIGIBILITY_SEQ INCREMENT BY 1 START WITH 1 MINVALUE 1;
 
 revoke all on "informix".CONTEST_ELIGIBILITY_SEQ from "public";
@@ -1957,5 +1985,8 @@ grant delete on vm_instance_audit to 'public' as 'informix';
 grant select on vm_instance_audit to 'public' as 'informix';
 
 grant insert on vm_instance_audit to 'public' as 'informix';
+
+grant insert, update, delete, select on member_image to 'public' as 'informix';
+grant insert, update, delete, select on photo_image to 'public' as 'informix';
 
 grant select on "informix".CONTEST_ELIGIBILITY_SEQ to "public" as "informix";
