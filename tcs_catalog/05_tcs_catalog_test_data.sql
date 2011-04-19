@@ -243,3 +243,32 @@ insert into tcs_catalog:comp_reg_question values (1, "Test question", 3, 1, 1);
 
 insert into tcs_catalog:resource values (1, 13, null, null, 132456, current, 132456, current);
 insert into tcs_catalog:resource_info values (1, 1, 132456,	132456, current, 132456, current);
+
+-- test scorecards for data migration.
+
+-- Generic scorecards
+INSERT INTO scorecard (scorecard_id, scorecard_status_id, scorecard_type_id, project_category_id, name, version, min_score, max_score, create_user, create_date, modify_user, modify_date, version_number) VALUES (200, 1, 1, 28, 'Default Screening Scorecard - Active', '1.0', 75, 100, 'System', CURRENT, 'System', CURRENT, 0);
+INSERT INTO scorecard (scorecard_id, scorecard_status_id, scorecard_type_id, project_category_id, name, version, min_score, max_score, create_user, create_date, modify_user, modify_date, version_number) VALUES (201, 1, 2, 28, 'Default Review Scorecard - Active', '1.0', 75, 100, 'System', CURRENT, 'System', CURRENT, 0);
+INSERT INTO scorecard (scorecard_id, scorecard_status_id, scorecard_type_id, project_category_id, name, version, min_score, max_score, create_user, create_date, modify_user, modify_date, version_number) VALUES (202, 1, 6, 28, 'Default Milestone Screening Scorecard - Active', '1.0', 75, 100, 'System', CURRENT, 'System', CURRENT, 0);
+INSERT INTO scorecard (scorecard_id, scorecard_status_id, scorecard_type_id, project_category_id, name, version, min_score, max_score, create_user, create_date, modify_user, modify_date, version_number) VALUES (203, 1, 7, 28, 'Default Milestone Review Scorecard - Active', '1.0', 75, 100, 'System', CURRENT, 'System', CURRENT, 0);
+
+INSERT INTO scorecard_group SELECT 200, 200, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_group WHERE scorecard_group_id = 5760;
+INSERT INTO scorecard_group SELECT 201, 201, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_group WHERE scorecard_group_id = 5760;
+INSERT INTO scorecard_group SELECT 202, 202, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_group WHERE scorecard_group_id = 5760;
+INSERT INTO scorecard_group SELECT 203, 203, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_group WHERE scorecard_group_id = 5760;
+
+INSERT INTO scorecard_section SELECT 200, 200, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_section WHERE scorecard_section_id = 30000770;
+INSERT INTO scorecard_section SELECT 201, 201, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_section WHERE scorecard_section_id = 30000770;
+INSERT INTO scorecard_section SELECT 202, 202, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_section WHERE scorecard_section_id = 30000770;
+INSERT INTO scorecard_section SELECT 203, 203, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_section WHERE scorecard_section_id = 30000770;
+
+
+INSERT INTO scorecard_question SELECT 200, scorecard_question_type_id, 200, description, guideline, weight, sort, upload_document, upload_document_required, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_question WHERE scorecard_question_id = 30001000;
+INSERT INTO scorecard_question SELECT 201, scorecard_question_type_id, 201, description, guideline, weight, sort, upload_document, upload_document_required, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_question WHERE scorecard_question_id = 30001000;
+INSERT INTO scorecard_question SELECT 202, scorecard_question_type_id, 202, description, guideline, weight, sort, upload_document, upload_document_required, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_question WHERE scorecard_question_id = 30001000;
+INSERT INTO scorecard_question SELECT 203, 2, 203, description, guideline, weight, sort, upload_document, upload_document_required, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_question WHERE scorecard_question_id = 30001000;
+
+INSERT INTO default_scorecard (project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (28, 1, 200, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO default_scorecard (project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (28, 2, 201, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO default_scorecard (project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (28, 6, 202, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO default_scorecard (project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (28, 7, 203, 'System', CURRENT, 'System', CURRENT);
