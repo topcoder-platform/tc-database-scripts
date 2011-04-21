@@ -302,7 +302,10 @@ query_direct_contest_stats_replatforming.txt|UPDATE query SET text = ? WHERE que
 query_studio_can_view_contest_details.txt|UPDATE query SET text = ? WHERE query_id = 31114
 query_studio_contest_results.txt|UPDATE query SET text = ? WHERE query_id = 31115
 query_studio_submissions.txt|UPDATE query SET text = ? WHERE query_id = 31116
-
 query_dashboard_contest_cost_breakdown.txt|UPDATE query SET text = ? WHERE query_id = 31126
 query_dashboard_market_cost_breakdown.txt|UPDATE query SET text = ? WHERE query_id = 31127
+
+query_project_phases_status_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31156
+query_registration_status_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31157
+query_retrieve_document_url_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31158
 
