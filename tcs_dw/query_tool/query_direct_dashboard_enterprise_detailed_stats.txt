@@ -8,7 +8,7 @@ SELECT
 FROM table(multiset(SELECT client_project_id, tc_direct_project_id, project_category_id, year, week, 
       total_completed_contests AS completed_project_count,
       total_completed_contests + total_failed_contests AS project_count,
-      (avg_contest_fees + avg_member_fees) * total_completed_contests AS cost,
+      avg_member_fees * total_completed_contests AS cost,
       avg_duration * total_completed_contests AS duration,
       avg_fulfillment * (total_completed_contests + total_failed_contests) AS fulfillment
       FROM weekly_contest_stats)) s
