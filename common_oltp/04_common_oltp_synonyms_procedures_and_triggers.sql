@@ -281,9 +281,9 @@ create trigger "informix".trig_user_insert insert on "informix".user referencing
 create trigger "informix".trig_user_preference_update update of preference_id,value,preference_value_id on "informix".user_preference referencing old as o new as n                                                                                                 for each row
         (
         execute function "informix".get_current() into "informix".user_preference.modify_date);
-create trigger "informix".trig_audit_user update of first_name,last_name,handle,last_login,status,password,activation_code,middle_name,timezone_id,last_site_hit_date on "informix".user referencing old as old new as new                                          for each row
+create trigger "informix".trig_audit_user update of first_name,last_name,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date on "informix".user referencing old as old new as new                                          for each row
         (
-        execute procedure "informix".proc_user_update(old.user_id ,old.first_name ,new.first_name ,old.last_name ,new.last_name ,old.handle ,new.handle ,old.status ,new.status ,old.password ,new.password ,old.activation_code ,new.activation_code ,old.middle_name ,new.middle_name ,old.timezone_id ,new.timezone_id ));
+        execute procedure "informix".proc_user_update(old.user_id ,old.first_name ,new.first_name ,old.last_name ,new.last_name ,old.handle ,new.handle ,old.status ,new.status ,old.activation_code ,new.activation_code ,old.middle_name ,new.middle_name ,old.timezone_id ,new.timezone_id ));
 create trigger "informix".trig_event_reg_modified update of event_id,user_id,eligible_ind on "informix".event_registration referencing old as old                                                                                                                   for each row
         (
         execute function "informix".get_current() into "informix".event_registration.modify_date);
