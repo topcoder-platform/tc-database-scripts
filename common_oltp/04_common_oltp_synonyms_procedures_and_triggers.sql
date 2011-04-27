@@ -38,8 +38,6 @@ old_handle VARCHAR(50),
 new_handle VARCHAR(50),
 old_status VARCHAR(3),
 new_status VARCHAR(3),
-old_password VARCHAR(15),
-new_password VARCHAR(15),
 old_activation_code VARCHAR(32),
 new_activation_code VARCHAR(32),
 old_middle_name VARCHAR(64),
@@ -68,12 +66,6 @@ user_id)
          values ('STATUS', old_status, new_status, user_id);
       End If;
 
-      if (old_password != new_password) then 
-         insert into audit_user (column_name, old_value, new_value,
-user_id)
-         values ('PASSWORD', old_password, new_password, user_id);
-      End If;
-
       if (old_activation_code != new_activation_code) then 
          insert into audit_user (column_name, old_value, new_value,
 user_id)
@@ -88,7 +80,7 @@ user_id)
       UPDATE user SET handle_lower = lower(new_handle), modify_date = current WHERE user.user_id = user_id;
 
 end procedure;
-revoke execute on procedure proc_user_update(decimal,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,decimal,decimal) from 'public';
+revoke execute on procedure proc_user_update(decimal,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,decimal,decimal) from 'public';
 create procedure "informix".proc_email_update(
 email_id decimal(10,0),
 user_id DECIMAL(10,0),
