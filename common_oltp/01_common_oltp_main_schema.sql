@@ -749,7 +749,6 @@ create table 'informix'.user (
     handle VARCHAR(50) not null,
     last_login DATETIME YEAR TO FRACTION,
     status VARCHAR(3) not null,
-    password VARCHAR(30),
     activation_code VARCHAR(32),
     middle_name VARCHAR(64),
     handle_lower VARCHAR(50),
@@ -1085,10 +1084,10 @@ revoke all on "informix".CONTEST_ELIGIBILITY_SEQ from "public";
 
 
 create view "informix".email_user (user_id,first_name,last_name,
-       create_date,modify_date,handle,last_login,status,password,
+       create_date,modify_date,handle,last_login,status,
        activation_code,middle_name,email) as
    select x0.user_id ,x0.first_name ,x0.last_name ,x0.create_date ,
-       x0.modify_date ,x0.handle ,x0.last_login ,x0.status ,x0.password ,
+       x0.modify_date ,x0.handle ,x0.last_login ,x0.status ,
        x0.activation_code ,x0.middle_name ,x1.address 
    from "informix".user x0 ,"informix".email x1 
    where ((((x0.user_id = x1.user_id ) AND (x1.primary_ind = 1. ) ) AND (x1.status_id = 1. ) ) AND (x0.status = 'A' ) ) ;
