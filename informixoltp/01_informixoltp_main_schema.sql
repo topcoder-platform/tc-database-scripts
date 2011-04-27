@@ -1590,7 +1590,8 @@ create table 'informix'.payment_detail (
     charity_ind DECIMAL(1,0) default 0 not null,
     total_amount DECIMAL(12,2),
     installment_number DECIMAL(3,0) default 1,
-    digital_run_track_id DECIMAL(10,0)
+    digital_run_track_id DECIMAL(10,0),
+    invoice_number VARCHAR(11)
 )
 extent size 3000 next size 1000
 lock mode row;
