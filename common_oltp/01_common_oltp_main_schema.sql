@@ -689,7 +689,8 @@ create table 'informix'.password_recovery (
     user_id DECIMAL(10,0) not null,
     recovery_address VARCHAR(100),
     expire_date DATETIME YEAR TO FRACTION not null,
-    used_ind DECIMAL(1,0)
+    used_ind DECIMAL(1,0),
+    random_key DECIMAL(20,0)
 )
 extent size 5000 next size 5000
 lock mode row;
