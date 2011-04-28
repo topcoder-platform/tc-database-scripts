@@ -750,6 +750,7 @@ create table 'informix'.user (
     handle VARCHAR(50) not null,
     last_login DATETIME YEAR TO FRACTION,
     status VARCHAR(3) not null,
+	password VARCHAR(30),
     activation_code VARCHAR(32),
     middle_name VARCHAR(64),
     handle_lower VARCHAR(50),
