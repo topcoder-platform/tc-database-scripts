@@ -36,9 +36,7 @@ select c.name
      and sr.submission_id = s.submission_id
      and sr.review_status_id = 1
      and c.contest_status_id = 2
-     and exists (select 'user_registered' from contest_registration creg2
-                 where creg2.contest_id = c.contest_id and creg2.user_id = @cr@)
---     and exists (select 'finished' from contest_result cr2 where cr2.contest_id = c.contest_id)
+     and creg.user_id = @cr@
      and c.contest_id in (select contest_id from contest_result)
      and cr.placed >= 1
      and cr.placed <= 5
@@ -73,7 +71,6 @@ select c.name
      and u.status = 'A'
      and c.contest_status_id = 2
      and c.contest_id not in (select contest_id from contest_result)
-     and exists (select 'user_registered' from contest_registration creg2
-     where creg2.contest_id = c.contest_id and creg2.user_id = @cr@)
+     and creg.user_id = @cr@
   order by contest_id asc, placed asc;
   
