@@ -4,7 +4,16 @@ psl.name as status,
 (SELECT t.name
 FROM project_phase ph
 INNER JOIN phase_type_lu t ON ph.phase_type_id = t.phase_type_id
-WHERE ph.project_phase_id = (SELECT MAX(php.project_phase_id) FROM project_phase php WHERE php.project_id = p.project_id and php.phase_status_id = 2)) as current_phase_name 
+WHERE ph.project_phase_id = (SELECT MAX(php.project_phase_id) FROM project_phase php WHERE php.project_id = p.project_id and php.phase_status_id = 2)) as current_phase_name,
+(select min(nvl(actual_start_time, scheduled_start_time)) from project_phase ph where ph.project_id = p.project_id and ph.phase_type_id = 1) as start_date,
+(select max(nvl(actual_end_time, scheduled_end_time)) from project_phase ph where ph.project_id = p.project_id) as end_date, 
+(select count(resource_id) from resource r where r.project_id = p.project_id and resource_role_id = 1) as number_of_registration, 
+(select count (distinct resource_id) from upload u, submission sub 
+   where u.project_id = p.project_id and upload_status_id = 1 and upload_type_id = 1 and u.upload_id = sub.upload_id and sub.submission_type_id = 1) as number_of_submission,
+(select count(messageid) from jivecategory c, jiveforum f, jivemessage m, project_info pi 
+            		    where pi.project_info_type_id = 4 and c.categoryid = pi.value and c.categoryid = f.categoryid and m.forumid = f.forumid 
+            		      and pi.project_id =  p.project_id) as number_of_forum,
+(select value from project_info where project_info_type_id =4 and project_id =  p.project_id) as forum_id
 
 from tc_direct_project tdp,
 project_status_lu psl, project p
