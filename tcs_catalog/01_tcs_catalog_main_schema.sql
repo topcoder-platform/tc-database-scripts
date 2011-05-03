@@ -2671,6 +2671,17 @@ extent size 32 next size 32
 lock mode row;
 revoke all on "informix".external_content_property from "public";
 
+create table 'informix'.project_download_audit (
+    upload_id INT not null,
+    user_id DECIMAL(10,0),
+    ip_address VARCHAR(20) not null,
+    successful boolean not null,
+    date DATETIME YEAR TO FRACTION not null
+)
+extent size 3000 next size 3000
+lock mode row;
+revoke all on "informix".project_download_audit from "public";
+
 grant select on v_latest_version to 'informix' with grant option ;
 
 grant select on user_customer to 'informix' with grant option ;
@@ -4454,3 +4465,4 @@ grant select,insert,update,delete on "informix".submission_declaration to public
 grant select,insert,update,delete on "informix".submission_external_content to public as "informix";
 grant select,insert,update,delete on "informix".external_content_type to public as "informix";
 grant select,insert,update,delete on "informix".external_content_property to public as "informix";
+grant select,insert,update,delete on "informix".project_download_audit to public as "informix";
