@@ -397,7 +397,7 @@ INSERT INTO 'informix'.response(response_id,user_id,question_id,answer_id,respon
 INSERT INTO 'informix'.response(response_id,user_id,question_id,answer_id,response_text,create_date,response) VALUES (593313, 27244068, 28430, NULL, NULL, '2008-09-23 13:24:45.000', '1976/05/12');
 INSERT INTO 'informix'.event (event_id,event_type_id,event_desc,start_registration,end_registration,terms_of_use_id,survey_id,event_short_desc,modify_date,parent_event_id) VALUES (991, 14, "High School Season 2", "2007-05-25 00:00:00.000", "2008-03-16 00:00:00.000", null, 19270, "hsseason2", "2007-07-18 11:05:17.000", null);
 INSERT INTO 'informix'.event (event_id,event_type_id,event_desc,start_registration,end_registration,terms_of_use_id,survey_id,event_short_desc,modify_date,parent_event_id) VALUES (993, 14, "High School Season 3", "2008-05-09 00:00:00.000", "2008-09-01 00:00:00.000", null, 28429, "hsseason3", "2008-06-26 15:00:34.000", null);
-INSERT INTO 'informix'.ecure_object (secure_object_id,secure_object_type) VALUES (-1,'G');
+INSERT INTO 'informix'.secure_object (secure_object_id,secure_object_type) VALUES (-1,'G');
 INSERT INTO 'informix'.secure_object (secure_object_id,secure_object_type) VALUES (1,'G');
 INSERT INTO 'informix'.secure_object (secure_object_id,secure_object_type) VALUES (2,'G');
 INSERT INTO 'informix'.secure_object (secure_object_id,secure_object_type) VALUES (3,'G');
