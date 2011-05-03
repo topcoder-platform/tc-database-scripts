@@ -1,12 +1,9 @@
 select 'Competition Type: ' || cat.category_name || ' ' || pcl.name || '<br />' ||
-       'Position: ' || 'SCREENER' ||  '<br />' ||
-       'Start Time: ' || pp3.scheduled_start_time as description
+       'Positions: ' || 'REVIEWER (' || pc.parameter::integer - (select count(*) from resource where project_id = p.project_id and resource_role_id in (4, 5, 6, 7)) || ')' || '<br />' ||
+       'Screening Start Time: ' || pp3.scheduled_start_time || '<br />' ||
+       'Review Start Time: ' || pp4.scheduled_start_time as description
      , pi6.value || ' ' || pi7.value as title
-     , DECODE(pcl.name, 
-                'Development','http://www.topcoder.com/tc?module=ReviewProjectDetail&pj=' || p.project_id || '&ph=113', 
-                'Design', 'http://www.topcoder.com/tc?module=ReviewProjectDetail&pj=' || p.project_id || '&ph=112', 
-                'Assembly Competition', 'http://www.topcoder.com/wiki/display/tc/Assembly+Review+Opportunities', 
-                '') as link
+     , 'http://www.topcoder.com/tc?module=ReviewProjectDetail&pj=' || p.project_id || '&pt=' || p.project_category_id as link
      , pp3.scheduled_start_time
   from project p
      , project_info pi5
@@ -15,45 +12,12 @@ select 'Competition Type: ' || cat.category_name || ' ' || pcl.name || '<br />' 
      , categories cat
      , project_category_lu pcl
      , project_type_lu ptl
+     , project_phase pp2
      , project_phase pp3
- where p.project_status_id = 1
-   and p.project_category_id in (1, 2, 14)
-   and p.project_id = pi5.project_id
-   and pi5.project_info_type_id = 5
-   and pi5.value::integer = cat.category_id
-   and p.project_id = pi6.project_id
-   and pi6.project_info_type_id = 6
-   and p.project_id = pi7.project_id
-   and pi7.project_info_type_id = 7
-   and p.project_category_id = pcl.project_category_id
-   and pcl.project_type_id = ptl.project_type_id
-   and p.project_id = pp3.project_id
-   and pp3.phase_type_id = 3
- AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
- WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
-   and not exists (select * from resource where project_id = p.project_id and resource_role_id = 2)
-union
-select 'Competition Type: ' || cat.category_name || ' ' || pcl.name ||  '<br />' ||
-       'Position: ' || 'REVIEWERS (' || pc.parameter::integer - (select count(*) from resource where project_id = p.project_id and resource_role_id in (4, 5, 6, 7)) || ')' ||  '<br />' ||
-       'Start Time: ' || pp4.scheduled_start_time as description
-     , pi6.value || ' ' || pi7.value as title
-     , DECODE(pcl.name, 
-                'Development','http://www.topcoder.com/tc?module=ReviewProjectDetail&pj=' || p.project_id || '&ph=113', 
-                'Design', 'http://www.topcoder.com/tc?module=ReviewProjectDetail&pj=' || p.project_id || '&ph=112', 
-                'Assembly Competition', 'http://www.topcoder.com/wiki/display/tc/Assembly+Review+Opportunities', 
-                '') as link
-     , pp4.scheduled_start_time
-  from project p
-     , project_info pi5
-     , project_info pi6
-     , project_info pi7
-     , categories cat
-     , project_category_lu pcl
-     , project_type_lu ptl
      , project_phase pp4
      , phase_criteria pc
  where p.project_status_id = 1
-   and p.project_category_id in (1, 2, 14)
+   and p.project_category_id != 29
    and p.project_id = pi5.project_id
    and pi5.project_info_type_id = 5
    and pi5.value::integer = cat.category_id
@@ -63,81 +27,12 @@ select 'Competition Type: ' || cat.category_name || ' ' || pcl.name ||  '<br />'
    and pi7.project_info_type_id = 7
    and p.project_category_id = pcl.project_category_id
    and pcl.project_type_id = ptl.project_type_id
-   and p.project_id = pp4.project_id
-   and pp4.phase_type_id = 4
+   and p.project_id = pp3.project_id and p.project_id = pp2.project_id and p.project_id = pp4.project_id
+   and pp3.phase_type_id = 3 and pp4.phase_type_id = 4
+   and pp2.phase_type_id = 2 and pp2.phase_status_id != 1
    and pp4.project_phase_id = pc.project_phase_id
    and pc.phase_criteria_type_id = 6
-    AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
- WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+   and not exists (select * from contest_eligibility ce where ce.contest_id = p.project_id)
    and (select count(*) from resource where project_id = p.project_id and resource_role_id in (4, 5, 6, 7)) < pc.parameter::integer
-union
-select 'Competition Type: ' || cat.category_name || ' ' || pcl.name ||  '<br />' ||
-       'Position: ' || 'AGGREGATOR' ||  '<br />' ||
-       'Start Time: ' || pp7.scheduled_start_time as description
-     , pi6.value || ' ' || pi7.value as title
-     , DECODE(pcl.name, 
-                'Development','http://www.topcoder.com/tc?module=ReviewProjectDetail&pj=' || p.project_id || '&ph=113', 
-                'Design', 'http://www.topcoder.com/tc?module=ReviewProjectDetail&pj=' || p.project_id || '&ph=112', 
-                'Assembly Competition', 'http://www.topcoder.com/wiki/display/tc/Assembly+Review+Opportunities', 
-                '') as link
-     , pp7.scheduled_start_time
-  from project p
-     , project_info pi5
-     , project_info pi6
-     , project_info pi7
-     , categories cat
-     , project_category_lu pcl
-     , project_type_lu ptl
-     , project_phase pp7
- where p.project_status_id = 1
-   and p.project_category_id in (1, 2, 14)
-   and p.project_id = pi5.project_id
-   and pi5.project_info_type_id = 5
-   and pi5.value::integer = cat.category_id
-   and p.project_id = pi6.project_id
-   and pi6.project_info_type_id = 6
-   and p.project_id = pi7.project_id
-   and pi7.project_info_type_id = 7
-   and p.project_category_id = pcl.project_category_id
-   and pcl.project_type_id = ptl.project_type_id
-   and p.project_id = pp7.project_id
-   and pp7.phase_type_id = 7
-    AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
- WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
-   and not exists (select * from resource where project_id = p.project_id and resource_role_id = 8)
-union
-select 'Competition Type: ' || cat.category_name || ' ' || pcl.name ||  '<br />' ||
-       'Position: ' || 'FINAL REVIEWER'  ||  '<br />' ||
-       'Start Time: ' || pp9.scheduled_start_time as description
-     , pi6.value || ' ' || pi7.value as title
-     , DECODE(pcl.name, 
-                'Development','http://www.topcoder.com/tc?module=ReviewProjectDetail&pj=' || p.project_id || '&ph=113', 
-                'Design', 'http://www.topcoder.com/tc?module=ReviewProjectDetail&pj=' || p.project_id || '&ph=112', 
-                'Assembly Competition', 'http://www.topcoder.com/wiki/display/tc/Assembly+Review+Opportunities', 
-                '') as link
-     , pp9.scheduled_start_time
-  from project p
-     , project_info pi5
-     , project_info pi6
-     , project_info pi7
-     , categories cat
-     , project_category_lu pcl
-     , project_type_lu ptl
-     , project_phase pp9
- where p.project_status_id = 1
-   and p.project_category_id in (1, 2, 14)
-   and p.project_id = pi5.project_id
-   and pi5.project_info_type_id = 5
-   and pi5.value::integer = cat.category_id
-   and p.project_id = pi6.project_id
-   and pi6.project_info_type_id = 6
-   and p.project_id = pi7.project_id
-   and pi7.project_info_type_id = 7
-   and p.project_category_id = pcl.project_category_id
-   and pcl.project_type_id = ptl.project_type_id
-   and p.project_id = pp9.project_id
-   and pp9.phase_type_id = 9
-    AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
- WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
-   and not exists (select * from resource where project_id = p.project_id and resource_role_id = 9)
-order by 4 desc;
+
+order by scheduled_start_time desc;
