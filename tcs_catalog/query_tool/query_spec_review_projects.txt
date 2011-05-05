@@ -105,6 +105,6 @@ SELECT distinct
    AND p.project_category_id = @pt@
    AND NOT EXISTS (select user_id from rboard_application where project_id = p.project_id and
                    phase_id = p.project_category_id + 1111)
-   AND specrev.phase_status_id in (1,2)
-   AND specsub.phase_status_id in (2,3)
+   AND specrev.phase_status_id in (2)
+   AND specsub.phase_status_id in (3)
 ORDER BY component_name DESC, category_id, price_changes DESC
