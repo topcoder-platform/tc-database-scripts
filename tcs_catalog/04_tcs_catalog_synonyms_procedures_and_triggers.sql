@@ -134,6 +134,28 @@ for corporate_oltp:'informix'.spec_review_comment_view;
 create synonym 'informix'.SPEC_REVIEW_REVIEWER_SEQ
 for corporate_oltp:'informix'.SPEC_REVIEW_REVIEWER_SEQ;
 
+create synonym 'informix'.coder 
+for informixoltp:'informix'.coder;
+
+create synonym 'informix'.current_school 
+for informixoltp:'informix'.current_school;
+
+create synonym 'informix'.coder_referral 
+for informixoltp:'informix'.coder_referral;
+
+create synonym 'informix'.secret_question 
+for common_oltp:'informix'.secret_question;
+
+create synonym 'informix'.professor 
+for common_oltp:'informix'.professor;
+
+create synonym 'informix'.professor_status_lu 
+for common_oltp:'informix'.professor_status_lu;
+
+create synonym 'informix'.user_security_key 
+for common_oltp:'informix'.user_security_key;
+
+
 -- JIVE synonyms
 
 create synonym 'informix'.jivecategory

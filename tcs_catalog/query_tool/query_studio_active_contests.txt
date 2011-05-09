@@ -21,7 +21,7 @@ SELECT
     , (SELECT (LOWER(pi.value) = 'true' OR LOWER(pi.value) = 'yes') 
        FROM project_info pi 
        WHERE pi.project_id = p.project_id 
-       AND pi.project_info_type_id = 49) AS show_submissions
+       AND pi.project_info_type_id = 53) AS show_submissions
     , CASE WHEN EXISTS (SELECT 1 
                         FROM resource r 
                         INNER JOIN resource_info ri ON r.resource_id = ri.resource_id 
@@ -32,10 +32,11 @@ SELECT
            THEN 1 
            ELSE 0 
       END AS is_user_registered
-    , (SELECT pi.value 
-       FROM project_info pi 
-       WHERE pi.project_id = p.project_id 
-       AND pi.project_info_type_id = 50)::DECIMAL(10,0) 
+    , (SELECT c.event_id
+        FROM contest c,
+             contest_project_xref pcx
+        WHERE pcx.project_id = p.project_id
+          AND c.contest_id = pcx.contest_id)
       AS event_id
     , (SELECT COUNT(*) FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 1) AS registrants
     , (SELECT SUM(pr.prize_amount * pr.number_of_submissions) 
