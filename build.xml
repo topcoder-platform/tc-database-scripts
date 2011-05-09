@@ -132,9 +132,6 @@
     <dbaccess file="tcs_catalog/02_tcs_catalog_data_setup.sql" outfile="tcs_catalog.log" append="true" />
     <updatetextcolumn database="tcs_catalog" outfile="tcs_catalog.log" append="true" />
     <dbaccess file="tcs_catalog/03_tcs_catalog_constraints_and_indexes.sql" outfile="tcs_catalog.log" append="true" />
-    <dbaccess file="tcs_catalog/04_tcs_catalog_synonyms_procedures_and_triggers.sql" outfile="tcs_catalog.log" append="true" />
-    <dbaccess file="tcs_catalog/05_tcs_catalog_test_data.sql" outfile="tcs_catalog.log" append="true" />
-    <dbaccess file="tcs_catalog/06_tcs_catalog_test_project_data.sql" outfile="tcs_catalog.log" append="true" />
 
     <!-- create informixoltp -->
     <echo message="Creating database informixoltp" />
@@ -145,6 +142,11 @@
     <dbaccess file="informixoltp/03_informixoltp_constraints_and_indexes.sql" outfile="informixoltp.log" append="true" />
     <dbaccess file="informixoltp/04_informixoltp_synonyms_procedures_and_triggers.sql" outfile="informixoltp.log" append="true" />
     <dbaccess file="informixoltp/05_informixoltp_test_data.sql" outfile="informixoltp.log" append="true" />
+	
+	<!-- complete setup tcs_catalog -->
+	<dbaccess file="tcs_catalog/04_tcs_catalog_synonyms_procedures_and_triggers.sql" outfile="tcs_catalog.log" append="true" />
+    <dbaccess file="tcs_catalog/05_tcs_catalog_test_data.sql" outfile="tcs_catalog.log" append="true" />
+    <dbaccess file="tcs_catalog/06_tcs_catalog_test_project_data.sql" outfile="tcs_catalog.log" append="true" />
 
     <!-- create studio_oltp -->
     <echo message="Creating database studio_oltp" />
