@@ -1,0 +1,11 @@
+SELECT s.submission_id, ric.content AS feedback_text
+FROM submission s
+INNER JOIN upload u ON u.upload_id = s.upload_id
+INNER JOIN review r ON r.submission_id = s.submission_id
+INNER JOIN review_item ri ON ri.review_id = r.review_id
+INNER JOIN review_item_comment ric ON ric.review_item_id = ri.review_item_id
+WHERE s.submission_type_id = 3
+AND   NOT s.prize_id IS NULL
+AND   u.project_id = @pj@
+AND   ric.review_item_comment_id = (SELECT MIN(review_item_comment_id) FROM review_item_comment ric2 WHERE ric.review_item_id = ric2.review_item_id)
+ORDER BY ric.review_item_comment_id 
