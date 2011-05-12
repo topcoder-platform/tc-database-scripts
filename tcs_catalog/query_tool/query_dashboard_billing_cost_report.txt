@@ -107,7 +107,8 @@ nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from pr
                   AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
                   AND pmd2.payment_type_id in (24)
                   AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-           ) AS reliability
+           ) AS reliability,
+          0 as is_studio
 FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
      informixoltp:payment_type_lu pt,
      project p,     
@@ -143,8 +144,8 @@ where  pmd.component_project_id = p.project_id
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
-  and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22
+  and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23
  
 UNION
  
@@ -244,7 +245,8 @@ nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
                   AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
                   AND pmd2.payment_type_id in (24)
                   AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-           ) AS reliability
+           ) AS reliability,
+           1 as is_studio
 FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
      informixoltp:payment_type_lu pt,
      studio_oltp:contest c,
@@ -274,6 +276,6 @@ where pmd.studio_contest_id = c.contest_id
   and c.contest_detailed_status_id = cds.contest_detailed_status_id
   and c.contest_type_id = cc.contest_type_id
   and cc.contest_type_id IN (@scids@)
-  and (c.end_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22
+  and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23
 order by 1 desc, 2 asc
