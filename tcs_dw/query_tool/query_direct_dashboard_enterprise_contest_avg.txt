@@ -2,9 +2,9 @@ SELECT
        project_category_id,
        ROUND(SUM(nvl(p.fulfillment, 0)*100)/Count(project_id),2) AS marketavg_fulfillment,
        ROUND( SUM((case when (nvl(p.fulfillment, 0)) =0 then 0 else nvl(p.contest_prizes_total, 0) end))
-         / (case when SUM(nvl(p.fulfillment, 0)) =0 then 1 else SUM(nvl(p.fulfillment, 0)) end), 2) AS marketavg_cost,
+         / (case when SUM(nvl(p.fulfillment, 0)) =0 then 0 else SUM(nvl(p.fulfillment, 0)) end), 2) AS marketavg_cost,
        ROUND( SUM((case when (nvl(p.fulfillment, 0)) =0 then 0 else nvl(p.duration, 0)/(60*24) end))
-         / (case when SUM(nvl(p.fulfillment, 0)) =0 then 1 else SUM(nvl(p.fulfillment, 0)) end), 2) AS marketavg_duration
+         / (case when SUM(nvl(p.fulfillment, 0)) =0 then 0 else SUM(nvl(p.fulfillment, 0)) end), 2) AS marketavg_duration
 FROM project p
 INNER JOIN client_project_dim c ON p.client_project_id = c.client_project_id
 INNER JOIN direct_project_dim d ON p.tc_direct_project_id = d.direct_project_id
