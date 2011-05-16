@@ -11832,3 +11832,8 @@ INSERT INTO 'informix'.country_affidavit_template_xref (country_code, affidavit_
 INSERT INTO 'informix'.country_affidavit_template_xref (country_code, affidavit_template_id) VALUES (356, 351);
 INSERT INTO 'informix'.country_affidavit_template_xref (country_code, affidavit_template_id) VALUES (372, 351);
 
+INSERT INTO 'informix'.path(path_id, path, modify_date) VALUES(1,'/i/m/',current);
+INSERT INTO 'informix'.path(path_id, path, modify_date) VALUES(24,'/i/m/preview/',current);
+INSERT INTO 'informix'.path(path_id, path, modify_date) VALUES(25,'/i/m/removed/',current);
+
+
