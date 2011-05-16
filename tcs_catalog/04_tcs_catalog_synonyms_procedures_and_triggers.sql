@@ -155,6 +155,8 @@ for common_oltp:'informix'.professor_status_lu;
 create synonym 'informix'.user_security_key 
 for common_oltp:'informix'.user_security_key;
 
+create synonym "informix".image 
+for informixoltp:"informix".image;
 
 -- JIVE synonyms
 
