@@ -2,7 +2,6 @@ SELECT
     pname AS source,
     (case
         when current_phase is not null then 'Launched'
-        when sname = 'Active' and newstatus is not null then 'Not Launched'
         when sname = 'Cancelled - Client Request' or  sname = 'Cancelled - Requirements Infeasible' then 'Not Launched'
         when sname = 'Draft' then 'Not Launched'
         else 'Launched'
