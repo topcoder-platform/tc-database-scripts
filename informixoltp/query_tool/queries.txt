@@ -1115,5 +1115,6 @@ query_user_terms_of_use.txt|UPDATE query SET text= ? WHERE query_id=29996
 query_spec_review_stats.txt|UPDATE query SET text= ? WHERE query_id=30086
 query_tco_software_leaderboard.txt|UPDATE query SET text= ? WHERE query_id=31119
 query_tco_software_leaderboard_user_detail.txt|UPDATE query SET text= ? WHERE query_id=31120
+query_member_vcard.txt|UPDATE query SET text= ? WHERE query_id=31196
 
 
