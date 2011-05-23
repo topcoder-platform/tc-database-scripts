@@ -755,7 +755,8 @@ create table 'informix'.user (
     middle_name VARCHAR(64),
     handle_lower VARCHAR(50),
     timezone_id DECIMAL(5,0),
-    last_site_hit_date DATETIME YEAR TO FRACTION
+    last_site_hit_date DATETIME YEAR TO FRACTION,
+    name_in_another_language VARCHAR(64)
 )
 extent size 10000 next size 5000
 lock mode row;
