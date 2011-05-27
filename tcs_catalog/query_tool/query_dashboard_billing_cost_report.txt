@@ -81,6 +81,10 @@ SELECT pm.create_date payment_date,
          THEN 'Misc'
          ELSE 'Not Sure'
     END as line_item_category,
+    CASE WHEN pmd.payment_type_id in (23,37,46,47)
+         THEN pmd.jira_issue_id 
+         ELSE ''
+    END as reference_id,
     pmd.total_amount as line_item_amount,
      ttc.client_id,
 ttp.project_id billing_project_id,
@@ -231,6 +235,10 @@ end  as actual_total_member_costs,
          THEN 'Misc'
          ELSE 'Not Sure'
     END as line_item_category,
+    CASE WHEN pmd.payment_type_id in (23,37,46,47)
+         THEN pmd.jira_issue_id 
+         ELSE ''
+    END as reference_id,
     pmd.total_amount as line_item_amount,
     ttc.client_id,
     ttp.project_id billing_project_id,
