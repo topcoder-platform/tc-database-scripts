@@ -176,6 +176,7 @@ and upg.permission_type_id in (1,2,3)
 and tdp.project_id = @tcdirectid@
 and p.tc_direct_project_id = tdp.project_id 
 and p.contest_detailed_status_id = ds.contest_detailed_status_id 
+and p.contest_status_id != 3
 
 order by start_date desc, contest_name
 
