@@ -4,6 +4,7 @@ SELECT u.user_id
 , nvl(c.member_since, u.create_date) as member_since
 , u.first_name
 , u.middle_name
+, u.name_in_another_language
 , u.last_name
 , e.address as email
 , a.address1
@@ -16,6 +17,7 @@ SELECT u.user_id
 , re.referral_desc
 , ct.coder_type_desc
 , u.handle
+, 'http://www.topcoder.com/reg/?module=Activate&code='||u.activation_code as activation_link
 , rs.end_time as last_rated_event
 , CASE WHEN cref.referral_id = 6 THEN (SELECT name
        FROM school
@@ -32,6 +34,18 @@ SELECT u.user_id
 , case when exists (select '1' from common_oltp:user_preference where user_id= u.user_id and preference_id in (2,7)) then '1' else '0' end as registered_for_placement
 , case when exists (select '1' from user_note_xref where user_id= u.user_id ) then '1' else '0' end as has_notes
 , l.language_name
+, (
+  select min(p.path || i.file_name)
+  from 
+    coder_image_xref x,
+    image i,
+    path p
+  where 
+    x.coder_id = u.user_id
+    and x.image_id = i.image_id 
+    and x.display_flag = 1
+    and p.path_id = i.path_id
+  ) as image_path
 FROM user u
 , outer (rating r, round_segment rs, coder c, language l, coder_type ct)
 , outer (coder_referral cref, referral re)
@@ -63,8 +77,7 @@ and u.user_id = p.user_id
  and p.primary_ind = 1
 AND cs.school_id = s.school_id
 AND a.country_code = co.country_code
-AND u.user_id in
-(
+AND u.user_id in(
   SELECT
     u1.user_id
   FROM
