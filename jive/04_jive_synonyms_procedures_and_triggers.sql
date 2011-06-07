@@ -42,7 +42,7 @@ grant usage on language SPL to public ;
 
 
 create view "informix".jiveuser (userid,username,passwordhash,name,namevisible,email,emailvisible,creationdate,modificationdate) as 
-  select x0.user_id ,x0.handle ,x0.password ,'' ,0 ,x1.address 
+  select x0.user_id ,x0.handle ,'' ,'' ,0 ,x1.address 
     ,0 ,0 ,0 from common_oltp:"informix".user x0 ,common_oltp:
     "informix".email x1 where ((x0.user_id = x1.user_id ) AND 
     (x1.primary_ind = 1. ) ) ;      
