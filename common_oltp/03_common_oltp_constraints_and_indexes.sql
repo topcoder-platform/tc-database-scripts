@@ -783,7 +783,7 @@ alter table 'informix'.vm_image add constraint foreign key
 		(vm_instance_type_id)
     references vm_instance_type
     (vm_instance_type_id) 
-    constraint vm_image_instance_type_fk
+    constraint vm_image_instance_type_fk;
 
 alter table 'informix'.vm_image add constraint foreign key
 		(vm_availability_zone_id)

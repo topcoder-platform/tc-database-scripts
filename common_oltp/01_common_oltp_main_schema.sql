@@ -959,6 +959,7 @@ create table 'informix'.vm_image (
   vm_instance_type_id DECIMAL(10,0)  ,
   vm_availability_zone_id DECIMAL(10,0)  ,
   vm_key_pair_id DECIMAL(10,0)  ,
+  vm_account_id DECIMAL(10,0),
   create_date DATETIME YEAR to FRACTION(3) NOT NULL ,
   modify_date DATETIME YEAR to FRACTION(3) NOT NULL ,
   PRIMARY KEY (vm_image_id) constraint "informix".vm_image_pk
