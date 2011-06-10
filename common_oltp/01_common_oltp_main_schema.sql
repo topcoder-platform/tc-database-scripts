@@ -996,7 +996,6 @@ create table 'informix'.vm_account (
   vm_account_id DECIMAL(10,0) NOT NULL  ,
   aws_access_key_id VARCHAR(50) NOT NULL ,
   aws_security_access_key VARCHAR(100) NOT NULL ,
-  user_id DECIMAL(10,0) NOT NULL ,
   create_date DATETIME YEAR to FRACTION(3) NOT NULL ,
   modify_date DATETIME YEAR to FRACTION(3) NOT NULL ,
   PRIMARY KEY (vm_account_id) constraint "informix".vm_account_pk
@@ -1024,7 +1023,6 @@ create table 'informix'.vm_instance (
   create_date DATETIME YEAR to FRACTION(3) NOT NULL ,
   modify_date DATETIME YEAR to FRACTION(3) NOT NULL ,
   vm_image_id DECIMAL(10,0) NOT NULL ,
-  vm_account_id DECIMAL(10,0) NOT NULL ,
   tc_member_handle VARCHAR(50) NOT NULL ,
   svn_branch VARCHAR(200) NOT NULL ,
   contest_id DECIMAL(10,0) NOT NULL ,
@@ -1032,6 +1030,9 @@ create table 'informix'.vm_instance (
   vm_contest_type_id DECIMAL(10,0) NOT NULL ,
   is_terminated BOOLEAN DEFAULT 'f' NOT NULL,
   public_ip varchar(16),
+  vm_usage_id DECIMAL(10,0) NOT NULL,
+  vm_creation_time DATETIME YEAR to FRACTION(3) NOT NULL,
+  vm_account_user_id DECIMAL(10,0) NOT NULL,
   PRIMARY KEY (vm_instance_id) constraint "informix".vm_instance_pk
 )
 extent size 5000 next size 2500
@@ -1049,6 +1050,31 @@ create table 'informix'.vm_instance_audit (
 )
 extent size 15000 next size 4000
 lock mode row;
+
+
+create table 'informix'.vm_usage (
+  vm_usage_id DECIMAL(10,0) NOT NULL  ,
+  name VARCHAR(50) NOT NULL ,
+  create_date DATETIME YEAR to FRACTION(3) NOT NULL ,
+  modify_date DATETIME YEAR to FRACTION(3) NOT NULL ,
+  PRIMARY KEY (vm_usage_id) constraint "informix".vm_usage_pk
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on vm_usage from 'public';
+
+create table 'informix'.vm_account_user (
+  vm_account_user_id DECIMAL(10,0) NOT NULL,
+  vm_account_id DECIMAL(10,0) NOT NULL,
+  user_id DECIMAL(10,0) NOT NULL ,
+  create_date DATETIME YEAR to FRACTION(3) NOT NULL ,
+  modify_date DATETIME YEAR to FRACTION(3) NOT NULL ,
+  PRIMARY KEY (vm_account_user_id) constraint "informix".vm_account_user_pk 
+)
+extent size 64 next size 64
+lock mode row;
+
 
 revoke all on vm_instance_audit from 'public';
 
@@ -1991,3 +2017,9 @@ grant insert, update, delete, select on member_image to 'public' as 'informix';
 grant insert, update, delete, select on photo_image to 'public' as 'informix';
 
 grant select on "informix".CONTEST_ELIGIBILITY_SEQ to "public" as "informix";
+
+grant update, index, delete, select, insert on vm_usage to 'public' as 'informix';
+
+grant update, index, delete, select, insert on vm_account_user to 'public' as 'informix';
+
+grant update, index, delete, select, insert on vm_security_group to 'public' as 'informix';

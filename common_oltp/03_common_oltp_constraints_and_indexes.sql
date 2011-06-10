@@ -777,61 +777,81 @@ alter table 'informix'.vm_image add constraint foreign key
 		(vm_security_group_id)
     references vm_security_group
     (vm_security_group_id) 
-    constraint fk_vm_image_security_groups;
+    constraint vm_image_security_groups_fk;
 
 alter table 'informix'.vm_image add constraint foreign key
 		(vm_instance_type_id)
     references vm_instance_type
     (vm_instance_type_id) 
-    constraint fk_vm_image_instance_type;
+    constraint vm_image_instance_type_fk
 
 alter table 'informix'.vm_image add constraint foreign key
 		(vm_availability_zone_id)
     references vm_availability_zone
     (vm_availability_zone_id) 
-    constraint fk_vm_image_availability_zone;
+    constraint vm_image_availability_zone_fk;
 
 alter table 'informix'.vm_image add constraint foreign key
 		(vm_key_pair_id)
     references vm_key_pair
     (vm_key_pair_id) 
-    constraint fk_vm_image_key_pair;
+    constraint vm_image_key_pair_fk;
     
 alter table 'informix'.vm_image_user_data add constraint foreign key
 		(vm_image_id)
     references vm_image
     (vm_image_id) 
-    constraint fk_vm_image_user_data_vm_image;
+    constraint vm_image_user_data_vm_image_fk;
 
 alter table 'informix'.vm_image_user_data add constraint foreign key
 		(vm_user_data_id)
     references vm_user_data
     (vm_user_data_id) 
-    constraint fk_vm_image_user_data_user_data;
+    constraint vm_image_user_data_user_data_fk;
     
-alter table 'informix'.vm_account add constraint foreign key
-		(user_id)
-    references user
-    (user_id) 
-    constraint fk_vm_account_user;
     
 alter table 'informix'.vm_instance add constraint foreign key
 		(vm_image_id)
     references vm_image
     (vm_image_id) 
-    constraint fk_vm_instance_image;
+    constraint vm_instance_image_fk;
 
-alter table 'informix'.vm_instance add constraint foreign key
+ alter table 'informix'.vm_image add constraint foreign key
 		(vm_account_id)
     references vm_account
     (vm_account_id) 
-    constraint fk_vm_instance_account;
+    constraint vm_image_vm_accout_fk;
+	
+alter table 'informix'.vm_account_user add constraint foreign key
+		(vm_account_id)
+    references vm_account
+    (vm_account_id) 
+    constraint vm_account_user_vm_account_fk;
+        
+alter table 'informix'.vm_account_user add constraint foreign key
+		(user_id)
+    references user
+    (user_id) 
+    constraint vm_account_user_user_fk;
+	
+alter table 'informix'.vm_instance add constraint foreign key
+		(vm_account_user_id)
+    references vm_account_user
+    (vm_account_user_id) 
+    constraint vm_instance_account_user_fk;
+
+
+ alter table 'informix'.vm_instance add constraint foreign key
+		(vm_usage_id)
+    references vm_usage
+    (vm_usage_id) 
+    constraint vm_instance_usage_fk;
 
 alter table 'informix'.vm_instance add constraint foreign key
 		(vm_contest_type_id)
     references vm_contest_type
     (vm_contest_type_id) 
-    constraint fk_vm_instance_contest_type;
+    constraint vm_instance_contest_type_fk;
 
 ALTER TABLE 'informix'.member_image
         ADD CONSTRAINT FOREIGN KEY(image_id)
@@ -840,3 +860,6 @@ ALTER TABLE 'informix'.member_image
 ALTER TABLE 'informix'.member_image
         ADD CONSTRAINT FOREIGN KEY(member_id)
         REFERENCES user(user_id) CONSTRAINT member_image_user_fk;
+
+
+
