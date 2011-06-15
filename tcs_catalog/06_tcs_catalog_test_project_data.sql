@@ -751,7 +751,7 @@ VALUES ('101', '1', 'Coolest component ever', 'Component 6', 'Coolest component 
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
                            suspended_ind)
-VALUES ('103', '101', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+VALUES ('103', '101', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('105', '101', '11');
