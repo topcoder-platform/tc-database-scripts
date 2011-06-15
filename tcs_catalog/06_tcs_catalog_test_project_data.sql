@@ -66,8 +66,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('21', '1', 'Coolest component ever', 'Component 2', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('23', '21', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('23', '21', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('25', '21', '11');
@@ -237,8 +237,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('41', '1', 'Coolest component ever', 'Component 3', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('43', '41', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('43', '41', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('45', '41', '11');
@@ -408,8 +408,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('61', '1', 'Coolest component ever', 'Component 4', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('63', '61', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('63', '61', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('65', '61', '11');
@@ -579,8 +579,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('81', '1', 'Coolest component ever', 'Component 5', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('83', '81', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('83', '81', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('85', '81', '11');
@@ -750,7 +750,7 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('101', '1', 'Coolest component ever', 'Component 6', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
+                           suspended_ind)
 VALUES ('103', '101', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
@@ -921,8 +921,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('121', '1', 'Coolest component ever', 'Component 7', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('123', '121', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('123', '121', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('125', '121', '11');
@@ -1092,8 +1092,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('141', '1', 'Coolest component ever', 'Component 8', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('143', '141', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('143', '141', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('145', '141', '11');
@@ -1263,8 +1263,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('161', '1', 'Coolest component ever', 'Component 9', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('163', '161', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('163', '161', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('165', '161', '11');
@@ -1434,8 +1434,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('181', '1', 'Coolest component ever', 'Component 10', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('183', '181', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('183', '181', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('185', '181', '11');
@@ -1605,8 +1605,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('201', '1', 'Coolest component ever', 'Component 11', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('203', '201', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('203', '201', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('205', '201', '11');
@@ -1776,8 +1776,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('221', '1', 'Coolest component ever', 'Component 12', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('223', '221', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('223', '221', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('225', '221', '11');
@@ -1947,8 +1947,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('241', '1', 'Coolest component ever', 'Component 13', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('243', '241', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('243', '241', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('245', '241', '11');
@@ -2118,8 +2118,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('261', '1', 'Coolest component ever', 'Component 14', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('263', '261', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('263', '261', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('265', '261', '11');
@@ -2289,8 +2289,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('281', '1', 'Coolest component ever', 'Component 15', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('283', '281', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('283', '281', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('285', '281', '11');
@@ -2460,8 +2460,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('301', '1', 'Coolest component ever', 'Component 16', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('303', '301', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('303', '301', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('305', '301', '11');
@@ -2631,8 +2631,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('321', '1', 'Coolest component ever', 'Component 17', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('323', '321', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('323', '321', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('325', '321', '11');
@@ -2802,8 +2802,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('341', '1', 'Coolest component ever', 'Component 18', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('343', '341', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('343', '341', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('345', '341', '11');
@@ -2973,8 +2973,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('361', '1', 'Coolest component ever', 'Component 19', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('363', '361', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('363', '361', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('365', '361', '11');
@@ -3144,8 +3144,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('381', '1', 'Coolest component ever', 'Component 20', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('383', '381', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('383', '381', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('385', '381', '11');
@@ -3315,8 +3315,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('401', '1', 'Coolest component ever', 'Component 21', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('403', '401', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('403', '401', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('405', '401', '11');
@@ -3486,8 +3486,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('421', '1', 'Coolest component ever', 'Component 22', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('423', '421', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('423', '421', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('425', '421', '11');
@@ -3657,8 +3657,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('441', '1', 'Coolest component ever', 'Component 23', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('443', '441', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('443', '441', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('445', '441', '11');
@@ -3828,8 +3828,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('461', '1', 'Coolest component ever', 'Component 24', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('463', '461', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('463', '461', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('465', '461', '11');
@@ -3999,8 +3999,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('481', '1', 'Coolest component ever', 'Component 25', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('483', '481', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('483', '481', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('485', '481', '11');
@@ -4170,8 +4170,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('501', '1', 'Coolest component ever', 'Component 26', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('503', '501', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('503', '501', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('505', '501', '11');
@@ -4341,8 +4341,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('521', '1', 'Coolest component ever', 'Component 27', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('523', '521', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('523', '521', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('525', '521', '11');
@@ -4512,8 +4512,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('541', '1', 'Coolest component ever', 'Component 28', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('543', '541', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('543', '541', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('545', '541', '11');
@@ -4683,8 +4683,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('561', '1', 'Coolest component ever', 'Component 29', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('563', '561', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('563', '561', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('565', '561', '11');
@@ -4854,8 +4854,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('581', '1', 'Coolest component ever', 'Component 30', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('583', '581', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('583', '581', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('585', '581', '11');
@@ -5025,8 +5025,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('601', '1', 'Coolest component ever', 'Component 31', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('603', '601', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('603', '601', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('605', '601', '11');
@@ -5196,8 +5196,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('621', '1', 'Coolest component ever', 'Component 32', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('623', '621', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('623', '621', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('625', '621', '11');
@@ -5367,8 +5367,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('641', '1', 'Coolest component ever', 'Component 33', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('643', '641', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('643', '641', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('645', '641', '11');
@@ -5538,8 +5538,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('661', '1', 'Coolest component ever', 'Component 34', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('663', '661', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('663', '661', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('665', '661', '11');
@@ -5709,8 +5709,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('681', '1', 'Coolest component ever', 'Component 35', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('683', '681', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('683', '681', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('685', '681', '11');
@@ -5880,8 +5880,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('701', '1', 'Coolest component ever', 'Component 36', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('703', '701', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('703', '701', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('705', '701', '11');
@@ -6051,8 +6051,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('721', '1', 'Coolest component ever', 'Component 37', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('723', '721', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('723', '721', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('725', '721', '11');
@@ -6222,8 +6222,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('741', '1', 'Coolest component ever', 'Component 38', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('743', '741', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('743', '741', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('745', '741', '11');
@@ -6393,8 +6393,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('761', '1', 'Coolest component ever', 'Component 39', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('763', '761', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('763', '761', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('765', '761', '11');
@@ -6564,8 +6564,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('781', '1', 'Coolest component ever', 'Component 40', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('783', '781', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('783', '781', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('785', '781', '11');
@@ -6735,8 +6735,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('801', '1', 'Coolest component ever', 'Component 41', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('803', '801', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('803', '801', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('805', '801', '11');
@@ -6906,8 +6906,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('821', '1', 'Coolest component ever', 'Component 42', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('823', '821', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('823', '821', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('825', '821', '11');
@@ -7077,8 +7077,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('841', '1', 'Coolest component ever', 'Component 43', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('843', '841', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('843', '841', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('845', '841', '11');
@@ -7248,8 +7248,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('861', '1', 'Coolest component ever', 'Component 44', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('863', '861', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('863', '861', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('865', '861', '11');
@@ -7419,8 +7419,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('881', '1', 'Coolest component ever', 'Component 45', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('883', '881', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('883', '881', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('885', '881', '11');
@@ -7590,8 +7590,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('901', '1', 'Coolest component ever', 'Component 46', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('903', '901', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('903', '901', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('905', '901', '11');
@@ -7761,8 +7761,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('921', '1', 'Coolest component ever', 'Component 47', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('923', '921', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('923', '921', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('925', '921', '11');
@@ -7932,8 +7932,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('941', '1', 'Coolest component ever', 'Component 48', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('943', '941', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('943', '941', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('945', '941', '11');
@@ -8103,8 +8103,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('961', '1', 'Coolest component ever', 'Component 49', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('963', '961', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('963', '961', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('965', '961', '11');
@@ -8274,8 +8274,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('981', '1', 'Coolest component ever', 'Component 50', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('983', '981', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('983', '981', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('985', '981', '11');
@@ -8445,8 +8445,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1001', '1', 'Coolest component ever', 'Component 51', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1003', '1001', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1003', '1001', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1005', '1001', '11');
@@ -8616,8 +8616,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1021', '1', 'Coolest component ever', 'Component 52', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1023', '1021', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1023', '1021', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1025', '1021', '11');
@@ -8787,8 +8787,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1041', '1', 'Coolest component ever', 'Component 53', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1043', '1041', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1043', '1041', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1045', '1041', '11');
@@ -8958,8 +8958,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1061', '1', 'Coolest component ever', 'Component 54', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1063', '1061', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1063', '1061', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1065', '1061', '11');
@@ -9129,8 +9129,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1081', '1', 'Coolest component ever', 'Component 55', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1083', '1081', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1083', '1081', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1085', '1081', '11');
@@ -9300,8 +9300,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1101', '1', 'Coolest component ever', 'Component 56', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1103', '1101', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1103', '1101', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1105', '1101', '11');
@@ -9471,8 +9471,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1121', '1', 'Coolest component ever', 'Component 57', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1123', '1121', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1123', '1121', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1125', '1121', '11');
@@ -9642,8 +9642,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1141', '1', 'Coolest component ever', 'Component 58', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1143', '1141', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1143', '1141', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1145', '1141', '11');
@@ -9813,8 +9813,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1161', '1', 'Coolest component ever', 'Component 59', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1163', '1161', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1163', '1161', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1165', '1161', '11');
@@ -9984,8 +9984,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1181', '1', 'Coolest component ever', 'Component 60', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1183', '1181', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1183', '1181', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1185', '1181', '11');
@@ -10155,8 +10155,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1201', '1', 'Coolest component ever', 'Component 61', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1203', '1201', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1203', '1201', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1205', '1201', '11');
@@ -10326,8 +10326,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1221', '1', 'Coolest component ever', 'Component 62', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1223', '1221', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1223', '1221', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1225', '1221', '11');
@@ -10497,8 +10497,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1241', '1', 'Coolest component ever', 'Component 63', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1243', '1241', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1243', '1241', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1245', '1241', '11');
@@ -10668,8 +10668,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1261', '1', 'Coolest component ever', 'Component 64', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1263', '1261', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1263', '1261', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1265', '1261', '11');
@@ -10839,8 +10839,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1281', '1', 'Coolest component ever', 'Component 65', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1283', '1281', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1283', '1281', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1285', '1281', '11');
@@ -11010,8 +11010,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1301', '1', 'Coolest component ever', 'Component 66', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1303', '1301', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1303', '1301', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1305', '1301', '11');
@@ -11181,8 +11181,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1321', '1', 'Coolest component ever', 'Component 67', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1323', '1321', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1323', '1321', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1325', '1321', '11');
@@ -11352,8 +11352,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1341', '1', 'Coolest component ever', 'Component 68', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1343', '1341', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1343', '1341', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1345', '1341', '11');
@@ -11523,8 +11523,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1361', '1', 'Coolest component ever', 'Component 69', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1363', '1361', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1363', '1361', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1365', '1361', '11');
@@ -11694,8 +11694,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1381', '1', 'Coolest component ever', 'Component 70', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1383', '1381', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1383', '1381', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1385', '1381', '11');
@@ -11865,8 +11865,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1401', '1', 'Coolest component ever', 'Component 71', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1403', '1401', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1403', '1401', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1405', '1401', '11');
@@ -12036,8 +12036,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1421', '1', 'Coolest component ever', 'Component 72', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1423', '1421', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1423', '1421', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1425', '1421', '11');
@@ -12207,8 +12207,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1441', '1', 'Coolest component ever', 'Component 73', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1443', '1441', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1443', '1441', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1445', '1441', '11');
@@ -12378,8 +12378,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1461', '1', 'Coolest component ever', 'Component 74', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1463', '1461', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1463', '1461', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1465', '1461', '11');
@@ -12549,8 +12549,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1481', '1', 'Coolest component ever', 'Component 75', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1483', '1481', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1483', '1481', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1485', '1481', '11');
@@ -12720,8 +12720,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1501', '1', 'Coolest component ever', 'Component 76', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1503', '1501', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1503', '1501', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1505', '1501', '11');
@@ -12891,8 +12891,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1521', '1', 'Coolest component ever', 'Component 77', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1523', '1521', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1523', '1521', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1525', '1521', '11');
@@ -13062,8 +13062,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1541', '1', 'Coolest component ever', 'Component 78', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1543', '1541', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1543', '1541', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1545', '1541', '11');
@@ -13233,8 +13233,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1561', '1', 'Coolest component ever', 'Component 79', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1563', '1561', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1563', '1561', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1565', '1561', '11');
@@ -13404,8 +13404,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1581', '1', 'Coolest component ever', 'Component 80', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1583', '1581', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1583', '1581', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1585', '1581', '11');
@@ -13575,8 +13575,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1601', '1', 'Coolest component ever', 'Component 81', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1603', '1601', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1603', '1601', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1605', '1601', '11');
@@ -13746,8 +13746,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1621', '1', 'Coolest component ever', 'Component 82', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1623', '1621', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1623', '1621', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1625', '1621', '11');
@@ -13917,8 +13917,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1641', '1', 'Coolest component ever', 'Component 83', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1643', '1641', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1643', '1641', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1645', '1641', '11');
@@ -14088,8 +14088,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1661', '1', 'Coolest component ever', 'Component 84', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1663', '1661', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1663', '1661', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1665', '1661', '11');
@@ -14259,8 +14259,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1681', '1', 'Coolest component ever', 'Component 85', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1683', '1681', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1683', '1681', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1685', '1681', '11');
@@ -14430,8 +14430,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1701', '1', 'Coolest component ever', 'Component 86', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1703', '1701', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1703', '1701', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1705', '1701', '11');
@@ -14601,8 +14601,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1721', '1', 'Coolest component ever', 'Component 87', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1723', '1721', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1723', '1721', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1725', '1721', '11');
@@ -14772,8 +14772,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1741', '1', 'Coolest component ever', 'Component 88', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1743', '1741', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1743', '1741', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1745', '1741', '11');
@@ -14943,8 +14943,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1761', '1', 'Coolest component ever', 'Component 89', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1763', '1761', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1763', '1761', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1765', '1761', '11');
@@ -15114,8 +15114,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1781', '1', 'Coolest component ever', 'Component 90', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1783', '1781', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1783', '1781', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1785', '1781', '11');
@@ -15285,8 +15285,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1801', '1', 'Coolest component ever', 'Component 91', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1803', '1801', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1803', '1801', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1805', '1801', '11');
@@ -15456,8 +15456,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1821', '1', 'Coolest component ever', 'Component 92', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1823', '1821', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1823', '1821', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1825', '1821', '11');
@@ -15627,8 +15627,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1841', '1', 'Coolest component ever', 'Component 93', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1843', '1841', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1843', '1841', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1845', '1841', '11');
@@ -15798,8 +15798,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1861', '1', 'Coolest component ever', 'Component 94', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1863', '1861', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1863', '1861', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1865', '1861', '11');
@@ -15969,8 +15969,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1881', '1', 'Coolest component ever', 'Component 95', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1883', '1881', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1883', '1881', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1885', '1881', '11');
@@ -16140,8 +16140,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1901', '1', 'Coolest component ever', 'Component 96', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1903', '1901', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1903', '1901', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1905', '1901', '11');
@@ -16311,8 +16311,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1921', '1', 'Coolest component ever', 'Component 97', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801779', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1923', '1921', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1923', '1921', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1925', '1921', '11');
@@ -16482,8 +16482,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1941', '1', 'Coolest component ever', 'Component 98', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801776', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1943', '1941', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1943', '1941', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1945', '1941', '11');
@@ -16653,8 +16653,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1961', '1', 'Coolest component ever', 'Component 99', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1963', '1961', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1963', '1961', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1965', '1961', '11');
@@ -16824,8 +16824,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('1981', '1', 'Coolest component ever', 'Component 100', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801777', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('1983', '1981', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('1983', '1981', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('1985', '1981', '11');
@@ -16995,8 +16995,8 @@ INSERT INTO comp_catalog (component_id, current_version, short_desc, component_n
 VALUES ('2001', '1', 'Coolest component ever', 'Component 101', 'Coolest component ever', 'Component', '2010-05-21 07:20:14.48', '102', '5801778', '2010-05-21 07:23:44.0', '0');
 --  Data for comp_versions
 INSERT INTO comp_versions (comp_vers_id, component_id, version, version_text, create_time, phase_id, phase_time, price, comments, modify_date,
-                           suspended_ind, browse, location, issue_tracker_path, revision)
-VALUES ('2003', '2001', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0', NULL, NULL, NULL, NULL);
+                           suspended_ind)
+VALUES ('2003', '2001', '1', '1.0                 ', '2010-05-21 07:20:14.48', '112', '1976-05-04 00:00:00.0', '1000.00', 'Cool', '2010-05-21 07:27:01.0', '0');
 --  Data for comp_categories
 INSERT INTO comp_categories (comp_categories_id, component_id, category_id)
 VALUES ('2005', '2001', '11');
