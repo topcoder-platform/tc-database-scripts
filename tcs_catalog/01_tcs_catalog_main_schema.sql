@@ -1619,11 +1619,7 @@ create table 'informix'.comp_versions (
     price DECIMAL(10,2) not null,
     comments lvarchar,
     modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION not null,
-	suspended_ind DECIMAL(1,0) default 0,
-	browse VARCHAR(255) default null,
-	location VARCHAR(255) default null,
-	issue_tracker_path VARCHAR(100) default null,
-	revision VARCHAR(10) default null
+	suspended_ind DECIMAL(1,0) default 0
 )
 extent size 1000 next size 1000
 lock mode row;
