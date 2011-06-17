@@ -22,7 +22,7 @@ case when p.project_status_id != 1 then psl.name
        when ptl.name is not null and p.project_status_id = 1 then ptl.name
         when sale.contest_sale_id is not null and p.project_status_id = 1 then 'Scheduled'
        else 'Draft' end as status,
-pcl.project_type_id ==3 as is_studio,,
+pcl.project_type_id ==3 as is_studio,
 
 case when p.project_status_id in (1, 2) then
     nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
