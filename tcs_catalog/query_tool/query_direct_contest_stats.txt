@@ -12,7 +12,7 @@ select p.contest_id, p.name as contest_name, tc_direct_project_id as project_id,
                      and (sr.submission_id is null or (sr.review_status_id <> 2 and sr.review_status_id <> 3))) as number_of_submission, 
 (select count(*) from studio_oltp:jivemessage where forumid = p.forum_id ) as number_of_forum, p.forum_id::varchar(255) as forum_id, p.start_time as start_date, p.end_time as end_date, "Studio" as type, 
 l.contest_detailed_status_desc as status,
-"" as svn 
+"" as svn
 from studio_oltp:contest p, studio_oltp:contest_detailed_status_lu l
 where p.contest_id = @ct@ and l.contest_detailed_status_id = p.contest_detailed_status_id
 
@@ -28,6 +28,19 @@ and c.categoryid = pi.value and c.categoryid = f.categoryid and m.forumid = f.fo
 (select value from project_info where project_id = p.project_id and project_info_type_id =4) as forum_id,
 (select min(nvl(actual_start_time, scheduled_start_time)) from project_phase ph where ph.project_id=p.project_id) as start_date,
 (select max(nvl(actual_end_time, scheduled_end_time)) from project_phase ph where ph.project_id=p.project_id) as end_date, "Software" as type,
-l.name as status,
+case when p.project_status_id != 1 then psl.name 
+       when exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id = 2 and phase_status_id = 1)
+             and exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id = 14 and phase_status_id = 3)
+           then 'Passed Spec Review'
+       when p.project_status_id = 1 and not exists (select project_phase_id from project_phase where project_id = p.project_id and (phase_status_id = 2 or phase_status_id = 1))
+           then 'Completed'
+       when ptl.name is not null and p.project_status_id = 1 then ptl.name
+        when sale.contest_sale_id is not null and p.project_status_id = 1 then 'Scheduled'
+       else 'Draft' end as status,
 (select value from project_info where project_id=p.project_id and project_info_type_id=8) as svn 
-from tcs_catalog:project p, tcs_catalog:project_status_lu l where p.project_id = @ct@ and p.project_status_id = l.project_status_id
+from tcs_catalog:project p 
+left outer join project_phase ph 
+on (p.project_id = ph.project_id and ph.project_phase_id = (select min(project_phase_id) from project_phase  where phase_status_id = 2 and project_id=p.project_id))
+left outer join phase_type_lu ptl on (ph.phase_type_id = ptl.phase_type_id)
+left outer join contest_sale sale on (p.project_id = sale.contest_id and sale.contest_sale_id  = (select min(contest_sale_id) from contest_sale where contest_id = p.project_id)), tcs_catalog:project_status_lu psl 
+where p.project_id = @ct@ and p.project_status_id = psl.project_status_id 
