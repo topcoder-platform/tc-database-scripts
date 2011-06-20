@@ -89,10 +89,14 @@ SELECT pm.create_date payment_date,
      ttc.client_id,
 ttp.project_id billing_project_id,
 tdp.project_id direct_project_id,
+
+case when p.project_status_id = 7 then
 nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
         where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
         and pi26.value = 'On'
-        and pi26.project_id =  p.project_id ), 0) as digital_run,
+        and pi26.project_id =  p.project_id ), 0) 
+else 0 end as digital_run,
+       
         p.project_category_id,
         pmd.payment_detail_id,    
         (NVL((SELECT sum(pmd.total_amount)

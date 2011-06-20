@@ -49,10 +49,12 @@ select p.project_id as id,
           AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
    ) AS reliability,   
 
-   NVL((SELECT NVL(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+case when p.project_status_id = 7 then
+nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
         where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
         and pi26.value = 'On'
-        and pi26.project_id =  p.project_id ), 0) as digital_run,
+        and pi26.project_id =  p.project_id ), 0) 
+else 0 end as digital_run,
 
    (NVL((SELECT sum(pmd.total_amount)
           FROM informixoltp:payment_detail pmd, informixoltp:payment pm
