@@ -307,6 +307,7 @@ query_dashboard_market_cost_breakdown.txt|UPDATE query SET text = ? WHERE query_
 query_project_phases_status_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31156
 query_registration_status_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31157
 query_retrieve_document_url_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31158
-
 query_studio_milestone_prize_awarded_submissions_feedback.txt|UPDATE query SET text = ? WHERE query_id = 31166
+
+query_direct_my_typed_contests_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31266
 
