@@ -13,7 +13,9 @@ INSERT INTO 'informix'.scorecard(scorecard_id,scorecard_status_id,scorecard_type
 INSERT INTO 'informix'.scorecard(scorecard_id,scorecard_status_id,scorecard_type_id,project_category_id,name,version,min_score,max_score,create_user,create_date,modify_user,modify_date) VALUES (30000871, 1, 2, 29, 'Copilot Selection Review Scorecard', '1.0', 80.0, 100.0, '132456', '2008-11-27 14:20:18.775', '132456', '2008-11-27 14:20:18.775');
 INSERT INTO 'informix'.scorecard(scorecard_id,scorecard_status_id,scorecard_type_id,project_category_id,name,version,min_score,max_score,create_user,create_date,modify_user,modify_date) VALUES (30000870, 1, 1, 29, 'Copilot Selection', '1.0', 75.0, 100.0, '132456', '2008-11-27 14:20:18.775', '132456', '2008-11-27 14:20:18.775');
 INSERT INTO 'informix'.scorecard(scorecard_id,scorecard_status_id,scorecard_type_id,project_category_id,name,version,min_score,max_score,create_user,create_date,modify_user,modify_date) VALUES (30000471, 1, 2, 14, 'New Assembly Review Scorecard', '4.9', 75.0, 100.0, '132456', current, '132456', current);
-
+INSERT INTO 'informix'.scorecard(scorecard_id,scorecard_status_id,scorecard_type_id,project_category_id,name,version,min_score,max_score,create_user,create_date,modify_user,modify_date) VALUES (30000416, 1, 6, 6, 'Default Milestone Screening Scorecard', '1.0', 100.0, 100, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.scorecard(scorecard_id,scorecard_status_id,scorecard_type_id,project_category_id,name,version,min_score,max_score,create_user,create_date,modify_user,modify_date) VALUES (30000417, 1, 7, 6, 'Default Milestone Review Scorecard', '1.0', 10.0, 100, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.scorecard(scorecard_id,scorecard_status_id,scorecard_type_id,project_category_id,name,version,min_score,max_score,create_user,create_date,modify_user,modify_date) VALUES (30000418, 1, 2, 6, 'Default Studio Review Scorecard', '1.0', 10.0, 100, 'System', CURRENT, 'System', CURRENT);
 
 INSERT INTO 'informix'.scorecard_group(scorecard_group_id,scorecard_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (5760, 30000410, 'Group 1', 100.0, 0, '132456', '2008-11-27 14:14:29.532', '132456', '2008-11-27 14:14:29.532');
 INSERT INTO 'informix'.scorecard_group(scorecard_group_id,scorecard_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (5761, 30000411, 'Group 1', 100.0, 0, '132456', '2008-11-27 14:15:30.525', '132456', '2008-11-27 14:15:30.525');
@@ -31,6 +33,9 @@ INSERT INTO 'informix'.scorecard_group(scorecard_group_id,scorecard_id,name,weig
 INSERT INTO 'informix'.scorecard_group(scorecard_group_id,scorecard_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (5847, 30000471, 'Unit Tests', 25.0, 2, '132456', current, '132456', current);
 INSERT INTO 'informix'.scorecard_group(scorecard_group_id,scorecard_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (5848, 30000471, 'Deployment Guide', 10.0, 3, '132456', current, '132456', current);
 INSERT INTO 'informix'.scorecard_group(scorecard_group_id,scorecard_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (5849, 30000471, 'Overall Rating', 10.0, 4, '132456', current, '132456', current);
+INSERT INTO 'informix'.scorecard_group(scorecard_group_id,scorecard_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (5769, 30000416, 'Group 1', 100.0, 0, '132456', current, '132456', current);
+INSERT INTO 'informix'.scorecard_group(scorecard_group_id,scorecard_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (5770, 30000417, 'Group 1', 100.0, 0, '132456', current, '132456', current);
+INSERT INTO 'informix'.scorecard_group(scorecard_group_id,scorecard_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (5771, 30000418, 'Group 1', 100.0, 0, '132456', current, '132456', current);
 
 INSERT INTO 'informix'.scorecard_section(scorecard_section_id,scorecard_group_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (30000770, 5760, 'Section 1', 100.0, 0, '132456', '2008-11-27 14:14:29.543', '132456', '2008-11-27 14:14:29.543');
 INSERT INTO 'informix'.scorecard_section(scorecard_section_id,scorecard_group_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (30000771, 5761, 'Section 1', 100.0, 0, '132456', '2008-11-27 14:15:30.526', '132456', '2008-11-27 14:15:30.526');
@@ -50,6 +55,9 @@ INSERT INTO 'informix'.scorecard_section(scorecard_section_id,scorecard_group_id
 INSERT INTO 'informix'.scorecard_section(scorecard_section_id,scorecard_group_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (30000961, 5847, 'Test Cases', 10.0, 1, '132456', current, '132456', current);
 INSERT INTO 'informix'.scorecard_section(scorecard_section_id,scorecard_group_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (30000962, 5848, 'Deployment Guide', 100.0, 0, '132456', current, '132456', current);
 INSERT INTO 'informix'.scorecard_section(scorecard_section_id,scorecard_group_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (30000963, 5849, 'Overall Rating', 100.0, 0, '132456', current, '132456', current);
+INSERT INTO 'informix'.scorecard_section(scorecard_section_id,scorecard_group_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (30001642, 5769, 'Section 1', 100.0, 0, '132456', current, '132456', current);
+INSERT INTO 'informix'.scorecard_section(scorecard_section_id,scorecard_group_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (30001643, 5770, 'Section 1', 100.0, 0, '132456', current, '132456', current);
+INSERT INTO 'informix'.scorecard_section(scorecard_section_id,scorecard_group_id,name,weight,sort,create_user,create_date,modify_user,modify_date) VALUES (30001644, 5771, 'Section 1', 100.0, 0, '132456', current, '132456', current);
 
 INSERT INTO 'informix'.scorecard_question(scorecard_question_id,scorecard_question_type_id,scorecard_section_id,description,guideline,weight,sort,upload_document,upload_document_required,create_user,create_date,modify_user,modify_date) VALUES (30001000, 1, 30000770, 'Question 1', 'Guideline 1', 100.0, 0, 1, 0, '132456', '2008-11-27 14:14:29.655', '132456', '2008-11-27 14:14:29.655');
 INSERT INTO 'informix'.scorecard_question(scorecard_question_id,scorecard_question_type_id,scorecard_section_id,description,guideline,weight,sort,upload_document,upload_document_required,create_user,create_date,modify_user,modify_date) VALUES (30001001, 1, 30000771, 'Question 1', 'Guideline 1', 100.0, 0, 1, 0, '132456', '2008-11-27 14:15:30.531', '132456', '2008-11-27 14:15:30.531');
@@ -86,7 +94,9 @@ INSERT INTO 'informix'.scorecard_question(scorecard_question_id,scorecard_questi
 INSERT INTO 'informix'.scorecard_question(scorecard_question_id,scorecard_question_type_id,scorecard_section_id,description,guideline,weight,sort,upload_document,upload_document_required,create_user,create_date,modify_user,modify_date) VALUES (30001535, 3, 30000961, 'Please upload your test log.', 'Please upload your test log.', 100.0, 0, 1, 1, '132456', current, '132456', current);
 INSERT INTO 'informix'.scorecard_question(scorecard_question_id,scorecard_question_type_id,scorecard_section_id,description,guideline,weight,sort,upload_document,upload_document_required,create_user,create_date,modify_user,modify_date) VALUES (30001536, 1, 30000962, 'Deployment guide is well written and details the steps to configure and deploy the application.', 'Rating 1 - Deployment guide is missing or lacks core information to configure and deploy the application.Rating 2 - Deployment guide describes the steps to configure and deploy the application, though the steps are not complete and thus require some amount of external research.Rating 3 - Deployment guide describes the steps to configure and deploy the application, however missed some points that require some minor guess or external research.Rating 4 - Deployment guide is precise and fully describes the steps to configure and deploy the application.', 100.0, 0, 1, 0, '132456', current, '132456', current);
 INSERT INTO 'informix'.scorecard_question(scorecard_question_id,scorecard_question_type_id,scorecard_section_id,description,guideline,weight,sort,upload_document,upload_document_required,create_user,create_date,modify_user,modify_date) VALUES (30001537, 1, 30000963, 'Overall the application adheres to both the requirement and the design documents.  Please list any additional issues/comments here that are not covered by the previous items.  The evaluation criteria include how much work needs to be done to complete it, whether the submission deserves to pass or not, and it''s level of quality compared to an average submission that meets all requirements.', 'Rating 1 - The submission is lacking in many areas. In order to complete it, much work needs to be done. Rating 2 - The submission is lacking in many areas but the component still works and it is possible to test it. The problems it has should be fixable without much effort. Rating 3 - The submission meets all requirements but it doesn''t excel in any way.  The fixes that need to be done should not be significant. The submission should be of average quality. Rating 4 - The submission excels in many areas. All requirements are met and some are exceeded. In order to complete the component, only minor items need to be fixed. This submission is clearly above average.', 100.0, 0, 1, 0, '132456', current, '132456', current);
-
+INSERT INTO 'informix'.scorecard_question(scorecard_question_id,scorecard_question_type_id,scorecard_section_id,description,guideline,weight,sort,upload_document,upload_document_required,create_user,create_date,modify_user,modify_date) VALUES (30003112, 1, 30001642, 'Milestone Screening Question 1', 'Milestone Screening Guideline', 100.0, 0, 1, 0, '132456', current, '132456', current);
+INSERT INTO 'informix'.scorecard_question(scorecard_question_id,scorecard_question_type_id,scorecard_section_id,description,guideline,weight,sort,upload_document,upload_document_required,create_user,create_date,modify_user,modify_date) VALUES (30003113, 1, 30001643, 'Milestone Review Question 1', 'Submitter Place', 100.0, 0, 1, 0, '132456', current, '132456', current);
+INSERT INTO 'informix'.scorecard_question(scorecard_question_id,scorecard_question_type_id,scorecard_section_id,description,guideline,weight,sort,upload_document,upload_document_required,create_user,create_date,modify_user,modify_date) VALUES (30003114, 1, 30001644, 'Studio Review Question 1', 'Submitter Place', 100.0, 0, 1, 0, '132456', current, '132456', current);
 
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (1, 1, 30000410, 1, current, 1, current);
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (1, 2, 30000411, 1, current, 1, current);
@@ -109,6 +119,66 @@ INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id,
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (29, 3, 30000720, 1, current, 1, current);
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (29, 4, 30001013, 1, current, 1, current);
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (29, 5, 30000722, 1, current, 1, current);
+-- Banners/Icons
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (16, 5, 30000722, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (16, 6, 30000416, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (16, 7, 30000417, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (16, 1, 30000414, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (16, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
+-- Web Design
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (17, 5, 30000722, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (17, 6, 30000416, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (17, 7, 30000417, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (17, 1, 30000414, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (17, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
+-- Wireframes
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (18, 5, 30000722, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (18, 6, 30000416, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (18, 7, 30000417, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (18, 1, 30000414, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (18, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
+-- Logo Design
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (20, 5, 30000722, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (20, 6, 30000416, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (20, 7, 30000417, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (20, 1, 30000414, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (20, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
+-- Print/Presentation
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (21, 5, 30000722, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (21, 6, 30000416, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (21, 7, 30000417, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (21, 1, 30000414, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (21, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
+-- Idea Generation
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (22, 5, 30000722, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (22, 6, 30000416, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (22, 7, 30000417, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (22, 1, 30000414, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (22, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
+-- Widget or Mobile Screen Design
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (30, 5, 30000722, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (30, 6, 30000416, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (30, 7, 30000417, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (30, 1, 30000414, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (30, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
+-- Front-End Flash
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (31, 5, 30000722, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (31, 6, 30000416, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (31, 7, 30000417, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (31, 1, 30000414, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (31, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
+-- Application Front-End Design
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (32, 5, 30000722, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (32, 6, 30000416, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (32, 7, 30000417, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (32, 1, 30000414, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (32, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
+-- Other
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (34, 5, 30000722, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (34, 6, 30000416, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (34, 7, 30000417, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (34, 1, 30000414, 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (34, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
 
 INSERT INTO 'informix'.rboard_user(user_id, project_type_id, catalog_id, status_id, immune_ind) VALUES (124764, 1, 1, 100, 1);
 INSERT INTO 'informix'.rboard_user(user_id, project_type_id, catalog_id, status_id, immune_ind) VALUES (124772, 1, 1, 100, 1);
@@ -243,32 +313,3 @@ insert into tcs_catalog:comp_reg_question values (1, "Test question", 3, 1, 1);
 
 insert into tcs_catalog:resource values (1, 13, null, null, 132456, current, 132456, current);
 insert into tcs_catalog:resource_info values (1, 1, 132456,	132456, current, 132456, current);
-
--- test scorecards for data migration.
-
--- Generic scorecards
-INSERT INTO scorecard (scorecard_id, scorecard_status_id, scorecard_type_id, project_category_id, name, version, min_score, max_score, create_user, create_date, modify_user, modify_date, version_number) VALUES (200, 1, 1, 28, 'Default Screening Scorecard - Active', '1.0', 75, 100, 'System', CURRENT, 'System', CURRENT, 0);
-INSERT INTO scorecard (scorecard_id, scorecard_status_id, scorecard_type_id, project_category_id, name, version, min_score, max_score, create_user, create_date, modify_user, modify_date, version_number) VALUES (201, 1, 2, 28, 'Default Review Scorecard - Active', '1.0', 75, 100, 'System', CURRENT, 'System', CURRENT, 0);
-INSERT INTO scorecard (scorecard_id, scorecard_status_id, scorecard_type_id, project_category_id, name, version, min_score, max_score, create_user, create_date, modify_user, modify_date, version_number) VALUES (202, 1, 6, 28, 'Default Milestone Screening Scorecard - Active', '1.0', 75, 100, 'System', CURRENT, 'System', CURRENT, 0);
-INSERT INTO scorecard (scorecard_id, scorecard_status_id, scorecard_type_id, project_category_id, name, version, min_score, max_score, create_user, create_date, modify_user, modify_date, version_number) VALUES (203, 1, 7, 28, 'Default Milestone Review Scorecard - Active', '1.0', 75, 100, 'System', CURRENT, 'System', CURRENT, 0);
-
-INSERT INTO scorecard_group SELECT 200, 200, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_group WHERE scorecard_group_id = 5760;
-INSERT INTO scorecard_group SELECT 201, 201, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_group WHERE scorecard_group_id = 5760;
-INSERT INTO scorecard_group SELECT 202, 202, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_group WHERE scorecard_group_id = 5760;
-INSERT INTO scorecard_group SELECT 203, 203, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_group WHERE scorecard_group_id = 5760;
-
-INSERT INTO scorecard_section SELECT 200, 200, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_section WHERE scorecard_section_id = 30000770;
-INSERT INTO scorecard_section SELECT 201, 201, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_section WHERE scorecard_section_id = 30000770;
-INSERT INTO scorecard_section SELECT 202, 202, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_section WHERE scorecard_section_id = 30000770;
-INSERT INTO scorecard_section SELECT 203, 203, name, weight, sort, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_section WHERE scorecard_section_id = 30000770;
-
-
-INSERT INTO scorecard_question SELECT 200, scorecard_question_type_id, 200, description, guideline, weight, sort, upload_document, upload_document_required, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_question WHERE scorecard_question_id = 30001000;
-INSERT INTO scorecard_question SELECT 201, scorecard_question_type_id, 201, description, guideline, weight, sort, upload_document, upload_document_required, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_question WHERE scorecard_question_id = 30001000;
-INSERT INTO scorecard_question SELECT 202, scorecard_question_type_id, 202, description, guideline, weight, sort, upload_document, upload_document_required, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_question WHERE scorecard_question_id = 30001000;
-INSERT INTO scorecard_question SELECT 203, 2, 203, description, guideline, weight, sort, upload_document, upload_document_required, create_user, create_date, modify_user, modify_date, 0 FROM scorecard_question WHERE scorecard_question_id = 30001000;
-
-INSERT INTO default_scorecard (project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (28, 1, 200, 'System', CURRENT, 'System', CURRENT);
-INSERT INTO default_scorecard (project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (28, 2, 201, 'System', CURRENT, 'System', CURRENT);
-INSERT INTO default_scorecard (project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (28, 6, 202, 'System', CURRENT, 'System', CURRENT);
-INSERT INTO default_scorecard (project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (28, 7, 203, 'System', CURRENT, 'System', CURRENT);
