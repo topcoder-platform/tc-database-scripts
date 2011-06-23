@@ -1,5 +1,6 @@
 select u.handle as handle
-     , r.create_date as registration_date
+     , u.create_date as topcoder_reg_date
+     , r.create_date as contest_reg_date
      , e.address as email
      , u.user_id as user_id
      , CASE WHEN (select count(user_id) from user_terms_of_use_xref where u.user_id = user_id and terms_of_use_id = 20713 ) > 0 THEN 'TRUE' ELSE 'FALSE' END as CCA
@@ -17,7 +18,8 @@ select u.handle as handle
    and u.user_id = e.user_id
 UNION
 select u.handle as handle
-     , cr.create_date as registration_date
+     , u.create_date as topcoder_reg_date
+     , cr.create_date as contest_reg_date
      , e.address as email
      , u.user_id as user_id
      , CASE WHEN (select count(user_id) from user_terms_of_use_xref where u.user_id = user_id and terms_of_use_id = 20713 ) > 0 THEN 'TRUE' ELSE 'FALSE' END as CCA
