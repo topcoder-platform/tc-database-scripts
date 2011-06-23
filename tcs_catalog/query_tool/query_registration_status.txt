@@ -1,4 +1,4 @@
-SELECT COUNT(r.resource_id) AS registrants_count,
+SELECT COUNT(unique r.resource_id) AS registrants_count,
        SUM(NVL(ri.value::DECIMAL(10, 2), 0)) AS reliability_total,
        ROUND(SUM(NVL(ri.value::DECIMAL(10, 2), 0)) / 100, 0)::INT AS predicted_number_of_submissions,
        COUNT(s.submission_id) AS number_of_submissions,
