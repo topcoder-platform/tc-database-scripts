@@ -3,16 +3,12 @@ select (select ri.value from resource_info ri where  ri.resource_id = u.resource
        s.submission_id,
        s.create_date,
        s.final_score,
-       (select count(*)
-        from submission_image si, informixoltp:image i
-        where si.submission_id = s.submission_id
-          and si.image_id = i.image_id
-          and i.image_type_id = 30) as gallery_image_count,
+       s.view_count as gallery_image_count,
        u.project_id as contest_id
 from upload u,
      submission s
 where u.project_id = @ct@
   and s.upload_id = u.upload_id
-  and s.user_rank <= @srank@
-  and s.submission_type_id = 1
+  and s.submission_status_lu in (1,4)
+  and s.submission_type_id in (1, 3)
 order by s.final_score desc
