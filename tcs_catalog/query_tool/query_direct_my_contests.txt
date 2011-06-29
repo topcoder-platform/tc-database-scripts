@@ -14,6 +14,7 @@ pcl.project_category_id as contest_type_id,
 case when p.project_status_id != 1 then psl.name 
        when exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id = 2 and phase_status_id = 1)
              and exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id = 14 and phase_status_id = 3)
+             and not exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id in (13, 14)  and phase_status_id in (2,3))
            then 'Passed Spec Review'
        when p.project_status_id = 1 and not exists (select project_phase_id from project_phase where project_id = p.project_id and (phase_status_id = 2 or phase_status_id = 1))
            then 'Completed'
