@@ -198,6 +198,15 @@ extent size 500 next size 250
 lock mode row;
 
 revoke all on user_terms_of_use_xref from 'public';
+create table 'informix'.user_terms_of_use_ban_xref (
+    user_id DECIMAL(10,0),
+    terms_of_use_id DECIMAL(10,0),
+    create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on user_terms_of_use_ban_xref from 'public';
 create table 'informix'.project_role_terms_of_use_xref (
     project_id INT not null,
     resource_role_id INT not null,
@@ -1275,6 +1284,16 @@ grant select on user_terms_of_use_xref to 'public' as 'informix';
 grant update on user_terms_of_use_xref to 'public' as 'informix';
 
 grant index on user_terms_of_use_xref to 'public' as 'informix';
+
+grant delete on user_terms_of_use_ban_xref to 'public' as 'informix';
+
+grant insert on user_terms_of_use_ban_xref to 'public' as 'informix';
+
+grant select on user_terms_of_use_ban_xref to 'public' as 'informix';
+
+grant update on user_terms_of_use_ban_xref to 'public' as 'informix';
+
+grant index on user_terms_of_use_ban_xref to 'public' as 'informix';
 
 grant delete on project_role_terms_of_use_xref to 'public' as 'informix';
 

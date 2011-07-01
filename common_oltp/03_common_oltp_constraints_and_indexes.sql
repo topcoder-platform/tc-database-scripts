@@ -103,6 +103,10 @@ alter table 'informix'.user_terms_of_use_xref add constraint primary key
     (user_id, terms_of_use_id)
     constraint u116_29;
 
+alter table 'informix'.user_terms_of_use_ban_xref add constraint primary key 
+	(user_id, terms_of_use_id)
+	constraint user_terms_of_use_ban_xref_pk;
+
 alter table 'informix'.project_role_terms_of_use_xref add constraint primary key 
     (project_id, resource_role_id, terms_of_use_id)
     constraint pk_project_role_terms_of_use_xref;
@@ -459,6 +463,18 @@ alter table 'informix'.user_terms_of_use_xref add constraint foreign key
     references 'informix'.terms_of_use
     (terms_of_use_id) 
     constraint userterms_terms_fk;
+
+alter table 'informix'.user_terms_of_use_ban_xref add constraint foreign key 
+	(terms_of_use_id)
+	references 'informix'.terms_of_use
+	(terms_of_use_id) 
+	constraint usertermsofusebanxref_termsofuse_fk;
+
+alter table 'informix'.user_terms_of_use_ban_xref add constraint foreign key 
+	(user_id)
+	references 'informix'.user
+	(user_id) 
+	constraint usertermsofusebanxref_user_fk;
 
 alter table 'informix'.contact add constraint foreign key 
     (company_id)
