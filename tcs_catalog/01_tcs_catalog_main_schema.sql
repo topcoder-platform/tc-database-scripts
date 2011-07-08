@@ -1240,7 +1240,8 @@ create table 'informix'.submission (
     mark_for_purchase BOOLEAN(1),
     prize_id INTEGER,
     file_size DECIMAL(18,0),
-    view_count DECIMAL(10,0)
+    view_count DECIMAL(10,0),
+    system_file_name varchar(254) 
 )
 extent size 5000 next size 2000
 lock mode row;
