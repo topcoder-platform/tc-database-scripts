@@ -144,12 +144,16 @@ end as member_cost,
         from studio_oltp:contest_config cfg, studio_oltp:contest cc  
         where cfg.contest_id = cc.contest_id and property_id = 25
         and cfg.contest_id = p.contest_id) as contest_fee,
-'Completed' as status,
+
+case when p.contest_detailed_status_id  = 8 then 'Completed'
+when p.contest_detailed_status_id in (7) then 'Cancelled'
+end  as status,
+
 0 AS approval_phase_duration
 from studio_oltp:contest p, user_permission_grant upg
 where p.tc_direct_project_id = upg.resource_id
 and upg.user_id = @uid@
 and upg.permission_type_id in (1,2,3)
-and p.tc_direct_project_id = @tcdirectid@ and p.contest_status_id != 3
+and p.tc_direct_project_id = @tcdirectid@ and p.contest_detailed_status_id in (7, 8)
 and (p.deleted is null or p.deleted = 0))) AS s
 GROUP BY tc_direct_project_id;
