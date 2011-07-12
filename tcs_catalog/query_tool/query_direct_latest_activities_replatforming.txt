@@ -1,0 +1,127 @@
+SELECT FIRST 30 
+    CAST('Contest Launched' as varchar(64)) as activity_type, p.tc_direct_project_id as tc_direct_project_id,
+tdp.name as tc_direct_project_name, pi.value as contest_name, p.project_id as contest_id, pc.project_type_id = 3 as is_studio, 
+p.create_user as user_id, u.handle as user, ph.actual_start_time as activity_time, pc.project_category_id contest_type_id, pc.name contest_type
+FROM project p
+INNER JOIN project_phase ph ON p.project_id = ph.project_id
+INNER JOIN project_info pi ON ph.project_id = pi.project_id
+INNER JOIN user u ON u.user_id::VARCHAR(64) = p.create_user
+INNER JOIN tc_direct_project tdp ON tdp.project_id = p.tc_direct_project_id
+INNER JOIN project_category_lu pc ON p.project_category_id = pc.project_category_id
+WHERE 
+    project_info_type_id = 6
+and ph.phase_type_id = 1
+and ph.phase_status_id in (2,3)
+and ph.phase_type_id not in (13,1,4)
+AND date(ph.actual_start_time) > date(current) - @days@
+and p.project_category_id != 27
+  and p.project_id in
+ (
+    select
+      p.project_id
+    from
+      project p,
+      corporate_oltp:user_permission_grant upg
+    where
+      upg.user_id = @uid@
+      and p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@)
+      and 
+        (p.project_id = upg.resource_id::decimal(10,0) or
+         p.tc_direct_project_id = upg.resource_id::decimal(10,0) )
+    union
+    select 
+      p.project_id 
+    from
+      project p
+    where 
+      p.create_user = @uid@::varchar(64) 
+      and p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@) 
+  )
+
+union
+
+select cast('Spec Review' as varchar(64)) as activity_type, p.tc_direct_project_id as tc_direct_project_id,
+tdp.name as tc_direct_project_name, pi.value as contest_name, p.project_id as contest_id, pc.project_type_id = 3 as is_studio, 
+p.create_user as user_id, u.handle as user, 
+(select max(actual_end_time) from project_phase phh where phh.project_id=p.project_id and phase_type_id in (13, 14)) as activity_time, pc.project_category_id contest_type_id, pc.name contest_type
+FROM project p 
+INNER JOIN project_phase ph ON p.project_id = ph.project_id
+INNER JOIN project_info pi ON ph.project_id = pi.project_id
+INNER JOIN user u ON u.user_id::VARCHAR(64) = p.create_user
+INNER JOIN tc_direct_project tdp ON tdp.project_id = p.tc_direct_project_id
+INNER JOIN project_category_lu pc ON p.project_category_id = pc.project_category_id
+
+where
+    project_info_type_id = 6
+and ph.actual_end_time = (select max(actual_end_time) from project_phase where project_id = p.project_id)
+AND date(ph.actual_end_time) > date(current) - @days@
+and exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id in (13, 14))
+and not exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id in (13, 14) and phase_status_id != 3)
+and p.project_status_id = 1
+  and p.project_id in
+ (
+    select
+      p.project_id
+    from
+      project p,
+      corporate_oltp:user_permission_grant upg
+    where
+      upg.user_id = @uid@
+      and p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@)
+      and 
+        (p.project_id = upg.resource_id::decimal(10,0) or
+         p.tc_direct_project_id = upg.resource_id::decimal(10,0) )
+    union
+    select 
+      p.project_id 
+    from
+      project p
+    where 
+      p.create_user = @uid@::varchar(64) 
+      and p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@) 
+  )
+
+union
+
+select cast('Contest Completed' as varchar(64)) as activity_type, p.tc_direct_project_id as tc_direct_project_id,
+tdp.name as tc_direct_project_name, pi.value as contest_name, p.project_id as contest_id, pc.project_type_id = 3 as is_studio, 
+p.create_user as user_id, u.handle as user, 
+(select max(actual_end_time) from project_phase phh where phh.project_id=p.project_id) as activity_time, pc.project_category_id contest_type_id, pc.name contest_type
+FROM project p
+INNER JOIN project_phase ph ON p.project_id = ph.project_id
+INNER JOIN project_info pi ON ph.project_id = pi.project_id
+INNER JOIN user u ON u.user_id::VARCHAR(64) = p.create_user
+INNER JOIN tc_direct_project tdp ON tdp.project_id = p.tc_direct_project_id
+INNER JOIN project_category_lu pc ON p.project_category_id = pc.project_category_id
+
+where
+    project_info_type_id = 6
+and ph.actual_end_time = (select max(actual_end_time) from project_phase where project_id = p.project_id)
+AND date(ph.actual_end_time) > date(current) - @days@
+and p.project_category_id != 27
+and p.project_status_id = 7
+  and p.project_id in
+(
+    select
+      p.project_id
+    from
+      project p,
+      corporate_oltp:user_permission_grant upg
+    where
+      upg.user_id = @uid@
+      and p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@)
+      and 
+        (p.project_id = upg.resource_id::decimal(10,0) or
+         p.tc_direct_project_id = upg.resource_id::decimal(10,0) )
+    union
+    select 
+      p.project_id 
+    from
+      project p
+    where 
+      p.create_user = @uid@::varchar(64) 
+      and p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@) 
+  )
+
+
+order by activity_time desc, activity_type, tc_direct_project_name, contest_name;
