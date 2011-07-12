@@ -1,10 +1,9 @@
-SELECT FIRST 2
-       ptl.name AS phase_name,
+SELECT ptl.name AS phase_name,
        NVL(actual_start_time, scheduled_start_time) AS start_time,
-       scheduled_end_time AS end_time,
-       pp.phase_status_id
+       NVL(actual_end_time, scheduled_end_time) AS end_time,
+       pp.phase_status_id,
+	   ptl.phase_type_id
 FROM project_phase pp
 INNER JOIN phase_type_lu ptl ON pp.phase_type_id = ptl.phase_type_id
 WHERE project_id = @pj@
-AND   phase_status_id BETWEEN 1 AND 2
 ORDER BY phase_status_id DESC, NVL(actual_start_time, scheduled_start_time), pp.phase_type_id
