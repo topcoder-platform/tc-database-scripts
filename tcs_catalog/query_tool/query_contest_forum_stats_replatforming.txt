@@ -1,0 +1,146 @@
+select pi4.value as forum_id,
+(select count(user_id) from  
+table(multiset( 
+select 
+       (select u.user_id from jivemessage jm, user u  
+        where jm.userid = u.user_id and jm.threadid = latest_threads.threadid and jm.modificationdate = latest_threads.modificationdate 
+        and  not exists (select value from resource r, resource_info ri where r.project_id = p.project_id  and r.resource_role_id in (11,12,13,14,15) 
+                            and r.resource_id = ri.resource_id and ri.resource_info_type_id = 1 and value = u.user_id) 
+        ) user_id 
+  from table(multiset( 
+        select m.threadid, 
+               max(m.modificationdate) modificationdate 
+          from jivecategory c,  
+               jiveforum f,  
+               jivemessage m,  
+               project_info pi 
+         where pi.project_info_type_id = 4  
+           and c.categoryid = pi.value  
+           and c.categoryid = f.categoryid  
+           and m.forumid = f.forumid  
+           and pi.project_id = p.project_id  
+      group by m.threadid 
+      )) latest_threads 
+))
+where user_id is not null ) unanswered_threads,
+(select count(messageid) from jivecategory c, jiveforum f, jivemessage m, project_info pi 
+            		    where pi.project_info_type_id =4 and c.categoryid = pi.value and c.categoryid = f.categoryid and m.forumid = f.forumid 
+            		      and pi.project_id =  p.project_id) as number_of_forum,
+
+ (select u.handle
+          from jivecategory c,  
+               jiveforum f,  
+               jivemessage m,  
+               project_info pi,
+               user u
+         where pi.project_info_type_id = 4  
+           and c.categoryid = pi.value  
+           and c.categoryid = f.categoryid  
+           and m.forumid = f.forumid  
+           and pi.project_id = p.project_id 
+           and u.user_id = userid
+and m.modificationdate = (select max(m2.modificationdate)
+          from jivecategory c2,  
+               jiveforum f2,  
+               jivemessage m2,  
+               project_info pi2
+         where pi2.project_info_type_id = 4  
+           and c2.categoryid = pi2.value  
+           and c2.categoryid = f2.categoryid  
+           and m2.forumid = f2.forumid  
+           and pi2.project_id = p.project_id )) latest_handle,
+ 
+  (select millis_to_time(max(m2.modificationdate))
+          from jivecategory c2,  
+               jiveforum f2,  
+               jivemessage m2,  
+               project_info pi2
+         where pi2.project_info_type_id = 4  
+           and c2.categoryid = pi2.value  
+           and c2.categoryid = f2.categoryid  
+           and m2.forumid = f2.forumid  
+           and pi2.project_id = p.project_id) latest_time,
+
+  
+ (select u.user_id
+          from jivecategory c,  
+               jiveforum f,  
+               jivemessage m,  
+               project_info pi,
+               user u
+         where pi.project_info_type_id = 4  
+           and c.categoryid = pi.value  
+           and c.categoryid = f.categoryid  
+           and m.forumid = f.forumid  
+           and pi.project_id = p.project_id 
+           and u.user_id = userid
+and m.modificationdate = (select max(m2.modificationdate) 
+          from jivecategory c2,  
+               jiveforum f2,  
+               jivemessage m2,  
+               project_info pi2
+         where pi2.project_info_type_id = 4  
+           and c2.categoryid = pi2.value  
+           and c2.categoryid = f2.categoryid  
+           and m2.forumid = f2.forumid  
+           and pi2.project_id = p.project_id )) latest_userid,
+
+ (select m.threadid
+          from jivecategory c,  
+               jiveforum f,  
+               jivemessage m,  
+               project_info pi,
+               user u
+         where pi.project_info_type_id = 4  
+           and c.categoryid = pi.value  
+           and c.categoryid = f.categoryid  
+           and m.forumid = f.forumid  
+           and pi.project_id = p.project_id 
+           and u.user_id = userid
+and m.modificationdate = (select max(m2.modificationdate)
+          from jivecategory c2,  
+               jiveforum f2,  
+               jivemessage m2,  
+               project_info pi2
+         where pi2.project_info_type_id = 4  
+           and c2.categoryid = pi2.value  
+           and c2.categoryid = f2.categoryid  
+           and m2.forumid = f2.forumid  
+           and pi2.project_id = p.project_id )) latest_threadid
+from project p, project_info pi4, project_category_lu pc
+
+where p.project_id = @pj@
+
+and p.project_id = pi4.project_id and pi4.project_info_type_id = 4 and pc.project_category_id=p.project_category_id and pc.project_type_id != 3
+
+union
+
+select pi4.value as forum_id,
+(select count(user_id) from  
+table(multiset( 
+select 
+       (select u.user_id from studio_oltp:jivemessage jm, user u  
+        where jm.userid = u.user_id and jm.threadid = latest_threads.threadid and jm.modificationdate = latest_threads.modificationdate 
+        and  not exists (select value from resource r, resource_info ri where r.project_id = p.project_id  and r.resource_role_id in (11,12,13,14,15) 
+                            and r.resource_id = ri.resource_id and ri.resource_info_type_id = 1 and value = u.user_id) 
+        ) user_id 
+  from table(multiset( 
+        select m.threadid, 
+               max(m.modificationdate) modificationdate 
+          from studio_oltp:jivemessage m
+         where m.forumid = pi4.value
+      group by m.threadid 
+      )) latest_threads 
+))
+where user_id is not null ) unanswered_threads,
+(select count(*) from studio_oltp:jivemessage where forumid = pi4.value )  as number_of_forum,
+(select handle from studio_oltp:jivemessage, user where forumid = pi4.value and user_id = userid and modificationdate = (select max(modificationdate) from studio_oltp:jivemessage where forumid = pi4.value)) latest_handle,
+(select millis_to_time((max(modificationdate))) from studio_oltp:jivemessage where forumid = pi4.value) latest_time,
+(select userid from studio_oltp:jivemessage where forumid = pi4.value and modificationdate = (select max(modificationdate) from studio_oltp:jivemessage where forumid = pi4.value)) latest_userid,
+(select threadid from studio_oltp:jivemessage where forumid = pi4.value and modificationdate = (select max(modificationdate) from studio_oltp:jivemessage where forumid = pi4.value)) latest_threadid
+
+from project p, project_info pi4, project_category_lu pc
+
+where p.project_id = @pj@
+
+and p.project_id = pi4.project_id and pi4.project_info_type_id = 4 and pc.project_category_id=p.project_category_id and pc.project_type_id = 3
