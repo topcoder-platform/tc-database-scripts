@@ -312,5 +312,5 @@ query_direct_my_typed_contests_replatforming.txt|UPDATE query SET text = ? WHERE
 query_direct_latest_activities_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31326
 
 query_studio_can_view_scorecard_details.txt|UPDATE query SET text = ? WHERE query_id = 31346
-
+query_contest_forum_stats_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31347
 
