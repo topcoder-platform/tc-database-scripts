@@ -1,5 +1,6 @@
 SELECT 
     pcl.name AS contest_type_desc
+    , p.project_category_id AS project_category_id
     , (SELECT pi.value FROM project_info pi WHERE pi.project_id = p.project_id AND pi.project_info_type_id = 6) AS name 
     , (SELECT pp1.actual_start_time 
        FROM project_phase pp1 
@@ -20,6 +21,7 @@ AND   NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND
 UNION ALL
 SELECT 
     pcl.name AS contest_type_desc
+    , p.project_category_id AS project_category_id
     , (SELECT pi.value FROM project_info pi WHERE pi.project_id = p.project_id AND pi.project_info_type_id = 6) AS name 
     , NULL::DATETIME YEAR TO FRACTION AS start_time
     , p.project_id AS contest_id 

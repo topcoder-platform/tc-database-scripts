@@ -1,0 +1,14 @@
+select 'is_contest_creator' 
+  from project p, upload u, submission s, review r
+  where r.submission_id=s.submission_id and s.upload_id=u.upload_id and u.project_id=p.project_id
+  and p.create_user = @uid@ and r.review_id=@rid@
+union
+select 'is_allowed_roles' 
+  from project p, upload u, submission s, review r, resource res, resource_info resi
+  where r.submission_id=s.submission_id and s.upload_id=u.upload_id and u.project_id=p.project_id
+  and r.review_id=@rid@
+  and res.project_id=p.project_id
+  and res.resource_role_id in (13,14,12,3,19)
+  and resi.resource_id=res.resource_id
+  and resi.resource_info_type_id=1
+  and resi.value=@uid@
