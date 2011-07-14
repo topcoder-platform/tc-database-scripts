@@ -10,14 +10,17 @@ SELECT
     , pps.scheduled_start_time AS screening_start_time
     , ppm.scheduled_start_time AS milestone_screening_start_time
     , 'Screening' AS review_type
+    , NVL((SELECT min(ri.value::int) FROM resource r, resource_info ri WHERE r.project_id = p.project_id AND r.resource_role_id IN (2, 19)
+          AND ri.resource_id = r.resource_id and ri.resource_info_type_id = 1),0) as reviewer_id
 FROM project p
 INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
 INNER JOIN project_phase pps ON p.project_id = pps.project_id AND pps.phase_type_id = 3
+INNER JOIN project_phase ppsub ON p.project_id = ppsub.project_id AND ppsub.phase_type_id = 2
 LEFT  JOIN project_phase ppm ON p.project_id = ppm.project_id AND ppm.phase_type_id = 16
 WHERE p.project_status_id = 1
 AND   pcl.project_type_id = 3
 AND   (ppm.phase_status_id <> 3 OR pps.phase_status_id <> 3)
-AND   NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id IN (2, 19))
+AND   ((NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id IN (2, 19))) OR ppsub.phase_status_id in (1,2))
 UNION ALL
 SELECT 
     pcl.name AS contest_type_desc
@@ -28,11 +31,14 @@ SELECT
     , pps.scheduled_start_time AS review_start_time
     , NULL::DATETIME YEAR TO FRACTION AS milestone_screening_start_time
     , 'Spec Review' AS review_type
+    , NVL((SELECT min(ri.value::int) FROM resource r, resource_info ri WHERE r.project_id = p.project_id AND r.resource_role_id = 18
+          AND ri.resource_id = r.resource_id and ri.resource_info_type_id = 1),0) as reviewer_id
 FROM project p
 INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
 INNER JOIN project_phase pps ON p.project_id = pps.project_id AND pps.phase_type_id = 14
+INNER JOIN project_phase ppsub ON p.project_id = ppsub.project_id AND ppsub.phase_type_id = 2
 WHERE p.project_status_id = 1
 AND   pcl.project_type_id = 3
-AND   pps.phase_status_id <> 3
-AND   NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 18) 
-ORDER BY 3 DESC  
+AND   pps.phase_status_id <> 3 
+AND   ((NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 18)) OR ppsub.phase_status_id in (1,2))
+ORDER BY 3 DESC
