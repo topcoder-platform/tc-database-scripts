@@ -326,6 +326,9 @@ insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_ty
 insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) values (20794, null, 5, CURRENT, CURRENT, 'Approved OR Managers - TopCoder Technical Team', 0, null);
 insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) values (20893 , null, 5, CURRENT, CURRENT, 'MSA', 0, null);
 insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) values (20753  , null, 5, CURRENT, CURRENT, 'Assignment 2.0', 0, null);
+insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) values (20963  , null, 5, CURRENT, CURRENT, 'Government id term', 0, null);
+
+
 INSERT INTO 'informix'.key_generation(user_def,high_value) VALUES ('main_sequence', 18);
 INSERT INTO 'informix'.user(user_id,first_name,last_name,create_date,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date) VALUES (132456, 'firstdok', 'lastdok', '2008-02-08 15:28:56.000', 'heffan', NULL, 'A',  NULL, NULL, 143, NULL);
 INSERT INTO 'informix'.user(user_id,first_name,last_name,create_date,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date) VALUES (20, 'dok', 'dok', '2008-02-15 13:43:52.000', 'dok_tester', NULL, 'A', NULL, NULL,143, NULL);
