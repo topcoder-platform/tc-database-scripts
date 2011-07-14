@@ -12,7 +12,7 @@ SELECT u.user_id
 , a.city
 , a.state_code
 , a.zip
-, co.country_name
+, (select co.country_name from country co where a.country_code = co.country_code) as country_name
 , p.phone_number as home_phone
 , re.referral_desc
 , ct.coder_type_desc
@@ -49,13 +49,11 @@ SELECT u.user_id
 FROM user u
 , outer (rating r, round_segment rs, coder c, language l, coder_type ct)
 , outer (coder_referral cref, referral re)
-, user_address_xref x
-, address a
+, outer address a
 , outer phone p
-, email e
+, outer email e
 , user_status_lu us
 , OUTER (current_school cs, OUTER school s)
-, country co
 , outer (contact con, company comp)
 WHERE u.user_id = c.coder_id
 and u.user_id = con.contact_id
@@ -69,14 +67,12 @@ AND re.referral_id = cref.referral_id
 AND c.coder_type_id = ct.coder_type_id
 AND u.status = us.user_status_id
 AND u.user_id = cs.coder_id
-and u.user_id = x.user_id
-and x.address_id = a.address_id
+and a.address_id = (select x.address_id from user_address_xref x where x.user_id=u.user_id)
 and e.user_id = u.user_id
  and e.primary_ind = 1
 and u.user_id = p.user_id
  and p.primary_ind = 1
 AND cs.school_id = s.school_id
-AND a.country_code = co.country_code
 AND u.user_id in(
   SELECT
     u1.user_id
