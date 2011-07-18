@@ -148,8 +148,9 @@ query_direct_dashboard_enterprise_contest_stats_client.txt|UPDATE query SET text
 query_direct_dashboard_enterprise_contest_stats_billing.txt|UPDATE query SET text= ? WHERE query_id=30988
 query_direct_dashboard_enterprise_contest_stats_overall.txt|UPDATE query SET text= ? WHERE query_id=30989
 query_direct_dashboard_enterprise_contest_avg.txt|UPDATE query SET text= ? WHERE query_id=30990
-
 query_direct_dashboard_enterprise_detailed_stats_overall_monthly.txt|UPDATE query SET text= ? WHERE query_id=31059
 query_direct_dashboard_enterprise_detailed_stats_client_monthly.txt|UPDATE query SET text= ? WHERE query_id=31060
 query_direct_dashboard_enterprise_detailed_stats_billing_monthly.txt|UPDATE query SET text= ? WHERE query_id=31061
 query_direct_dashboard_enterprise_detailed_stats_project_monthly.txt|UPDATE query SET text= ? WHERE query_id=31062
+
+query_direct_dashboard_enterprise_summary.txt|UPDATE query SET text = ? WHERE query_id = 

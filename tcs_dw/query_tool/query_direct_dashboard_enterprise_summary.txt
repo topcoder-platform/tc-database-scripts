@@ -1,0 +1,17 @@
+SELECT
+       NVL(MAX(p.contest_prizes_total), 0) as max_cost,
+       NVL(MIN(p.contest_prizes_total), 0) as min_cost,
+       NVL(MAX(p.duration), 0) as max_duration_hours,
+       NVL(MIN(p.duration), 0) as min_duration_hours
+FROM project p
+INNER JOIN client_project_dim c ON p.client_project_id = c.client_project_id
+INNER JOIN direct_project_dim d ON p.tc_direct_project_id = d.direct_project_id
+WHERE p.complete_date is not null AND p.posting_date is not null
+AND Date(p.complete_date) BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
+AND   p.project_category_id IN (@pcids@)
+AND   p.client_project_id IN (DECODE(@bpids@, 0, p.client_project_id, @bpids@))
+AND   p.tc_direct_project_id IN (DECODE(@tdpis@, 0, p.tc_direct_project_id, @tdpis@))
+AND   c.client_id IN (DECODE(@clids@, 0, c.client_id, @clids@))
+AND p.status_id in (4, 5, 6, 7, 8, 11)
+AND p.fulfillment = 1
+AND p.project_category_id not in (29)
