@@ -310,7 +310,8 @@ query_retrieve_document_url_replatforming.txt|UPDATE query SET text = ? WHERE qu
 query_studio_milestone_prize_awarded_submissions_feedback.txt|UPDATE query SET text = ? WHERE query_id = 31166
 query_direct_my_typed_contests_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31266
 query_direct_latest_activities_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31326
-
 query_studio_can_view_scorecard_details.txt|UPDATE query SET text = ? WHERE query_id = 31346
 query_contest_forum_stats_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31347
+
+query_studio_submission_artifact_count.txt|UPDATE query SET text = ? WHERE query_id = 31366
 
