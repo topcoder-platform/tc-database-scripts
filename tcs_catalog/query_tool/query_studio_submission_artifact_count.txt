@@ -1,2 +1,2 @@
-select count(*) from submission_image si, image i
+select count(*) as artifact_count from submission_image si, image i
 where submission_id =  @subid@ and si.image_id = i.image_id and i.image_type_id = 30
