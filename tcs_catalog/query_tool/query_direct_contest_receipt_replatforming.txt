@@ -1,0 +1,212 @@
+select 
+
+
+case when p.project_status_id in (1, 2) then
+    case when pcl.project_type_id != 3 then
+        nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+            where project_info_type_id in (16)
+            and project_id = p.project_id), 0)
+    else nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
+            where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 1 and prize_type_id = 15), 0)
+    end
+else nvl((SELECT max(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13)
+        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 1) ), 0)
+ end as first_place_prize,
+ 
+
+case when p.project_status_id in (1, 2) then
+    case when pcl.project_type_id != 3 then
+        nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+            where project_info_type_id = 16
+            and project_id = p.project_id)/2), 0)
+     else nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
+            where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 2 and prize_type_id = 15), 0)
+     end
+else nvl((SELECT (total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1 
+        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13) 
+        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 2) ), 0)
+end as second_place_prize,
+
+case when p.project_status_id in (1, 2) then
+        nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
+                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 3 and prize_type_id = 15), 0)
+else nvl((SELECT (total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1 
+        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13) 
+        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 2) ), 0)
+end as third_place_prize,
+            
+case when p.project_status_id in (1, 2) then
+        nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
+                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 4 and prize_type_id = 15), 0)
+else nvl((SELECT (total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1 
+        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13) 
+        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 2) ), 0)
+end as fourth_place_prize, 
+            
+case when p.project_status_id in (1, 2) then
+        nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
+                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 5 and prize_type_id = 15), 0)
+else nvl((SELECT (total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1 
+        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13) 
+        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 2) ), 0)
+end as fifth_place_prize, 
+            
+case when p.project_status_id in (1, 2) then
+          nvl((SELECT prize_amount * number_of_submissions from project_prize_xref ppx, prize pr
+                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and prize_type_id = 14), 0)
+ else case when pi50.value is not null then
+            nvl((select pr.prize_amount *  (select count(s.submission_id) from submission s, upload u
+                                            where s.upload_id = u.upload_id and u.project_id = p.project_id and submission_type_id = 3 and s.prize_id is not null)
+                from project_prize_xref ppx, prize pr
+                where project_id = p.project_id  and ppx.prize_id = pr.prize_id and prize_type_id = 14), 0)
+      else nvl((SELECT (total_amount)
+           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+            WHERE pmd.component_project_id = p.project_id and installment_number = 1 
+            and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13) 
+            AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 2) ), 0)
+      end
+end as milestone_prize,
+
+case when p.project_status_id in (1,2, 7) then
+nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+        where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+        and pi26.value = 'On'
+        and pi26.project_id =  p.project_id ), 0)
+else 0 end as dr_points,
+
+case when (p.project_status_id in (9, 10) 
+             and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3)))
+          OR p.project_status_id not in (9, 10) then
+(select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 31
+        and project_id = p.project_id)
+ else 0 end as contest_fee,
+
+case when p.project_status_id in (1, 2) then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (38)
+        and project_id = p.project_id), 0)
+else nvl((SELECT sum(pmd2.total_amount) 
+       FROM  informixoltp:payment_detail pmd,  
+             informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+             informixoltp:payment pm2 
+        WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+        and pm.most_recent_detail_id = pmd.payment_detail_id  
+        and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+        AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+end as reliability_bonus,
+
+case when p.project_status_id in (1, 2) then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (35)
+        and project_id = p.project_id), 0)
+else  nvl((SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (27, 48)
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+end as spec_review_cost,
+
+case when p.project_status_id in (1, 2) then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (33)
+        and project_id = p.project_id), 0)
+else  nvl((SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (7, 26, 28, 38, 56, 36)
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+end as review_cost,
+
+case when p.project_status_id in (1, 2) then 
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+    where project_info_type_id in (49)
+    and project_id = p.project_id), 0)
+else nvl((SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (45, 57)
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0) 
+end as copilot_cost,
+
+case when p.project_status_id in (1, 2) then 0
+else  nvl((SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        and payment_type_id in (23, 37, 46)
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+end as bug_fix_cost,
+
+case when p.project_status_id in (1, 2) and pcl.project_type_id != 3  then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id in (31, 33, 35, 16, 38, 39, 49)
+        and project_id = p.project_id), 0)
+    +
+    nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 16
+        and project_id = p.project_id)/2), 0)
+    +
+    nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+        where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+        and pi26.value = 'On'
+        and pi26.project_id =  p.project_id ), 0)
+ when p.project_status_id in (1, 2) and pcl.project_type_id = 3  then
+    nvl((SELECT sum(prize_amount * number_of_submissions) from project_prize_xref ppx, prize pr
+                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id), 0)
+    +
+    nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 31
+        and project_id = p.project_id)), 0)
+    +
+    nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+        where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+        and pi26.value = 'On'
+        and pi26.project_id =  p.project_id ), 0)
+ when p.project_status_id = 7 then
+   NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0) +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0) +
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+            where project_info_type_id = 31 and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+            and project_id = p.project_id), 0) +
+    nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+            where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+            and pi26.value = 'On'
+            and pi26.project_id =  p.project_id ), 0)
+else nvl((SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0) +
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+            where project_info_type_id = 31 and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+            and project_id = p.project_id), 0) 
+
+end as total_cost,
+
+case when p.project_status_id in (7,4,5,6,8,9,10,11) then 'Finished' else 'Not Finished' end as status
+
+from project p, project_category_lu pcl, outer project_info pi50
+
+where p.project_id = @pj@ and p.project_category_id = pcl.project_category_id
+and pi50.project_info_type_id = 50 and pi50.project_id = p.project_id
