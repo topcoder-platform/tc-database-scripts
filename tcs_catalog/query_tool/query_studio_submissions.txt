@@ -4,7 +4,8 @@ select (select ri.value from resource_info ri where  ri.resource_id = u.resource
        s.create_date,
        s.final_score,
        s.view_count as gallery_image_count,
-       u.project_id as contest_id
+       u.project_id as contest_id,
+       s.mark_for_purchase
 from upload u,
      submission s
 where u.project_id = @ct@
