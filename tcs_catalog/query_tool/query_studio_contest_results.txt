@@ -20,3 +20,4 @@ where u.project_id = @ct@
  and  s.submission_type_id = 1 
  and  p.prize_id = s.prize_id
  and  p.prize_type_id = 15
+order by s.final_score desc
