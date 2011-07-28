@@ -41,4 +41,4 @@ WHERE p.project_status_id = 1
 AND   pcl.project_type_id = 3
 AND   pps.phase_status_id <> 3 
 AND   ((NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 18)) OR ppsub.phase_status_id in (1,2))
-ORDER BY 3 DESC
+ORDER BY reviewer_id, screening_start_time
