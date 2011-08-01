@@ -13,7 +13,7 @@ select 'Contest Name: ' || pi6.value || '<br /> ' ||
     INNER JOIN project_phase pp14 ON p.project_id = pp14.project_id and pp14.phase_type_id = 14
  where p.project_status_id = 1
    and ptl.project_type_id = 3
-   and pp1.phase_status_id in (2,3)
+   and pp14.phase_status_id in (2) 
    and not exists (select 1 from contest_eligibility ce where ce.contest_id = p.project_id)
    and not exists (select 1 from resource r where r.project_id = p.project_id and resource_role_id = 18)
 UNION
