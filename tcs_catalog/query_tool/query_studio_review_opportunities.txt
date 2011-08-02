@@ -16,13 +16,12 @@ FROM project p
 INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
 INNER JOIN project_phase pps ON p.project_id = pps.project_id AND pps.phase_type_id = 3
 INNER JOIN project_phase ppsub ON p.project_id = ppsub.project_id AND ppsub.phase_type_id = 2
-INNER JOIN project_phase ssub ON p.project_id = ssub.project_id AND ssub.phase_type_id = 13
 LEFT  JOIN project_phase ppm ON p.project_id = ppm.project_id AND ppm.phase_type_id = 16
 WHERE p.project_status_id = 1
 AND   pcl.project_type_id = 3
 AND   (ppm.phase_status_id <> 3 OR pps.phase_status_id <> 3)
-AND   ((NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id IN (2, 19))) OR ppsub.phase_status_id in (1,2))
-AND   ssub.phase_status_id <> 1
+AND   (NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id IN (2, 19)))
+AND   ppsub.phase_status_id in (2, 3)
 UNION ALL
 SELECT 
     pcl.name AS contest_type_desc
@@ -38,11 +37,8 @@ SELECT
 FROM project p
 INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
 INNER JOIN project_phase pps ON p.project_id = pps.project_id AND pps.phase_type_id = 14
-INNER JOIN project_phase ppsub ON p.project_id = ppsub.project_id AND ppsub.phase_type_id = 2
-INNER JOIN project_phase ssub ON p.project_id = ssub.project_id AND ssub.phase_type_id = 13
 WHERE p.project_status_id = 1
 AND   pcl.project_type_id = 3
-AND   pps.phase_status_id <> 3 
-AND   ((NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 18)) OR ppsub.phase_status_id in (1,2))
-AND   ssub.phase_status_id <> 1
+AND   pps.phase_status_id = 2
+AND   (NOT EXISTS (SELECT 1 FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 18))
 ORDER BY reviewer_id, screening_start_time
