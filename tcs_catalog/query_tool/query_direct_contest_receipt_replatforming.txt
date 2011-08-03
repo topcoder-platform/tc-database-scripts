@@ -9,11 +9,21 @@ case when p.project_status_id in (1, 2) then
     else nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
             where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 1 and prize_type_id = 15), 0)
     end
-else nvl((SELECT max(total_amount)
-       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-        WHERE pmd.component_project_id = p.project_id and installment_number = 1
-        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13)
-        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 1) ), 0)
+else case when pcl.project_type_id != 3 then 
+       nvl((SELECT max(total_amount)
+           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+            WHERE pmd.component_project_id = p.project_id and installment_number = 1
+            and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13)
+            AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 1) ), 0)
+      else nvl((SELECT max(total_amount)
+           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+            WHERE pmd.component_project_id = p.project_id and installment_number = 1
+            and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13)
+            AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = 
+                                                (select pr.prize_amount from submission s, prize pr, upload u
+                                                    where s.upload_id = u.upload_id and pr.prize_id = s.prize_id and pr.place = 1 and pr.prize_type_id = 15
+                                                    and u.project_id = p.project_id) ), 0)
+      end
  end as first_place_prize,
  
 
@@ -25,47 +35,66 @@ case when p.project_status_id in (1, 2) then
      else nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
             where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 2 and prize_type_id = 15), 0)
      end
-else nvl((SELECT (total_amount)
-       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-        WHERE pmd.component_project_id = p.project_id and installment_number = 1 
-        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13) 
-        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 2) ), 0)
+else case when pcl.project_type_id != 3 then 
+       nvl((SELECT max(total_amount)
+           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+            WHERE pmd.component_project_id = p.project_id and installment_number = 1
+            and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13)
+            AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 1) ), 0)
+      else nvl((SELECT max(total_amount)
+           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+            WHERE pmd.component_project_id = p.project_id and installment_number = 1
+            and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13)
+            AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = 
+                                                (select pr.prize_amount from submission s, prize pr, upload u
+                                                    where s.upload_id = u.upload_id and pr.prize_id = s.prize_id and pr.place = 2 and pr.prize_type_id = 15
+                                                    and u.project_id = p.project_id) ), 0)
+      end
 end as second_place_prize,
 
 case when p.project_status_id in (1, 2) then
-        nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
-                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 3 and prize_type_id = 15), 0)
-else nvl((SELECT (total_amount)
-       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-        WHERE pmd.component_project_id = p.project_id and installment_number = 1 
-        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13) 
-        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 3) ), 0)
+     nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
+            where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 3 and prize_type_id = 15), 0)
+else  nvl((SELECT max(total_amount)
+           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+            WHERE pmd.component_project_id = p.project_id and installment_number = 1
+            and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13)
+            AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = 
+                                                (select pr.prize_amount from submission s, prize pr, upload u
+                                                    where s.upload_id = u.upload_id and pr.prize_id = s.prize_id and pr.place = 3 and pr.prize_type_id = 15
+                                                    and u.project_id = p.project_id) ), 0)
 end as third_place_prize,
             
 case when p.project_status_id in (1, 2) then
-        nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
-                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 4 and prize_type_id = 15), 0)
-else nvl((SELECT (total_amount)
-       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-        WHERE pmd.component_project_id = p.project_id and installment_number = 1 
-        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13) 
-        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 4) ), 0)
+    nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
+            where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 4 and prize_type_id = 15), 0)
+else nvl((SELECT max(total_amount)
+           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+            WHERE pmd.component_project_id = p.project_id and installment_number = 1
+            and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13)
+            AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = 
+                                                (select pr.prize_amount from submission s, prize pr, upload u
+                                                    where s.upload_id = u.upload_id and pr.prize_id = s.prize_id and pr.place = 4 and pr.prize_type_id = 15
+                                                    and u.project_id = p.project_id) ), 0)
 end as fourth_place_prize, 
             
 case when p.project_status_id in (1, 2) then
-        nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
-                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 5 and prize_type_id = 15), 0)
-else nvl((SELECT (total_amount)
-       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
-        WHERE pmd.component_project_id = p.project_id and installment_number = 1 
-        and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13) 
-        AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 5) ), 0)
+     nvl((SELECT prize_amount from project_prize_xref ppx, prize pr
+            where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and place = 5 and prize_type_id = 15), 0)
+else nvl((SELECT max(total_amount)
+           FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+            WHERE pmd.component_project_id = p.project_id and installment_number = 1
+            and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13)
+            AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = 
+                                                (select pr.prize_amount from submission s, prize pr, upload u
+                                                    where s.upload_id = u.upload_id and pr.prize_id = s.prize_id and pr.place = 5 and pr.prize_type_id = 15
+                                                    and u.project_id = p.project_id) ), 0)
 end as fifth_place_prize, 
             
 case when p.project_status_id in (1, 2) then
           nvl((SELECT prize_amount * number_of_submissions from project_prize_xref ppx, prize pr
                 where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and prize_type_id = 14), 0)
- else case when pi50.value is not null then
+else case when pi50.value is not null then
             nvl((select pr.prize_amount *  (select count(s.submission_id) from submission s, upload u
                                             where s.upload_id = u.upload_id and u.project_id = p.project_id and submission_type_id = 3 and s.prize_id is not null)
                 from project_prize_xref ppx, prize pr
@@ -74,7 +103,7 @@ case when p.project_status_id in (1, 2) then
            FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
             WHERE pmd.component_project_id = p.project_id and installment_number = 1 
             and payment_type_id in (64) 
-            AND NOT pmd.payment_status_id IN (65, 68, 69), 0)
+            AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
       end
 end as milestone_prize,
 
