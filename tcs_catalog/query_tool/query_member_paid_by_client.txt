@@ -1,0 +1,17 @@
+select unique handle, country_name as country, sum(total_amount) as total_amount from project p, project_info pi32, 
+common_oltp:user_address_xref uax, common_oltp:address addr, user u, common_oltp:country cy,
+ informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+   
+where p.project_id = pi32.project_id
+and pi32.value in 
+
+(select (cast (tp.project_id as VARCHAR(255))) from tt_project tp, tt_client tc, tt_client_project tcp
+where tc.client_id = @clientid@ and tc.client_id =tcp.client_id and tcp.project_id = tp.project_id)
+
+and  pmd.component_project_id = p.project_id and installment_number = 1
+        AND NOT pmd.payment_status_id IN (65, 68, 69)
+
+and uax.user_id = pm.user_id and addr.address_id = uax.address_id
+and u.user_id = uax.user_id
+and cy.country_code = addr.country_code
+group by 1,2

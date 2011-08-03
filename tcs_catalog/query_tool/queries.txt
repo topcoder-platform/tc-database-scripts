@@ -312,7 +312,11 @@ query_direct_my_typed_contests_replatforming.txt|UPDATE query SET text = ? WHERE
 query_direct_latest_activities_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31326
 query_studio_can_view_scorecard_details.txt|UPDATE query SET text = ? WHERE query_id = 31346
 query_contest_forum_stats_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31347
-
 query_studio_submission_artifact_count.txt|UPDATE query SET text = ? WHERE query_id = 31366
 query_direct_contest_receipt_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31386
+
+query_member_registration_by_client.txt|UPDATE query SET text = ? WHERE query_id = 31397
+query_member_submission_by_client.txt|UPDATE query SET text = ? WHERE query_id = 31398
+query_member_winner_by_client.txt|UPDATE query SET text = ? WHERE query_id = 31399
+query_member_paid_by_client.txt|UPDATE query SET text = ? WHERE query_id = 31400
 

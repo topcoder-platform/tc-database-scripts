@@ -1,0 +1,10 @@
+select unique handle, country_name as country, count(p.project_id) as number_of_contests from project p, project_info pi32, resource r, resource_info ri, common_oltp:user_address_xref uax, common_oltp:address addr, user u, common_oltp:country cy
+where p.project_id = pi32.project_id
+and pi32.value in (select (cast (tp.project_id as VARCHAR(255))) from tt_project tp, tt_client tc, tt_client_project tcp
+where tc.client_id = @clientid@ and tc.client_id =tcp.client_id and tcp.project_id = tp.project_id)
+and r.project_id = p.project_id and r.resource_role_id = 1
+and ri.resource_id = r.resource_id and resource_info_type_id = 1
+and uax.user_id = ri.value and addr.address_id = uax.address_id
+and u.user_id = uax.user_id
+and cy.country_code = addr.country_code
+group by 1,2
