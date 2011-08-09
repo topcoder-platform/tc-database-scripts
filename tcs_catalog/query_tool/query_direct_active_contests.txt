@@ -76,7 +76,7 @@ and upg.permission_type_id in (1,2,3)
 and p.tc_direct_project_id = tdp.project_id 
 and p.contest_detailed_status_id = ds.contest_detailed_status_id 
 and ds.contest_detailed_status_id in(2,5,6)
-and cc1.property_id = 28
+and cc1.property_id = 28 and cc1.contest_id = p.contest_id
 and cc1.property_value = ttp.project_id
 and ttp.project_id = ttcp.project_id
 and ttcp.client_id = ttc.client_id
