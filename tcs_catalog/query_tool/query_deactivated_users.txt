@@ -1,0 +1,8 @@
+select u.handle, u.first_name, u.last_name, au.timestamp as deactivation_timestamp
+from common_oltp:audit_user au, common_oltp:user u
+where
+au.user_id=u.user_id and
+au.column_name = 'STATUS' and
+au.old_value in ("1","A") and
+au.new_value not in ("1","A")
+order by au.timestamp desc
