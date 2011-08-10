@@ -1,13 +1,15 @@
-select first 10 m.subject as title, 
+SELECT first 10 title, link, (select body from jivemessage where messageid = A.messageid ) as description , pubdate, author FROM TABLE(MULTISET(
+select m.messageid,
+       m.subject as title, 
        'http://forums.topcoder.com/?module=Thread&threadID=' || m.threadid as link,
-       m.body as description, millis_to_time(m.modificationdate) as pubdate, 
+       millis_to_time(m.modificationdate) as pubdate, 
        u.handle as author
 from project_info pi1, 
      project_info pi2,  
      project p, 
      user u,
      jivecategory c, 
-     jiveforum f, 
+     jiveforum f,  
      jivemessage m,
      time_oltp:project ttp,
      time_oltp:client_project ttcp,
@@ -17,7 +19,7 @@ where p.project_id = pi1.project_id
   and pi1.value = ttp.project_id
   and ttp.project_id = ttcp.project_id
   and ttcp.client_id = ttc.client_id
-  and ttc.client_id = @clientid@
+  and ttc.client_id = @client_id@
   and pi1.project_id = pi2.project_id 
   and pi2.project_info_type_id = 4
   and p.project_category_id != 27 
@@ -26,4 +28,26 @@ where p.project_id = pi1.project_id
   and c.categoryid = f.categoryid 
   and m.forumid = f.forumid 
   and m.userid = u.user_id
-order by m.modificationdate desc;
+UNION
+select messageid,
+       j.subject as title,  
+       'http://studio.topcoder.com/forums?module=Thread&threadID=' || j.threadid as link,
+       millis_to_time(j.modificationdate) as pubdate, 
+       u.handle as author
+from studio_oltp:jivemessage j, 
+     studio_oltp:contest c, 
+     studio_oltp:contest_config cf, 
+     time_oltp:project ttp, 
+     time_oltp:client_project ttcp, 
+     time_oltp:client ttc,
+     user u
+where j.forumid = c.forum_id 
+  and c.contest_id = cf.contest_id 
+  and cf.property_id = 28
+  and cf.property_value = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = @client_id@
+  and j.userid = u.user_id
+)) A
+order by 4 desc
