@@ -657,7 +657,7 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30070, 'tcs_project_phases_by_user', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30071, 'tcs_projects_by_status', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30072, 'tcs_projects_by_user', 13337);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30073, 'tcs_resources_by_user', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30073, 'tcs_global_resources_by_user', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30074, 'tcs_resources_by_user_and_status', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30169, 'project_change_audit_report', 13343);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30195, 'direct_active_contests', 13337);
@@ -1562,9 +1562,9 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30379, null, 'tcs_project_phases_by_user', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30380, null, 'tcs_projects_by_status', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30381, null, 'tcs_projects_by_user', 0, null);
-INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30382, null, 'tcs_resource_infos_by_user', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30382, null, 'tcs_global_resource_infos_by_user', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30383, null, 'tcs_resource_infos_by_user_and_status', 0, null);
-INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30384, null, 'tcs_resources_by_user', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30384, null, 'tcs_global_resources_by_user', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30385, null, 'tcs_resources_by_user_and_status', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30512, null, 'direct_active_contests', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30517, null, 'cockpit_project', 0, null);

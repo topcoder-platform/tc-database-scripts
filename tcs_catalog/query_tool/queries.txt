@@ -219,9 +219,9 @@ query_direct_latest_activities.txt|UPDATE query SET text = ? WHERE query_id = 30
 query_direct_my_contests.txt|UPDATE query SET text = ? WHERE query_id = 30251
 query_direct_my_projects.txt|UPDATE query SET text = ? WHERE query_id = 30250
 query_direct_upcoming_activities.txt|UPDATE query SET text = ? WHERE query_id = 30249
-query_tcs_resources_by_user.txt|UPDATE query SET text = ? WHERE query_id = 30384
+query_tcs_global_resources_by_user.txt|UPDATE query SET text = ? WHERE query_id = 30384
 query_tcs_resources_by_user_and_status.txt|UPDATE query SET text = ? WHERE query_id = 30385
-query_tcs_resource_infos_by_user.txt|UPDATE query SET text = ? WHERE query_id = 30382
+query_tcs_global_resource_infos_by_user.txt|UPDATE query SET text = ? WHERE query_id = 30382
 query_tcs_resource_infos_by_user_and_status.txt|UPDATE query SET text = ? WHERE query_id = 30383
 query_tcs_projects_by_user.txt|UPDATE query SET text = ? WHERE query_id = 30381
 query_tcs_projects_by_status.txt|UPDATE query SET text = ? WHERE query_id = 30380
