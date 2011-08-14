@@ -1,11 +1,7 @@
 SELECT {+AVOID_FULL(i2), AVOID_FULL(t)}
        i2.resource_id, i2.value, i2.resource_info_type_id, t.name AS resource_info_type_name
-FROM resource_info i2
+FROM resource r
+INNER JOIN resource_info i ON r.resource_id = i.resource_id AND i.resource_info_type_id = 1 AND i.value = '@uid@'
+INNER JOIN resource_info i2 ON r.resource_id = i2.resource_id
 INNER JOIN resource_info_type_lu t ON i2.resource_info_type_id = t.resource_info_type_id
-WHERE i2.resource_id in
-(select {+AVOID_FULL(r), AVOID_FULL(i)} r.resource_id
-   FROM resource r
-  INNER JOIN resource_info i ON r.resource_id = i.resource_id
-  WHERE i.resource_info_type_id = 1
-    AND   i.value = '@uid@'
-)
+WHERE r.project_id IS NULL and r.project_phase_id IS NULL

@@ -2,6 +2,5 @@ SELECT {+AVOID_FULL(r), AVOID_FULL(i)}
        r.resource_id, r.project_id, r.project_phase_id AS phase_id, r.resource_role_id,
        r.create_user, r.create_date, r.modify_user, r.modify_date
 FROM resource r
-INNER JOIN resource_info i ON r.resource_id = i.resource_id
-WHERE i.resource_info_type_id = 1
-AND   i.value = '@uid@'
+INNER JOIN resource_info i ON r.resource_id = i.resource_id AND i.resource_info_type_id = 1 AND i.value = '@uid@'
+WHERE r.project_id IS NULL and r.project_phase_id IS NULL
