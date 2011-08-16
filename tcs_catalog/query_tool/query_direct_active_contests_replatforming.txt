@@ -1,4 +1,4 @@
-select  tdp.project_id as tc_direct_project_id, tdp.name as tc_direct_project_name, 
+select  tdp.project_id as tc_direct_project_id, tdp.name as tc_direct_project_name, ttc.client_id as client_id,
 (select value from project_info where project_id = p.project_id and project_info_type_id =6) as contest_name, p.project_id as contest_id,
 pcl.name as contest_type,
 pcl.project_category_id as contest_type_id,
@@ -18,7 +18,10 @@ pcl.project_category_id == 3 as is_studio
 
 from tc_direct_project tdp, user_permission_grant upg, 
 project_category_lu pcl, project_status_lu psl, 
-
+project_info project_billing_info,
+time_oltp:project ttp,
+time_oltp:client_project ttcp,
+time_oltp:client ttc,
 project p join project_phase ph 
       on (p.project_id = ph.project_id and ph.project_phase_id = 
                                      (select min(project_phase_id) from project_phase  where phase_status_id = 2 and project_id=p.project_id and (phase_type_id != 13 and phase_type_id != 14)))
@@ -33,3 +36,8 @@ and p.tc_direct_project_id = tdp.project_id
 and p.project_status_id != 3 and p.project_category_id != 27
 and ph.phase_status_id = 2
 and p.project_status_id = 1
+and p.project_id = project_billing_info.project_id
+and project_billing_info.project_info_type_id = 32
+and project_billing_info.value = ttp.project_id
+and ttp.project_id = ttcp.project_id
+and ttcp.client_id = ttc.client_id 
