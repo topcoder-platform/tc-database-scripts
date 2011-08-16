@@ -14,7 +14,7 @@ pcl.project_category_id as contest_type_id,
             		      and pi.project_id =  p.project_id) as number_of_forum,
 						  (select value from project_info where project_info_type_id =4 and project_id =  p.project_id) as forum_id,
 						  ptl.name as status,
-pcl.project_category_id == 3 as is_studio
+pcl.project_type_id = 3 as is_studio
 
 from tc_direct_project tdp, user_permission_grant upg, 
 project_category_lu pcl, project_status_lu psl, 
