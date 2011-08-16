@@ -10,14 +10,16 @@ pcl.project_category_id as contest_type_id,
              and sub.submission_type_id in (1, 3) and sub.submission_status_id in (1, 4)
 ) as number_of_submission,
 case when pcl.project_type_id = 3 then 
-	(select count(messageid) from jivecategory c, jiveforum f, jivemessage m, project_info pi 
-    where pi.project_info_type_id =4 and c.categoryid = pi.value and c.categoryid = f.categoryid and m.forumid = f.forumid 
-    and pi.project_id =  p.project_id)
+    (select count(*) from jivemessage, project_info pi4 where pi4.project_id = p.project_id and pi4.project_info_type_id = 4 and 
+    forumid = pi4.value )
+    
 else 
-	(select count(*) from jivemessage, project_info pi4 where pi4.project_id = p.project_id and pi4.project_info_type_id = 4 and 
-	forumid = pi4.value )  end as number_of_forum,
-	  (select value from project_info where project_info_type_id =4 and project_id =  p.project_id) as forum_id,
-	  ptl.name as status,
+  (select count(messageid) from jivecategory c, jiveforum f, jivemessage m, project_info pi 
+    where pi.project_info_type_id =4 and c.categoryid = pi.value and c.categoryid = f.categoryid and m.forumid = f.forumid 
+    and pi.project_id =  p.project_id) 
+    end as number_of_forum,
+      (select value from project_info where project_info_type_id =4 and project_id =  p.project_id) as forum_id,
+      ptl.name as status,
 pcl.project_type_id = 3 as is_studio
 
 from tc_direct_project tdp, user_permission_grant upg, 
