@@ -119,7 +119,7 @@ select pi4.value as forum_id,
 (select count(user_id) from  
 table(multiset( 
 select 
-       (select u.user_id from jivemessage jm, user u  
+       (select u.user_id from studio_jive:jivemessage jm, user u  
         where jm.userid = u.user_id and jm.threadid = latest_threads.threadid and jm.modificationdate = latest_threads.modificationdate 
         and  not exists (select value from resource r, resource_info ri where r.project_id = p.project_id  and r.resource_role_id in (11,12,13,14,15) 
                             and r.resource_id = ri.resource_id and ri.resource_info_type_id = 1 and value = u.user_id) 
@@ -127,17 +127,17 @@ select
   from table(multiset( 
         select m.threadid, 
                max(m.modificationdate) modificationdate 
-          from jivemessage m
+          from studio_jive:jivemessage m
          where m.forumid = pi4.value
       group by m.threadid 
       )) latest_threads 
 ))
 where user_id is not null ) unanswered_threads,
-(select count(*) from jivemessage where forumid = pi4.value )  as number_of_forum,
-(select handle from jivemessage, user where forumid = pi4.value and user_id = userid and modificationdate = (select max(modificationdate) from jivemessage where forumid = pi4.value)) latest_handle,
-(select millis_to_time((max(modificationdate))) from jivemessage where forumid = pi4.value) latest_time,
-(select userid from jivemessage where forumid = pi4.value and modificationdate = (select max(modificationdate) from jivemessage where forumid = pi4.value)) latest_userid,
-(select threadid from jivemessage where forumid = pi4.value and modificationdate = (select max(modificationdate) from jivemessage where forumid = pi4.value)) latest_threadid
+(select count(*) from studio_jive:jivemessage where forumid = pi4.value )  as number_of_forum,
+(select handle from studio_jive:jivemessage, user where forumid = pi4.value and user_id = userid and modificationdate = (select max(modificationdate) from studio_jive:jivemessage where forumid = pi4.value)) latest_handle,
+(select millis_to_time((max(modificationdate))) from studio_jive:jivemessage where forumid = pi4.value) latest_time,
+(select userid from studio_jive:jivemessage where forumid = pi4.value and modificationdate = (select max(modificationdate) from studio_jive:jivemessage where forumid = pi4.value)) latest_userid,
+(select threadid from studio_jive:jivemessage where forumid = pi4.value and modificationdate = (select max(modificationdate) from studio_jive:jivemessage where forumid = pi4.value)) latest_threadid
 
 from project p, project_info pi4, project_category_lu pc
 
