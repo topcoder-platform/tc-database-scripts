@@ -1,5 +1,4 @@
 SELECT project_category_id, name
 FROM project_category_lu
 WHERE display = 't'
-and project_type_id != 3
 ORDER BY display_order
