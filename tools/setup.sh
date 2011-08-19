@@ -35,6 +35,9 @@ mkdir -p downsized_scripts/corporate_oltp
 ./scripts/tools/DownsizeDDL/downsizeDDL.sh scripts/corporate_oltp/01_corporate_oltp_main_schema.sql
 mkdir -p downsized_scripts/jive
 ./scripts/tools/DownsizeDDL/downsizeDDL.sh scripts/jive/01_jive_main_schema.sql
+mkdir -p downsized_scripts/studio_jive
+./scripts/tools/DownsizeDDL/downsizeDDL.sh scripts/jive/01_studio_jive_main_schema.sql
+
 
 ### drop databases
 echo "-->> dropping database..."
@@ -121,6 +124,7 @@ dbaccess - - < scripts/tcs_dw/03_tcs_dw_constraints_and_indexes.sql >> tcs_dw.lo
 dbaccess - - < scripts/tcs_dw/04_tcs_dw_synonyms_procedures_and_triggers.sql >> tcs_dw.log 2>&1
 dbaccess - - < scripts/tcs_dw/05_tcs_dw_test_data.sql >> tcs_dw.log 2>&1
 
-
+echo "-->> creating studio jive ..."
+dbaccess - - < downsized_scripts/studio_jive/01_studio_jive_main_schema.sql > studio_jive.log 2>&1
 
 echo "-->> FINISHED"
