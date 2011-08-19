@@ -8,3 +8,4 @@ DROP DATABASE tcs_dw;
 DROP DATABASE corporate_oltp;
 DROP DATABASE studio_oltp;
 DROP DATABASE jive;
+DROP DATABASE studio_jive;
