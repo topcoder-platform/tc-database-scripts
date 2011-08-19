@@ -126,8 +126,8 @@
     <dbaccess file="jive/03_jive_constraints_and_indexes.sql" outfile="jive.log" append="true"  />
 
     <!-- started creating studio jive -->
-    <echo message="Creating database jive" />
-    <downsizeDDL file="jive/01_studio_jive_main_schema.sql" database="studio_jive" />
+    <echo message="Creating database studio jive" />
+    <downsizeDDL file="studio_jive/01_studio_jive_main_schema.sql" database="studio_jive" />
     <dbaccess file="downsized_scripts/studio_jive/01_studio_jive_main_schema.sql" outfile="studio_jive.log" append="false" />
  	
     <!-- create tcs_catalog. Must be called before informixoltp is created. -->
