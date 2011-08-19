@@ -14,7 +14,7 @@ create table "informix".dual
 revoke all on "informix".dual from "public" as "informix";
 
 
-create table "informix".jivepmessage 
+create table "informix".jivemessage 
   (
     messageid integer not null ,
     parentmessageid integer,
@@ -28,11 +28,11 @@ create table "informix".jivepmessage
     rewardpoints integer not null ,
     creationdate decimal(14,0) not null ,
     modificationdate decimal(14,0) not null ,
-    primary key (messageid)  constraint "informix".jivepmessage_pmid_pk
+    primary key (messageid)  constraint "informix".jivemessage_pmid_pk
   )  
   extent size 16 next size 16 
   lock mode row;
-revoke all on "informix".jivepmessage from "public" as "informix";
+revoke all on "informix".jivemessage from "public" as "informix";
 
 
 grant select on "informix".dual to "public" as "informix";
@@ -40,3 +40,9 @@ grant update on "informix".dual to "public" as "informix";
 grant insert on "informix".dual to "public" as "informix";
 grant delete on "informix".dual to "public" as "informix";
 grant index on "informix".dual to "public" as "informix";
+
+grant select on "informix".jivemessage to "public" as "informix";
+grant update on "informix".jivemessage to "public" as "informix";
+grant insert on "informix".jivemessage to "public" as "informix";
+grant delete on "informix".jivemessage to "public" as "informix";
+grant index on "informix".jivemessage to "public" as "informix";
