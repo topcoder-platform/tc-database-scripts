@@ -36,7 +36,7 @@ mkdir -p downsized_scripts/corporate_oltp
 mkdir -p downsized_scripts/jive
 ./scripts/tools/DownsizeDDL/downsizeDDL.sh scripts/jive/01_jive_main_schema.sql
 mkdir -p downsized_scripts/studio_jive
-./scripts/tools/DownsizeDDL/downsizeDDL.sh scripts/jive/01_studio_jive_main_schema.sql
+./scripts/tools/DownsizeDDL/downsizeDDL.sh scripts/studio_jive/01_studio_jive_main_schema.sql
 
 
 ### drop databases
