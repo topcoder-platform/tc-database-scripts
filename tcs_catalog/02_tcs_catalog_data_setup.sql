@@ -352,7 +352,7 @@ INSERT INTO 'informix'.phase(phase_id, description) values (133, 'Idea Generatio
 INSERT INTO 'informix'.phase(phase_id, description) values (141, 'Widget or Mobile Screen Design');
 INSERT INTO 'informix'.phase(phase_id, description) values (142, 'Front-End Flash');
 INSERT INTO 'informix'.phase(phase_id, description) values (143, 'Application Front-End Design');
-INSERT INTO 'informix'.phase(phase_id, description) values (145, 'Other');
+INSERT INTO 'informix'.phase(phase_id, description) values (145, 'Studio Other');
 
 INSERT INTO 'informix'.price_tiers(tier_id,discount_percent) VALUES (1, 5.00);
 INSERT INTO 'informix'.price_tiers(tier_id,discount_percent) VALUES (2, 10.00);
