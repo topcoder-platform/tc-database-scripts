@@ -1,4 +1,4 @@
-SELECT COUNT(r.user_id) AS registrants_count,
+SELECT COUNT(unique r.user_id) AS registrants_count,
        0::DECIMAL(10, 2) AS reliability_total,
        0::DECIMAL(10, 2) AS predicted_number_of_submissions,
        COUNT(s.submission_id) AS number_of_submissions,
