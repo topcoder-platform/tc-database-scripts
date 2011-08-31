@@ -858,6 +858,7 @@ INSERT INTO 'informix'.catalog(catalog_id,catalog_name) VALUES (11, 'Javascript'
 INSERT INTO 'informix'.catalog(catalog_id,catalog_name) VALUES (12, 'Not Set');
 INSERT INTO 'informix'.catalog(catalog_id,catalog_name) VALUES (13, 'Python');
 INSERT INTO 'informix'.catalog(catalog_id,catalog_name) VALUES (14, 'Other');
+INSERT INTO 'informix'.catalog(catalog_id,catalog_name) VALUES (15, 'Studio');
 INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (7339404, 5801776, 'Web', 'Enable the construction of web-based applications.', 1, 1, 'f');
 INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (7409583, 5801776, 'Reporting', 'Contains components used to aid in the development of reporting applications', 1, 1, 'f');
 INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (7411019, 5801777, 'Imaging', 'Manipulate graphical information', 1, 1, 'f');
@@ -912,7 +913,8 @@ INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,d
 INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (24664538, 5801777, 'Windows Forms', 'Provides powerful tools and Windows Forms controls for rich GUI development.', 1, 1, 'f');
 INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (24670917, 5801776, 'Swing', 'Java Swing', 1, 1, 'f');
 INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (26805357, NULL, 'C++', 'C++ Catalog', 1, 1, 'f');
-INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (26887152, NULL, 'Studio', 'Studio', 1, 1, 'f');
+INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (26887152, NULL, 'Studio', 'Studio', 1, 0, 'f');
+INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (26887151, 26887152, 'Studio', 'Studio', 1, 0, 'f');
 INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (26887153, 26887152, 'Wireframes', 'Wireframes', 1, 1, 'f');
 INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (26887154, 26887152, 'Storyboards', 'Storyboards', 1, 1, 'f');
 INSERT INTO 'informix'.categories(category_id,parent_category_id,category_name,description,status_id,viewable,is_custom) VALUES (27018325, 5801776, 'Thunderbird Extensions', 'AOL', 1, 1, 'f');
@@ -962,6 +964,7 @@ INSERT INTO 'informix'.category_catalog(catalog_id,category_id) VALUES (12, 2720
 INSERT INTO 'informix'.category_catalog(catalog_id,category_id) VALUES (13, 27355736);
 INSERT INTO 'informix'.category_catalog(catalog_id,category_id) VALUES (13, 27355738);
 INSERT INTO 'informix'.category_catalog(catalog_id,category_id) VALUES (14, 27355740);
+INSERT INTO 'informix'.category_catalog(catalog_id,category_id) VALUES (15, 26887152);
 INSERT INTO 'informix'.specification_type(specification_type_id,specification_type_desc) VALUES (1, 'Application Specification');
 INSERT INTO 'informix'.project_type_lu(project_type_id,name,description,is_generic,create_user,create_date,modify_user,modify_date) VALUES (1, 'Component', 'Component', 'f', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.project_type_lu(project_type_id,name,description,is_generic,create_user,create_date,modify_user,modify_date) VALUES (2, 'Application', 'Application', 'f', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
