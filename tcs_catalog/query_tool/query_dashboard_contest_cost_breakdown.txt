@@ -12,7 +12,7 @@ select p.project_id as id,
             WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
             AND pm.most_recent_detail_id = pmd.payment_detail_id 
             AND NOT pmd.payment_status_id IN (65, 68, 69)
-            AND pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13)), 0)
+            AND pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13, 64, 65)), 0)
    ) AS prizes,
 
   (NVL((SELECT sum(pmd.total_amount)
@@ -85,7 +85,7 @@ else 0 end as digital_run,
             WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
             AND pm.most_recent_detail_id = pmd.payment_detail_id 
             AND NOT pmd.payment_status_id IN (65, 68, 69)
-            AND pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13, 48)), 0)
+            AND pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13, 48, 64, 65)), 0)
    ) AS misc
  FROM project p,
       project_info pi2 -- contest_fee
@@ -106,7 +106,7 @@ select c.contest_id as id,
             WHERE pmd.studio_contest_id = c.contest_id and pmd.installment_number = 1
             AND pm.most_recent_detail_id = pmd.payment_detail_id 
             AND NOT pmd.payment_status_id IN (13)
-            AND pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61)), 0)
+            AND pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65)), 0)
    ) AS prizes,
 
   (NVL((SELECT sum(pmd.total_amount)
@@ -177,7 +177,7 @@ select c.contest_id as id,
             WHERE pmd.studio_contest_id = c.contest_id and pmd.installment_number = 1
             AND pm.most_recent_detail_id = pmd.payment_detail_id 
             AND NOT pmd.payment_status_id IN (65, 68, 69)
-            AND pmd.payment_type_id NOT in (45,57,48,13,56,24,4,23,37,46,47,39)), 0)
+            AND pmd.payment_type_id NOT in (45,57,48,13,56,24,4,23,37,46,47,39, 64, 65)), 0)
    ) AS misc
  FROM studio_oltp:contest c,
       studio_oltp:contest_config cc2

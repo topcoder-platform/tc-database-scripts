@@ -10,7 +10,7 @@ select p.project_category_id as id,
             WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
             AND pm.most_recent_detail_id = pmd.payment_detail_id 
             AND NOT pmd.payment_status_id IN (65, 68, 69)
-            AND pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61)), 0)
+            AND pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65)), 0)
    )) / count(*) AS prizes,
 
   sum((NVL((SELECT sum(pmd.total_amount)
@@ -81,7 +81,7 @@ select p.project_category_id as id,
             WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
             AND pm.most_recent_detail_id = pmd.payment_detail_id 
             AND NOT pmd.payment_status_id IN (65, 68, 69)
-            AND pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,28,27,7, 24, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61)), 0)
+            AND pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,28,27,7, 24, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65)), 0)
    )) / count(*) AS misc
  FROM project p,
       project_info pi2, -- contest_fee
