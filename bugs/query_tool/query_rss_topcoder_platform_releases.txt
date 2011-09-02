@@ -1,0 +1,10 @@
+SELECT pv.description as description, 
+       CONCAT('https://www.topcoder.com/bugs/browse/TCCC/fixforversion/', cast(pv.id as char)) AS link, 
+       pv.vname as title,
+       pv.releasedate as pubdate,
+       pv.id as guid
+FROM project p LEFT OUTER JOIN projectversion pv ON pv.project = p.id
+WHERE p.pkey = 'TCCC'
+  and pv.released = 'true'
+  and pv.archived is null
+ORDER BY pv.releasedate desc;

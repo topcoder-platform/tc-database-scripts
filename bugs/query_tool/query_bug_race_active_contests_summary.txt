@@ -1,0 +1,4 @@
+select 'Bug Races' as category_name, 
+count(*) as total_contests, 
+sum(prize) as total_prizes 
+from (select ji.id, coalesce((select numbervalue from customfieldvalue where customfield = 10012 and issue = ji.id), 0) as prize from jiraissue ji where project = 10021 and issuestatus in ('1','3','4')) a;

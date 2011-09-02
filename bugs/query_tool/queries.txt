@@ -2,6 +2,11 @@ query_accumulated_dr_points_by_month.txt|UPDATE query SET text= ? WHERE query_id
 query_reporter_total.txt|UPDATE query SET text = ? WHERE query_id = 30856;
 query_dd_mod_dash_tco_leaderboard.txt|UPDATE query SET text = ? WHERE query_id = 29416;
 query_dd_mod_dash_tco_leaderboard.txt|UPDATE query SET text = ? WHERE query_id = 29417;
+query_rss_topcoder_platform_releases.txt|UPDATE query SET text = ? WHERE query_id = 31466;
+query_dd_topcoder_platform_releases.txt|UPDATE query SET text = ? WHERE query_id = 30756;
+query_bug_race_active_contests_summary.txt|UPDATE query SET text = ? WHERE query_id = 28966;
+
+
 
 
 
