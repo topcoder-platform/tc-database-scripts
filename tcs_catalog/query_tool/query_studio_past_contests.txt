@@ -25,10 +25,10 @@ SELECT p.project_id AS contest_id
        AND s1.submission_type_id IN (1, 3)
        AND NOT s1.final_score IS NULL
        AND r1.project_id = p.project_id) AS passing_submission_count
-     , EXISTS (SELECT 1 
-               FROM project_result pr 
-               WHERE pr.project_id = p.project_id 
-               AND NOT pr.final_score IS NULL) AS results_available
+     , (SELECT rp.phase_status_id = 3 
+       FROM project_phase rp
+       WHERE rp.project_id = p.project_id 
+       AND rp.phase_type_id = 4 ) AS results_available
     , NVL((SELECT value 
 	      FROM project_info pi  
 	      WHERE pi.project_id = p.project_id  
