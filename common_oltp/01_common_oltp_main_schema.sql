@@ -165,21 +165,22 @@ lock mode row;
 
 revoke all on user_status_lu from 'public';
 create table 'informix'.terms_of_use (
-    terms_of_use_id DECIMAL(10,0),
+    terms_of_use_id DECIMAL(10,0) NOT NULL,
     terms_text TEXT,
-    terms_of_use_type_id DECIMAL(5,0),
+    terms_of_use_type_id DECIMAL(5,0) NOT NULL,
     create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     title VARCHAR(50) NOT NULL,
     electronically_signable decimal(1,0) NOT NULL,
-    url VARCHAR(100)
+    url VARCHAR(100),
+    member_agreeable decimal(1,0) DEFAULT 1 NOT NULL
 )
 extent size 512 next size 512
 lock mode row;
 
 revoke all on terms_of_use from 'public';
 create table 'informix'.terms_of_use_type (
-    terms_of_use_type_id DECIMAL(5,0),
+    terms_of_use_type_id DECIMAL(5,0) NOT NULL,
     terms_of_use_type_desc VARCHAR(100),
     create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION
@@ -189,8 +190,8 @@ lock mode row;
 
 revoke all on terms_of_use_type from 'public';
 create table 'informix'.user_terms_of_use_xref (
-    user_id DECIMAL(10,0),
-    terms_of_use_id DECIMAL(10,0),
+    user_id DECIMAL(10,0) NOT NULL,
+    terms_of_use_id DECIMAL(10,0) NOT NULL,
     create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION
 )
@@ -199,8 +200,8 @@ lock mode row;
 
 revoke all on user_terms_of_use_xref from 'public';
 create table 'informix'.user_terms_of_use_ban_xref (
-    user_id DECIMAL(10,0),
-    terms_of_use_id DECIMAL(10,0),
+    user_id DECIMAL(10,0) NOT NULL,
+    terms_of_use_id DECIMAL(10,0) NOT NULL,
     create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION
 )
 extent size 128 next size 128
@@ -213,7 +214,8 @@ create table 'informix'.project_role_terms_of_use_xref (
     terms_of_use_id DECIMAL(10,0) not null,
     create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
-    sort_order DECIMAL(1,0) DEFAULT 1 NOT NULL
+    sort_order DECIMAL(1,0) DEFAULT 1 NOT NULL,
+    group_ind INT DEFAULT 0 NOT NULL
 )
 extent size 2000 next size 2000
 lock mode row;
