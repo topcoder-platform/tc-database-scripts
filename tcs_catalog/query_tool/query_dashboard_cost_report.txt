@@ -102,93 +102,119 @@ where p.project_status_id = ps.project_status_id
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
+  and pc.project_type_id  != 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 
 UNION
 
-select
-c.contest_id as project_id,
-NVL(ttc.name, 'One-Off') client,
-ttc.client_id,
-NVL(ttp.name, 'One-Off') billing_project_name,
-NVL(ttp.project_id, 0) billing_project_id,
-NVL(tdp.name, 'One-Off') direct_project_name,
-NVL(tdp.project_id, 0) direct_project_id,
-c.start_time launch_date,
-c.end_time completion_date,
-cc.contest_type_desc category,
-cc.contest_type_id project_category_id,
-c.name as contest_name,
-1 as is_studio,
-cc2.property_value::DECIMAL(10,2) as contest_fee,
-DECODE(cds.contest_detailed_status_id, 2, 'Active', 5, 'Active', 6, 'Active', 10, 'Active', 9, 'Scheduled', 7, 'Finished', 8, 'Finished', cds.name) contest_status,
+select p.project_id,
+       ttc.name client,
+       ttc.client_id,
+       ttp.name billing_project_name,
+       ttp.project_id billing_project_id,
+       tdp.name direct_project_name,
+       tdp.project_id direct_project_id,
+       (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
+       ct.completion_time completion_date,
+       DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
+       pc.project_category_id,
+       pi.value as contest_name,
+       0 as is_studio,
+       case when p.project_status_id in (9, 10) and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+            then pi2.value::DECIMAL(10,2)
+            when p.project_status_id in (9, 10) and not exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+            then 0 
+            else pi2.value::DECIMAL(10,2) end as contest_fee,
+       CASE
+       WHEN ps.project_status_id not in (1,2,3)
+          THEN 'Finished'
+       WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
+          THEN 'Scheduled'
+       WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
+          THEN 'Active'
+       ELSE
+          'Active'
+       END as contest_status,
+        nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+                where project_info_type_id in (33, 35, 16, 38, 39, 49)
+                and project_id = p.project_id), 0)
+            +
+            nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+                where project_info_type_id = 16
+                and project_id = p.project_id)/2), 0)
+            +
+            nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+                where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+                and pi26.value = 'On'
+                and pi26.project_id =  p.project_id ), 0) as estimated_member_costs,
 
-
-(select (select NVL(sum(cmp.amount * cmp.number_of_submissions),0) from studio_oltp:contest_milestone_prize cmp where c2.contest_milestone_prize_id = cmp.contest_milestone_prize_id ) +
-       (select NVL(property_value::decimal,0) from studio_oltp:contest_config where contest_id = c2.contest_id and property_id = 24) +
-       (select sum(NVL(p.amount, 0)) from studio_oltp:prize p, studio_oltp:contest_prize_xref cpx where cpx.contest_id = c2.contest_id  and cpx.prize_id = p.prize_id )
-from studio_oltp:contest c2
-where contest_id = c.contest_id) as estimated_member_costs,
-
-case when c.contest_detailed_status_id = 8 then
-    NVL((SELECT sum(total_amount)
+  SUM(case when p.project_status_id = 7 then
+      NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
-        WHERE pmd.studio_contest_id = c.contest_id and pmd.installment_number = 1
+        WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
         and pm.most_recent_detail_id = pmd.payment_detail_id 
         AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
-+
-NVL((SELECT sum(pmd2.total_amount) 
-       FROM  informixoltp:payment_detail pmd,  
-             informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
-             informixoltp:payment pm2 
-        WHERE pmd.studio_contest_id = c.contest_id and pmd2.installment_number = 1 
-        and pm.most_recent_detail_id = pmd.payment_detail_id  
-        and pm2.most_recent_detail_id = pmd2.payment_detail_id 
-        AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-     + 
-     nvl((select (cast(nvl(property_value, '0') as DECIMAL(10,2)))
-            from studio_oltp:contest_config cfg, studio_oltp:contest cc  
-            where cfg.contest_id = cc.contest_id and property_id = 24
-            and cfg.contest_id = c.contest_id), 0)
- else NVL((SELECT sum(total_amount)
+    +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+     +
+    nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+        where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+        and pi26.value = 'On'
+        and pi26.project_id =  p.project_id ), 0)
+  else NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
-        WHERE pmd.studio_contest_id = c.contest_id and pmd.installment_number = 1
+        WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
         and pm.most_recent_detail_id = pmd.payment_detail_id 
         AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
-+
-NVL((SELECT sum(pmd2.total_amount) 
-       FROM  informixoltp:payment_detail pmd,  
-             informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
-             informixoltp:payment pm2 
-        WHERE pmd.studio_contest_id = c.contest_id and pmd2.installment_number = 1 
-        and pm.most_recent_detail_id = pmd.payment_detail_id  
-        and pm2.most_recent_detail_id = pmd2.payment_detail_id 
-        AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-end  as actual_Member_Costs
-   
-from studio_oltp:contest c,
-     studio_oltp:contest_config cc1, studio_oltp:contest_config cc2, time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc,
+    +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+  end) as actual_Member_Costs
+from project p,      
      tc_direct_project tdp,
-     studio_oltp:contest_type_lu cc,
-     studio_oltp:contest_status_lu cs,
-     studio_oltp:contest_detailed_status_lu cds
-where cds.contest_detailed_status_id IN (2,5,6,10,9,7,8)
-  and c.contest_id = cc1.contest_id
-  and c.contest_id = cc2.contest_id
-  and cc2.property_id = 25
-  and cc1.property_id = 28
-  and cc1.property_value = ttp.project_id
+     project_status_lu ps,
+     project_category_lu pc,
+     project_info pi, -- project name
+     project_info pi2, -- contest_fee
+     project_info pi3, -- billing account
+     time_oltp:project ttp,
+     time_oltp:client_project ttcp,
+     time_oltp:client ttc,
+     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 4 GROUP BY project_id))) ct 
+where p.project_status_id = ps.project_status_id
+  and p.project_category_id = pc.project_category_id
+  and p.project_category_id IN (@pcids@)
+  and p.project_id = ct.project_id
+  and p.project_id = pi.project_id
+  and pi.project_info_type_id = 6
+  and p.project_id = pi2.project_id
+  and pi2.project_info_type_id = 31
+  and p.project_id = pi3.project_id
+  and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id
   and ttp.project_id = ttcp.project_id
   and ttcp.client_id = ttc.client_id
+  and p.project_status_id != 3 and p.project_category_id != 27
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
-  and c.tc_direct_project_id = tdp.project_id
-  and c.tc_direct_project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
-  and c.contest_status_id in (1,2,4,10,11)
-  and c.contest_status_id = cs.contest_status_id
-  and c.contest_detailed_status_id = cds.contest_detailed_status_id
-  and c.contest_type_id = cc.contest_type_id
-  and cc.contest_type_id IN (@scids@)
-  and (c.end_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+  and p.tc_direct_project_id = tdp.project_id
+  and pc.project_type_id = 3
+  and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
+  and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+

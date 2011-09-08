@@ -92,30 +92,3 @@ AND p.tc_direct_project_id = @tcdirectid@
 AND p.project_status_id = 1 and exists (select project_phase_id from project_phase where project_id = p.project_id and (phase_status_id = 2 or phase_status_id = 1))
 AND p.project_category_id != 27
 
-UNION
-
-SELECT tdp.project_id AS tc_direct_project_id, 
-       tdp.name AS tc_direct_project_name, 
-       p.name AS contest_name, 
-       p.contest_id AS contest_id,
-       1 AS is_studio, ct.contest_type_desc as contest_type,
-       NULL::DATETIME YEAR TO FRACTION AS current_phase_end_time,
-       0 AS reliability_total,
-       0 AS registration_phase_status,
-       0 AS unanswered_threads,
-       0 AS required_reviewers_count,
-       0 AS registered_reviewers_count,
-       0 AS incomplete_dependencies_count,
-       0 AS dependencies_count,
-       0 AS submission_hours_left
-FROM tc_direct_project tdp
-INNER JOIN user_permission_grant upg ON tdp.project_id = upg.resource_id 
-INNER JOIN studio_oltp:contest p ON p.tc_direct_project_id = tdp.project_id
-INNER JOIN studio_oltp:contest_detailed_status_lu ds ON p.contest_detailed_status_id = ds.contest_detailed_status_id 
-INNER JOIN studio_oltp:contest_type_lu ct ON p.contest_type_id = ct.contest_type_id 
-WHERE 
-    (p.deleted IS NULL OR p.deleted = 0) 
-AND (p.contest_detailed_status_id IS NULL OR p.contest_detailed_status_id IN (2, 4, 5, 6, 9, 10, 12))
-AND upg.user_id = @uid@
-AND upg.permission_type_id in (1,2,3)
-AND tdp.project_id = @tcdirectid@
