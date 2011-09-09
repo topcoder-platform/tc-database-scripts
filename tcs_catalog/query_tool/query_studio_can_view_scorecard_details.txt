@@ -8,7 +8,7 @@ select 'is_allowed_roles'
   where r.submission_id=s.submission_id and s.upload_id=u.upload_id and u.project_id=p.project_id
   and r.review_id=@rid@
   and res.project_id=p.project_id
-  and res.resource_role_id in (13,14,12,3,19)
+  and res.resource_role_id in (13,14,12,3,19, 4, 15, 20, 1)
   and resi.resource_id=res.resource_id
   and resi.resource_info_type_id=1
   and resi.value=@uid@
