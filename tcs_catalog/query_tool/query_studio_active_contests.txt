@@ -64,4 +64,6 @@ INNER JOIN project_phase pps ON p.project_id = pps.project_id AND pps.phase_type
 WHERE p.project_status_id = 1
 AND   pcl.project_type_id = 3
 AND   pps.phase_status_id = 2
+AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
 ORDER BY @sc@ @sd@

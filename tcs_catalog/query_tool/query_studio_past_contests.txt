@@ -69,4 +69,6 @@ AND   ppr.phase_status_id = 3
 AND   pps.phase_status_id = 3
 AND   NVL(ppr.actual_start_time, pps.actual_start_time) >= '@sdt@'
 AND   NVL(ppr.actual_start_time, pps.actual_start_time) <= '@edt@'
+AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
 ORDER BY @sc@ @sd@
