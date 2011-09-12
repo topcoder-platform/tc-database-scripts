@@ -65,7 +65,7 @@ SELECT pm.create_date payment_date,
          THEN 'Copilot'
          WHEN pmd.payment_type_id in (27)
          THEN 'Spec Review'
-         WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65)
+         WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60)
          THEN 'Prizes'
          WHEN pmd.payment_type_id in (7, 28, 26)
          THEN 'Review'
@@ -77,7 +77,7 @@ SELECT pm.create_date payment_date,
          THEN 'Bugs'
          WHEN pmd.payment_type_id in (39)
          THEN 'Build'
-         WHEN pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65)
+         WHEN pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60)
          THEN 'Misc'
          ELSE 'Not Sure'
     END as line_item_category,
@@ -87,8 +87,8 @@ SELECT pm.create_date payment_date,
     END as reference_id,
     pmd.total_amount as line_item_amount,
      ttc.client_id,
-ttp.project_id billing_project_id,
-tdp.project_id direct_project_id,
+     ttp.project_id billing_project_id,
+    tdp.project_id direct_project_id,
 
 case when p.project_status_id = 7 then
 nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
@@ -99,37 +99,15 @@ else 0 end as digital_run,
        
         p.project_category_id,
         pmd.payment_detail_id,    
-        (NVL((SELECT sum(pmd.total_amount)
-          FROM informixoltp:payment_detail pmd, informixoltp:payment pm
-            WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
-            AND pm.most_recent_detail_id = pmd.payment_detail_id 
-            AND NOT pmd.payment_status_id IN (65, 68, 69)
-            AND pmd.payment_type_id in (24)), 0)
-           +
-           NVL((SELECT sum(pmd2.total_amount)
-                  FROM informixoltp:payment_detail pmd,  
-                       informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
-                       informixoltp:payment pm2 
-                  WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
-                  AND pm.most_recent_detail_id = pmd.payment_detail_id  
-                  AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
-                  AND pmd2.payment_type_id in (24)
-                  AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-           ) AS reliability,
-
-           
-(SELECT max(pm.create_date)
-                  FROM informixoltp:payment_detail pmd,  
-                       informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
-                       informixoltp:payment pm2 
-                  WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
-                  AND pm.most_recent_detail_id = pmd.payment_detail_id  
-                  AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
-                  AND pmd2.payment_type_id in (24)
-                  AND NOT pmd2.payment_status_id IN (65, 68, 69)) as reliability_payment_date,
+        
+(nvl (pmd2.total_amount, 0)) as reliability, max(pmd2.create_date) as reliability_payment_date,
 
           0 as is_studio
-FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
+FROM informixoltp:payment pm  
+        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+	    LEFT OUTER JOIN (informixoltp:payment_detail pmd2 LEFT OUTER JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
+                                            AND pmd2.payment_type_id in (24) AND NOT pmd2.payment_status_id IN (65, 68, 69))
+                   on pm.payment_id = pmd2.parent_payment_id,
      informixoltp:payment_type_lu pt,
      project p,     
      tc_direct_project tdp,
@@ -144,7 +122,7 @@ FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.mo
      table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 11 GROUP BY project_id))) ct
 where  pmd.component_project_id = p.project_id
    and pmd.payment_type_id = pt.payment_type_id
-   and installment_number = 1
+   and pmd.installment_number = 1
    AND NOT pmd.payment_status_id IN (65,68, 69)
    and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
@@ -237,7 +215,7 @@ SELECT pm.create_date payment_date,
          THEN 'Copilot'
          WHEN pmd.payment_type_id in (27, 48)
          THEN 'Spec Review'
-         WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13, 64, 65)
+         WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13, 64, 65, 60)
          THEN 'Prizes'
          WHEN pmd.payment_type_id in (7, 28, 26)
          THEN 'Review'
@@ -249,7 +227,7 @@ SELECT pm.create_date payment_date,
          THEN 'Bugs'
          WHEN pmd.payment_type_id in (39)
          THEN 'Build'
-         WHEN pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13, 64, 65)
+         WHEN pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13, 64, 65, 60)
          THEN 'Misc'
          ELSE 'Not Sure'
     END as line_item_category,
@@ -271,37 +249,14 @@ else 0 end as digital_run,
        
         p.project_category_id,
         pmd.payment_detail_id,    
-        (NVL((SELECT sum(pmd.total_amount)
-          FROM informixoltp:payment_detail pmd, informixoltp:payment pm
-            WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
-            AND pm.most_recent_detail_id = pmd.payment_detail_id 
-            AND NOT pmd.payment_status_id IN (65, 68, 69)
-            AND pmd.payment_type_id in (24)), 0)
-           +
-           NVL((SELECT sum(pmd2.total_amount)
-                  FROM informixoltp:payment_detail pmd,  
-                       informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
-                       informixoltp:payment pm2 
-                  WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
-                  AND pm.most_recent_detail_id = pmd.payment_detail_id  
-                  AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
-                  AND pmd2.payment_type_id in (24)
-                  AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-           ) AS reliability,
-
-           
-(SELECT max(pm.create_date)
-                  FROM informixoltp:payment_detail pmd,  
-                       informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
-                       informixoltp:payment pm2 
-                  WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
-                  AND pm.most_recent_detail_id = pmd.payment_detail_id  
-                  AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
-                  AND pmd2.payment_type_id in (24)
-                  AND NOT pmd2.payment_status_id IN (65, 68, 69)) as reliability_payment_date,
-
+        
+(nvl (pmd2.total_amount, 0)) as reliability, max(pmd2.create_date) as reliability_payment_date,
           0 as is_studio
-FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
+FROM informixoltp:payment pm 
+        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+	    LEFT OUTER JOIN (informixoltp:payment_detail pmd2 LEFT OUTER JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
+                                            AND pmd2.payment_type_id in (24) AND NOT pmd2.payment_status_id IN (65, 68, 69))
+                   on pm.payment_id = pmd2.parent_payment_id,
      informixoltp:payment_type_lu pt,
      project p,     
      tc_direct_project tdp,
@@ -316,7 +271,7 @@ FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.mo
      table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 4 GROUP BY project_id))) ct
 where  pmd.component_project_id = p.project_id
    and pmd.payment_type_id = pt.payment_type_id
-   and installment_number = 1
+   and pmd.installment_number = 1
    AND NOT pmd.payment_status_id IN (65,68, 69)
    and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
