@@ -7,6 +7,20 @@ FROM project_phase pp
 WHERE pp.project_id = @pj@
 AND   pp.phase_type_id = 1
 AND   pp.phase_status_id <> 1
+AND (
+    NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+     WHERE ce.contest_id = pp.project_id)
+
+    OR EXISTS(
+        select 'is_eligible' from 
+
+        project p join (contest_eligibility ce 
+                                   join (group_contest_eligibility gce join user_group_xref x 
+                                                                       on (x.group_id = gce.group_id and x.login_id = @uid@)) 
+                                   on ce.contest_eligibility_id = gce.contest_eligibility_id) 
+                  on p.project_id = ce.contest_id 
+        where p.project_id = @pj@)
+)
 UNION
 SELECT 'user_has_permission_over_contest' 
 FROM user_permission_grant upg
