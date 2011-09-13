@@ -11,7 +11,9 @@ SELECT COUNT(unique r.user_id) AS registrants_count,
         FROM contest WHERE contest_id = @ct@)
        AS registration_phase_status
 FROM  contest_registration r
-LEFT JOIN submission s ON s.contest_id = r.contest_id AND s.submission_status_id = 1 AND s.submitter_id = r.user_id
+LEFT JOIN submission s 
+ 
+       ON s.contest_id = r.contest_id AND s.submission_status_id = 1 AND s.submitter_id = r.user_id
+
 WHERE r.contest_id = @ct@
-
-
+and not exists (select * from submission_review sr where sr.submission_Id = s.submission_id and sr.review_status_id = 2)
