@@ -8,8 +8,11 @@ insert into 'informix'.permission_type (permission_type_id, name) values(5, 'con
 insert into 'informix'.permission_type (permission_type_id, name) values(6, 'contest_full');
 
 
-INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Active', 'Active', 22655028, current, 22655028, current);
-INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Inactive', 'Inactive', 22655028, current, 22655028, current);
+INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Active', 'Active', 'System', current, 'System', current);
+INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Inactive', 'Inactive', 'System', current, 'System', current);
+INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Deleted', 'Deleted', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (4, 'Completed', 'Completed', 'System', CURRENT, 'System', CURRENT);
+
 
 INSERT INTO 'informix'.command_group_lu(command_group_id, command_group_name)
   VALUES(0, 'Statistics');
