@@ -66,7 +66,7 @@ SELECT pm.create_date payment_date,
          WHEN pmd.payment_type_id in (27)
          THEN 'Spec Review'
          WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60)
-         THEN 'Prizes'
+         THEN 'Winner'
          WHEN pmd.payment_type_id in (7, 28, 26)
          THEN 'Review'
          WHEN pmd.payment_type_id in (24)
@@ -105,7 +105,7 @@ else 0 end as digital_run,
           0 as is_studio
 FROM informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
-	    LEFT OUTER JOIN (informixoltp:payment_detail pmd2 LEFT OUTER JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
+	    LEFT OUTER JOIN (informixoltp:payment_detail pmd2 JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
                                             AND pmd2.payment_type_id in (24) AND NOT pmd2.payment_status_id IN (65, 68, 69))
                    on pm.payment_id = pmd2.parent_payment_id,
      informixoltp:payment_type_lu pt,
@@ -216,7 +216,7 @@ SELECT pm.create_date payment_date,
          WHEN pmd.payment_type_id in (27, 48)
          THEN 'Spec Review'
          WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13, 64, 65, 60)
-         THEN 'Prizes'
+         THEN 'Winner'
          WHEN pmd.payment_type_id in (7, 28, 26)
          THEN 'Review'
          WHEN pmd.payment_type_id in (24)
@@ -254,7 +254,7 @@ else 0 end as digital_run,
           0 as is_studio
 FROM informixoltp:payment pm 
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
-	    LEFT OUTER JOIN (informixoltp:payment_detail pmd2 LEFT OUTER JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
+	    LEFT OUTER JOIN (informixoltp:payment_detail pmd2 JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
                                             AND pmd2.payment_type_id in (24) AND NOT pmd2.payment_status_id IN (65, 68, 69))
                    on pm.payment_id = pmd2.parent_payment_id,
      informixoltp:payment_type_lu pt,
