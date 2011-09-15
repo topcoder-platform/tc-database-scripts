@@ -7,6 +7,7 @@ left outer join copilot_profile cpr on cpr.copilot_profile_id = cp.copilot_profi
 left outer join user u on u.user_id = cpr.user_id
 left outer join copilot_type ct on ct.copilot_type_id = cp.copilot_type_id
 
+
 where tdp.project_id = upg.resource_id
 
 and upg.user_id = @uid@
@@ -14,5 +15,7 @@ and upg.user_id = @uid@
 and upg.permission_type_id in (1,2,3)
 
 and tdp.project_status_id = 1
+
+and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
 
 order by tc_direct_project_name
