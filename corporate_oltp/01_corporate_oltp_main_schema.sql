@@ -229,6 +229,7 @@ create table "informix".tc_direct_project
     description lvarchar(10000),
     project_status_id INT default 1 not null,
     user_id integer not null ,
+    project_forum_id VARCHAR(255),
     create_date datetime year to fraction(3) not null ,
     modify_date datetime year to fraction(3),
     primary key (project_id)  constraint "informix".tc_direct_project_pkey
