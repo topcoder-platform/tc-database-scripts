@@ -2,8 +2,10 @@ select distinct u.handle
      , u.user_id
      , lower(u.handle) as lower_handle
      , p.path || i.file_name as image_path
+     , e.address as email
   from copilot_profile cp
      , user u
+     , email e
      , outer(informixoltp:coder_image_xref cix, informixoltp:image i, informixoltp:path p)
  where cp.user_id = u.user_id
    and cix.coder_id = u.user_id
@@ -11,4 +13,5 @@ select distinct u.handle
    and cix.image_id = i.image_id
    and i.image_type_id = 1
    and i.path_id = p.path_id
+   and u.user_id = e.user_id
    and cp.copilot_profile_id = @uid@
