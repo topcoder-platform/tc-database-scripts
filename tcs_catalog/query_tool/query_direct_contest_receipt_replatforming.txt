@@ -40,7 +40,7 @@ else case when pcl.project_type_id != 3 then
            FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
             WHERE pmd.component_project_id = p.project_id and installment_number = 1
             and payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 60, 61, 13, 65)
-            AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 1) ), 0)
+            AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = (select payment from project_result where project_id = p.project_id and placed = 2) ), 0)
       else nvl((SELECT max(total_amount)
            FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
             WHERE pmd.component_project_id = p.project_id and installment_number = 1
