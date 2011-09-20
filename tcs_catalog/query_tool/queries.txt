@@ -321,5 +321,6 @@ query_member_paid_by_client.txt|UPDATE query SET text = ? WHERE query_id = 31400
 query_direct_upcoming_activities_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31406
 query_deactivated_users.txt|UPDATE query SET text = ? WHERE query_id = 31426
 query_project_categories_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31436
-
 query_direct_project_copilot_contests.txt|UPDATE query SET text = ? WHERE query_id = 31506
+
+query_studio_active_contests_summary.txt|UPDATE query SET text = ? WHERE query_id = 31516
