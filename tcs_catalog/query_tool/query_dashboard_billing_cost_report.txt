@@ -104,10 +104,7 @@ null::int as reliability, null::varchar reliability_payment_date,
 
           0 as is_studio
 FROM informixoltp:payment pm  
-        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
-	    LEFT OUTER JOIN (informixoltp:payment_detail pmd2 JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
-                                            AND pmd2.payment_type_id in (24) AND NOT pmd2.payment_status_id IN (65, 68, 69))
-                   on pm.payment_id = pmd2.parent_payment_id,
+        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
      informixoltp:payment_type_lu pt,
      project p,     
      tc_direct_project tdp,
@@ -366,7 +363,7 @@ SELECT pmd2.create_date payment_date,
          THEN pmd.jira_issue_id 
          ELSE ''
     END as reference_id,
-    pmd.total_amount as line_item_amount,
+    pmd2.total_amount as line_item_amount,
      ttc.client_id,
      ttp.project_id billing_project_id,
     tdp.project_id direct_project_id,
@@ -499,7 +496,7 @@ SELECT pmd2.create_date payment_date,
          THEN pmd.jira_issue_id 
          ELSE ''
     END as reference_id,
-    pmd.total_amount as line_item_amount,
+    pmd2.total_amount as line_item_amount,
      ttc.client_id,
 ttp.project_id billing_project_id,
 tdp.project_id direct_project_id,
