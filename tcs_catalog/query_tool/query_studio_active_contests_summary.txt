@@ -1,5 +1,5 @@
 select count(unique p.project_id) as total_contests
-     , NVL(sum (pr.prize_amount * pr.number_of_submissions), 0)
+     , NVL(sum (pr.prize_amount * pr.number_of_submissions), 0) as total_prizes
   from project p
      , project_prize_xref ppx
      , prize pr
