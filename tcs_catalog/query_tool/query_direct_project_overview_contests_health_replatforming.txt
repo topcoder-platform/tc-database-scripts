@@ -1,0 +1,116 @@
+SELECT tdp.project_id AS tc_direct_project_id, 
+       tdp.name AS tc_direct_project_name, 
+       (SELECT value FROM project_info WHERE project_id = p.project_id AND project_info_type_id = 6) AS contest_name, 
+       p.project_id AS contest_id, 
+       pcl.project_type_id = 3 AS is_studio, pcl.name as contest_type,
+       (SELECT MIN(scheduled_end_time) 
+        FROM project_phase pp 
+        WHERE pp.project_id = p.project_id
+        AND   pp.phase_status_id BETWEEN 1 AND 2) 
+       AS current_phase_end_time,
+       (SELECT SUM(NVL(ri.value::DECIMAL(10, 2), 0)) AS reliability_total
+        FROM resource r
+        LEFT JOIN resource_info ri ON r.resource_id = ri.resource_id AND ri.resource_info_type_id = 5 
+             AND UPPER(ri.value) <> 'N/A' AND ri.value <> ''
+        WHERE r.project_id = p.project_id
+        AND   r.resource_role_id = 1
+       ) AS reliability_total,
+       (SELECT phase_status_id 
+        FROM project_phase pp 
+        WHERE pp.project_id = p.project_id AND phase_type_id = 1) 
+       AS registration_phase_status,
+case when pcl.project_type_id = 3 then 
+       (select count(user_id) from  
+table(multiset( 
+select 
+       (select u.user_id from studio_jive:jivemessage jm, user u  
+        where jm.userid = u.user_id and jm.threadid = latest_threads.threadid and jm.modificationdate = latest_threads.modificationdate 
+        and  not exists (select value from resource r, resource_info ri where r.project_id = p.project_id  and r.resource_role_id in (11,12,13,14,15) 
+                            and r.resource_id = ri.resource_id and ri.resource_info_type_id = 1 and value = u.user_id) 
+        ) user_id 
+  from table(multiset( 
+        select m.threadid, 
+               max(m.modificationdate) modificationdate 
+          from studio_jive:jivemessage m,  
+               project_info pi 
+         where pi.project_info_type_id = 4  
+           and m.forumid = pi.value  
+           and pi.project_id = p.project_id  
+      group by m.threadid 
+      )) latest_threads 
+))
+where user_id is not null )
+else 
+       (select count(user_id) from  
+table(multiset( 
+select 
+       (select u.user_id from jivemessage jm, user u  
+        where jm.userid = u.user_id and jm.threadid = latest_threads.threadid and jm.modificationdate = latest_threads.modificationdate 
+        and  not exists (select value from resource r, resource_info ri where r.project_id = p.project_id  and r.resource_role_id in (11,12,13,14,15) 
+                            and r.resource_id = ri.resource_id and ri.resource_info_type_id = 1 and value = u.user_id) 
+        ) user_id 
+  from table(multiset( 
+        select m.threadid, 
+               max(m.modificationdate) modificationdate 
+          from jivecategory c,  
+               jiveforum f,  
+               jivemessage m,  
+               project_info pi 
+         where pi.project_info_type_id = 4  
+           and c.categoryid = pi.value  
+           and c.categoryid = f.categoryid  
+           and m.forumid = f.forumid  
+           and pi.project_id = p.project_id  
+      group by m.threadid 
+      )) latest_threads 
+))
+where user_id is not null )
+end as unanswered_threads,
+       (SELECT NVL(pc.parameter::INT, 0) AS required_reviewers_count
+        FROM project_phase pp
+        LEFT JOIN phase_criteria pc ON pp.project_phase_id = pc.project_phase_id AND pc.phase_criteria_type_id = 6
+        WHERE pp.project_id = p.project_id
+        AND   pp.phase_type_id = 4
+       ) AS required_reviewers_count,
+       (SELECT COUNT(*)
+        FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id IN (4, 5, 6, 7)
+       ) AS registered_reviewers_count,
+       (SELECT COUNT(*) 
+        FROM linked_project_xref lpx
+        INNER JOIN link_type_lu lt ON lpx.link_type_id = lt.link_type_id
+        INNER JOIN project p2 ON p2.project_id = lpx.dest_project_id
+        WHERE lt.allow_overlap = 0
+        AND   lpx.source_project_id = p.project_id
+        AND   p2.project_status_id BETWEEN 1 AND 2
+       ) AS incomplete_dependencies_count,
+       (SELECT COUNT(*) 
+        FROM linked_project_xref lpx
+        INNER JOIN link_type_lu lt ON lpx.link_type_id = lt.link_type_id
+        INNER JOIN project p2 ON p2.project_id = lpx.dest_project_id
+        WHERE lt.allow_overlap = 0
+        AND   lpx.source_project_id = p.project_id
+       ) AS dependencies_count,
+       (SELECT (pp.scheduled_start_time - CURRENT)::INTERVAL HOUR(9) TO HOUR::char(20)::decimal(10,2) AS hours_left
+        FROM project_phase pp
+        WHERE pp.project_id = p.project_id
+        AND   pp.phase_type_id = 4
+       ) AS review_hours_left
+FROM tc_direct_project tdp
+INNER JOIN user_permission_grant upg ON tdp.project_id = upg.resource_id 
+INNER JOIN project p ON tdp.project_id = p.tc_direct_project_id 
+INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
+INNER JOIN project_status_lu psl ON p.project_status_id = psl.project_status_id 
+LEFT OUTER JOIN project_phase ph ON (p.project_id = ph.project_id AND ph.project_phase_id = (SELECT MIN(project_phase_id) 
+                                                                                             FROM project_phase 
+                                                                                             WHERE phase_status_id = 2 
+                                                                                             AND project_id = p.project_id))
+LEFT OUTER JOIN phase_type_lu ptl ON (ph.phase_type_id = ptl.phase_type_id)
+LEFT OUTER JOIN contest_sale sale ON (p.project_id = sale.contest_id AND sale.contest_sale_id = (SELECT MIN(contest_sale_id) 
+                                                                                                 FROM contest_sale 
+                                                                                                 WHERE contest_id = p.project_id))
+WHERE 
+    upg.user_id = @uid@
+AND upg.permission_type_id in (1, 2, 3)
+AND p.tc_direct_project_id = @tcdirectid@
+AND p.project_status_id = 1 and exists (select project_phase_id from project_phase where project_id = p.project_id and (phase_status_id = 2 or phase_status_id = 1))
+AND p.project_category_id != 27
