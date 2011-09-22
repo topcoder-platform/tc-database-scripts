@@ -99,7 +99,7 @@ else case when pi50.value is not null then
                                             where s.upload_id = u.upload_id and u.project_id = p.project_id and submission_type_id = 3 and s.prize_id is not null)
                 from project_prize_xref ppx, prize pr
                 where project_id = p.project_id  and ppx.prize_id = pr.prize_id and prize_type_id = 14), 0)
-      else nvl((SELECT (total_amount)
+      else nvl((SELECT sum(total_amount)
            FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
             WHERE pmd.component_project_id = p.project_id and installment_number = 1 
             and payment_type_id in (64) 
