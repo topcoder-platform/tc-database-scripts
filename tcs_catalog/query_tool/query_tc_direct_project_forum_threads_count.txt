@@ -1,0 +1,6 @@
+SELECT COUNT(*) AS forum_messages_count
+FROM jivecategory c2, jiveforum f2, jivemessage m2, tc_direct_project tdp  
+WHERE c2.categoryid = tdp.project_forum_id 
+AND c2.categoryid = f2.categoryid 
+AND m2.forumid = f2.forumid
+AND tdp.project_id = @tcdirectid@

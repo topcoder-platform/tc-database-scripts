@@ -1,0 +1,30 @@
+SELECT 
+    jf.forumid AS forum_id,
+    jf.name,
+    jf.description,
+    (SELECT millis_to_time(MAX(m2.modificationdate))
+     FROM jivemessage m2  
+     WHERE m2.forumid = jf.forumid) AS latest_time,
+    (SELECT u.handle
+     FROM jivemessage m, user u
+     WHERE m.forumid = jf.forumid  
+       AND u.user_id = userid
+       AND m.modificationdate = (SELECT MAX(m2.modificationdate)
+                                 FROM jivemessage m2  
+                                 WHERE m2.forumid = jf.forumid)) AS latest_handle,
+    (SELECT COUNT(messageid) FROM jivemessage m WHERE m.forumid = jf.forumid) AS messages_number,
+    (SELECT COUNT(threadid) FROM jive:jivethread t WHERE t.forumid = jf.forumid) AS threads_number,
+    
+    (SELECT COUNT(messageid) 
+     FROM jivemessage m 
+     WHERE m.forumid = jf.forumid
+     AND NOT EXISTS (SELECT 1 
+                     FROM jive:jivereadtracker 
+                     WHERE userid = @uid@ 
+                     AND objecttype = 2
+                     AND objectid = m.messageid)) 
+     AS unread_messages_count
+FROM tc_direct_project tdp, jivecategory jc, jiveforum jf
+WHERE tdp.project_id = @tcdirectid@
+AND   tdp.project_forum_id = jc.categoryid
+AND   jc.categoryid = jf.categoryid
