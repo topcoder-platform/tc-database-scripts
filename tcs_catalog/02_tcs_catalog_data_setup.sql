@@ -727,7 +727,7 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31160, 'copilot_profile_info', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31161, 'tc_direct_project_copilots', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31169, 'studio_active_contests_summary', 13337);
-
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31170, 'direct_project_overview_contests_health_replatforming', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31179, 'tc_direct_project_forum_threads_count', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31180, 'tc_direct_project_forum_status', 13337);
 
@@ -2298,6 +2298,7 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31160, 30696, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31161, 30867, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31169, 31516, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31170, 31517, 0);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31179, 31526, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31180, 31527, 0);
