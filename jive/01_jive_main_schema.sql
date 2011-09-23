@@ -651,6 +651,20 @@ create table "informix".template_forum
   lock mode page;
 revoke all on "informix".template_forum from "public" as "informix";
 
+create table "informix".template_project_forum 
+  (
+    template_project_forum_id integer not null ,
+    template_id integer,
+    name varchar(255) not null ,
+    description varchar(255) not null ,
+    display_order integer not null ,
+    direct_project_type_id integer,
+    primary key (template_project_forum_id)  constraint "informix".pk_template_project_for329
+  )  
+  extent size 32 next size 32 
+  lock mode page;
+revoke all on "informix".template_project_forum from "public" as "informix";
+
 create table "informix".question_thread_xref (
   question_id INT NOT NULL,
   thread_id INT NOT NULL,
@@ -912,3 +926,8 @@ grant delete on "informix".template_forum to "public" as "informix";
 
 grant select, insert, update, delete, index on "informix".question_thread_xref to "public" as "informix";
 grant select, insert, update, delete, index on "informix".comment_message_xref to "public" as "informix";
+
+grant select on "informix".template_project_forum to "public" as "informix";
+grant update on "informix".template_project_forum to "public" as "informix";
+grant insert on "informix".template_project_forum to "public" as "informix";
+grant delete on "informix".template_project_forum to "public" as "informix";
