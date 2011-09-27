@@ -12,6 +12,13 @@ SELECT
        AND m.modificationdate = (SELECT MAX(m2.modificationdate)
                                  FROM jivemessage m2  
                                  WHERE m2.forumid = jf.forumid)) AS latest_handle,
+    (SELECT u.user_id
+     FROM jivemessage m, user u
+     WHERE m.forumid = jf.forumid  
+       AND u.user_id = userid
+       AND m.modificationdate = (SELECT MAX(m2.modificationdate)
+                                 FROM jivemessage m2  
+                                 WHERE m2.forumid = jf.forumid)) AS latest_user_id,
     (SELECT COUNT(messageid) FROM jivemessage m WHERE m.forumid = jf.forumid) AS messages_number,
     (SELECT COUNT(threadid) FROM jive:jivethread t WHERE t.forumid = jf.forumid) AS threads_number,
     
