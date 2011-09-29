@@ -22,7 +22,7 @@ select p.project_id,
        '<![CDATA[<a href=http://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>' || p.project_id || '</a>' as contest_link,
        '<![CDATA[<a href="http://www.topcoder.com/tc?module=ProjectDetail&pj=' || p.project_id || '">' || p.project_id || '</a>' as contest_details,
        '<![CDATA[<a href="https://www.topcoder.com/bugs/browse/' || (select max(pi.value) from project_info pi where p.project_id = pi.project_id and pi.project_info_type_id = 2) || '">Jira</a>]]>' as Jira,
-       DECODE(@flag@, 1, 'hidden', (select '<![CDATA[' || detailed_requirements from project_spec where project_id = p.project_id and version = (select max(version) from project_spec where project_id = p.project_id))) as contest_description,
+       DECODE(@flag@, 1, 'hidden', (select '<![CDATA[' || replace(replace(replace (detailed_requirements, '#', '&amp;' ), '<', '&lt;'), '>', '&gt;') from project_spec where project_id = p.project_id and version = (select max(version) from project_spec where project_id = p.project_id))) as contest_description,
  (SELECT COUNT(*) FROM resource r, resource_info ri WHERE ri.resource_id = r.resource_id AND ri.resource_info_type_id = 4 AND r.project_id = p.project_id AND r.resource_role_id = 1 AND ri.value <> 'N/A') as total_rated_registrants,
  ((SELECT COUNT(*)
   FROM resource
