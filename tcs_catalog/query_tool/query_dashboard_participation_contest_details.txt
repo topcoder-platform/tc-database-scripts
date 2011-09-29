@@ -1,0 +1,77 @@
+select p.project_id,
+  ttc.name client,
+  ttc.client_id,
+  ttp.name billing_project_name,
+  ttp.project_id billing_project_id,
+  tdp.name direct_project_name,
+  tdp.project_id direct_project_id,
+  DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
+  pc.project_category_id,
+  pi.value as contest_name,
+  CASE
+       WHEN p.project_status_id not in (1,2,3)
+          THEN 'Finished'
+       WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
+          THEN 'Scheduled'
+       WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
+          THEN 'Active'
+       ELSE
+          'Active'
+       END as contest_status,
+  regt.registrant,
+  regt.country,
+  CASE
+  WHEN EXISTS(
+       select u.upload_id
+       from upload u, submission s
+       where u.project_id=p.project_id and u.resource_id=regt.resource_id and u.upload_type_id=1 and u.upload_status_id=1
+             and s.upload_id=u.upload_id and s.submission_status_id != 5
+      )
+      THEN 1
+  ELSE
+      0
+  END as has_submit,
+  CASE
+  WHEN EXISTS(
+       select u.upload_id
+       from upload u, submission s
+       where u.project_id=p.project_id and u.resource_id=regt.resource_id and u.upload_type_id=1 and u.upload_status_id=1
+             and s.upload_id=u.upload_id and s.submission_status_id != 5 and s.placement=1
+      )
+      THEN 1
+  ELSE
+      0
+  END as has_win
+  from project p,
+     project_category_lu pc,
+       tc_direct_project tdp,
+       project_info pi, -- project name
+       project_info pi3, -- billing account
+       time_oltp:project ttp,
+       time_oltp:client_project ttcp,
+       time_oltp:client ttc,
+       table (multiset((select  p.project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project p, project_category_lu pcl
+                where phase_type_id = decode (pcl.project_type_id, 1, 10, 2, 10, 3 , 4 ) and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id
+                GROUP BY p.project_id))) ct,
+       table (multiset((select  rp.project_id, rri.value::int as registrant, rri.resource_id, addr.country_code as country from project rp
+                          left join resource rr on rr.project_id = rp.project_id and rr.resource_role_id = 1
+                          left join resource_info rri on rri.resource_id = rr.resource_id and rri.resource_info_type_id = 1
+                          left join common_oltp:user_address_xref uax on uax.user_id = rri.value::int
+                          left join common_oltp:address addr on addr.address_id = uax.address_id))) as regt
+   where p.tc_direct_project_id = tdp.project_id
+        and p.project_category_id = pc.project_category_id
+        and p.project_category_id IN (@pcids@)
+        and p.project_id = ct.project_id
+        and p.project_id = pi.project_id
+        and pi.project_info_type_id = 6
+        and p.project_id = pi3.project_id
+        and pi3.project_info_type_id = 32
+        and pi3.value = ttp.project_id
+        and ttp.project_id = ttcp.project_id
+        and ttcp.client_id = ttc.client_id
+        and p.project_status_id != 3 and p.project_category_id != 27
+        and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
+        and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
+        and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
+        and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+        and regt.project_id = p.project_id
