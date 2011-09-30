@@ -8,7 +8,9 @@ select p.project_id,
        pi.value as contest_name,
        pi2.value version,
        CASE 
-       WHEN ps.project_status_id not in (1,2,3)
+       WHEN ps.project_status_id = 3
+          THEN 'Deleted'
+       WHEN ps.project_status_id not in (1,2)
           THEN ps.name --'Completed'
        WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
           THEN 'Scheduled'
