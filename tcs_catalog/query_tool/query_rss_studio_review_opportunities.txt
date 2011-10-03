@@ -1,5 +1,4 @@
-select 'Contest Name: ' || pi6.value || '<br /> ' ||
-       'Competition Type: ' || pcl.name || '<br />' ||
+select 'Competition Type: ' || pcl.name || '<br />' ||
        'Position: Specification Reviewer <br />' ||
        'Spec Review Start: ' || pp14.scheduled_start_time as description
      , pi6.value as title
@@ -17,8 +16,7 @@ select 'Contest Name: ' || pi6.value || '<br /> ' ||
    and not exists (select 1 from contest_eligibility ce where ce.contest_id = p.project_id)
    and not exists (select 1 from resource r where r.project_id = p.project_id and resource_role_id = 18)
 UNION
-select 'Contest Name: ' || pi6.value || '<br /> ' ||
-       'Competition Type: ' || pcl.name || '<br />' ||
+select 'Competition Type: ' || pcl.name || '<br />' ||
        'Position: Screener <br />' ||
        'Screening Start: ' || pp3.scheduled_start_time || '<br /> ' ||
        'Milestone Screening Start: ' || NVL(pp16.scheduled_start_time, 'NO MILESTONE')   as description
