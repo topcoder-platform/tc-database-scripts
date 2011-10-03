@@ -2,7 +2,7 @@ select 'Competition Type: ' || pcl.name || '<br />' ||
        'Position: Specification Reviewer <br />' ||
        'Spec Review Start: ' || pp14.scheduled_start_time as description
      , pi6.value as title
-     , 'http://www.studio.topcoder.com/?module=ViewContestDetails&ct=' || p.project_id as link
+     , 'http://studio.topcoder.com/?module=ViewContestDetails&ct=' || p.project_id as link
      , pp14.scheduled_start_time
   from project p
     INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id 
@@ -21,7 +21,7 @@ select 'Competition Type: ' || pcl.name || '<br />' ||
        'Screening Start: ' || pp3.scheduled_start_time || '<br /> ' ||
        'Milestone Screening Start: ' || NVL(pp16.scheduled_start_time, 'NO MILESTONE')   as description
      , pi6.value as title
-     , 'http://www.studio.topcoder.com/?module=ViewContestDetails&ct=' || p.project_id as link
+     , 'http://studio.topcoder.com/?module=ViewContestDetails&ct=' || p.project_id as link
      , pp3.scheduled_start_time
   from project p
     INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id 
