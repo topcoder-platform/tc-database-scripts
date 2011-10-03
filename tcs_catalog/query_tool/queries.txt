@@ -326,7 +326,8 @@ query_studio_active_contests_summary.txt|UPDATE query SET text = ? WHERE query_i
 query_direct_project_overview_contests_health_replatforming.txt|UPDATE query SET text = ? WHERE query_id = 31517
 query_tc_direct_project_forum_status.txt|UPDATE query SET text = ? WHERE query_id = 31527
 query_tc_direct_project_forum_threads_count.txt|UPDATE query SET text = ? WHERE query_id = 31526
-
 query_dashboard_participation_copilots.txt|UPDATE query SET text = ? WHERE query_id = 31536
 query_dashboard_participation_contest_details.txt|UPDATE query SET text = ? WHERE query_id = 31546
 
+query_active_contests_feed.txt|UPDATE query SET text = ? WHERE query_id = 31556
+query_contest_status_feed.txt|UPDATE query SET text = ? WHERE query_id = 31557
