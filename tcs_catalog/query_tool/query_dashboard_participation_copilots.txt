@@ -15,7 +15,9 @@ select tdp.project_id, p.project_id as contest_id, cot.copilot,
        time_oltp:project ttp,
        time_oltp:client_project ttcp,
        time_oltp:client ttc,
-       table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 11 GROUP BY project_id))) ct,
+       table (multiset((select  p.project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project p, project_category_lu pcl
+                where phase_type_id = decode (pcl.project_type_id, 1, 10, 2, 10, 3 , 4 ) and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id
+                GROUP BY p.project_id))) ct,
        table (multiset((select  rp.project_id, rri.value::int as copilot from project rp
                           left join resource rr on rr.project_id = rp.project_id and rr.resource_role_id = 14
                           left join resource_info rri on rri.resource_id = rr.resource_id and rri.resource_info_type_id = 1))) as cot
@@ -27,7 +29,7 @@ select tdp.project_id, p.project_id as contest_id, cot.copilot,
         and pi3.value = ttp.project_id
         and ttp.project_id = ttcp.project_id
         and ttcp.client_id = ttc.client_id
-        and p.project_status_id != 3 and p.project_category_id != 27
+        and p.project_status_id not in (2,3) and p.project_category_id != 27
         and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
         and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
         and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
