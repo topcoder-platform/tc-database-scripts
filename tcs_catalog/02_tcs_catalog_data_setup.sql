@@ -1996,7 +1996,6 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12238, 12251, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12241, 0, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12241, 12254, 0);
-INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12241, 12254, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12243, 0, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12243, 12256, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12244, 12257, NULL);
