@@ -24,7 +24,11 @@ SELECT pm.create_date payment_date,
             then 0 
             else pi2.value::DECIMAL(10,2) end as contest_fee,
 
-  SUM(case when p.project_status_id = 7 then
+  SUM(case when p.project_status_id  in (1,7) 
+        and exists (select phase_type_id from project_phase ph, project_category_lu pcl
+                where phase_type_id = decode (pcl.project_type_id, 1, 10, 2, 10, 3 , 4 ) 
+                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
+   then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
@@ -181,7 +185,11 @@ SELECT pmd2.create_date payment_date,
             then 0 
             else pi2.value::DECIMAL(10,2) end as contest_fee,
 
-  SUM(case when p.project_status_id = 7 then
+  SUM(case when p.project_status_id  in (1,7) 
+        and exists (select phase_type_id from project_phase ph, project_category_lu pcl
+                where phase_type_id = decode (pcl.project_type_id, 1, 10, 2, 10, 3 , 4 ) 
+                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
+   then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
