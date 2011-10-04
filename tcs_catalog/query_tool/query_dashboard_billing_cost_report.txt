@@ -85,7 +85,7 @@ SELECT pm.create_date payment_date,
          THEN 'Misc'
          ELSE 'Not Sure'
     END as line_item_category,
-    CASE WHEN pmd.payment_type_id in (23,37,46,47)
+    CASE WHEN pmd.payment_type_id in (23,37,46,47, 45, 57)
          THEN pmd.jira_issue_id 
          ELSE ''
     END as reference_id,
@@ -230,7 +230,7 @@ SELECT pmd2.create_date payment_date,
          THEN 'Reliability'
          ELSE 'Misc'
     END as line_item_category,
-    CASE WHEN pmd.payment_type_id in (23,37,46,47)
+    CASE WHEN pmd.payment_type_id in (23,37,46,47, 45, 57)
          THEN pmd.jira_issue_id 
          ELSE ''
     END as reference_id,
