@@ -45,14 +45,8 @@ AND submpp.scheduled_end_time > CURRENT
    and rix.display_flag = 1
    and r.round_id <> 10844
    AND r.round_type_id in (13,15,19,22,24,25)
-   ) +
-   ( select count(distinct c.contest_id)
- from studio_oltp:contest c
-     , outer (studio_oltp:contest_prize_xref x, studio_oltp:prize p)
- where current between c.start_time and c.end_time
-   and c.contest_status_id = 2
-   and x.contest_id = c.contest_id
-   and x.prize_id = p.prize_id ) AS active_contests_count,
+   )  AS active_contests_count,
+
     (select count (distinct ci.user_id)
   from resource rur
   	 , resource_info ri
@@ -81,26 +75,16 @@ AND submpp.scheduled_end_time > CURRENT
   and pcat.category_id = c.root_category_id
   and pi.project_id = p.project_id
   and pi.phase_type_id = 2
-  and p.project_status_id = 1) +
-  ( select count (distinct cr.user_id)
-from studio_oltp:contest_registration cr,
-     studio_oltp:contest c
-where cr.contest_id = c.contest_id
-  and current between c.start_time and c.end_time
-  and c.contest_status_id = 2 ) AS active_members_count,    
+  and p.project_status_id = 1) AS active_members_count,    
+
 (select count(*) from tc_direct_project dp
-where exists (select project_id from project where tc_direct_project_id = dp.project_id and project_status_id in (1,2))
-      or exists (select contest_id from studio_oltp:contest where tc_direct_project_id = dp.project_id and contest_detailed_status_id in (1,2,5,6,9,10)))  AS active_projects_count,
+where exists (select project_id from project where tc_direct_project_id = dp.project_id and project_status_id in (1,2)))  AS active_projects_count,
+
     (SELECT 4 FROM dual) AS completed_projects_count,
+
     (SELECT sum((select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id))*1.5 
-    +
-    (select sum(nvl(p.amount, 0)) as total_prizes
- from studio_oltp:contest c
-     , outer (studio_oltp:contest_prize_xref x, studio_oltp:prize p)
- where current between c.start_time and c.end_time
-   and c.contest_status_id = 2
-   and x.contest_id = c.contest_id
-   and x.prize_id = p.prize_id) as prize_purse
+ as prize_purse
+
 FROM project p
    ,project_phase submpp
    ,project_phase regpp
