@@ -90,7 +90,7 @@ else  NVL((SELECT sum(total_amount)
 end
 as contest_payment
 
-from tc_direct_project tdp, user_permission_grant upg, 
+from tc_direct_project tdp, 
 project_category_lu pcl, project_status_lu psl, 
 
 project p left outer join project_phase ph 
@@ -98,11 +98,22 @@ project p left outer join project_phase ph
                                      (select min(project_phase_id) from project_phase  where phase_status_id = 2 and project_id=p.project_id))
 left outer join phase_type_lu ptl on (ph.phase_type_id = ptl.phase_type_id)
  left outer join contest_sale sale on (p.project_id = sale.contest_id and sale.contest_sale_id  = (select min(contest_sale_id) from contest_sale where contest_id = p.project_id))
-where tdp.project_id = upg.resource_id
-and upg.user_id = @uid@
-and upg.permission_type_id in (1,2,3)
-and p.tc_direct_project_id = @tcdirectid@
+where  p.tc_direct_project_id = @tcdirectid@
 and p.project_category_id = pcl.project_category_id 
 and p.project_status_id = psl.project_status_id
 and p.tc_direct_project_id = tdp.project_id
 and p.project_status_id != 3 and p.project_category_id != 27
+
+and (exists (select u.user_id 
+         from user as u 
+         join user_role_xref as uref 
+            on u.user_id = @uid@
+            and u.user_id = uref.login_id 
+         join security_roles as sr 
+            on uref.role_id = sr.role_id 
+            and sr.description in ('TC Staff'))
+     OR exists (select permission_type_id 
+               from user_permission_grant as upg   
+              where resource_id=p.project_id and permission_type_id in (1,2,3) 
+               and upg.user_id = @uid@ ))
+

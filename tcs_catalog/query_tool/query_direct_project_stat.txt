@@ -85,13 +85,22 @@ NVL((SELECT SUM(((actual_end_time - actual_start_time)::INTERVAL MINUTE(9) TO MI
      AND NOT (ppa.actual_start_time IS NULL 
               OR ppa.actual_end_time IS NULL)), 0) 
 AS approval_phase_duration
-from project p, user_permission_grant upg, OUTER project_phase psd, OUTER project_phase ppd, outer project_info pi1
-where p.tc_direct_project_id = upg.resource_id
-and upg.user_id = @uid@
-and upg.permission_type_id in (1,2,3)
-and p.project_id = ppd.project_id and psd.phase_type_id = 2 and ppd.phase_type_id = 1 and psd.project_id = p.project_id
+from project p, OUTER project_phase psd, OUTER project_phase ppd, outer project_info pi1
+where p.project_id = ppd.project_id and psd.phase_type_id = 2 and ppd.phase_type_id = 1 and psd.project_id = p.project_id
 and pi1.project_id = p.project_id  and pi1.project_info_type_id = 21
 and p.tc_direct_project_id = @tcdirectid@ and project_status_id in (7,4,5,6,8,9,10,11) 
 and p.project_category_id != 27
+and (exists (select u.user_id 
+         from user as u 
+         join user_role_xref as uref 
+            on u.user_id = @uid@
+            and u.user_id = uref.login_id 
+         join security_roles as sr 
+            on uref.role_id = sr.role_id 
+            and sr.description in ('TC Staff'))
+     OR exists (select permission_type_id 
+               from user_permission_grant as upg   
+              where resource_id=p.project_id and permission_type_id in (1,2,3) 
+               and upg.user_id = @uid@ ))
 )) AS s
 GROUP BY tc_direct_project_id;

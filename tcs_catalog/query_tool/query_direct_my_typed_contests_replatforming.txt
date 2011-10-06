@@ -32,7 +32,6 @@ SELECT
     WHERE ph.project_id=p.project_id 
     AND ph.phase_type_id = 1) AS start_date
 FROM tc_direct_project tdp
-INNER JOIN user_permission_grant upg ON tdp.project_id = upg.resource_id
 INNER JOIN project p ON p.tc_direct_project_id = tdp.project_id
 INNER JOIN project_status_lu psl ON p.project_status_id = psl.project_status_id 
 INNER JOIN project_category_lu pcl on p.project_category_id = pcl.project_category_id
@@ -46,9 +45,19 @@ LEFT OUTER JOIN contest_sale sale ON (p.project_id = sale.contest_id
                                       AND sale.contest_sale_id = (SELECT MIN(contest_sale_id) 
                                       FROM contest_sale 
                                       WHERE contest_id = p.project_id))
-WHERE upg.user_id = @uid@
-AND upg.permission_type_id in (1, 2, 3)
-AND p.tc_direct_project_id = @tcdirectid@
+WHERE p.tc_direct_project_id = @tcdirectid@
 AND p.project_status_id != 3 
 AND p.project_category_id != 27
+and (exists (select u.user_id 
+         from user as u 
+         join user_role_xref as uref 
+            on u.user_id = @uid@
+            and u.user_id = uref.login_id 
+         join security_roles as sr 
+            on uref.role_id = sr.role_id 
+            and sr.description in ('TC Staff'))
+     OR exists (select permission_type_id 
+               from user_permission_grant as upg   
+              where resource_id=p.project_id and permission_type_id in (1,2,3) 
+               and upg.user_id = @uid@ ))
 
