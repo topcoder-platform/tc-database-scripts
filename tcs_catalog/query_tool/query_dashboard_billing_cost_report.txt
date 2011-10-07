@@ -69,7 +69,7 @@ SELECT pm.create_date payment_date,
          THEN 'Copilot'
          WHEN pmd.payment_type_id in (27)
          THEN 'Spec Review'
-         WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60)
+         WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
          THEN 'Winner'
          WHEN pmd.payment_type_id in (7, 28, 26)
          THEN 'Review'
