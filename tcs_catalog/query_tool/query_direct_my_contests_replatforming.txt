@@ -114,6 +114,6 @@ and (exists (select u.user_id
             and sr.description in ('TC Staff'))
      OR exists (select permission_type_id 
                from user_permission_grant as upg   
-              where resource_id=p.project_id and permission_type_id in (1,2,3) 
+              where resource_id=p.tc_direct_project_id and permission_type_id in (1,2,3) 
                and upg.user_id = @uid@ ))
 
