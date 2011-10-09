@@ -3419,8 +3419,7 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (29836, null, 'existing_terms_agreements_list', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30086, null, 'spec_review_stats', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31196, null, 'member_vcard', 0, null);
-
-INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (31356, null, 'coder_image_data', 0, 0);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) VALUES (31356, null, 'coder_image_data', 0, 0);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (29539, 29836, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (22, 50, 1);
