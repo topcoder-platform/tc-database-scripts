@@ -67,7 +67,7 @@ SELECT pm.create_date payment_date,
        pt.payment_type_desc,
     CASE WHEN pmd.payment_type_id in (45,57)
          THEN 'Copilot'
-         WHEN pmd.payment_type_id in (27)
+         WHEN pmd.payment_type_id in (27, 48)
          THEN 'Spec Review'
          WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
          THEN 'Winner'
@@ -81,7 +81,7 @@ SELECT pm.create_date payment_date,
          THEN 'Bugs'
          WHEN pmd.payment_type_id in (39)
          THEN 'Build'
-         WHEN pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60)
+         WHEN pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
          THEN 'Misc'
          ELSE 'Not Sure'
     END as line_item_category,
