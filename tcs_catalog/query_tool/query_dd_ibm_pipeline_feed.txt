@@ -90,7 +90,7 @@ from project p,
      comp_catalog cc,
      outer comp_versions cv,
      outer categories cat
-where p.project_status_id <> DECODE(@includeDeletes@,0,3,3)
+where p.project_status_id <> DECODE(@includeDeletes@,0,3,-1)
   and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id not in (27) --exclude spec reviews
