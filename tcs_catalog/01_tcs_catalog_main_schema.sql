@@ -2679,6 +2679,55 @@ extent size 3000 next size 3000
 lock mode row;
 revoke all on "informix".project_download_audit from "public";
 
+create table 'informix'.project_copilot_type_lu
+  (
+    project_copilot_type_id INT not null,
+    name VARCHAR(64) not null,
+    project_copilot_type_desc VARCHAR(64) not null
+  )
+extent size 64 next size 64
+lock mode row;
+revoke all on project_copilot_type_lu from 'public';
+
+
+create table 'informix'.project_copilot_type
+  (
+    project_id INT not null,
+    project_copilot_type_id INT not null,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION not null
+  )
+extent size 1000 next size 1000
+lock mode row;
+revoke all on project_copilot_type from 'public';
+
+create table 'informix'.copilot_contest_extra_info_type
+  (
+    copilot_contest_extra_info_type_id INT not null,
+    name VARCHAR(64) not null,
+    copilot_contest_extra_info_type_desc VARCHAR(64) not null
+  )
+extent size 64 next size 64
+lock mode row;
+revoke all on copilot_contest_extra_info_type from 'public';
+
+create table 'informix'.copilot_contest_extra_info
+  (
+    copilot_posting_contest_id INT not null,
+    copilot_contest_extra_info_type_id INT not null,
+    value VARCHAR(255) not null,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION not null
+  )
+  extent size 1000 next size 1000
+  lock mode row;
+revoke all on copilot_contest_extra_info from 'public';
+
+
 grant select on v_latest_version to 'informix' with grant option ;
 
 grant select on user_customer to 'informix' with grant option ;
@@ -4463,3 +4512,25 @@ grant select,insert,update,delete on "informix".submission_external_content to p
 grant select,insert,update,delete on "informix".external_content_type to public as "informix";
 grant select,insert,update,delete on "informix".external_content_property to public as "informix";
 grant select,insert,update,delete on "informix".project_download_audit to public as "informix";
+
+
+grant index on project_copilot_type_lu to 'public' as 'informix';
+grant update on project_copilot_type_lu to 'public' as 'informix';
+grant insert on project_copilot_type_lu to 'public' as 'informix';
+grant select on project_copilot_type_lu to 'public' as 'informix';
+grant delete on project_copilot_type_lu to 'public' as 'informix';
+grant index on project_copilot_type to 'public' as 'informix';
+grant update on project_copilot_type to 'public' as 'informix';
+grant insert on project_copilot_type to 'public' as 'informix';
+grant select on project_copilot_type to 'public' as 'informix'
+grant delete on project_copilot_type to 'public' as 'informix';
+grant index on copilot_contest_extra_info_type to 'public' as 'informix';
+grant update on copilot_contest_extra_info_type to 'public' as 'informix';
+grant insert on copilot_contest_extra_info_type to 'public' as 'informix';
+grant select on copilot_contest_extra_info_type to 'public' as 'informix';
+grant delete on copilot_contest_extra_info_type to 'public' as 'informix';
+grant index on copilot_contest_extra_info to 'public' as 'informix';
+grant update on copilot_contest_extra_info to 'public' as 'informix';
+grant insert on copilot_contest_extra_info to 'public' as 'informix';
+grant select on copilot_contest_extra_info to 'public' as 'informix';
+grant delete on copilot_contest_extra_info to 'public' as 'informix';

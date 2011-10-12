@@ -2500,3 +2500,17 @@ INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) 
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(29, 26, 'image/ico');
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(30, 26, 'image/x-ico');
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(31, 17, 'application/octet-stream');
+
+
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (1, 'Design Graphic', 'Design Graphic');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (2, 'Animation', 'Animation');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (3, 'Mobile', 'Mobile');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (4, 'Small Scale Web Applications', 'Small Scale Web Applications');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (5, 'Large Scale Web Applications', 'Large Scale Web Applications');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (6, 'Desktop Applications', 'Desktop Applications');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (7, 'High Transactional Systems', 'High Transactional Systems');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (8, 'Data Warehousing', 'Data Warehousing');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (9, 'Marketing Campaigns', 'Marketing Campaigns');
+
+insert into 'informix'.copilot_contest_extra_info_type (copilot_contest_extra_info_type_id, name, copilot_contest_extra_info_type_desc) values (1, 'Budget', 'Budget');
+insert into 'informix'.copilot_contest_extra_info_type (copilot_contest_extra_info_type_id, name, copilot_contest_extra_info_type_desc) values (2, 'Other Managing Experience', 'Other Managing Experience');

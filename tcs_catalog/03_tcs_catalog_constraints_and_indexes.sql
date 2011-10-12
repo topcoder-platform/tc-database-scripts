@@ -833,6 +833,24 @@ alter table 'informix'.mime_type_lu add constraint primary key
     (mime_type_id)
     constraint pk_mime_type_lu;    
 
+
+alter table 'informix'.project_copilot_type_lu add constraint primary key 
+  (project_copilot_type_id)
+  constraint project_copilot_type_lu_pk;
+
+alter table 'informix'.project_copilot_type add constraint primary key 
+  (project_id, project_copilot_type_id)
+  constraint project_copilot_type_pk;
+
+alter table 'informix'.copilot_contest_extra_info_type add constraint primary key 
+  (copilot_contest_extra_info_type_id)
+  constraint pk_copilot_contest_extra_info_type;
+
+alter table 'informix'.copilot_contest_extra_info add constraint primary key 
+  (copilot_posting_contest_id, copilot_contest_extra_info_type_id)
+  constraint pk_copilot_contest_extra_info;
+
+
 alter table 'informix'.comp_categories add constraint foreign key 
 	(category_id)
 	references 'informix'.categories
@@ -1955,3 +1973,25 @@ alter table 'informix'.external_content_property add constraint foreign key
     (external_content_id)
     constraint external_content_property_to_submission_external_content_fk;
 
+alter table 'informix'.project_copilot_type add constraint foreign key 
+  (project_id)
+  references 'informix'.project
+  (project_id) 
+  constraint fk_project_copilot_type_pj;
+
+alter table 'informix'.project_copilot_type add constraint foreign key 
+  (project_copilot_type_id)
+  references 'informix'.project_copilot_type_lu
+  (project_copilot_type_id) 
+  constraint fk_project_copilot_type_tp;
+
+alter table 'informix'.copilot_contest_extra_info add constraint foreign key 
+  (copilot_posting_contest_id)
+  references 'informix'.project
+  (project_id) 
+  constraint fk_copilot_contest_extra_info_pj;
+alter table 'informix'.copilot_contest_extra_info add constraint foreign key 
+  (copilot_contest_extra_info_type_id)
+  references 'informix'.copilot_contest_extra_info_type
+  (copilot_contest_extra_info_type_id) 
+  constraint fk_copilot_contest_extra_info_tp;
