@@ -4305,6 +4305,7 @@ grant index on track_status_lu to 'public' as 'informix';
 grant delete on track_status_lu to 'public' as 'informix';
 
 grant select on track_status_lu to 'public' as 'informix';
+
 grant insert on track_status_lu to 'public' as 'informix';
 
 grant update on track_status_lu to 'public' as 'informix';
