@@ -4519,16 +4519,19 @@ grant update on "informix".project_copilot_type_lu to public as "informix";
 grant insert on "informix".project_copilot_type_lu to public as "informix";
 grant select on "informix".project_copilot_type_lu to public as "informix";
 grant delete on "informix".project_copilot_type_lu to public as "informix";
+
 grant index on "informix".project_copilot_type to public as "informix";
 grant update on "informix".project_copilot_type to public as "informix";
 grant insert on "informix".project_copilot_type to public as "informix";
-grant select on "informix".project_copilot_type to public as "informix"
+grant select on "informix".project_copilot_type to public as "informix";
 grant delete on "informix".project_copilot_type to public as "informix";
+
 grant index on "informix".copilot_contest_extra_info_type to public as "informix";
 grant update on "informix".copilot_contest_extra_info_type to public as "informix";
 grant insert on "informix".copilot_contest_extra_info_type to public as "informix";
 grant select on "informix".copilot_contest_extra_info_type to public as "informix";
 grant delete on "informix".copilot_contest_extra_info_type to public as "informix";
+
 grant index on "informix".copilot_contest_extra_info to public as "informix";
 grant update on "informix".copilot_contest_extra_info to public as "informix";
 grant insert on "informix".copilot_contest_extra_info to public as "informix";
