@@ -328,6 +328,9 @@ query_tc_direct_project_forum_status.txt|UPDATE query SET text = ? WHERE query_i
 query_tc_direct_project_forum_threads_count.txt|UPDATE query SET text = ? WHERE query_id = 31526
 query_dashboard_participation_copilots.txt|UPDATE query SET text = ? WHERE query_id = 31536
 query_dashboard_participation_contest_details.txt|UPDATE query SET text = ? WHERE query_id = 31546
-
 query_active_contests_feed.txt|UPDATE query SET text = ? WHERE query_id = 31556
 query_contest_status_feed.txt|UPDATE query SET text = ? WHERE query_id = 31557
+
+query_project_copilot_types.txt|UPDATE query SET text = ? WHERE query_id = 31576
+query_software_project_details_data.txt|UPDATE query SET text = ? WHERE query_id = 31566
+query_studio_project_details_data.txt|UPDATE query SET text = ? WHERE query_id = 31567

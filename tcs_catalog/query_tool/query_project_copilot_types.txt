@@ -1,0 +1,2 @@
+select project_copilot_type_id, name, project_copilot_type_desc
+from project_copilot_type_lu
