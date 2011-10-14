@@ -1,0 +1,13 @@
+select u.handle
+     , u.user_id
+     , lower(u.handle) as lower_handle
+     , p.path || i.file_name as image_path
+  from user u
+     , outer(informixoltp:coder_image_xref cix, informixoltp:image i, informixoltp:path p)
+ where cix.coder_id = u.user_id
+   and cix.display_flag = 1
+   and cix.image_id = i.image_id
+   and i.image_type_id = 1
+   and i.path_id = p.path_id
+   and lower(u.handle) = lower('@ha@');
+   

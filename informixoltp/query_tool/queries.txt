@@ -1117,6 +1117,6 @@ query_tco_software_leaderboard.txt|UPDATE query SET text= ? WHERE query_id=31119
 query_tco_software_leaderboard_user_detail.txt|UPDATE query SET text= ? WHERE query_id=31120
 query_member_vcard.txt|UPDATE query SET text= ? WHERE query_id=31196
 query_coder_image_data.txt|UPDATE query SET text= ? WHERE query_id=31356
-
-
+query_user_ratings.txt|UPDATE query SET text= ? WHERE query_id=31577
+query_member_photo.txt|UPDATE query SET text= ? WHERE query_id=31586
 
