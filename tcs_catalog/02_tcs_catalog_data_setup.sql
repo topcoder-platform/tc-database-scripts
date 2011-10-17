@@ -353,6 +353,7 @@ INSERT INTO 'informix'.phase(phase_id, description) values (141, 'Widget or Mobi
 INSERT INTO 'informix'.phase(phase_id, description) values (142, 'Front-End Flash');
 INSERT INTO 'informix'.phase(phase_id, description) values (143, 'Application Front-End Design');
 INSERT INTO 'informix'.phase(phase_id, description) values (145, 'Studio Other');
+INSERT INTO 'informix'.phase(phase_id, description) values (147, 'Reporting');
 
 INSERT INTO 'informix'.price_tiers(tier_id,discount_percent) VALUES (1, 5.00);
 INSERT INTO 'informix'.price_tiers(tier_id,discount_percent) VALUES (2, 10.00);
@@ -1019,6 +1020,7 @@ INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,n
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (32, 3, 'Application Front-End Design', 'Application Front-End Design', 'System', current, 'System', current, 't', 5);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (34, 3, 'Other', 'Other', 'System', current, 'System', current, 't', 11);
 insert into 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) values (35, 2, 'Content Creation', 'Content Creation', 'System', current, 'System', current, 't', 23);
+INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (36, 2, 'Reporting', 'Reporting', 'System', current, 'System', current, 't', 24);
 
 INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Screening', 'Screening', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Review', 'Review', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1352,6 +1354,9 @@ INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, 
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (73,'Front-End Flash Reviewer', 142, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (74,'Application Front-End Design Reviewer', 143, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (75,'Other Reviewer', 144, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (76, 'Reporting Reviewer', 147, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (77, 'Reporting Reviewer', 147, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (78, 'Reporting Reviewer', 147, 4);
 
 
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (11010, null, 'User_List', 0, null);
