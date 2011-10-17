@@ -334,3 +334,4 @@ query_contest_status_feed.txt|UPDATE query SET text = ? WHERE query_id = 31557
 query_project_copilot_types.txt|UPDATE query SET text = ? WHERE query_id = 31576
 query_software_project_details_data.txt|UPDATE query SET text = ? WHERE query_id = 31566
 query_studio_project_details_data.txt|UPDATE query SET text = ? WHERE query_id = 31567
+query_direct_contest_final_fixes.txt|UPDATE query SET text = ? WHERE query_id = 31587
