@@ -152,6 +152,7 @@ where  pmd.component_project_id = p.project_id
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
+  and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25
  
@@ -298,6 +299,7 @@ where  pmd.component_project_id = p.project_id
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
+  and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
   and (pmd2.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25
 
