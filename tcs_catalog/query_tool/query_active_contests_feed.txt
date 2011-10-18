@@ -1,10 +1,16 @@
-SELECT SKIP @pn@ LIMIT @ps@
-       reg_phase.scheduled_start_time as posting_date
+SELECT (p.project_studio_spec_id is not null) as is_studio
+     , reg_phase.scheduled_start_time as posting_date
      , reg_phase.scheduled_end_time as registration_end 
      , sub_phase.scheduled_end_time as submission_end
+     , case when (fr_phase.scheduled_end_time is null) then review_phase.scheduled_end_time
+       else fr_phase.scheduled_end_time end as end_date
      , project_name.value as title
      , project_name.project_id as contestID
-     , (payments.value::decimal) as prize
+     , (SELECT SUM(pr.prize_amount * pr.number_of_submissions) 
+       FROM prize pr 
+       INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
+       WHERE prx.project_id = p.project_id
+       AND pr.prize_type_id IN (14, 15))::DECIMAL(10,2) as prize
      , nd_phase.scheduled_end_time as next_deadline
      , nd_phase_name.description as next_deadline_description
      , case when pidr.value = 'On' then 
@@ -13,7 +19,8 @@ SELECT SKIP @pn@ LIMIT @ps@
      , pcl.description as project_type
      , pcl.project_category_id project_type_id
   FROM project p,
-       project_phase reg_phase, 
+       project_phase reg_phase,
+       project_phase review_phase,
        project_phase sub_phase,
        project_phase nd_phase,
        phase_type_lu nd_phase_name,
@@ -24,19 +31,25 @@ SELECT SKIP @pn@ LIMIT @ps@
        time_oltp:project ttp,
        time_oltp:client_project ttcp,
        time_oltp:client ttc,
-       project_category_lu pcl
+       project_category_lu pcl,
+       outer project_phase fr_phase
  WHERE p.project_category_id in (@pcids@)
-     and p.project_category_id = pcl.project_category_id
-     and pcl.project_type_id in (2, 3) 
+      and p.project_category_id = pcl.project_category_id
+     and pcl.project_type_id in (1, 2, 3) 
      and p.project_id = reg_phase.project_id
      and project_name.project_info_type_id = 6
      and project_name.project_Id = reg_phase.project_id
      and project_name.project_Id = sub_phase.project_id
      and project_name.project_Id = nd_phase.project_id
+     and project_name.project_id = review_phase.project_id
+     and review_phase.phase_type_id = 4
      and reg_phase.phase_type_id = 1
      and sub_phase.phase_type_id = 2
      and nd_phase.phase_status_id = 2
-     and nd_phase.phase_type_id in (1, 2, 15, 16, 17)
+     and nd_phase.phase_type_id in (1, 2)
+     and nd_phase.scheduled_end_time = (select  min(scheduled_end_time) 
+                                          from project_phase
+                                         where phase_status_id = 2 and project_phase.project_id = p.project_id and phase_type_id in (1, 2))
      and nd_phase_name.phase_type_id = nd_phase.phase_type_id
      and payments.project_id = project_name.project_Id
      and payments.project_info_type_id = 16
@@ -49,6 +62,11 @@ SELECT SKIP @pn@ LIMIT @ps@
      and p.project_category_id not in (27)
      and pidr.project_id = p.project_id
      and pidr.project_info_type_id = 26
+     AND p.project_id = fr_phase.project_id  
+     AND fr_phase.phase_type_id = 10  
+     AND fr_phase.scheduled_end_time = (select max(scheduled_end_time) 
+                            from project_phase 
+                            where project_id = p.project_id and phase_type_id = 10)
      AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
-     WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id) 
-order by pcl.project_category_id desc;
+     where ce.contest_id = p.project_id) 
+     order by pcl.project_category_id asc;

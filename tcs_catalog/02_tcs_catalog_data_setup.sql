@@ -1984,12 +1984,8 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31546, NULL, NULL, 25591, 5);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31546, NULL, NULL, 25600, 5);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31546, NULL, NULL, 25601, 5);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31556, 'Y', '25', 25690, 1);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31556, 'Y', '0', 25691, 2);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31556, 'Y', '1,2,6,7,8,13,14,19,23,24,25,26,29,35', 25591, 3);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31557, 'Y', '25', 25690, 1);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31557, 'Y', '0', 25691, 2);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31557, 'Y', '1,2,6,7,8,13,14,19,23,24,25,26,29,35', 25591, 3);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31556, 'Y', '1,2,6,7,8,13,14,19,23,24,25,26,29,35,16,17,18,20,21,22,30,31,32,34', 25591, 3);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31557, 'Y', '1,2,6,7,8,13,14,19,23,24,25,26,29,35,16,17,18,20,21,22,30,31,32,34', 25591, 3);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31566, NULL, NULL, 13342, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31567, NULL, NULL, 13342, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31587, NULL, NULL, 13342, 0);
