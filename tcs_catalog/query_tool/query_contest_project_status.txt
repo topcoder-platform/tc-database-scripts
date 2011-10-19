@@ -70,7 +70,7 @@ SELECT cc.component_name
    ,outer (project_result pr1, user u1)
    ,outer (project_result pr2, user u2)
  WHERE p.project_status_id = 1
- and ((cv.phase_id in (112, 113) and p.project_category_id in (1,2)) or (p.project_category_id in (6,7,13,14,23,19,24,25,26,35)))
+ and ((cv.phase_id in (112, 113) and p.project_category_id in (1,2)) or (p.project_category_id in (6,7,13,14,23,19,24,25,26,35,36)))
  AND p.project_category_id = @pt@
  AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
  WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
