@@ -23,4 +23,5 @@ where 1=1
   and p.project_status_id = DECODE(@stid@, 0, p.project_status_id, @stid@)
   and pa.create_date > current - (DECODE(@days@, 0, 100000, @days@) * 24) UNITS HOUR
   and pa.create_date >= (select max(pa2.create_date) from project_audit pa2 where pa2.project_id=pa.project_id)
+  and pa.project_audit_id = (select max(project_audit_id) from project_audit where project_id = p.project_id)
 order by pa.create_date desc
