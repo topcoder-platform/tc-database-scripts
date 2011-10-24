@@ -329,11 +329,11 @@ alter table 'informix'.scorecard_response add constraint foreign key
 	(project_id) 
 	constraint project_response_fkey;
 
-alter table 'informix'.scorecard_response add constraint foreign key 
-	(evaluation_id)
-	references 'informix'.evaluation_lu
-	(evaluation_id) 
-	constraint evaluation_response_fkey;
+-- alter table 'informix'.scorecard_response add constraint foreign key 
+-- 	(evaluation_id)
+-- 	references 'informix'.evaluation_lu
+-- 	(evaluation_id) 
+-- 	constraint evaluation_response_fkey;
 
 alter table 'informix'.testcase_response add constraint foreign key 
 	(scorecard_question_id)

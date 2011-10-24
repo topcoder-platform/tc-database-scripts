@@ -398,4 +398,4 @@ INSERT INTO 'informix'.calendar (calendar_id, year, month_numeric, month_alpha, 
 INSERT INTO 'informix'.calendar (calendar_id, year, month_numeric, month_alpha, day_of_month, day_of_week, week_day, year_month, week_of_year, day_of_year, holiday, weekend, date, week_year, quarter_of_year) values (3286, 2009, 12, "December", 30, 3, "Wednesday", "2009-12", "1", "364", "N", "N", "2009-12-30", "2010", null);
 INSERT INTO 'informix'.calendar (calendar_id, year, month_numeric, month_alpha, day_of_month, day_of_week, week_day, year_month, week_of_year, day_of_year, holiday, weekend, date, week_year, quarter_of_year) values (3287, 2009, 12, "December", 31, 4, "Thursday", "2009-12", "1", "365", "N", "N", "2009-12-31", "2010", null);
 
-INSERT INTO 'informix'.update_log (log_id, calendar_id, timestamp, log_type_id) values (1, 2892, "2008-12-01 00:00:01.000", 4);
+INSERT INTO 'informix'.update_log (log_id, calendar_id, timestamp, log_type_id) values (1, 2892, "2001-12-01 00:00:01.000", 4);
