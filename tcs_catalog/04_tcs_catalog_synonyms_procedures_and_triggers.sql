@@ -169,6 +169,8 @@ for jive:'informix'.jiveforum;
 create synonym 'informix'.jivemessage
 for jive:'informix'.jivemessage;
 
+create synonym "informix".event_registration 
+for common_oltp:"informix".event_registration;
 
 create role read_only ;
 create procedure "informix".get_current() returning datetime year to fraction(3);
