@@ -30,7 +30,7 @@ time_oltp:client_project ttcp,
 time_oltp:client ttc,
 project p join project_phase ph 
       on (p.project_id = ph.project_id and ph.project_phase_id = 
-                                     (select min(project_phase_id) from project_phase  where phase_status_id = 2 and project_id=p.project_id and (phase_type_id != 13 and phase_type_id != 14)))
+                                     (select min(project_phase_id) from project_phase  where phase_status_id = 2 and project_id=p.project_id))
 left outer join phase_type_lu ptl on (ph.phase_type_id = ptl.phase_type_id)
  left outer join contest_sale sale on (p.project_id = sale.contest_id and sale.contest_sale_id  = (select min(contest_sale_id) from contest_sale where contest_id = p.project_id))
 where tdp.project_id = upg.resource_id
