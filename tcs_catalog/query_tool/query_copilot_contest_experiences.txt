@@ -1,0 +1,3 @@
+select name
+from project_copilot_type p, project_copilot_type_lu lu
+where p.project_id = @pj@ and p.project_copilot_type_id = lu.project_copilot_type_id

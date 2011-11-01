@@ -1,0 +1,4 @@
+select value
+from copilot_contest_extra_info
+where 
+copilot_contest_extra_info_type_id = @extraId@ and copilot_posting_contest_id = @pj@
