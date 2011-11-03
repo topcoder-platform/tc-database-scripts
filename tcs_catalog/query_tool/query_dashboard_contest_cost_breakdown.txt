@@ -86,7 +86,18 @@ else 0 end as digital_run,
             AND pm.most_recent_detail_id = pmd.payment_detail_id 
             AND NOT pmd.payment_status_id IN (65, 68, 69)
             AND pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13, 48, 64, 65)), 0)
-   ) AS misc
+   ) 
+   +
+    NVL((SELECT sum(pmd2.total_amount)
+          FROM informixoltp:payment_detail pmd,  
+               informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+               informixoltp:payment pm2 
+          WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+          AND pm.most_recent_detail_id = pmd.payment_detail_id  
+          AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
+          AND pmd2.payment_type_id not in (24)
+          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0) AS misc
+
  FROM project p,
       project_info pi2 -- contest_fee
  where p.project_id = pi2.project_id
