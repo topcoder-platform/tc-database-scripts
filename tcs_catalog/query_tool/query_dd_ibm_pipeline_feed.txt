@@ -1,6 +1,11 @@
 select p.project_id,
        (select to_char(max(scheduled_start_time), '%Y-%m-%dT%R:%S%F3') from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-       DECODE(cat.category_name, 'Studio', (select to_char(max(nvl(actual_end_time, scheduled_end_time)), '%Y-%m-%dT%R:%S%F3') from project_phase where phase_type_id = 2 and project_id = p.project_id and project_phase_id < NVL((select min(pp2.project_phase_id) from project_phase pp2 where pp2.phase_type_id = 11 and pp2.project_id = p.project_id ),999999999)) ,(select to_char(max(nvl(actual_end_time, scheduled_end_time)), '%Y-%m-%dT%R:%S%F3') from project_phase where phase_type_id = 10 and project_id = p.project_id and project_phase_id < NVL((select min(pp2.project_phase_id) from project_phase pp2 where pp2.phase_type_id = 11 and pp2.project_id = p.project_id ),999999999))) completion_date,
+       DECODE(pc.project_type_id, 3, 
+        (select to_char(max(nvl(actual_end_time, scheduled_end_time)), '%Y-%m-%dT%R:%S%F3') from project_phase where phase_type_id = 3 and project_id = p.project_id) ,
+       (select to_char(max(nvl(actual_end_time, scheduled_end_time)), '%Y-%m-%dT%R:%S%F3') from project_phase where phase_type_id = 10 and project_id = p.project_id 
+                       and  nvl(actual_end_time, scheduled_end_time) <=
+				 nvl((select min(nvl(scheduled_start_time, actual_start_time)) 
+				 from project_phase pp2 where pp2.phase_type_id = 11 and pp2.project_id = p.project_id ),today))) completion_date,
        ttc.name client,
        ttp.name billing_project,
        tdp.name project_name,
