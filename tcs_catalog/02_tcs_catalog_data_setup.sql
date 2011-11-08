@@ -8,7 +8,7 @@
 --       response_severity_lu, review_resp, roles, scorecard_question_type_lu, scorecard_status_lu, scorecard_type_lu,
 --       screening_response_lu, screening_status_lu, specification_type, status, submission_status_lu, technology_types,
 --       track_contest_result_calculator_lu, track_contest_type_lu, track_status_lu, track_type_lu, upload_status_lu,
---       upload_type_lu, command_query_xref, query, query_input_xref;
+--       upload_type_lu, command_query_xref, query, query_input_xref, late_deliverable_type_lu;
 --
 -- The following tables are NOT included in this script:
 --        royalty, sample_inquiry, scorecard, scorecard_group, scorecard_question, scorecard_section, screening_result,
@@ -2531,7 +2531,6 @@ INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) 
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(30, 26, 'image/x-ico');
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(31, 17, 'application/octet-stream');
 
-
 insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (1, 'Design Graphic', 'Design Graphic');
 insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (2, 'Animation', 'Animation');
 insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (3, 'Mobile', 'Mobile');
@@ -2544,3 +2543,6 @@ insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, p
 
 insert into 'informix'.copilot_contest_extra_info_type (copilot_contest_extra_info_type_id, name, copilot_contest_extra_info_type_desc) values (1, 'Budget', 'Budget');
 insert into 'informix'.copilot_contest_extra_info_type (copilot_contest_extra_info_type_id, name, copilot_contest_extra_info_type_desc) values (2, 'Other Managing Experience', 'Other Managing Experience');
+
+INSERT INTO 'informix'.late_deliverable_type_lu (late_deliverable_type_id, name, description) VALUES(1, 'Missed Deadline', 'Missed Deadline');
+INSERT INTO 'informix'.late_deliverable_type_lu (late_deliverable_type_id, name, description) VALUES(2, 'Rejected Final Fix', 'Rejected Final Fix');

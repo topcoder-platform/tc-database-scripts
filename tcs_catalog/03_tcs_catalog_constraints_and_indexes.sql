@@ -1835,6 +1835,12 @@ ALTER TABLE 'informix'.contest_sale
         REFERENCES 'informix'.sale_type_lu(sale_type_id) CONSTRAINT CONTEST_SALE_SALE_TYPE_FK);
 	
 alter table 'informix'.late_deliverable add constraint foreign key
+    (late_deliverable_type_id)
+    references 'informix'.late_deliverable_type_lu
+    (late_deliverable_type_id)
+    constraint fk_latedeliverable_latedeliverabletypelu_latedeliverabletypeid;
+
+alter table 'informix'.late_deliverable add constraint foreign key
     (project_phase_id)
     references 'informix'.project_phase
     (project_phase_id)

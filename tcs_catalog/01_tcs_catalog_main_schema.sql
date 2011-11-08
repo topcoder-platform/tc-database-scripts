@@ -2412,8 +2412,18 @@ extent size 16 next size 16
 lock mode row; 
 revoke all on "informix".client_billing_config_type_lu from public;
 
+CREATE TABLE "informix".late_deliverable_type_lu (
+    late_deliverable_type_id INT NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    description VARCHAR(254) NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+revoke all on "informix".late_deliverable_type_lu from public as "informix";
+
 CREATE TABLE "informix".late_deliverable (
     late_deliverable_id serial NOT NULL,
+    late_deliverable_type_id INTEGER NOT NULL,
     project_phase_id INTEGER NOT NULL,
     resource_id INTEGER NOT NULL,
     deliverable_id INTEGER NOT NULL,
@@ -4489,6 +4499,7 @@ grant select on "informix".PROJECT_USER_AUDIT_SEQ to "public" as "informix";
 
 grant select,insert,update,delete on "informix".client_billing_config to public as "informix";
 grant select,insert,update,delete on "informix".client_billing_config_type_lu to public as "informix";
+grant select,insert,update,delete on "informix".late_deliverable_type_lu to public as "informix";
 grant select,insert,update,delete on "informix".late_deliverable to public as "informix";
 grant select,insert,update,delete on "informix".project_reliability to public as "informix";
 
