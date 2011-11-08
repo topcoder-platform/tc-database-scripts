@@ -801,6 +801,10 @@ alter table 'informix'.copilot_profile_info_type add constraint primary key
   (copilot_profile_info_type_id)
   constraint pk_copilot_profile_info_type;
 
+alter table 'informix'.late_deliverable_type_lu add constraint primary key
+  (late_deliverable_type_id)
+  constraint pk_late_deliverable_type_lu;
+
 alter table 'informix'.late_deliverable add constraint primary key
   (late_deliverable_id)
   constraint pk_late_deliverable;
