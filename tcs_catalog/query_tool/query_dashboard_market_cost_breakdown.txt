@@ -97,7 +97,9 @@ select p.project_category_id as id,
 
  FROM project p,
       project_info pi2, -- contest_fee
-      table (multiset((select  project_id, MAX(actual_end_time) as completion_time from project_phase where phase_type_id = 11 GROUP BY project_id))) ct
+      table (multiset((select  p.project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project p, project_category_lu pcl
+                where phase_type_id = decode (pcl.project_type_id, 1, 10, 2, 10, 3 , 4 ) and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id
+                GROUP BY p.project_id))) ct
  where p.project_id = pi2.project_id
   and pi2.project_info_type_id = 31
   and p.project_status_id = 7
