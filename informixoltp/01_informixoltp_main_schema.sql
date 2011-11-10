@@ -3541,13 +3541,21 @@ lock mode row;
 
 revoke all on payment_detail_status_reason_xref from 'public';
 create table 'informix'.user_accrual (
-    user_id DECIMAL(12,0),
+    user_id DECIMAL(12,0) NOT NULL,
     accrual_amount DECIMAL(12,0)
 )
 extent size 16 next size 16
 lock mode row;
 
 revoke all on user_accrual from 'public';
+create table 'informix'.user_payment_method (
+    user_id DECIMAL(10,0) NOT NULL,
+    payment_method VARCHAR(20) NOT NULL
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on user_payment_method from 'public';
 create table 'informix'.round_language (
     round_id DECIMAL(10,0) not null,
     language_id DECIMAL(3,0) not null
@@ -5284,6 +5292,16 @@ grant update on user_accrual to 'public' as 'informix';
 grant insert on user_accrual to 'public' as 'informix';
 
 grant index on user_accrual to 'public' as 'informix';
+
+grant select on user_payment_method to 'public' as 'informix';
+
+grant delete on user_payment_method to 'public' as 'informix';
+
+grant update on user_payment_method to 'public' as 'informix';
+
+grant insert on user_payment_method to 'public' as 'informix';
+
+grant index on user_payment_method to 'public' as 'informix';
 
 grant insert on round_registration to 'public' as 'informix';
 
