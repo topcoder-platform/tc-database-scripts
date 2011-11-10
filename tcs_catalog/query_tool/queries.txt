@@ -334,6 +334,7 @@ query_project_copilot_types.txt|UPDATE query SET text = ? WHERE query_id = 31576
 query_software_project_details_data.txt|UPDATE query SET text = ? WHERE query_id = 31566
 query_studio_project_details_data.txt|UPDATE query SET text = ? WHERE query_id = 31567
 query_direct_contest_final_fixes.txt|UPDATE query SET text = ? WHERE query_id = 31587
-
 query_copilot_contest_extra_info.txt|UPDATE query SET text = ? WHERE query_id = 31596
 query_copilot_contest_experiences.txt|UPDATE query SET text = ? WHERE query_id = 31597
+
+query_query_dd_ibm_members_gatxt|UPDATE query SET text = ? WHERE query_id = 31617

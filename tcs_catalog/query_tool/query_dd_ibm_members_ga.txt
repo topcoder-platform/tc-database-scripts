@@ -1,0 +1,23 @@
+
+select u.handle
+       , DECODE(gx.security_status_id, 1, 'TRUE', 'FALSE') as ibm_only
+       , CASE WHEN u.status = 'A' then 'TRUE' ELSE 'FALSE' END as active
+       , CASE WHEN ( select count(*) from user_group_xref where group_id = 10 and login_id = u.user_id ) > 0 THEN 'TRUE' ELSE 'FALSE' END as competitions
+       , CASE WHEN (select count(user_id) from user_terms_of_use_xref where u.user_id = user_id and terms_of_use_id = 20795 ) > 0 THEN 'TRUE' ELSE 'FALSE' END as notus_observer
+       , CASE WHEN (select count(*) from user_terms_of_use_xref where user_id = u.user_id and terms_of_use_id = 20773 ) > 0 THEN 'TRUE' ELSE 'FALSE' END as lcc_notice
+       , CASE WHEN (select count(*) from user_terms_of_use_xref where user_id = u.user_id and terms_of_use_id = 20843 ) > 0 THEN 'TRUE' ELSE 'FALSE' END as lc_competitor
+       , CASE WHEN (select count(*) from time_oltp:project p, time_oltp:project_worker pw, time_oltp:user_account ua, time_oltp:client_project cp, time_oltp:client c where p.project_id = pw.project_id and pw.user_account_id = ua.user_account_id and ua.user_name = u.handle and p.project_id = cp.project_id and cp.client_id = c.client_id and c.client_id = 70014096 and p.project_id in (70016058) ) > 0 THEN 'TRUE' ELSE 'FALSE' END as restricted_companies
+       , CASE WHEN (select count(*) from time_oltp:project p, time_oltp:project_worker pw, time_oltp:user_account ua, time_oltp:client_project cp, time_oltp:client c where p.project_id = pw.project_id and pw.user_account_id = ua.user_account_id and ua.user_name = u.handle and p.project_id = cp.project_id and cp.client_id = c.client_id and c.client_id = 70014096 and p.project_id in (70016058) ) > 0 THEN 'TRUE' ELSE 'FALSE' END as liquid_access
+       , CASE WHEN (select count(*) from time_oltp:project p, time_oltp:project_worker pw, time_oltp:user_account ua, time_oltp:client_project cp, time_oltp:client c where p.project_id = pw.project_id and pw.user_account_id = ua.user_account_id and ua.user_name = u.handle and p.project_id = cp.project_id and cp.client_id = c.client_id and c.client_id = 70014096 and p.project_id in (70016059) ) > 0 THEN 'TRUE' ELSE 'FALSE' END as liquid_ca_access
+       , CASE WHEN (select count(*) from time_oltp:project p, time_oltp:project_worker pw, time_oltp:user_account ua, time_oltp:client_project cp, time_oltp:client c where p.project_id = pw.project_id and pw.user_account_id = ua.user_account_id and ua.user_name = u.handle and p.project_id = cp.project_id and cp.client_id = c.client_id and c.client_id = 70014096 and p.project_id in (70015983) ) > 0 THEN 'TRUE' ELSE 'FALSE' END as liquid_fast_cycles_access
+       , e.address as email
+       , u.first_name as first_name
+       , u.last_name as last_name
+  from user u, 
+       user_group_xref gx,
+       email e
+ where gx.group_id = 217 
+  and u.user_id = gx.login_id
+  and u.user_id = e.user_id 
+  and e.primary_ind = 1
+order by 2,1;
