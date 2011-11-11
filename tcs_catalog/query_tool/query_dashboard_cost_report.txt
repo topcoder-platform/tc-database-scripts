@@ -84,7 +84,9 @@ from project p,
      time_oltp:project ttp,
      time_oltp:client_project ttcp,
      time_oltp:client ttc,
-     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 11 GROUP BY project_id))) ct 
+     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 11 GROUP BY project_id))) ct,
+     table (multiset((select unique upg.resource_id from user_permission_grant upg
+                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3)))) up --user permission table
 where p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@)
@@ -102,6 +104,7 @@ where p.project_status_id = ps.project_status_id
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
+  and up.resource_id = tdp.project_id
   and pc.project_type_id  != 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
@@ -195,7 +198,9 @@ from project p,
      time_oltp:project ttp,
      time_oltp:client_project ttcp,
      time_oltp:client ttc,
-     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 4 GROUP BY project_id))) ct 
+     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 4 GROUP BY project_id))) ct,
+     table (multiset((select unique upg.resource_id from user_permission_grant upg
+                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3)))) up --user permission table     
 where p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@)
@@ -213,6 +218,7 @@ where p.project_status_id = ps.project_status_id
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
+  and up.resource_id = tdp.project_id
   and pc.project_type_id = 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))

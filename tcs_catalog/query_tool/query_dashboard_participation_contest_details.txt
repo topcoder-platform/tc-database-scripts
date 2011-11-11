@@ -20,30 +20,26 @@ select p.project_id,
        END as contest_status,
   regt.registrant,
   regt.country,
-  CASE
-  WHEN EXISTS(
-       select u.upload_id
-       from upload u, submission s
-       where u.project_id=p.project_id and u.resource_id=regt.resource_id and u.upload_type_id=1 and u.upload_status_id=1
-             and s.upload_id=u.upload_id and s.submission_status_id != 5
-      )
-      THEN 1
-  ELSE
-      0
-  END as has_submit,
-  CASE
-  WHEN EXISTS(
-       select u.upload_id
-       from upload u, submission s
-       where u.project_id=p.project_id and u.resource_id=regt.resource_id and u.upload_type_id=1 and u.upload_status_id=1
-             and s.upload_id=u.upload_id and s.submission_status_id != 5 and s.placement=1
-      )
-      THEN 1
-  ELSE
-      0
-  END as has_win
-  from project p,
-     project_category_lu pc,
+  DECODE(sbt.resource_id, NULL, 0, 1) as has_submit,
+  DECODE(fw.resource_id, NULL, 0, 1) as has_win_final,
+  DECODE(mw.resource_id, NULL, 0, 1) as has_win_milestone
+  from project p
+        inner join (table (multiset((select  rp.project_id, rri.value::int as registrant, rri.resource_id, addr.country_code as country from project rp
+                          left join resource rr on rr.project_id = rp.project_id and rr.resource_role_id = 1
+                          left join resource_info rri on rri.resource_id = rr.resource_id and rri.resource_info_type_id = 1
+                          left join common_oltp:user_address_xref uax on uax.user_id = rri.value::int
+                          left join common_oltp:address addr on addr.address_id = uax.address_id))) as regt) on regt.project_id = p.project_id
+        left outer join (table (multiset((select  unique u.project_id, u.resource_id from upload u, submission s
+                           where u.upload_type_id=1 and u.upload_status_id=1 and s.upload_id=u.upload_id and s.submission_status_id!=5))) as sbt) -- Submitter table
+             on sbt.project_id = p.project_id and sbt.resource_id = regt.resource_id
+        left outer join (table (multiset((select  unique u.project_id, u.resource_id from upload u, submission s
+                           where u.upload_type_id=1 and u.upload_status_id=1 and s.upload_id=u.upload_id and s.submission_status_id!=5 and s.placement=1 and s.submission_type_id=1))) as fw) -- Final Winner table
+             on fw.project_id = p.project_id and fw.resource_id = regt.resource_id
+        left outer join (table (multiset((select  unique u.project_id, u.resource_id from upload u, submission s, prize p
+                           where u.upload_type_id=1 and u.upload_status_id=1 and s.upload_id=u.upload_id and s.submission_status_id!=5 and s.submission_type_id=3
+                                 and s.prize_id=p.prize_id and p.prize_type_id=14))) as mw) -- Milestone Winner table
+             on mw.project_id = p.project_id and mw.resource_id = regt.resource_id,
+       project_category_lu pc,
        tc_direct_project tdp,
        project_info pi, -- project name
        project_info pi3, -- billing account
@@ -53,12 +49,10 @@ select p.project_id,
        table (multiset((select  p.project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project p, project_category_lu pcl
                 where phase_type_id = decode (pcl.project_type_id, 1, 10, 2, 10, 3 , 4 ) and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id
                 GROUP BY p.project_id))) ct,
-       table (multiset((select  rp.project_id, rri.value::int as registrant, rri.resource_id, addr.country_code as country from project rp
-                          left join resource rr on rr.project_id = rp.project_id and rr.resource_role_id = 1
-                          left join resource_info rri on rri.resource_id = rr.resource_id and rri.resource_info_type_id = 1
-                          left join common_oltp:user_address_xref uax on uax.user_id = rri.value::int
-                          left join common_oltp:address addr on addr.address_id = uax.address_id))) as regt
+       table (multiset((select unique upg.resource_id from user_permission_grant upg
+                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3)))) up --user permission table
    where p.tc_direct_project_id = tdp.project_id
+        and up.resource_id = tdp.project_id
         and p.project_category_id = pc.project_category_id
         and p.project_category_id IN (@pcids@)
         and p.project_id = ct.project_id
@@ -74,4 +68,3 @@ select p.project_id,
         and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
         and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
         and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-        and regt.project_id = p.project_id
