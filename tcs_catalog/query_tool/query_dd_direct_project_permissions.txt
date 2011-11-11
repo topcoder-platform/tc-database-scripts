@@ -1,0 +1,17 @@
+select u.handle user,
+       tdp.name direct_project_name,
+       DECODE(t.permission_type_id, 3, 'X', '') as full,
+       DECODE(t.permission_type_id, 2, 'X', '') as write,
+       DECODE(t.permission_type_id, 1, 'X', '') as read
+from corporate_oltp:user_permission_grant g,
+     corporate_oltp:permission_type t,
+     user u,
+     tc_direct_project tdp
+where g.permission_type_id = t.permission_type_id
+  and is_studio = 0
+  and u.user_id = g.user_id
+  and g.resource_id = tdp.project_id
+  and u.handle_lower like lower('%@ha@%')
+  and lower(tdp.name) like lower('%@pname@%')
+group by u.handle, tdp.name, 3,4,5
+order by tdp.name, u.handle
