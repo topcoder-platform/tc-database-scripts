@@ -1,0 +1,5 @@
+SELECT 'user_has_permission_over_tc_direct_project' 
+FROM user_permission_grant upg 
+WHERE upg.resource_id = @tcdirectid@ 
+AND upg.permission_type_id IN (1,2,3) -- PROJECT_READ, PROJECT_WRITE, PROJECT_FULL
+AND upg.user_id = @uid@

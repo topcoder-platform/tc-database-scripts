@@ -22,7 +22,8 @@ select p.project_id,
   regt.country,
   DECODE(sbt.resource_id, NULL, 0, 1) as has_submit,
   DECODE(fw.resource_id, NULL, 0, 1) as has_win_final,
-  DECODE(mw.resource_id, NULL, 0, 1) as has_win_milestone
+  DECODE(mw.resource_id, NULL, 0, 1) as has_win_milestone,
+  0 as has_win
   from project p
         inner join (table (multiset((select  rp.project_id, rri.value::int as registrant, rri.resource_id, addr.country_code as country from project rp
                           left join resource rr on rr.project_id = rp.project_id and rr.resource_role_id = 1

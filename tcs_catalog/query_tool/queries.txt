@@ -339,3 +339,4 @@ query_copilot_contest_experiences.txt|UPDATE query SET text = ? WHERE query_id =
 query_query_dd_ibm_members_ga.txt|UPDATE query SET text = ? WHERE query_id = 31617
 query_dd_direct_project_permissions.txt|UPDATE query SET text = ? WHERE query_id = 30476
 query_dd_direct_project_permissions_ga.txt|UPDATE query SET text = ? WHERE query_id = 31626
+query_has_cockpit_project_permissions.txt|UPDATE query SET text = ? WHERE query_id = 31627
