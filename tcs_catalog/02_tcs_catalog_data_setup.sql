@@ -740,7 +740,6 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31220, 'direct_contest_final_fixes', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31239, 'copilot_contest_extra_info', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31240, 'copilot_contest_experiences', 13337);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31269, 'dd_ibm_members_ga', 24994);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30159, 'dd_direct_project_permissions', 24994);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31270, 'dd_direct_project_permissions_ga', 24994);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31271, 'has_cockpit_project_permissions', 13337);
@@ -1700,7 +1699,6 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31587, null, 'direct_contest_final_fixes', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31596, null, 'copilot_contest_extra_info', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31597, null, 'copilot_contest_experiences', 0, null);
-INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31617, null, 'dd_ibm_members_ga', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30476, null, 'dd_direct_project_permissions', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31626, null, 'dd_direct_project_permissions_ga', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31627, null, 'has_cockpit_project_permissions', 0, null);
