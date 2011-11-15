@@ -2005,3 +2005,18 @@ alter table 'informix'.copilot_contest_extra_info add constraint foreign key
   references 'informix'.copilot_contest_extra_info_type
   (copilot_contest_extra_info_type_id) 
   constraint fk_copilot_contest_extra_info_tp;
+  
+ALTER TABLE direct_project_metadata ADD CONSTRAINT FOREIGN KEY (project_metadata_key_id) 
+REFERENCES direct_project_metadata_key (project_metadata_key_id) CONSTRAINT fk_project_metadata_project_metadata_type;
+
+ALTER TABLE direct_project_metadata_audit ADD CONSTRAINT FOREIGN KEY (audit_action_type_id) 
+REFERENCES audit_action_type_lu (audit_action_type_id) CONSTRAINT fk_project_metadata_audit_audit_action_type_lu1;
+
+ALTER TABLE direct_project_metadata_key_audit ADD CONSTRAINT FOREIGN KEY (audit_action_type_id) 
+REFERENCES audit_action_type_lu (audit_action_type_id) CONSTRAINT fk_project_metadata_key_audit_audit_action_type_lu1;
+
+ALTER TABLE direct_project_metadata_predefined_value ADD CONSTRAINT FOREIGN KEY (project_metadata_key_id) 
+REFERENCES direct_project_metadata_key (project_metadata_key_id) CONSTRAINT fk_project_metadata_type_value_project_metadata_type1;
+
+ALTER TABLE direct_project_metadata_predefined_value_audit ADD CONSTRAINT FOREIGN KEY (audit_action_type_id) 
+REFERENCES audit_action_type_lu (audit_action_type_id) CONSTRAINT fk_project_metadata_predefined_value_audit_audit_action_type_1;

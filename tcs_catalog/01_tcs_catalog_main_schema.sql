@@ -2737,6 +2737,79 @@ extent size 1000 next size 1000
 lock mode row;
 revoke all on copilot_contest_extra_info from 'public';
 
+CREATE TABLE direct_project_metadata (
+	project_metadata_id SERIAL NOT NULL,
+	tc_direct_project_id DECIMAL(10,0) NOT NULL,
+	project_metadata_key_id INTEGER NOT NULL,
+	metadata_value LVARCHAR(500) NOT NULL,
+	PRIMARY KEY (project_metadata_id) constraint pk_direct_project_metadata)
+extent size 1000 next size 1000
+lock mode row;
+revoke all on copilot_contest_extra_info from 'public';
+
+CREATE TABLE direct_project_metadata_audit (
+	project_metadata_audit_id DECIMAL(10,0) NOT NULL,
+	project_metadata_id DECIMAL(10,0) NOT NULL,
+	tc_direct_project_id DECIMAL(10,0) NOT NULL,
+	project_metadata_key_id DECIMAL(10,0) NOT NULL,
+	metadata_value LVARCHAR(500) NOT NULL,
+	audit_action_type_id INTEGER NOT NULL,
+	action_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+	action_user_id DECIMAL(10,0) NOT NULL )
+extent size 1000 next size 1000
+lock mode row;
+revoke all on copilot_contest_extra_info from 'public';
+
+CREATE TABLE direct_project_metadata_key (
+	project_metadata_key_id SERIAL NOT NULL, name VARCHAR(45) NOT NULL,
+	description VARCHAR(255),
+	grouping CHAR(1),
+	client_id DECIMAL(10,0),
+	single CHAR(1) NOT NULL,
+	PRIMARY KEY (project_metadata_key_id) constraint pk_direct_project_metadata_key)
+extent size 1000 next size 1000
+lock mode row;
+revoke all on copilot_contest_extra_info from 'public';
+
+CREATE TABLE direct_project_metadata_key_audit (
+	project_metadata_key_audit_id DECIMAL(10,0) NOT NULL,
+	project_metadata_key_id DECIMAL(10,0) NOT NULL,
+	name VARCHAR(45) NOT NULL,
+	description VARCHAR(255),
+	grouping CHAR(1),
+	client_id DECIMAL(10,0),
+	audit_action_type_id INTEGER NOT NULL,
+	action_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+	action_user_id DECIMAL(12,0) NOT NULL,
+	single CHAR(1) NOT NULL )
+extent size 1000 next size 1000
+lock mode row;
+revoke all on copilot_contest_extra_info from 'public';
+
+CREATE TABLE direct_project_metadata_predefined_value (
+	project_metadata_predefined_value_id SERIAL NOT NULL,
+	project_metadata_key_id INTEGER NOT NULL,
+	predefined_metadata_value LVARCHAR(500) NOT NULL,
+	position INTEGER NOT NULL,
+	list_order INTEGER NOT NULL ,
+	PRIMARY KEY (project_metadata_predefined_value_id) constraint pk_direct_project_metadata_predefined_value)
+extent size 1000 next size 1000
+lock mode row;
+revoke all on copilot_contest_extra_info from 'public';
+
+CREATE TABLE direct_project_metadata_predefined_value_audit (
+	project_metadata_predefined_value_audit_id DECIMAL(10,0) NOT NULL,
+	project_metadata_predefined_value_id DECIMAL(10,0) NOT NULL,
+	project_metadata_key_id DECIMAL(10,0) NOT NULL,
+	predefined_metadata_value LVARCHAR(500) NOT NULL,
+	position INTEGER NOT NULL,
+	audit_action_type_id INTEGER NOT NULL,
+	action_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+	action_user_id DECIMAL(12,0) NOT NULL )
+extent size 1000 next size 1000
+lock mode row;
+revoke all on copilot_contest_extra_info from 'public';
+
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -4548,3 +4621,27 @@ grant update on "informix".copilot_contest_extra_info to public as "informix";
 grant insert on "informix".copilot_contest_extra_info to public as "informix";
 grant select on "informix".copilot_contest_extra_info to public as "informix";
 grant delete on "informix".copilot_contest_extra_info to public as "informix";
+
+grant index on "informix".direct_project_metadata to public as "informix";
+grant update on "informix".direct_project_metadata to public as "informix";
+grant insert on "informix".direct_project_metadata to public as "informix";
+grant select on "informix".direct_project_metadata to public as "informix";
+grant delete on "informix".direct_project_metadata to public as "informix";
+
+grant index on "informix".direct_project_metadata_audit to public as "informix";
+grant update on "informix".direct_project_metadata_audit to public as "informix";
+grant insert on "informix".direct_project_metadata_audit to public as "informix";
+grant select on "informix".direct_project_metadata_audit to public as "informix";
+grant delete on "informix".direct_project_metadata_audit to public as "informix";
+
+grant index on "informix".direct_project_metadata_key to public as "informix";
+grant update on "informix".direct_project_metadata_key to public as "informix";
+grant insert on "informix".direct_project_metadata_key to public as "informix";
+grant select on "informix".direct_project_metadata_key to public as "informix";
+grant delete on "informix".direct_project_metadata_key to public as "informix";
+
+grant index on "informix".direct_project_metadata_key_audit to public as "informix";
+grant update on "informix".direct_project_metadata_key_audit to public as "informix";
+grant insert on "informix".direct_project_metadata_key_audit to public as "informix";
+grant select on "informix".direct_project_metadata_key_audit to public as "informix";
+grant delete on "informix".direct_project_metadata_key_audit to public as "informix";
