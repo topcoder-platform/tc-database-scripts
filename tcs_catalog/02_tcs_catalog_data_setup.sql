@@ -2569,11 +2569,11 @@ insert into 'informix'.copilot_contest_extra_info_type (copilot_contest_extra_in
 INSERT INTO 'informix'.late_deliverable_type_lu (late_deliverable_type_id, name, description) VALUES(1, 'Missed Deadline', 'Missed Deadline');
 INSERT INTO 'informix'.late_deliverable_type_lu (late_deliverable_type_id, name, description) VALUES(2, 'Rejected Final Fix', 'Rejected Final Fix');
 
-insert into direct_project_metadata_key(direct_project_metadata_key_id, name, description, grouping, client_id, single) values(1, 'Client Manager Handles', 'client manager handles', null, null, '0');
-insert into direct_project_metadata_key(direct_project_metadata_key_id, name, description, grouping, client_id, single) values(2, 'Project Manager Handles', 'project manager handles', null, null, '0');
-insert into direct_project_metadata_key(direct_project_metadata_key_id, name, description, grouping, client_id, single) values(3, 'Project Budget', 'project budget', null, null, '1');
-insert into direct_project_metadata_key(direct_project_metadata_key_id, name, description, grouping, client_id, single) values(4, 'Project SVN address', 'project SVN address', null, null, '1');
-insert into direct_project_metadata_key(direct_project_metadata_key_id, name, description, grouping, client_id, single) values(5, 'Project JIRA address', 'project JIRA address', null, null, '1');
-insert into direct_project_metadata_key(direct_project_metadata_key_id, name, description, grouping, client_id, single) values(6, 'Planned Duration', 'planned duration', null, null, '1');
-insert into direct_project_metadata_key(direct_project_metadata_key_id, name, description, grouping, client_id, single) values(7, 'Archived', 'Flag for whether project is archived', null, null, '1');
-insert into direct_project_metadata_key(direct_project_metadata_key_id, name, description, grouping, client_id, single) values(8, 'Project Technologies', 'project technologies', null, null, '0');
+insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(1, 'Client Manager Handles', 'client manager handles', null, null, '0');
+insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(2, 'Project Manager Handles', 'project manager handles', null, null, '0');
+insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(3, 'Project Budget', 'project budget', null, null, '1');
+insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(4, 'Project SVN address', 'project SVN address', null, null, '1');
+insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(5, 'Project JIRA address', 'project JIRA address', null, null, '1');
+insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(6, 'Planned Duration', 'planned duration', null, null, '1');
+insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(7, 'Archived', 'Flag for whether project is archived', null, null, '1');
+insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(8, 'Project Technologies', 'project technologies', null, null, '0');
