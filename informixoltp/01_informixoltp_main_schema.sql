@@ -1592,7 +1592,8 @@ create table 'informix'.payment_detail (
     installment_number DECIMAL(3,0) default 1,
     digital_run_track_id DECIMAL(10,0),
     invoice_number VARCHAR(11),
-    jira_issue_id VARCHAR(100)
+    jira_issue_id VARCHAR(100),
+    create_user DECIMAL(10,0)
 )
 extent size 3000 next size 1000
 lock mode row;
@@ -2615,7 +2616,7 @@ create table 'informix'.system_test_case (
     status DECIMAL(3,0),
     example_flag DECIMAL(1,0),
     system_flag DECIMAL(1,0) default 0 not null,
-	test_number DECIMAL(6,0) default 0
+    test_number DECIMAL(6,0) default 0
 )
 extent size 10000 next size 10000
 lock mode row;
