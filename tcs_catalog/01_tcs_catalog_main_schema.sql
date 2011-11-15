@@ -1517,17 +1517,17 @@ revoke all on project_info from 'public';
 
 
 CREATE TABLE 'informix'.copilot_profile (
-	copilot_profile_id DECIMAL(10,0) NOT NULL,
-	user_id DECIMAL(10, 0) NOT NULL,
-	copilot_profile_status_id DECIMAL(10,0) NOT NULL,
-	suspension_count INT NOT NULL,
-	reliability DECIMAL(5,2) NOT NULL,
-	activation_date DATETIME YEAR TO FRACTION,
-	show_copilot_earnings BOOLEAN,
-	create_user VARCHAR(64) NOT NULL,
-	create_date DATETIME YEAR TO FRACTION  NOT NULL,
-	update_user VARCHAR(64) NOT NULL,
-	update_date DATETIME YEAR TO FRACTION  NOT NULL
+    copilot_profile_id DECIMAL(10,0) NOT NULL,
+    user_id DECIMAL(10, 0) NOT NULL,
+    copilot_profile_status_id DECIMAL(10,0) NOT NULL,
+    suspension_count INT NOT NULL,
+    reliability DECIMAL(5,2) NOT NULL,
+    activation_date DATETIME YEAR TO FRACTION,
+    show_copilot_earnings BOOLEAN,
+    create_user VARCHAR(64) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION  NOT NULL,
+    update_user VARCHAR(64) NOT NULL,
+    update_date DATETIME YEAR TO FRACTION  NOT NULL
 )
 extent size 16 next size 16
 lock mode row;
@@ -1535,12 +1535,12 @@ lock mode row;
 revoke all on copilot_profile from 'public';
 
 CREATE TABLE 'informix'.copilot_profile_status (
-	copilot_profile_status_id DECIMAL(10,0) NOT NULL,
-	name VARCHAR(20) NOT NULL,
-	create_user VARCHAR(64) NOT NULL,
-	create_date DATETIME YEAR TO FRACTION  NOT NULL,
-	update_user VARCHAR(64) NOT NULL,
-	update_date DATETIME YEAR TO FRACTION  NOT NULL
+    copilot_profile_status_id DECIMAL(10,0) NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    create_user VARCHAR(64) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION  NOT NULL,
+    update_user VARCHAR(64) NOT NULL,
+    update_date DATETIME YEAR TO FRACTION  NOT NULL
 )
 extent size 16 next size 16
 lock mode row;
@@ -1548,14 +1548,14 @@ lock mode row;
 revoke all on copilot_profile_status from 'public';
 
 CREATE TABLE 'informix'.copilot_profile_info (
-	copilot_profile_info_id DECIMAL(10,0) NOT NULL,
-	copilot_profile_info_type_id DECIMAL(10,0) NOT NULL,
-	copilot_profile_id DECIMAL(10,0) NOT NULL,
-	value VARCHAR(100) NOT NULL,
-	create_user VARCHAR(64) NOT NULL,
-	create_date DATETIME YEAR TO FRACTION  NOT NULL,
-	update_user VARCHAR(64) NOT NULL,
-	update_date DATETIME YEAR TO FRACTION  NOT NULL
+    copilot_profile_info_id DECIMAL(10,0) NOT NULL,
+    copilot_profile_info_type_id DECIMAL(10,0) NOT NULL,
+    copilot_profile_id DECIMAL(10,0) NOT NULL,
+    value VARCHAR(100) NOT NULL,
+    create_user VARCHAR(64) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION  NOT NULL,
+    update_user VARCHAR(64) NOT NULL,
+    update_date DATETIME YEAR TO FRACTION  NOT NULL
 )
 extent size 16 next size 16
 lock mode row;
@@ -1563,12 +1563,12 @@ lock mode row;
 revoke all on copilot_profile_info from 'public';
 
 CREATE TABLE 'informix'.copilot_profile_info_type (
-	copilot_profile_info_type_id DECIMAL(10,0) NOT NULL,
-	name VARCHAR(20) NOT NULL,
-	create_user VARCHAR(64) NOT NULL,
-	create_date DATETIME YEAR TO FRACTION  NOT NULL,
-	update_user VARCHAR(64) NOT NULL,
-	update_date DATETIME YEAR TO FRACTION  NOT NULL
+    copilot_profile_info_type_id DECIMAL(10,0) NOT NULL,
+    name VARCHAR(20) NOT NULL,
+    create_user VARCHAR(64) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION  NOT NULL,
+    update_user VARCHAR(64) NOT NULL,
+    update_date DATETIME YEAR TO FRACTION  NOT NULL
 )
 extent size 16 next size 16
 lock mode row;
@@ -1620,7 +1620,7 @@ create table 'informix'.comp_versions (
     price DECIMAL(10,2) not null,
     comments lvarchar,
     modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION not null,
-	suspended_ind DECIMAL(1,0) default 0
+    suspended_ind DECIMAL(1,0) default 0
 )
 extent size 1000 next size 1000
 lock mode row;
@@ -2362,24 +2362,24 @@ lock mode row;
 revoke all on "informix".project_user_audit from "public" as "informix";
 
 create table 'informix'.project_info_audit (
-	project_id int not null,
-	project_info_type_id int not null,
-	value varchar(255),
-	audit_action_type_id int not null,
-	action_date datetime year to fraction not null,
-	action_user_id decimal(12,0) not null
+    project_id int not null,
+    project_info_type_id int not null,
+    value varchar(255),
+    audit_action_type_id int not null,
+    action_date datetime year to fraction not null,
+    action_user_id decimal(12,0) not null
 ) 
 extent size 16 next size 16 
 lock mode row;
 revoke all on 'informix'.project_info_audit from 'public' as 'informix';
 
 create table 'informix'.project_phase_audit (
-	project_phase_id int not null,
-	scheduled_start_time datetime year to fraction,
-	scheduled_end_time datetime year to fraction,
-	audit_action_type_id int not null,
-	action_date datetime year to fraction not null,
-	action_user_id decimal(12,0) not null
+    project_phase_id int not null,
+    scheduled_start_time datetime year to fraction,
+    scheduled_end_time datetime year to fraction,
+    audit_action_type_id int not null,
+    action_date datetime year to fraction not null,
+    action_user_id decimal(12,0) not null
 ) 
 extent size 16 next size 16 
 lock mode row;
@@ -2427,7 +2427,7 @@ CREATE TABLE "informix".late_deliverable (
     project_phase_id INTEGER NOT NULL,
     resource_id INTEGER NOT NULL,
     deliverable_id INTEGER NOT NULL,
-    deadline DATETIME YEAR TO FRACTION NOT NULL,
+    deadline DATETIME YEAR TO FRACTION,
     compensated_deadline DATETIME YEAR TO FRACTION,
     create_date DATETIME YEAR TO FRACTION NOT NULL,
     forgive_ind DECIMAL(1,0) NOT NULL,
@@ -2641,38 +2641,38 @@ lock mode row;
 revoke all on 'informix'.submission_image from public;
 
 create table 'informix'.submission_declaration (
-	submission_declaration_id DECIMAL(10,0) NOT NULL,
-	submission_id INTEGER NOT NULL,
-	comment text NOT NULL,
-	has_external_content CHAR(1)
+    submission_declaration_id DECIMAL(10,0) NOT NULL,
+    submission_id INTEGER NOT NULL,
+    comment text NOT NULL,
+    has_external_content CHAR(1)
 ) 
 extent size 32 next size 32 
 lock mode row;
 revoke all on "informix".submission_declaration from "public";
 
 create table 'informix'.external_content_type (
-	external_content_type_id DECIMAL(10, 0) NOT NULL,
-	name VARCHAR(50) NOT NULL
+    external_content_type_id DECIMAL(10, 0) NOT NULL,
+    name VARCHAR(50) NOT NULL
 )
 extent size 8 next size 8
 lock mode row;
 revoke all on "informix".external_content_type from "public";
 
 create table 'informix'.submission_external_content (
-	external_content_id DECIMAL(10, 0) NOT NULL,
-	external_content_type_id DECIMAL(10, 0) NOT NULL,
-	display_position INTEGER NOT NULL,
-	submission_declaration_id DECIMAL(10, 0) NOT NULL
+    external_content_id DECIMAL(10, 0) NOT NULL,
+    external_content_type_id DECIMAL(10, 0) NOT NULL,
+    display_position INTEGER NOT NULL,
+    submission_declaration_id DECIMAL(10, 0) NOT NULL
 )
 extent size 32 next size 32 
 lock mode row;
 revoke all on "informix".submission_external_content from "public";
 
 create table 'informix'.external_content_property (
-	external_content_property_id DECIMAL(10, 0) NOT NULL,
-	external_content_id DECIMAL(10, 0) NOT NULL,
-	name VARCHAR(50) NOT NULL,
-	value VARCHAR(100) NOT NULL
+    external_content_property_id DECIMAL(10, 0) NOT NULL,
+    external_content_id DECIMAL(10, 0) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    value VARCHAR(100) NOT NULL
 )
 extent size 32 next size 32 
 lock mode row;
@@ -4450,12 +4450,12 @@ grant select on "informix".audit_action_type_lu to "public" as "informix";
 grant update on "informix".audit_action_type_lu to "public" as "informix";
 grant insert on "informix".audit_action_type_lu to "public" as "informix";
 grant delete on "informix".audit_action_type_lu to "public" as "informix";
-	
+    
 grant select on "informix".project_user_audit to "public" as "informix";
 grant update on "informix".project_user_audit to "public" as "informix";
 grant insert on "informix".project_user_audit to "public" as "informix";
 grant delete on "informix".project_user_audit to "public" as "informix";
-	
+    
 grant select on "informix".project_info_audit to "public" as "informix";
 grant update on "informix".project_info_audit to "public" as "informix";
 grant insert on "informix".project_info_audit to "public" as "informix";
