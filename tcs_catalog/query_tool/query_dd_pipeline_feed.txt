@@ -6,7 +6,7 @@ select
     pi.value || ' ' || pi2.value as title,
     'http://www.topcoder.com/tc?module=ProjectDetail&pj=' || p.project_id as link,
     technology_list(pi4.value) as technologies,
-    pi5.value::INTEGER as first_prize,
+    pi5.value as first_prize,
     DECODE(ps.project_status_id, 1, 'Draft', 2, 'Scheduled', ps.name) as status,
     '-project-' || p.project_id as guid
 from project p,
@@ -44,40 +44,5 @@ AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
  WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
   and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) between (today -1) and (today + 365) 
   and pc.name like '@contesttypename@'
-  and tdp.project_id not in (840) -- exclude test projects
-UNION
-select 
-    to_char(start_time, '%Y-%m-%d %R') as registration_start,
-    to_char(end_time, '%Y-%m-%d %R') as submission_end,
-    ROUND((end_time - start_time)::interval minute(9) to minute::char(20)::decimal(10,2)/60/24, 2) as duration,
-    'Studio ' || cc.contest_type_desc as contest_type,
-    c.name as title,
-    'http://studio.topcoder.com/?module=ViewContestDetails&ct=' || c.contest_id as link,
-    '' technologies,
-     (select p.amount from studio_oltp:contest_prize_xref cpx, studio_oltp:prize p where cpx.prize_id = p.prize_id and p.place = 1 and cpx.contest_id = c.contest_id) as first_prize,
-     ds.name as status,
-    '-studio-' || c.contest_id as guid
-from studio_oltp:contest c,
-     time_oltp:project ttp,
-     time_oltp:client_project ttcp,
-     time_oltp:client ttc,
-     tc_direct_project tdp,
-     studio_oltp:contest_config cc1,
-     studio_oltp:contest_type_lu cc,
-     studio_oltp:contest_detailed_status_lu ds
-where c.start_time between (today -1) and (today + 365) 
-  and c.contest_id = cc1.contest_id
-  and cc1.property_id = 28
-  and cc1.property_value = ttp.project_id
-  and ttp.project_id = ttcp.project_id
-  and ttcp.client_id = ttc.client_id
-  and c.tc_direct_project_id = tdp.project_id
-  and c.contest_status_id in (1,2)
-AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
- WHERE ce.is_studio = 1 AND ce.contest_id = c.contest_id)
-  and c.contest_type_id = cc.contest_type_id
-  and c.contest_id not in (1001973) -- HIDE TCO CONTESTS
-  and c.contest_detailed_status_id = ds.contest_detailed_status_id
-  and cc.contest_type_desc like '@contesttypename@'
   and tdp.project_id not in (840) -- exclude test projects
 order by 1 asc;
