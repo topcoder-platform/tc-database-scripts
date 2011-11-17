@@ -1135,6 +1135,12 @@ INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,
 INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (15, 'Milestone Submission', 'Milestone Submission', 'System', current, 'System', current);
 INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (16, 'Milestone Screening', 'Milestone Screening', 'System', current, 'System', current);
 INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (17, 'Milestone Review', 'Milestone Review', 'System', current, 'System', current);
+INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (18, 'Secondary Reviewer Review', 'Secondary Reviewer Review', 'System', current, 'System', current);
+INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (19, 'Primary Review Evaluation', 'Primary Review Evaluation', 'System', current, 'System', current);
+INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (20, 'New Appeals', 'New Appeals', 'System', current, 'System', current);
+INSERT INTO 'informix'.phase_type_lu(phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (21, 'Primary Review Appeals Response', 'Primary Review Appeals Response', 'System', current, 'System', current);
+
+
 INSERT INTO 'informix'.phase_criteria_type_lu(phase_criteria_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scorecard ID', 'Scorecard ID', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_criteria_type_lu(phase_criteria_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Registration Number', 'Registration Number', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_criteria_type_lu(phase_criteria_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Submission Number', 'Submission Number', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1165,6 +1171,9 @@ INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,desc
 INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (86, NULL, 'Deactivated', 'Deactivated', 'System', '2008-12-04 14:51:25.000', 'System', '2008-12-04 14:51:25.000');
 INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (19, 16, 'Milestone Screener', 'Milestone Screener', 'System', '2010-12-04 14:51:25.000', 'System', '2010-12-04 14:51:25.000');
 INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (20, 17, 'Milestone Reviewer', 'Milestone Reviewer', 'System', '2010-12-04 14:51:25.000', 'System', '2010-12-04 14:51:25.000');
+INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (21, 18, 'Secondary Reviewer', 'Secondary Reviewer', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.resource_role_lu(resource_role_id,phase_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (22, 19, 'Primary Review Evaluator', 'Primary Review Evaluator', 'System', CURRENT, 'System', CURRENT);
+
 INSERT INTO 'informix'.resource_info_type_lu(resource_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'External Reference ID', 'External Reference ID', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.resource_info_type_lu(resource_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Handle', 'Handle', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.resource_info_type_lu(resource_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Email', 'Email', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1209,6 +1218,8 @@ INSERT INTO 'informix'.comment_type_lu(comment_type_id,name,description,create_u
 INSERT INTO 'informix'.comment_type_lu(comment_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (12, 'Approval Review Comment', 'The final product fails to meet one or more requirements', 'System', current, 'System', current);
 INSERT INTO 'informix'.comment_type_lu(comment_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (13, 'Approval Review Comment - Other Fixes', 'The final product meets all requirement but requires other fixes before it can be used', 'System', current, 'System', current);
 INSERT INTO 'informix'.comment_type_lu(comment_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (14, 'Specification Review Comment', 'Specification Review Comment', 'System', current, 'System', current);
+INSERT INTO 'informix'.comment_type_lu(comment_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (15, 'Primary Review Evaluation Comment', 'Primary Review Evaluation Comment', 'System', current, 'System', current);
+
 INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (1, 2, 1, 'Submission', 'Submission', 0, NULL, 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (2, 3, 2, 'Primary Screening Scorecard', 'Primary Screening Scorecard', 1, 1, 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (3, 3, 3, 'Screening Scorecard', 'Screening Scorecard', 1, NULL, 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1238,6 +1249,10 @@ INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role
 INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (27, 15, 1, 'Milestone Submission', 'Milestone Submission', 0, NULL, 'System', current, 'System', current);
 INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (28, 16, 19, 'Milestone Screening Scorecard', 'Milestone Screening Scorecard', 1, 3, 'System', current, 'System', current);
 INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (29, 17, 20, 'Milestone Review Scorecard', 'Milestone Review Scorecard', 1, 3, 'System', current, 'System', current);
+INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (30, 18, 21, 'New Review Scorecard', 'New Review Scorecard', 1, 1, 'System', current, 'System', current);
+INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (31, 19, 22, 'Review Evaluation', 'Review Evaluation', 1, 1, 'System', current, 'System', current);
+INSERT INTO 'informix'.deliverable_lu(deliverable_id,phase_type_id,resource_role_id,name,description,required,submission_type_id,create_user,create_date,modify_user,modify_date) VALUES (32, 21, 22, 'Appeals Response', 'Appeals Response', 1, 1, 'System', current, 'System', current);
+
 INSERT INTO 'informix'.notification_type_lu(notification_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Timeline Notification', 'Timeline Notification', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.screening_status_lu(screening_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Pending', 'Pending', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.screening_status_lu(screening_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Screening', 'Screening', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1368,6 +1383,52 @@ INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, 
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (77, 'Reporting Reviewer', 147, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (78, 'Reporting Reviewer', 147, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (79, 'Reporting Specification Reviewer', 1147, 18);
+
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (85, 'Specification Primary Reviewer Evaluator', 117, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (86, 'Specification Secondary Reviewer 1', 117, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (87, 'Specification Secondary Reviewer 2', 117, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (88, 'Architecture Primary Reviewer Evaluator', 118, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (89, 'Architecture Secondary Reviewer 1', 118, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (90, 'Architecture Secondary Reviewer 2', 118, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (91, 'Test Scenario Primary Reviewer Evaluator', 137, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (92, 'Test Scenario Secondary Reviewer 1', 137, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (93, 'Test Scenario Secondary Reviewer 2', 137, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (94, 'Copilot Posting Primary Reviewer Evaluator', 140, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (95, 'Copilot Posting Secondary Reviewer 1', 140, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (96, 'Copilot Posting Secondary Reviewer 2', 140, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (97, 'RIA Component Primary Reviewer Evaluator', 136, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (98, 'RIA Component Secondary Reviewer 1', 136, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (99, 'RIA Component Secondary Reviewer 2', 136, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (100, 'Test Suites Primary Reviewer Evaluator', 124, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (101, 'Test Suites Secondary Reviewer 1', 124, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (102, 'Test Suites Secondary Reviewer 2', 124, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (103, 'RIA Build Primary Reviewer Evaluator', 135, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (104, 'RIA Build Secondary Reviewer 1', 135, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (105, 'RIA Build Secondary Reviewer 2', 135, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (106, 'Content Creation Primary Reviewer Evaluator', 146, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (107, 'Content Creation Secondary Reviewer 1', 146, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (108, 'Content Creation Secondary Reviewer 2', 146, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (109, 'Assembly Primary Reviewer Evaluator', 125, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (110, 'Assembly Secondary Reviewer 1', 125, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (111, 'Assembly Secondary Reviewer 2', 125, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (112, 'Conceptualization Primary Reviewer Evaluator', 134, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (113, 'Conceptualization Secondary Reviewer 1', 134, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (114, 'Conceptualization Secondary Reviewer 2', 134, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (115, 'Design Primary Reviewer Evaluator', 112, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (116, 'Design Secondary Reviewer 1', 112, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (117, 'Design Secondary Reviewer 2', 112, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (118, 'Security Primary Reviewer Evaluator', 114, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (119, 'Security Secondary Reviewer 1', 114, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (120, 'Security Secondary Reviewer 2', 114, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (121, 'UI Prototype Primary Reviewer Evaluator', 130, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (122, 'UI Prototype Secondary Reviewer 1', 130, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (123, 'UI Prototype Secondary Reviewer 2', 130, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (124, 'Failure Primary Reviewer Evaluator', 113, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (125, 'Stress Secondary Reviewer 1', 113, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (126, 'Accuracy Secondary Reviewer 2', 113, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (127, 'Reporting Primary Reviewer Evaluator', 147, 22);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (128, 'Reporting Secondary Reviewer 1', 147, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (129, 'Reporting Secondary Reviewer 2', 147, 21);
 
 
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (11010, null, 'User_List', 0, null);
@@ -2586,4 +2647,18 @@ insert into direct_project_metadata_key(project_metadata_key_id, name, descripti
 insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(6, 'Planned Duration', 'planned duration', null, null, '1');
 insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(7, 'Archived', 'Flag for whether project is archived', null, null, '1');
 insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(8, 'Project Technologies', 'project technologies', null, null, '0');
+
+
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
+    (1, 'Serious', 'Serious - 10 points', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
+    (2, 'Medium', 'Medium - 3 points', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
+    (3, 'Minor', 'Minor - 1 point', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
+    (4, 'Comment', 'Comment - 0 points', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
+    (5, 'Combined', 'Combined - 0 points', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
+    (6, 'Incorrect', 'Incorrect - 10 (negative) points', 'System', current, 'System', current);
 

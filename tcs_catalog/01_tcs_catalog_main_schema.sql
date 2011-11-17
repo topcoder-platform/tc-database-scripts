@@ -1280,6 +1280,7 @@ create table 'informix'.review (
     committed DECIMAL(1,0) not null,
     score FLOAT,
     initial_score DECIMAL(5,2),
+	evaluation_type_id INT,
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -1313,6 +1314,7 @@ create table 'informix'.review_comment (
     content lvarchar(4096) not null,
     extra_info VARCHAR(254),
     sort DECIMAL(3,0) not null,
+	evaluation_type_id INT,
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -1330,6 +1332,7 @@ create table 'informix'.review_item_comment (
     content lvarchar(4096) not null,
     extra_info VARCHAR(254),
     sort DECIMAL(3,0) not null,
+	evaluation_type_id INT,
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -2809,6 +2812,20 @@ CREATE TABLE direct_project_metadata_predefined_value_audit (
 extent size 1000 next size 1000
 lock mode row;
 revoke all on direct_project_metadata_predefined_value_audit from 'public';
+
+CREATE TABLE evaluation_type_lu (
+    evaluation_type_id INTEGER NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    description VARCHAR(254) NOT NULL,
+    create_user VARCHAR(64) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+    modify_user VARCHAR(64) NOT NULL,
+    modify_date DATETIME YEAR TO FRACTION(3) NOT NULL
+)
+extent size 60 next size 60
+lock mode row;
+
+REVOKE ALL ON evaluation_type_lu FROM 'public';
 
 
 grant select on v_latest_version to 'informix' with grant option ;
@@ -4645,3 +4662,5 @@ grant update on "informix".direct_project_metadata_key_audit to public as "infor
 grant insert on "informix".direct_project_metadata_key_audit to public as "informix";
 grant select on "informix".direct_project_metadata_key_audit to public as "informix";
 grant delete on "informix".direct_project_metadata_key_audit to public as "informix";
+
+GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON evaluation_type_lu TO 'public' AS 'informix';
