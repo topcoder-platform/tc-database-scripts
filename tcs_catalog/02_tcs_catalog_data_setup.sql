@@ -2587,13 +2587,3 @@ insert into direct_project_metadata_key(project_metadata_key_id, name, descripti
 insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(7, 'Archived', 'Flag for whether project is archived', null, null, '1');
 insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(8, 'Project Technologies', 'project technologies', null, null, '0');
 
-insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (1,'Copilot','132456',current,'132456',current);
-insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (2,'Spec Review','132456',current,'132456',current);
-insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (3,'Winner','132456',current,'132456',current);
-insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (4,'Review','132456',current,'132456',current);
-insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (5,'Reliability','132456',current,'132456',current);
-insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (6,'Bugs','132456',current,'132456',current);
-insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (7,'Build','132456',current,'132456',current);
-insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (8,'Misc','132456',current,'132456',current);
-insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (9,'Contest Fee','132456',current,'132456',current);
-insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (10,'Digital Run','132456',current,'132456',current);
