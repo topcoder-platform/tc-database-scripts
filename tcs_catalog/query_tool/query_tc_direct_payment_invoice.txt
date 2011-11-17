@@ -1,0 +1,34 @@
+select p.project_id as contest_id, ttp.project_id as billing_account_id,
+ pm.payment_id,
+ CASE WHEN pmd.payment_type_id in (45,57)
+         THEN 'Copilot'
+         WHEN pmd.payment_type_id in (27, 48)
+         THEN 'Spec Review'
+         WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+         THEN 'Winner'
+         WHEN pmd.payment_type_id in (7, 28, 26)
+         THEN 'Review'
+         WHEN pmd.payment_type_id in (24)
+         THEN 'Reliability'
+         WHEN pmd.payment_type_id in (4)
+         THEN 'Referral'
+         WHEN pmd.payment_type_id in (23,37,46,47)
+         THEN 'Bugs'
+         WHEN pmd.payment_type_id in (39)
+         THEN 'Build'
+         WHEN pmd.payment_type_id NOT in (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+         THEN 'Misc'
+         ELSE 'Not Sure'
+ END as invoice_type
+ from informixoltp:payment pm  
+        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
+     project p,     
+     time_oltp:project ttp,
+     project_info pi3 -- billing account
+ where pmd.component_project_id = p.project_id
+   and pmd.installment_number = 1
+   AND NOT pmd.payment_status_id IN (65,68, 69)
+   and p.project_id = pi3.project_id
+   and pi3.project_info_type_id = 32
+   and pi3.value = ttp.project_id
+   and pm.payment_id in (@payids@)

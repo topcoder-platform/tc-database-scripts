@@ -1,0 +1,8 @@
+select p.project_id as contest_id, ttp.project_id as billing_account_id
+ from project p,     
+     time_oltp:project ttp,
+     project_info pi3 -- billing account
+ where p.project_id = pi3.project_id
+   and pi3.project_info_type_id = 32
+   and pi3.value = ttp.project_id
+   and p.project_id in (@pids@)
