@@ -3971,6 +3971,36 @@ extent size 10000 next size 7500
 lock mode row;
 
 revoke all on nate_long_comp_result from 'public';
+
+
+CREATE TABLE invoice_type_lu (
+    invoice_type_id INTEGER NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    create_user VARCHAR(64) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+    modify_user VARCHAR(64) NOT NULL,
+    modify_date DATETIME YEAR TO FRACTION(3) NOT NULL
+)
+extent size 60 next size 60
+lock mode row;
+REVOKE ALL ON invoice_type_lu FROM 'public';
+
+CREATE TABLE invoice_record (
+    invoice_record_id DECIMAL(10,0) NOT NULL,
+    billing_account INTEGER NOT NULL,
+    contest_id INTEGER NOT NULL,
+    invoice_type_id INTEGER NOT NULL,
+    payment_id DECIMAL(10,0),
+    processed BOOLEAN not null,
+    create_user VARCHAR(64) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+    modify_user VARCHAR(64) NOT NULL,
+    modify_date DATETIME YEAR TO FRACTION(3) NOT NULL
+)
+extent size 1000 next size 1000
+lock mode row;
+REVOKE ALL ON invoice_record FROM 'public';
+
 create view "informix".rating (coder_id,round_id,rating,num_ratings,
        modify_date,vol,rating_no_vol) as
    select x0.coder_id ,x0.round_id ,x0.rating ,x0.num_ratings ,
@@ -7050,3 +7080,6 @@ grant update on payment_detail_xref_dr20075 to 'public' as 'informix';
 
 grant insert on payment_detail_xref_dr20075 to 'public' as 'informix';
 
+GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice_type_lu TO 'public' AS 'informix';
+
+GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice_record TO 'public' AS 'informix';

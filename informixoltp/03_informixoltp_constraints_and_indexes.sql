@@ -1344,6 +1344,12 @@ alter table 'informix'.problem_set_component_xref add constraint primary key
 	(problem_set_id, component_id)
 	constraint pk_collegeproblemsetcomponent;
 
+ALTER TABLE 'informix'.invoice_type_lu
+      ADD CONSTRAINT PRIMARY KEY (invoice_type_id) CONSTRAINT pk_invoice_type_lu;
+	  
+ALTER TABLE 'informix'.invoice_record
+      ADD CONSTRAINT PRIMARY KEY (invoice_record_id) CONSTRAINT pk_invoice_record;
+
 create index 'informix'.mike_temp1_idx on 'informix'.mike_temp1
 	(
 	user_id
@@ -3106,4 +3112,21 @@ alter table 'informix'.long_system_test_data add constraint foreign key
 create index 'informix'.paymnt_dtl_studio_cntst_idx on 'informix'.payment_detail
 	(
 	studio_contest_id
+	);
+
+alter table 'informix'.invoice_record add constraint foreign key
+	(invoice_type_id)
+	references 'informix'.invoice_type_lu
+	(invoice_type_id)
+	constraint fk_invoicerecord_invoicetypelu;
+    
+alter table 'informix'.invoice_record add constraint foreign key
+	(payment_id)
+	references 'informix'.payment
+	(payment_id)
+	constraint fk_invoicerecord_payment;
+
+create unique index 'informix'.invoice_record1 on 'informix'.invoice_record
+	(
+	contest_id,invoice_type_id,payment_id
 	);
