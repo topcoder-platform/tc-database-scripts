@@ -2745,7 +2745,7 @@ CREATE TABLE direct_project_metadata (
 	PRIMARY KEY (project_metadata_id) constraint pk_direct_project_metadata)
 extent size 1000 next size 1000
 lock mode row;
-revoke all on copilot_contest_extra_info from 'public';
+revoke all on direct_project_metadata from 'public';
 
 CREATE TABLE direct_project_metadata_audit (
 	project_metadata_audit_id DECIMAL(10,0) NOT NULL,
@@ -2758,7 +2758,7 @@ CREATE TABLE direct_project_metadata_audit (
 	action_user_id DECIMAL(10,0) NOT NULL )
 extent size 1000 next size 1000
 lock mode row;
-revoke all on copilot_contest_extra_info from 'public';
+revoke all on direct_project_metadata_audit from 'public';
 
 CREATE TABLE direct_project_metadata_key (
 	project_metadata_key_id SERIAL NOT NULL, name VARCHAR(45) NOT NULL,
@@ -2769,7 +2769,7 @@ CREATE TABLE direct_project_metadata_key (
 	PRIMARY KEY (project_metadata_key_id) constraint pk_direct_project_metadata_key)
 extent size 1000 next size 1000
 lock mode row;
-revoke all on copilot_contest_extra_info from 'public';
+revoke all on direct_project_metadata_key from 'public';
 
 CREATE TABLE direct_project_metadata_key_audit (
 	project_metadata_key_audit_id DECIMAL(10,0) NOT NULL,
@@ -2784,7 +2784,7 @@ CREATE TABLE direct_project_metadata_key_audit (
 	single CHAR(1) NOT NULL )
 extent size 1000 next size 1000
 lock mode row;
-revoke all on copilot_contest_extra_info from 'public';
+revoke all on direct_project_metadata_key_audit from 'public';
 
 CREATE TABLE direct_project_metadata_predefined_value (
 	project_metadata_predefined_value_id SERIAL NOT NULL,
@@ -2795,7 +2795,7 @@ CREATE TABLE direct_project_metadata_predefined_value (
 	PRIMARY KEY (project_metadata_predefined_value_id) constraint pk_direct_project_metadata_predefined_value)
 extent size 1000 next size 1000
 lock mode row;
-revoke all on copilot_contest_extra_info from 'public';
+revoke all on direct_project_metadata_predefined_value from 'public';
 
 CREATE TABLE direct_project_metadata_predefined_value_audit (
 	project_metadata_predefined_value_audit_id DECIMAL(10,0) NOT NULL,
@@ -2808,7 +2808,7 @@ CREATE TABLE direct_project_metadata_predefined_value_audit (
 	action_user_id DECIMAL(12,0) NOT NULL )
 extent size 1000 next size 1000
 lock mode row;
-revoke all on copilot_contest_extra_info from 'public';
+revoke all on direct_project_metadata_predefined_value_audit from 'public';
 
 
 grant select on v_latest_version to 'informix' with grant option ;
