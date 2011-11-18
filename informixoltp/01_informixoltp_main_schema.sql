@@ -3551,7 +3551,7 @@ lock mode row;
 revoke all on user_accrual from 'public';
 create table 'informix'.user_payment_method (
     user_id DECIMAL(10,0) NOT NULL,
-    payment_method_id DECIMAL(3,0) NOT NULL,
+    payment_method_id DECIMAL(3,0) NOT NULL
 )
 extent size 64 next size 64
 lock mode row;
