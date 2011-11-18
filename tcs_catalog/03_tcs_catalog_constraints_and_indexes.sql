@@ -1851,7 +1851,7 @@ alter table 'informix'.late_deliverable add constraint foreign key
 alter table 'informix'.late_deliverable add constraint foreign key
     (project_phase_id)
     references 'informix'.project_phase
-    (project_phase_id)
+    (project_phase_id) on delete cascade
     constraint fk_latedeliverable_projectphase_projectphaseid;
  
 alter table 'informix'.late_deliverable add constraint foreign key
