@@ -2146,10 +2146,10 @@ INSERT INTO 'informix'.region(region_id,region_type_id,region_name) VALUES (1, 1
 INSERT INTO 'informix'.region(region_id,region_type_id,region_name) VALUES (2, 1, 'Beta');
 INSERT INTO 'informix'.region(region_id,region_type_id,region_name) VALUES (3, 1, 'Gamma');
 INSERT INTO 'informix'.region(region_id,region_type_id,region_name) VALUES (4, 1, 'Delta');
-INSERT INTO 'informix'.payment_method_lu(payment_method_desc,payment_method_id,payment_method_list_order) VALUES ('Unknown', 4, 2);
-INSERT INTO 'informix'.payment_method_lu(payment_method_desc,payment_method_id,payment_method_list_order) VALUES ('Check', 1, 1);
-INSERT INTO 'informix'.payment_method_lu(payment_method_desc,payment_method_id,payment_method_list_order) VALUES ('PayPal', 2, 1);
-INSERT INTO 'informix'.payment_method_lu(payment_method_desc,payment_method_id,payment_method_list_order) VALUES ('Wire Transfer', 3, 1);
+INSERT INTO 'informix'.payment_method_lu(payment_method_desc,payment_method_id,payment_method_list_order) VALUES ('Not Set', 1, 1);
+INSERT INTO 'informix'.payment_method_lu(payment_method_desc,payment_method_id,payment_method_list_order) VALUES ('PayPal', 2, 2);
+INSERT INTO 'informix'.payment_method_lu(payment_method_desc,payment_method_id,payment_method_list_order) VALUES ('Wire', 3, 3);
+INSERT INTO 'informix'.payment_method_lu(payment_method_desc,payment_method_id,payment_method_list_order) VALUES ('ACH', 4, 4);
 INSERT INTO 'informix'.payment_reference_lu(payment_reference_id,reference_field_name) VALUES (1, 'algorithm_round_id');
 INSERT INTO 'informix'.payment_reference_lu(payment_reference_id,reference_field_name) VALUES (2, 'component_project_id');
 INSERT INTO 'informix'.payment_reference_lu(payment_reference_id,reference_field_name) VALUES (3, 'algorithm_problem_id');
