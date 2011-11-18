@@ -2023,6 +2023,12 @@ alter table 'informix'.payment_detail_xref add constraint foreign key
 	(payment_detail_id) 
 	constraint paymentdetailxref_paymentdetail_fk;
 
+alter table 'informix'.user_payment_method add constraint foreign key 
+	(payment_method_id)
+	references 'informix'.payment_method_lu
+	(payment_method_id) 
+	constraint userpaymentmethod_paymentmethodlu_fk;
+
 alter table 'informix'.affidavit add constraint foreign key 
 	(affidavit_type_id)
 	references 'informix'.affidavit_type_lu
