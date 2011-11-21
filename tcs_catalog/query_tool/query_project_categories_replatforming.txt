@@ -1,4 +1,4 @@
-SELECT project_category_id, name
+SELECT project_category_id, project_type_id, name
 FROM project_category_lu
 WHERE display = 't'
 ORDER BY display_order
