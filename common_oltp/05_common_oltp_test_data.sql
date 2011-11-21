@@ -72,7 +72,7 @@ INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_
 INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (57, 132456, 9384, 132458, 1);
 INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (58, 132456, 9386, 132458, 1);
 INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (59, 124916, 9384, 132458, 1);
-INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (60, 132456, 9388, 132458, 1);
+INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (60, 132456, 2087, 132458, 1);
 INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (61, 132456, 9389, 132456, 1);
 INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (62, 22719218, 9389, 132456, 1);
 INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (63, 132456, 28, 132456, 1);
