@@ -341,3 +341,4 @@ query_dd_direct_project_permissions_ga.txt|UPDATE query SET text = ? WHERE query
 query_has_cockpit_project_permissions.txt|UPDATE query SET text = ? WHERE query_id = 31627
 query_tc_direct_contest_invoice.txt|UPDATE query SET text = ? WHERE query_id = 31636
 query_tc_direct_payment_invoice.txt|UPDATE query SET text = ? WHERE query_id = 31637
+query_dashboard_billing_cost_invoice_report.txt|UPDATE query SET text = ? WHERE query_id = 31646
