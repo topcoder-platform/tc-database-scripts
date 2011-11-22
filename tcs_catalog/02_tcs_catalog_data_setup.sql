@@ -744,6 +744,7 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31270, 'dd_direct_project_permissions_ga', 24994);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31271, 'has_cockpit_project_permissions', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31279, 'tc_direct_contest_payment_invoice', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31289, 'dashboard_billing_cost_invoice_report', 13343);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -2460,7 +2461,7 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31271, 31627, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31279, 31636, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31279, 31637, 0);
-INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (30759, 31646, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31289, 31646, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);
