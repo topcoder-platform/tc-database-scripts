@@ -871,11 +871,11 @@ extent size 64 next size 64
 lock mode row;
 
 revoke all on project_type_lu from 'public';
-create table 'informix'.project_category_lu (
-    project_category_id INT not null,
-    project_type_id INT not null,
-    name VARCHAR(64) not null,
-    description VARCHAR(254) not null,
+
+CREATE TABLE 'informix'.project_catalog_lu (
+    project_catalog_id INT not null,
+    name VARCHAR(64),
+    description VARCHAR(254),
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -887,7 +887,27 @@ create table 'informix'.project_category_lu (
 extent size 64 next size 64
 lock mode row;
 
-revoke all on project_category_lu from 'public';
+revoke all on project_catalog_lu from 'public';
+
+create table 'informix'.project_category_lu (
+    project_category_id INT not null,
+    project_type_id INT not null,
+    name VARCHAR(64) not null,
+    description VARCHAR(254) not null,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION not null,
+    display boolean(1),
+    display_order INT,
+	project_catalog_id INT,
+    version DECIMAL(12,0) default 0 not null
+)
+extent size 64 next size 64
+lock mode row;
+
+REVOKE ALL ON project_category_lu FROM 'public';
+
 create table 'informix'.scorecard_type_lu (
     scorecard_type_id INT not null,
     name VARCHAR(64) not null,
@@ -4664,3 +4684,5 @@ grant select on "informix".direct_project_metadata_key_audit to public as "infor
 grant delete on "informix".direct_project_metadata_key_audit to public as "informix";
 
 GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON evaluation_type_lu TO 'public' AS 'informix';
+
+GRANT INDEX,SELECT, INSERT, UPDATE, DELETE ON 'informix'.project_catalog_lu TO public AS informix;

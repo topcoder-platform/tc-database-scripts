@@ -403,6 +403,10 @@ alter table 'informix'.project_type_lu add constraint primary key
 	(project_type_id)
 	constraint pk_project_type_lu;
 
+ALTER TABLE 'informix'.project_catalog_lu ADD CONSTRAINT PRIMARY KEY
+    (project_catalog_id)
+    CONSTRAINT pk_project_catalog_lu;
+
 alter table 'informix'.project_category_lu add constraint primary key 
 	(project_category_id)
 	constraint pk_project_category_lu;
@@ -2042,3 +2046,9 @@ alter table 'informix'.review add constraint foreign key
 	references 'informix'.evaluation_type_lu
 	(evaluation_type_id)
 	constraint fk_review_evaluationtype;
+
+ALTER TABLE 'informix'.project_category_lu ADD CONSTRAINT FOREIGN KEY
+    (project_catalog_id)
+    REFERENCES 'informix'.project_catalog_lu
+    (project_catalog_id)
+    CONSTRAINT fk_projectcategorylu_projectcataloglu_projectcatalogid;
