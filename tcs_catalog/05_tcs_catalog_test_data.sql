@@ -113,6 +113,8 @@ INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id,
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (6, 3, 30000720, 1, current, 1, current);
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (6, 4, 30001013, 1, current, 1, current);
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (6, 5, 30000722, 1, current, 1, current);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (6, 6, 30000416, 1, current, 1, current);
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (6, 7, 30000417, 1, current, 1, current);
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (28, 3, 30000722, 1, current, 1, current);
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (29, 1, 30000870, 1, current, 1, current);
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (29, 2, 30000871, 1, current, 1, current);
