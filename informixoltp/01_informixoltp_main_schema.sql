@@ -3992,6 +3992,7 @@ CREATE TABLE invoice_record (
     invoice_type_id INTEGER NOT NULL,
     payment_id DECIMAL(10,0),
     processed BOOLEAN not null,
+	invoice_amount DECIMAL(10,2), 
     create_user VARCHAR(64) NOT NULL,
     create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
     modify_user VARCHAR(64) NOT NULL,
