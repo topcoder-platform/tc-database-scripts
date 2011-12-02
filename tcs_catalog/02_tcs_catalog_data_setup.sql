@@ -2618,6 +2618,32 @@ INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file,
 VALUES(31, 'SWC - Flash Component', 31, 'f', 'swc', 'f', 'System', Current, 'System', Current);
 INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
 VALUES(32, 'JS - JavaScript', 32, 'f', 'js', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(33, 'Layered PSD files created in Adobe Photoshop or similar', 33, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(34, 'AI files created in Adobe Illustrator or similar', 34, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(35, 'EPS files created in Adobe Illustrator or similar', 35, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(36, 'Vector AI files created in Adobe Illustrator or similar', 36, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(37, 'Vector EPS files created in Adobe Illustrator or similar', 37, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(38, 'ICO files', 38, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(39, 'INDD created with InDesign', 39, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(40, 'PDF file', 40, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(46, 'PPT (for presentations) created with PowerPoint or similar', 46, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(42, 'WORD document', 42, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(43, 'Text file saved as TXT', 43, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(44, 'HTML', 44, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(45, 'RP file created with Axure', 45, 'f', '-', 'f', 'System', Current, 'System', Current);
 
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(1, 1, 'application/msword');
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(2, 6, 'application/rtf');
