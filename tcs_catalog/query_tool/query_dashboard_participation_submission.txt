@@ -1,0 +1,33 @@
+select p.project_id,
+ u.resource_id,
+ s.submission_type_id,
+ DECODE(pr.prize_id, NULL, 0, 1) as has_win
+  from project p,
+       upload u, submission s,	outer (prize pr),					  
+       project_category_lu pc,
+       tc_direct_project tdp,
+       project_info pi3, -- billing account
+       time_oltp:project ttp,
+       time_oltp:client_project ttcp,
+       time_oltp:client ttc
+   where p.tc_direct_project_id = tdp.project_id
+        and p.project_category_id = pc.project_category_id
+        and p.project_category_id IN (@pcids@)
+        and p.project_id = pi3.project_id
+        and pi3.project_info_type_id = 32
+        and pi3.value = ttp.project_id
+        and ttp.project_id = ttcp.project_id
+        and ttcp.client_id = ttc.client_id
+        and p.project_status_id not in (2, 3) and p.project_category_id != 27
+        and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
+        and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
+        and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
+        and u.upload_type_id = 1 and u.upload_status_id = 1 and s.upload_id = u.upload_id and s.submission_status_id != 5 and s.submission_type_id in (1,3)
+        and pr.prize_id = s.prize_id and pr.place=1 and u.project_id = p.project_id
+        and exists (select resource_id from user_permission_grant upg
+                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3) and upg.resource_id = p.tc_direct_project_id)
+        and ((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
+                where phase_type_id = (case when p.project_category_id = 29 then 4
+                                           when pcl.project_type_id in (1,2) then 10
+										   else 4 end) 
+				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id) BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
