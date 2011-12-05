@@ -77,6 +77,7 @@ INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_
 INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (62, 22719218, 9389, 132456, 1);
 INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (63, 132456, 28, 132456, 1);
 INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (64, 132458, 9390, 132458, 1);
+INSERT INTO 'informix'.user_role_xref(user_role_id,login_id,role_id,create_user_id,security_status_id) VALUES (65, 132456, 390003, 132458, 1);
 
 INSERT INTO 'informix'.user_group_xref(user_group_id,login_id,group_id,create_user_id,security_status_id,create_date) VALUES (700, -1, 2000118, 132456, 1, '2007-04-10 17:28:29.000');
 INSERT INTO 'informix'.user_group_xref(user_group_id,login_id,group_id,create_user_id,security_status_id,create_date) VALUES (235, 20, 2, 132456, 1, '2008-02-26 13:06:21.000');
