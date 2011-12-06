@@ -1559,7 +1559,7 @@ revoke all on copilot_profile from 'public';
 
 CREATE TABLE 'informix'.copilot_profile_status (
     copilot_profile_status_id DECIMAL(10,0) NOT NULL,
-    name VARCHAR(20) NOT NULL,
+    name VARCHAR(40) NOT NULL,
     create_user VARCHAR(64) NOT NULL,
     create_date DATETIME YEAR TO FRACTION  NOT NULL,
     update_user VARCHAR(64) NOT NULL,
