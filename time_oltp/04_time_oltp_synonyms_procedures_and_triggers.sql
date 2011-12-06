@@ -404,3 +404,8 @@ create trigger "informix".trig_delete_client_project delete on "informix".client
 
 
 CREATE SYNONYM client_company FOR company;
+
+
+CREATE SYNONYM 'informix'.project_category_lu FOR tcs_catalog:project_category_lu; 
+ 
+
