@@ -1120,4 +1120,5 @@ query_coder_image_data.txt|UPDATE query SET text= ? WHERE query_id=31356
 query_user_ratings.txt|UPDATE query SET text= ? WHERE query_id=31577
 query_member_photo.txt|UPDATE query SET text= ? WHERE query_id=31586
 query_tco_studio_leaderboard.txt|UPDATE query SET text= ? WHERE query_id=31618
+query_coder_image_data_list.txt|UPDATE query SET text= ? WHERE query_id=31690
 
