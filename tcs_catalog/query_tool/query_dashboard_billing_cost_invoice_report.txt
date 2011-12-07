@@ -246,7 +246,7 @@ null::int as digital_run,
 null::int as reliability, null::varchar reliability_payment_date,
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
-  pm.payment_id,
+  pm2.payment_id,
   ir.invoice_amount,
   ir.processed,
   ir.create_date as process_date

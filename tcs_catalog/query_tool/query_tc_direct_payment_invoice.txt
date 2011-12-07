@@ -32,3 +32,29 @@ select p.project_id as contest_id, ttp.project_id as billing_account_id,
    and pi3.project_info_type_id = 32
    and pi3.value = ttp.project_id
    and pm.payment_id in (@payids@)
+  
+ union all
+ 
+ select p.project_id as contest_id, ttp.project_id as billing_account_id,
+ pm2.payment_id,
+  CASE WHEN pmd2.payment_type_id in (24)
+         THEN 'Reliability'
+         ELSE 'Misc'
+ END as invoice_type
+ from informixoltp:payment pm  
+        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+	    INNER JOIN (informixoltp:payment_detail pmd2 JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
+                                            AND pmd2.payment_type_id in (24) AND NOT pmd2.payment_status_id IN (65, 68, 69))
+                   on pm.payment_id = pmd2.parent_payment_id
+            LEFT OUTER JOIN informixoltp:invoice_record ir on ir.payment_id = pm2.payment_id,
+     project p,     
+     time_oltp:project ttp,
+     project_info pi3 -- billing account
+ where pmd.component_project_id = p.project_id
+   and pmd.installment_number = 1
+   AND NOT pmd.payment_status_id IN (65,68, 69)
+   and p.project_id = pi3.project_id
+   and pi3.project_info_type_id = 32
+   and pi3.value = ttp.project_id
+   and pm2.payment_id in (@payids@)
+  
