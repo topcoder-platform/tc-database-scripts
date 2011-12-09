@@ -57,13 +57,17 @@ SELECT
                WHERE r.project_id = p.project_id 
                AND ri.resource_info_type_id = 1
                AND ri.value = '@uid@') AS user_resource_exists
-    , p.create_user = '@uid@' AS user_is_contest_author 
+    , p.create_user = '@uid@' AS user_is_contest_author ,
+	p.project_category_id as contest_type_id, 
+	(reg.actual_start_time < '2012-06-30 23:59:59' and reg.actual_start_time > '2011-10-24 00:00:00') as in_tco
 FROM project p
 INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
 INNER JOIN project_phase pps ON p.project_id = pps.project_id AND pps.phase_type_id = 2
+INNER JOIN project_phase reg ON p.project_id = reg.project_id AND reg.phase_type_id = 1
 WHERE p.project_status_id = 1
 AND   pcl.project_type_id = 3
 AND   pps.phase_status_id = 2
 AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
  WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+
 ORDER BY @sc@ @sd@
