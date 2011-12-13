@@ -1775,7 +1775,7 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31676, null, 'dashboard_participation_submission', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31728, null, 'direct_my_projects_contests', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31731, null, 'studio_submission_artifacts', 0, null);
-
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31733, null, 'copilot_pool_statistics_projects_contests', 0, null);
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (13717, 'N', NULL, 25190, 1);
 -- query parameter 'ph' removed for query 13722 (review_project_detail)
@@ -2488,6 +2488,7 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31189, 31676, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31353, 31728, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31362, 31731, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (30329, 31733, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);
