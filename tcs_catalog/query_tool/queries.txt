@@ -345,3 +345,4 @@ query_dashboard_billing_cost_invoice_report.txt|UPDATE query SET text = ? WHERE 
 query_dashboard_participation_registration.txt|UPDATE query SET text = ? WHERE query_id = 31667
 query_dashboard_participation_submission.txt|UPDATE query SET text = ? WHERE query_id = 31676
 query_direct_my_projects_contests.txt|UPDATE query SET text = ? WHERE query_id = 31728
+query_studio_submission_artifacts.txt|UPDATE query SET text = ? WHERE query_id = 31731
