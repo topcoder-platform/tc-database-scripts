@@ -126,7 +126,7 @@ nvl((select sum(
 
 from tc_direct_project tcd, user_permission_grant upg, corporate_oltp:tc_direct_project_status_lu tcdpsl
 
-where upg.user_id = @uid@ and upg.resource_id = tcd.project_id and upg.permission_type_id in (1,2,3)
+where upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) and upg.resource_id = tcd.project_id and upg.permission_type_id in (1,2,3)
 and tcdpsl.project_status_id = tcd.project_status_id
 
 order by upper(tcd.name)
