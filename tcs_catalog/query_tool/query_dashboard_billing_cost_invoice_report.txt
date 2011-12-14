@@ -106,13 +106,12 @@ null::int as reliability, null::varchar reliability_payment_date,
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
  pm.payment_id,
- ir.invoice_amount,
- ir.processed,
-ir.create_date as process_date
+  (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as invoice_amount,
+  (select processed from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as processed,
+  (select create_date from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null)  as process_date
 
 FROM informixoltp:payment pm  
-        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
-	LEFT OUTER JOIN informixoltp:invoice_record ir on ir.payment_id = pm.payment_id ,
+        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
      informixoltp:payment_type_lu pt,
      project p,     
      tc_direct_project tdp,
@@ -247,16 +246,15 @@ null::int as reliability, null::varchar reliability_payment_date,
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
   pm2.payment_id,
-  ir.invoice_amount,
-  ir.processed,
-  ir.create_date as process_date
+  (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as invoice_amount,
+  (select processed from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as processed,
+  (select create_date from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null)  as process_date
 
 FROM informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
 	    INNER JOIN (informixoltp:payment_detail pmd2 JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
                                             AND pmd2.payment_type_id in (24) AND NOT pmd2.payment_status_id IN (65, 68, 69))
-                   on pm.payment_id = pmd2.parent_payment_id
-            LEFT OUTER JOIN informixoltp:invoice_record ir on ir.payment_id = pm2.payment_id,
+                   on pm.payment_id = pmd2.parent_payment_id,
      informixoltp:payment_type_lu pt,
      project p,     
      tc_direct_project tdp,
