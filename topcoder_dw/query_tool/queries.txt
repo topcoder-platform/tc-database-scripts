@@ -132,7 +132,6 @@ query_marathon_most_wins.txt|UPDATE query SET text= ? WHERE query_id=28206
 query_marathon_school_coder_rank.txt|UPDATE query SET text= ? WHERE query_id=28240
 query_marathon_school_rank.txt|UPDATE query SET text= ? WHERE query_id=28217
 query_match_list.txt|UPDATE query SET text= ? WHERE query_id=26504
-query_member_count.txt|UPDATE query SET text= ? WHERE query_id=13686
 query_member_search.txt|UPDATE query SET text= ? WHERE query_id=12383
 query_member_search.txt|UPDATE query SET text= ? WHERE query_id=12384
 query_most_best_score.txt|UPDATE query SET text= ? WHERE query_id=27581
