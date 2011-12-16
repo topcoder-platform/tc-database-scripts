@@ -662,7 +662,7 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30074, 'tcs_resources_by_user_and_status', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30169, 'project_change_audit_report', 13343);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30195, 'direct_active_contests', 13337);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30200, 'cockpit_project', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30200, 'cockpit_project_by_id', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30201, 'cockpit_project_user', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30219, 'rss_paypal_forum_feed', 24984);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (30229, 'direct_contest_stats', 13337);
@@ -747,6 +747,9 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31289, 'dashboard_billing_cost_invoice_report', 13343);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31353, 'direct_my_projects_contests', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31362, 'studio_submission_artifacts', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31363, 'client_projects', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31364, 'client_projects_by_user', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31365, 'client_project_by_id', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -1666,7 +1669,7 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30384, null, 'tcs_global_resources_by_user', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30385, null, 'tcs_resources_by_user_and_status', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30512, null, 'direct_active_contests', 0, null);
-INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30517, null, 'cockpit_project', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30517, null, 'cockpit_project_by_id', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30518, null, 'cockpit_project_user', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30536, null, 'rss_paypal_forum_feed', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (30546, null, 'direct_contest_stats', 0, null);
@@ -1776,6 +1779,10 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31728, null, 'direct_my_projects_contests', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31731, null, 'studio_submission_artifacts', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31733, null, 'copilot_pool_statistics_projects_contests', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31722, null, 'client_projects', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31723, null, 'client_projects_by_user', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (31724, null, 'client_project_by_id', 0, null);
+
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (13717, 'N', NULL, 25190, 1);
 -- query parameter 'ph' removed for query 13722 (review_project_detail)
@@ -2115,6 +2122,8 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31676, NULL, NULL, 25601, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31728, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31731, NULL, NULL, 25670, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31723, NULL, NULL, 13347, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31724, NULL, NULL, 13342, 0);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (11010, 11010, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12153, 12154, 0);
@@ -2489,6 +2498,9 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31353, 31728, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31362, 31731, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (30329, 31733, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31363, 31722, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31364, 31723, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31365, 31724, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);
