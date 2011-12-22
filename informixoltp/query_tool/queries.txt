@@ -1122,4 +1122,5 @@ query_member_photo.txt|UPDATE query SET text= ? WHERE query_id=31586
 query_tco_studio_leaderboard.txt|UPDATE query SET text= ? WHERE query_id=31618
 query_coder_image_data_list.txt|UPDATE query SET text= ? WHERE query_id=31690
 query_member_count.txt|UPDATE query SET text= ? WHERE query_id=31734
+query_tco_copilot_leaderboard_2012.txt|UPDATE query SET text= ? WHERE query_id=31746
 
