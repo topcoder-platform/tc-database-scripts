@@ -106,9 +106,9 @@ null::int as reliability, null::varchar reliability_payment_date,
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
  pm.payment_id,
-  (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as invoice_amount,
-  (select processed from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as processed,
-  (select create_date from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null)  as process_date
+  (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id) as invoice_amount,
+  (select processed from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id) as processed,
+  (select create_date from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id)  as process_date
 
 FROM informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
@@ -246,9 +246,9 @@ null::int as reliability, null::varchar reliability_payment_date,
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
   pm2.payment_id,
-  (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as invoice_amount,
-  (select processed from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as processed,
-  (select create_date from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null)  as process_date
+  (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm2.payment_id) as invoice_amount,
+  (select processed from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm2.payment_id) as processed,
+  (select create_date from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm2.payment_id)  as process_date
 
 FROM informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
