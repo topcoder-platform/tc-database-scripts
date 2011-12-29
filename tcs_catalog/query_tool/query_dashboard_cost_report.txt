@@ -84,7 +84,7 @@ from project p,
      time_oltp:project ttp,
      time_oltp:client_project ttcp,
      time_oltp:client ttc,
-     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 11 GROUP BY project_id))) ct,
+     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id in (10, 11) GROUP BY project_id))) ct,
      table (multiset((select unique upg.resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3)))) up --user permission table
 where p.project_status_id = ps.project_status_id
