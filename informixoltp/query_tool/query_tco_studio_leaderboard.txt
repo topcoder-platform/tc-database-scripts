@@ -1,3 +1,4 @@
+
 SELECT cpr.user_id,
        (select handle from user where user_id = cpr.user_id) as handle,
        count(cpr.project_id) as complete_contests,
@@ -9,7 +10,12 @@ SELECT cpr.user_id,
                 else 0 end) as points,
        curr.current_contests as current_contests,
        curr.points as potential_points,
-       0 as total_potential_points,
+       (sum(case when cpr.place = 1 then 11 
+                when cpr.place = 2 then 9
+                when cpr.place = 3 then 7
+                when cpr.place = 4 then 4
+                when cpr.place = 5 then 1
+                else 0 end) + curr.points) as total_potential_points,
        (select handle_lower from user where user_id = cpr.user_id) as handle_lower
     FROM table(multiset( select cpx.contest_id,
                                 u.project_id,
@@ -46,10 +52,9 @@ SELECT cpr.user_id,
      AND curr.contest_id = @cd@
      AND cpr.user_id = u.user_id
      AND cpr.user_id = curr.user_id
-GROUP BY 1,2,5,6,7,8
+GROUP BY 1,2,5,6,8
 ORDER BY points DESC,
          SUM(CASE WHEN cpr.place=1 THEN 1 ELSE 0 END) DESC,
          SUM(CASE WHEN cpr.place=2 THEN 1 ELSE 0 END) DESC,
          SUM(CASE WHEN cpr.place=3 THEN 1 ELSE 0 END) DESC,
          SUM(CASE WHEN cpr.place=4 THEN 1 ELSE 0 END) DESC;
-         
