@@ -1,29 +1,51 @@
 SELECT cpr.user_id,
        (select handle from user where user_id = cpr.user_id) as handle,
        count(cpr.project_id) as complete_contests,
-       SUM(cpr.points) as points,
-       (select count(*) from tcs_catalog:project p, tcs_catalog:upload u, tcs_catalog:submission s, tcs_catalog:resource r, tcs_catalog:resource_info ri, user ur where p.project_id = u.project_id and s.upload_id = u.upload_id and r.resource_id = u.resource_id and r.resource_id =ri.resource_id and ri.resource_info_type_id = 1 and ri.value = ur.user_id and u.upload_status_id=1 and s.submission_status_id!=5 and ur.user_id = cpr.user_id and p.project_status_id = 1) as current_contests,
-       0 as potential_points,
+       sum(case when cpr.place = 1 then 11 
+                when cpr.place = 2 then 9
+                when cpr.place = 3 then 7
+                when cpr.place = 4 then 4
+                when cpr.place = 5 then 1
+                else 0 end) as points,
+       curr.current_contests as current_contests,
+       curr.points as potential_points,
        0 as total_potential_points,
        (select handle_lower from user where user_id = cpr.user_id) as handle_lower
     FROM table(multiset( select cpx.contest_id,
-       u.project_id,
-       (select value from tcs_catalog:resource_info ri where ri.resource_id = u.resource_id and resource_info_type_id = '1') as user_id,
-       s.placement as place,
-       p.prize_amount as points
-from tcs_catalog:contest_project_xref cpx,
-     tcs_catalog:upload u,
-     tcs_catalog:submission s,
-     tcs_catalog:prize p
-where cpx.contest_id = @cd@
-  and cpx.project_id = u.project_id
-  and u.upload_id = s.upload_id
-  and s.submission_type_id = 1
-  and s.prize_id = p.prize_id
-  and p.prize_type_id = 15 )) cpr,
-         informixoltp:user u
+                                u.project_id,
+                                (select value from tcs_catalog:resource_info ri where ri.resource_id = u.resource_id and resource_info_type_id = '1') as user_id,
+                                s.placement as place,
+                                p.prize_amount as points
+                          from tcs_catalog:contest_project_xref cpx,
+                               tcs_catalog:upload u,
+                               tcs_catalog:submission s,
+                               tcs_catalog:prize p
+                         where cpx.contest_id = @cd@
+                           and cpx.project_id = u.project_id
+                           and u.upload_id = s.upload_id
+                           and s.submission_type_id = 1
+                           and s.prize_id = p.prize_id
+                           and p.prize_type_id = 15 )) cpr,
+         outer table(multiset( select cpx.contest_id,
+                (select value from tcs_catalog:resource_info ri where ri.resource_id = u.resource_id and resource_info_type_id = '1') as user_id,
+                count(*) * 11 as points,
+                count(*) as current_contests
+           from tcs_catalog:contest_project_xref cpx,
+                tcs_catalog:upload u,
+                tcs_catalog:submission s,
+                tcs_catalog:project p
+          where cpx.contest_id = @cd@
+            and cpx.project_id = u.project_id
+            and u.upload_id = s.upload_id
+            and s.submission_type_id = 1
+            and u.project_id = p.project_id
+            and p.project_status_id = 1
+    	group by 1,2 )) curr,
+    	informixoltp:user u
    WHERE cpr.contest_id = @cd@
+     AND curr.contest_id = @cd@
      AND cpr.user_id = u.user_id
+     AND cpr.user_id = curr.user_id
 GROUP BY 1,2,5,6,7,8
 ORDER BY points DESC,
          SUM(CASE WHEN cpr.place=1 THEN 1 ELSE 0 END) DESC,
