@@ -4011,7 +4011,7 @@ CREATE TABLE invoice (
     create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
     update_user VARCHAR(64) NOT NULL,
     update_date DATETIME YEAR TO FRACTION(3) NOT NULL
-);
+)
 extent size 1000 next size 1000
 lock mode row;
 REVOKE ALL ON invoice FROM 'public';
