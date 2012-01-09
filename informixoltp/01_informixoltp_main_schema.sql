@@ -3993,7 +3993,7 @@ CREATE TABLE invoice_record (
     payment_id DECIMAL(10,0),
     processed BOOLEAN not null,
 	invoice_amount DECIMAL(10,2), 
-	invoice_id DECIMAL(10,0) NOT NULL
+	invoice_id DECIMAL(10,0) NOT NULL,
     create_user VARCHAR(64) NOT NULL,
     create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
     modify_user VARCHAR(64) NOT NULL,
