@@ -1350,6 +1350,15 @@ ALTER TABLE 'informix'.invoice_type_lu
 ALTER TABLE 'informix'.invoice_record
       ADD CONSTRAINT PRIMARY KEY (invoice_record_id) CONSTRAINT pk_invoice_record;
 
+ALTER TABLE 'informix'.invoice
+      ADD CONSTRAINT PRIMARY KEY (invoice_id) CONSTRAINT pk_invoice;
+
+alter table 'informix'.invoice_record add constraint foreign key
+	(invoice_id)
+	references 'informix'.invoice
+	(invoice_id)
+	constraint fk_invoicerecord_invoice;
+
 create index 'informix'.mike_temp1_idx on 'informix'.mike_temp1
 	(
 	user_id
@@ -3136,3 +3145,5 @@ create unique index 'informix'.invoice_record1 on 'informix'.invoice_record
 	(
 	contest_id,invoice_type_id,payment_id
 	);
+	
+CREATE UNIQUE INDEX 'informix'.invoice_invoice_number on 'informix'.invoice (invoice_number);

@@ -3993,6 +3993,7 @@ CREATE TABLE invoice_record (
     payment_id DECIMAL(10,0),
     processed BOOLEAN not null,
 	invoice_amount DECIMAL(10,2), 
+	invoice_id DECIMAL(10,0) NOT NULL
     create_user VARCHAR(64) NOT NULL,
     create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
     modify_user VARCHAR(64) NOT NULL,
@@ -4001,6 +4002,19 @@ CREATE TABLE invoice_record (
 extent size 1000 next size 1000
 lock mode row;
 REVOKE ALL ON invoice_record FROM 'public';
+
+CREATE TABLE invoice (
+    invoice_id DECIMAL(10,0) NOT NULL,
+    invoice_number VARCHAR(255) NOT NULL,
+    invoice_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+    create_user VARCHAR(64) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+    update_user VARCHAR(64) NOT NULL,
+    update_date DATETIME YEAR TO FRACTION(3) NOT NULL
+);
+extent size 1000 next size 1000
+lock mode row;
+REVOKE ALL ON invoice FROM 'public';
 
 create view "informix".rating (coder_id,round_id,rating,num_ratings,
        modify_date,vol,rating_no_vol) as
@@ -7084,3 +7098,5 @@ grant insert on payment_detail_xref_dr20075 to 'public' as 'informix';
 GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice_type_lu TO 'public' AS 'informix';
 
 GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice_record TO 'public' AS 'informix';
+
+GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice TO 'public' AS 'informix';
