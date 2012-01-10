@@ -106,10 +106,14 @@ null::int as reliability, null::varchar reliability_payment_date,
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
  pm.payment_id,
+ pmd.payment_desc,
   (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id) as invoice_amount,
   (select processed from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id) as processed,
-  (select create_date from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id)  as process_date
-
+  (select i.invoice_date from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.payment_id = pm.payment_id and ir.invoice_id = i.invoice_id)  as process_date,
+  (select i.invoice_number from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.payment_id = pm.payment_id and ir.invoice_id = i.invoice_id)  as invoice_number,
+  (select invoice_id from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id) as invoice_id,
+  (select invoice_record_id from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id) as invoice_record_id
+  
 FROM informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
      informixoltp:payment_type_lu pt,
@@ -149,7 +153,7 @@ where  pmd.component_project_id = p.project_id
    and exists 
   (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3) and upg.resource_id = p.tc_direct_project_id)
-group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
  
 
 union  all -- reliability
@@ -246,9 +250,13 @@ null::int as reliability, null::varchar reliability_payment_date,
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
   pm2.payment_id,
-  (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm2.payment_id) as invoice_amount,
-  (select processed from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm2.payment_id) as processed,
-  (select create_date from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm2.payment_id)  as process_date
+  pmd.payment_desc,
+  (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id) as invoice_amount,
+  (select processed from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id) as processed,
+  (select i.invoice_date from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.payment_id = pm.payment_id and ir.invoice_id = i.invoice_id)  as process_date,
+  (select i.invoice_number from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.payment_id = pm.payment_id and ir.invoice_id = i.invoice_id)  as invoice_number,
+  (select invoice_id from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id) as invoice_id,
+  (select invoice_record_id from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id) as invoice_record_id
 
 FROM informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
@@ -293,7 +301,7 @@ where  pmd.component_project_id = p.project_id
    and exists 
   (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3) and upg.resource_id = p.tc_direct_project_id)
-group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
 
 union all   -- DR
 
@@ -390,9 +398,13 @@ null::int as reliability, null::varchar reliability_payment_date,
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
   null::int as payment_id,
+  null::varchar(255) as payment_desc,
   (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as invoice_amount,
   (select processed from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as processed,
-  (select create_date from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null)  as process_date
+  (select i.invoice_date from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.invoice_type_id = 10 and ir.payment_id is null and ir.invoice_id = i.invoice_id)  as process_date,
+  (select i.invoice_number from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.invoice_type_id = 10 and ir.payment_id is null and ir.invoice_id = i.invoice_id)  as invoice_number,
+  (select invoice_id from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as invoice_id,
+  (select invoice_record_id from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as invoice_record_id
 FROM informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
      informixoltp:payment_type_lu pt,
@@ -441,7 +453,7 @@ where  pmd.component_project_id = p.project_id
   and exists 
   (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3) and upg.resource_id = p.tc_direct_project_id)
-group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
 
 union all  -- contest fee
 
@@ -537,9 +549,13 @@ null::int as reliability, null::varchar reliability_payment_date,
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
   null::int as payment_id,
+  null::varchar(255) as payment_desc,
   (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id is null) as invoice_amount,
   (select processed from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id is null) as processed,
-  (select create_date from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id is null)  as process_date
+  (select i.invoice_date from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.invoice_type_id = 9 and ir.payment_id is null and ir.invoice_id = i.invoice_id)  as process_date,
+  (select i.invoice_number from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.invoice_type_id = 9 and ir.payment_id is null and ir.invoice_id = i.invoice_id)  as invoice_number,
+  (select invoice_id from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id is null) as invoice_id,
+  (select invoice_record_id from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id is null) as invoice_record_id
 FROM project p,
      tc_direct_project tdp,
      project_status_lu ps,
@@ -574,7 +590,7 @@ where  p.project_status_id = ps.project_status_id
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3) and upg.resource_id = p.tc_direct_project_id)
   
   and ((select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
 
 
 
