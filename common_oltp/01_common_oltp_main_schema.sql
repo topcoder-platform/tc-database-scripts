@@ -164,6 +164,15 @@ extent size 64 next size 64
 lock mode row;
 
 revoke all on user_status_lu from 'public';
+create table 'informix'.terms_of_use_agreeability_type_lu (
+    terms_of_use_agreeability_type_id DECIMAL(5,0) NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    description VARCHAR(100) NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on terms_of_use_agreeability_type_lu from 'public';
 create table 'informix'.terms_of_use (
     terms_of_use_id DECIMAL(10,0) NOT NULL,
     terms_text TEXT,
@@ -173,7 +182,8 @@ create table 'informix'.terms_of_use (
     title VARCHAR(50) NOT NULL,
     electronically_signable decimal(1,0) NOT NULL,
     url VARCHAR(100),
-    member_agreeable decimal(1,0) DEFAULT 1 NOT NULL
+    member_agreeable decimal(1,0) DEFAULT 1 NOT NULL,
+	terms_of_use_agreeability_type_id DECIMAL(5,0) DEFAULT 3 NOT NULL
 )
 extent size 512 next size 512
 lock mode row;
@@ -221,6 +231,14 @@ extent size 2000 next size 2000
 lock mode row;
 
 revoke all on project_role_terms_of_use_xref from 'public';
+create table 'informix'.terms_of_use_dependency (
+    dependency_terms_of_use_id DECIMAL(10,0) NOT NULL,
+    dependent_terms_of_use_id DECIMAL(10,0) NOT NULL
+)
+extent size 500 next size 250
+lock mode row;
+
+revoke all on terms_of_use_dependency from 'public';
 create table 'informix'.state (
     state_code VARCHAR(2),
     state_name VARCHAR(35) not null,
@@ -2046,3 +2064,23 @@ grant update, index, delete, select, insert on vm_usage to 'public' as 'informix
 grant update, index, delete, select, insert on vm_account_user to 'public' as 'informix';
 
 grant update, index, delete, select, insert on vm_security_group to 'public' as 'informix';
+	
+grant insert on terms_of_use_agreeability_type_lu to 'public' as 'informix';
+
+grant select on terms_of_use_agreeability_type_lu to 'public' as 'informix';
+
+grant delete on terms_of_use_agreeability_type_lu to 'public' as 'informix';
+
+grant update on terms_of_use_agreeability_type_lu to 'public' as 'informix';
+
+grant index on terms_of_use_agreeability_type_lu to 'public' as 'informix';
+
+grant insert on terms_of_use_dependency to 'public' as 'informix';
+
+grant select on terms_of_use_dependency to 'public' as 'informix';
+
+grant delete on terms_of_use_dependency to 'public' as 'informix';
+
+grant update on terms_of_use_dependency to 'public' as 'informix';
+
+grant index on terms_of_use_dependency to 'public' as 'informix';

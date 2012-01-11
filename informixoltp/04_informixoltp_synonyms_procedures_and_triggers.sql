@@ -178,6 +178,9 @@ for common_oltp:'informix'.user_terms_of_use_xref;
 create synonym 'informix'.user_security_key
 for common_oltp:'informix'.user_security_key;
 
+create synonym 'informix'.terms_of_use_agreeability_type_lu
+for common_oltp:'informix'.terms_of_use_agreeability_type_lu;
+
 create procedure "informix".calc_seconds( start datetime year to fraction(3) , 
                                       end   datetime year to fraction(3) )
 returning int;

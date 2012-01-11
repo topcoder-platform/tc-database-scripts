@@ -91,9 +91,35 @@ alter table 'informix'.user_status_lu add constraint primary key
     (user_status_id)
     constraint u113_26;
 
+alter table 'informix'.terms_of_use_agreeability_type_lu add constraint primary key
+    (terms_of_use_agreeability_type_id)
+    constraint terms_of_use_agreeability_type_lu_pk;
+
+alter table 'informix'.terms_of_use_dependency add constraint primary key
+    (dependency_terms_of_use_id, dependent_terms_of_use_id)
+    constraint terms_of_use_dependency_pk;
+	
 alter table 'informix'.terms_of_use add constraint primary key 
     (terms_of_use_id)
     constraint u114_27;
+
+alter table 'informix'.terms_of_use add constraint foreign key
+    (terms_of_use_agreeability_type_id)
+    references 'informix'.terms_of_use_agreeability_type_lu
+    (terms_of_use_agreeability_type_id)
+    constraint terms_of_use_terms_of_use_agreeability_type_fk;
+
+alter table 'informix'.terms_of_use_dependency add constraint foreign key
+    (dependency_terms_of_use_id)
+    references 'informix'.terms_of_use
+    (terms_of_use_id)
+    constraint terms_of_use_dependency_fk;
+
+alter table 'informix'.terms_of_use_dependency add constraint foreign key
+    (dependent_terms_of_use_id)
+    references 'informix'.terms_of_use
+    (terms_of_use_id)
+    constraint terms_of_use_dependent_fk;
 
 alter table 'informix'.terms_of_use_type add constraint primary key 
     (terms_of_use_type_id)
