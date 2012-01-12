@@ -1,0 +1,16 @@
+SELECT s.submission_id,
+       (SELECT value FROM resource_info ri WHERE ri.resource_id = u.resource_id AND resource_info_type_id = 1) AS user_id,
+       (SELECT LOWER(ri.value) FROM resource_info ri WHERE ri.resource_id = u.resource_id AND resource_info_type_id = 2) AS handle_lower, 
+       p.prize_amount AS amount,
+       s.placement AS placed,
+       u.project_id AS contest_id
+FROM upload u,
+     submission s,
+     prize p
+WHERE u.project_id = '@ct@'
+  AND s.upload_id = u.upload_id
+  AND s.submission_type_id = 1 
+  AND p.prize_id = s.prize_id
+  AND p.prize_type_id = 15
+  AND s.placement IS NOT NULL
+ORDER BY s.final_score desc

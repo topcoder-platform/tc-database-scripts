@@ -9,9 +9,13 @@ SELECT
     , p.project_id AS contest_id 
     , pps.scheduled_start_time AS screening_start_time
     , ppm.scheduled_start_time AS milestone_screening_start_time
+    , NVL(ppm.scheduled_start_time, pps.scheduled_start_time) AS sort_start_time
     , 'Screening' AS review_type
     , NVL((SELECT min(ri.value::int) FROM resource r, resource_info ri WHERE r.project_id = p.project_id AND r.resource_role_id IN (2, 19)
           AND ri.resource_id = r.resource_id and ri.resource_info_type_id = 1),0) as reviewer_id
+    , (SELECT LOWER(handle) FROM user WHERE user_id = (NVL((SELECT min(ri.value::int) FROM resource r, resource_info ri
+          WHERE r.project_id = p.project_id AND r.resource_role_id IN (2, 19)
+          AND ri.resource_id = r.resource_id and ri.resource_info_type_id = 1),0))) AS reviewer_handle
 FROM project p
 INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
 INNER JOIN project_phase pps ON p.project_id = pps.project_id AND pps.phase_type_id = 3
@@ -30,9 +34,12 @@ SELECT
     , p.project_id AS contest_id 
     , pps.scheduled_start_time AS review_start_time
     , NULL::DATETIME YEAR TO FRACTION AS milestone_screening_start_time
+    , pps.scheduled_start_time AS sort_start_time
     , 'Spec Review' AS review_type
     , NVL((SELECT min(ri.value::int) FROM resource r, resource_info ri WHERE r.project_id = p.project_id AND r.resource_role_id = 18
           AND ri.resource_id = r.resource_id and ri.resource_info_type_id = 1),0) as reviewer_id
+    , (SELECT LOWER(handle) FROM user WHERE user_id = (NVL((SELECT min(ri.value::int) FROM resource r, resource_info ri WHERE r.project_id = p.project_id AND r.resource_role_id = 18
+          AND ri.resource_id = r.resource_id and ri.resource_info_type_id = 1),0))) AS reviewer_handle
 FROM project p
 INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
 INNER JOIN project_phase pps ON p.project_id = pps.project_id AND pps.phase_type_id = 14
@@ -41,4 +48,4 @@ WHERE p.project_status_id = 1
 AND   pcl.project_type_id = 3
 AND   pps.phase_status_id = 2
 AND   ppsub.phase_status_id = 1
-ORDER BY reviewer_id, screening_start_time
+ORDER BY @ms@

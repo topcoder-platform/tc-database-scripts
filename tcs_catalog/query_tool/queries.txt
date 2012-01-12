@@ -350,3 +350,5 @@ query_copilot_pool_statistics_projects_contests.txt|UPDATE query SET text = ? WH
 query_client_projects.txt|UPDATE query SET text = ? WHERE query_id = 31722
 query_client_projects_by_user.txt|UPDATE query SET text = ? WHERE query_id = 31723
 query_client_project_by_id.txt|UPDATE query SET text = ? WHERE query_id = 31724
+query_studio_active_contests_multi_sort.txt|UPDATE query SET text = ? WHERE query_id = 31779
+query_studio_winner_submissions.txt|UPDATE query SET text = ? WHERE query_id = 31780
