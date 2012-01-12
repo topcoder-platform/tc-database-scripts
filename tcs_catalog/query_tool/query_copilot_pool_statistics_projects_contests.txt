@@ -7,7 +7,7 @@ table(multiset(
 select cp.user_id, 
 count(distinct p.tc_direct_project_id) as total_projects_number, 
 count(p.project_id) as total_contests_number, 
-sum(case when p.project_status_id in (4, 5, 6, 10, 11) then 1 else 0 end) as failed_contests_number,
+sum(case when p.project_status_id in (4, 5, 6, 11) then 1 else 0 end) as failed_contests_number,
 sum(case when exists (select source_project_id from linked_project_xref lp
               where p.project_id = lp.source_project_id and lp.link_type_id = 5) then 1 else 0 end) as reposted_contests_number,
 sum(case when p.project_status_id = 1 then 1 else 0 end) as current_contests_number,
