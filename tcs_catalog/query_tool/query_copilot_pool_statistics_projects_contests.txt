@@ -1,4 +1,4 @@
-select total_contests_number, total_projects_number, failed_contests_number, reposted_contests_number, current_contests_number, nvl(current_projects_number, 0), r1.user_id
+select total_contests_number, total_projects_number, failed_contests_number, reposted_contests_number, current_contests_number, nvl(current_projects_number, 0) as current_projects_number, r1.user_id
 
 from 
 
