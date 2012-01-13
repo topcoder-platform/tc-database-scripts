@@ -4683,6 +4683,18 @@ grant insert on "informix".direct_project_metadata_key_audit to public as "infor
 grant select on "informix".direct_project_metadata_key_audit to public as "informix";
 grant delete on "informix".direct_project_metadata_key_audit to public as "informix";
 
+grant index on "informix".direct_project_metadata_predefined_value to public as "informix";
+grant update on "informix".direct_project_metadata_predefined_value to public as "informix";
+grant insert on "informix".direct_project_metadata_predefined_value to public as "informix";
+grant select on "informix".direct_project_metadata_predefined_value to public as "informix";
+grant delete on "informix".direct_project_metadata_predefined_value to public as "informix";
+
+grant index on "informix".direct_project_metadata_predefined_value_audit to public as "informix";
+grant update on "informix".direct_project_metadata_predefined_value_audit to public as "informix";
+grant insert on "informix".direct_project_metadata_predefined_value_audit to public as "informix";
+grant select on "informix".direct_project_metadata_predefined_value_audit to public as "informix";
+grant delete on "informix".direct_project_metadata_predefined_value_audit to public as "informix";
+
 GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON evaluation_type_lu TO 'public' AS 'informix';
 
 GRANT INDEX,SELECT, INSERT, UPDATE, DELETE ON 'informix'.project_catalog_lu TO public AS informix;
