@@ -2743,7 +2743,7 @@ insert into direct_project_metadata_key(project_metadata_key_id, name, descripti
 insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(6, 'Planned Duration', 'planned duration', null, null, '1');
 insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(7, 'Archived', 'Flag for whether project is archived', null, null, '1');
 insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(8, 'Project Technologies', 'project technologies', null, null, '0');
-
+insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(9, 'Project privacy flag', 'project privacy setting', null, null, '1');
 
 INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
     (1, 'Serious', 'Serious - 10 points', 'System', current, 'System', current);
