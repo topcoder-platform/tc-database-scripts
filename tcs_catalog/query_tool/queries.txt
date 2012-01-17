@@ -352,3 +352,4 @@ query_client_projects_by_user.txt|UPDATE query SET text = ? WHERE query_id = 317
 query_client_project_by_id.txt|UPDATE query SET text = ? WHERE query_id = 31724
 query_studio_active_contests_multi_sort.txt|UPDATE query SET text = ? WHERE query_id = 31779
 query_studio_winner_submissions.txt|UPDATE query SET text = ? WHERE query_id = 31780
+query_studio_past_contests_multi_sort.txt|UPDATE query SET text = ? WHERE query_id = 31808
