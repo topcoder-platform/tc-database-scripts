@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="Test Data Generator" default="dist" basedir=".">
+<project name="Test Data Generator" default="run" basedir=".">
 
     <property file="build.properties"/>
 
@@ -71,6 +71,29 @@
         <path refid="buildlibs"/>
     </path>
 
+    <macrodef name="dbaccess">
+        <attribute name="file"/>
+        <attribute name="outfile"/>
+        <attribute name="append"/>
+        <attribute name="failonerror" default="true"/>
+        <sequential>
+            <mkdir dir="logs"/>
+            <echo message="Processing file @{file}"/>
+            <exec executable="${DBACCESS}"
+                  output="logs/@{outfile}"
+                  append="@{append}"
+                  failonerror="@{failonerror}">
+
+                <env key="INFORMIXSERVER" value="${INFORMIXSERVER}"/>
+                <env key="DB_LOCALE" value="${INFORMIXLOCALE}"/>
+                <env key="CLIENT_LOCALE" value="${INFORMIXLOCALE}"/>
+                <env key="INFORMIXDIR" value="${INFORMIXDIR}"/>
+                <arg line="- connfile.sql @{file}"/>
+            </exec>
+        </sequential>
+    </macrodef>
+
+
     <target name="compile">
         <mkdir dir="${build_classdir}"/>
         <javac srcdir="${javamain}"
@@ -112,6 +135,10 @@
             <arg value="${out}"/>
             <arg value="-idGeneratorStart"/>
             <arg value="${id_generator_start}"/>
+            <arg value="-studioSubmissionIdsFile"/>
+            <arg value="${studioSubmissionIdsFile}"/>
+            <arg value="-submissionDeclarationsFile"/>
+            <arg value="${submissionDeclarationsFile}"/>
             <classpath refid="runtime.classpath"/>
         </java>
     </target>
@@ -130,5 +157,14 @@
         <sql driver="com.informix.jdbc.IfxDriver" password="${db_password}"
              url="jdbc:informix-sqli://${db_host}:${db_port}/tcs_catalog:INFORMIXSERVER=${db_server}"
              userid="${db_user}" autocommit="true" src="${out}" classpathref="buildlibs"/>
+    </target>
+
+    <target name="submission-declarations-load" description="loads the test data">
+        <echo file="submissionDeclarationsCommands.sql">
+            DATABASE tcs_catalog;
+            LOAD FROM ${submissionDeclarationsFile} INSERT INTO submission_declaration;
+        </echo>
+        <dbaccess file="submissionDeclarationsCommands.sql" outfile="submissionsDeclarations.log" append="false"/>
+        <delete file="submissionDeclarationsCommands.sql"/>
     </target>
 </project>

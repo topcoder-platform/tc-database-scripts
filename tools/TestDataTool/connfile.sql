@@ -1,0 +1,1 @@
+CONNECT TO '@informixoltp_tcp' USER informix USING 1nf0rm1x;
