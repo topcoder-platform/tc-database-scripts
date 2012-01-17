@@ -900,7 +900,7 @@ create table 'informix'.project_category_lu (
     modify_date DATETIME YEAR TO FRACTION not null,
     display boolean(1),
     display_order INT,
-	project_catalog_id INT,
+    project_catalog_id INT,
     version DECIMAL(12,0) default 0 not null
 )
 extent size 64 next size 64
@@ -1203,6 +1203,7 @@ revoke all on upload_status_lu from 'public';
 create table 'informix'.upload (
     upload_id INT not null,
     project_id INT not null,
+    project_phase_id INT,
     resource_id INT not null,
     upload_type_id INT not null,
     upload_status_id INT not null,
@@ -1300,7 +1301,7 @@ create table 'informix'.review (
     committed DECIMAL(1,0) not null,
     score FLOAT,
     initial_score DECIMAL(5,2),
-	evaluation_type_id INT,
+    evaluation_type_id INT,
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -1334,7 +1335,7 @@ create table 'informix'.review_comment (
     content lvarchar(4096) not null,
     extra_info VARCHAR(254),
     sort DECIMAL(3,0) not null,
-	evaluation_type_id INT,
+    evaluation_type_id INT,
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -1352,7 +1353,7 @@ create table 'informix'.review_item_comment (
     content lvarchar(4096) not null,
     extra_info VARCHAR(254),
     sort DECIMAL(3,0) not null,
-	evaluation_type_id INT,
+    evaluation_type_id INT,
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -2761,74 +2762,74 @@ lock mode row;
 revoke all on copilot_contest_extra_info from 'public';
 
 CREATE TABLE direct_project_metadata (
-	project_metadata_id SERIAL NOT NULL,
-	tc_direct_project_id DECIMAL(10,0) NOT NULL,
-	project_metadata_key_id INTEGER NOT NULL,
-	metadata_value LVARCHAR(500) NOT NULL,
-	PRIMARY KEY (project_metadata_id) constraint pk_direct_project_metadata)
+    project_metadata_id SERIAL NOT NULL,
+    tc_direct_project_id DECIMAL(10,0) NOT NULL,
+    project_metadata_key_id INTEGER NOT NULL,
+    metadata_value LVARCHAR(500) NOT NULL,
+    PRIMARY KEY (project_metadata_id) constraint pk_direct_project_metadata)
 extent size 1000 next size 1000
 lock mode row;
 revoke all on direct_project_metadata from 'public';
 
 CREATE TABLE direct_project_metadata_audit (
-	project_metadata_audit_id DECIMAL(10,0) NOT NULL,
-	project_metadata_id DECIMAL(10,0) NOT NULL,
-	tc_direct_project_id DECIMAL(10,0) NOT NULL,
-	project_metadata_key_id DECIMAL(10,0) NOT NULL,
-	metadata_value LVARCHAR(500) NOT NULL,
-	audit_action_type_id INTEGER NOT NULL,
-	action_date DATETIME YEAR TO FRACTION(3) NOT NULL,
-	action_user_id DECIMAL(10,0) NOT NULL )
+    project_metadata_audit_id DECIMAL(10,0) NOT NULL,
+    project_metadata_id DECIMAL(10,0) NOT NULL,
+    tc_direct_project_id DECIMAL(10,0) NOT NULL,
+    project_metadata_key_id DECIMAL(10,0) NOT NULL,
+    metadata_value LVARCHAR(500) NOT NULL,
+    audit_action_type_id INTEGER NOT NULL,
+    action_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+    action_user_id DECIMAL(10,0) NOT NULL )
 extent size 1000 next size 1000
 lock mode row;
 revoke all on direct_project_metadata_audit from 'public';
 
 CREATE TABLE direct_project_metadata_key (
-	project_metadata_key_id SERIAL NOT NULL, name VARCHAR(45) NOT NULL,
-	description VARCHAR(255),
-	grouping CHAR(1),
-	client_id DECIMAL(10,0),
-	single CHAR(1) NOT NULL,
-	PRIMARY KEY (project_metadata_key_id) constraint pk_direct_project_metadata_key)
+    project_metadata_key_id SERIAL NOT NULL, name VARCHAR(45) NOT NULL,
+    description VARCHAR(255),
+    grouping CHAR(1),
+    client_id DECIMAL(10,0),
+    single CHAR(1) NOT NULL,
+    PRIMARY KEY (project_metadata_key_id) constraint pk_direct_project_metadata_key)
 extent size 1000 next size 1000
 lock mode row;
 revoke all on direct_project_metadata_key from 'public';
 
 CREATE TABLE direct_project_metadata_key_audit (
-	project_metadata_key_audit_id DECIMAL(10,0) NOT NULL,
-	project_metadata_key_id DECIMAL(10,0) NOT NULL,
-	name VARCHAR(45) NOT NULL,
-	description VARCHAR(255),
-	grouping CHAR(1),
-	client_id DECIMAL(10,0),
-	audit_action_type_id INTEGER NOT NULL,
-	action_date DATETIME YEAR TO FRACTION(3) NOT NULL,
-	action_user_id DECIMAL(12,0) NOT NULL,
-	single CHAR(1) NOT NULL )
+    project_metadata_key_audit_id DECIMAL(10,0) NOT NULL,
+    project_metadata_key_id DECIMAL(10,0) NOT NULL,
+    name VARCHAR(45) NOT NULL,
+    description VARCHAR(255),
+    grouping CHAR(1),
+    client_id DECIMAL(10,0),
+    audit_action_type_id INTEGER NOT NULL,
+    action_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+    action_user_id DECIMAL(12,0) NOT NULL,
+    single CHAR(1) NOT NULL )
 extent size 1000 next size 1000
 lock mode row;
 revoke all on direct_project_metadata_key_audit from 'public';
 
 CREATE TABLE direct_project_metadata_predefined_value (
-	project_metadata_predefined_value_id SERIAL NOT NULL,
-	project_metadata_key_id INTEGER NOT NULL,
-	predefined_metadata_value LVARCHAR(500) NOT NULL,
-	position INTEGER NOT NULL,
-	list_order INTEGER NOT NULL ,
-	PRIMARY KEY (project_metadata_predefined_value_id) constraint pk_direct_project_metadata_predefined_value)
+    project_metadata_predefined_value_id SERIAL NOT NULL,
+    project_metadata_key_id INTEGER NOT NULL,
+    predefined_metadata_value LVARCHAR(500) NOT NULL,
+    position INTEGER NOT NULL,
+    list_order INTEGER NOT NULL ,
+    PRIMARY KEY (project_metadata_predefined_value_id) constraint pk_direct_project_metadata_predefined_value)
 extent size 1000 next size 1000
 lock mode row;
 revoke all on direct_project_metadata_predefined_value from 'public';
 
 CREATE TABLE direct_project_metadata_predefined_value_audit (
-	project_metadata_predefined_value_audit_id DECIMAL(10,0) NOT NULL,
-	project_metadata_predefined_value_id DECIMAL(10,0) NOT NULL,
-	project_metadata_key_id DECIMAL(10,0) NOT NULL,
-	predefined_metadata_value LVARCHAR(500) NOT NULL,
-	position INTEGER NOT NULL,
-	audit_action_type_id INTEGER NOT NULL,
-	action_date DATETIME YEAR TO FRACTION(3) NOT NULL,
-	action_user_id DECIMAL(12,0) NOT NULL )
+    project_metadata_predefined_value_audit_id DECIMAL(10,0) NOT NULL,
+    project_metadata_predefined_value_id DECIMAL(10,0) NOT NULL,
+    project_metadata_key_id DECIMAL(10,0) NOT NULL,
+    predefined_metadata_value LVARCHAR(500) NOT NULL,
+    position INTEGER NOT NULL,
+    audit_action_type_id INTEGER NOT NULL,
+    action_date DATETIME YEAR TO FRACTION(3) NOT NULL,
+    action_user_id DECIMAL(12,0) NOT NULL )
 extent size 1000 next size 1000
 lock mode row;
 revoke all on direct_project_metadata_predefined_value_audit from 'public';
