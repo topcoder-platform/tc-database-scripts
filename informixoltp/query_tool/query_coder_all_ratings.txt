@@ -25,6 +25,7 @@ select c.coder_id
      , NVL(ar.rating,0) as hs_algorithm_rating
      , NVL(armm.rating,0) as marathon_match_rating
      , NVL(ccr.rating,0) as content_creation_rating
+     , NVL(rep.rating,0) as reporting_rating
   from OUTER coder c
      , user u
      , OUTER(rating r)
@@ -41,6 +42,7 @@ select c.coder_id
      , OUTER(tcs_catalog:user_rating aui)
      , OUTER(tcs_catalog:user_rating arb)
      , OUTER(tcs_catalog:user_rating ccr)
+     , OUTER(tcs_catalog:user_rating rep)
  where u.user_id = @cr@
    and u.user_id = c.coder_id
    and r.coder_id = u.user_id
@@ -66,6 +68,8 @@ select c.coder_id
    and arb.phase_id = 135
    and ccr.user_id = u.user_id
    and ccr.phase_id = 146
+   and rep.user_id = u.user_id
+   and rep.phase_id = 147
    and ar.coder_id = u.user_id
    and ar.algo_rating_type_id = 2
    and armm.coder_id = u.user_id
