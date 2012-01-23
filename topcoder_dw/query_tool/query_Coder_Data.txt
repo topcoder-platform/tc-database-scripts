@@ -8,6 +8,14 @@ SELECT c.handle
      , c.member_since
      , 0 AS total_earnings
      , r.num_competitions
+     , p.path || i.file_name as image_path
+     , (SELECT count(*)
+          FROM coder_image_xref cix
+             , image i
+         WHERE cix.image_id = i.image_id
+           AND cix.coder_id = @cr@
+           AND cix.display_flag = 1
+           AND i.image_type_id = 1) as has_image
      , co.country_name
      , 0 AS design_earnings
     , (SELECT r.rating
@@ -70,6 +78,18 @@ SELECT c.handle
         WHERE c.coder_id = @cr@
           AND c.coder_id = r.user_id
           AND r.phase_id = 135) AS ria_build_rating
+    , (SELECT r.rating
+         FROM coder c
+            , OUTER tcs_dw:user_rating r
+        WHERE c.coder_id = @cr@
+          AND c.coder_id = r.user_id
+          AND r.phase_id = 146) AS content_creation_rating
+    , (SELECT r.rating
+         FROM coder c
+            , OUTER tcs_dw:user_rating r
+        WHERE c.coder_id = @cr@
+          AND c.coder_id = r.user_id
+          AND r.phase_id = 147) AS reporting_rating
     , 0 AS development_earnings
      , cr.rank
      , cr.percentile
@@ -106,6 +126,7 @@ SELECT c.handle
   FROM OUTER coder_problem_summary cps
      , coder c
      , OUTER(algo_rating r)
+     , OUTER(coder_image_xref cix, image i, path p)
      , OUTER country co     
      , OUTER coder_rank cr
      , OUTER (current_school cs, school s)
@@ -116,9 +137,13 @@ SELECT c.handle
    AND cs.viewable = 1
    AND cps.coder_id = c.coder_id
    AND r.coder_id = c.coder_id
+   AND cix.coder_id = c.coder_id
+   AND cix.display_flag = 1   
    AND cr.coder_id = c.coder_id
    AND cr.coder_rank_type_id = 2
+   AND cix.image_id = i.image_id
+   AND i.image_type_id = 1
+   AND i.path_id = p.path_id
    AND r.algo_rating_type_id = 1
    AND cr.algo_rating_type_id = 1
    AND cps.algo_rating_type_id = 1
-
