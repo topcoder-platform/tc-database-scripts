@@ -873,6 +873,16 @@ create view "informix".active_ria_builds_competitors (user_id) as
    where ((((x0.last_rated_project_id = x1.project_id ) AND (x0.phase_id = 135. ) ) AND (x1.phase_id = x0.phase_id ) ) AND (x1.posting_date > (CURRENT year to fraction(3) - interval(       180) day(9) to day ) ) ) ;
 revoke all on active_ria_builds_competitors from 'public';
 
+create view "informix".active_content_creation_competitors (user_id) as
+   select x0.user_id 
+   from "informix".user_rating x0 ,"informix".project x1 
+   where ((((x0.last_rated_project_id = x1.project_id ) AND (x0.phase_id = 146. ) ) AND (x1.phase_id = x0.phase_id ) ) AND (x1.posting_date > (CURRENT year to fraction(3) - interval(180) day(9) to day ) ) ) ;
+
+create view "informix".active_reporting_competitors (user_id) as
+   select x0.user_id 
+   from "informix".user_rating x0 ,"informix".project x1 
+   where ((((x0.last_rated_project_id = x1.project_id ) AND (x0.phase_id = 147. ) ) AND (x1.phase_id = x0.phase_id ) ) AND (x1.posting_date > (CURRENT year to fraction(3) - interval(180) day(9) to day ) ) ) ;
+
 grant select on active_designers to 'informix' with grant option;
 grant select on active_developers to 'informix' with grant option;
 grant select on active_conceptualizers to 'informix' with grant option;
@@ -883,6 +893,8 @@ grant select on active_application_testers to 'informix' with grant option;
 grant select on active_test_scenarios_competitors to 'informix' with grant option;
 grant select on active_ui_prototypes_competitors to 'informix' with grant option;
 grant select on active_ria_builds_competitors to 'informix' with grant option;
+grant select on active_content_creation_competitors to 'informix' with grant option;
+grant select on active_reporting_competitors to 'informix' with grant option;
 
 grant select on active_designers to 'coder' as 'informix';
 grant select on active_developers to 'coder' as 'informix';
@@ -894,6 +906,8 @@ grant select on active_application_testers to 'coder' as 'informix';
 grant select on active_test_scenarios_competitors to 'coder' as 'informix';
 grant select on active_ui_prototypes_competitors to 'coder' as 'informix';
 grant select on active_ria_builds_competitors to 'coder' as 'informix';
+grant select on active_content_creation_competitors to 'coder' as 'informix';
+grant select on active_reporting_competitors to 'coder' as 'informix';
 	
 grant select on contest_prize to 'public' as 'informix';
 
