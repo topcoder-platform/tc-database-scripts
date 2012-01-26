@@ -354,3 +354,4 @@ query_studio_active_contests_multi_sort.txt|UPDATE query SET text = ? WHERE quer
 query_studio_winner_submissions.txt|UPDATE query SET text = ? WHERE query_id = 31780
 query_studio_past_contests_multi_sort.txt|UPDATE query SET text = ? WHERE query_id = 31808
 query_dashboard_billing_cost_invoice_report_invoice_number.txt|UPDATE query SET text = ? WHERE query_id = 31816
+query_direct_project_general_info_start_date.txt|UPDATE query SET text = ? WHERE query_id = 31826
