@@ -1,0 +1,133 @@
+SELECT FIRST 5000
+       c.handle
+     , c.coder_id
+     , c.quote
+     , r.rating as algo_rating
+     , c.member_since
+     , r.num_competitions
+     , p.path || i.file_name as image_path
+     , co.country_name
+     , co.longitude
+     , co.latitude
+    , (SELECT r.rating
+          FROM coder c1
+             , OUTER tcs_dw:user_rating r
+         WHERE c1.coder_id = c.coder_id
+           AND c1.coder_id = r.user_id
+           AND r.phase_id = 112) AS design_rating
+    , (SELECT r.rating
+          FROM coder c1
+             , OUTER tcs_dw:user_rating r
+         WHERE c1.coder_id = c.coder_id
+           AND c1.coder_id = r.user_id
+           AND r.phase_id = 113) AS development_rating
+    , (SELECT r.rating
+         FROM coder c1
+             , OUTER tcs_dw:user_rating r
+        WHERE c1.coder_id = c.coder_id
+          AND c1.coder_id = r.user_id
+          AND r.phase_id = 134) AS concept_rating
+    , (SELECT r.rating
+         FROM coder c1
+            , OUTER tcs_dw:user_rating r
+        WHERE c1.coder_id = c.coder_id
+          AND c1.coder_id = r.user_id
+          AND r.phase_id = 117) AS spec_rating
+    , (SELECT r.rating
+         FROM coder c1
+            , OUTER tcs_dw:user_rating r
+        WHERE c1.coder_id = c.coder_id
+          AND c1.coder_id = r.user_id
+          AND r.phase_id = 118) AS arch_rating
+    , (SELECT r.rating
+         FROM coder c1
+            , OUTER tcs_dw:user_rating r
+        WHERE c1.coder_id = c.coder_id
+          AND c1.coder_id = r.user_id
+          AND r.phase_id = 125) AS assembly_rating
+    , (SELECT r.rating
+         FROM coder c1
+            , OUTER tcs_dw:user_rating r
+        WHERE c1.coder_id = c.coder_id
+          AND c1.coder_id = r.user_id
+          AND r.phase_id = 124) AS test_rating
+    , (SELECT r.rating
+         FROM coder c1
+            , OUTER tcs_dw:user_rating r
+        WHERE c1.coder_id = c.coder_id
+          AND c1.coder_id = r.user_id
+          AND r.phase_id = 137) AS test_scenarios_rating
+    , (SELECT r.rating
+         FROM coder c1
+            , OUTER tcs_dw:user_rating r
+        WHERE c1.coder_id = c.coder_id
+          AND c1.coder_id = r.user_id
+          AND r.phase_id = 130) AS ui_prototype_rating
+    , (SELECT r.rating
+         FROM coder c1
+            , OUTER tcs_dw:user_rating r
+        WHERE c1.coder_id = c.coder_id
+          AND c1.coder_id = r.user_id
+          AND r.phase_id = 135) AS ria_build_rating
+    , (SELECT r.rating
+         FROM coder c1
+            , OUTER tcs_dw:user_rating r
+        WHERE c1.coder_id = c.coder_id
+          AND c1.coder_id = r.user_id
+          AND r.phase_id = 146) AS content_creation_rating
+    , (SELECT r.rating
+         FROM coder c1
+            , OUTER tcs_dw:user_rating r
+        WHERE c1.coder_id = c.coder_id
+          AND c1.coder_id = r.user_id
+          AND r.phase_id = 147) AS reporting_rating
+     , cr.rank
+     , cr.percentile
+     , (select s.name
+          from school s
+             , current_school cs
+             , coder c1
+         where c1.coder_id = cs.coder_id
+           and c1.coder_id = c.coder_id
+           and cs.school_id = s.school_id
+           and cs.viewable = 1
+           and c.coder_type_id = 1) as school_name
+     , case when exists (select '1' from long_comp_result where attended = 'Y' and coder_id = c.coder_id) then '1' else '0' end as has_long_comp
+     , (SELECT r.rating
+            FROM coder c1, OUTER algo_rating r
+            WHERE c1.coder_id=c.coder_id
+             AND c1.coder_id = r.coder_id
+             AND algo_Rating_type_id=2) as hs_rating
+     , (SELECT count(*) 
+            FROM algo_rating 
+            WHERE coder_id = c.coder_id 
+            AND algo_rating_type_id = 2) as hs_registered
+     , (SELECT r.rating
+            FROM coder c1, OUTER algo_rating r
+            WHERE c1.coder_id= c.coder_id 
+             AND c1.coder_id = r.coder_id
+             AND algo_Rating_type_id=3) as mm_rating
+  FROM OUTER coder_problem_summary cps
+     , coder c
+     , OUTER(algo_rating r)
+     , OUTER(coder_image_xref cix, image i, path p)
+     , OUTER country co     
+     , OUTER coder_rank cr
+     , OUTER (current_school cs, school s)
+ WHERE 1=1 --c.coder_id = 252022
+   AND c.comp_country_code = co.country_code
+   AND cs.coder_id = c.coder_id
+   AND cs.school_id = s.school_id
+   AND cs.viewable = 1
+   AND cps.coder_id = c.coder_id
+   AND r.coder_id = c.coder_id
+   AND cix.coder_id = c.coder_id
+   AND cix.display_flag = 1   
+   AND cr.coder_id = c.coder_id
+   AND cr.coder_rank_type_id = 2
+   AND cix.image_id = i.image_id
+   AND i.image_type_id = 1
+   AND i.path_id = p.path_id
+   AND r.algo_rating_type_id = 1
+   AND cr.algo_rating_type_id = 1
+   AND cps.algo_rating_type_id = 1;
