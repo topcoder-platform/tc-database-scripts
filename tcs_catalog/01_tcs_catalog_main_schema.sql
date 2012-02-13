@@ -1301,7 +1301,7 @@ create table 'informix'.review (
     committed DECIMAL(1,0) not null,
     score FLOAT,
     initial_score DECIMAL(5,2),
-    evaluation_type_id INT,
+    review_evaluation_id INT,
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,

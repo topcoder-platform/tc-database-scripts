@@ -2047,11 +2047,6 @@ alter table 'informix'.review_comment add constraint foreign key
     (evaluation_type_id)
     constraint fk_reviewcomment_evaluationtype;
 
-alter table 'informix'.review add constraint foreign key
-    (evaluation_type_id)
-    references 'informix'.evaluation_type_lu
-    (evaluation_type_id)
-    constraint fk_review_evaluationtype;
 
 ALTER TABLE 'informix'.project_category_lu ADD CONSTRAINT FOREIGN KEY
     (project_catalog_id)
