@@ -2848,6 +2848,31 @@ lock mode row;
 
 REVOKE ALL ON evaluation_type_lu FROM 'public';
 
+create table project_milestone (
+    project_milestone_id Serial not null,
+    name VARCHAR(80) not null,
+    description VARCHAR(250) not null,
+    due_date DATETIME YEAR TO FRACTION not null,                   
+    send_notifications boolean not null,
+    completed boolean not null,
+    project_id INT not null
+)
+extent size 1000 next size 1000
+lock mode row;
+
+revoke all on project_milestone from 'public';
+
+create table project_milestone_owner (
+    project_milestone_owner_id Serial NOT NULL,
+    user_id INT NOT NULL,
+    user_handle VARCHAR(45) NOT NULL,
+    project_milestone_id INT NOT NULL
+)
+extent size 1000 next size 1000
+lock mode row;
+
+revoke all on project_milestone_owner from 'public';
+
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -4698,4 +4723,8 @@ grant delete on "informix".direct_project_metadata_predefined_value_audit to pub
 
 GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON evaluation_type_lu TO 'public' AS 'informix';
 
-GRANT INDEX,SELECT, INSERT, UPDATE, DELETE ON 'informix'.project_catalog_lu TO public AS informix;
+GRANT INDEX,SELECT, INSERT, UPDATE, DELETE ON 'informix'.project_catalog_lu TO public AS "informix";
+
+grant select,insert,update,delete on "informix".project_milestone to public as "informix";
+
+grant select,insert,update,delete on "informix".project_milestone_owner to public as "informix";

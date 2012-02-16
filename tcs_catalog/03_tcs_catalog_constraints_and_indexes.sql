@@ -2053,3 +2053,17 @@ ALTER TABLE 'informix'.project_category_lu ADD CONSTRAINT FOREIGN KEY
     REFERENCES 'informix'.project_catalog_lu
     (project_catalog_id)
     CONSTRAINT fk_projectcategorylu_projectcataloglu_projectcatalogid;
+
+alter table 'informix'.project_milestone add constraint primary key
+    (project_milestone_id)
+    constraint project_milestone_pk;
+
+alter table 'informix'.project_milestone_owner add constraint primary key
+    (project_milestone_owner_id)
+    constraint project_milestone_owner_pk;
+
+alter table 'informix'.project_milestone_owner add constraint foreign key
+    (project_milestone_id)
+    references 'informix'.project_milestone
+    (project_milestone_id)
+    constraint fk_project_milestone_owner_project_milestone;
