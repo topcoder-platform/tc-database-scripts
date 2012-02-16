@@ -577,3 +577,5 @@ grant select on "informix".SPEC_REVIEW_USER_ROLE_TYPE_SEQ to "public" as "inform
 grant select on "informix".SPEC_REVIEW_COMMENT_VIEW_SEQ to "public" as "informix";
 grant select on "informix".SPEC_SECTION_REVIEW_SEQ to "public" as "informix";
 grant select on "informix".SPEC_REVIEW_REVIEWER_SEQ to "public" as "informix";
+
+grant select on "informix".tc_direct_project_status_lu to "public" as "informix";
