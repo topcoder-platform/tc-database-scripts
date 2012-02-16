@@ -30,8 +30,11 @@ SELECT
                      WHERE userid = @uid@ 
                      AND objecttype = 2
                      AND objectid = m.messageid)) 
-     AS unread_messages_count
-FROM tc_direct_project tdp, jivecategory jc, jiveforum jf
+     AS unread_messages_count,
+	 watch.userid is not null as watching
+FROM tc_direct_project tdp, jivecategory jc, jiveforum jf, outer jive:jivewatch watch
 WHERE tdp.project_id = @tcdirectid@
 AND   tdp.project_forum_id = jc.categoryid
 AND   jc.categoryid = jf.categoryid
+AND   watch.objectid = jc.categoryid
+AND   watch.userid = @uid@ AND watch.objecttype = 14
