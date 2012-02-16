@@ -10,3 +10,28 @@ select (select su.user_id
  where project_id = @pj@
    and rr.phase_id = @ph@
    and ra.review_resp_id = rr.review_resp_id
+   and rr.resource_role_id not in (21, 22)
+   and not exists (
+     select * from project_phase where project_id = @pj@ and phase_type_id = 18
+   )
+
+UNION
+
+-- for new review system
+select (select su.user_id
+          from security_user su
+         where su.login_id = ra.user_id) as handle
+     , ra.user_id
+     , ra.primary_ind as primary
+     , rr.review_resp_name as reviewer_type
+     , rr.review_resp_id
+  from outer rboard_application ra
+     , review_resp rr
+ where project_id = @pj@
+   and rr.phase_id = @ph@
+   and ra.review_resp_id = rr.review_resp_id
+   and rr.resource_role_id in (21, 22)
+   and exists (
+     select * from project_phase where project_id = @pj@ and phase_type_id = 18
+   )
+order by review_resp_id
