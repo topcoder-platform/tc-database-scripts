@@ -1596,7 +1596,6 @@ create table 'informix'.payment_detail (
     total_amount DECIMAL(12,2),
     installment_number DECIMAL(3,0) default 1,
     digital_run_track_id DECIMAL(10,0),
-    invoice_number VARCHAR(11),
     jira_issue_id VARCHAR(100),
     create_user DECIMAL(10,0)
 )
