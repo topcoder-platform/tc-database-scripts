@@ -3,4 +3,4 @@ from
 table(multiset(SELECT
 (select max(nvl(actual_end_time, scheduled_end_time)) from project_phase ph where ph.project_id = p.project_id) as contest_end_date
 FROM project p
-WHERE p.tc_direct_project_id = @tcdirectid@))
+WHERE p.tc_direct_project_id = @tcdirectid@ and p.project_status_id != 3))
