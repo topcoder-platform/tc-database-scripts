@@ -1,5 +1,6 @@
 database common_oltp;
 
+INSERT INTO 'informix'.security_user(login_id,user_id,password,create_user_id) VALUES (100129,'forum','4EjPjy6o+/C+dqNPnxIy9A==',NULL);
 INSERT INTO 'informix'.security_user(login_id,user_id,password,create_user_id) VALUES (-1, 'anonymous', '4EjPjy6o+/C+dqNPnxIy9A==', NULL);
 INSERT INTO 'informix'.security_user(login_id,user_id,password,create_user_id) VALUES (132456, 'heffan', '4EjPjy6o+/C+dqNPnxIy9A==', NULL);
 INSERT INTO 'informix'.security_user(login_id,user_id,password,create_user_id) VALUES (20, 'dok_tester', '4EjPjy6o+/C+dqNPnxIy9A==', NULL);
@@ -353,6 +354,7 @@ INSERT INTO 'informix'.user(user_id,first_name,last_name,create_date,handle,last
 INSERT INTO 'informix'.user(user_id,first_name,last_name,create_date,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date) VALUES (22719217, 'Components', 'tc', '2008-08-13 13:25:51.000', 'Components', NULL, 'A', NULL, NULL, 143, NULL);
 INSERT INTO 'informix'.user(user_id,first_name,last_name,create_date,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date) VALUES (22719218, 'liquid_user', 'tc', '2008-08-13 13:25:51.000', 'liquid_user', NULL, 'A', NULL, NULL, 143, NULL);
 INSERT INTO 'informix'.user(user_id,first_name,last_name,create_date,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date) VALUES (22873364, 'LCSUPPORT', 'tc', '2008-08-13 13:25:51.000', 'LCSUPPORT', NULL, 'A', NULL, NULL, 143, NULL);
+INSERT INTO 'informix'.user(user_id,first_name,last_name,create_date,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date) VALUES  (100129, 'forum', 'forum', current, 'forum', NULL, 'A', NULL, NULL, 143, NULL);
 INSERT INTO 'informix'.school(school_id,sort_letter,city,state_code,country_code,user_id,name,modify_date,short_name,school_type_id,address_id,viewable,create_date) VALUES (1644, 'W', 'NA', 'NC', '840', 0, 'Western Carolina University', '2002-08-21 13:53:38.000', NULL, NULL, 9912, 1, '2007-02-05 11:45:02.000');
 INSERT INTO 'informix'.school(school_id,sort_letter,city,state_code,country_code,user_id,name,modify_date,short_name,school_type_id,address_id,viewable,create_date) VALUES (76406, NULL, NULL, NULL, NULL, 22504949, 'Edmond North', '2006-06-16 21:33:49.000', NULL, 2, 9912, 1, '2007-02-05 11:45:02.000');
 INSERT INTO 'informix'.user_security_key(user_id,security_key,security_key_type_id) VALUES (124916, 'some key data for Yoshi', 1); 
