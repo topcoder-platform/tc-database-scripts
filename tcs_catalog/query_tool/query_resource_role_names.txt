@@ -1,0 +1,3 @@
+select name
+ from resource_role_lu
+ where resource_role_id in (@rrids@)

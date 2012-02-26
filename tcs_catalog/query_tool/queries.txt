@@ -357,3 +357,4 @@ query_dashboard_billing_cost_invoice_report_invoice_number.txt|UPDATE query SET 
 query_direct_project_general_info_start_date.txt|UPDATE query SET text = ? WHERE query_id = 31826
 query_direct_project_general_info_projected_cost.txt|UPDATE query SET text = ? WHERE query_id = 31846
 query_direct_project_general_info_projected_end_date.txt|UPDATE query SET text = ? WHERE query_id = 31847
+query_resource_role_names.txt|UPDATE query SET text = ? WHERE query_id = 31781
