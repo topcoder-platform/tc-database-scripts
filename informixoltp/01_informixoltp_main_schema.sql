@@ -3237,7 +3237,8 @@ create table 'informix'.round (
     short_name VARCHAR(30),
     forum_id DECIMAL(10,0),
     rated_ind DECIMAL(1,0) default 0,
-    region_id DECIMAL(3,0)
+    region_id DECIMAL(3,0),
+	tc_direct_project_id DECIMAL(10,0)
 )
 extent size 64 next size 64
 lock mode row;
