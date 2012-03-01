@@ -253,10 +253,20 @@ insert into client values (70014096, 'Notus', 1, 1, 1, '0.00', '2010-03-20 15:52
 insert into  project values (70015983, 1, 'Liquid Community', 1, '0.00', 'Liquid PO 1', 1, 'description', '2010-03-20 15:52:10', '2012-01-01 00:00:00', 1, 70014096, null, 0, current, 'admin' , current, 'adming', 0, 5000);
 
 insert into  project values (70015984, 1, 'Liquid (CA)', 1, '0.00', 'Liquid PO 1', 1, 'description', '2010-03-20 15:52:10', '2012-01-01 00:00:00', 1, 70014096, null, 0, current, 'admin' , current, 'adming', 0, 5000);
+insert into  project values (70016343, 1, 'Liquid', 1, '0.00', 'TC0000377', 1, 'Liquid', current, '2014-02-28 00:00:00', 1,70014096, null, 0, current, 'system', current, 'system' , 0, 5000);
+insert into  project values (70016347, 1, 'CIO projects', 1, '0.00', 'TC0000381', 1, 'CIO projects', current, '2014-02-28 00:00:00', 1,70014096, null, 0, current, 'system', current, 'system' , 0, 5000);
+
+insert into tt_project 
+values (70016343, 1, 'Liquid', 1, 0, 'TC0000377', 1, 'Liquid', current, '2014-02-28 00:00:00', current, 'system', current, system);
 
 insert into  client_project values (70014096, 70015983, current, 'test', current, 'test');
 
 insert into  client_project values (70014096, 70015984, current, 'test', current, 'test');
+
+
+insert into  client_project values (70014096, 70016343, current, 'test', current, 'test');
+
+insert into  client_project values (70014096, 70016347, current, 'test', current, 'test');
 
 
 insert into 'informix'.project_worker values (70015984, 2, current, mdy(1,1,2012), 0, 0, 1, current, 'admin', current, 'admin');
