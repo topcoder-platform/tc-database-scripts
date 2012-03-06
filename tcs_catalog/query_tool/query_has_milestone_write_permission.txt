@@ -1,0 +1,6 @@
+SELECT 'user_has_write_permission_over_milestone' 
+FROM user_permission_grant upg, project_milestone m
+WHERE m.project_milestone_id = @mid@ 
+AND upg.resource_id = m.project_id
+AND upg.permission_type_id IN (2,3)
+AND upg.user_id = @uid@
