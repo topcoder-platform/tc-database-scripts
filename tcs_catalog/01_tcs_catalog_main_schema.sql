@@ -2855,7 +2855,8 @@ create table project_milestone (
     due_date DATETIME YEAR TO FRACTION not null,                   
     send_notifications boolean not null,
     completed boolean not null,
-    project_id INT not null
+    project_id INT not null,
+	completion_date DATETIME YEAR TO FRACTION
 )
 extent size 1000 next size 1000
 lock mode row;
