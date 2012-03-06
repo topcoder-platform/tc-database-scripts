@@ -861,6 +861,14 @@ alter table 'informix'.copilot_contest_extra_info add constraint primary key
 ALTER TABLE 'informix'.evaluation_type_lu
       ADD CONSTRAINT PRIMARY KEY (evaluation_type_id) 
       CONSTRAINT pk_evaluation_type_lu;
+	  
+alter table 'informix'.project_milestone add constraint primary key
+    (project_milestone_id)
+    constraint project_milestone_pk;
+
+alter table 'informix'.project_milestone_owner add constraint primary key
+    (project_milestone_owner_id)
+    constraint project_milestone_owner_pk;
       
       
 alter table 'informix'.comp_categories add constraint foreign key 
@@ -2054,13 +2062,7 @@ ALTER TABLE 'informix'.project_category_lu ADD CONSTRAINT FOREIGN KEY
     (project_catalog_id)
     CONSTRAINT fk_projectcategorylu_projectcataloglu_projectcatalogid;
 
-alter table 'informix'.project_milestone add constraint primary key
-    (project_milestone_id)
-    constraint project_milestone_pk;
 
-alter table 'informix'.project_milestone_owner add constraint primary key
-    (project_milestone_owner_id)
-    constraint project_milestone_owner_pk;
 
 alter table 'informix'.project_milestone_owner add constraint foreign key
     (project_milestone_id)
