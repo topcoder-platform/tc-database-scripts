@@ -1,0 +1,71 @@
+SELECT cc.component_name
+ ,cv.version_text
+ ,cat.category_name as catalog_name
+, (select name from phase_type_lu where phase_type_id = (select max(ptl.phase_type_id) from phase_type_lu ptl, project_phase current_phase
+                                                             where ptl.phase_type_id = current_phase.phase_type_id
+                                                                  and current_phase.project_id = p.project_id
+                                                                  and current_phase.phase_status_id = 2 )) as current_phase  
+, ph.scheduled_end_time as reg_end_date  
+, 0 as final_review_end_date  
+, pr1.user_id as winner  
+, pr2.user_id as second  
+, p.project_category_id
+,p.project_id  
+,(select name from project_category_lu where project_category_id = p.project_category_id) as phase  
+,u1.handle_lower as winner_sort  
+,u2.handle_lower as second_sort  
+,cc.component_id  
+,cv.version
+ ,cat.viewable    
+ ,(SELECT COUNT(*)
+  FROM resource r, resource_info ri
+  WHERE ri.resource_id = r.resource_id
+  AND ri.resource_info_type_id = 4
+  AND r.project_id = p.project_id
+  AND r.resource_role_id = 1
+  AND ri.value <> 'N/A')
+  as rated_count
+ ,((SELECT COUNT(*)
+  FROM resource
+  where resource_role_id = 1
+  and project_id = p.project_id)
+ -
+ (SELECT COUNT(*)
+  FROM resource r, resource_info ri
+  WHERE ri.resource_id = r.resource_id
+  AND ri.resource_info_type_id = 4
+  AND r.project_id = p.project_id
+  AND r.resource_role_id = 1
+  AND ri.value <> 'N/A'))
+  as unrated_count
+  ,(select category_id from comp_categories where component_id = pi_ci.value and category_id = 22774808)
+    as aol_brand
+  , (select count(*) from comp_categories where component_id = pi_ci.value and category_id = 27416657)
+   as paypal_brand
+ FROM project p 
+   ,project_phase ph 
+   ,project_info pi_ci
+   ,comp_catalog cc
+   ,comp_versions cv
+   ,categories cat
+   ,outer (project_result pr1, user u1)
+   ,outer (project_result pr2, user u2)
+ WHERE p.project_status_id = 1
+ AND p.project_category_id = @pt@
+ AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+ WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+ AND pi_ci.project_id = p.project_id  AND pi_ci.project_info_type_id = 2  AND cc.component_id = pi_ci.value  and cc.root_category_id = cat.category_id  and cv.component_id = cc.component_id
+ and pr1.project_id = p.project_id
+ and pr1.placed = 1
+ and pr2.project_id = p.project_id
+ and pr2.placed = 2
+ and pr1.user_id = u1.user_id
+ and pr2.user_id = u2.user_id
+ and pr1.passed_review_ind =1
+ and pr2.passed_review_ind =1
+ AND p.project_id = ph.project_id
+ AND ph.phase_type_id = 2
+ AND ph.actual_start_time < current
+ AND ph.scheduled_end_time = (select min(scheduled_end_time)  
+                               from project_phase 
+                          where project_id = p.project_id and phase_type_id = 2)  

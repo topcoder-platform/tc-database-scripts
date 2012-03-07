@@ -359,3 +359,6 @@ query_direct_project_general_info_projected_cost.txt|UPDATE query SET text = ? W
 query_direct_project_general_info_projected_end_date.txt|UPDATE query SET text = ? WHERE query_id = 31847
 query_resource_role_names.txt|UPDATE query SET text = ? WHERE query_id = 31781
 query_has_milestone_write_permission.txt|UPDATE query SET text = ? WHERE query_id = 31866
+query_bug_hunt_active_contests_summary.txt|UPDATE query SET text = ? WHERE query_id = 31876
+query_bug_hunt_project_status.txt|UPDATE query SET text = ? WHERE query_id = 31877
+query_bug_hunt_review_project_detail.txt|UPDATE query SET text = ? WHERE query_id = 31878

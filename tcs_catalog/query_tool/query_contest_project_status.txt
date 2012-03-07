@@ -1,19 +1,4 @@
--- Author: pulky
--- Version: 1.3
--- Copyright (C) 2004 - 2009 TopCoder Inc., All Rights Reserved.
---
--- Description: This query returns necessary data to build contest status page for a specific project type.
---
--- Version 1.1 ((Studio Coding In Online Review) changes: added support for Studio Prototype, Studio Build and
---    Studio Component competitions.
---
--- Version 1.2 (Testing Competition Split Release Assembly 1.0) changes: added support test scenarios project type.
---
--- Version 1.3 (Competition Registration Eligibility v1.0) changes: Added eligibility constraints check.
---
--- Version 1.4 (Content Creation Contest Online Review and TC Site Integration Assembly 1.0) changes: Added support for new Content Creation competitions
---
--- Important Note: do not include this comments in query tool since it will fail to create/update the query.
+
 
 SELECT cc.component_name
  ,cv.version_text
@@ -70,7 +55,7 @@ SELECT cc.component_name
    ,outer (project_result pr1, user u1)
    ,outer (project_result pr2, user u2)
  WHERE p.project_status_id = 1
- and ((cv.phase_id in (112, 113) and p.project_category_id in (1,2)) or (p.project_category_id in (6,7,13,14,23,19,24,25,26,35,36)))
+ and ((cv.phase_id in (112, 113) and p.project_category_id in (1,2)) or (p.project_category_id in (6,7,9,13,14,23,19,24,25,26,35,36)))
  AND p.project_category_id = @pt@
  AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
  WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
