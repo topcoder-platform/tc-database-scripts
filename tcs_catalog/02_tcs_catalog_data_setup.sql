@@ -332,7 +332,7 @@ insert into 'informix'.phase values (124, 'Testing');
 INSERT INTO 'informix'.phase(phase_id, description) VALUES (115, 'Process');
 INSERT INTO 'informix'.phase(phase_id, description) VALUES (116, 'Testing Competition');
 INSERT INTO 'informix'.phase(phase_id, description) VALUES (119, 'Component Production');
-INSERT INTO 'informix'.phase(phase_id, description) VALUES (120, 'Quality Assurance');
+INSERT INTO 'informix'.phase(phase_id, description) VALUES (120, 'Bug Hunt');
 INSERT INTO 'informix'.phase(phase_id, description) VALUES (121, 'Deployment');
 INSERT INTO 'informix'.phase(phase_id, description) VALUES (122, 'Security');
 INSERT INTO 'informix'.phase(phase_id, description) VALUES (123, 'Process');
@@ -1030,7 +1030,7 @@ INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,n
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (6, 2, 'Specification', 'Specification', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000', 't', 13);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (7, 2, 'Architecture', 'Architecture', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000', 't', 14);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (8, 2, 'Component Production', 'Component Production', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000', null, null);
-INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (9, 2, 'Quality Assurance', 'Quality Assurance', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000', null, null);
+INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (9, 2, 'Bug Hunt', 'Bug Hunt', 'System', current, 'System', current, 't', 25);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (10, 2, 'Deployment', 'Deployment', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000', null, null);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (11, 2, 'Security', 'Security', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000', null, null);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (12, 2, 'Process', 'Process', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000', null, null);
@@ -1458,6 +1458,8 @@ INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, 
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (127, 'Reporting Primary Reviewer Evaluator', 147, 22);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (128, 'Reporting Secondary Reviewer 1', 147, 21);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (129, 'Reporting Secondary Reviewer 2', 147, 21);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (130, 'Bug Hunt Spec Reviewer', 1120, 18);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (131, 'Bug Hunt Reviewer', 120, 4);
 
 
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (11010, null, 'User_List', 0, null);
