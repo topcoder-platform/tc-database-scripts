@@ -232,6 +232,21 @@ alter table 'informix'.monthly_contest_stats add constraint primary key
 alter table 'informix'.direct_project_dim add constraint primary key 
 	(direct_project_id)
 	constraint direct_project_dim_pkey;
+	
+
+	ALTER TABLE 'informix'.user_achievement_rule 
+	ADD CONSTRAINT PRIMARY KEY (user_achievement_rule_id)
+	CONSTRAINT pk_user_achievement_rule_id;
+
+ALTER TABLE 'informix'.user_achievement_type_lu 
+	ADD CONSTRAINT PRIMARY KEY (user_achievement_type_id)
+	CONSTRAINT pk_user_achievement_type_id;
+	
+ALTER TABLE 'informix'.user_achievement_xref 
+	ADD CONSTRAINT PRIMARY KEY (user_id, user_achievement_rule_id)
+	CONSTRAINT pk_user_id_user_achievement_rule_id;
+	
+	
 
 alter table 'informix'.update_log add constraint foreign key 
 	(log_type_id)
@@ -514,3 +529,13 @@ alter table 'informix'.monthly_contest_stats add constraint foreign key
 	references 'informix'.client_project_dim
 	(client_project_id)
 	constraint monthly_contest_status_client_project_dim_id_fk;
+	
+ALTER TABLE 'informix'.user_achievement_rule 
+	ADD CONSTRAINT FOREIGN KEY (user_achievement_type_id)
+	REFERENCES user_achievement_type_lu(user_achievement_type_id)
+	CONSTRAINT fk_user_achivement_rule_user_achievement_type_lu;
+	
+ALTER TABLE 'informix'.user_achievement_xref 
+	ADD CONSTRAINT FOREIGN KEY(user_achievement_rule_id)
+	REFERENCES user_achievement_rule(user_achievement_rule_id)
+	CONSTRAINT fk_user_achievement_xref_user_achievement_rule;

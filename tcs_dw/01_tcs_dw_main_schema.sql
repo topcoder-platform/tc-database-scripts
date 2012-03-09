@@ -814,6 +814,37 @@ extent size 128 next size 128
 lock mode page;
 revoke all on monthly_contest_stats from 'public';
 
+
+CREATE TABLE 'informix'.user_achievement_rule (
+	user_achievement_rule_id DECIMAL(12,0) NOT NULL,
+	user_achievement_rule_desc NVARCHAR(254,0) NOT NULL,
+	user_achievement_rule_sql_file NVARCHAR(254,0) NOT NULL,
+	user_achievement_type_id DECIMAL(12,0) NOT NULL
+) 
+extent size 128 next size 128
+lock mode page;
+
+revoke all on user_achievement_rule from 'public';
+
+CREATE TABLE 'informix'.user_achievement_type_lu (
+	user_achievement_type_id DECIMAL(12,0) NOT NULL,
+	user_achievement_type_desc NVARCHAR(254,0) NOT NULL
+)
+extent size 128 next size 128
+lock mode page;
+
+revoke all on user_achievement_type_lu from 'public';
+
+CREATE TABLE 'informix'.user_achievement_xref (
+	user_id DECIMAL(12,0) NOT NULL,
+	user_achievement_rule_id DECIMAL(12,0) NOT NULL,
+	create_date DATETIME YEAR TO FRACTION NOT NULL
+)
+extent size 128 next size 128
+lock mode page;
+
+revoke all on user_achievement_xref from 'public';
+
 create view "informix".active_developers (user_id) as
    select x0.user_id 
    from "informix".user_rating x0 ,"informix".project x1 
@@ -1461,5 +1492,9 @@ grant insert on weekly_contest_stats to 'public' as 'informix';
 grant index, update, delete, select, insert on direct_project_dim to 'public' as 'informix';
 
 grant index, update, delete, select, insert on monthly_contest_stats to 'public' as 'informix';
+
+grant index, update, delete, select, insert on user_achievement_rule to 'public' as 'informix';
+grant index, update, delete, select, insert on user_achievement_type_lu to 'public' as 'informix';
+grant index, update, delete, select, insert on user_achievement_xref to 'public' as 'informix';
 
 

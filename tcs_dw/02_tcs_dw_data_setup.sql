@@ -762,4 +762,162 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31261, 31619, NULL);
 
 
+------------------------------------------------------------------------------------------------------
+------------------------- Populating Data For user_achievement_type_lu -------------------------------
+------------------------------------------------------------------------------------------------------
+INSERT INTO 'informix'.user_achievement_type_lu(user_achievement_type_id, user_achievement_type_desc)
+	VALUES (1, "Studio Acheivements");
+	
+INSERT INTO 'informix'.user_achievement_type_lu(user_achievement_type_id, user_achievement_type_desc)
+	VALUES (2, "Copilot Achievements");
+
+INSERT INTO 'informix'.user_achievement_type_lu(user_achievement_type_id, user_achievement_type_desc)
+	VALUES (3, "Software Achievements");
+	
+------------------------------------------------------------------------------------------------------
+-------------------------- Populating Data For user_achievement_rule  --------------------------------
+------------------------------------------------------------------------------------------------------	
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (1, "first forum post", "first_forum_post.sql", 3);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (2, "first passing submission", "first_passing_submission.sql", 3);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (3, "first milestone prize", "first_milestone_prize.sql", 3);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (4, "first placement(any final prize)", "first_placement.sql", 3);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (5, "first win(first-place final prize)", "first_win.sql", 3);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (6, "10 forum posts", "ten_forum_posts.sql", 3);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (7, "10 passing submissions", "ten_passing_submissions.sql", 3);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (8, "10 milestone prizes", "ten_milestone_prize.sql", 3);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (9, "10 placements(any final prize from 1st place downward)", "ten_first_placement.sql", 3);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (10, "10 wins (1st place only)", "ten_first_win.sql", 3);
+		
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (11, "first forum post", "studio_first_forum_post.sql", 1);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (12, "first passing submission", "studio_first_passing_submission.sql", 1);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (13, "first milestone prize", "studio_first_milestone_prize.sql", 1);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (14, "first placement(any final prize)", "studio_first_placement.sql", 1);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (15, "first win(first-place final prize)", "studio_first_win.sql", 1);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (16, "10 forum posts", "studio_ten_forum_posts.sql", 1);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (17, "10 passing submissions", "studio_ten_passing_submissions.sql", 1);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (18, "10 milestone prizes", "studio_ten_milestone_prize.sql", 1);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (19, "10 placements(any final prize from 1st place downward)", "studio_ten_first_placement.sql", 1);
+
+INSERT INTO 'informix'.user_achievement_rule(
+		user_achievement_rule_id,
+		user_achievement_rule_desc,
+		user_achievement_rule_sql_file,
+		user_achievement_type_id)
+		VALUES (20, "10 wins (1st place only)", "studio_ten_first_win.sql", 1);
+
+
+
+
 
