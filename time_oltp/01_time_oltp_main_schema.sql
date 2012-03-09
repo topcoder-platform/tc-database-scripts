@@ -2770,13 +2770,13 @@ CREATE SEQUENCE project_contest_fee_percentage_seq;
 grant select on "informix".project_contest_fee_percentage_seq to "public" as "informix";
 
 
-grant update on project_contest_fee_percentage_seq to 'public' as 'informix';
+grant update on project_contest_fee_percentage to 'public' as 'informix';
 
-grant insert on project_contest_fee_percentage_seq to 'public' as 'informix';
+grant insert on project_contest_fee_percentage to 'public' as 'informix';
 
-grant delete on project_contest_fee_percentage_seq to 'public' as 'informix';
+grant delete on project_contest_fee_percentage to 'public' as 'informix';
 
-grant select on project_contest_fee_percentage_seq to 'public' as 'informix';
+grant select on project_contest_fee_percentage to 'public' as 'informix';
 
-grant index on project_contest_fee_percentage_seq to 'public' as 'informix';
+grant index on project_contest_fee_percentage to 'public' as 'informix';
 
