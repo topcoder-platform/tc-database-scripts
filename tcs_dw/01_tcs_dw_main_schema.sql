@@ -817,6 +817,7 @@ revoke all on monthly_contest_stats from 'public';
 
 CREATE TABLE 'informix'.user_achievement_rule (
 	user_achievement_rule_id DECIMAL(12,0) NOT NULL,
+    user_achievement_name NVARCHAR(254,0) NOT NULL,
 	user_achievement_rule_desc NVARCHAR(254,0) NOT NULL,
 	user_achievement_rule_sql_file NVARCHAR(254,0) NOT NULL,
 	user_achievement_type_id DECIMAL(12,0) NOT NULL
