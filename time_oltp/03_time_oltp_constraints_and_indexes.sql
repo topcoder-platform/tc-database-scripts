@@ -328,6 +328,13 @@ alter table 'informix'.command_query_xref add constraint primary key
 alter table 'informix'.project_contest_fee add constraint primary key 
 	(project_contest_fee_id)
 	constraint project_contest_fee_pk;
+	
+ALTER TABLE project_contest_fee_percentage ADD CONSTRAINT PRIMARY KEY 
+    (project_contest_fee_percentage_id) CONSTRAINT project_contest_fee_percentage_pk;
+
+ALTER TABLE project_contest_fee_percentage ADD CONSTRAINT FOREIGN KEY
+    (project_id) references project(project_id) 
+	CONSTRAINT project_contest_fee_percentage_to_project_fk;
 
 alter table 'informix'.principal_role add constraint foreign key 
 	(principal_id)
@@ -1071,4 +1078,9 @@ alter table 'informix'.project add constraint foreign key
 alter table 'informix'.project add constraint foreign key 
 	(parent_project_id) references 'informix'.project (project_id)
 	constraint project_parent_project_fk;
+	
+
+ALTER TABLE project_contest_fee_percentage ADD CONSTRAINT FOREIGN KEY
+    (project_id) references project(project_id) 
+	CONSTRAINT project_contest_fee_percentage_to_project_fk;
 

@@ -1573,6 +1573,23 @@ lock mode row;
 revoke all on project_contest_fee from 'public';
 
 
+CREATE TABLE project_contest_fee_percentage(
+    project_contest_fee_percentage_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    contest_fee_percentage DECIMAL(7,2),
+    active BOOLEAN,
+    creation_user VARCHAR(64),
+    creation_date datetime year to fraction(3),
+    modification_user VARCHAR(64),
+    modification_date datetime year to fraction(3)
+)
+
+extent size 16 next size 16
+lock mode row;
+
+revoke all on project_contest_fee_percentage from 'public';
+
+
 grant insert on principal to 'public' as 'informix';
 
 grant select on principal to 'public' as 'informix';
@@ -2747,4 +2764,19 @@ create sequence PROJECT_CONTEST_FEE_SEQ;
 
 
 grant select on "informix".PROJECT_CONTEST_FEE_SEQ to "public" as "informix";
+
+CREATE SEQUENCE project_contest_fee_percentage_seq; 
+
+grant select on "informix".project_contest_fee_percentage_seq to "public" as "informix";
+
+
+grant update on project_contest_fee_percentage_seq to 'public' as 'informix';
+
+grant insert on project_contest_fee_percentage_seq to 'public' as 'informix';
+
+grant delete on project_contest_fee_percentage_seq to 'public' as 'informix';
+
+grant select on project_contest_fee_percentage_seq to 'public' as 'informix';
+
+grant index on project_contest_fee_percentage_seq to 'public' as 'informix';
 
