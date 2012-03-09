@@ -777,6 +777,7 @@ INSERT INTO 'informix'.user_achievement_type_lu(user_achievement_type_id, user_a
 ------------------------------------------------------------------------------------------------------
 -------------------------- Populating Data For user_achievement_rule  --------------------------------
 ------------------------------------------------------------------------------------------------------	
+
 INSERT INTO 'informix'.user_achievement_rule(
 		user_achievement_rule_id,
 		user_achievement_name, user_achievement_rule_desc,
