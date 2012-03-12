@@ -22,7 +22,7 @@ else case when pcl.project_type_id != 3 then
             AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = 
                                                 (select pr.prize_amount from submission s, prize pr, upload u
                                                     where s.upload_id = u.upload_id and pr.prize_id = s.prize_id and pr.place = 1 and pr.prize_type_id = 15
-                                                    and u.project_id = p.project_id) ), 0)
+                                                    and u.project_id = p.project_id and s.mark_for_purchase = 'f') ), 0)
       end
  end as first_place_prize,
  
@@ -48,7 +48,7 @@ else case when pcl.project_type_id != 3 then
             AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = 
                                                 (select pr.prize_amount from submission s, prize pr, upload u
                                                     where s.upload_id = u.upload_id and pr.prize_id = s.prize_id and pr.place = 2 and pr.prize_type_id = 15
-                                                    and u.project_id = p.project_id) ), 0)
+                                                    and u.project_id = p.project_id and s.mark_for_purchase = 'f') ), 0)
       end
 end as second_place_prize,
 
@@ -62,7 +62,7 @@ else  nvl((SELECT max(total_amount)
             AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = 
                                                 (select pr.prize_amount from submission s, prize pr, upload u
                                                     where s.upload_id = u.upload_id and pr.prize_id = s.prize_id and pr.place = 3 and pr.prize_type_id = 15
-                                                    and u.project_id = p.project_id) ), 0)
+                                                    and u.project_id = p.project_id and s.mark_for_purchase = 'f') ), 0)
 end as third_place_prize,
             
 case when p.project_status_id in (1, 2) then
@@ -75,7 +75,7 @@ else nvl((SELECT max(total_amount)
             AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = 
                                                 (select pr.prize_amount from submission s, prize pr, upload u
                                                     where s.upload_id = u.upload_id and pr.prize_id = s.prize_id and pr.place = 4 and pr.prize_type_id = 15
-                                                    and u.project_id = p.project_id) ), 0)
+                                                    and u.project_id = p.project_id and s.mark_for_purchase = 'f') ), 0)
 end as fourth_place_prize, 
             
 case when p.project_status_id in (1, 2) then
@@ -88,7 +88,7 @@ else nvl((SELECT max(total_amount)
             AND NOT pmd.payment_status_id IN (65, 68, 69) and total_amount = 
                                                 (select pr.prize_amount from submission s, prize pr, upload u
                                                     where s.upload_id = u.upload_id and pr.prize_id = s.prize_id and pr.place = 5 and pr.prize_type_id = 15
-                                                    and u.project_id = p.project_id) ), 0)
+                                                    and u.project_id = p.project_id and s.mark_for_purchase = 'f') ), 0)
 end as fifth_place_prize, 
             
 case when p.project_status_id in (1, 2) then
