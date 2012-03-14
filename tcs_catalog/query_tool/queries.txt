@@ -362,3 +362,5 @@ query_has_milestone_write_permission.txt|UPDATE query SET text = ? WHERE query_i
 query_bug_hunt_active_contests_summary.txt|UPDATE query SET text = ? WHERE query_id = 31876
 query_bug_hunt_project_status.txt|UPDATE query SET text = ? WHERE query_id = 31877
 query_bug_hunt_review_project_detail.txt|UPDATE query SET text = ? WHERE query_id = 31878
+query_direct_software_project_milestone_submissions.txt|UPDATE query SET text = ? WHERE query_id = 31886
+query_direct_software_project_milestone_reviews.txt|UPDATE query SET text = ? WHERE query_id = 31887
