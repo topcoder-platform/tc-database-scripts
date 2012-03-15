@@ -2,69 +2,6 @@ SELECT distinct
      c.component_name
    , cat.category_name as catalog
    , cat.category_id
-   , (select name from project_category_lu where project_category_id = ref_p.project_category_id) as phase_desc
-   , ref_p.project_category_id + 1111 as phase_id
-   , p.project_id
-   , reviewpp.scheduled_start_time as review_start 
-   , reviewpp.scheduled_end_time as review_end
-   , 1 as available_spots
-   , cvd.status_id
-   , (select count(*) from rboard_payment where project_id = p.project_id and phase_id=138 and primary_ind=1) as price_changes
-   , cvd.level_id
-   , cv.version_text as version
-   , NVL(pi_prize.value,0)::FLOAT AS prize
-   , ref_p.project_id as ref_project_id
-  FROM project p
-     , project_info projinfo
-     , comp_versions cv
-     , comp_catalog c
-     , categories cat
-     , project_phase regpp
-     , project_phase submpp
-     , project_phase reviewpp
-     , project_phase aggreviewpp
-     , comp_version_dates cvd
-     , outer project_info pi_prize
-     , linked_project_xref lpx
-     , project ref_p
- WHERE 1=1
-   AND projinfo.project_info_type_id = 2
-   AND projinfo.project_id = p.project_id
-   AND projinfo.value = cv.component_id
-   AND cv.phase_id in (112, 113)
-   AND regpp.project_id = p.project_id
-   AND regpp.phase_type_id = 1
-   AND submpp.project_id = p.project_id
-   AND submpp.phase_type_id = 2
-   AND reviewpp.phase_type_id = 4
-   AND reviewpp.project_id =  p.project_id
-   AND aggreviewpp.project_id =  p.project_id
-   AND aggreviewpp.phase_type_id = 8
-   AND cvd.comp_vers_id = cv.comp_vers_id
-   AND cvd.phase_id = cv.phase_id
-   AND cvd.status_id <> 303
-   AND c.component_id = cv.component_id
-   AND c.root_category_id = cat.category_id
-   AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
-                    WHERE ce.is_studio = 0 AND ce.contest_id = ref_p.project_id)
-   AND p.project_status_id = 1
-   AND p.project_id = pi_prize.project_id
-   AND pi_prize.project_info_type_id = 33
-   AND ref_p.project_category_id = @pt@
-   AND p.project_category_id = 27
-   AND NOT EXISTS (select user_id from rboard_application where project_id = p.project_id)
-   AND p.project_id = lpx.dest_project_id
-   AND lpx.link_type_id = 3
-   AND lpx.source_project_id = ref_p.project_id
-   AND reviewpp.scheduled_start_time <= CURRENT
-   AND reviewpp.phase_status_id = 2
-
-union all
-
-SELECT distinct
-     c.component_name
-   , cat.category_name as catalog
-   , cat.category_id
    , (select name from project_category_lu where project_category_id = p.project_category_id) as phase_desc
    , p.project_category_id + 1111 as phase_id
    , p.project_id
@@ -76,6 +13,7 @@ SELECT distinct
    , cvd.level_id
    , cv.version_text as version
    , 0 prize
+   , specrev.actual_start_time as opens_on
    , p.project_id as ref_project_id
   FROM project p
      , project_info projinfo
