@@ -20,7 +20,7 @@ FROM
 WHERE u.project_id = @pj@
 AND   u.upload_type_id = 1
 AND   s.submission_type_id = 3
-AND   s.submission_status_id <> 5
+AND   s.submission_status_id in (1,4)
 AND   ri1.resource_info_type_id = 1
 AND   ri2.resource_info_type_id = 2
 AND   p.prize_id = ppx.prize_id
