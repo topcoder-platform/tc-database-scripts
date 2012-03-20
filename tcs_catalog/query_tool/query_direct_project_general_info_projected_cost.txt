@@ -10,6 +10,6 @@ select nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (1
                 nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
                     where project_info_type_id = 16  
                     and pi.project_id = p.project_id)/2), 0)
-               ) from project p where p.project_status_id = 2 and p.project_category_id != 27 and p.project_status_id != 3
+               ) from project p where p.project_status_id IN (1 ,2)  and p.project_category_id != 27 and p.project_status_id != 3
                                 and p.tc_direct_project_id = tcd.project_id), 0) as projected_cost
 from tc_direct_project tcd where tcd.project_id = @tcdirectid@
