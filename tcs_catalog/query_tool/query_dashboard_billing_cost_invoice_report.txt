@@ -4,11 +4,12 @@ SELECT pm.create_date payment_date,
        ttp.name billing_project_name,
        tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-       (select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
+       nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id) as completion_date,
+				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
        pi.value as contest_name,
        CASE
@@ -165,11 +166,12 @@ SELECT pm2.create_date payment_date,
        ttp.name billing_project_name,
        tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-       (select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
+       nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id) as completion_date,
+				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
        pi.value as contest_name,
        CASE
@@ -311,11 +313,12 @@ SELECT (pm.create_date) payment_date,
        ttp.name billing_project_name,
        tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-       (select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
+       nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id) as completion_date,
+				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
        pi.value as contest_name,
        CASE
@@ -463,11 +466,12 @@ SELECT (select max (scheduled_start_time) from project_phase where phase_type_id
        ttp.name billing_project_name,
        tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-       (select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
+nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id) as completion_date,
+				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
        pi.value as contest_name,
        CASE
