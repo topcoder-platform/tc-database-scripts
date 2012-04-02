@@ -1,7 +1,20 @@
+select * from table(Multiset(
 select ua.achievement_date
      , ua.description
      , ua.coder_id
+     , -1 as id
   from user_achievement ua
  where ua.coder_id = @cr@
    and ua.achievement_type_id in (1,4,5,6,7,8,9)
- order by ua.achievement_date desc
+
+union
+
+select DATE(arx.create_date) as achievement_date
+ , ar.user_achievement_name as description
+ , arx.user_id as coder_id
+ , ar.user_achievement_rule_id as id
+ from tcs_dw:user_achievement_rule ar, tcs_dw:user_achievement_xref arx
+ where ar.user_achievement_rule_id = arx.user_achievement_rule_id
+    and ar.user_achievement_type_id = 3
+    and arx.user_id = @cr@
+)) order by achievement_date desc
