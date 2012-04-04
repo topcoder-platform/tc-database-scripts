@@ -2621,6 +2621,7 @@ INSERT INTO 'informix'.link_type_lu(link_type_id, link_type_name,allow_overlap) 
 INSERT INTO 'informix'.link_type_lu(link_type_id, link_type_name,allow_overlap) VALUES(3,'Requires Spec Review', 0);
 INSERT INTO 'informix'.link_type_lu(link_type_id, link_type_name,allow_overlap) VALUES(4,'For Design', 0);
 INSERT INTO 'informix'.link_type_lu(link_type_id, link_type_name,allow_overlap) VALUES(5,'Repost For', 1);
+INSERT INTO 'informix'.link_type_lu(link_type_id, link_type_name,allow_overlap) VALUES(6, 'Bug Hunt For', 1);
 
 insert into 'informix'.sale_status_lu(sale_status_id, sale_status_desc) values (1, 'Paid');
 insert into 'informix'.sale_status_lu(sale_status_id, sale_status_desc) values (2, 'Unpaid');
