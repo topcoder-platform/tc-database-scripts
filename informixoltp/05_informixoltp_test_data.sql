@@ -461,3 +461,6 @@ INSERT INTO 'informix'.group_user VALUES (30,124834);
 INSERT INTO 'informix'.group_user VALUES (31,124776);
 INSERT INTO 'informix'.group_user VALUES (31,124834);
 INSERT INTO 'informix'.generic_counter_client VALUES (1, 'LongContestServices#Test');
+
+INSERT INTO 'informix'.tax_form(name, tax_form_id, text, status_id, tax_form_desc, default_withholding_amount, default_withholding_percentage, use_percentage) VALUES ("w-9", 1, null, 62, "US Tax Form", 0, 0, 1);
+INSERT INTO 'informix'.tax_form(name, tax_form_id, text, status_id, tax_form_desc, default_withholding_amount, default_withholding_percentage, use_percentage) VALUES ("W-8BEN", 2, null, 62, "Foreign Tax Form", 0, 0.3, 1);
