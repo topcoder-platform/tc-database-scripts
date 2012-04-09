@@ -8,6 +8,6 @@ FROM
     INNER JOIN resource_info ri1 ON r.resource_id = ri1.resource_id
     INNER JOIN resource_info ri2 ON r.resource_id = ri2.resource_id
 WHERE p.project_id = @pj@
-AND   r.resource_role_id IN (4, 5, 6, 7)
+AND   r.resource_role_id IN (4, 5, 6, 7, 21)
 AND   ri1.resource_info_type_id = 1
 AND   ri2.resource_info_type_id = 2

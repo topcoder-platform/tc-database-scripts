@@ -11,6 +11,6 @@ FROM
     INNER JOIN resource r ON rv.resource_id = r.resource_id
 WHERE
     r.project_id = @pj@
-AND r.resource_role_id IN (2, 4, 5, 6, 7)
+AND r.resource_role_id IN (2, 4, 5, 6, 7, 21)
 AND rv.committed = 1
     
