@@ -785,6 +785,7 @@ create table 'informix'.user (
     timezone_id DECIMAL(5,0),
     last_site_hit_date DATETIME YEAR TO FRACTION,
     name_in_another_language VARCHAR(64),
+	password VARCHAR(16),
     open_id VARCHAR(200)
 )
 extent size 10000 next size 5000
