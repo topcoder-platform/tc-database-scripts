@@ -1265,6 +1265,7 @@ INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VAL
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25130, 'dsid', 1001, 'datasource id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25260, 'compname', 1005, 'Component Name');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25390, 'tid', 1001, 'terms of use id');
+INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25740, 'grpid', 1001, 'Group ID');
 INSERT INTO 'informix'.email_template_group_lu(email_template_group_id,email_template_group_name) VALUES (99999, '[Deleted]');
 INSERT INTO 'informix'.email_template_group_lu(email_template_group_id,email_template_group_name) VALUES (1, 'Notify');
 INSERT INTO 'informix'.email_template_group_lu(email_template_group_id,email_template_group_name) VALUES (2, 'Result');
