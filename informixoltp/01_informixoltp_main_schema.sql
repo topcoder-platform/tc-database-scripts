@@ -1797,12 +1797,21 @@ create table 'informix'.sched_job (
     sched_job_type_id DECIMAL(5,0) not null,
     sched_job_status_id DECIMAL(3,0) not null,
     start_after_date DATETIME YEAR TO FRACTION,
-    end_before_date DATETIME YEAR TO FRACTION
+    end_before_date DATETIME YEAR TO FRACTION,
+    email_job_group_id DECIMAL(5,0) not null
 )
 extent size 250 next size 124
 lock mode row;
 
 revoke all on sched_job from 'public';
+create table 'informix'.email_job_group_lu (
+    email_job_group_id DECIMAL(5,0) not null,
+    email_job_group_name VARCHAR(100)
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on email_job_group_lu from 'public';
 create table 'informix'.email_template_group_lu (
     email_template_group_id DECIMAL(5,0) not null,
     email_template_group_name VARCHAR(100)
@@ -5917,6 +5926,14 @@ grant update on sched_job to 'public' as 'informix';
 grant insert on sched_job to 'public' as 'informix';
 
 grant select on sched_job to 'public' as 'informix';
+
+grant select on email_job_group_lu to 'public' as 'informix';
+
+grant delete on email_job_group_lu to 'public' as 'informix';
+
+grant insert on email_job_group_lu to 'public' as 'informix';
+
+grant update on email_job_group_lu to 'public' as 'informix';
 
 grant insert on email_template_group_lu to 'public' as 'informix';
 
