@@ -1288,6 +1288,7 @@ INSERT INTO 'informix'.email_list_group_lu(email_list_group_id,email_list_group_
 INSERT INTO 'informix'.email_list_group_lu(email_list_group_id,email_list_group_name) VALUES (1, 'Ad-hoc');
 INSERT INTO 'informix'.email_list_group_lu(email_list_group_id,email_list_group_name) VALUES (2, 'Staff');
 INSERT INTO 'informix'.email_list_group_lu(email_list_group_id,email_list_group_name) VALUES (3, 'Affidavit');
+INSERT INTO 'informix'.email_job_group_lu(email_job_group_id,email_job_group_name) VALUES (1, 'Manual Email Jobs');
 INSERT INTO 'informix'.command_param(command_param_id,sched_email_job_id,input_id,param) VALUES (1, 84, 23, '4200');
 INSERT INTO 'informix'.command_param(command_param_id,sched_email_job_id,input_id,param) VALUES (2, 90, 23, '4205');
 INSERT INTO 'informix'.command_param(command_param_id,sched_email_job_id,input_id,param) VALUES (3, 98, 23, '4210');
@@ -1302,11 +1303,11 @@ INSERT INTO 'informix'.sched_email_job(sched_email_job_id,email_template_id,comm
 INSERT INTO 'informix'.sched_email_job(sched_email_job_id,email_template_id,command_id,email_list_id,from_address,from_personal,subject) VALUES (121, 1, 24, 1, NULL,NULL,NULL);
 INSERT INTO 'informix'.sched_email_job(sched_email_job_id,email_template_id,command_id,email_list_id,from_address,from_personal,subject) VALUES (126, 1, 24, 1, NULL,NULL,NULL);
 
-INSERT INTO 'informix'.sched_job(sched_job_id,sched_job_type_id,sched_job_status_id,start_after_date,end_before_date) VALUES (84, 1, 1, NULL,NULL);
-INSERT INTO 'informix'.sched_job(sched_job_id,sched_job_type_id,sched_job_status_id,start_after_date,end_before_date) VALUES (90, 2, 2, NULL,NULL);
-INSERT INTO 'informix'.sched_job(sched_job_id,sched_job_type_id,sched_job_status_id,start_after_date,end_before_date) VALUES (98, 3, 3, NULL,NULL);
-INSERT INTO 'informix'.sched_job(sched_job_id,sched_job_type_id,sched_job_status_id,start_after_date,end_before_date) VALUES (121, 1, 1, NULL,NULL);
-INSERT INTO 'informix'.sched_job(sched_job_id,sched_job_type_id,sched_job_status_id,start_after_date,end_before_date) VALUES (126, 2, 2, NULL,NULL);
+INSERT INTO 'informix'.sched_job(sched_job_id,sched_job_type_id,sched_job_status_id,start_after_date,end_before_date,email_job_group_id) VALUES (84, 1, 1, NULL,NULL,1);
+INSERT INTO 'informix'.sched_job(sched_job_id,sched_job_type_id,sched_job_status_id,start_after_date,end_before_date,email_job_group_id) VALUES (90, 2, 2, NULL,NULL,1);
+INSERT INTO 'informix'.sched_job(sched_job_id,sched_job_type_id,sched_job_status_id,start_after_date,end_before_date,email_job_group_id) VALUES (98, 3, 3, NULL,NULL,1);
+INSERT INTO 'informix'.sched_job(sched_job_id,sched_job_type_id,sched_job_status_id,start_after_date,end_before_date,email_job_group_id) VALUES (121, 1, 1, NULL,NULL,1);
+INSERT INTO 'informix'.sched_job(sched_job_id,sched_job_type_id,sched_job_status_id,start_after_date,end_before_date,email_job_group_id) VALUES (126, 2, 2, NULL,NULL,1);
 
 INSERT INTO 'informix'.email_template(email_template_id,email_template_group_id,email_template_name,data) VALUES (1, 1, 'sample_email_template1', NULL);
 INSERT INTO 'informix'.email_list(email_list_id,email_list_group_id,email_list_name) VALUES (1, 1, NULL);
