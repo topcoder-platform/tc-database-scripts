@@ -417,7 +417,7 @@ lock mode row;
 revoke all on "informix".direct_project_category from "public" as "informix";
 
 
-create table 'informix'.direct_project_category (
+create table 'informix'.direct_project_account  (
     direct_project_account_id INT not null,
     project_id INT not null,
     billing_account_id INT not null,
@@ -425,7 +425,7 @@ create table 'informix'.direct_project_category (
 )
 extent size 500 next size 500
 lock mode row;
-revoke all on "informix".direct_project_category from "public" as "informix";
+revoke all on "informix".direct_project_account from "public" as "informix";
 
 
 grant select on "informix".unit_type_lu to "public" as "informix";
