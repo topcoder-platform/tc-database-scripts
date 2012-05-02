@@ -172,6 +172,16 @@ for jive:'informix'.jivemessage;
 create synonym "informix".event_registration 
 for common_oltp:"informix".event_registration;
 
+
+create synonym "informix".direct_project_type 
+for corporate_oltp:"informix".direct_project_type;
+
+create synonym "informix".direct_project_category 
+for corporate_oltp:"informix".direct_project_category;
+
+create synonym "informix".direct_project_account
+for corporate_oltp:"informix".direct_project_account;
+
 create role read_only ;
 create procedure "informix".get_current() returning datetime year to fraction(3);
       return CURRENT;
