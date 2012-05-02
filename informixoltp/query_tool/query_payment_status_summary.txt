@@ -4,4 +4,5 @@ INNER JOIN payment_status_lu psl ON pd.payment_status_id = psl.payment_status_id
 INNER JOIN payment_type_lu ptl ON pd.payment_type_id = ptl.payment_type_id and ptl.payment_type_id not in (3, 5)
 where p.user_id = @cr@
 group by 1, 2
+having sum(pd.net_amount) > 0
 order by psl.payment_status_id
