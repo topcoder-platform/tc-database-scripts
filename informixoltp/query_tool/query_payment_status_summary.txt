@@ -1,0 +1,7 @@
+select psl.payment_status_desc as payment_status, psl.payment_status_id, sum(pd.net_amount) as net_amount from payment p
+INNER JOIN payment_detail pd ON p.most_recent_detail_id = pd.payment_detail_id
+INNER JOIN payment_status_lu psl ON pd.payment_status_id = psl.payment_status_id and psl.payment_status_id not in (69)
+INNER JOIN payment_type_lu ptl ON pd.payment_type_id = ptl.payment_type_id and ptl.payment_type_id not in (3, 5)
+where p.user_id = @cr@
+group by 1, 2
+order by psl.payment_status_id
