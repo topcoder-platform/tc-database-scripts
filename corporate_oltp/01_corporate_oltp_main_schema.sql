@@ -232,6 +232,9 @@ create table "informix".tc_direct_project
     project_forum_id VARCHAR(255),
     create_date datetime year to fraction(3) not null ,
     modify_date datetime year to fraction(3),
+	direct_project_type_id INT,
+	direct_project_category_id INT,
+	completion_date DATETIME YEAR TO SECOND,
     primary key (project_id)  constraint "informix".tc_direct_project_pkey
   )  
   extent size 20000 next size 20000
@@ -392,6 +395,37 @@ lock mode row;
 revoke all on "informix".spec_review_comment_view from "public" as "informix";
 
 
+create table 'informix'.direct_project_type 
+(
+    direct_project_type_id INT not null,
+    name VARCHAR(64) not null,
+    PRIMARY KEY (direct_project_type_id) constraint "informix".direct_project_type_pkey
+)
+extent size 500 next size 500
+lock mode row;
+revoke all on "informix".direct_project_type from "public" as "informix";
+
+
+create table 'informix'.direct_project_category (
+    direct_project_category_id INT not null,
+    direct_project_type_id INT not null,
+    name VARCHAR(64) not null,
+    PRIMARY KEY(direct_project_category_id) constraint "informix".direct_project_category_pkey
+)
+extent size 500 next size 500
+lock mode row;
+revoke all on "informix".direct_project_category from "public" as "informix";
+
+
+create table 'informix'.direct_project_category (
+    direct_project_account_id INT not null,
+    project_id INT not null,
+    billing_account_id INT not null,
+    PRIMARY KEY(direct_project_account_id) constraint "informix".direct_project_account_pkey
+)
+extent size 500 next size 500
+lock mode row;
+revoke all on "informix".direct_project_category from "public" as "informix";
 
 
 grant select on "informix".unit_type_lu to "public" as "informix";
@@ -565,6 +599,14 @@ CREATE SEQUENCE "informix".SPEC_REVIEW_USER_ROLE_TYPE_SEQ;
 revoke all on "informix".SPEC_REVIEW_USER_ROLE_TYPE_SEQ from "public";
 CREATE SEQUENCE "informix".SPEC_REVIEW_COMMENT_VIEW_SEQ;
 revoke all on "informix".SPEC_REVIEW_COMMENT_VIEW_SEQ from "public";
+
+create sequence "informix".direct_project_type_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
+
+create sequence "informix".direct_project_category_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
+
+create sequence "informix".direct_project_account_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
+
+
 grant select on "informix".project_sequence to "public" as "informix";
 grant select on "informix".competition_sequence to "public" as "informix";
 grant select on "informix".permission_type_seq to "public" as "informix";
@@ -579,3 +621,18 @@ grant select on "informix".SPEC_SECTION_REVIEW_SEQ to "public" as "informix";
 grant select on "informix".SPEC_REVIEW_REVIEWER_SEQ to "public" as "informix";
 
 grant select on "informix".tc_direct_project_status_lu to "public" as "informix";
+
+grant select on "informix".direct_project_type to "public" as "informix";
+grant update on "informix".direct_project_type to "public" as "informix";
+grant insert on "informix".direct_project_type to "public" as "informix";
+grant delete on "informix".direct_project_type to "public" as "informix";
+
+grant select on "informix".direct_project_category to "public" as "informix";
+grant update on "informix".direct_project_category to "public" as "informix";
+grant insert on "informix".direct_project_category to "public" as "informix";
+grant delete on "informix".direct_project_category to "public" as "informix";
+
+grant select on "informix".direct_project_account to "public" as "informix";
+grant update on "informix".direct_project_account to "public" as "informix";
+grant insert on "informix".direct_project_account to "public" as "informix";
+grant delete on "informix".direct_project_account to "public" as "informix";

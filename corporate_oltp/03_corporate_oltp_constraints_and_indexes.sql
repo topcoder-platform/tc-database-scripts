@@ -38,6 +38,29 @@ alter table 'informix'.tc_direct_project add constraint foreign key
 	constraint fk_directproject_projectstatuslu_projectstatusid;
 
 
+	ALTER TABLE 'informix'.tc_direct_project ADD CONSTRAINT FOREIGN KEY
+    (direct_project_type_id)
+    REFERENCES 'informix'.direct_project_type
+    (direct_project_type_id)
+    CONSTRAINT fk_tcdirectproject_directprojecttype_directprojecttypeid;
+    
+ALTER TABLE 'informix'.tc_direct_project ADD CONSTRAINT FOREIGN KEY
+    (direct_project_category_id)
+    REFERENCES 'informix'.direct_project_category
+    (direct_project_category_id)
+    CONSTRAINT fk_tcdirectproject_directprojectcategory_directprojectcategoryid;
+
+ALTER TABLE 'informix'.direct_project_category ADD CONSTRAINT FOREIGN KEY
+    (direct_project_type_id)
+    REFERENCES 'informix'.direct_project_type
+    (direct_project_type_id)
+    CONSTRAINT fk_directprojectcategory_directprojecttype_directprojecttypeid;
+
+ALTER TABLE 'informix'.direct_project_account ADD CONSTRAINT FOREIGN KEY
+    (project_id)
+    REFERENCES 'informix'.tc_direct_project
+    (project_id)
+    CONSTRAINT fk_directprojectaccount_tcdirectproject_projectid;
 
 create unique index "informix".inputlu_inputcode_idx on "informix"
     .input_lu (input_code) using btree  in datadbs ;

@@ -13,6 +13,8 @@ INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,descri
 INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Deleted', 'Deleted', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (4, 'Completed', 'Completed', 'System', CURRENT, 'System', CURRENT);
 
+INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (5, 'Draft', 'Draft', 'System', CURRENT, 'System', CURRENT);
+
 
 INSERT INTO 'informix'.command_group_lu(command_group_id, command_group_name)
   VALUES(0, 'Statistics');
