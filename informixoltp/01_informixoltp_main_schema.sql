@@ -3571,6 +3571,14 @@ extent size 64 next size 64
 lock mode row;
 
 revoke all on user_payment_method from 'public';
+create table 'informix'.user_paypal_account (
+    user_id DECIMAL(10,0) NOT NULL,
+    email_address VARCHAR(100)
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on user_paypal_account from 'public';
 create table 'informix'.round_language (
     round_id DECIMAL(10,0) not null,
     language_id DECIMAL(3,0) not null
@@ -5362,6 +5370,16 @@ grant update on user_payment_method to 'public' as 'informix';
 grant insert on user_payment_method to 'public' as 'informix';
 
 grant index on user_payment_method to 'public' as 'informix';
+
+grant select on user_paypal_account to 'public' as 'informix';
+
+grant delete on user_paypal_account to 'public' as 'informix';
+
+grant update on user_paypal_account to 'public' as 'informix';
+
+grant insert on user_paypal_account to 'public' as 'informix';
+
+grant index on user_paypal_account to 'public' as 'informix';
 
 grant insert on round_registration to 'public' as 'informix';
 
