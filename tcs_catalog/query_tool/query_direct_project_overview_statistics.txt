@@ -1,4 +1,14 @@
-select  tdp.project_id as tc_direct_project_id, tdp.name as tc_direct_project_name, 
+SELECT s.tc_direct_project_id,
+    s.tc_direct_project_name,
+    s.contest_name,
+    s.contest_id,
+    s.status,
+    0 as is_studio,
+    (case when s.contest_fee_percentage = 0 then s.contest_fee + s.member_cost
+      else s.member_cost + s.member_cost * s.contest_fee_percentage
+      end) as contest_payment
+      
+FROM table(MULTISET(select  tdp.project_id as tc_direct_project_id, tdp.name as tc_direct_project_name, 
 (select value from project_info where project_id = p.project_id and project_info_type_id =6) as contest_name, p.project_id as contest_id,
 case when p.project_status_id != 1 then psl.name 
        when exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id = 2 and phase_status_id = 1)
@@ -9,10 +19,10 @@ case when p.project_status_id != 1 then psl.name
        when ptl.name is not null and p.project_status_id = 1 then ptl.name
         when sale.contest_sale_id is not null and p.project_status_id = 1 then 'Scheduled'
        else 'Draft' end as status,
-0 as is_studio,
+
 case when p.project_status_id in (1, 2) then
     nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
-        where project_info_type_id in (31, 33, 35, 16, 38, 39, 49)
+        where project_info_type_id in (33, 35, 16, 38, 39, 49)
         and project_id = p.project_id), 0)
     +
     nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
@@ -40,10 +50,6 @@ when p.project_status_id = 7 then
             and pm2.most_recent_detail_id = pmd2.payment_detail_id 
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
     +
-    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
-        where project_info_type_id = 31
-        and project_id = p.project_id), 0)
-    +
     nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
         where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
         and pi26.value = 'On'
@@ -62,12 +68,22 @@ else  NVL((SELECT sum(total_amount)
             and pm.most_recent_detail_id = pmd.payment_detail_id  
             and pm2.most_recent_detail_id = pmd2.payment_detail_id 
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-     +
+end
+as member_cost,
+
+case when p.project_status_id in (1, 2, 7) then
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 31
+        and project_id = p.project_id), 0)
+else  
     nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
         where project_info_type_id = 31 and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
         and project_id = p.project_id), 0)
 end
-as contest_payment
+as contest_fee,
+
+nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
+                where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage
 
 from tc_direct_project tdp, 
 project_category_lu pcl, project_status_lu psl, 
@@ -95,5 +111,5 @@ and (exists (select u.user_id
               where resource_id=p.tc_direct_project_id and permission_type_id in (1,2,3) 
                and upg.user_id = @uid@ ))
 
-order by contest_name
+order by contest_name)) AS s;
 

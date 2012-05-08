@@ -4,10 +4,15 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
 	SUM(s.member_cost) AS total_member_cost,
 	ROUND ((SUM(case when s.status='Completed' then s.member_cost else 0 end)/(case when SUM(case when s.status='Completed' then 1 else 0 end)=0 
 				then 1 else SUM(case when s.status='Completed' then 1 else 0 end) end)), 2) AS average_member_cost,
-	SUM(s.contest_fee) AS total_contest_fee,
-	ROUND (SUM(s.contest_fee)/(case when SUM(case when s.status='Completed' then 1 else 0 end)=0 
+	SUM(CASE WHEN (s.contest_fee_percentage = 0) THEN s.contest_fee ELSE s.contest_fee_percentage * s.member_cost END)
+	    AS total_contest_fee,
+	    
+	ROUND (SUM(CASE WHEN (s.contest_fee_percentage IS NULL) THEN s.contest_fee ELSE s.contest_fee_percentage * s.member_cost END)
+	    / (case when SUM(case when s.status='Completed' then 1 else 0 end)=0 
 				then 1 else SUM(case when s.status='Completed' then 1 else 0 end) end), 2) AS average_contest_fee,
-	SUM(s.contest_fee+s.member_cost) AS total_cost,
+	
+	SUM((CASE WHEN (s.contest_fee_percentage IS NULL) THEN s.contest_fee ELSE s.contest_fee_percentage * s.member_cost END) + s.member_cost) AS total_cost,
+	
 	ROUND (SUM(case when s.status='Completed' then 1 else 0 end)*100/(case when SUM (case when s.status!='Cancelled' then 1 else 0 end)=0
                                then 1 else SUM (case when s.status!='Cancelled' then 1 else 0 end) end), 2) AS fullfillment,
     SUM(CASE 
@@ -30,6 +35,8 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
 	    END
 	)
     AS average_duration
+    
+    
 FROM table(MULTISET(SELECT
 p.tc_direct_project_id as tc_direct_project_id,  
 case when ppd.actual_start_time is not null then ppd.actual_start_time else psd.actual_start_time end as posting_date,
@@ -74,6 +81,9 @@ case when p.project_status_id = 7 then
 (select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
         where project_info_type_id = 31 and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
         and project_id = p.project_id) as contest_fee,
+        
+nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
+                where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage, 
 
 case when p.project_status_id = 7 then 'Completed'
 when p.project_status_id in (9, 10) then 'Cancelled'
