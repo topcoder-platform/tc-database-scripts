@@ -176,3 +176,36 @@ values (2, 'CREATOR');
 
 insert into spec_review_user_role_type_lu(review_user_role_type_id, name)
 values (3, 'REVIEWER');
+
+
+insert into direct_project_type VALUES (1, "Web Application");
+insert into direct_project_category VALUES (10, 1, "Ecommerce");
+insert into direct_project_category VALUES (11, 1, "Back Office");
+insert into direct_project_category VALUES (12, 1, "Community/Social Platforms");
+
+insert into direct_project_type VALUES (2, "Web Site");
+insert into direct_project_category VALUES (20, 2, "Marketing");
+
+insert into direct_project_type VALUES (3, "Mobile Application");
+insert into direct_project_category VALUES (30, 3, "iPhone");
+insert into direct_project_category VALUES (31, 3, "Android Phone");
+insert into direct_project_category VALUES (32, 3, "iPad");
+insert into direct_project_category VALUES (33, 3, "Multi-Platform");
+
+
+insert into direct_project_type VALUES (4, "Desktop Application");
+insert into direct_project_category VALUES (40, 4, "Windows App");
+insert into direct_project_category VALUES (41, 4, "Mac OSX App");
+
+insert into direct_project_type VALUES (5, "Business Intelligence");
+insert into direct_project_category VALUES (50, 5, "Report Development");
+insert into direct_project_category VALUES (51, 5, "Data Warehousing");
+insert into direct_project_category VALUES (52, 5, "Analytics");
+
+insert into direct_project_type VALUES (6, "Content Creation");
+
+insert into direct_project_type VALUES (7, "Presentation");
+
+insert into direct_project_type VALUES (8, "Other");
+insert into direct_project_category VALUES (80, 8, "Conversion/Migration");
+insert into direct_project_category VALUES (81, 8, "QA Existing Product"); 
