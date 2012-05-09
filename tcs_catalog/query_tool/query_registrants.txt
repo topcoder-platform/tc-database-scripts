@@ -55,4 +55,6 @@ select c.component_name
   and pi.phase_type_id = 2
   and p.project_id = @pj@
   and pcat.category_id = c.root_category_id
-order by 5 desc, 4 desc
+order by 
+--5 desc, 
+4 desc
