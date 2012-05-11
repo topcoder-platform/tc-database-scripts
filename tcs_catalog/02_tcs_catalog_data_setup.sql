@@ -2795,8 +2795,8 @@ INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) 
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(30, 26, 'image/x-ico');
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(31, 17, 'application/octet-stream');
 
-insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (1, 'Design Graphic', 'Design Graphic');
-insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (2, 'Animation', 'Animation');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (1, 'Graphic Design', 'Graphic Design');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (2, 'Analytics', 'Analytics');
 insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (3, 'Mobile', 'Mobile');
 insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (4, 'Small Scale Web Applications', 'Small Scale Web Applications');
 insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (5, 'Large Scale Web Applications', 'Large Scale Web Applications');
