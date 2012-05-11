@@ -364,4 +364,3 @@ query_bug_hunt_project_status.txt|UPDATE query SET text = ? WHERE query_id = 318
 query_bug_hunt_review_project_detail.txt|UPDATE query SET text = ? WHERE query_id = 31878
 query_direct_software_project_milestone_submissions.txt|UPDATE query SET text = ? WHERE query_id = 31886
 query_direct_software_project_milestone_reviews.txt|UPDATE query SET text = ? WHERE query_id = 31887
-query_is_mm_copilot_posting.txt|UPDATE query SET text = ? WHERE query_id = 31996

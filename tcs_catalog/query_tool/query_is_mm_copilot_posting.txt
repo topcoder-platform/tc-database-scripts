@@ -1,8 +1,0 @@
-select project_id from project p
-where
-p.project_id=@pj@ and
-p.project_id in
-(
-30027376,
-30027347
-)
