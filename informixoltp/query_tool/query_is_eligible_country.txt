@@ -1,0 +1,11 @@
+select * from user_address_xref uax, address a, country c
+where
+uax.user_id=@cr@ and uax.address_id=a.address_id and a.country_code=c.country_code and
+c.country_name not in
+(
+"Iran",
+"North Korea",
+"Cuba",
+"Sudan",
+"Syria"
+)

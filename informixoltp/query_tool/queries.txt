@@ -1124,4 +1124,5 @@ query_coder_image_data_list.txt|UPDATE query SET text= ? WHERE query_id=31690
 query_member_count.txt|UPDATE query SET text= ? WHERE query_id=31734
 query_tco_copilot_leaderboard_2012.txt|UPDATE query SET text= ? WHERE query_id=31746
 query_payment_status_summary.txt|UPDATE query SET text= ? WHERE query_id=31976
+query_is_eligible_country.txt|UPDATE query SET text= ? WHERE query_id=32016
 
