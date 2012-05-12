@@ -1,0 +1,2 @@
+select pctl.name as value from project_copilot_type pct, project_copilot_type_lu pctl
+where pct.project_copilot_type_id=pctl.project_copilot_type_id and pct.project_id=@pj@
