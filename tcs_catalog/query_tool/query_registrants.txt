@@ -14,6 +14,7 @@ select c.component_name
     , (select category_id from comp_categories where component_id = c.component_id and category_id in (27416670, 27416669, 27416668, 27416667, 27416666, 27416665, 27416664, 27416663, 27416662, 27416661, 27416660, 27416659, 27416658, 27416657))
         as paypal_brand
      , rel.rating as reliability
+     , exists (select 1 from project_phase pp where pp.project_id = p.project_id and pp.phase_status_id in (1,2) and pp.phase_type_id in (1,2,3,4,5,6) and p.project_status_id=1) as hide_submissions
   from resource rur
      , resource_info ri
      , comp_versions cv
@@ -55,6 +56,9 @@ select c.component_name
   and pi.phase_type_id = 2
   and p.project_id = @pj@
   and pcat.category_id = c.root_category_id
+
+-- if submission dates are to be hidden then don't order by them
 order by 
---5 desc, 
+(case when exists (select 1 from project_phase pp where pp.project_id = p.project_id and pp.phase_status_id in (1,2) and pp.phase_type_id in (1,2,3,4,5,6) and p.project_status_id=1)
+then null else s.modify_date end) desc, 
 4 desc
