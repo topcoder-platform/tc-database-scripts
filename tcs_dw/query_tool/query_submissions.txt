@@ -6,13 +6,7 @@ select user_id,
        final_score,
        points_awarded as initial_points,
        final_points,
-       valid_submission_ind as passed_screening,
-	(select final_score from submission_review sr where project_id = pr.project_id and user_id = pr.user_id
-          and review_resp_id in (1,4)) as score1, 
-	(select final_score from submission_review sr where project_id = pr.project_id and user_id = pr.user_id
-          and review_resp_id in (2,5)) as score2, 
-	(select final_score from submission_review sr where project_id = pr.project_id and user_id = pr.user_id
-          and review_resp_id in (3,6)) as score3
+       valid_submission_ind as passed_screening
  from project_result pr
 where project_id = @pj@
   and submit_ind = 1
