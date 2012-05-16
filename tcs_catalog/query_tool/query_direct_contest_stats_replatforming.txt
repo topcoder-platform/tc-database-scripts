@@ -6,21 +6,39 @@ p.tc_direct_project_id as project_id,
              where project_id = p.tc_direct_project_id) as project_name,
 (select count(resource_id) from resource r 
                            where r.project_id = p.project_id and resource_role_id = 1) as number_of_registration,
+case when 
+(select pc.project_type_id from project_category_lu pc 
+           where pc.project_category_id=p.project_category_id)=3 then 
 (select count (resource_id) from upload u, submission sub 
                             where u.project_id = @pj@
                             and u.upload_id=sub.upload_id and u.upload_status_id = 1 and u.upload_type_id = 1 
-                            and sub.submission_type_id in (1, 3) and sub.submission_status_id in (1, 4)
-) as number_of_submission,
+                            and sub.submission_type_id  IN (1,3) and sub.submission_status_id in  (1, 3, 4)) 
+else 
+(select count (resource_id) from upload u, submission sub 
+                            where u.project_id = @pj@
+                            and u.upload_id=sub.upload_id and u.upload_status_id = 1 and u.upload_type_id = 1 
+                            and sub.submission_type_id  IN (1,3) and sub.submission_status_id in  (1, 2, 3, 4, 6, 7) 
+) 
+end as number_of_submission,
 (select count (resource_id) from upload u, submission sub 
                             where u.project_id = @pj@
                             and u.upload_id=sub.upload_id and u.upload_status_id = 1 and u.upload_type_id = 1 
                             and sub.submission_type_id = 3 and sub.submission_status_id in (1, 4)
 ) as number_of_milestone_submission,
+case when 
+(select pc.project_type_id from project_category_lu pc 
+           where pc.project_category_id=p.project_category_id)=3 then 
 (select count (resource_id) from upload u, submission sub 
                             where u.project_id = @pj@
                             and u.upload_id=sub.upload_id and u.upload_status_id = 1 and u.upload_type_id = 1 
-                            and sub.submission_type_id  = 1 and sub.submission_status_id in (1, 4)
-) as number_of_final_submission,
+                            and sub.submission_type_id  = 1 and sub.submission_status_id in  (1, 3, 4)) 
+else 
+(select count (resource_id) from upload u, submission sub 
+                            where u.project_id = @pj@
+                            and u.upload_id=sub.upload_id and u.upload_status_id = 1 and u.upload_type_id = 1 
+                            and sub.submission_type_id  = 1 and sub.submission_status_id in  (1, 2, 3, 4, 6, 7) 
+) 
+end as number_of_final_submission,
 (exists(select project_phase_id from project_phase where project_id = @pj@ and phase_type_id = 15)) as is_multiple_round,
 (select count(messageid) from jivecategory c, jiveforum f, jivemessage m, project_info pi 
                          where pi.project_info_type_id =4 
