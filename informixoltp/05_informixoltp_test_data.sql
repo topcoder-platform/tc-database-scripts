@@ -464,3 +464,14 @@ INSERT INTO 'informix'.generic_counter_client VALUES (1, 'LongContestServices#Te
 
 INSERT INTO 'informix'.tax_form(name, tax_form_id, text, status_id, tax_form_desc, default_withholding_amount, default_withholding_percentage, use_percentage) VALUES ("w-9", 1, null, 62, "US Tax Form", 0, 0, 1);
 INSERT INTO 'informix'.tax_form(name, tax_form_id, text, status_id, tax_form_desc, default_withholding_amount, default_withholding_percentage, use_percentage) VALUES ("W-8BEN", 2, null, 62, "Foreign Tax Form", 0, 0.3, 1);
+INSERT INTO practice_group (group_id, group_name) VALUES (1, "Tournaments");
+INSERT INTO practice_group (group_id, group_name) VALUES (2, "SRMs");
+INSERT INTO practice_group (group_id, group_name) VALUES (3, "TCHS");
+INSERT INTO practice_group (group_id, group_name) VALUES (4, "Marathons");
+INSERT INTO contest (contest_id, name, status, group_id) VALUES (1000, "SRM 67 DIV 2", "A", -1);
+INSERT INTO round (round_id, contest_id, name, status, round_type_id, rated_ind) VALUES (1000, 1000, "Practice", "A", 6, 0);
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (1000, 1, "2001-06-01 00:00:00.000", "2004-01-03 00:00:00.000", "P");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (1000, 2, "2001-06-01 00:00:00.000", "2004-01-03 00:00:00.000", "P");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (1000, 3, "2001-06-01 00:00:00.000", "2004-01-03 00:00:00.000", "P");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (1000, 4, "2001-06-01 00:00:00.000", "2004-01-03 00:00:00.000", "P");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (1000, 5, "2001-06-01 00:00:00.000", "2004-01-03 00:00:00.000", "P");
