@@ -127,10 +127,10 @@
             <arg value="${min_number_of_direct_projects_per_account}"/>
             <arg value="-maxDirectCount"/>
             <arg value="${max_number_of_direct_projects_per_account}"/>
-            <arg value="-minContestsCount"/>
-            <arg value="${min_number_of_contests_per_project}"/>
-            <arg value="-maxContestsCount"/>
-            <arg value="${max_number_of_contests_per_project}"/>
+            <arg value="-minActiveContestsCount"/>
+            <arg value="${min_number_of_active_contests_per_project}"/>
+            <arg value="-maxActiveContestsCount"/>
+            <arg value="${max_number_of_active_contests_per_project}"/>
             <arg value="-outputFile"/>
             <arg value="${out}"/>
             <arg value="-idGeneratorStart"/>
@@ -139,6 +139,24 @@
             <arg value="${studioSubmissionIdsFile}"/>
             <arg value="-submissionDeclarationsFile"/>
             <arg value="${submissionDeclarationsFile}"/>
+            <arg value="-minProjectFulfillment"/>
+            <arg value="${min_project_fulfillment}"/>
+            <arg value="-maxProjectFulfillment"/>
+            <arg value="${max_project_fulfillment}"/>
+            <arg value="-averageProjectFulfillment"/>
+            <arg value="${average_project_fulfillment}"/>
+            <arg value="-minContestRegistrantsCount"/>
+            <arg value="${min_contest_registrants}"/>
+            <arg value="-maxContestRegistrantsCount"/>
+            <arg value="${max_contest_registrants}"/>
+            <arg value="-averageContestRegistrantsCount"/>
+            <arg value="${average_contest_registrants}"/>
+            <arg value="-averageContestSubmissionsCount"/>
+            <arg value="${average_contest_submissions}"/>
+            <arg value="-averageContestSubmissionsFailureRate"/>
+            <arg value="${average_submission_failure_rate}"/>
+            <arg value="-termsOutputFile"/>
+            <arg value="${outTerms}"/>
             <classpath refid="runtime.classpath"/>
         </java>
     </target>
@@ -154,6 +172,12 @@
 
 
     <target name="bulk-test-data-load" description="loads the test data">
+        <sql driver="com.informix.jdbc.IfxDriver" password="${db_password}"
+             url="jdbc:informix-sqli://${db_host}:${db_port}/tcs_catalog:INFORMIXSERVER=${db_server}"
+             userid="${db_user}" autocommit="true" src="${out}" classpathref="buildlibs"/>
+    </target>
+    
+    <target name="generate-and-load" description="generate and loads the test data" depends="run">
         <sql driver="com.informix.jdbc.IfxDriver" password="${db_password}"
              url="jdbc:informix-sqli://${db_host}:${db_port}/tcs_catalog:INFORMIXSERVER=${db_server}"
              userid="${db_user}" autocommit="true" src="${out}" classpathref="buildlibs"/>
