@@ -797,7 +797,7 @@ where  p.project_status_id = ps.project_status_id
   (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3) and upg.resource_id = p.tc_direct_project_id)
   
-  and ((select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 
 
 union all  -- contest fee (status7 and % enabled) (payment_detail2)
@@ -949,7 +949,7 @@ where  p.project_status_id = ps.project_status_id
   (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3) and upg.resource_id = p.tc_direct_project_id)
   
-  and ((select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 
 
 union all  -- contest fee (status7 and % enabled) (DR)
