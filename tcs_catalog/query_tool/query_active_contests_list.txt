@@ -40,7 +40,8 @@ SELECT submpp.scheduled_end_time as initial_submission_date
   else null end as dr_points
   , (select count(*) from contest_project_xref where project_id = p.project_id) as tourny_project
   , (select count(*) from comp_categories where category_id = 27240258 and component_id = cc.component_id) as sensations_project
-  , (select count(*) from comp_categories where category_id in (27416670, 27416669, 27416668, 27416667, 27416666, 27416665, 27416664, 27416663, 27416662, 27416661, 27416660, 27416659, 27416658, 27416657) and component_id = cc.component_id) as paypal_brand
+  , (select count(*) from comp_categories where category_id in (27416670, 27416669, 27416668, 27416667, 27416666, 27416665, 27416664, 27416663, 27416662, 27416661, 27416660, 27416659, 27416658, 27416657) and component_id = cc.component_id) as paypal_brand,
+  case  when p.tc_direct_project_id = 4480 then 1 else 0 end as cms_contest
   , p.project_category_id
   , (select NVL(NVL(ppd.actual_start_time, psd.actual_start_time), ppd.scheduled_start_time)
        from project proj
