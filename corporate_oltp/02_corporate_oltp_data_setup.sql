@@ -1,5 +1,6 @@
 database corporate_oltp;
 
+insert into 'informix'.permission_type (permission_type_id, name) values(0, 'project_report');
 insert into 'informix'.permission_type (permission_type_id, name) values(1, 'project_read');
 insert into 'informix'.permission_type (permission_type_id, name) values(2, 'project_write');
 insert into 'informix'.permission_type (permission_type_id, name) values(3, 'project_full');
