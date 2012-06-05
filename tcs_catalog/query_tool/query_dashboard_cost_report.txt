@@ -11,10 +11,10 @@ SELECT s.project_id,
     s.project_category_id,
     s.contest_name,
     s.is_studio,
-    (case when s.contest_fee_percentage = 0 then s.contest_fee
+   nvl((case when s.contest_fee_percentage = 0 then s.contest_fee
          else (case when s.project_status_id = 7 then s.contest_fee_percentage * s.actual_Member_Costs
                 else s.contest_fee_percentage * s.estimated_member_costs end)
-         end) as contest_fee,
+         end), 0) as contest_fee,
     s.contest_status,
     s.estimated_member_costs,
     s.actual_Member_Costs
