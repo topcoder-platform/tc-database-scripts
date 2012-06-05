@@ -1,0 +1,33 @@
+SELECT cd.document_id, cd.url, 
+CASE WHEN
+(
+  cc.root_category_id IN
+  (
+  5801776,
+  5801777,
+  8459260,
+  8489485,
+  26805357,
+  27202903,
+  27202907,
+  27202909,
+  27202911,
+  27202913,
+  27355736
+  )
+  OR
+  exists (
+  SELECT ri.value::int
+  FROM resource_info ri
+  INNER JOIN resource r ON r.resource_id = ri.resource_id
+  INNER JOIN project_info pi ON pi.project_info_type_id = 1 AND pi.project_id = r.project_id AND pi.value = cv.comp_vers_id
+  WHERE ri.resource_info_type_id = 1 AND ri.value="@uid@"
+  )
+)
+THEN 1 ELSE 0 END as can_download
+
+FROM comp_documentation cd
+INNER JOIN comp_versions cv ON cv.comp_vers_id = cd.comp_vers_id
+INNER JOIN comp_catalog cc ON cc.component_id = cv.component_id
+WHERE
+cd.document_id = @docid@

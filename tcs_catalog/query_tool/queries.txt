@@ -365,3 +365,4 @@ query_bug_hunt_review_project_detail.txt|UPDATE query SET text = ? WHERE query_i
 query_direct_software_project_milestone_submissions.txt|UPDATE query SET text = ? WHERE query_id = 31886
 query_direct_software_project_milestone_reviews.txt|UPDATE query SET text = ? WHERE query_id = 31887
 query_copilot_posting_type.txt|UPDATE query SET text = ? WHERE query_id = 32026
+query_document_download.txt|UPDATE query SET text = ? WHERE query_id = 32076
