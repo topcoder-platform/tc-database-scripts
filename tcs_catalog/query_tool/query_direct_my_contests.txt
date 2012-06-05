@@ -19,6 +19,7 @@ case when p.project_status_id != 1 then psl.name
        when p.project_status_id = 1 and not exists (select project_phase_id from project_phase where project_id = p.project_id and (phase_status_id = 2 or phase_status_id = 1))
            then 'Completed'
        when ptl.name is not null and p.project_status_id = 1 then ptl.name
+	   when ptl.name is null and p.project_status_id = 1 and exists (select project_phase_id from project_phase where project_id = p.project and phase_status_id in (2,3) )then 'Active'
         when sale.contest_sale_id is not null and p.project_status_id = 1 then 'Scheduled'
        else 'Draft' end as status,
 0 as is_studio,
