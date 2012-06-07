@@ -89,13 +89,13 @@ select distinct
    AND regpp.phase_type_id = 1
    AND submpp.project_id = p.project_id
    AND submpp.phase_type_id = 2
-   AND (( screenpp.project_id = p.project_id
-   AND screenpp.phase_type_id = 3) or p.project_category_id = 9)
+   AND screenpp.project_id = p.project_id
+   AND screenpp.phase_type_id = 3
    and reviewpp.phase_type_id = 4
    and reviewpp.project_id =  p.project_id
    and ph.project_phase_id = reviewpp.project_phase_id
    and ph.phase_criteria_type_id = 6
-   AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2 or (screenpp.phase_status_id = 2 AND p.project_category_id <> 9) or reviewpp.phase_status_id = 2)
+   AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2 or screenpp.phase_status_id = 2 or reviewpp.phase_status_id = 2)
    and regpp.scheduled_start_time <= CURRENT
  --  AND reviewpp.scheduled_end_time > CURRENT
    and cvd.comp_vers_id = cv.comp_vers_id
