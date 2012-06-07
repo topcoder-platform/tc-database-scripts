@@ -13,12 +13,18 @@ select c.coder_id
      , lr.rating as mar_rating
      , lr.vol as mar_vol
      , lr.num_ratings as mar_num_ratings  
+     , case 
+           when cs.viewable=0 then ''
+           else s.name
+       end as school
 from coder c
+            left  join current_school cs on cs.coder_id=c.coder_id
+            left  join school s on s.school_id=cs.school_id
+            left  join algo_rating lr on lr.coder_id=c.coder_id
+            left  join tcs_dw:user_rating ur_des on ur_des.user_id=c.coder_id and ur_des.phase_id = 112
+            left  join tcs_dw:user_rating ur_dev on ur_dev.user_id=c.coder_id and ur_dev.phase_id = 113
    , rating r
    , country ct
-   , OUTER(algo_rating lr)
-   , OUTER(tcs_dw:user_rating ur_des)
-   , OUTER(tcs_dw:user_rating ur_dev)
    , table(multiset(
 select user_id as coder_id from tcs_dw:user_rating where phase_id = 112 and num_ratings > 0
 union
@@ -29,11 +35,6 @@ union
 select coder_id from algo_rating where algo_rating_type_id =1 and num_ratings > 0)) coders
 where r.coder_id = c.coder_id
   and ct.country_code = c.comp_country_code
-  and ur_des.user_id = c.coder_id
-  and ur_des.phase_id = 112
-  and ur_dev.user_id = c.coder_id
-  and ur_dev.phase_id = 113
   and c.status = 'A'
-  and lr.coder_id = c.coder_id 
   and lr.algo_rating_type_id = 3
   and r.coder_id = coders.coder_id
