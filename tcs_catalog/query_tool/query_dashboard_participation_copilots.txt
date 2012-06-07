@@ -22,7 +22,7 @@ select tdp.project_id, p.project_id as contest_id, cot.copilot,
                           left join resource rr on rr.project_id = rp.project_id and rr.resource_role_id = 14
                           left join resource_info rri on rri.resource_id = rr.resource_id and rri.resource_info_type_id = 1))) as cot,
        table (multiset((select unique upg.resource_id from user_permission_grant upg
-                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3)))) up --user permission table    
+                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)))) up --user permission table    
     where p.tc_direct_project_id = tdp.project_id
         and up.resource_id = tdp.project_id
         and p.project_category_id IN (@pcids@)

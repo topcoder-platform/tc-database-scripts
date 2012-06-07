@@ -47,7 +47,7 @@ select p.project_id,
         and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
 		and rr.project_id = p.project_id and rr.resource_role_id=1
 		and exists (select resource_id from user_permission_grant upg
-                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3) and upg.resource_id = p.tc_direct_project_id)
+                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
         and addr.address_id = uax.address_id and uax.user_id = rri.value and rri.resource_id=rr.resource_id and rri.resource_info_type_id=1 
         and ((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4

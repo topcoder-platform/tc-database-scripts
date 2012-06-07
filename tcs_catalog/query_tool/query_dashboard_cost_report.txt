@@ -116,7 +116,7 @@ from project p,
 								else 4 end)
 				and pcl.project_category_id = pp.project_category_id and ph.project_id = pp.project_id  GROUP BY ph.project_id))) ct,
      table (multiset((select unique upg.resource_id from user_permission_grant upg
-                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3)))) up --user permission table
+                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)))) up --user permission table
 where p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@)
@@ -234,7 +234,7 @@ from project p,
      time_oltp:client ttc,
      table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 4 GROUP BY project_id))) ct,
      table (multiset((select unique upg.resource_id from user_permission_grant upg
-                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3)))) up --user permission table     
+                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)))) up --user permission table     
 where p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@)

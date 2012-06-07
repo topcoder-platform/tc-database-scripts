@@ -101,7 +101,7 @@ else 0 end as digital_run,
  FROM project p,
       project_info pi2, -- contest_fee
       table (multiset((select unique upg.resource_id from user_permission_grant upg
-                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3)))) up --user permission table
+                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)))) up --user permission table
  where p.project_id = pi2.project_id
   and p.tc_direct_project_id = up.resource_id
   and pi2.project_info_type_id = 31
