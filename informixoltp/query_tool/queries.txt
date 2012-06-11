@@ -323,9 +323,7 @@ query_notify.txt|UPDATE query SET text= ? WHERE query_id=12218
 query_overall_problem_rating_distribution.txt|UPDATE query SET text= ? WHERE query_id=12301
 query_overall_votes.txt|UPDATE query SET text= ? WHERE query_id=12305
 query_password_email.txt|UPDATE query SET text= ? WHERE query_id=12269
-query_payments owed 08_15_2007.txt|UPDATE query SET text= ? WHERE query_id=28126
 query_pending_teachers.txt|UPDATE query SET text= ? WHERE query_id=28351
-query_people_with_payment_due_2_15_2008.txt|UPDATE query SET text= ? WHERE query_id=28530
 query_perl survey.txt|UPDATE query SET text= ? WHERE query_id=17681
 query_placement_counts.txt|UPDATE query SET text= ? WHERE query_id=16052
 query_placement_north_america.txt|UPDATE query SET text= ? WHERE query_id=26316

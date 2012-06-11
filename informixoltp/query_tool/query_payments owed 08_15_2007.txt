@@ -1,9 +1,0 @@
-select distinct u.handle
-     , u.email as email_address
-  from payment p
-     , payment_detail pd
-     , email_user u
- where p.most_recent_detail_id = pd.payment_detail_id
-   and pd.payment_status_id = 70
-   and pd.date_due = mdy(8,15,2007)
-   and p.user_id = u.user_id

@@ -1009,7 +1009,6 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (27879, 'event_registrants', 4);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (27889, 'tccc07 algo qual round 2 - non-advancers', 1);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (27890, 'tccc07 algo qual round 2 - advancers', 1);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (27899, 'payments owed 08_15_2007', 1);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (27900, 'tccc07 algo qual round 3 - non-advancers', 1);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (27901, 'tccc07 algo qual round 3 - advancers', 1);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (27909, 'tccc07 algo round 1C', 1);
@@ -1127,7 +1126,6 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28299, 'tco08_reg', 4);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28300, 'tchs08_question_answers', 4);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28301, 'tco08_mm_registrants', 1);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28302, 'people_with_payment_due_2_15_2008', 1);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28319, 'tco08_algo_byes', 1);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28320, 'tco08_algo_registrants', 1);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (28321, 'tco08_algo_registrants_no_byes', 1);
@@ -3236,7 +3234,6 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28107, null, 'event_name', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28116, null, 'tccc07 algo qual round 2 - advancers', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28117, null, 'tccc07 algo qual round 2 - non-advancers', 0, null);
-INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28126, null, 'payments owed 08_15_2007', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28136, null, 'tccc07 algo qual round 3 - advancers', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28137, null, 'tccc07 algo qual round 3 - non-advancers', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28127, null, 'tccc07 algo round 1A', 0, null);
@@ -3361,7 +3358,6 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28527, null, 'tco08_reg_trend', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28528, null, 'tchs08_question_answers', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28529, null, 'tco08_mm_registrants', 0, null);
-INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28530, null, 'people_with_payment_due_2_15_2008', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28546, null, 'tco08_algo_byes', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28547, null, 'tco08_algo_registrants', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (28548, null, 'tco08_algo_registrants_no_byes', 0, null);
@@ -4416,7 +4412,6 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (27879, 28107, 1);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (27889, 28117, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (27890, 28116, NULL);
-INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (27899, 28126, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (27900, 28137, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (27901, 28136, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (27909, 28129, NULL);
@@ -4536,7 +4531,6 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28299, 28527, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28300, 28528, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28301, 28529, NULL);
-INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28302, 28530, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28319, 28546, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28320, 28547, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (28321, 28548, NULL);
