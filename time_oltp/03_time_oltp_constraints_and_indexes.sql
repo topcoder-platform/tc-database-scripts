@@ -331,6 +331,9 @@ alter table 'informix'.project_contest_fee add constraint primary key
 	
 ALTER TABLE project_contest_fee_percentage ADD CONSTRAINT PRIMARY KEY 
     (project_contest_fee_percentage_id) CONSTRAINT project_contest_fee_percentage_pk;
+	
+ALTER TABLE customer_platform_fee ADD CONSTRAINT PRIMARY KEY 
+    (customer_platform_fee_id) CONSTRAINT customer_platform_fee_pk;
 
 alter table 'informix'.principal_role add constraint foreign key 
 	(principal_id)
@@ -1079,4 +1082,7 @@ alter table 'informix'.project add constraint foreign key
 ALTER TABLE project_contest_fee_percentage ADD CONSTRAINT FOREIGN KEY
     (project_id) references project(project_id) 
 	CONSTRAINT project_contest_fee_percentage_to_project_fk;
+
+ALTER TABLE customer_platform_fee ADD CONSTRAINT FOREIGN KEY
+	(client_id) references client (client_id) CONSTRAINT r_customer_platform_fee_client_id;
 

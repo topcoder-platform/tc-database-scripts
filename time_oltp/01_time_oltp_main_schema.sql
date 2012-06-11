@@ -1590,6 +1590,22 @@ lock mode row;
 revoke all on project_contest_fee_percentage from 'public';
 
 
+CREATE TABLE customer_platform_fee(
+customer_platform_fee_id INTEGER NOT NULL,
+client_id INTEGER NOT NULL,
+payment_date datetime year to day,
+amount DECIMAL(7,2),
+creation_user VARCHAR(64),
+creation_date datetime year to fraction(3),
+modification_user VARCHAR(64),
+modification_date datetime year to fraction(3)
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on customer_platform_fee from 'public';
+
+
 grant insert on principal to 'public' as 'informix';
 
 grant select on principal to 'public' as 'informix';
@@ -2779,4 +2795,8 @@ grant delete on project_contest_fee_percentage to 'public' as 'informix';
 grant select on project_contest_fee_percentage to 'public' as 'informix';
 
 grant index on project_contest_fee_percentage to 'public' as 'informix';
+
+CREATE SEQUENCE customer_platform_fee_seq; 
+
+grant select on "informix".customer_platform_fee_seq to "public" as "informix";
 
