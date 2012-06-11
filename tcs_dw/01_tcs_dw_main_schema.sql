@@ -1499,3 +1499,46 @@ grant index, update, delete, select, insert on user_achievement_type_lu to 'publ
 grant index, update, delete, select, insert on user_achievement_xref to 'public' as 'informix';
 
 
+create table 'informix'.participation_metrics_report_copilot (
+    contest_id DECIMAL(10,0),
+    copilot_id INT,
+    country_code NVARCHAR(3),
+    country VARCHAR(100)
+)
+extent size 600 next size 296
+lock mode page;
+
+revoke all on participation_metrics_report_copilot from 'public';
+
+
+create table 'informix'.participation_metrics_report_member (
+    contest_id DECIMAL(10,0),
+    registrant_id INT,
+    is_submitter BOOLEAN,
+    is_milestone_winner BOOLEAN,
+    is_final_winner BOOLEAN,
+    country_code NVARCHAR(3),
+    country VARCHAR(100)
+)
+extent size 600 next size 296
+lock mode page;
+
+revoke all on participation_metrics_report_copilot from 'public';
+
+create table "informix".user_permission_grant 
+  (
+    user_permission_grant_id decimal(10) not null ,
+    user_id decimal(10,0) not null ,
+    resource_id decimal(10,0) not null ,
+    permission_type_id decimal(10,0) not null ,
+    is_studio smallint,
+    primary key (user_permission_grant_id)  constraint "informix".pk_user_permission_grant_id
+  )  
+  extent size 500 next size 500
+  lock mode row;
+
+revoke all on "informix".user_permission_grant from "public" as "informix";
+
+grant index, update, delete, select, insert on participation_metrics_report_copilot to 'public' as 'informix';
+grant index, update, delete, select, insert on participation_metrics_report_member to 'public' as 'informix';
+grant index, update, delete, select, insert on user_permission_grant to 'public' as 'informix';

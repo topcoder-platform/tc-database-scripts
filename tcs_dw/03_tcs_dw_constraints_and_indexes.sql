@@ -539,3 +539,10 @@ ALTER TABLE 'informix'.user_achievement_xref
 	ADD CONSTRAINT FOREIGN KEY(user_achievement_rule_id)
 	REFERENCES user_achievement_rule(user_achievement_rule_id)
 	CONSTRAINT fk_user_achievement_xref_user_achievement_rule;
+
+CREATE INDEX 'informix'.userpermissiongrant_resource_idx ON 'informix'.user_permission_grant(resource_id);
+CREATE INDEX 'informix'.userpermissiongrant_userid_idx ON 'informix'.user_permission_grant(user_id);
+CREATE INDEX 'informix'.participationmetricsreportcopilot_contestid_idx ON 'informix'.participation_metrics_report_copilot(contest_id);
+CREATE INDEX 'informix'.participationmetricsreportmember_contestid_idx ON 'informix'.participation_metrics_report_member(contest_id);
+CREATE INDEX 'informix'.project_tcdiretcprojectid_idx ON 'informix'.project(tc_direct_project_id);
+

@@ -1,0 +1,115 @@
+SELECT
+    participant_numbers.group_name,
+    participant_numbers.total_registrants_count,
+    participant_numbers.unique_registrants_count,
+    participant_numbers.total_submissions_count,
+    participant_numbers.milestone_winners_count,
+    participant_numbers.final_winners_count,
+    unique_numbers.unique_submitters_count,
+    unique_numbers.unique_winners_count,
+    country_numbers.registrants_country_count,
+    country_numbers.submitters_country_count,
+    country_numbers.winners_country_count
+
+FROM
+table(multiset(
+SELECT
+     dpd.name AS group_name,
+     COUNT(pmrm.registrant_id) AS total_registrants_count,
+     COUNT(DISTINCT pmrm.registrant_id) AS unique_registrants_count,
+     SUM(CASE WHEN pmrm.is_submitter THEN 1 ELSE 0 END) AS total_submissions_count,
+     SUM(CASE WHEN pmrm.is_milestone_winner THEN 1 ELSE 0 END) AS milestone_winners_count,
+     SUM(CASE WHEN pmrm.is_final_winner THEN 1 ELSE 0 END) AS final_winners_count
+FROM
+    project p
+    INNER JOIN client_project_dim cpd ON cpd.client_project_id = p.client_project_id
+    INNER JOIN direct_project_dim dpd ON dpd.direct_project_id = p.tc_direct_project_id
+    LEFT JOIN participation_metrics_report_member pmrm ON pmrm.contest_id = p.project_id
+WHERE cpd.client_id = DECODE(@clientid@, 0, cpd.client_id, @clientid@)
+AND cpd.billing_project_id = DECODE(@billingaccountid@, 0, cpd.billing_project_id, @billingaccountid@)
+AND p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@)
+AND (p.complete_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+AND p.project_category_id IN (@pcids@)
+AND (CASE
+         WHEN p.status_id not IN (1,2,3) THEN "Finished"
+         WHEN p.posting_date IS NULL THEN "Scheduled"
+         ELSE "Active"
+    END) IN (@statuses@)
+AND EXISTS (SELECT resource_id 
+            FROM user_permission_grant upg
+            WHERE upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) 
+            AND upg.permission_type_id IN (1,2,3) 
+            AND upg.resource_id = p.tc_direct_project_id)
+GROUP BY 1
+)) participant_numbers,
+table(multiset(
+SELECT
+     group_name,
+     SUM(CASE WHEN submissions > 0 THEN 1 ELSE 0 END) AS unique_submitters_count,
+     SUM(CASE WHEN wins > 0 THEN 1 ELSE 0 END) AS unique_winners_count
+FROM
+    (SELECT dpd.name AS group_name,
+            pmrm.registrant_id,
+            SUM(CASE WHEN pmrm.is_submitter THEN 1 ELSE 0 END) AS submissions, 
+            SUM(CASE WHEN pmrm.is_milestone_winner OR pmrm.is_final_winner THEN 1 ELSE 0 END) AS wins 
+     FROM project p
+     INNER JOIN client_project_dim cpd ON cpd.client_project_id = p.client_project_id
+     INNER JOIN direct_project_dim dpd ON dpd.direct_project_id = p.tc_direct_project_id
+     LEFT JOIN participation_metrics_report_member pmrm ON pmrm.contest_id = p.project_id
+     WHERE cpd.client_id = DECODE(@clientid@, 0, cpd.client_id, @clientid@)
+     AND cpd.billing_project_id = DECODE(@billingaccountid@, 0, cpd.billing_project_id, @billingaccountid@)
+     AND p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@)
+     AND (p.complete_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+     AND p.project_category_id IN (@pcids@)
+     AND (CASE
+              WHEN p.status_id not IN (1,2,3) THEN "Finished"
+              WHEN p.posting_date IS NULL THEN "Scheduled"
+              ELSE "Active"
+         END) IN (@statuses@)
+     AND EXISTS (SELECT resource_id 
+                 FROM user_permission_grant upg
+                 WHERE upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) 
+                 AND upg.permission_type_id IN (1,2,3) 
+                 AND upg.resource_id = p.tc_direct_project_id)
+     GROUP BY 1, 2
+     )
+GROUP BY 1
+)) unique_numbers,
+table(multiset(
+SELECT
+     group_name,
+     SUM(CASE WHEN registrants > 0 THEN 1 ELSE 0 END) AS registrants_country_count,
+     SUM(CASE WHEN submitters > 0 THEN 1 ELSE 0 END) AS submitters_country_count,
+     SUM(CASE WHEN winners > 0 THEN 1 ELSE 0 END) AS winners_country_count
+FROM
+    (SELECT dpd.name AS group_name,
+            pmrm.country,
+            COUNT(pmrm.registrant_id) AS registrants,
+            SUM(CASE WHEN pmrm.is_submitter THEN 1 ELSE 0 END) AS submitters, 
+            SUM(CASE WHEN pmrm.is_milestone_winner OR pmrm.is_final_winner THEN 1 ELSE 0 END) AS winners 
+     FROM project p
+     INNER JOIN client_project_dim cpd ON cpd.client_project_id = p.client_project_id
+     INNER JOIN direct_project_dim dpd ON dpd.direct_project_id = p.tc_direct_project_id
+     LEFT JOIN participation_metrics_report_member pmrm ON pmrm.contest_id = p.project_id
+     WHERE cpd.client_id = DECODE(@clientid@, 0, cpd.client_id, @clientid@)
+     AND cpd.billing_project_id = DECODE(@billingaccountid@, 0, cpd.billing_project_id, @billingaccountid@)
+     AND p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@)
+     AND (p.complete_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+     AND p.project_category_id IN (@pcids@)
+     AND (CASE
+              WHEN p.status_id not IN (1,2,3) THEN "Finished"
+              WHEN p.posting_date IS NULL THEN "Scheduled"
+              ELSE "Active"
+         END) IN (@statuses@)
+     AND EXISTS (SELECT resource_id 
+                 FROM user_permission_grant upg
+                 WHERE upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) 
+                 AND upg.permission_type_id IN (1,2,3) 
+                 AND upg.resource_id = p.tc_direct_project_id)
+     GROUP BY 1, 2
+     )
+GROUP BY 1
+)) country_numbers
+WHERE participant_numbers.group_name = unique_numbers.group_name
+AND   unique_numbers.group_name = country_numbers.group_name
+ORDER BY 1
