@@ -1,0 +1,3 @@
+SELECT UNIQUE(p.tc_direct_project_id) AS direct_project_id, dpd.name as direct_project_name
+FROM project p, client_project_dim cpd, direct_project_dim dpd
+WHERE p.client_project_id = cpd.client_project_id AND p.tc_direct_project_id IS NOT NULL AND p.tc_direct_project_id = dpd.direct_project_id AND cpd.client_name = '@clientname@'

@@ -161,4 +161,5 @@ query_dashboard_participation_stats_aggregation_billing.txt|UPDATE query SET tex
 query_dashboard_participation_stats_aggregation_project.txt|UPDATE query SET text = ? WHERE query_id = 32109
 query_dashboard_participation_stats_aggregation_type.txt|UPDATE query SET text = ? WHERE query_id = 32110
 query_dashboard_participation_stats_aggregation_status.txt|UPDATE query SET text = ? WHERE query_id = 32111
+query_client_direct_project_ids.txt|UPDATE query SET text = ? WHERE query_id = 32112
 
