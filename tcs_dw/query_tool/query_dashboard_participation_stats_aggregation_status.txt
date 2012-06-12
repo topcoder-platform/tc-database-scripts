@@ -50,7 +50,7 @@ SELECT
      SUM(CASE WHEN submissions > 0 THEN 1 ELSE 0 END) AS unique_submitters_count,
      SUM(CASE WHEN wins > 0 THEN 1 ELSE 0 END) AS unique_winners_count
 FROM
-    (SELECT (CASE
+    table(multiset(SELECT (CASE
                  WHEN p.status_id not IN (1,2,3) THEN 'Finished'
                  WHEN p.posting_date IS NULL THEN 'Scheduled'
                  ELSE 'Active'
@@ -77,7 +77,7 @@ FROM
                  AND upg.permission_type_id IN (1,2,3) 
                  AND upg.resource_id = p.tc_direct_project_id)
      GROUP BY 1, 2
-     )
+     ))
 GROUP BY 1
 )) unique_numbers,
 table(multiset(
@@ -87,7 +87,7 @@ SELECT
      SUM(CASE WHEN submitters > 0 THEN 1 ELSE 0 END) AS submitters_country_count,
      SUM(CASE WHEN winners > 0 THEN 1 ELSE 0 END) AS winners_country_count
 FROM
-    (SELECT (CASE
+    table(multiset(SELECT (CASE
                      WHEN p.status_id not IN (1,2,3) THEN 'Finished'
                      WHEN p.posting_date IS NULL THEN 'Scheduled'
                      ELSE 'Active'
@@ -115,7 +115,7 @@ FROM
                  AND upg.permission_type_id IN (1,2,3) 
                  AND upg.resource_id = p.tc_direct_project_id)
      GROUP BY 1, 2
-     )
+     ))
 GROUP BY 1
 )) country_numbers
 WHERE participant_numbers.group_name = unique_numbers.group_name

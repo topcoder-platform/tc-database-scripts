@@ -46,7 +46,7 @@ SELECT
      SUM(CASE WHEN submissions > 0 THEN 1 ELSE 0 END) AS unique_submitters_count,
      SUM(CASE WHEN wins > 0 THEN 1 ELSE 0 END) AS unique_winners_count
 FROM
-    (SELECT cpd.project_name AS group_name,
+    table(multiset(SELECT cpd.project_name AS group_name,
             pmrm.registrant_id,
             SUM(CASE WHEN pmrm.is_submitter THEN 1 ELSE 0 END) AS submissions, 
             SUM(CASE WHEN pmrm.is_milestone_winner OR pmrm.is_final_winner THEN 1 ELSE 0 END) AS wins 
@@ -69,7 +69,7 @@ FROM
                  AND upg.permission_type_id IN (1,2,3) 
                  AND upg.resource_id = p.tc_direct_project_id)
      GROUP BY 1, 2
-     )
+     ))
 GROUP BY 1
 )) unique_numbers,
 table(multiset(
@@ -79,7 +79,7 @@ SELECT
      SUM(CASE WHEN submitters > 0 THEN 1 ELSE 0 END) AS submitters_country_count,
      SUM(CASE WHEN winners > 0 THEN 1 ELSE 0 END) AS winners_country_count
 FROM
-    (SELECT cpd.project_name AS group_name,
+    table(multiset(SELECT cpd.project_name AS group_name,
             pmrm.country,
             COUNT(pmrm.registrant_id) AS registrants,
             SUM(CASE WHEN pmrm.is_submitter THEN 1 ELSE 0 END) AS submitters, 
@@ -103,7 +103,7 @@ FROM
                  AND upg.permission_type_id IN (1,2,3) 
                  AND upg.resource_id = p.tc_direct_project_id)
      GROUP BY 1, 2
-     )
+     ))
 GROUP BY 1
 )) country_numbers
 WHERE participant_numbers.group_name = unique_numbers.group_name
