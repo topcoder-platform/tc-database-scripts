@@ -3937,10 +3937,9 @@ create table 'informix'.payment_type_lu (
     payment_reference_id DECIMAL(3,0),
     show_in_profile_ind DECIMAL(1,0) default 1 not null,
     show_details_ind DECIMAL(1,0) default 1 not null,
-    due_date_interval DECIMAL(3,0),
+    due_date_interval DECIMAL(3,0) not null,
     create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION not null,
     modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION not null,
-    pay_on_day DECIMAL(2,0),
     requires_client_ind DECIMAL(1,0) default 0 not null,
     global_ad_ind boolean default 'f'
 )
