@@ -1,7 +1,5 @@
 database tcs_dw;
 
-INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) values (4, "TCS Load");
-
 INSERT INTO 'informix'.calendar (calendar_id, year, month_numeric, month_alpha, day_of_month, day_of_week, week_day, year_month, week_of_year, day_of_year, holiday, weekend, date, week_year, quarter_of_year) values (2893, 2008, 12, "December", 2, 2, "Tuesday", "2008-12", "49", "337", "N", "N", "2008-12-02", "2008", null);
 INSERT INTO 'informix'.calendar (calendar_id, year, month_numeric, month_alpha, day_of_month, day_of_week, week_day, year_month, week_of_year, day_of_year, holiday, weekend, date, week_year, quarter_of_year) values (2894, 2008, 12, "December", 3, 3, "Wednesday", "2008-12", "49", "338", "N", "N", "2008-12-03", "2008", null);
 INSERT INTO 'informix'.calendar (calendar_id, year, month_numeric, month_alpha, day_of_month, day_of_week, week_day, year_month, week_of_year, day_of_year, holiday, weekend, date, week_year, quarter_of_year) values (2895, 2008, 12, "December", 4, 4, "Thursday", "2008-12", "49", "339", "N", "N", "2008-12-04", "2008", null);
