@@ -986,6 +986,10 @@ INSERT INTO 'informix'.user_achievement_rule(
 		user_achievement_rule_sql_file,
 		user_achievement_type_id)
 		VALUES (20, "10 Wins", "10 wins (1st place only)", "studio_ten_first_win.sql", 1);
+		
+		
+INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) values (4, 'TCS Load');
+INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) values (5, 'Participation Metrics');
 
 
 
