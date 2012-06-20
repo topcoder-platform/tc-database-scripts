@@ -1030,6 +1030,7 @@ create table 'informix'.vm_account (
   aws_security_access_key VARCHAR(100) NOT NULL ,
   create_date DATETIME YEAR to FRACTION(3) NOT NULL ,
   modify_date DATETIME YEAR to FRACTION(3) NOT NULL ,
+  account_name VARCHAR(50),
   PRIMARY KEY (vm_account_id) constraint "informix".vm_account_pk
 )
 extent size 64 next size 64
