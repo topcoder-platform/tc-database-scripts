@@ -386,6 +386,10 @@ alter table 'informix'.professor add constraint primary key
 alter table 'informix'.permission_code add constraint primary key 
     (code)
     constraint pk_permission_code;
+	
+alter table 'informix'.invalid_handles add constraint primary key 
+	(invalid_handle_id)
+	constraint pk_invalid_hand556;
 
 alter table 'informix'.user_role_xref add constraint foreign key 
     (login_id)

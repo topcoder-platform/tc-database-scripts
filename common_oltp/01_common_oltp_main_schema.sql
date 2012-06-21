@@ -1138,6 +1138,15 @@ lock mode row;
 
 revoke all on member_image from 'public';
 
+create table 'informix'.invalid_handles (
+    invalid_handle_id INT NOT NULL,
+    invalid_handle VARCHAR(20) NOT NULL
+)
+extent size 32 next size 32
+lock mode row;
+
+revoke all on invalid_handles from 'public';
+
 
 CREATE SEQUENCE "informix".CONTEST_ELIGIBILITY_SEQ INCREMENT BY 1 START WITH 1 MINVALUE 1;
 
@@ -2086,3 +2095,13 @@ grant delete on terms_of_use_dependency to 'public' as 'informix';
 grant update on terms_of_use_dependency to 'public' as 'informix';
 
 grant index on terms_of_use_dependency to 'public' as 'informix';
+
+grant delete on user_preference to 'public' as 'informix';
+
+grant index on user_preference to 'public' as 'informix';
+
+grant select on user_preference to 'public' as 'informix';
+
+grant insert on user_preference to 'public' as 'informix';
+
+grant update on user_preference to 'public' as 'informix';
