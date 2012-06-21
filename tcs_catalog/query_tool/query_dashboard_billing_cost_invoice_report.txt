@@ -1,8 +1,4 @@
-SELECT pm.create_date payment_date,
-       p.project_id as contest_id,
-       ttc.name client,	
-       ttp.name billing_project_name,
-       tdp.name direct_project_name,
+SELECT pm.create_date payment_date, p.project_id as contest_id,  ttc.name client,	ttp.name billing_project_name,  tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
        nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -12,19 +8,14 @@ SELECT pm.create_date payment_date,
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
        pi.value as contest_name,
-       CASE
-       WHEN ps.project_status_id not in (1,2,3)
-          THEN 'Finished'
+       CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished' 
        WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
           THEN 'Scheduled'
        WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
           THEN 'Active'
-       ELSE
-          'Active'
+       ELSE 'Active'
        END as contest_status,
-
         null::int as contest_fee,
-
   SUM(case when p.project_status_id  in (1,7) 
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -66,7 +57,6 @@ SELECT pm.create_date payment_date,
             and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
   end) as actual_total_member_costs,
-
        pt.payment_type_desc,
     CASE WHEN pmd.payment_type_id in (45,57)
          THEN 'Copilot'
@@ -92,17 +82,9 @@ SELECT pm.create_date payment_date,
          THEN pmd.jira_issue_id 
          ELSE ''
     END as reference_id,
-    pmd.total_amount as line_item_amount,
-     ttc.client_id,
-     ttp.project_id billing_project_id,
-    tdp.project_id direct_project_id,
-
-null::int as digital_run,
-       
-        p.project_category_id,
-        pmd.payment_detail_id,    
-        
-null::int as reliability, null::varchar reliability_payment_date,
+    pmd.total_amount as line_item_amount, ttc.client_id,  ttp.project_id billing_project_id,
+    tdp.project_id direct_project_id, null::int as digital_run, p.project_category_id, pmd.payment_detail_id,    
+	null::int as reliability, null::varchar reliability_payment_date,
 
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
@@ -117,17 +99,9 @@ else 0 end as is_studio,
   
 FROM informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
-     informixoltp:payment_type_lu pt,
-     project p,     
-     tc_direct_project tdp,
-     project_status_lu ps,
-     project_category_lu pc,
-     project_info pi, -- project name
-     project_info pi2, -- contest_fee
-     project_info pi3, -- billing account
-     time_oltp:project ttp,
-     time_oltp:client_project ttcp,
-     time_oltp:client ttc
+     informixoltp:payment_type_lu pt, project p, tc_direct_project tdp, project_status_lu ps,
+     project_category_lu pc, project_info pi, project_info pi2, project_info pi3,
+     time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc
 where  pmd.component_project_id = p.project_id
    and pmd.payment_type_id = pt.payment_type_id
    and pmd.installment_number = 1 and pmd.payment_type_id != 4
@@ -135,36 +109,23 @@ where  pmd.component_project_id = p.project_id
    and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
-  and p.project_id = pi.project_id
-  and pi.project_info_type_id = 6
-  and p.project_id = pi2.project_id
-  and pi2.project_info_type_id = 31
-  and p.project_id = pi3.project_id
-  and pi3.project_info_type_id = 32
-  and pi3.value = ttp.project_id
-  and ttp.project_id = ttcp.project_id
-  and ttcp.client_id = ttc.client_id
-  and p.project_status_id != 3 and p.project_category_id != 27
+  and p.project_id = pi.project_id and pi.project_info_type_id = 6
+  and p.project_id = pi2.project_id and pi2.project_info_type_id = 31
+  and p.project_id = pi3.project_id and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id  and p.project_status_id != 3 and p.project_category_id != 27
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-   and exists 
-  (select resource_id from user_permission_grant upg
+   and exists (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
 group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
  
-
 union  all -- reliability
-
-
-SELECT pm2.create_date payment_date,
-       p.project_id as contest_id,
-       ttc.name client,	
-       ttp.name billing_project_name,
-       tdp.name direct_project_name,
+SELECT pm2.create_date payment_date, p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
        nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -174,24 +135,17 @@ SELECT pm2.create_date payment_date,
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
        pi.value as contest_name,
-       CASE
-       WHEN ps.project_status_id not in (1,2,3)
-          THEN 'Finished'
+       CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
        WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
           THEN 'Scheduled'
        WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
           THEN 'Active'
-       ELSE
-          'Active'
-       END as contest_status,
-
+       ELSE 'Active' END as contest_status,
         null::int as contest_fee,
-
   SUM(case when p.project_status_id  in (1,7) 
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
-                                           when pcl.project_type_id in (1,2) then 10
-										   else 4 end) 
+                                           when pcl.project_type_id in (1,2) then 10 else 4 end) 
                 and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
    then
       NVL((SELECT sum(total_amount)
@@ -228,7 +182,6 @@ SELECT pm2.create_date payment_date,
             and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
   end) as actual_total_member_costs,
-
        pt.payment_type_desc,
     CASE WHEN pmd2.payment_type_id in (24)
          THEN 'Reliability'
@@ -238,21 +191,10 @@ SELECT pm2.create_date payment_date,
          THEN pmd.jira_issue_id 
          ELSE ''
     END as reference_id,
-    pmd2.total_amount as line_item_amount,
-     ttc.client_id,
-     ttp.project_id billing_project_id,
-    tdp.project_id direct_project_id,
-
-null::int as digital_run,
-       
-        p.project_category_id,
-        pmd.payment_detail_id,    
-        
-null::int as reliability, null::varchar reliability_payment_date,
+    pmd2.total_amount as line_item_amount, ttc.client_id, ttp.project_id billing_project_id, tdp.project_id direct_project_id,
+	null::int as digital_run, p.project_category_id, pmd.payment_detail_id,  null::int as reliability, null::varchar reliability_payment_date,
 case when pc.project_type_id = 3 then 1
-else 0 end as is_studio,
-  pm2.payment_id,
-  pmd.payment_desc,
+else 0 end as is_studio, pm2.payment_id, pmd.payment_desc,
   (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id and invoice_type_id!=9) as invoice_amount,
   (select processed from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id and invoice_type_id!=9) as processed,
   (select i.invoice_date from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.payment_id = pm.payment_id and ir.invoice_type_id!=9 and ir.invoice_id = i.invoice_id)  as process_date,
@@ -265,17 +207,9 @@ FROM informixoltp:payment pm
 	    INNER JOIN (informixoltp:payment_detail pmd2 JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
                                             AND pmd2.payment_type_id in (24) AND NOT pmd2.payment_status_id IN (65, 68, 69))
                    on pm.payment_id = pmd2.parent_payment_id,
-     informixoltp:payment_type_lu pt,
-     project p,     
-     tc_direct_project tdp,
-     project_status_lu ps,
-     project_category_lu pc,
-     project_info pi, -- project name
-     project_info pi2, -- contest_fee
-     project_info pi3, -- billing account
-     time_oltp:project ttp,
-     time_oltp:client_project ttcp,
-     time_oltp:client ttc
+     informixoltp:payment_type_lu pt, project p, tc_direct_project tdp, project_status_lu ps, project_category_lu pc,
+     project_info pi, project_info pi2, project_info pi3, 
+     time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc
 
 where  pmd.component_project_id = p.project_id
    and pmd.payment_type_id = pt.payment_type_id
@@ -284,15 +218,10 @@ where  pmd.component_project_id = p.project_id
    and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
-  and p.project_id = pi.project_id
-  and pi.project_info_type_id = 6
-  and p.project_id = pi2.project_id
-  and pi2.project_info_type_id = 31
-  and p.project_id = pi3.project_id
-  and pi3.project_info_type_id = 32
-  and pi3.value = ttp.project_id
-  and ttp.project_id = ttcp.project_id
-  and ttcp.client_id = ttc.client_id
+  and p.project_id = pi.project_id and pi.project_info_type_id = 6
+  and p.project_id = pi2.project_id and pi2.project_info_type_id = 31
+  and p.project_id = pi3.project_id and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id and ttp.project_id = ttcp.project_id  and ttcp.client_id = ttc.client_id
   and p.project_status_id != 3 and p.project_category_id != 27
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
@@ -300,19 +229,14 @@ where  pmd.component_project_id = p.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
   and (pm2.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-   and exists 
-  (select resource_id from user_permission_grant upg
+   and exists (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
 group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
 
 union all   -- DR
-
-SELECT (pm.create_date) payment_date,
-       p.project_id as contest_id,
-       ttc.name client,	
-       ttp.name billing_project_name,
-       tdp.name direct_project_name,
-       (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
+SELECT (pm.create_date) payment_date, p.project_id as contest_id, ttc.name client,	
+       ttp.name billing_project_name, tdp.name direct_project_name, 
+	   (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
        nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
                                            when pcl.project_type_id in (1,2) then 10
@@ -331,9 +255,7 @@ SELECT (pm.create_date) payment_date,
        ELSE
           'Active'
        END as contest_status,
-
         null::int as contest_fee,
-
   SUM(case when p.project_status_id  in (1,7) 
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -375,33 +297,18 @@ SELECT (pm.create_date) payment_date,
             and pm2.most_recent_detail_id = pmd2.payment_detail_id 
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
   end) as actual_total_member_costs,
-
-       'Digital Run' as payment_type_desc,
-	   
-'Digital Run' as line_item_category,
-    '' as reference_id,
+       'Digital Run' as payment_type_desc,  'Digital Run' as line_item_category, '' as reference_id,
 case when p.project_status_id  in (1,7) then
 	nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
         where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
         and pi26.value = 'On'
         and pi26.project_id =  p.project_id ), 0) 
 else 0 end as line_item_amount,
-
-     ttc.client_id,
-     ttp.project_id billing_project_id,
-    tdp.project_id direct_project_id,
-
-null::int as digital_run,
-       
-        p.project_category_id,
-        pmd.payment_detail_id,    
-        
-null::int as reliability, null::varchar reliability_payment_date,
+     ttc.client_id, ttp.project_id billing_project_id, tdp.project_id direct_project_id, null::int as digital_run,
+     p.project_category_id, pmd.payment_detail_id, null::int as reliability, null::varchar reliability_payment_date,
 
 case when pc.project_type_id = 3 then 1
-else 0 end as is_studio,
-  null::int as payment_id,
-  null::varchar(255) as payment_desc,
+else 0 end as is_studio, null::int as payment_id, null::varchar(255) as payment_desc,
   (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as invoice_amount,
   (select processed from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 10 and payment_id is null) as processed,
   (select i.invoice_date from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.invoice_type_id = 10 and ir.payment_id is null and ir.invoice_id = i.invoice_id)  as process_date,
@@ -411,33 +318,19 @@ else 0 end as is_studio,
 FROM informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
      informixoltp:payment_type_lu pt,
-     project p,
-     tc_direct_project tdp,
-     project_status_lu ps,
-     project_category_lu pc,
-     project_info pi, -- project name
-     project_info pi2, -- contest_fee
-     project_info pi3, -- billing account
-     time_oltp:project ttp,
-     time_oltp:client_project ttcp,
-     time_oltp:client ttc
+     project p, tc_direct_project tdp, project_status_lu ps, project_category_lu pc,
+     project_info pi, project_info pi2, project_info pi3, 
+     time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc
 
-where  pmd.component_project_id = p.project_id
-   and pmd.payment_type_id = pt.payment_type_id
-   and pmd.installment_number = 1
-   AND NOT pmd.payment_status_id IN (65,68, 69)
+where  pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.payment_type_id 
+   and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
    and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
-  and p.project_id = pi.project_id
-  and pi.project_info_type_id = 6
-  and p.project_id = pi2.project_id
-  and pi2.project_info_type_id = 31
-  and p.project_id = pi3.project_id
-  and pi3.project_info_type_id = 32
-  and pi3.value = ttp.project_id
-  and ttp.project_id = ttcp.project_id
-  and ttcp.client_id = ttc.client_id
+  and p.project_id = pi.project_id and pi.project_info_type_id = 6
+  and p.project_id = pi2.project_id and pi2.project_info_type_id = 31
+  and p.project_id = pi3.project_id and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id and ttp.project_id = ttcp.project_id and ttcp.client_id = ttc.client_id
   and p.project_status_id != 3 and p.project_category_id != 27
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
@@ -453,13 +346,11 @@ where  pmd.component_project_id = p.project_id
            AND NOT pmd2.payment_status_id IN (65,68, 69)
            and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))
   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-  and exists 
-  (select resource_id from user_permission_grant upg
+  and exists (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
 group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
 
-union all  -- contest fee (not % enabled and status7)
-
+union all  -- fee (not % and status7)
 SELECT s.payment_date, s.contest_id, s.client, s.billing_project_name, s.direct_project_name,
     s.launch_date, s.completion_date, s.category, s.contest_name, s.contest_status,
     s.contest_fee, s.actual_total_member_costs, s.payment_type_desc, s.line_item_category, s.reference_id, 
@@ -473,9 +364,7 @@ SELECT s.payment_date, s.contest_id, s.client, s.billing_project_name, s.direct_
 FROM table(MULTISET(
 SELECT (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as payment_date,
        p.project_id as contest_id,
-       ttc.name client,	
-       ttp.name billing_project_name,
-       tdp.name direct_project_name,
+       ttc.name client,	ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
 nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -486,16 +375,13 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
        pi.value as contest_name,
        CASE
-       WHEN ps.project_status_id not in (1,2,3)
-          THEN 'Finished'
+       WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
        WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
           THEN 'Scheduled'
        WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
           THEN 'Active'
-       ELSE
-          'Active'
+       ELSE 'Active'
        END as contest_status,
-
         null::int as contest_fee,
 
   SUM(case when p.project_status_id  in (1,7) 
@@ -538,28 +424,16 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
             and pm.most_recent_detail_id = pmd.payment_detail_id  and pmd2.payment_type_id != 4
             and pm2.most_recent_detail_id = pmd2.payment_detail_id 
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-  end) as actual_total_member_costs,
-
-       'Contest Fee' as payment_type_desc,
-	   
-'Contest Fee' as line_item_category,
-    '' as reference_id,
+  end) as actual_total_member_costs, 
+       'Contest Fee' as payment_type_desc, 'Contest Fee' as line_item_category, '' as reference_id,
 case when p.project_status_id in (9, 10) and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
             then pi2.value::DECIMAL(10,2)
             when p.project_status_id in (9, 10) and not exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
             then 0 
             else pi2.value::DECIMAL(10,2) end as line_item_amount,
-
-     ttc.client_id,
-     ttp.project_id billing_project_id,
-    tdp.project_id direct_project_id,
-
-null::int as digital_run,
-       
-        p.project_category_id,
-        null::int as payment_detail_id,    
-        
-null::int as reliability, null::varchar reliability_payment_date,
+     ttc.client_id, ttp.project_id billing_project_id, tdp.project_id direct_project_id,
+	 null::int as digital_run, p.project_category_id, null::int as payment_detail_id, 
+	 null::int as reliability, null::varchar reliability_payment_date,
 
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
@@ -588,53 +462,35 @@ else 0 end as is_studio,
             and pi26.value = 'On'
             and pi26.project_id =  p.project_id ), 0) as estimated_member_costs
     
-FROM project p,
-     tc_direct_project tdp,
-     project_status_lu ps,
-     project_category_lu pc,
-     project_info pi, -- project name
-     project_info pi2, -- contest_fee
-     project_info pi3, -- billing account
-     time_oltp:project ttp,
-     time_oltp:client_project ttcp,
-     time_oltp:client ttc
+FROM project p, tc_direct_project tdp, project_status_lu ps,
+     project_category_lu pc, project_info pi, project_info pi2, project_info pi3, 
+     time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc
 
 where  p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
-  and p.project_id = pi.project_id
-  and pi.project_info_type_id = 6
-  and p.project_id = pi2.project_id
-  and pi2.project_info_type_id = 31
-  and p.project_id = pi3.project_id
-  and pi3.project_info_type_id = 32
-  and pi3.value = ttp.project_id
-  and ttp.project_id = ttcp.project_id
-  and ttcp.client_id = ttc.client_id
+  and p.project_id = pi.project_id and pi.project_info_type_id = 6
+  and p.project_id = pi2.project_id and pi2.project_info_type_id = 31
+  and p.project_id = pi3.project_id and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id and ttp.project_id = ttcp.project_id and ttcp.client_id = ttc.client_id
   and p.project_status_id != 3 and p.project_category_id != 27
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
-   and exists 
-  (select resource_id from user_permission_grant upg
+   and exists (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
   
   and ((select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
   and (nvl((select (cast (nvl(pi57.value, '0') as DECIMAL (10,2))) from project_info pi57 where
-    pi57.project_id=p.project_id and pi57.project_info_type_id=57), 0) = 0)
+    pi57.project_id=p.project_id and pi57.project_info_type_id=57), 0) = 0) 
+  and (cast (nvl(pi2.value, '0') as DECIMAL (10,2))) != 0
   and p.project_status_id = 7
 group by 1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35)) as s
 
-
-union all  -- contest fee (status7 and % enabled) (payment_detail)
-
-SELECT (pm.create_date) as payment_date,
-       p.project_id as contest_id,
-       ttc.name client,	
-       ttp.name billing_project_name,
-       tdp.name direct_project_name,
+union all  -- contest fee (status7 and % ) (payment_detail)
+SELECT (pm.create_date) as payment_date, p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
 nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -644,19 +500,13 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
        pi.value as contest_name,
-       CASE
-       WHEN ps.project_status_id not in (1,2,3)
-          THEN 'Finished'
+       CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
        WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
           THEN 'Scheduled'
        WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
-          THEN 'Active'
-       ELSE
-          'Active'
-       END as contest_status,
-
-        null::int as contest_fee,
-        
+          THEN 'Active' 
+       ELSE 'Active'
+       END as contest_status, null::int as contest_fee,
   (case when p.project_status_id  in (1,7) 
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -698,24 +548,10 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
             and pm2.most_recent_detail_id = pmd2.payment_detail_id 
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
   end) as actual_total_member_costs,
-
-       'Contest Fee' as payment_type_desc,
-	   
-'Contest Fee' as line_item_category,
-    '' as reference_id,
-    
+  'Contest Fee' as payment_type_desc, 'Contest Fee' as line_item_category, '' as reference_id,
 NVL(pmd.total_amount, 0)  * (cast (nvl(pi57.value, '0') as DECIMAL (10,2))) as line_item_amount,
-
-     ttc.client_id,
-     ttp.project_id billing_project_id,
-    tdp.project_id direct_project_id,
-
-null::int as digital_run,
-       
-        p.project_category_id,
-        null::int as payment_detail_id,    
-        
-null::int as reliability, null::varchar reliability_payment_date,
+     ttc.client_id, ttp.project_id billing_project_id, tdp.project_id direct_project_id, null::int as digital_run, p.project_category_id, null::int as payment_detail_id,    
+     null::int as reliability, null::varchar reliability_payment_date,
 
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
@@ -727,56 +563,34 @@ else 0 end as is_studio,
   (select i.invoice_number from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.invoice_type_id = 9 and ir.payment_id = pm.payment_id and ir.invoice_id = i.invoice_id)  as invoice_number,
   (select invoice_id from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id = pm.payment_id) as invoice_id,
   (select invoice_record_id from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id = pm.payment_id) as invoice_record_id
-FROM project p,
-     tc_direct_project tdp,
-     project_status_lu ps,
-     project_category_lu pc,
-     project_info pi, -- project name
-     project_info pi3, -- billing account
-     project_info pi57, -- percentage contest fee
-     time_oltp:project ttp,
-     time_oltp:client_project ttcp,
-     time_oltp:client ttc,
-     informixoltp:payment_detail pmd, 
-     informixoltp:payment pm
+FROM project p, tc_direct_project tdp, project_status_lu ps, project_category_lu pc,
+     project_info pi, project_info pi3, project_info pi57, 
+     time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc,
+     informixoltp:payment_detail pmd, informixoltp:payment pm
 where  p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
-  and p.project_status_id = 7
-  and p.project_id = pi57.project_id
-  and pi57.project_info_type_id = 57
+  and p.project_status_id = 7 and p.project_id = pi57.project_id and pi57.project_info_type_id = 57
   and ((cast (nvl(pi57.value, '0') as DECIMAL (10,2))) > 0) 
-  and p.project_id = pi.project_id
-  and pi.project_info_type_id = 6
-  and p.project_id = pi3.project_id
-  and pi3.project_info_type_id = 32
-  and pi3.value = ttp.project_id
-  and pmd.component_project_id = p.project_id 
+  and p.project_id = pi.project_id and pi.project_info_type_id = 6
+  and p.project_id = pi3.project_id and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id and pmd.component_project_id = p.project_id 
   and pmd.installment_number = 1
   and pm.most_recent_detail_id = pmd.payment_detail_id
   and (NOT pmd.payment_status_id IN (65, 68, 69))
-  and ttp.project_id = ttcp.project_id
-  and ttcp.client_id = ttc.client_id
+  and ttp.project_id = ttcp.project_id and ttcp.client_id = ttc.client_id
   and p.project_category_id != 27
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
-   and exists 
-  (select resource_id from user_permission_grant upg
+   and exists (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
-  
    and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 
-
-union all  -- contest fee (status7 and % enabled) (payment_detail2)
-
-SELECT (pm.create_date) as payment_date,
-       p.project_id as contest_id,
-       ttc.name client,	
-       ttp.name billing_project_name,
-       tdp.name direct_project_name,
+union all  -- contest fee (status7 and % ) (payment_detail2)
+SELECT (pm.create_date) as payment_date, p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
 nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -786,19 +600,14 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
        pi.value as contest_name,
-       CASE
-       WHEN ps.project_status_id not in (1,2,3)
-          THEN 'Finished'
+       CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
        WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
           THEN 'Scheduled'
        WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
           THEN 'Active'
-       ELSE
-          'Active'
+       ELSE 'Active'
        END as contest_status,
-
         null::int as contest_fee,
-        
   (case when p.project_status_id  in (1,7) 
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -840,87 +649,48 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
             and pm2.most_recent_detail_id = pmd2.payment_detail_id 
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
   end) as actual_total_member_costs,
-
-       'Contest Fee' as payment_type_desc,
-	   
-'Contest Fee' as line_item_category,
+       'Contest Fee' as payment_type_desc, 'Contest Fee' as line_item_category,
     '' as reference_id,
      NVL(pmd2.total_amount, 0)  * (cast (nvl(pi57.value, '0') as DECIMAL (10,2))) as line_item_amount,
-     ttc.client_id,
-     ttp.project_id billing_project_id,
-    tdp.project_id direct_project_id,
+     ttc.client_id, ttp.project_id billing_project_id, tdp.project_id direct_project_id, null::int as digital_run,
+        p.project_category_id, null::int as payment_detail_id, null::int as reliability, null::varchar reliability_payment_date,
 
-null::int as digital_run,
-       
-        p.project_category_id,
-        null::int as payment_detail_id,    
-        
-null::int as reliability, null::varchar reliability_payment_date,
-
-case when pc.project_type_id = 3 then 1
-else 0 end as is_studio,
-  pm2.payment_id as payment_id,
-  null::varchar(255) as payment_desc,
+case when pc.project_type_id = 3 then 1 else 0 end as is_studio, 
+  pm2.payment_id as payment_id, null::varchar(255) as payment_desc,
   (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id = pm2.payment_id) as invoice_amount,
   (select processed from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id = pm2.payment_id) as processed,
   (select i.invoice_date from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.invoice_type_id = 9 and ir.payment_id = pm2.payment_id and ir.invoice_id = i.invoice_id)  as process_date,
   (select i.invoice_number from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.invoice_type_id = 9 and ir.payment_id = pm2.payment_id and ir.invoice_id = i.invoice_id)  as invoice_number,
   (select invoice_id from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id = pm2.payment_id) as invoice_id,
   (select invoice_record_id from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 9 and payment_id = pm2.payment_id) as invoice_record_id
-FROM project p,
-     tc_direct_project tdp,
-     project_status_lu ps,
-     project_category_lu pc,
-     project_info pi, -- project name
-     project_info pi3, -- billing account
-     project_info pi57, -- percentage contest fee
-     time_oltp:project ttp,
-     time_oltp:client_project ttcp,
-     time_oltp:client ttc,
-     informixoltp:payment_detail pmd, 
-     informixoltp:payment pm,
-     informixoltp:payment_detail pmd2,
-     informixoltp:payment pm2
+FROM project p, tc_direct_project tdp, project_status_lu ps, project_category_lu pc,
+     project_info pi, project_info pi3, project_info pi57, 
+     time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc,
+     informixoltp:payment_detail pmd, informixoltp:payment pm, informixoltp:payment_detail pmd2, informixoltp:payment pm2
 where  p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
-  and p.project_status_id = 7
-  and p.project_id = pi57.project_id
-  and pi57.project_info_type_id = 57
+  and p.project_status_id = 7 and p.project_id = pi57.project_id  and pi57.project_info_type_id = 57
   and ((cast (nvl(pi57.value, '0') as DECIMAL (10,2))) > 0) 
-  and p.project_id = pi.project_id
-  and pi.project_info_type_id = 6
-  and p.project_id = pi3.project_id
-  and pi3.project_info_type_id = 32
-  and pi3.value = ttp.project_id
-  and pm.payment_id = pmd2.parent_payment_id
+  and p.project_id = pi.project_id and pi.project_info_type_id = 6
+  and p.project_id = pi3.project_id and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id and pm.payment_id = pmd2.parent_payment_id
   and pmd.component_project_id = p.project_id 
-  and pmd2.installment_number = 1
-  and pm.most_recent_detail_id = pmd.payment_detail_id 
+  and pmd2.installment_number = 1 and pm.most_recent_detail_id = pmd.payment_detail_id 
   and pm2.most_recent_detail_id = pmd2.payment_detail_id
   and (NOT pmd2.payment_status_id IN (65, 68, 69))
-  and ttp.project_id = ttcp.project_id
-  and ttcp.client_id = ttc.client_id
+  and ttp.project_id = ttcp.project_id and ttcp.client_id = ttc.client_id
   and p.project_category_id != 27
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
-  and p.tc_direct_project_id = tdp.project_id
-  and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
+  and p.tc_direct_project_id = tdp.project_id and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
-   and exists 
-  (select resource_id from user_permission_grant upg
+   and exists (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
-  
   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 
-
 union all  -- contest fee (status7 and % enabled) (DR)
-
-SELECT (pm.create_date) as payment_date,
-       p.project_id as contest_id,
-       ttc.name client,	
-       ttp.name billing_project_name,
-       tdp.name direct_project_name,
+SELECT (pm.create_date) as payment_date, p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
 nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -930,19 +700,14 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', 'RIA Build Competition', 'RIA Build', 'Test Suites', 'Test Suites', 'Test Scenarios', 'Test Scenarios',  pc.name) category,
        pi.value as contest_name,
-       CASE
-       WHEN ps.project_status_id not in (1,2,3)
-          THEN 'Finished'
+       CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
        WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
           THEN 'Scheduled'
        WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
           THEN 'Active'
-       ELSE
-          'Active'
+       ELSE 'Active'
        END as contest_status,
-
         null::int as contest_fee,
-        
   (case when p.project_status_id  in (1,7) 
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id = 29 then 4
@@ -984,27 +749,13 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
             and pm2.most_recent_detail_id = pmd2.payment_detail_id 
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
   end) as actual_total_member_costs,
-
-       'Contest Fee' as payment_type_desc,
-	   
-'Contest Fee' as line_item_category,
-    '' as reference_id,
+       'Contest Fee' as payment_type_desc, 'Contest Fee' as line_item_category, '' as reference_id,
     
 nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
             where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id
-            and pi26.value = 'On'
-            and pi26.project_id =  p.project_id), 0) * (cast (nvl(pi57.value, '0') as DECIMAL (10,2))) as line_item_amount,
-
-     ttc.client_id,
-     ttp.project_id billing_project_id,
-    tdp.project_id direct_project_id,
-
-null::int as digital_run,
-       
-        p.project_category_id,
-        null::int as payment_detail_id,    
-        
-null::int as reliability, null::varchar reliability_payment_date,
+            and pi26.value = 'On'  and pi26.project_id =  p.project_id), 0) * (cast (nvl(pi57.value, '0') as DECIMAL (10,2))) as line_item_amount,
+     ttc.client_id, ttp.project_id billing_project_id, tdp.project_id direct_project_id, null::int as digital_run,
+     p.project_category_id, null::int as payment_detail_id, null::int as reliability, null::varchar reliability_payment_date,
 
 case when pc.project_type_id = 3 then 1
 else 0 end as is_studio,
@@ -1019,16 +770,9 @@ else 0 end as is_studio,
 FROM informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
      informixoltp:payment_type_lu pt,
-	 project p,
-     tc_direct_project tdp,
-     project_status_lu ps,
-     project_category_lu pc,
-     project_info pi, -- project name
-     project_info pi3, -- billing account
-     project_info pi57, -- percentage contest fee
-     time_oltp:project ttp,
-     time_oltp:client_project ttcp,
-     time_oltp:client ttc
+	 project p, tc_direct_project tdp, project_status_lu ps, project_category_lu pc,
+     project_info pi, project_info pi3, project_info pi57, 
+     time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc
 where  pmd.component_project_id = p.project_id
    and pmd.payment_type_id = pt.payment_type_id
    and pmd.installment_number = 1
@@ -1036,17 +780,11 @@ where  pmd.component_project_id = p.project_id
    and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
-  and p.project_status_id = 7
-  and p.project_id = pi57.project_id
-  and pi57.project_info_type_id = 57
+  and p.project_status_id = 7 and p.project_id = pi57.project_id and pi57.project_info_type_id = 57
   and ((cast (nvl(pi57.value, '0') as DECIMAL (10,2))) > 0) 
-  and p.project_id = pi.project_id
-  and pi.project_info_type_id = 6
-  and p.project_id = pi3.project_id
-  and pi3.project_info_type_id = 32
-  and pi3.value = ttp.project_id
-  and ttp.project_id = ttcp.project_id
-  and ttcp.client_id = ttc.client_id
+  and p.project_id = pi.project_id  and pi.project_info_type_id = 6
+  and p.project_id = pi3.project_id  and pi3.project_info_type_id = 32
+  and pi3.value = ttp.project_id  and ttp.project_id = ttcp.project_id and ttcp.client_id = ttc.client_id
   and p.project_status_id != 3 and p.project_category_id != 27
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
@@ -1062,8 +800,24 @@ where  pmd.component_project_id = p.project_id
            AND NOT pmd2.payment_status_id IN (65,68, 69)
            and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))
   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-   and exists 
-  (select resource_id from user_permission_grant upg
-                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
-  
-
+   and exists (select resource_id from user_permission_grant upg
+   where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (1,2,3) and upg.resource_id = p.tc_direct_project_id)
+   
+union all -- platform fee 
+SELECT EXTEND(pf.payment_date,YEAR TO FRACTION) as payment_date, pf.customer_platform_fee_id as contest_id, c.name as client,
+  null::varchar as billing_project_name, null::varchar as direct_project_name, null::datetime year to fraction as launch_date,
+  null::datetime year to fraction as completion_date, null::varchar as category,
+  null::varchar as contest_name, null::varchar as contest_status, null::int as contest_fee,
+  null::int as actual_total_member_costs, 'Platform Fee' as payment_type_desc, 'Platform Fee' as line_item_category,
+  '' as reference_id, pf.amount as line_item_amount, c.client_id, null::int as billing_project_id,
+  null::int as direct_project_id, null::int as digital_run, null::int as project_category_id,
+  null::int as payment_detail_id, null::int as reliability, null::varchar reliability_payment_date,
+  null::int as is_studio, null::int as payment_id, null::varchar as payment_desc,
+  (select invoice_amount from informixoltp:invoice_record where contest_id = pf.customer_platform_fee_id and invoice_type_id = 11 and payment_id is null) as invoice_amount,
+  (select processed from informixoltp:invoice_record where contest_id = pf.customer_platform_fee_id and invoice_type_id = 11 and payment_id is null) as processed,
+  (select i.invoice_date from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = pf.customer_platform_fee_id and ir.invoice_type_id = 11 and ir.payment_id is null and ir.invoice_id = i.invoice_id) as process_date,
+  (select i.invoice_number from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = pf.customer_platform_fee_id and ir.invoice_type_id = 11 and ir.payment_id is null and ir.invoice_id = i.invoice_id) as invoice_number,
+  (select invoice_id from informixoltp:invoice_record where contest_id = pf.customer_platform_fee_id and invoice_type_id = 11 and payment_id is null) as invoice_id,
+  (select invoice_record_id from informixoltp:invoice_record where contest_id = pf.customer_platform_fee_id and invoice_type_id = 11 and payment_id is null) as invoice_record_id
+FROM time_oltp:customer_platform_fee pf, time_oltp:client c
+WHERE pf.client_id=c.client_id and pf.client_id=@clientid@ and (pf.payment_date BETWEEN TO_DATE('@sdt@','%Y-%m-%d') and TO_DATE('@edt@','%Y-%m-%d'))
