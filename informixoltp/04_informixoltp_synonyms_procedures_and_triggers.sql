@@ -181,6 +181,9 @@ for common_oltp:'informix'.user_security_key;
 create synonym 'informix'.terms_of_use_agreeability_type_lu
 for common_oltp:'informix'.terms_of_use_agreeability_type_lu;
 
+create synonym 'informix'.invalid_handles
+for common_oltp:'informix'.invalid_handles;
+
 create procedure "informix".calc_seconds( start datetime year to fraction(3) , 
                                       end   datetime year to fraction(3) )
 returning int;
@@ -427,3 +430,5 @@ create trigger "informix".trig_payment_modified update of user_id,most_recent_de
 --BUGR-4316 : 556: Cannot create, drop, or modify an object that is external to current database.
 database common_oltp;
 GRANT SELECT ON 'informix'.user_security_key TO coder;
+
+
