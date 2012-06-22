@@ -869,6 +869,10 @@ alter table 'informix'.project_milestone add constraint primary key
 alter table 'informix'.project_milestone_owner add constraint primary key
     (project_milestone_owner_id)
     constraint project_milestone_owner_pk;
+
+alter table 'informix'.comp_milestone_feedback add constraint primary key 
+	(comp_milestone_feedback_id)
+	constraint pk_comp_milestone_feedback_id;
       
       
 alter table 'informix'.comp_categories add constraint foreign key 
@@ -1909,6 +1913,12 @@ ALTER TABLE copilot_project_info ADD CONSTRAINT
 ALTER TABLE copilot_project_info ADD CONSTRAINT
     FOREIGN KEY (copilot_project_info_type_id )
     REFERENCES copilot_project_info_type(copilot_project_info_type_id ) ON DELETE CASCADE CONSTRAINT fk_copilot_project_info_copilot_project_info_type;
+
+alter table 'informix'.comp_milestone_feedback add constraint foreign key 
+	(project_id)
+	references 'informix'.project
+	(project_id) 
+	constraint fk_comp_milestone_feedback_project_project_id;
 
 create index 'informix'.project_idx_dpi 
 on 'informix'.project

@@ -2874,6 +2874,16 @@ lock mode row;
 
 revoke all on project_milestone_owner from 'public';
 
+create table 'informix'.comp_milestone_feedback (
+	comp_milestone_feedback_id serial not null,
+	project_id int not null unique constraint comp_milestone_feedback_project_id,
+	feedback lvarchar(4096)
+)
+extent size 250 next size 124
+lock mode row;
+
+revoke all on comp_milestone_feedback from 'public';
+
 
 grant select on v_latest_version to 'informix' with grant option ;
 
