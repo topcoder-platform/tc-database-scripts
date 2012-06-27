@@ -10,7 +10,8 @@
     ri2.value AS submitter_handle,
     s.submission_status_id = 6 AS failed_milestone_screening,
     s.submission_status_id = 7 AS failed_milestone_review,
-    p.number_of_submissions AS milestone_prize_number
+    p.number_of_submissions AS milestone_prize_number,
+    p.prize_amount AS milestone_prize_amount
 FROM
     project_prize_xref ppx, prize p, submission s
     INNER JOIN upload u ON s.upload_id = u.upload_id

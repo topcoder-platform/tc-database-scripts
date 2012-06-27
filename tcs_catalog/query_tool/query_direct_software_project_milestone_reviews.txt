@@ -5,12 +5,15 @@
     rv.committed = 1 AS is_committed,
     rv.initial_score,
     rv.score AS final_score,
-    r.resource_role_id AS reviewer_role_id
+    r.resource_role_id AS reviewer_role_id,
+    ric.content AS feedback
 FROM
     review rv
     INNER JOIN resource r ON rv.resource_id = r.resource_id
+    INNER JOIN review_item ri ON ri.review_id = rv.review_id
+    INNER JOIN review_item_comment ric ON ric.review_item_id = ri.review_item_id
 WHERE
     r.project_id = @pj@
 AND r.resource_role_id IN (20)
-AND rv.committed = 1
+
     

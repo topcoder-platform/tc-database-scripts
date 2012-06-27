@@ -17,6 +17,7 @@ case when pcl.project_type_id !=3 then
 else (select count(messageid) from studio_jive:jivemessage, project_info pi where forumid = pi.value and pi.project_info_type_id =4 and pi.project_id =  p.project_id)
 end as number_of_forum,
 
+pi.value as billing_account_id,
  
 (select value from project_info where project_info_type_id =4 and project_id =  p.project_id) as forum_id, 
 case when p.project_status_id != 1 then psl.name 
@@ -91,7 +92,7 @@ else  NVL((SELECT sum(total_amount)
 end
 as contest_payment
 
-from tc_direct_project tdp, 
+from tc_direct_project tdp, project_info pi,
 project_category_lu pcl, project_status_lu psl, 
 
 project p left outer join project_phase ph 
@@ -100,6 +101,8 @@ project p left outer join project_phase ph
 left outer join phase_type_lu ptl on (ph.phase_type_id = ptl.phase_type_id)
  left outer join contest_sale sale on (p.project_id = sale.contest_id and sale.contest_sale_id  = (select min(contest_sale_id) from contest_sale where contest_id = p.project_id))
 where  p.tc_direct_project_id = @tcdirectid@
+and p.project_id = pi.project_id
+and pi.project_info_type_id = 32
 and p.project_category_id = pcl.project_category_id 
 and p.project_status_id = psl.project_status_id
 and p.tc_direct_project_id = tdp.project_id
