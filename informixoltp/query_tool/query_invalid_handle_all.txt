@@ -1,0 +1,2 @@
+select ih.invalid_handle as handle
+from 'informix'.invalid_handles ih
