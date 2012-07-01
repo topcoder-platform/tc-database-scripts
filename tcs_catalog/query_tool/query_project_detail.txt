@@ -54,6 +54,7 @@ select cc.component_name
      , pc3.parameter as screening_scorecard_id
      , pc4.parameter as review_scorecard_id
      , NVL((select value from project_info pi13 where pi13.project_id=p.project_id and pi13.project_info_type_id=13),"No") as rated
+     , not exists (select * from project_info pi45 where pi45.project_info_type_id=45 and pi45.project_id=p.project_id and (pi45.value='false' or pi45.value='False')) as reliability_bonus_eligible
   from project p
      , comp_catalog cc
      , comp_versions cv
