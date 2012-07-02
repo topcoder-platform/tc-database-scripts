@@ -1,0 +1,14 @@
+SELECT COUNT(*) AS cnt
+  FROM  table(multiset(
+    SELECT p.project_id AS contest_id
+         , pi_name.value AS name
+    FROM project p
+    INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
+    INNER JOIN project_info pi_name ON pi_name.project_id = p.project_id
+    WHERE p.project_status_id IN (1, 7, 9, 4, 10)
+    AND   pcl.project_type_id = 3
+    AND   pi_name.project_info_type_id = 6
+    AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
+        WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+)) t
+WHERE LOWER(name) LIKE '@pjn@'

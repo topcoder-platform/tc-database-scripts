@@ -1,0 +1,199 @@
+  select   c.project_id as contest_id, 
+                (select value from project_info where project_info_type_id = 6 and project_id = c.project_id) as cname, 
+                (select value from project_info where project_info_type_id = 7 and project_id = c.project_id) as cversion, 
+                p.project_id as project_id, 
+                NVL(p.name, 'None') as pname, 
+                ptl.name as contest_type_desc, 
+                pcl.name as category, 
+                psl.name as sname, 
+                (select min(nvl(actual_start_time, scheduled_start_time)) from project_phase ph where ph.project_id=c.project_id) as start_time, 
+                (select max(nvl(actual_end_time, scheduled_end_time)) from project_phase ph where ph.project_id=c.project_id) as end_time, 
+                (select min(nvl(actual_start_time, scheduled_start_time)) from project_phase ph where ph.project_id=c.project_id and ph.phase_type_id=2) as duration_start_time, 
+                (select max(nvl(actual_end_time, scheduled_end_time)) from project_phase ph where ph.project_id=c.project_id and ph.phase_type_id=2) as duration_end_time, 
+                c.create_date as creation_time, 
+                c.modify_date as modification_time, 
+             
+                NVL((select unique cl.name 
+					from project_info as pi 
+					left outer join tt_project as ttp  
+					on pi.value::DECIMAL(10,2) = ttp.project_id 
+					left outer join tt_client_project cpx 
+					on ttp.project_id = cpx.project_id   
+					left outer join tt_client as cl 
+					on cpx.client_id = cl.client_id 
+					where pi.project_id = c.project_id and pi.project_info_type_id = 32), 'One Off') as client_name, 
+             
+                case when c.project_status_id in (1, 2) then   
+                   nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info 
+                        where project_info_type_id in (33, 35, 16, 38, 39, 49) 
+                        and project_id = c.project_id), 0)  
+                   +  
+                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26 
+                  where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id   
+                  and pi26.value = 'On'  
+                  and pi26.project_id =  p.project_id ), 0)   
+                   +  
+                  nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info 
+                        where project_info_type_id = 16 
+                        and project_id = c.project_id)/2), 0) 
+                when   c.project_status_id = 7 then 
+                  nvl((SELECT SUM(total_amount)  
+                        FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id  
+                        WHERE pmd.component_project_id = c.project_id and installment_number = 1 
+                              AND NOT pmd.payment_status_id IN (65, 68, 69)),0 ) + 
+
+                  NVL((SELECT sum(pmd2.total_amount)  
+                     FROM  informixoltp:payment_detail pmd,   
+                           informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id,  
+                           informixoltp:payment pm2  
+                      WHERE pmd.component_project_id = c.project_id and pmd2.installment_number = 1  
+                      and pm.most_recent_detail_id = pmd.payment_detail_id   
+                     and pm2.most_recent_detail_id = pmd2.payment_detail_id  
+                    AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0) 
+                   +    
+                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26 
+                  where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id   
+                  and pi26.value = 'On'  
+                  and pi26.project_id =  p.project_id ), 0)   
+                else  nvl((SELECT SUM(total_amount)  
+                        FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id  
+                        WHERE pmd.component_project_id = c.project_id and installment_number = 1 
+                              AND NOT pmd.payment_status_id IN (65, 68, 69)),0 ) 
+                   +    
+                   NVL((SELECT sum(pmd2.total_amount)  
+                     FROM  informixoltp:payment_detail pmd,   
+                           informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id,  
+                           informixoltp:payment pm2  
+                      WHERE pmd.component_project_id = c.project_id and pmd2.installment_number = 1  
+                      and pm.most_recent_detail_id = pmd.payment_detail_id   
+                     and pm2.most_recent_detail_id = pmd2.payment_detail_id  
+                    AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0) 
+                end as tot_prize, 
+             
+                (case when (p.project_status_id in (9, 10)  
+                    and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))) 
+                    OR p.project_status_id not in (9, 10) then 
+                    (select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info 
+                            where project_info_type_id = 31 
+                            and project_id = c.project_id) 
+                else 0 end) as contest_fee, 
+             
+
+            // for now use creator as manager
+                    (select u.handle from project pp, user u 
+                    where pp.create_user = u.user_id 
+                    and pp.project_id = c.project_id) as manager, 
+              
+                (select name  
+                    from permission_type  
+                    where permission_type_id= NVL( (select max( permission_type_id)  
+                                    from user_permission_grant as upg   
+                                    where resource_id=p.project_id 
+                                    and upg.user_id = ").append(userId).append("), 
+                        case when exists (select u.user_id 
+                                from user as u 
+                                join user_role_xref as uref 
+                                on u.user_id = ").append(userId).append(" 
+                                and u.user_id = uref.login_id 
+                                join security_roles as sr 
+                                on uref.role_id = sr.role_id 
+                                and sr.description in ('Cockpit Administrator','Admin Super Role')) then 3 else 0 end)) as pperm, 
+                (select name  
+                    from permission_type  
+                    where permission_type_id = NVL( (select max( permission_type_id)  
+                                    from user_permission_grant as upg   
+                                    where resource_id=c.project_id   
+                                    and is_studio=0 
+                                    and upg.user_id = ").append(userId).append("),0)) as cperm,   
+            ( select ptl.name from phase_type_lu ptl where phase_type_id = (select min(phase_type_id) from project_phase ph 
+			sb.append("    where ph.phase_status_id = 2 and ph.project_id=c.project_id)) as current_phase,  
+             (select case when(count(*)>=1) then 'Scheduled' when(count(*)=0) then 'Draft' end  
+	            from contest_sale cs where c.project_id = cs.contest_id and upper(psl.name)='ACTIVE' ) as newstatus, 
+             NVL((select unique ttp.name 
+                from project_info as pi 
+                left outer join tt_project as ttp  
+                on pi.value::DECIMAL(10,2) = ttp.project_id 
+                left outer join tt_client_project cpx 
+                on ttp.project_id = cpx.project_id   
+                left outer join tt_client as cl 
+                on cpx.client_id = cl.client_id 
+                where pi.project_id = c.project_id and pi.project_info_type_id = 32), '') as cpname, 	
+             (select 'Repost' from linked_project_xref where link_type_id = 5 and source_project_id = c.project_id) as repost, 
+               replace(replace(replace(replace(  
+                 multiset (SELECT  item cpri.value FROM resource cpr INNER JOIN resource_info cpri  
+                        ON cpr.resource_id = cpri.resource_id  
+                         WHERE cpr.project_id = c.project_id AND cpr.resource_role_id = 14 AND cpri.resource_info_type_id = 2)::lvarchar,  
+                     'MULTISET{'''), '''}'),''''),'MULTISET{}') AS copilot, c.project_category_id,  
+              (case when exists (select project_phase_id from project_phase where c.project_id = project_id and phase_status_id = 3)  
+                         and exists (select project_phase_id from project_phase where c.project_id = project_id and phase_status_id = 1) then 'Active'   
+                    when not exists (select project_phase_id from project_phase where c.project_id = project_id and phase_status_id = 2)   
+                         and not exists (select project_phase_id from project_phase where c.project_id = project_id and phase_status_id = 1) then 'Completed'  
+                    else null end) as phases  
+            from project as c 
+            join project_info as piccat 
+                on c.project_id = piccat.project_id 
+                and piccat.project_info_type_id = 2 
+            join comp_catalog as ccat 
+                on piccat.value = ccat.component_id 
+            join project_category_lu as pcl 
+                on c.project_category_id = pcl.project_category_id 
+            join project_type_lu as ptl 
+                on pcl.project_type_id = ptl.project_type_id 
+            join project_status_lu as psl 
+                on c.project_status_id = psl.project_status_id 
+            left outer join tc_direct_project as p 
+                on c.tc_direct_project_id = p.project_id 
+            left outer join software_competition_pipeline_info as pipe 
+                on pipe.competition_id = c.project_id 
+                and pipe.component_id = ccat.component_id 
+             
+            where (exists (select u.user_id 
+                from user as u 
+                join user_role_xref as uref 
+                on u.user_id = ").append(userId).append(" 
+                and u.user_id = uref.login_id 
+                join security_roles as sr 
+                on uref.role_id = sr.role_id 
+                and sr.description in ('Cockpit Administrator','Admin Super Role','TC Staff')) 
+            OR 
+            NVL( (select max( permission_type_id)  
+                from user_permission_grant as upg   
+                where resource_id=p.project_id and permission_type_id >= 2 
+                and upg.user_id = ").append(userId).append("),0) > 0 
+            OR 
+            NVL( (select max( permission_type_id)  
+                from user_permission_grant as upg   
+                where resource_id=c.project_id and permission_type_id >= 5  
+                and is_studio=0 
+                and upg.user_id = ").append(userId).append("),0) > 0 
+            OR 
+            exists (select cp.contest_id 
+                from contest_sale as cp 
+                join tt_project as ttp 
+                on cp.sale_reference_id = ttp.po_box_number 
+                and cp.sale_type_id = 2 
+                and cp.contest_id = c.project_id 
+                    and ttp.project_id in ( 
+                        SELECT distinct project_id FROM tt_project_worker ttw, tt_user_account u  
+                            WHERE ttw.user_account_id = u.user_account_id and 
+                                                      u.user_name = (select handle from user where user_id = ").append(userId).append(") 
+                        union  
+                        SELECT distinct project_id FROM tt_project_manager ttm, tt_user_account u  
+			                 WHERE ttm.user_account_id = u.user_account_id and 
+                                                      u.user_name = (select handle from user where user_id = ").append(userId).append(") 
+                   ) )  
+            ) 
+            AND 
+            // not show inactive or deleted
+            (c.project_status_id != 3)  
+            // dont show spec review project
+            and c.project_category_id != 27 
+            AND 
+            ( 
+            ((select min(nvl(actual_start_time, scheduled_start_time)) from project_phase ph where ph.project_id=c.project_id) BETWEEN to_date('")
+                    .append(formatter.format(startDate))
+                    .append("','%Y-%m-%d %H:%M:%S') AND to_date('")
+                    .append(formatter.format(endDate))
+                    .append("','%Y-%m-%d %H:%M:%S')) 
+
+            ) 

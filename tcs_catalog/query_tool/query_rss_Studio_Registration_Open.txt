@@ -1,0 +1,29 @@
+SELECT
+     'Registration ends: ' || reg.scheduled_end_time || '<br />'  || 
+     'Submission ends: ' || pps.scheduled_end_time || '<br />'  || 
+     'Winning Payment: ' || round(nvl(pi16.value::decimal, 0)) || '<br />'  || cc.description as description, 
+     'http://studio.topcoder.com/?module=ViewContestDetails&ct=' || p.project_id as link, 
+     pcl.name || ' ' 
+     || (select value from project_info where project_id = p.project_id and project_info_type_id = 6) || ' ' 
+     || cv.version_text as title,
+     p.project_id AS guid
+FROM comp_catalog cc, comp_versions cv, project p
+INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
+INNER JOIN project_phase pps ON p.project_id = pps.project_id
+INNER JOIN project_phase reg ON p.project_id = reg.project_id
+INNER JOIN project_info pi_ci ON pi_ci.project_id = p.project_id
+LEFT JOIN project_info pi16 ON pi16.project_id = p.project_id
+WHERE p.project_status_id = 1
+AND   pps.phase_type_id = 2
+AND   reg.phase_type_id = 1
+AND   pcl.project_type_id = 3
+AND   pps.phase_status_id = 2
+AND   pi16.project_info_type_id = 16
+AND   pi_ci.project_info_type_id = 1
+AND   cv.comp_vers_id = pi_ci.value
+AND  cv.component_id= cc.component_id
+AND NOT EXISTS (SELECT 'has_eligibility_constraints' 
+                FROM contest_eligibility ce 
+                WHERE ce.is_studio = 0 
+                AND ce.contest_id = p.project_id)
+
