@@ -372,4 +372,5 @@ query_studio_past_contests_by_title.txt|UPDATE query SET text = ? WHERE query_id
 query_studio_past_contests_by_title_count.txt|UPDATE query SET text = ? WHERE query_id = 32176
 query_studio_past_contests_multi_sort_count.txt|UPDATE query SET text = ? WHERE query_id = 32177
 query_studio_past_contests_multi_sort_v2.txt|UPDATE query SET text = ? WHERE query_id = 32178
+query_milestone_info.txt|UPDATE query SET text = ? WHERE query_id = 32186
 
