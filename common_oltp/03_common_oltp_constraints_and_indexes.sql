@@ -854,6 +854,12 @@ alter table 'informix'.vm_image add constraint foreign key
     references vm_key_pair
     (vm_key_pair_id) 
     constraint vm_image_key_pair_fk;
+
+alter table 'informix'.vm_image add constraint foreign key 
+	(vm_provider_id)
+	references 'informix'.vm_provider
+	(vm_provider_id) 
+	constraint vm_provider_fk;
     
 alter table 'informix'.vm_image_user_data add constraint foreign key
 		(vm_image_id)

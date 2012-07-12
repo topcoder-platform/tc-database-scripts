@@ -993,6 +993,7 @@ create table 'informix'.vm_image (
   vm_account_id DECIMAL(10,0),
   create_date DATETIME YEAR to FRACTION(3) NOT NULL ,
   modify_date DATETIME YEAR to FRACTION(3) NOT NULL ,
+  vm_provider_id DECIMAL(10,0) not null,
   PRIMARY KEY (vm_image_id) constraint "informix".vm_image_pk
 )
 extent size 32 next size 32
@@ -1106,6 +1107,17 @@ create table 'informix'.vm_account_user (
   PRIMARY KEY (vm_account_user_id) constraint "informix".vm_account_user_pk 
 )
 extent size 64 next size 64
+lock mode row;
+
+
+create table 'informix'.vm_provider(
+  vm_provider_id DECIMAL(10,0) NOT NULL  ,
+  name VARCHAR(50) NOT NULL ,
+  create_date DATETIME YEAR to FRACTION(3) NOT NULL ,
+  modify_date DATETIME YEAR to FRACTION(3) NOT NULL ,
+  PRIMARY KEY (vm_provider_id) constraint "informix".vm_provider_pk
+)
+extent size 16 next size 16
 lock mode row;
 
 
