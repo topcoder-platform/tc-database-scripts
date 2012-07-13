@@ -18,4 +18,9 @@ SELECT COUNT(*) AS cnt
     AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
         WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
 )) t
-WHERE (@wc@ = -1 OR @wc@ = 0 OR winner_count BETWEEN 1 AND @wc@)
+where ('@ha@'=''  OR contest_id in (
+  select unique p.project_id from project p
+    inner join project_category_lu pcl on p.project_category_id = pcl.project_category_id and pcl.project_type_id = 3
+    inner join upload u on p.project_id = u.project_id and u.upload_type_id = 1 and u.upload_status_id = 1
+    inner join submission s on s.upload_id = u.upload_id and s.submission_status_id != 5 and (@wc@ = -1 OR s.placement <= @wc@)
+    inner join resource_info ri on ri.resource_id = u.resource_id and ri.resource_info_type_id=2 and lower(ri.value) = lower('@ha@')))
