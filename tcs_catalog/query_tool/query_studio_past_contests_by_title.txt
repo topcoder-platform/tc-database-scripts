@@ -1,85 +1,85 @@
-SELECT @pagination@ *,
-       CURRENT <= (SELECT scheduled_end_time FROM project_phase WHERE project_id = contest_id AND phase_type_id = 3) AS screening_phase,
-       CASE WHEN CURRENT <= (SELECT scheduled_end_time FROM project_phase WHERE project_id = contest_id AND phase_type_id = 3) THEN submission_count ELSE passing_submission_count END AS eligible_submissions
-  FROM  table(multiset(
-    SELECT p.project_id AS contest_id
-         , pi_name.value AS name
-         , pcl.project_category_id AS type_id
-         , pcl.name AS type_name
-         , ppr.actual_start_time AS start_time
-         , pps.scheduled_end_time AS end_time
-         , pi_amount.value::DECIMAL(10,2) AS amount
-         , (SELECT COUNT(*) 
-            FROM submission s1 
-            INNER JOIN upload u1 ON s1.upload_id = u1.upload_id
-            WHERE u1.project_id = p.project_id 
-            AND s1.submission_type_id IN (1, 3)
-            AND s1.submission_status_id <> 5) AS submission_count
-         , (SELECT COUNT(*) 
-            FROM submission s1 
-            INNER JOIN upload u1 ON s1.upload_id = u1.upload_id
-            WHERE u1.project_id = p.project_id
-            AND s1.submission_status_id IN (1,4)
-            AND s1.submission_type_id IN (1, 3)) AS passing_submission_count
-         , pprv.phase_status_id = 3 AS results_available
-         , NVL(pi_show_subs.value, 'false') = 'true' AS show_submissions 
-         , (SELECT COUNT(*) FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 1) AS registrants
-         , pi_forum.value::INT AS forum_id
-         , (SELECT SUM(pr.prize_amount * pr.number_of_submissions) 
-            FROM prize pr 
-            INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
-            WHERE prx.project_id = p.project_id
-            AND pr.prize_type_id IN (14, 15))::DECIMAL(10,2) AS prize_total
-         , (SELECT pr.prize_amount FROM prize pr
-            INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
-            WHERE prx.project_id = p.project_id
-            AND pr.prize_type_id = 15 and pr.place = 1)::DECIMAL(10,2) AS first_place
-         , pi_dr.value::DECIMAL(10, 2) AS dr_points
-         , (SELECT c.event_id
-            FROM contest c
-            INNER JOIN contest_project_xref pcx ON c.contest_id = pcx.contest_id
-            WHERE pcx.project_id = p.project_id) AS event_id
-         , ppm.scheduled_end_time AS milestone_date
-         , EXISTS (SELECT 1 
-                   FROM resource r 
-                   INNER JOIN resource_info ri ON r.resource_id = ri.resource_id 
-                   WHERE r.project_id = p.project_id 
-                   AND ri.resource_info_type_id = 1
-                   AND ri.value = '@uid@') AS user_resource_exists
-         , p.create_user = '@uid@' AS user_is_contest_author 
-         , p.project_category_id as contest_type_id
-         , (ppr.actual_start_time < '2012-06-30 23:59:59' and ppr.actual_start_time > '2011-10-24 00:00:00') as in_tco
-         , (SELECT COUNT(*) FROM upload u, submission s
-            WHERE u.project_id = p.project_id AND s.upload_id = u.upload_id
-            AND s.submission_type_id = 1 AND s.placement IS NOT NULL) AS winner_count
-    FROM project p
-    INNER JOIN project_info pi_name ON pi_name.project_id = p.project_id
-    INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
-    INNER JOIN project_phase ppr ON p.project_id = ppr.project_id
-    INNER JOIN project_phase pps ON p.project_id = pps.project_id
-    INNER JOIN project_phase pprv ON p.project_id = pprv.project_id
-    INNER  JOIN project_phase ppm ON p.project_id = ppm.project_id
-    INNER  JOIN project_info pi_amount ON pi_amount.project_id = p.project_id
-    INNER  JOIN project_info pi_dr ON pi_dr.project_id = p.project_id
-    INNER  JOIN project_info pi_forum ON pi_forum.project_id = p.project_id
-    INNER  JOIN project_info pi_show_subs ON pi_show_subs.project_id = p.project_id
-    WHERE p.project_status_id IN (1, 7, 9, 4, 10)
-    AND   pi_name.project_info_type_id = 6
-    AND   pi_amount.project_info_type_id = 36
-    AND   pi_dr.project_info_type_id = 30
-    AND   pi_forum.project_info_type_id = 4
-    AND   pi_show_subs.project_info_type_id = 53
-    AND   pcl.project_type_id = 3
-    AND   ppr.phase_type_id = 1
-    AND   ppr.phase_status_id = 3
-    AND   pps.phase_type_id = 2
-    AND   pps.phase_status_id = 3
-    AND   pprv.phase_type_id = 4
-    AND   ppm.phase_type_id = 15
-    AND NOT EXISTS (SELECT 'has_eligibility_constraints' 
-                    FROM contest_eligibility ce 
-                    WHERE ce.is_studio = 0 
-                    AND ce.contest_id = p.project_id)
-)) t
-WHERE LOWER(name) LIKE '@pjn@'
-ORDER BY @ms@
+SELECT @pagination@ *,
+       CURRENT <= (SELECT scheduled_end_time FROM project_phase WHERE project_id = contest_id AND phase_type_id = 3) AS screening_phase,
+       CASE WHEN CURRENT <= (SELECT scheduled_end_time FROM project_phase WHERE project_id = contest_id AND phase_type_id = 3) THEN submission_count ELSE passing_submission_count END AS eligible_submissions
+  FROM  table(multiset(
+    SELECT p.project_id AS contest_id
+         , pi_name.value AS name
+         , pcl.project_category_id AS type_id
+         , pcl.name AS type_name
+         , ppr.actual_start_time AS start_time
+         , pps.scheduled_end_time AS end_time
+         , pi_amount.value::DECIMAL(10,2) AS amount
+         , (SELECT COUNT(*) 
+            FROM submission s1 
+            INNER JOIN upload u1 ON s1.upload_id = u1.upload_id
+            WHERE u1.project_id = p.project_id 
+            AND s1.submission_type_id IN (1, 3)
+            AND s1.submission_status_id <> 5) AS submission_count
+         , (SELECT COUNT(*) 
+            FROM submission s1 
+            INNER JOIN upload u1 ON s1.upload_id = u1.upload_id
+            WHERE u1.project_id = p.project_id
+            AND s1.submission_status_id IN (1,4)
+            AND s1.submission_type_id IN (1, 3)) AS passing_submission_count
+         , pprv.phase_status_id = 3 AS results_available
+         , NVL(pi_show_subs.value, 'false') = 'true' AS show_submissions 
+         , (SELECT COUNT(*) FROM resource r WHERE r.project_id = p.project_id AND r.resource_role_id = 1) AS registrants
+         , pi_forum.value::INT AS forum_id
+         , (SELECT SUM(pr.prize_amount * pr.number_of_submissions) 
+            FROM prize pr 
+            INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
+            WHERE prx.project_id = p.project_id
+            AND pr.prize_type_id IN (14, 15))::DECIMAL(10,2) AS prize_total
+         , (SELECT pr.prize_amount FROM prize pr
+            INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
+            WHERE prx.project_id = p.project_id
+            AND pr.prize_type_id = 15 and pr.place = 1)::DECIMAL(10,2) AS first_place
+         , pi_dr.value::DECIMAL(10, 2) AS dr_points
+         , (SELECT c.event_id
+            FROM contest c
+            INNER JOIN contest_project_xref pcx ON c.contest_id = pcx.contest_id
+            WHERE pcx.project_id = p.project_id) AS event_id
+         , (SELECT ppm.scheduled_end_time FROM project_phase ppm WHERE ppm.project_id = p.project_id AND ppm.phase_type_id = 15) AS milestone_date
+         , EXISTS (SELECT 1 
+                   FROM resource r 
+                   INNER JOIN resource_info ri ON r.resource_id = ri.resource_id 
+                   WHERE r.project_id = p.project_id 
+                   AND ri.resource_info_type_id = 1
+                   AND ri.value = '@uid@') AS user_resource_exists
+         , p.create_user = '@uid@' AS user_is_contest_author 
+         , p.project_category_id as contest_type_id
+         , (ppr.actual_start_time < '2012-06-30 23:59:59' and ppr.actual_start_time > '2011-10-24 00:00:00') as in_tco
+         , (SELECT COUNT(*) FROM upload u, submission s
+            WHERE u.project_id = p.project_id AND s.upload_id = u.upload_id
+            AND s.submission_type_id = 1 AND s.placement IS NOT NULL) AS winner_count
+    FROM project p
+    INNER JOIN project_info pi_name ON pi_name.project_id = p.project_id
+    INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
+    INNER JOIN project_phase ppr ON p.project_id = ppr.project_id
+    INNER JOIN project_phase pps ON p.project_id = pps.project_id
+    INNER JOIN project_phase pprv ON p.project_id = pprv.project_id
+    -- INNER  JOIN project_phase ppm ON p.project_id = ppm.project_id
+    INNER  JOIN project_info pi_amount ON pi_amount.project_id = p.project_id
+    INNER  JOIN project_info pi_dr ON pi_dr.project_id = p.project_id
+    INNER  JOIN project_info pi_forum ON pi_forum.project_id = p.project_id
+    INNER  JOIN project_info pi_show_subs ON pi_show_subs.project_id = p.project_id
+    WHERE p.project_status_id IN (1, 7, 9, 4, 10)
+    AND   pi_name.project_info_type_id = 6
+    AND   pi_amount.project_info_type_id = 36
+    AND   pi_dr.project_info_type_id = 30
+    AND   pi_forum.project_info_type_id = 4
+    AND   pi_show_subs.project_info_type_id = 53
+    AND   pcl.project_type_id = 3
+    AND   ppr.phase_type_id = 1
+    AND   ppr.phase_status_id = 3
+    AND   pps.phase_type_id = 2
+    AND   pps.phase_status_id = 3
+    AND   pprv.phase_type_id = 4
+    -- AND   ppm.phase_type_id = 15
+    AND NOT EXISTS (SELECT 'has_eligibility_constraints' 
+                    FROM contest_eligibility ce 
+                    WHERE ce.is_studio = 0 
+                    AND ce.contest_id = p.project_id)
+)) t
+WHERE LOWER(name) LIKE '@pjn@'
+ORDER BY @ms@
