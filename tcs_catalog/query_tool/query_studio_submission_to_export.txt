@@ -1,0 +1,9 @@
+SELECT s.submission_id AS submission_id, u.parameter AS parameter, us.handle AS handle, us.user_id as user_id
+FROM user us, submission s INNER JOIN upload u on s.upload_id=u.upload_id
+WHERE
+u.project_id = @pj@ AND
+s.submission_type_id = 1 AND
+s.create_user = us.user_id AND
+(s.submission_status_id = 1 OR s.submission_status_id = 4) AND
+s.placement IN (1,2)
+ORDER BY s.placement ASC;
