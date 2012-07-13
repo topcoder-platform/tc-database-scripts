@@ -1,0 +1,20 @@
+SELECT
+      p.project_id AS contest_id
+    , proj_name.value AS contest_name
+    , compl_date.value AS completion_date
+    , winner_user.handle AS winner_handle
+    , runner_up_user.handle AS runner_up_handle
+FROM project p
+INNER JOIN project_info compl_date ON p.project_id = compl_date.project_id
+INNER JOIN project_info proj_name ON p.project_id = proj_name.project_id
+INNER JOIN project_info winner_id ON p.project_id = winner_id.project_id
+INNER JOIN user winner_user ON winner_id.value::DECIMAL(10,0) = winner_user.user_id
+LEFT  JOIN project_info runner_up_id ON p.project_id = runner_up_id.project_id
+LEFT  JOIN user runner_up_user ON runner_up_id.value::DECIMAL(10,0) = runner_up_user.user_id
+WHERE p.tc_direct_project_id = @tcdirectid@
+AND   p.project_status_id = 7
+AND   compl_date.project_info_type_id = 21
+AND   proj_name.project_info_type_id = 6
+AND   winner_id.project_info_type_id = 23
+AND   runner_up_id.project_info_type_id = 24
+ORDER BY 3

@@ -1,0 +1,27 @@
+SELECT * FROM (
+(SELECT s.submission_id AS submission_id, uff.parameter AS parameter, s.placement AS placement, us.handle AS handle, us.user_id as user_id
+FROM upload uff, user us, submission s INNER JOIN upload u ON s.upload_id = u.upload_id
+WHERE
+u.project_id = @ct@ AND
+s.submission_type_id = 1 AND
+s.submission_status_id = 1 AND
+s.placement = 1 AND
+s.create_user = us.user_id AND
+uff.project_id = @ct@ AND
+-- understand the following in this way :
+-- when there is final review phase, the last upload must be final fix - upload type is 3
+-- when there is no final review phase, the submission must be of type 1 and since this is the winning submission, the upload id should be equal to the submission's upload id
+uff.create_date = (SELECT max(create_date) FROM upload WHERE project_id=@ct@ AND (upload_type_id=3 OR (upload_type_id=1 AND upload_id=s.upload_id)))
+)
+UNION
+(
+SELECT s.submission_id AS submission_id, u.parameter AS parameter, s.placement AS placement, us.handle AS handle, us.user_id as user_id
+FROM user us, submission s INNER JOIN upload u on s.upload_id=u.upload_id
+WHERE
+u.project_id = @ct@ AND
+s.submission_type_id = 1 AND
+s.create_user = us.user_id AND
+(s.submission_status_id = 1 OR s.submission_status_id = 4) AND
+s.placement = 2
+))
+ORDER BY placement ASC;

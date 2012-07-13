@@ -373,4 +373,8 @@ query_studio_past_contests_multi_sort_count.txt|UPDATE query SET text = ? WHERE 
 query_studio_past_contests_multi_sort_v2.txt|UPDATE query SET text = ? WHERE query_id = 32178
 query_milestone_info.txt|UPDATE query SET text = ? WHERE query_id = 32186
 query_project_detail_v2.txt|UPDATE query SET text = ? WHERE query_id = 32206
-
+query_show_contests_download.txt|UPDATE query SET text = ? WHERE query_id = 32207
+query_contest_ids_to_export.txt|UPDATE query SET text = ? WHERE query_id = 32208
+query_software_submission_to_export.txt|UPDATE query SET text = ? WHERE query_id = 32209
+query_studio_submission_to_export.txt|UPDATE query SET text = ? WHERE query_id = 32210
+query_project_contest_results.txt|UPDATE query SET text = ? WHERE query_id = 32211
