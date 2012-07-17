@@ -1,5 +1,6 @@
 SELECT tdp.project_id AS tc_direct_project_id, 
-       tdp.name AS tc_direct_project_name, 
+       tdp.name AS tc_direct_project_name,
+       p.project_category_id AS project_category_id,
        (SELECT value FROM project_info WHERE project_id = p.project_id AND project_info_type_id = 6) AS contest_name, 
        p.project_id AS contest_id, 
        pcl.project_type_id = 3 AS is_studio, pcl.name as contest_type,

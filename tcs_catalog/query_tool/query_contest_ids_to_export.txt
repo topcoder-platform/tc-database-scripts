@@ -42,4 +42,4 @@ AND (EXISTS (SELECT u.user_id
                FROM user_permission_grant AS upg   
               WHERE resource_id=p.tc_direct_project_id AND permission_type_id in (1,2,3) 
                AND upg.user_id = @uid@ ))
-AND (EXISTS (SELECT tc_direct_project_id FROM tc_direct_project_export WHERE tc_direct_project_id=tdp.project_id));
+AND tdp.project_id in (4514);

@@ -2,7 +2,8 @@ SELECT COUNT(unique r.resource_id) AS registrants_count,
        SUM(NVL(ri.value::DECIMAL(10, 2), 0)) AS reliability_total,
        ROUND(SUM(NVL((trim(replace(ri.value, '%', ''))::DECIMAL(10, 2)), 0)) / 100, 0)::INT AS predicted_number_of_submissions,
        COUNT(s.submission_id) AS number_of_submissions,
-       (SELECT phase_status_id FROM project_phase WHERE project_id = @pj@ AND phase_type_id = 1) AS registration_phase_status
+       (SELECT phase_status_id FROM project_phase WHERE project_id = @pj@ AND phase_type_id = 1) AS registration_phase_status,
+       (SELECT project_category_id FROM project WHERE project_id = @pj@) AS project_category_id
 FROM resource r
 LEFT JOIN resource_info ri ON r.resource_id = ri.resource_id AND ri.resource_info_type_id = 5 AND UPPER(ri.value) <> 'N/A' AND ri.value <> ''
 LEFT JOIN upload u ON r.resource_id = u.resource_id AND u.upload_status_id = 1
