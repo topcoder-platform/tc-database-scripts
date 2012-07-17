@@ -175,14 +175,18 @@ when (p.project_status_id IN (1,2)
 			where project_id = p.project_id and project_info_type_id = 57 and value!='0'))
 		   then  
 (nvl((SELECT sum(prize_amount * number_of_submissions) from project_prize_xref ppx, prize pr
-                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id), 0)
+                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id and pr.prize_type_id = 14), 0)
     +
     nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
         where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
         and pi26.value = 'On'
         and pi26.project_id =  p.project_id ), 0)
+	+
+    nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 16
+        and project_id = p.project_id)/2), 0)
     +  nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
-        where project_info_type_id in (33, 35, 38, 39, 49)
+        where project_info_type_id in (33, 35, 16, 38, 39, 49)
         and project_id = p.project_id), 0)) *  nvl((select nvl(sum (cast (nvl (pi57.value, '0') as DECIMAL (10,2))), 0) from project_info pi57
 						where pi57.project_info_type_id = 57 and pi57.project_id =  p.project_id ), 0)  		             
 when (p.project_status_id in (9, 10) 
