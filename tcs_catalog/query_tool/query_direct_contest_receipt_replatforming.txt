@@ -193,6 +193,8 @@ when (p.project_status_id in (9, 10)
         and project_id = p.project_id) 
 
  else 0 end as contest_fee,
+ 
+(select value from project_info where project_info_type_id = 58 and project_id = p.project_id) as contest_launcher_id,
 
 case when p.project_status_id in (1, 2) then
     nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
