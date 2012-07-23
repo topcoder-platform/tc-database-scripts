@@ -378,3 +378,4 @@ query_contest_ids_to_export.txt|UPDATE query SET text = ? WHERE query_id = 32208
 query_software_submission_to_export.txt|UPDATE query SET text = ? WHERE query_id = 32209
 query_studio_submission_to_export.txt|UPDATE query SET text = ? WHERE query_id = 32210
 query_project_contest_results.txt|UPDATE query SET text = ? WHERE query_id = 32211
+query_dashboard_project_metrics_report.txt|UPDATE query SET text = ? WHERE query_id = 32212

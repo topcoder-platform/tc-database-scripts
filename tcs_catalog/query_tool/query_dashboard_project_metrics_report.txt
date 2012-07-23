@@ -9,8 +9,16 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
   s.projected_cost as projected_cost,
   s.planned_budget as planned_budget,
   SUM(1) AS total_number,
-	SUM(case when s.status='Completed' then 1 else 0 end) AS completed_number,
-  SUM(case when (s.status='Cancelled' ) then 1 else 0 end) AS cancelled_number,  
+      SUM(case when s.status='Draft' then 1 else 0 end) AS num_draft,
+      s.cost_draft as cost_draft,
+      SUM(case when s.status='Active' and not exists (select project_phase_id from project_phase where project_id = s.project_id and phase_type_id in (2,3)) then 1 else 0 end) AS num_scheduled,
+      s.cost_scheduled as cost_scheduled,     
+      SUM(case when s.status='Active' and exists (select project_phase_id from project_phase where project_id = s.project_id and phase_type_id = 2) then 1 else 0 end) AS num_active,
+      s.cost_active as cost_active,        
+      SUM(case when s.status='Completed' then 1 else 0 end) AS num_finished,
+      s.cost_finished as cost_finished,  
+      SUM(case when (s.status='Cancelled' ) then 1 else 0 end) AS num_cancelled,  
+      s.cost_cancelled as cost_cancelled,   
 	SUM(s.member_cost) AS total_member_cost,
 	SUM(CASE WHEN (s.contest_fee_percentage = 0) THEN s.contest_fee ELSE s.contest_fee_percentage * s.member_cost END)
 	    AS total_contest_fee,
@@ -25,6 +33,7 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
                                then 1 else SUM (case when s.status!='Cancelled' then 1 else 0 end) end), 2) AS fullfillment  
     
 FROM table(MULTISET(SELECT
+p.project_id as project_id,
 p.tc_direct_project_id as tc_direct_project_id,
 tdp.name as tc_direct_project_name,
 tdp.direct_project_type_id as direct_project_type_id,
@@ -35,10 +44,116 @@ ttc.client_id as client_id,
 ttp.project_id as billing_project_id,
 tdp.create_date as create_date,
 tdp.completion_date as completion_date,
-
-case when ppd.actual_start_time is not null then ppd.actual_start_time else psd.actual_start_time end as posting_date,
 to_date(pi1.value[1,16], '%m.%d.%Y %H:%M') as complete_date,
+nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0) 
+              + 
+                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+                  where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
+                  and pi26.value = 'On' 
+                  and pi26.project_id =  p.project_id ), 0) 
+              +
+                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                    where project_info_type_id = 16  
+                    and pi.project_id = p.project_id)/2), 0)
+               ) from project p where p.project_status_id = 2 and p.project_category_id != 27 
+                                and p.tc_direct_project_id = tdp.project_id), 0) as cost_draft,
 
+nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0) 
+              + 
+                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+                  where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
+                  and pi26.value = 'On' 
+                  and pi26.project_id =  p.project_id ), 0) 
+              +
+                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                    where project_info_type_id = 16 
+                    and pi.project_id = p.project_id)/2), 0)
+               ) from project p where p.project_status_id = 1 and p.project_category_id != 27 
+                                and p.tc_direct_project_id = tdp.project_id
+                                and not exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id in (2,3))), 0) as cost_scheduled,
+                                
+nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0) 
+              + 
+                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+                  where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
+                  and pi26.value = 'On' 
+                  and pi26.project_id =  p.project_id ), 0) 
+              +
+                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                    where project_info_type_id = 16  
+                    and pi.project_id = p.project_id)/2), 0)
+               ) from project p where p.project_status_id = 1 and p.project_category_id != 27 
+                                and p.tc_direct_project_id = tdp.project_id
+                                and exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id = 2)), 0) as cost_active,
+                                
+nvl((select sum(                              
+  NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+    +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+    +
+    nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
+        where project_info_type_id = 31
+        and project_id = p.project_id), 0)
+    +
+    nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+        where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+        and pi26.value = 'On'
+        and pi26.project_id =  p.project_id ), 0)) from project p where p.tc_direct_project_id = tdp.project_id 
+                   and p.project_status_id =7 and p.project_category_id != 27)
+ +
+ 
+ nvl((select sum(                              
+  NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+    +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0))
+     from project p where p.tc_direct_project_id = tdp.project_id 
+                   and p.project_status_id in (4,5,6,8) and p.project_category_id != 27), 0), 0) as cost_finished,
+                   
+ nvl((select sum(                              
+  NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id 
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+    +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.component_project_id = p.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id 
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0))
+     from project p where p.tc_direct_project_id = tdp.project_id 
+                   and p.project_status_id in (9, 10) and p.project_category_id != 27), 0) as cost_cancelled,
 nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
                   where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
                     and pi.project_id = p.project_id), 0) 
@@ -97,7 +212,9 @@ case when p.project_status_id = 7 then
 nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage, 
 
-case when p.project_status_id = 7 then 'Completed'
+case when p.project_status_id = 1 then 'Active'
+when p.project_status_id = 2 then 'Draft'
+when p.project_status_id in (7,4,5,6,8) then 'Completed'
 when p.project_status_id in (9, 10) then 'Cancelled'
 else 'Failed' end as status,
 
@@ -111,8 +228,6 @@ AS approval_phase_duration
 
 from 
   project p, 
-	OUTER project_phase psd, 
-	OUTER project_phase ppd, 
 	outer project_info pi1,
   corporate_oltp:tc_direct_project_status_lu tcdpsl,
   direct_project_type dpt,
@@ -134,10 +249,6 @@ p.project_id = pi3.project_id
   and tdp.project_id = p.tc_direct_project_id 
   and tcdpsl.project_status_id = tdp.project_status_id 
 
-and p.project_id = ppd.project_id  
-and psd.phase_type_id = 2  
-and ppd.phase_type_id = 1  
-and psd.project_id = p.project_id 
 and pi1.project_id = p.project_id  and pi1.project_info_type_id = 21 
 and p.project_status_id != 3  
 and p.project_category_id != 27 
@@ -145,8 +256,8 @@ and p.project_category_id != 27
 and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
 and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
 and p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@)
-and (tdp.completion_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-and tcdpsl.name IN (@projectStatuses@) 
+and (tdp.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+and tcdpsl.project_status_id IN (@directProjectStatusIds@) 
 
 and (exists (select u.user_id 
          from user as u 
@@ -161,5 +272,5 @@ and (exists (select u.user_id
               where resource_id=p.tc_direct_project_id and permission_type_id in (0,1,2,3) 
                and upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) ))
 )) AS s
-GROUP BY tc_direct_project_id,tc_direct_project_name,project_status_id, project_status_name,create_date, completion_date, projected_cost, direct_project_type_id, direct_project_type_name, planned_budget
+GROUP BY tc_direct_project_id,tc_direct_project_name,project_status_id, project_status_name,create_date, completion_date, projected_cost, direct_project_type_id, direct_project_type_name, planned_budget, cost_draft,cost_scheduled,cost_active,cost_finished, cost_cancelled
 order by tc_direct_project_id
