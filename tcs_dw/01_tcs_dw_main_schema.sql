@@ -865,6 +865,10 @@ create table 'informix'.participation_metrics_report_member (
     is_submitter BOOLEAN,
     is_milestone_winner BOOLEAN,
     is_final_winner BOOLEAN,
+	num_of_milestone_subs DECIMAL(8, 0),
+	num_of_final_subs DECIMAL(8, 0),
+	num_of_milestone_wins DECIMAL(8, 0),
+	num_of_final_wins DECIMAL(8, 0),
     country_code NVARCHAR(3),
     country VARCHAR(100)
 )
