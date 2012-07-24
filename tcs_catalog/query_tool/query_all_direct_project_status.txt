@@ -1,0 +1,2 @@
+SELECT project_status_id AS direct_project_status_id, name AS direct_project_status_name
+FROM corporate_oltp:tc_direct_project_status_lu

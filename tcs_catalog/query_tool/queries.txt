@@ -379,3 +379,8 @@ query_software_submission_to_export.txt|UPDATE query SET text = ? WHERE query_id
 query_studio_submission_to_export.txt|UPDATE query SET text = ? WHERE query_id = 32210
 query_project_contest_results.txt|UPDATE query SET text = ? WHERE query_id = 32211
 query_dashboard_project_metrics_report.txt|UPDATE query SET text = ? WHERE query_id = 32212
+query_direct_my_projects_v2.txt|UPDATE query SET text = ? WHERE query_id = 32216
+query_enterprise_dashboard_filter_projects.txt|UPDATE query SET text = ? WHERE query_id = 32217
+query_enterprise_dashboard_projects_financial.txt|UPDATE query SET text = ? WHERE query_id = 32218
+query_enterprise_dashboard_total_spend.txt|UPDATE query SET text = ? WHERE query_id = 32219
+query_all_direct_project_status.txt|UPDATE query SET text = ? WHERE query_id = 32213
