@@ -6,10 +6,10 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
   s.project_status_name as project_status_name,
   s.create_date as create_date,
   s.completion_date as completion_date,
-  s.projected_cost as projected_cost,
-  s.planned_budget as planned_budget,
+  s.planned_cost as planned_cost,
+  s.total_budget as total_budget,
   SUM(1) AS total_number,
-      SUM(case when s.status='Draft' then 1 else 0 end) AS num_draft,
+      s.num_draft as num_draft,
       s.cost_draft as cost_draft,
       SUM(case when s.status='Active' and not exists (select project_phase_id from project_phase where project_id = s.project_id and phase_type_id in (2,3)) then 1 else 0 end) AS num_scheduled,
       s.cost_scheduled as cost_scheduled,     
@@ -27,7 +27,7 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
 	    / (case when SUM(case when s.status='Completed' then 1 else 0 end)=0 
 				then 1 else SUM(case when s.status='Completed' then 1 else 0 end) end), 2) AS average_contest_fee,
 	
-	SUM((CASE WHEN (s.contest_fee_percentage IS NULL  or s.contest_fee_percentage =0) THEN s.contest_fee ELSE s.contest_fee_percentage * s.member_cost END) + s.member_cost) AS total_cost,
+	SUM((CASE WHEN (s.contest_fee_percentage IS NULL  or s.contest_fee_percentage =0) THEN s.contest_fee ELSE s.contest_fee_percentage * s.member_cost END) + s.member_cost) AS actual_cost,
 	
 	ROUND (SUM(case when s.status='Completed' then 1 else 0 end)*100/(case when SUM (case when s.status!='Cancelled' then 1 else 0 end)=0
                                then 1 else SUM (case when s.status!='Cancelled' then 1 else 0 end) end), 2) AS fullfillment  
@@ -167,8 +167,9 @@ nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))),
                     where project_info_type_id = 16  
                     and pi.project_id = p.project_id)/2), 0)
                ) from project p where p.project_status_id IN (1 ,2)  and p.project_category_id != 27 and p.project_status_id != 3
-                                and p.tc_direct_project_id = tdp.project_id), 0) as projected_cost,
-nvl((select nvl(mb.metadata_value, 0) from  direct_project_metadata mb where mb.tc_direct_project_id = tdp.project_id  and mb.project_metadata_key_id = 3), 0) as planned_budget,
+                                and p.tc_direct_project_id = tdp.project_id), 0) as planned_cost,
+nvl((select nvl(mb.metadata_value, 0) from  direct_project_metadata mb where mb.tc_direct_project_id = tdp.project_id  and mb.project_metadata_key_id = 3), 0) as total_budget,
+nvl((select count(project_id) from project p where tc_direct_project_id = tdp.project_id and p.project_status_id = 2 and p.project_category_id != 27),0) as num_draft,
 case when p.project_status_id = 7 then
     NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
@@ -230,7 +231,7 @@ from
   project p, 
 	outer project_info pi1,
   corporate_oltp:tc_direct_project_status_lu tcdpsl,
-  direct_project_type dpt,
+  outer direct_project_type dpt,
   tc_direct_project tdp,
   project_info pi3, -- billing account
   
@@ -272,5 +273,5 @@ and (exists (select u.user_id
               where resource_id=p.tc_direct_project_id and permission_type_id in (0,1,2,3) 
                and upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) ))
 )) AS s
-GROUP BY tc_direct_project_id,tc_direct_project_name,project_status_id, project_status_name,create_date, completion_date, projected_cost, direct_project_type_id, direct_project_type_name, planned_budget, cost_draft,cost_scheduled,cost_active,cost_finished, cost_cancelled
+GROUP BY tc_direct_project_id,tc_direct_project_name,project_status_id, project_status_name,create_date, completion_date, planned_cost, direct_project_type_id, direct_project_type_name, total_budget, cost_draft,cost_scheduled,cost_active,cost_finished, cost_cancelled, num_draft
 order by tc_direct_project_id
