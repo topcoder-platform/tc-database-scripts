@@ -5,21 +5,22 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
   s.project_status_id as project_status_id,
   s.project_status_name as project_status_name,
   s.create_date as create_date,
-  s.completion_date as completion_date,
+  s.completion_date as completion_date,  s.total_budget as total_budget,
+  s.num_draft as num_draft,
+      s.cost_draft as cost_draft,s.cost_scheduled as cost_scheduled,   s.cost_active as cost_active,       s.cost_finished as cost_finished,    s.cost_cancelled as cost_cancelled,  
+       SUM(1) AS total_number, 
 	SUM(CASE WHEN s.contest_fee_percentage IS NULL  or s.contest_fee_percentage =0
 	         THEN s.planned_cost ELSE s.contest_fee_percentage * s.percentage_planned_cost  + s.percentage_planned_cost END) AS planned_cost,
-  s.total_budget as total_budget,
-  SUM(1) AS total_number,
-      s.num_draft as num_draft,
-      s.cost_draft as cost_draft,
+
+
       SUM(case when s.status='Active' and not exists (select project_phase_id from project_phase where project_id = s.project_id and phase_type_id in (2,3)) then 1 else 0 end) AS num_scheduled,
-      s.cost_scheduled as cost_scheduled,     
+         
       SUM(case when s.status='Active' and exists (select project_phase_id from project_phase where project_id = s.project_id and phase_type_id = 2) then 1 else 0 end) AS num_active,
-      s.cost_active as cost_active,        
+      
       SUM(case when s.status='Completed' then 1 else 0 end) AS num_finished,
-      s.cost_finished as cost_finished,  
+     
       SUM(case when (s.status='Cancelled' ) then 1 else 0 end) AS num_cancelled,  
-      s.cost_cancelled as cost_cancelled,   
+     
 	SUM(s.member_cost) AS total_member_cost,
 	SUM(CASE WHEN (s.contest_fee_percentage = 0) THEN s.contest_fee ELSE s.contest_fee_percentage * s.member_cost END)
 	    AS total_contest_fee,
@@ -288,5 +289,5 @@ and (exists (select u.user_id
               where resource_id=p.tc_direct_project_id and permission_type_id in (0,1,2,3) 
                and upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) ))
 )) AS s
-GROUP BY tc_direct_project_id,tc_direct_project_name,project_status_id, project_status_name,create_date, completion_date, planned_cost, direct_project_type_id, direct_project_type_name, total_budget, cost_draft,cost_scheduled,cost_active,cost_finished, cost_cancelled, num_draft
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
 order by tc_direct_project_id
