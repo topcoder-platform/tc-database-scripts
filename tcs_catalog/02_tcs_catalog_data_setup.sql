@@ -850,7 +850,7 @@ INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VAL
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25830, 'directProjectStatusIds', 1005, 'Direct Project Status Ids');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25831, 'directProjectStatusId', 1001, 'directProjectStatusId');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25832, 'metakeyid', 1001, 'The project metadata key id');
-INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25833, 'metavalue', 1001, 'The project metadata value');
+INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25833, 'metavalue', 1005, 'The project metadata value');
 
 INSERT INTO 'informix'.comp_level(level_id,description) VALUES (0, 'No Level Selected');
 INSERT INTO 'informix'.comp_level(level_id,description) VALUES (100, 'Level 1');
