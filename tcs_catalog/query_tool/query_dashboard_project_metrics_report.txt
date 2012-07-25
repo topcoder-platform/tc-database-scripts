@@ -6,7 +6,8 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
   s.project_status_name as project_status_name,
   s.create_date as create_date,
   s.completion_date as completion_date,
-  s.planned_cost as planned_cost,
+	SUM(CASE WHEN s.contest_fee_percentage IS NULL  or s.contest_fee_percentage =0
+	         THEN s.planned_cost ELSE s.contest_fee_percentage * s.percentage_planned_cost  + s.percentage_planned_cost END) AS planned_cost,
   s.total_budget as total_budget,
   SUM(1) AS total_number,
       s.num_draft as num_draft,
@@ -154,8 +155,7 @@ nvl((select sum(
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0))
      from project p where p.tc_direct_project_id = tdp.project_id 
                    and p.project_status_id in (9, 10) and p.project_category_id != 27), 0) as cost_cancelled,
-				   
-nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
                   where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
                     and pi.project_id = p.project_id), 0) 
               + 
@@ -167,9 +167,22 @@ nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))),
                 nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
                     where project_info_type_id = 16  
                     and pi.project_id = p.project_id)/2), 0)
-               ) from project p where p.project_category_id != 27 and p.project_status_id != 3
-                                and p.tc_direct_project_id = tdp.project_id), 0) as planned_cost,
-								
+               ), 0) as planned_cost,
+                                
+nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (33, 35, 16, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0) 
+              + 
+                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+                  where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
+                  and pi26.value = 'On' 
+                  and pi26.project_id =  p.project_id ), 0) 
+              +
+                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                    where project_info_type_id = 16  
+                    and pi.project_id = p.project_id)/2), 0)
+               ), 0) as percentage_planned_cost,
+                                
 nvl((select nvl(mb.metadata_value, 0) from  direct_project_metadata mb where mb.tc_direct_project_id = tdp.project_id  and mb.project_metadata_key_id = 3), 0) as total_budget,
 nvl((select count(project_id) from project p where tc_direct_project_id = tdp.project_id and p.project_status_id = 2 and p.project_category_id != 27),0) as num_draft,
 case when p.project_status_id = 7 then
