@@ -154,6 +154,7 @@ nvl((select sum(
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0))
      from project p where p.tc_direct_project_id = tdp.project_id 
                    and p.project_status_id in (9, 10) and p.project_category_id != 27), 0) as cost_cancelled,
+				   
 nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
                   where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
                     and pi.project_id = p.project_id), 0) 
@@ -166,8 +167,9 @@ nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))),
                 nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
                     where project_info_type_id = 16  
                     and pi.project_id = p.project_id)/2), 0)
-               ) from project p where p.project_status_id IN (1 ,2)  and p.project_category_id != 27 and p.project_status_id != 3
+               ) from project p where p.project_category_id != 27 and p.project_status_id != 3
                                 and p.tc_direct_project_id = tdp.project_id), 0) as planned_cost,
+								
 nvl((select nvl(mb.metadata_value, 0) from  direct_project_metadata mb where mb.tc_direct_project_id = tdp.project_id  and mb.project_metadata_key_id = 3), 0) as total_budget,
 nvl((select count(project_id) from project p where tc_direct_project_id = tdp.project_id and p.project_status_id = 2 and p.project_category_id != 27),0) as num_draft,
 case when p.project_status_id = 7 then
