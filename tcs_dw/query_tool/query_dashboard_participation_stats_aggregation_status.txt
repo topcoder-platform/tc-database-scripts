@@ -20,9 +20,9 @@ SELECT
      END) AS group_name,
      COUNT(pmrm.registrant_id) AS total_registrants_count,
      COUNT(DISTINCT pmrm.registrant_id) AS unique_registrants_count,
-     SUM(CASE WHEN pmrm.is_submitter THEN 1 ELSE 0 END) AS total_submissions_count,
-     SUM(CASE WHEN pmrm.is_milestone_winner THEN 1 ELSE 0 END) AS milestone_winners_count,
-     SUM(CASE WHEN pmrm.is_final_winner THEN 1 ELSE 0 END) AS final_winners_count
+     SUM(nvl(pmrm.num_of_final_subs, 0)) +  SUM(nvl(pmrm.num_of_milestone_subs, 0)) AS total_submissions_count,
+     SUM(nvl(pmrm.num_of_milestone_wins, 0)) AS milestone_winners_count,
+     SUM(nvl(pmrm.num_of_final_wins, 0)) AS final_winners_count
 FROM
     project p
     INNER JOIN client_project_dim cpd ON cpd.client_project_id = p.client_project_id
