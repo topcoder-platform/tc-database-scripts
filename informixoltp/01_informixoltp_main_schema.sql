@@ -4052,6 +4052,15 @@ create view "informix".rated_members (user_id) as
       where (x1.num_ratings > 0.0000000000000000 ) ;
 revoke all on rated_members from 'public';
 
+create table 'informix'.round_behavior (
+    round_id INT not null,
+    behavior_id INT default 1 not null
+)
+extent size 32 next size 32
+lock mode row;
+revoke all on round_behavior FROM 'public';
+grant delete, select, insert, update, index on round_behavior to 'public' as 'informix';
+
 grant select on rating to 'informix' with grant option ;
 
 grant delete on rating to 'informix' with grant option ;
