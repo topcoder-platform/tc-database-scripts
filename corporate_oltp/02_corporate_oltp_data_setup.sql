@@ -188,32 +188,32 @@ INSERT INTO direct_project_category (direct_project_category_id,direct_project_t
 INSERT INTO direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (15,1,'Portal');
 
 insert into direct_project_type VALUES (2, "Web Site");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (20, 2, "Marketing");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (20, 2, "Marketing");
 
 insert into direct_project_type VALUES (3, "Mobile Application");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (30, 3, "iPhone");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (31, 3, "Android Phone");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (32, 3, "iPad");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (33, 3, "Multi-Platform");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (30, 3, "iPhone");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (31, 3, "Android Phone");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (32, 3, "iPad");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (33, 3, "Multi-Platform");
 INSERT INTO direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (34,3,'Android Tablet');
 
 
 insert into direct_project_type VALUES (4, "Desktop Application");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (40, 4, "Windows App");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (41, 4, "Mac OSX App");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (40, 4, "Windows App");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (41, 4, "Mac OSX App");
 
 insert into direct_project_type VALUES (5, "Business Intelligence");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (50, 5, "Report Development");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (51, 5, "Data Warehousing");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (52, 5, "Analytics");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (50, 5, "Report Development");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (51, 5, "Data Warehousing");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (52, 5, "Analytics");
 
 insert into direct_project_type VALUES (6, "Content Creation");
 
 insert into direct_project_type VALUES (7, "Presentation");
 
 insert into direct_project_type VALUES (8, "Other");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (80, 8, "Conversion/Migration");
-insert into direct_project_category VALUES (direct_project_category_id,direct_project_type_id,name) (81, 8, "QA Existing Product"); 
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (80, 8, "Conversion/Migration");
+insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (81, 8, "QA Existing Product"); 
 
 
 
