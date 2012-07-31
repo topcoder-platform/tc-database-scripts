@@ -1,7 +1,7 @@
 SELECT pm.create_date payment_date, p.project_id as contest_id,  ttc.name client,	ttp.name billing_project_name,  tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
        nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id = 29 then 4
+                where phase_type_id = (case when p.project_category_id in (29, 9) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
 				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
@@ -18,7 +18,7 @@ SELECT pm.create_date payment_date, p.project_id as contest_id,  ttc.name client
         null::int as contest_fee,
   SUM(case when p.project_status_id  in (1,7) 
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id = 29 then 4
+                where phase_type_id = (case when p.project_category_id in (29, 9) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
                 and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
@@ -128,7 +128,7 @@ union  all -- reliability
 SELECT pm2.create_date payment_date, p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
        nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id = 29 then 4
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
 				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
@@ -144,7 +144,7 @@ SELECT pm2.create_date payment_date, p.project_id as contest_id, ttc.name client
         null::int as contest_fee,
   SUM(case when p.project_status_id  in (1,7) 
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id = 29 then 4
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10 else 4 end) 
                 and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
    then
@@ -238,7 +238,7 @@ SELECT (pm.create_date) payment_date, p.project_id as contest_id, ttc.name clien
        ttp.name billing_project_name, tdp.name direct_project_name, 
 	   (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
        nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id = 29 then 4
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
 				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
@@ -258,7 +258,7 @@ SELECT (pm.create_date) payment_date, p.project_id as contest_id, ttc.name clien
         null::int as contest_fee,
   SUM(case when p.project_status_id  in (1,7) 
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id = 29 then 4
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end)  
                 and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
@@ -367,7 +367,7 @@ SELECT (select max (scheduled_start_time) from project_phase where phase_type_id
        ttc.name client,	ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
 nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id = 29 then 4
+                where phase_type_id = (case when p.project_category_id in (9,  29) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
 				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
@@ -386,7 +386,7 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
 
   SUM(case when p.project_status_id  in (1,7) 
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id = 29 then 4
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
                 and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
