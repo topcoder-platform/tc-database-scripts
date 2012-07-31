@@ -1,0 +1,4 @@
+SELECT name, description
+  FROM jive:template_project_forum
+  WHERE direct_project_type_id = @pt@ OR (direct_project_type_id IS NULL AND 0 = @pt@)
+  ORDER BY display_order
