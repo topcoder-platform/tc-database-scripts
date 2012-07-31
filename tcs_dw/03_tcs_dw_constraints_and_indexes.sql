@@ -546,3 +546,6 @@ CREATE INDEX 'informix'.participationmetricsreportcopilot_contestid_idx ON 'info
 CREATE INDEX 'informix'.participationmetricsreportmember_contestid_idx ON 'informix'.participation_metrics_report_member(contest_id);
 CREATE INDEX 'informix'.project_tcdiretcprojectid_idx ON 'informix'.project(tc_direct_project_id);
 
+ALTER TABLE 'informix'.jira_issue ADD CONSTRAINT UNIQUE(ticket_id) CONSTRAINT unique_jira_issue_ticket_id;
+
+

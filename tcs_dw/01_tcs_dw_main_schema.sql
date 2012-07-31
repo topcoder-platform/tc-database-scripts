@@ -888,6 +888,28 @@ create table "informix".user_permission_grant
   )  
   extent size 500 next size 500
   lock mode row;
+  
+  CREATE TABLE 'informix'.jira_issue(
+	jira_issue_id INT,
+	ticket_id VARCHAR(255),
+	reporter VARCHAR(255),
+	assignee VARCHAR(255),
+	summary VARCHAR(255),
+	description TEXT,
+	created DATETIME YEAR TO FRACTION,
+	updated DATETIME YEAR TO FRACTION,
+	due_date DATETIME YEAR TO FRACTION,
+	resolution_date DATETIME YEAR TO FRACTION,
+	votes INT,
+	winner VARCHAR(255),
+	payment_amount DECIMAL(15, 2),
+	contest_id INT,
+	status VARCHAR(255),
+	PRIMARY KEY(jira_issue_id) CONSTRAINT  "informix".pk_jira_issue
+) 
+EXTENT SIZE 32 NEXT SIZE 32 
+LOCK MODE ROW;
+
 
 revoke all on "informix".user_permission_grant from "public" as "informix";
 
@@ -1548,3 +1570,8 @@ grant index, update, delete, select, insert on user_achievement_xref to 'public'
 grant index, update, delete, select, insert on participation_metrics_report_copilot to 'public' as 'informix';
 grant index, update, delete, select, insert on participation_metrics_report_member to 'public' as 'informix';
 grant index, update, delete, select, insert on user_permission_grant to 'public' as 'informix';
+
+CREATE SEQUENCE jira_issue_seq INCREMENT BY 1 START WITH 1 MINVALUE 1;
+
+grant index, update, delete, select, insert on jira_issue to 'public' as 'informix';
+grant select on jira_issue_seq to 'public' as 'informix';

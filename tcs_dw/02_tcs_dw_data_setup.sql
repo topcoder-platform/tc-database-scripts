@@ -990,6 +990,7 @@ INSERT INTO 'informix'.user_achievement_rule(
 		
 INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) values (4, 'TCS Load');
 INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) values (5, 'Participation Metrics');
+INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) VALUES (6, 'JIRA Load');
 
 
 
