@@ -759,7 +759,9 @@ FROM project p,
 where  p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
-  and p.project_status_id = 7
+  and (p.project_status_id = 7 
+         OR (p.project_status_id in (9, 10) 
+				and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))))
   and p.project_id = pi57.project_id
   and pi57.project_info_type_id = 57
   and ((cast (nvl(pi57.value, '0') as DECIMAL (10,2))) > 0) 
