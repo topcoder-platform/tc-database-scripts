@@ -1126,4 +1126,6 @@ query_is_eligible_country.txt|UPDATE query SET text= ? WHERE query_id=32016
 query_invalid_handle.txt|UPDATE query SET text= ? WHERE query_id=32136
 query_invalid_handle_all.txt|UPDATE query SET text= ? WHERE query_id=32137
 query_long_contest_active_contests_user.txt|UPDATE query SET text= ? WHERE query_id=31721
+query_long_contest_invisible_round_check.txt|UPDATE query SET text= ? WHERE query_id=31732
+query_long_contest_exclusive_round_check.txt|UPDATE query SET text= ? WHERE query_id=29916
 
