@@ -8,20 +8,10 @@ select c.component_name
         as phase_id
      , pi1.scheduled_start_time as submission_start
      , pi1.scheduled_end_time as submission_end
-     , null::DATETIME YEAR TO FRACTION  as screening_start
-     , null::DATETIME YEAR TO FRACTION  as screening_end
+     , (pi1.scheduled_end_time - pi1.scheduled_start_time)::INTERVAL HOUR(4) to HOUR as submission_duration
      , pi3.scheduled_start_time as review_start
      , pi3.scheduled_end_time as review_end
-     , null::DATETIME YEAR TO FRACTION  as aggregation_start
-     , null::DATETIME YEAR TO FRACTION  as aggregation_end
-     , null::DATETIME YEAR TO FRACTION  as final_fix_start
-     , null::DATETIME YEAR TO FRACTION  as final_fix_end
-     , null::DATETIME YEAR TO FRACTION  as final_review_start
-     , null::DATETIME YEAR TO FRACTION  as final_review_end
-     , null::DATETIME YEAR TO FRACTION  as appeals_start
-     , null::DATETIME YEAR TO FRACTION  as appeals_end
-     , null::DATETIME YEAR TO FRACTION  as primary_review_evaluation_start
-     , null::DATETIME YEAR TO FRACTION  as primary_review_evaluation_end
+     , (pi3.scheduled_end_time - pi3.scheduled_start_time)::INTERVAL HOUR(4) to HOUR as review_duration
      , ph.parameter::int reviewers_required
      , 'f'::boolean as screening_extension_needed
      , (case when pi3.phase_status_id=2 and current + 48 units hour > pi3.scheduled_end_time then 't' else 'f' end)::boolean as review_extension_needed
