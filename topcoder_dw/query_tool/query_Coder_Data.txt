@@ -1,6 +1,3 @@
---
--- Coder_Data query
---
 SELECT c.handle
      , c.coder_id
      , c.quote
@@ -17,6 +14,7 @@ SELECT c.handle
            AND cix.display_flag = 1
            AND i.image_type_id = 1) as has_image
      , co.country_name
+     , co.country_code
      , 0 AS design_earnings
     , (SELECT r.rating
           FROM coder c
