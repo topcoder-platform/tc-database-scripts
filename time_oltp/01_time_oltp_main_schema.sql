@@ -2800,3 +2800,9 @@ CREATE SEQUENCE customer_platform_fee_seq;
 
 grant select on "informix".customer_platform_fee_seq to "public" as "informix";
 
+grant update on customer_platform_fee to 'public' as 'informix';
+grant insert on customer_platform_fee to 'public' as 'informix';
+grant delete on customer_platform_fee to 'public' as 'informix';
+grant select on customer_platform_fee to 'public' as 'informix';
+grant index on customer_platform_fee to 'public' as 'informix';
+
