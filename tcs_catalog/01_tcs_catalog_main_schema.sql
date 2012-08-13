@@ -1539,7 +1539,6 @@ lock mode row;
 
 revoke all on project_info from 'public';
 
-
 CREATE TABLE 'informix'.copilot_profile (
     copilot_profile_id DECIMAL(10,0) NOT NULL,
     user_id DECIMAL(10, 0) NOT NULL,
@@ -1551,7 +1550,9 @@ CREATE TABLE 'informix'.copilot_profile (
     create_user VARCHAR(64) NOT NULL,
     create_date DATETIME YEAR TO FRACTION  NOT NULL,
     update_user VARCHAR(64) NOT NULL,
-    update_date DATETIME YEAR TO FRACTION  NOT NULL
+    update_date DATETIME YEAR TO FRACTION  NOT NULL,
+    is_software_copilot BOOLEAN DEFAULT 'f',
+    is_studio_copilot BOOLEAN DEFAULT 'f'
 )
 extent size 16 next size 16
 lock mode row;
