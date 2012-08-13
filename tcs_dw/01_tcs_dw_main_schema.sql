@@ -819,9 +819,11 @@ CREATE TABLE 'informix'.user_achievement_rule (
 	user_achievement_rule_id DECIMAL(12,0) NOT NULL,
     user_achievement_name NVARCHAR(254,0) NOT NULL,
 	user_achievement_rule_desc NVARCHAR(254,0) NOT NULL,
-	user_achievement_rule_sql_file NVARCHAR(254,0) NOT NULL,
-	user_achievement_type_id DECIMAL(12,0) NOT NULL
-) 
+	user_achievement_rule_sql_file NVARCHAR(254,0),
+	user_achievement_type_id DECIMAL(12,0) NOT NULL,
+	is_automated BOOLEAN DEFAULT 't',
+	db_schema VARCHAR(50) DEFAULT 'tcs_catalog'
+)
 extent size 128 next size 128
 lock mode page;
 

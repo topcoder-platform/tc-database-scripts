@@ -847,145 +847,200 @@ INSERT INTO 'informix'.user_achievement_type_lu(user_achievement_type_id, user_a
 -------------------------- Populating Data For user_achievement_rule  --------------------------------
 ------------------------------------------------------------------------------------------------------	
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (1, "First Forum Post", "first forum post", "first_forum_post.sql", 3);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (1, 'First Forum Post', 'First forum post', 'first_forum_post.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (2, "First Passing Submission", "first passing submission", "first_passing_submission.sql", 3);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (2, 'One Hundred Forum Posts', 'One hundred forum posts', 'one_hundred_forum_posts.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (3, "First Milestone Prize", "first milestone prize", "first_milestone_prize.sql", 3);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (3, 'Five Hundred Forum Posts', 'Five hundred forum posts', 'five_hundred_forum_posts.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (4, "First Placement", "first placement(any final prize)", "first_placement.sql", 3);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (4, 'One Thousand Forum Posts', 'One thousand forum posts', 'one_thousand_forum_posts.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (5, "First Win", "first win(first-place final prize)", "first_win.sql", 3);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (5, 'Five Thousand Forum Posts', 'Five thousand forum posts', 'five_thousand_forum_posts.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (6, "10 Forums Posts", "10 forum posts", "ten_forum_posts.sql", 3);
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (7, "10 Passwing Submissions", "10 passing submissions", "ten_passing_submissions.sql", 3);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (6, 'First Passing Submission', 'First passing submission', 'first_passing_submission.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (8, "10 Milestone Prizes", "10 milestone prizes", "ten_milestone_prize.sql", 3);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (7, 'Fifty Passing Submissions', 'Fifty passing submissions', 'fifty_passing_submissions.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (9, "10 Placements", "10 placements(any final prize from 1st place downward)", "ten_first_placement.sql", 3);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (8, 'One Hundred Passing Submissions', 'One hundred passing submissions', 'one_hundred_passing_submissions.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (10, "10 Wins", "10 wins (1st place only)", "ten_first_win.sql", 3);
-		
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (11, "First Forum Post", "first forum post", "studio_first_forum_post.sql", 1);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (9, 'Two Hundred And Fifty Passing Submissions', 'Two hundred and fifty passing submissions', 'two_hundred_and_fifty_passing_submissions.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (12, "First Passing Submission", "first passing submission", "studio_first_passing_submission.sql", 1);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (10, 'Five Hundred Passing Submissions', 'Five hundred passing submissions', 'five_hundred_passing_submissions.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (13, "First Milestone Prize", "first milestone prize", "studio_first_milestone_prize.sql", 1);
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (14, "First Placement", "first placement(any final prize)", "studio_first_placement.sql", 1);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (11, 'First Milestone Prize', 'First milestone prize', 'first_milestone_prize.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (15, "First Win", "first win(first-place final prize)", "studio_first_win.sql", 1);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (12, 'Fifty Milestone Prize', 'Fifty milestone prize', 'fifty_milestone_prize.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (16, "10 Forum Posts", "10 forum posts", "studio_ten_forum_posts.sql", 1);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (13, 'One Hundred Milestone Prize', 'One hundred milestone prize', 'one_hundred_milestone_prize.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (17, "10 Passing Submissions", "10 passing submissions", "studio_ten_passing_submissions.sql", 1);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (14, 'Two Hundred And Fifty Milestone Prize', 'Two hundred and fifty milestone prize', 'two_hundred_and_fifty_milestone_prize.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (18, "10 Milestone Prizes", "10 milestone prizes", "studio_ten_milestone_prize.sql", 1);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (15, 'Five Hundred Milestone Prize', 'Five hundred milestone prize', 'five_hundred_milestone_prize.sql', 3, 't');
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (19, "10 Placements", "10 placements(any final prize from 1st place downward)", "studio_ten_first_placement.sql", 1);
 
-INSERT INTO 'informix'.user_achievement_rule(
-		user_achievement_rule_id,
-		user_achievement_name, user_achievement_rule_desc,
-		user_achievement_rule_sql_file,
-		user_achievement_type_id)
-		VALUES (20, "10 Wins", "10 wins (1st place only)", "studio_ten_first_win.sql", 1);
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (16, 'First Placement', 'First placement', 'first_placement.sql', 3, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (17, 'Twenty Five Placements', 'Twenty five placements', 'twenty_five_placements.sql', 3, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (18, 'Fifty Placements', 'Fifty placements', 'fifty_placements.sql', 3, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (19, 'One hundred Placements', 'One hundred placements', 'one_hundred_placements.sql', 3, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (20, 'Two Hundred And Fifty Placements', 'Two hundred and fifty placements', 'two_hundred_and_fifty_placements.sql', 3, 't');
+
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (21, 'First Win', 'First win', 'first_win.sql', 3, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (22, 'Twenty Five First Placement Win', 'Twenty five first placement win', 'twenty_five_first_win.sql', 3, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (23, 'Fifty First Placement Win', 'Fifty first placement win', 'fifty_first_win.sql', 3, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (24, 'One Hundred First Placement Win', 'One hundred first placement win', 'one_hundred_first_win.sql', 3, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (25, 'Two Hundred And Fifty First Placement Win', 'Two hundred and fifty first placement win', 'two_hundred_and_fifty_first_win.sql', 3, 't');
+
+
+---Studio
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (26, 'Studio First Forum Post', 'Studio first forum post', 'studio_first_forum_post.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (27, 'Studio One Hundred Forum Posts', 'Studio one hundred forum posts', 'studio_one_hundred_forum_posts.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (28, 'Studio Five Hundred Forum Posts', 'Studio five hundred forum posts', 'studio_five_hundred_forum_posts.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (29, 'Studio One Thousand Forum Posts', 'Studio one thousand forum posts', 'studio_one_thousand_forum_posts.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (30, 'Studio Five Thousand Forum Posts', 'Studio five thousand forum posts', 'studio_five_thousand_forum_posts.sql', 1, 't');
+
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (31, 'Studio First Passing Submission', 'Studio first passing submission', 'studio_first_passing_submission.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (32, 'Studio Fifty Passing Submissions', 'Studio fifty passing submissions', 'studio_fifty_passing_submissions.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (33, 'Studio One Hundred Passing Submissions', 'Studio one hundred passing submissions', 'studio_one_hundred_passing_submissions.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (34, 'Studio Two Hundred And Fifty Passing Submissions', 'Studio two hundred and fifty passing submissions', 'studio_two_hundred_and_fifty_passing_submissions.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (35, 'Studio Five Hundred Passing Submissions', 'Studio five hundred passing submissions', 'studio_five_hundred_passing_submissions.sql', 1, 't');
+
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (36, 'Studio First Milestone Prize', 'Studio first milestone prize', 'studio_first_milestone_prize.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (37, 'Studio Fifty Milestone Prize', 'Studio fifty milestone prize', 'studio_fifty_milestone_prize.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (38, 'Studio One Hundred Milestone Prize', 'Studio one hundred milestone prize', 'studio_one_hundred_milestone_prize.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (39, 'Studio Two Hundred And Fifty Milestone Prize', 'Studio two hundred and fifty milestone prize', 'studio_two_hundred_and_fifty_milestone_prize.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (40, 'Studio Five Hundred Milestone Prize', 'Studio five hundred milestone prize', 'studio_five_hundred_milestone_prize.sql', 1, 't');
+
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (41, 'Studio First Placement', 'Studio first placement', 'studio_first_placement.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (42, 'Studio Twenty Five Placements', 'Studio twenty five placements', 'studio_twenty_five_placements.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (43, 'Studio Fifty Placements', 'Studio fifty placements', 'studio_fifty_placements.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (44, 'Studio One hundred Placements', 'Studio one hundred placements', 'studio_one_hundred_placements.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (45, 'Studio Two Hundred And Fifty Placements', 'Studio two hundred and fifty placements', 'studio_two_hundred_and_fifty_placements.sql', 1, 't');
+
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (46, 'Studio First Win', 'Studio first win', 'studio_first_win.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (47, 'Studio Twenty Five First Placement Win', 'Studio twenty five first placement win', 'studio_twenty_five_first_win.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (48, 'Studio Fifty First Placement Win', 'Studio fifty first placement win', 'studio_fifty_first_win.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (49, 'Studio One Hundred First Placement Win', 'Studio one hundred first placement win', 'studio_one_hundred_first_win.sql', 1, 't');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (50, 'Studio Two Hundred And Fifty First Placement Win', 'Studio two hundred and fifty first placement win', 'studio_two_hundred_and_fifty_first_win.sql', 1, 't');
+
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated, db_schema) VALUES (51, 'Digital Run Winner', 'Digital run winner', 'digital_run_winner.sql', 3, 't', 'tcs_dw');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated, db_schema) VALUES (52, 'Digital Run Top Five', 'Digital run top five', 'digital_run_top_five.sql', 3, 't', 'tcs_dw');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated, db_schema) VALUES (53, 'Studio Cup Winner', 'Studio cup winner', 'studio_cup_winner.sql', 1, 't', 'tcs_dw');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated, db_schema) VALUES (54, 'Studio Cup Top Five', 'Studio cup top five', 'studio_cup_top_five.sql', 1, 't', 'tcs_dw');
+
+--UI and graphic design
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (55, 'Wireframe', 'Wireframe', NULL, 2, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (56, 'Desktop App UI', 'Desktop app UI', NULL, 2, 'f');
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (57, 'Mobile UI', 'Mobile UI', NULL, 2, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (58, 'Web UI', 'Web UI', NULL, 2, 'f');
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (59, 'Branding /Marketing /Presentation', 'branding/marketing/presentation', NULL, 2, 'f');
+
+--Implementation
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (60, 'UI Development', 'UI development', NULL, 2, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (61, 'Architecture And Design', 'Architecture and design', NULL, 2, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (62, 'Component Development', 'Component development', NULL, 2, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (63, 'Assembly', 'Assembly', NULL, 2, 'f');
+
+--Business analysis
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (64, 'Idea Generation', 'Idea generation', NULL, 2, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (65, 'Conceptualization', 'Conceptualization', NULL, 2, 'f');
+
+--Testing and QA
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (66, 'Test Scenarios', 'Test scenarios', NULL, 2, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (67, 'Bug Hunt', 'Bug hunt', NULL, 2, 'f');
+
+--Analylitics
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (68, 'Big Data', 'Big data', NULL, 2, 'f');
+
+--Special(Studio)
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (69, 'TCO On-Site Competitor (Studio)', 'TCO on-site competitor', NULL, 1, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (70, 'TCO Finalist (Studio)', 'TCO finalist', NULL, 1, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (71, 'TCO Champion (Studio)', 'TCO champion', NULL, 1, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (72, 'Member Of The Month (Studio)', 'Member of the month', NULL, 1, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (73, 'TopCoder Event Trip Winner (Studio)', 'Topcoder event trip winner', NULL, 1, 'f');
+
+--Special(Software)
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (74, 'TCO On-Site Competitor (Software)', 'Topcoder event trip winner', NULL, 3, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (75, 'TCO Finalist (Software)', 'TCO finalist', NULL, 3, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (76, 'TCO Champion (Software)', 'Topcoder event trip winner', NULL, 3, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (77, 'Member Of The Month (Software)', 'Topcoder event trip winner', NULL, 3, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (78, 'TopCoder Event Trip Winner (Software)', 'Topcoder event trip winner', NULL, 3, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (79, 'TCCC On-Site Competitor (Software)', 'TCCC on-site competitor', NULL, 3, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (80, 'TCCC Finalist (Software)', 'TCCC finalist', NULL, 3, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (81, 'TCCC Champion (Software)', 'TCCC champion', NULL, 3, 'f');
+
+--Reviewing(Studio)
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (82, 'Studio Spec Reviewer', 'Studio spec reviewer', NULL, 1, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (83, 'Studio Screener', 'Studio screener', NULL, 1, 'f');
+--Reviewing(Software)
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (84, 'TopCoder Reviewer', 'TopCoder reviewer', NULL, 3, 'f');
+
+--Community(Studio)
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (85, 'Studio Spirit', 'Studio spirit', NULL, 1, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (86, 'Studio Mentor', 'Studio mentor', NULL, 1, 'f');
+
+--Community(Software)
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (87, 'Software Spirit', 'Software spirit', NULL, 3, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (88, 'Software Mentor', 'Software mentor', NULL, 3, 'f');
 		
 		
 INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) values (4, 'TCS Load');
