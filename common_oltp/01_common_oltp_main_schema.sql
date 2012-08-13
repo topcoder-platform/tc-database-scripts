@@ -786,7 +786,8 @@ create table 'informix'.user (
     last_site_hit_date DATETIME YEAR TO FRACTION,
     name_in_another_language VARCHAR(64),
 	password VARCHAR(16),
-    open_id VARCHAR(200)
+    open_id VARCHAR(200),
+    reg_source VARCHAR(20)
 )
 extent size 10000 next size 5000
 lock mode row;
