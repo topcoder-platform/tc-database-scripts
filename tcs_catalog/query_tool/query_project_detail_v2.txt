@@ -65,6 +65,10 @@ select cc.component_name
      , (SELECT pr.prize_amount FROM prize pr, project_prize_xref ppx WHERE ppx.project_id = p.project_id AND pr.prize_id = ppx.prize_id AND prize_type_id = 14) as milestone_prize
      , (SELECT pr.number_of_submissions FROM prize pr, project_prize_xref ppx WHERE ppx.project_id = p.project_id AND pr.prize_id = ppx.prize_id AND prize_type_id = 14) as milestone_number
      , mf.feedback as milestone_general_feedback
+     , p.project_status_id as project_status_id
+     , CASE WHEN (pp2.phase_status_id = 2) THEN 'open' ELSE 'closed' END as submission_phase_opened
+     , pp10.scheduled_start_time final_review_start_date
+     , pp11.scheduled_start_time final_approval_start_date
   from project p
      , project_category_lu pc
      , comp_catalog cc
@@ -74,6 +78,8 @@ select cc.component_name
      , project_phase pp2
      , OUTER project_phase pp6
      , OUTER project_phase pp9
+     , OUTER project_phase pp10
+     , OUTER project_phase pp11
      , OUTER project_phase pp15
      , OUTER project_phase pp17
      , project_phase pp4
@@ -107,6 +113,10 @@ select cc.component_name
    and pp6.phase_type_id = 6
    and pp9.project_id = p.project_id
    and pp9.phase_type_id = 9
+   and pp10.project_id = p.project_id
+   and pp10.phase_type_id = 10
+   and pp11.project_id = p.project_id
+   and pp11.phase_type_id = 11
    and pp15.project_id = p.project_id
    and pp15.phase_type_id = 15
    and pp17.project_id = p.project_id
