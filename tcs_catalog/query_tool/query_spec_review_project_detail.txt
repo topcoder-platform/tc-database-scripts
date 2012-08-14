@@ -7,10 +7,10 @@ SELECT c.component_name
      , p.project_category_id + 1111 as phase_id
      , pi13.scheduled_start_time as specification_submission_start
      , pi13.scheduled_end_time as specification_submission_end
-     , (pi13.scheduled_end_time - pi13.scheduled_start_time)::INTERVAL HOUR(4) to HOUR as specification_submission_duration
+     , (pi13.scheduled_end_time - pi13.scheduled_start_time + 1 units minute)::INTERVAL HOUR(4) to HOUR as specification_submission_duration
      , pi14.scheduled_start_time as specification_review_start
      , pi14.scheduled_end_time as specification_review_end
-     , (pi14.scheduled_end_time - pi14.scheduled_start_time)::INTERVAL HOUR(4) to HOUR as specification_review_duration
+     , (pi14.scheduled_end_time - pi14.scheduled_start_time + 1 units minute)::INTERVAL HOUR(4) to HOUR as specification_review_duration
     , (case when pi14.phase_status_id=2 and current + 2 units hour > pi14.scheduled_end_time then 't' else 'f' end)::boolean as spec_review_extension_needed
      , cl.description as level
      , cvd.level_id
