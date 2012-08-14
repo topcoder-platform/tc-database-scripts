@@ -262,3 +262,4 @@ query_user_details.txt|UPDATE query SET text= ? WHERE query_id=15901
 query_Winning_Debuts.txt|UPDATE query SET text= ? WHERE query_id=16
 query_user_rating_list.txt|UPDATE query SET text= ? WHERE query_id=31836
 query_software_achievements.txt|UPDATE query SET text= ? WHERE query_id=31950
+query_copilot_achievements.txt|UPDATE query SET text= ? WHERE query_id=32246
