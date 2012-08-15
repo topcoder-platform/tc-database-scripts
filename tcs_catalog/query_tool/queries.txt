@@ -384,4 +384,6 @@ query_enterprise_dashboard_filter_projects.txt|UPDATE query SET text = ? WHERE q
 query_enterprise_dashboard_projects_financial.txt|UPDATE query SET text = ? WHERE query_id = 32218
 query_enterprise_dashboard_total_spend.txt|UPDATE query SET text = ? WHERE query_id = 32219
 query_all_direct_project_status.txt|UPDATE query SET text = ? WHERE query_id = 32213
-query_where name = 'direct_project_forum_template'.txt|UPDATE query SET text = ? WHERE query_id = 32226
+query_direct_project_forum_template.txt|UPDATE query SET text = ? WHERE query_id = 32226
+query_get_invoice_number_from_billing.txt|UPDATE query SET text = ? WHERE query_id = 32256
+query_get_projects_from_billing_and_invoice_number.txt|UPDATE query SET text = ? WHERE query_id = 32257

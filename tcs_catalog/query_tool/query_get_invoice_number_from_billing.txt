@@ -1,0 +1,2 @@
+select unique invoice_number from informixoltp:invoice i, informixoltp:invoice_record ir
+where i.invoice_id = ir.invoice_id and billing_account = @billingaccountid@ order by invoice_number

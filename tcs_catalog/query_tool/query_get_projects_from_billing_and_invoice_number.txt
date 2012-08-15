@@ -1,0 +1,7 @@
+select unique tdp.project_id as direct_project_id, tdp.name as direct_project_name from informixoltp:invoice i, informixoltp:invoice_record ir, project p, tc_direct_project tdp
+where i.invoice_id = ir.invoice_id 
+and i.invoice_number = '@invoicenumber@'
+and billing_account = @billingaccountid@
+and ir.contest_id = p.project_id
+and p.tc_direct_project_id = tdp.project_id
+order by tdp.name
