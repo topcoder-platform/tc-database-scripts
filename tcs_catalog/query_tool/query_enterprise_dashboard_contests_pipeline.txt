@@ -1,0 +1,75 @@
+SELECT  unique s.contest_id,
+        s.sname         ,
+        s.start_time    ,
+        s.current_phase ,
+        s.newstatus     ,
+        s.phases,
+        (month(start_time) + year(start_time) * 100) as monthcount
+FROM    TABLE(MULTISET
+        (SELECT c.project_id AS contest_id ,
+                psl.name     AS sname      ,
+                c.project_status_id        ,
+                (SELECT MIN(NVL(actual_start_time, scheduled_start_time))
+                FROM    project_phase ph
+                WHERE   ph.project_id=c.project_id
+                ) AS start_time,
+                (SELECT ptl.name
+                FROM    phase_type_lu ptl
+                WHERE   phase_type_id =
+                        (SELECT MIN(phase_type_id)
+                        FROM    project_phase ph
+                        WHERE   ph.phase_status_id = 2
+                            AND ph.project_id      =c.project_id
+                        )
+                ) AS current_phase,
+                (SELECT
+                        CASE
+                                WHEN(COUNT(*)>=1)
+                                THEN 'Scheduled'
+                                WHEN(COUNT(*)=0)
+                                THEN 'Draft'
+                        END
+                FROM    contest_sale cs
+                WHERE   c.project_id   = cs.contest_id
+                    AND upper(psl.name)='ACTIVE'
+                ) AS newstatus,
+                (
+                CASE
+                        WHEN EXISTS
+                                (SELECT project_phase_id
+                                FROM    project_phase
+                                WHERE   c.project_id    = project_id
+                                    AND phase_status_id = 3
+                                )
+                            AND EXISTS
+                                (SELECT project_phase_id
+                                FROM    project_phase
+                                WHERE   c.project_id    = project_id
+                                    AND phase_status_id = 1
+                                )
+                        THEN 'Active'
+                        WHEN NOT EXISTS
+                                (SELECT project_phase_id
+                                FROM    project_phase
+                                WHERE   c.project_id    = project_id
+                                    AND phase_status_id = 2
+                                )
+                            AND NOT EXISTS
+                                (SELECT project_phase_id
+                                FROM    project_phase
+                                WHERE   c.project_id    = project_id
+                                    AND phase_status_id = 1
+                                )
+                        THEN 'Completed'
+                        ELSE NULL
+                END)                   AS phases
+        FROM    project                AS c
+                JOIN project_status_lu AS psl
+                ON      c.project_status_id = psl.project_status_id
+        WHERE c.project_status_id            != 3
+            AND c.project_category_id         != 27
+            AND c.tc_direct_project_id IN (@tcdirectids@)
+        ORDER BY start_time
+        )) AS s WHERE (month(start_time) + year(start_time) * 100) 
+                BETWEEN (month(TO_DATE('@sdt@', '%Y-%m')) + year(TO_DATE('@sdt@', '%Y-%m')) * 100)
+                AND (month(TO_DATE('@edt@', '%Y-%m')) + year(TO_DATE('@edt@', '%Y-%m')) * 100);
