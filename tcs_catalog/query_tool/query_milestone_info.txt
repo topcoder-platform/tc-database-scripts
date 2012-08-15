@@ -7,9 +7,10 @@
     s.submission_status_id,
     s.placement,
     s.create_date,
-    (SELECT ric.content FROM review rv, resource r, review_item ri, review_item_comment ric
+   replace(replace(replace(replace(replace(multiset (SELECT ric.content FROM review rv, resource r, review_item ri, review_item_comment ric
       WHERE rv.submission_id = s.submission_id AND rv.resource_id = r.resource_id AND r.resource_role_id = 20
-        AND rv.review_id = ri.review_id AND ri.review_item_id = ric.review_item_id group by ric.content having count(ric.content) = 1) as feedback
+        AND rv.review_id = ri.review_id AND ri.review_item_id = ric.review_item_id group by ric.content having count(ric.content) = 1)::lvarchar, 
+'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as feedback
 FROM
     project_prize_xref ppx, prize p, submission s
     INNER JOIN upload u ON s.upload_id = u.upload_id
