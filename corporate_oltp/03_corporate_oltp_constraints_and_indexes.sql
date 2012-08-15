@@ -68,3 +68,8 @@ create unique index "informix".inputlu_inputcode_idx on "informix"
 CREATE INDEX 'informix'.userpermissiongrant_resource_idx ON 'informix'.user_permission_grant(resource_id);
 
 CREATE INDEX 'informix'.userpermissiongrant_user_resource_idx ON 'informix'.user_permission_grant(user_id, resource_id);
+
+alter table 'informix'.direct_project_account add constraint unique 
+	(project_id, billing_account_id)
+constraint u_project_id_billing_account_id;
+
