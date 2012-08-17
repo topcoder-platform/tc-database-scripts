@@ -151,7 +151,8 @@ case when (p.project_status_id = 7
             and pi26.project_id =  p.project_id ), 0)) * 
 		        nvl((select nvl(sum (cast (nvl (pi57.value, '0') as DECIMAL (10,2))), 0) from project_info pi57
 						where pi57.project_info_type_id = 57 and pi57.project_id =  p.project_id ), 0)
-when (p.project_status_id NOT IN (1,2,7, 3)
+when (p.project_status_id in (9, 10) 
+             and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
            and exists (select project_id from project_info 
 			where project_id = p.project_id and project_info_type_id = 57 and value!='0'))
 		   then
@@ -205,9 +206,11 @@ when (p.project_status_id IN (1,2) and pcl.project_type_id = 3
         where project_info_type_id in (33, 35, 38, 39, 49)
         and project_id = p.project_id), 0)) *  nvl((select nvl(sum (cast (nvl (pi57.value, '0') as DECIMAL (10,2))), 0) from project_info pi57
 						where pi57.project_info_type_id = 57 and pi57.project_id =  p.project_id ), 0)  							
-when (p.project_status_id in (9, 10) 
+when (((p.project_status_id in (9, 10) 
              and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3)))
-          OR p.project_status_id not in (9, 10) then
+          OR p.project_status_id in (1,2,7))
+          and not exists (select project_id from project_info 
+						where project_id = p.project_id and project_info_type_id = 57 and value!='0'))  then
 (select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
         where project_info_type_id = 31
         and project_id = p.project_id) 
@@ -359,13 +362,20 @@ case when p.project_status_id in (1, 2) and pcl.project_type_id != 3  then
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)) * 
 		        (1 + nvl((select nvl(sum (cast (nvl (pi57.value, '0') as DECIMAL (10,2))), 0) from project_info pi57
 						where pi57.project_info_type_id = 57 and pi57.project_id =  p.project_id ), 0))
-else nvl((SELECT sum(total_amount)
+when (p.project_status_id in (9, 10) 
+				and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+			 and not exists (select project_id from project_info 
+				where project_id = p.project_id and project_info_type_id = 57 and value!='0')) then nvl((SELECT sum(total_amount)
        FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
         WHERE pmd.component_project_id = p.project_id and installment_number = 1
         AND NOT pmd.payment_status_id IN (65, 68, 69)), 0) +
     nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
             where project_info_type_id = 31 and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
             and project_id = p.project_id), 0) 
+else nvl((SELECT sum(total_amount)
+       FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+        WHERE pmd.component_project_id = p.project_id and installment_number = 1
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0) 
 
 end as total_cost,
 
