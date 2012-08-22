@@ -2079,3 +2079,8 @@ alter table 'informix'.project_milestone_owner add constraint foreign key
     references 'informix'.project_milestone
     (project_milestone_id)
     constraint fk_project_milestone_owner_project_milestone;
+
+create index 'informix'.direct_project_metadata_val_idx on 'informix'.direct_project_metadata
+    (
+    metadata_value
+    );

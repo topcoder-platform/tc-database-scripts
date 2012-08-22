@@ -2766,7 +2766,7 @@ CREATE TABLE direct_project_metadata (
     project_metadata_id SERIAL NOT NULL,
     tc_direct_project_id DECIMAL(10,0) NOT NULL,
     project_metadata_key_id INTEGER NOT NULL,
-    metadata_value LVARCHAR(500) NOT NULL,
+    metadata_value LVARCHAR(350) NOT NULL,
     PRIMARY KEY (project_metadata_id) constraint pk_direct_project_metadata)
 extent size 1000 next size 1000
 lock mode row;
