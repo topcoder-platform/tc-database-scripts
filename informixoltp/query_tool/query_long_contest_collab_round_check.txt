@@ -1,0 +1,6 @@
+SELECT round_id 
+  from 
+    round_behavior 
+  where 
+    round_id=@rd@ 
+	and behavior_id=1
