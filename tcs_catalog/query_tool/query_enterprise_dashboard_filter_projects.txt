@@ -1,4 +1,4 @@
-SELECT @pagination@ tdp.project_id, NVL((SELECT dpmb.metadata_value FROM direct_project_metadata dpmb WHERE dpmb.tc_direct_project_id = tdp.project_id AND dpmb.project_metadata_key_id = 3), 0)::DECIMAL(10,2) as budget
+SELECT @pagination@ tdp.project_id, NVL((SELECT dpmb.metadata_value FROM direct_project_metadata dpmb WHERE dpmb.tc_direct_project_id = tdp.project_id AND dpmb.project_metadata_key_id = 3), 0)::DECIMAL(10,2) as budget, tdp.name as project_name
 FROM tc_direct_project tdp
 WHERE tdp.project_id IN (@tcdirectids@)
 AND tdp.project_status_id = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
