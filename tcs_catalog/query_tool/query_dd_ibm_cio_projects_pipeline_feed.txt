@@ -78,6 +78,11 @@ select p.project_id,
 where m.project_metadata_key_id = k.project_metadata_key_id and client_id =70014096 and tdp.project_id = m.tc_direct_project_id)::lvarchar, 
 'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as meta_data,
 
+replace(replace(replace(replace(replace( multiset (select handle from direct_project_metadata m, direct_project_metadata_key k, user u
+where m.project_metadata_key_id = k.project_metadata_key_id and tdp.project_id = m.tc_direct_project_id 
+and u.user_id = metadata_value::decimal(10) and m.project_metadata_key_id = 1)::lvarchar, 
+'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as client_managers,
+
         nvl((SELECT sum(prize_amount * number_of_submissions) from project_prize_xref ppx, prize pr
                 where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id), 0)
 		+
