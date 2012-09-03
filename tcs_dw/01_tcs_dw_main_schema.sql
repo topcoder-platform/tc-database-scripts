@@ -898,6 +898,7 @@ create table "informix".user_permission_grant
 	assignee VARCHAR(255),
 	summary VARCHAR(255),
 	description TEXT,
+	tco_points INT,
 	created DATETIME YEAR TO FRACTION,
 	updated DATETIME YEAR TO FRACTION,
 	due_date DATETIME YEAR TO FRACTION,
