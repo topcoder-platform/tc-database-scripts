@@ -155,11 +155,11 @@ query_direct_dashboard_enterprise_detailed_stats_project_monthly.txt|UPDATE quer
 query_direct_dashboard_enterprise_summary.txt|UPDATE query SET text = ? WHERE query_id = 31349
 query_direct_dashboard_enterprise_volume_view.txt|UPDATE query SET text = ? WHERE query_id = 31619
 query_review_results.txt|UPDATE query SET text = ? WHERE query_id = 32036
-
 query_dashboard_participation_basic_metrics.txt|UPDATE query SET text = ? WHERE query_id = 32106
 query_dashboard_participation_stats_aggregation_billing.txt|UPDATE query SET text = ? WHERE query_id = 32108
 query_dashboard_participation_stats_aggregation_project.txt|UPDATE query SET text = ? WHERE query_id = 32109
 query_dashboard_participation_stats_aggregation_type.txt|UPDATE query SET text = ? WHERE query_id = 32110
 query_dashboard_participation_stats_aggregation_status.txt|UPDATE query SET text = ? WHERE query_id = 32111
 query_client_direct_project_ids.txt|UPDATE query SET text = ? WHERE query_id = 32112
+query_dashboard_jira_issues_report.txt|UPDATE query SET text = ? WHERE query_id = 32277
 
