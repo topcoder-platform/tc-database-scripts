@@ -1,0 +1,6 @@
+select UNIQUE(p.project_id), tdp.project_id as direct_project_id, tdp.name as direct_project_name from project p, tc_direct_project tdp, user_permission_grant upg  
+where p.tc_direct_project_id = tdp.project_id
+and tdp.project_status_id = 1
+and tdp.project_id = upg.resource_id
+and upg.user_id = @uid@
+and upg.permission_type_id in (1,2,3);

@@ -388,3 +388,4 @@ query_direct_project_forum_template.txt|UPDATE query SET text = ? WHERE query_id
 query_get_invoice_number_from_billing.txt|UPDATE query SET text = ? WHERE query_id = 32256
 query_get_projects_from_billing_and_invoice_number.txt|UPDATE query SET text = ? WHERE query_id = 32257
 query_enterprise_dashboard_contests_pipeline.txt|UPDATE query SET text = ? WHERE query_id = 32258
+query_my_active_projects_contest_ids.txt|UPDATE query SET text = ? WHERE query_id = 32276
