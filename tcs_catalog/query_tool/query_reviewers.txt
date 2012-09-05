@@ -7,7 +7,10 @@ select (select su.user_id
      , rr.review_resp_id
   from outer rboard_application ra
      , review_resp rr
- where project_id = @pj@
+     , project p
+ where p.project_id = @pj@
+   and ra.project_id=p.project_id
+   and p.project_category_id = @ph@ - 111
    and rr.phase_id = @ph@
    and ra.review_resp_id = rr.review_resp_id
    and rr.resource_role_id not in (21, 22)
@@ -27,7 +30,10 @@ select (select su.user_id
      , rr.review_resp_id
   from outer rboard_application ra
      , review_resp rr
- where project_id = @pj@
+     , project p
+ where p.project_id = @pj@
+   and ra.project_id=p.project_id
+   and p.project_category_id = @ph@ - 111
    and rr.phase_id = @ph@
    and ra.review_resp_id = rr.review_resp_id
    and rr.resource_role_id in (21, 22)
