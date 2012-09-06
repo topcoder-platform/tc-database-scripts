@@ -78,10 +78,7 @@ select p.project_id,
 where m.project_metadata_key_id = k.project_metadata_key_id and client_id =70014096 and tdp.project_id = m.tc_direct_project_id)::lvarchar, 
 'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as meta_data,
 
-replace(replace(replace(replace(replace( multiset (select handle from direct_project_metadata m, direct_project_metadata_key k, user u
-where m.project_metadata_key_id = k.project_metadata_key_id and tdp.project_id = m.tc_direct_project_id 
-and u.user_id = metadata_value::decimal(10) and m.project_metadata_key_id = 1)::lvarchar, 
-'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as client_managers,
+
 
         nvl((SELECT sum(prize_amount * number_of_submissions) from project_prize_xref ppx, prize pr
                 where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id), 0)
@@ -133,7 +130,14 @@ and u.user_id = metadata_value::decimal(10) and m.project_metadata_key_id = 1)::
             and pm.most_recent_detail_id = pmd.payment_detail_id  
             and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-  end) as actual_total_member_costs
+  end) as actual_total_member_costs,
+  
+  replace(replace(replace(replace(replace( multiset (select first_name || ' ' ||  last_name || '(' || address || ')'
+  from direct_project_metadata m, direct_project_metadata_key k, user u, email e
+where m.project_metadata_key_id = k.project_metadata_key_id and tdp.project_id = m.tc_direct_project_id 
+and u.user_id = e.user_id and e.primary_ind = 1
+and u.user_id = metadata_value::decimal(10) and m.project_metadata_key_id = 1)::lvarchar, 
+'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as client_managers
 
 from project p,
      outer tc_direct_project tdp,
@@ -176,5 +180,5 @@ where p.project_status_id <> DECODE(@includeDeletes@,0,3,-1)
  AND cc.component_id = pi_ci.value
  and cc.root_category_id = cat.category_id
  and cv.component_id = cc.component_id
-  group by 1,2,3,4,5,6,7,8,9,10, 11, 12,13,14,15,16, 17,18, 19, 20, 21,22,23, 24, 25,26,27,28,29,30,31, 32, 33, 34,35,36
+  group by 1,2,3,4,5,6,7,8,9,10, 11, 12,13,14,15,16, 17,18, 19, 20, 21,22,23, 24, 25,26,27,28,29,30,31, 32, 33, 34, 35, 38
 order by 1 asc;
