@@ -2550,7 +2550,7 @@ CREATE TABLE copilot_project_info (
   copilot_project_info_id DECIMAL(10,0) NOT NULL,
   copilot_project_id DECIMAL(10,0) NOT NULL,
   copilot_project_info_type_id DECIMAL(10,0) NOT NULL,
-  value VARCHAR(100) NOT NULL,
+  value LVARCHAR(800) NOT NULL,
   create_user VARCHAR(64) NOT NULL,
   create_date DATETIME YEAR TO FRACTION NOT NULL,
   modify_user VARCHAR(64) NOT NULL,
