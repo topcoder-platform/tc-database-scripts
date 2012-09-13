@@ -1,0 +1,12 @@
+select aa.copilot_project_id, aa.create_user, tt.value as text, aa.value as answer, ss.value as status, aa.create_date as submit_date, c.user_id as copilot_user_id, tdp.project_id as direct_project_id, tdp.name as direct_project_name 
+from copilot_project_info tt, copilot_project_info aa, copilot_project_info ss, copilot_project cp, tc_direct_project tdp, copilot_profile c
+where tt.copilot_project_info_type_id = 1
+And aa.copilot_project_info_type_id = 2
+And ss.copilot_project_info_type_id = 4 
+AND tt.copilot_project_id = aa.copilot_project_id
+AND aa.copilot_project_id = ss.copilot_project_id
+AND tt.create_user = aa.create_user
+AND aa.create_user = ss.create_user
+AND aa.copilot_project_id = cp.copilot_project_id
+AND cp.copilot_profile_id = c.copilot_profile_id
+AND cp.tc_direct_project_id = tdp.project_id;
