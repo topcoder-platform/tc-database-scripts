@@ -2970,28 +2970,17 @@ insert into direct_project_metadata_key(project_metadata_key_id, name, descripti
 insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(12, 'Cost', 'cost level project rating', null, null, '1');
 insert into direct_project_metadata_key(project_metadata_key_id, name, description, grouping, client_id, single) values(13, 'Difficuly', 'difficulty project rating', null, null, '1');
 
-INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
-    (1, 'Serious', 'Serious - 10 points', 'System', current, 'System', current);
-INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
-    (2, 'Medium', 'Medium - 3 points', 'System', current, 'System', current);
-INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
-    (3, 'Minor', 'Minor - 1 point', 'System', current, 'System', current);
-INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
-    (4, 'Comment', 'Comment - 0 points', 'System', current, 'System', current);
-INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
-    (5, 'Combined', 'Combined - 0 points', 'System', current, 'System', current);
-INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES
-    (6, 'Incorrect', 'Incorrect - 10 (negative) points', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Serious', 'Serious - 10 points', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Medium', 'Medium - 3 points', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Minor', 'Minor - 1 point', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (4, 'Comment', 'Comment - 0 points', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (5, 'Combined', 'Combined - 0 points', 'System', current, 'System', current);
+INSERT INTO 'informix'.evaluation_type_lu (evaluation_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (6, 'Incorrect', 'Incorrect - 10 (negative) points', 'System', current, 'System', current);
 	
-	
-INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) 
-            VALUES(1, 'feedback_text', 'system', CURRENT, 'system', CURRENT);
-INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) 
-            VALUES(2, 'feedback_answer', 'system', CURRENT, 'system', CURRENT);
-INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) 
-            VALUES(3, 'feedback_author', 'system', CURRENT, 'system', CURRENT);
-INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) 
-            VALUES(4, 'feedback_status', 'system', CURRENT, 'system', CURRENT);
+INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(1, 'feedback_text', 'system', CURRENT, 'system', CURRENT);
+INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(2, 'feedback_answer', 'system', CURRENT, 'system', CURRENT);
+INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(3, 'feedback_author', 'system', CURRENT, 'system', CURRENT);
+INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(4, 'feedback_status', 'system', CURRENT, 'system', CURRENT);
 
 
 
