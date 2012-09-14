@@ -44,7 +44,7 @@ select p.project_id as contest_id, ttp.project_id as billing_account_id,
  from informixoltp:payment pm  
         INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
 	    INNER JOIN (informixoltp:payment_detail pmd2 JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
-                                            AND pmd2.payment_type_id in (24) AND NOT pmd2.payment_status_id IN (65, 68, 69))
+                                            AND pmd2.payment_type_id in (24, 67) AND NOT pmd2.payment_status_id IN (65, 68, 69))
                    on pm.payment_id = pmd2.parent_payment_id
             LEFT OUTER JOIN informixoltp:invoice_record ir on ir.payment_id = pm2.payment_id,
      project p,     
