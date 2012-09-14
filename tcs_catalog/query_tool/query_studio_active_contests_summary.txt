@@ -12,6 +12,6 @@ select count(unique p.project_id) as total_contests
    and pp.project_id = p.project_id
    and pp.phase_type_id = 2
    and pp.phase_status_id = 2
-   and p.project_status_id != 3
+   and p.project_status_id = 1
    and NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
        WHERE ce.contest_id = p.project_id)
