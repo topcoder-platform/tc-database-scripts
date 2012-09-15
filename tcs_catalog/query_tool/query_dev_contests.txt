@@ -40,8 +40,7 @@ SELECT ps.scheduled_end_time as initial_submission_date,
  cv.version_text,
  regpp.scheduled_end_time as reg_end_date,
    0 as max_unrated_registrants,
-   (select count(*) from contest_project_xref where project_id = p.project_id) 
-    as tourny_project
+   nvl((select max(event_id) from contest_project_xref x, contest c where project_id = p.project_id and c.contest_id = x.contest_id), 0) as tourny_project
 --  , (select category_id from comp_categories where component_id = pi_ci.value and category_id = 22774808)
 --    as aol_brand 
 -- turning aol_brand off for the time being
@@ -53,7 +52,6 @@ SELECT ps.scheduled_end_time as initial_submission_date,
 , case when pidr.value = 'On' then 
   NVL((select value::decimal from project_info pi_dr where pi_dr.project_info_type_id = 30 and pi_dr.project_id = p.project_id), (select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id)) 
   else null end as dr_points
-, case when p.project_category_id = 2 then "Development" else "Testing" end as type
   , (select count(*) from comp_categories where category_id = 27240258 and component_id = cc.component_id) as sensations_project
   , p.project_category_id
   , (select NVL(NVL(ppd.actual_start_time, psd.actual_start_time), ppd.scheduled_start_time)
