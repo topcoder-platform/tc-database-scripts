@@ -11,7 +11,7 @@ insert into 'informix'.permission_type (permission_type_id, name) values(6, 'con
 
 INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Active', 'Active', 'System', current, 'System', current);
 INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Inactive', 'Inactive', 'System', current, 'System', current);
-INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Deleted', 'Deleted', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Cancelled', 'Cancelled', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (4, 'Completed', 'Completed', 'System', CURRENT, 'System', CURRENT);
 
 INSERT INTO 'informix'.tc_direct_project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (5, 'Draft', 'Draft', 'System', CURRENT, 'System', CURRENT);
