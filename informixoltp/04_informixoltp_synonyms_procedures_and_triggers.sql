@@ -427,6 +427,19 @@ create trigger "informix".trig_payment_modified update of user_id,most_recent_de
         (
         execute function "informix".get_current() into "informix".payment.modify_date);
 
+CREATE TRIGGER "informix".trig_user_payment_method_modified UPDATE OF 
+    payment_method_id ON "informix".user_payment_method REFERENCING OLD AS OLD
+FOR EACH ROW(
+        UPDATE "informix".user_payment_method SET "informix"
+                .user_payment_method.modify_date = CURRENT YEAR TO FRACTION(3)
+        WHERE((user_id = old.user_id)
+                 AND(payment_method_id != old.payment_method_id)));
+
+CREATE TRIGGER "informix".trig_user_payment_method_inserted INSERT ON "informix"
+    .user_payment_method REFERENCING NEW AS NEW
+FOR EACH ROW(EXECUTE FUNCTION "informix".get_current() INTO "informix"
+            .user_payment_method.modify_date);
+
 --BUGR-4316 : 556: Cannot create, drop, or modify an object that is external to current database.
 database common_oltp;
 GRANT SELECT ON 'informix'.user_security_key TO coder;

@@ -3565,9 +3565,10 @@ lock mode row;
 revoke all on user_accrual from 'public';
 create table 'informix'.user_payment_method (
     user_id DECIMAL(10,0) NOT NULL,
-    payment_method_id DECIMAL(3,0) NOT NULL
+    payment_method_id DECIMAL(3,0) not null,
+    modify_date DATETIME YEAR TO FRACTION
 )
-extent size 64 next size 64
+extent size 196 next size 196
 lock mode row;
 
 revoke all on user_payment_method from 'public';
