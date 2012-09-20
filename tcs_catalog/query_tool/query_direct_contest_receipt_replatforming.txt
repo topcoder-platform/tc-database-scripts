@@ -379,7 +379,10 @@ else nvl((SELECT sum(total_amount)
 
 end as total_cost,
 
-case when p.project_status_id in (7,4,5,6,8,9,10,11) then 'Finished' else 'Not Finished' end as status
+case when p.project_status_id in (7,4,5,6,8,9,10,11) then 'Finished' else 'Not Finished' end as status,
+
+case when (p.project_status_id NOT IN (1,2,3) OR
+(p.project_status_id = 1 and not exists (select * from project_phase where phase_status_id in (1,2) and project_id = p.project_id))) THEN 1 ELSE 0 END as show_receipt
 
 from project p, project_category_lu pcl, outer project_info pi50
 
