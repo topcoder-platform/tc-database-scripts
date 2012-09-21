@@ -913,6 +913,26 @@ create table "informix".user_permission_grant
 EXTENT SIZE 32 NEXT SIZE 32 
 LOCK MODE ROW;
 
+CREATE TABLE 'informix'.copilot_statistics (
+    copilot_profile_id INT,
+    user_id INT,
+    projects_count INT,
+    contests_count INT,
+    reposts_count INT,
+    failures_count INT,
+    bug_races_count INT,
+    current_projects_count INT,
+    current_contests_count INT,
+    fulfillment DECIMAL(5,2),
+    submission_rate DECIMAL(5,2),
+    total_earnings DECIMAL(10,2)
+)
+EXTENT SIZE 600 NEXT SIZE 296
+LOCK MODE PAGE;
+
+revoke all on copilot_statistics from 'public';
+
+
 
 revoke all on "informix".user_permission_grant from "public" as "informix";
 
@@ -1578,3 +1598,5 @@ CREATE SEQUENCE jira_issue_seq INCREMENT BY 1 START WITH 1 MINVALUE 1;
 
 grant index, update, delete, select, insert on jira_issue to 'public' as 'informix';
 grant select on jira_issue_seq to 'public' as 'informix';
+
+grant index, update, delete, select, insert on copilot_statistics to 'public' as 'informix';
