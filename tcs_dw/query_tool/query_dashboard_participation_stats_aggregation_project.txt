@@ -3,6 +3,8 @@ SELECT
     participant_numbers.total_registrants_count,
     participant_numbers.unique_registrants_count,
     participant_numbers.total_submissions_count,
+    participant_numbers.milestone_submissions_count,
+    participant_numbers.final_submissions_count,
     participant_numbers.milestone_winners_count,
     participant_numbers.final_winners_count,
     unique_numbers.unique_submitters_count,
@@ -18,6 +20,8 @@ SELECT
      COUNT(pmrm.registrant_id) AS total_registrants_count,
      COUNT(DISTINCT pmrm.registrant_id) AS unique_registrants_count,
      SUM(nvl(pmrm.num_of_final_subs, 0)) +  SUM(nvl(pmrm.num_of_milestone_subs, 0)) AS total_submissions_count,
+     SUM(nvl(pmrm.num_of_milestone_subs, 0)) AS milestone_submissions_count,
+     SUM(nvl(pmrm.num_of_final_subs, 0)) AS final_submissions_count,
      SUM(nvl(pmrm.num_of_milestone_wins, 0)) AS milestone_winners_count,
      SUM(nvl(pmrm.num_of_final_wins, 0)) AS final_winners_count
 FROM
@@ -38,7 +42,7 @@ AND (CASE
 AND EXISTS (SELECT resource_id 
             FROM user_permission_grant upg
             WHERE upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) 
-            AND upg.permission_type_id IN (1,2,3) 
+            AND upg.permission_type_id IN (0,1,2,3) 
             AND upg.resource_id = p.tc_direct_project_id)
 GROUP BY 1
 )) participant_numbers,
@@ -69,7 +73,7 @@ FROM
      AND EXISTS (SELECT resource_id 
                  FROM user_permission_grant upg
                  WHERE upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) 
-                 AND upg.permission_type_id IN (1,2,3) 
+                 AND upg.permission_type_id IN (0,1,2,3) 
                  AND upg.resource_id = p.tc_direct_project_id)
      GROUP BY 1, 2
      ))
@@ -104,7 +108,7 @@ FROM
      AND EXISTS (SELECT resource_id 
                  FROM user_permission_grant upg
                  WHERE upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) 
-                 AND upg.permission_type_id IN (1,2,3) 
+                 AND upg.permission_type_id IN (0,1,2,3) 
                  AND upg.resource_id = p.tc_direct_project_id)
      GROUP BY 1, 2
      ))

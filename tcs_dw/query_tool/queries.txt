@@ -162,4 +162,5 @@ query_dashboard_participation_stats_aggregation_type.txt|UPDATE query SET text =
 query_dashboard_participation_stats_aggregation_status.txt|UPDATE query SET text = ? WHERE query_id = 32111
 query_client_direct_project_ids.txt|UPDATE query SET text = ? WHERE query_id = 32112
 query_dashboard_jira_issues_report.txt|UPDATE query SET text = ? WHERE query_id = 32277
+query_dashboard_participation_stats_aggregation_contest.txt|UPDATE query SET text = ? WHERE query_id = 32317
 

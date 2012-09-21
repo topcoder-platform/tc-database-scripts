@@ -12,10 +12,11 @@ SELECT
     country_numbers.registrants_country_count,
     country_numbers.submitters_country_count,
     country_numbers.winners_country_count
+
 FROM
 table(multiset(
 SELECT
-     cpd.project_name AS group_name,
+     p.component_name AS group_name,
      COUNT(pmrm.registrant_id) AS total_registrants_count,
      COUNT(DISTINCT pmrm.registrant_id) AS unique_registrants_count,
      SUM(nvl(pmrm.num_of_final_subs, 0)) +  SUM(nvl(pmrm.num_of_milestone_subs, 0)) AS total_submissions_count,
@@ -33,9 +34,9 @@ AND p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tc
 AND (p.complete_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 AND p.project_category_id IN (@pcids@)
 AND (CASE
-        WHEN p.status_id not IN (1,2,3) THEN "Finished"
-        WHEN p.posting_date IS NULL THEN "Scheduled"
-        ELSE "Active"
+         WHEN p.status_id not IN (1,2,3) THEN "Finished"
+         WHEN p.posting_date IS NULL THEN "Scheduled"
+         ELSE "Active"
     END) IN (@statuses@)
 AND EXISTS (SELECT resource_id 
             FROM user_permission_grant upg
@@ -50,7 +51,7 @@ SELECT
      SUM(CASE WHEN submissions > 0 THEN 1 ELSE 0 END) AS unique_submitters_count,
      SUM(CASE WHEN wins > 0 THEN 1 ELSE 0 END) AS unique_winners_count
 FROM
-    table(multiset(SELECT cpd.project_name AS group_name,
+    table(multiset(SELECT p.component_name AS group_name,
             pmrm.registrant_id,
             SUM(CASE WHEN pmrm.is_submitter THEN 1 ELSE 0 END) AS submissions, 
             SUM(CASE WHEN pmrm.is_milestone_winner OR pmrm.is_final_winner THEN 1 ELSE 0 END) AS wins 
@@ -83,7 +84,7 @@ SELECT
      SUM(CASE WHEN submitters > 0 THEN 1 ELSE 0 END) AS submitters_country_count,
      SUM(CASE WHEN winners > 0 THEN 1 ELSE 0 END) AS winners_country_count
 FROM
-    table(multiset(SELECT cpd.project_name AS group_name,
+    table(multiset(SELECT p.component_name AS group_name,
             pmrm.country,
             COUNT(pmrm.registrant_id) AS registrants,
             SUM(CASE WHEN pmrm.is_submitter THEN 1 ELSE 0 END) AS submitters, 
@@ -113,4 +114,3 @@ GROUP BY 1
 WHERE participant_numbers.group_name = unique_numbers.group_name
 AND   unique_numbers.group_name = country_numbers.group_name
 ORDER BY 1
-

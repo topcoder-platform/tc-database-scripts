@@ -23,7 +23,7 @@ AND (CASE
 AND EXISTS (SELECT resource_id 
             FROM user_permission_grant upg
             WHERE upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) 
-            AND upg.permission_type_id IN (1,2,3) 
+            AND upg.permission_type_id IN (0,1,2,3) 
             AND upg.resource_id = p.tc_direct_project_id)
 )) copilots,    
 table(multiset(
@@ -47,6 +47,6 @@ AND (CASE
 AND EXISTS (SELECT resource_id 
             FROM user_permission_grant upg
             WHERE upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) 
-            AND upg.permission_type_id IN (1,2,3) 
+            AND upg.permission_type_id IN (0,1,2,3) 
             AND upg.resource_id = p.tc_direct_project_id)
 )) contests     
