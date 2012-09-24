@@ -393,3 +393,6 @@ query_get_all_copilot_feedback.txt|UPDATE query SET text = ? WHERE query_id = 32
 query_copilot_feedback.txt|UPDATE query SET text = ? WHERE query_id = 32287
 query_is_user_tc_staff.txt|UPDATE query SET text = ? WHERE query_id = 32326
 query_direct_project_and_client_for_contest.txt|UPDATE query SET text = ? WHERE query_id = 32327
+query_project_ids.txt|UPDATE query SET text = ? WHERE query_id = 32332
+query_project_id.txt|UPDATE query SET text = ? WHERE query_id = 32331
+query_project_name.txt|UPDATE query SET text = ? WHERE query_id = 32333

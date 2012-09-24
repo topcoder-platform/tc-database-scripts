@@ -1,0 +1,3 @@
+select p.name as project_name
+ from tc_direct_project p
+where p.project_id = @tcdirectid@
