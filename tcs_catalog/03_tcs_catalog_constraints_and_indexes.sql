@@ -2084,3 +2084,45 @@ create index 'informix'.direct_project_metadata_val_idx on 'informix'.direct_pro
     (
     metadata_value
     );
+
+
+ALTER TABLE 'informix'.customer_group
+	ADD CONSTRAINT PRIMARY KEY (group_id)
+	CONSTRAINT pk_security_group;
+
+ALTER TABLE 'informix'.group_associated_billing_accounts
+	ADD CONSTRAINT PRIMARY KEY(group_id, billing_account_id)
+	CONSTRAINT pk_group_associated_billing_accounts;
+
+ALTER TABLE 'informix'.group_associated_billing_accounts
+	ADD CONSTRAINT FOREIGN KEY(group_id) REFERENCES 'informix'.customer_group(group_id)
+	CONSTRAINT fk_group_associated_billing_accounts_group;
+
+ALTER TABLE 'informix'.group_associated_direct_projects
+	ADD CONSTRAINT PRIMARY KEY(group_direct_project_id)
+	CONSTRAINT pk_group_associated_direct_projects;
+
+ALTER TABLE 'informix'.customer_administrator
+	ADD CONSTRAINT PRIMARY KEY(customer_administrator_id)
+	CONSTRAINT pk_customer_administrator;
+
+ALTER TABLE 'informix'.group_restriction_resources
+	ADD CONSTRAINT PRIMARY KEY(group_id, resource_type)
+	CONSTRAINT pk_group_restriction_resources;
+
+ALTER TABLE 'informix'.group_restriction_resources
+	ADD CONSTRAINT FOREIGN KEY(group_id) REFERENCES 'informix'.customer_group(group_id)
+	CONSTRAINT fk_group_restriction_resources_group;
+
+ALTER TABLE 'informix'.group_member ADD CONSTRAINT PRIMARY KEY(group_member_id)
+	CONSTRAINT pk_group_member;
+
+ALTER TABLE 'informix'.group_invitation ADD CONSTRAINT PRIMARY KEY(group_invitation_id)
+	CONSTRAINT pk_group_invitation;
+
+ALTER TABLE 'informix'.group_invitation ADD CONSTRAINT FOREIGN KEY(group_member_id) REFERENCES 'informix'.group_member(group_member_id)
+	CONSTRAINT fk_group_invitation_group_member;
+
+ALTER TABLE 'informix'.group_audit_record ADD CONSTRAINT PRIMARY KEY(id)
+	CONSTRAINT pk_group_audit_record;
+	

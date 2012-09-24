@@ -2886,6 +2886,101 @@ lock mode row;
 revoke all on comp_milestone_feedback from 'public';
 
 
+
+CREATE TABLE 'informix'.customer_group (
+	group_id INT NOT NULL,
+	name VARCHAR(45) NOT NULL,
+	default_permission VARCHAR(20) NOT NULL,
+	client_id INT NOT NULL,
+	archived SMALLINT NOT NULL,
+	archived_on DATETIME YEAR TO SECOND,
+	effective_group_id INT
+) 
+EXTENT SIZE 32 NEXT SIZE 32
+LOCK MODE ROW;
+
+revoke all on customer_group from 'public';
+
+CREATE TABLE 'informix'.group_associated_billing_accounts(
+	group_id INT NOT NULL,
+	billing_account_id INT NOT NULL)
+EXTENT SIZE 32 NEXT SIZE 32
+LOCK MODE ROW;
+
+revoke all on group_associated_billing_accounts from 'public';
+
+CREATE TABLE 'informix'.group_associated_direct_projects(
+    group_direct_project_id INT NOT NULL,
+	group_id INT NOT NULL,
+	tc_direct_project_id INT NOT NULL
+)
+EXTENT SIZE 32 NEXT SIZE 32
+LOCK MODE ROW;
+
+revoke all on group_associated_direct_projects from 'public';
+
+CREATE TABLE 'informix'.customer_administrator(
+	customer_administrator_id INT NOT NULL,
+	user_id INT NOT NULL,
+	client_id INT NOT NULL
+)
+EXTENT SIZE 32 NEXT SIZE 32
+LOCK MODE ROW;
+
+revoke all on customer_administrator from 'public';
+
+CREATE TABLE 'informix'.group_restriction_resources(
+	group_id INT NOT NULL,
+	resource_type VARCHAR(20)
+)
+EXTENT SIZE 32 NEXT SIZE 32
+LOCK MODE ROW;
+
+revoke all on group_restriction_resources from 'public';
+
+CREATE TABLE 'informix'.group_member(
+	group_member_id INT NOT NULL,
+	user_id INT NOT NULL,
+	group_id INT NOT NULL,
+	use_group_default SMALLINT NOT NULL,
+	specific_permission VARCHAR(20),
+	active SMALLINT NOT NULL,
+	activated_on DATETIME YEAR TO SECOND,
+	unassigned_on DATETIME YEAR TO SECOND
+)
+EXTENT SIZE 32 NEXT SIZE 32
+LOCK MODE ROW;
+
+revoke all on group_member from 'public';
+
+CREATE TABLE 'informix'.group_invitation(
+	group_invitation_id INT NOT NULL,
+	group_member_id INT NOT NULL,
+	status VARCHAR(20) NOT NULL,
+	sent_on DATETIME YEAR TO SECOND NOT NULL,
+    reject_reason nchar(500),
+	accepted_or_rejected_on DATETIME YEAR TO SECOND,
+	approval_processed_on DATETIME YEAR TO SECOND
+)
+EXTENT SIZE 32 NEXT SIZE 32
+LOCK MODE ROW;
+
+revoke all on group_invitation from 'public';
+
+CREATE TABLE 'informix'.group_audit_record(
+	id INT NOT NULL,
+	user_handle VARCHAR(45) NOT NULL,
+	ip_address VARCHAR(45) NOT NULL,
+	previous_data_value NCHAR(500) NOT NULL,
+	new_data_value NCHAR(500) NOT NULL,
+	create_date DATETIME YEAR TO SECOND NOT NULL
+)
+EXTENT SIZE 32 NEXT SIZE 32
+LOCK MODE ROW;
+
+revoke all on group_audit_record from 'public';
+
+
 grant select on v_latest_version to 'informix' with grant option ;
 
 grant select on user_customer to 'informix' with grant option ;
@@ -4740,3 +4835,85 @@ GRANT INDEX,SELECT, INSERT, UPDATE, DELETE ON 'informix'.project_catalog_lu TO p
 grant select,insert,update,delete on "informix".project_milestone to public as "informix";
 
 grant select,insert,update,delete on "informix".project_milestone_owner to public as "informix";
+
+
+
+grant insert on customer_group to 'public' as 'informix';
+
+grant select on customer_group to 'public' as 'informix';
+
+grant update on customer_group to 'public' as 'informix';
+
+grant index on customer_group to 'public' as 'informix';
+
+grant delete on customer_group to 'public' as 'informix';
+
+grant insert on group_associated_billing_accounts to 'public' as 'informix';
+
+grant select on group_associated_billing_accounts to 'public' as 'informix';
+
+grant update on group_associated_billing_accounts to 'public' as 'informix';
+
+grant index on group_associated_billing_accounts to 'public' as 'informix';
+
+grant delete on group_associated_billing_accounts to 'public' as 'informix';
+
+grant insert on group_associated_direct_projects to 'public' as 'informix';
+
+grant select on group_associated_direct_projects to 'public' as 'informix';
+
+grant update on group_associated_direct_projects to 'public' as 'informix';
+
+grant index on group_associated_direct_projects to 'public' as 'informix';
+
+grant delete on group_associated_direct_projects to 'public' as 'informix';
+
+grant insert on customer_administrator to 'public' as 'informix';
+
+grant select on customer_administrator to 'public' as 'informix';
+
+grant update on customer_administrator to 'public' as 'informix';
+
+grant index on customer_administrator to 'public' as 'informix';
+
+grant delete on customer_administrator to 'public' as 'informix';
+
+grant insert on group_restriction_resources to 'public' as 'informix';
+
+grant select on group_restriction_resources to 'public' as 'informix';
+
+grant update on group_restriction_resources to 'public' as 'informix';
+
+grant index on group_restriction_resources to 'public' as 'informix';
+
+grant delete on group_restriction_resources to 'public' as 'informix';
+
+grant insert on group_member to 'public' as 'informix';
+
+grant select on group_member to 'public' as 'informix';
+
+grant update on group_member to 'public' as 'informix';
+
+grant index on group_member to 'public' as 'informix';
+
+grant delete on group_member to 'public' as 'informix';
+
+grant insert on group_invitation to 'public' as 'informix';
+
+grant select on group_invitation to 'public' as 'informix';
+
+grant update on group_invitation to 'public' as 'informix';
+
+grant index on group_invitation to 'public' as 'informix';
+
+grant delete on group_invitation to 'public' as 'informix';
+
+grant insert on group_audit_record to 'public' as 'informix';
+
+grant select on group_audit_record to 'public' as 'informix';
+
+grant update on group_audit_record to 'public' as 'informix';
+
+grant index on group_audit_record to 'public' as 'informix';
+
+grant delete on group_audit_record to 'public' as 'informix';
