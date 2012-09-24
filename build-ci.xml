@@ -1,0 +1,130 @@
+<project name="TopCoder Continuous Integration Scripts" basedir="." >
+  <!-- Import main build file -->
+  <import file="${basedir}/build.xml"/>
+  <property file="build.properties"/>
+  
+  <!-- stops Jboss, reinstalls database, redeploys OR and starts jboss. -->
+  <target name="redeploy">
+	<!-- Re-enable after getting DB working on new BAMBOO -->
+    <!-- antcall target="stop_tools" -->
+
+    <!-- install databases -->
+    <antcall target="deploy_tools" />
+  </target>
+
+  <!-- Starts all tools -->
+  <target name="start_tools">
+    <start_jboss jboss-home="${or.jboss_home}" background="true" />
+    <start_jboss jboss-home="${direct.jboss_home}" background="true" />
+
+    <if>
+      <available file="${auto_pilot_deploy_dir}/build.xml" />
+      <then>
+        <ant antfile="${auto_pilot_deploy_dir}/build.xml" dir="${auto_pilot_deploy_dir}"
+             target="start_ap" inheritall="false" inheritrefs="true"/>
+      </then>
+    </if>
+
+    <if>
+      <available file="${ldt_deploy_dir}/build.xml" />
+      <then>
+        <ant antfile="${ldt_deploy_dir}/build.xml" dir="${ldt_deploy_dir}"
+         target="start_ldt" inheritall="false" inheritrefs="true"/>
+      </then>
+    </if>
+  </target>
+
+  <!-- Stops all tools -->
+  <target name="stop_tools">
+    <stop_jboss jboss-home="${or.jboss_home}" bind-addr="${or.bind_addr}" jnp-port="${or.jnp_port}" />
+    <stop_jboss jboss-home="${direct.jboss_home}" bind-addr="${direct.bind_addr}" jnp-port="${direct.jnp_port}" />
+
+    <if>
+      <available file="${auto_pilot_deploy_dir}/build.xml" />
+      <then>
+        <ant antfile="${auto_pilot_deploy_dir}/build.xml" dir="${auto_pilot_deploy_dir}"
+         target="stop_ap" inheritall="false" inheritrefs="true"/>
+      </then>
+    </if>
+
+    <if>
+      <available file="${ldt_deploy_dir}/build.xml" />
+      <then>
+        <ant antfile="${ldt_deploy_dir}/build.xml" dir="${ldt_deploy_dir}"
+         target="stop_ldt" inheritall="false" inheritrefs="true"/>
+      </then>
+    </if>
+
+  </target>
+
+  <!-- Redeploy tools -->
+  <target name="deploy_tools" >
+    <!-- redeploy tools -->
+    <antcall target="reinstall_db" />
+  </target>
+
+  <!-- JBoss start / stop -->
+  <macrodef name="start_jboss">
+    <attribute name="background" default="false"/>
+    <attribute name="jboss-home" />
+    <sequential>
+      <available file="${jdk_home}/lib/tools.jar" property="java.tools.jar.exists"/>
+      <fail unless="java.tools.jar.exists" message="Unable to find ${jdk_home}/lib/tools.jar"/>
+      <available file="@{jboss-home}/bin/run.jar" property="jboss.run.jar.exists"/>
+      <fail unless="jboss.run.jar.exists" message="Unable to find @{jboss-home}/bin/run.jar"/>
+      <echo>Starting JBoss in @{jboss-home}...</echo>
+      <java jvm="${jdk_home}/bin/java"
+            dir="@{jboss-home}/bin"
+            classname="org.jboss.Main" fork="true" spawn="@{background}">
+        <jvmarg value="-Xms${jboss_heap_size}"/>
+        <jvmarg value="-Xmx${jboss_heap_size}"/>
+        <jvmarg value="-Djava.endorsed.dirs=@{jboss-home}/lib/endorsed"/>
+        <classpath>
+          <pathelement path="@{jboss-home}/bin/run.jar"/>
+          <pathelement path="${jdk_home}/lib/tools.jar"/>
+        </classpath>
+      </java>
+    </sequential>
+  </macrodef>
+  
+  <macrodef name="stop_jboss">
+    <attribute name="jboss-home" />
+    <attribute name="bind-addr" />
+    <attribute name="jnp-port" />
+    <sequential>
+      <available file="@{jboss-home}/bin/shutdown.jar" property="jboss.shutdown.jar.exists"/>
+      <fail unless="jboss.shutdown.jar.exists" message="Unable to find @{jboss-home}/bin/sutdown.jar"/>
+      <available file="@{jboss-home}/client/jbossall-client.jar" property="jboss.client.jar.exists"/>
+      <fail unless="jboss.client.jar.exists"
+            message="Unable to find @{jboss-home}/client/jbossall-client.jar"/>
+      <sleep seconds="${sleep_before_stopping}"/>
+      <if>
+        <socket server="@{bind-addr}" port="@{jnp-port}"/>
+        <then>
+          <java jvm="${jdk_home}/bin/java"
+                classname="org.jboss.Shutdown" fork="true" resultproperty="shutdown.rc" failonerror="false">
+            <arg line="-s jnp://@{bind-addr}:@{jnp-port}"/>
+            <classpath>
+              <pathelement path="@{jboss-home}/bin/shutdown.jar"/>
+              <pathelement path="@{jboss-home}/client/jbossall-client.jar"/>
+            </classpath>
+          </java>
+          <echo>Shutdown rc = ${shutdown.rc}</echo>
+          <condition property="shutdown.okay">
+            <equals arg1="${shutdown.rc}" arg2="0"/>
+          </condition>
+          <fail unless="shutdown.okay"
+                message="Unable to shut down JBoss (maybe it hasn't fully started yet?)."/>
+          <echo>Waiting for @{bind-addr}:@{jnp-port} to stop listening...</echo>
+          <waitfor maxwait="2" maxwaitunit="minute">
+            <not>
+              <socket server="@{bind-addr}" port="@{jnp-port}"/>
+            </not>
+          </waitfor>
+          <sleep seconds="${sleep_before_stopping}" />
+        </then>
+      </if>
+    </sequential>
+  </macrodef>
+
+</project>
