@@ -1,0 +1,5 @@
+select u.user_id, u.handle, e.address
+ from user u, email e
+where handle_lower like LOWER('%@ha@%') and LOWER(e.address) like LOWER('%@email@%') 
+and e.primary_ind = 1
+and e.user_id = u.user_id

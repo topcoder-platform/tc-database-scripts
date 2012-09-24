@@ -1213,6 +1213,8 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31358, 'long_contest_active_contests_user', 24754);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (29619, 'long_contest_exclusive_round_check', 24754);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31356, 'long_contest_invisible_round_check', 24754);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31891, 'user_handle_email_by_user_id', 24754);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31892, 'search_users_by_handle_email', 20442);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (5, 'sda', 1003, 'Start date');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (6, 'ed', 1003, 'End date');
@@ -1226,7 +1228,7 @@ INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VAL
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (24, 'ct', 1001, 'Coder Type Id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25, 'dq', 1001, 'Demographic Question Id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (39, 'top', 1001, 'No of Top Rated Coders');
-INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (1000, 'uid', 1001, 'TCES User ID');
+INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (1000, 'uid', 1001, 'User ID');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (27, 'rn', 1001, 'min rating');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (28, 'rx', 1001, 'max rating');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (29, 'ha', 1005, 'handle');
@@ -3439,6 +3441,8 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) VALUE
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) VALUES (31732, null, 'long_contest_invisible_round_check', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) VALUES (29916, null, 'long_contest_exclusive_round_check', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) VALUES (29561, null, 'long_contest_collab_round_check', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) VALUES (32330, null, 'search_users_by_handle_email', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) VALUES (32329, null, 'user_handle_email_by_user_id', 0, null);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (29539, 29836, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (22, 50, 1);
@@ -4642,6 +4646,8 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31356, 31732, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (29619, 29916, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (29284, 29561, NULL);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31891, 32329, NULL);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31892, 32330, NULL);
 
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (29836, 'N', NULL, 25390, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (50, 'N', NULL, 18, 1);
@@ -4971,6 +4977,9 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (29916, 'N', NULL, 23, NULL);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31732, 'N', NULL, 23, NULL);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (29561, 'N', NULL, 23, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32329, 'N', NULL, 1000, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32330, 'N', NULL, 20, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32330, 'N', NULL, 29, 0);
 
 INSERT INTO 'informix'.assignment_document_template(assignment_document_template_id,assignment_document_type_id,assignment_document_template_text,cur_version,assignment_document_template_name) VALUES (2000, 1, null, 0, null);
 INSERT INTO 'informix'.assignment_document_template(assignment_document_template_id,assignment_document_type_id,assignment_document_template_text,cur_version,assignment_document_template_name) VALUES (2001, 2, null, 0, null);
