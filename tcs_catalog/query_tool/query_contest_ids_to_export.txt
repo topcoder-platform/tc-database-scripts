@@ -12,10 +12,8 @@ WHERE tdp.project_id = @tcdirectid@ AND
 	   )
    ) 
    OR (
-	p.project_status_id = 1 AND pcl.project_type_id != 3  AND
+	p.project_status_id in (1,7) AND pcl.project_type_id != 3  AND
       (
-      (ph.project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE project_id = p.project_id AND phase_type_id = 11 AND phase_status_id = 2)) 
-      AND
 		EXISTS(SELECT project_phase_id FROM project_phase WHERE project_id = p.project_id AND phase_type_id = 10) AND
 		(SELECT actual_end_time FROM project_phase WHERE project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE phase_type_id = 10 AND project_id = p.project_id)) >= TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND
 		(SELECT actual_end_time FROM project_phase WHERE project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE phase_type_id = 10 AND project_id = p.project_id)) <= TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S')
@@ -42,4 +40,4 @@ AND (EXISTS (SELECT u.user_id
                FROM user_permission_grant AS upg   
               WHERE resource_id=p.tc_direct_project_id AND permission_type_id in (1,2,3) 
                AND upg.user_id = @uid@ ))
-AND tdp.project_id in (4514);
+AND tdp.project_id in (4514, 4480);
