@@ -61,6 +61,9 @@ dbaccess - - < scripts/time_oltp/05_time_oltp_test_data.sql >> time_oltp.log 2>&
 echo "-->> creating corporate oltp..."
 dbaccess - - < downsized_scripts/corporate_oltp/01_corporate_oltp_main_schema.sql > corporate_oltp.log 2>&1
 dbaccess - - < scripts/corporate_oltp/02_corporate_oltp_data_setup.sql >> corporate_oltp.log 2>&1
+cd scripts/informixoltp/query_tool
+java -classpath "$CP" "$CL" "F" "$CONN1""corporate_oltp""$CONN2" queries.txt 
+cd ../../..
 dbaccess - - < scripts/corporate_oltp/03_corporate_oltp_constraints_and_indexes.sql >> corporate_oltp.log 2>&1
 dbaccess - - < scripts/corporate_oltp/04_corporate_oltp_synonyms_procedures_and_triggers.sql >> corporate_oltp.log 2>&1
 
