@@ -813,6 +813,10 @@ alter table 'informix'.late_deliverable add constraint primary key
   (late_deliverable_id)
   constraint pk_late_deliverable;
 
+alter table 'informix'.review_feedback add constraint primary key
+  (review_feedback_id)
+  constraint pk_review_feedback;
+
 alter table 'informix'.project_reliability add constraint primary key
     (project_id, user_id)
     constraint pk_project_reliability;
@@ -1887,6 +1891,12 @@ alter table 'informix'.late_deliverable add constraint foreign key
     references 'informix'.deliverable_lu
     (deliverable_id)
     constraint fk_latedeliverable_deliverablelu_deliverableid;
+
+alter table 'informix'.review_feedback add constraint foreign key
+    (project_id)
+    references 'informix'.project
+    (project_id)
+    constraint fk_reviewfeedback_project_projectid;
 
 alter table 'informix'.project_reliability add constraint foreign key 
     (project_id)
