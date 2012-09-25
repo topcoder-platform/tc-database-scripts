@@ -1,0 +1,364 @@
+SELECT
+        CASE
+                WHEN pmd.payment_type_id IN (45,57)
+                THEN 'Copilot'
+                WHEN pmd.payment_type_id IN (27, 48)
+                THEN 'Spec Review'
+                WHEN pmd.payment_type_id IN (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13, 21)
+                THEN 'Winner'
+                WHEN pmd.payment_type_id IN (7, 28, 26)
+                THEN 'Review'
+                WHEN pmd.payment_type_id IN (24)
+                THEN 'Reliability'
+                WHEN pmd.payment_type_id IN (4)
+                THEN 'Referral'
+                WHEN pmd.payment_type_id IN (23,37,46,47)
+                THEN 'Bugs'
+                WHEN pmd.payment_type_id IN (39)
+                THEN 'Build'
+                WHEN pmd.payment_type_id NOT IN (39,23,37,46,47,45,57,4,24,27,7, 28, 26,6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+                THEN 'Misc'
+                ELSE 'Not Sure'
+        END              AS payment_type  ,
+        pmd.total_amount AS payment_amount,
+        (SELECT value
+        FROM    project_info
+        WHERE   project_info_type_id = 58
+            AND project_id           = p.project_id
+        ) AS contest_launcher_id,
+        CASE
+                WHEN p.project_status_id IN (7,4,5,6,8,9,10,11)
+                THEN 'Finished'
+                ELSE 'Not Finished'
+        END AS status,
+        CASE
+                WHEN (p.project_status_id NOT IN (1,2,3)
+                     OR (p.project_status_id   = 1
+                    AND NOT EXISTS
+                        (SELECT *
+                        FROM    project_phase
+                        WHERE   phase_status_id IN (1,2)
+                            AND project_id       = p.project_id
+                        )))
+                THEN 1
+                ELSE 0
+        END AS show_receipt
+FROM    informixoltp:payment pm
+        INNER JOIN informixoltp:payment_detail pmd
+        ON      pm.most_recent_detail_id = pmd.payment_detail_id,
+                informixoltp:payment_type_lu pt                 ,
+                project p                                       ,
+                project_category_lu pcl
+WHERE   pmd.component_project_id   = p.project_id
+    AND pmd.payment_type_id        = pt.payment_type_id
+    AND pmd.installment_number     = 1
+    AND pmd.payment_type_id       != 4
+    AND NOT pmd.payment_status_id IN (65,68, 69)
+    AND p.project_id               = @pj@
+    AND p.project_category_id      = pcl.project_category_id
+
+UNION ALL
+
+SELECT CASE WHEN pmd2.payment_type_id = 24
+                THEN 'Reliability' 
+		ELSE 'Credit' 
+		END AS payment_type  ,
+        pmd2.total_amount   AS payment_amoumt,
+        (SELECT value
+        FROM    project_info
+        WHERE   project_info_type_id = 58
+            AND project_id           = p.project_id
+        ) AS contest_launcher_id,
+        CASE
+                WHEN p.project_status_id IN (7,4,5,6,8,9,10,11)
+                THEN 'Finished'
+                ELSE 'Not Finished'
+        END AS status,
+        CASE
+                WHEN (p.project_status_id NOT IN (1,2,3)
+                     OR (p.project_status_id   = 1
+                    AND NOT EXISTS
+                        (SELECT *
+                        FROM    project_phase
+                        WHERE   phase_status_id IN (1,2)
+                            AND project_id       = p.project_id
+                        )))
+                THEN 1
+                ELSE 0
+        END AS show_receipt
+FROM    informixoltp:payment pm
+        INNER JOIN informixoltp:payment_detail pmd
+        ON      pm.most_recent_detail_id = pmd.payment_detail_id
+        INNER JOIN (informixoltp:payment_detail pmd2
+                JOIN informixoltp:payment pm2
+                ON      pm2.most_recent_detail_id   = pmd2.payment_detail_id
+                    AND pmd2.payment_type_id       IN (24, 67)
+                    AND NOT pmd2.payment_status_id IN (65, 68, 69))
+        ON      pm.payment_id                       = pmd2.parent_payment_id,
+                informixoltp:payment_type_lu pt                             ,
+                project p                                                   ,
+                project_category_lu pcl
+WHERE   pmd.component_project_id   = p.project_id
+    AND pmd.payment_type_id        = pt.payment_type_id
+    AND pmd.installment_number     = 1
+    AND pmd2.payment_type_id      != 4
+    AND NOT pmd.payment_status_id IN (65,68, 69)
+    AND p.project_id               = @pj@
+    AND p.project_category_id      = pcl.project_category_id
+
+UNION ALL
+
+SELECT 'DR points' AS payment_type ,
+        CASE
+                WHEN p.project_status_id IN (1,7)
+                THEN NVL(
+                        (SELECT SUM(NVL(amount,0))
+                        FROM    dr_points
+                        WHERE   reference_id = p.project_id
+                            AND is_potential = 'f'
+                        ), 0)
+                ELSE 0
+        END AS payment_amount,
+        (SELECT value
+        FROM    project_info
+        WHERE   project_info_type_id = 58
+            AND project_id           = p.project_id
+        ) AS contest_launcher_id,
+        CASE
+                WHEN p.project_status_id IN (7,4,5,6,8,9,10,11)
+                THEN 'Finished'
+                ELSE 'Not Finished'
+        END AS status,
+        CASE
+                WHEN (p.project_status_id NOT IN (1,2,3)
+                     OR (p.project_status_id   = 1
+                    AND NOT EXISTS
+                        (SELECT *
+                        FROM    project_phase
+                        WHERE   phase_status_id IN (1,2)
+                            AND project_id       = p.project_id
+                        )))
+                THEN 1
+                ELSE 0
+        END AS show_receipt
+FROM    project p,
+        project_category_lu pcl
+WHERE   p.project_id          = @pj@
+    AND p.project_category_id = pcl.project_category_id
+
+UNION ALL
+
+SELECT 'Contest Fee' AS payment_type ,
+        CASE
+                WHEN p.project_status_id IN (9, 10)
+                    AND EXISTS
+                        (SELECT *
+                        FROM    project_phase
+                        WHERE   project_id       = p.project_id
+                            AND phase_type_id    = 1
+                            AND phase_status_id IN (2,3)
+                        )
+                THEN pi2.value::DECIMAL(10,2)
+                WHEN p.project_status_id IN (9, 10)
+                    AND NOT EXISTS
+                        (SELECT *
+                        FROM    project_phase
+                        WHERE   project_id       = p.project_id
+                            AND phase_type_id    = 1
+                            AND phase_status_id IN (2,3)
+                        )
+                THEN 0
+                ELSE pi2.value::DECIMAL(10,2)
+        END AS payment_amount,
+        (SELECT value
+        FROM    project_info
+        WHERE   project_info_type_id = 58
+            AND project_id           = p.project_id
+        ) AS contest_launcher_id,
+        CASE
+                WHEN p.project_status_id IN (7,4,5,6,8,9,10,11)
+                THEN 'Finished'
+                ELSE 'Not Finished'
+        END AS status,
+        CASE
+                WHEN (p.project_status_id NOT IN (1,2,3)
+                     OR (p.project_status_id   = 1
+                    AND NOT EXISTS
+                        (SELECT *
+                        FROM    project_phase
+                        WHERE   phase_status_id IN (1,2)
+                            AND project_id       = p.project_id
+                        )))
+                THEN 1
+                ELSE 0
+        END AS show_receipt
+FROM    project p              ,
+        project_category_lu pcl,
+        project_info pi2
+WHERE   p.project_id             = @pj@
+    AND p.project_category_id    = pcl.project_category_id
+    AND p.project_id             = pi2.project_id
+    AND pi2.project_info_type_id = 31
+    AND (NVL(
+        (SELECT (CAST (NVL(pi57.value, '0') AS DECIMAL (10,2)))
+        FROM    project_info pi57
+        WHERE   pi57.project_id                         =p.project_id
+            AND pi57.project_info_type_id               =57
+        ), 0)                                           = 0)
+    AND (CAST (NVL(pi2.value, '0') AS DECIMAL (10,2))) != 0
+    AND (p.project_status_id                            = 7
+     OR (p.project_status_id                           IN (9, 10)
+    AND EXISTS
+        (SELECT *
+        FROM    project_phase
+        WHERE   project_id       = p.project_id
+            AND phase_type_id    = 1
+            AND phase_status_id IN (2,3)
+        ))
+     OR (p.project_status_id = 1
+    AND EXISTS
+        (SELECT *
+        FROM    project_phase
+        WHERE   project_id       = p.project_id
+            AND phase_type_id    = 10
+            AND phase_status_id IN (2,3)
+        )))
+
+UNION ALL
+
+SELECT 'Contest Fee'                                                               AS payment_type  ,
+        NVL(pmd.total_amount, 0) * (CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) AS payment_amount,
+        (SELECT value
+        FROM    project_info
+        WHERE   project_info_type_id = 58
+            AND project_id           = p.project_id
+        ) AS contest_launcher_id,
+        CASE
+                WHEN p.project_status_id IN (7,4,5,6,8,9,10,11)
+                THEN 'Finished'
+                ELSE 'Not Finished'
+        END AS status,
+        CASE
+                WHEN (p.project_status_id NOT IN (1,2,3)
+                     OR (p.project_status_id   = 1
+                    AND NOT EXISTS
+                        (SELECT *
+                        FROM    project_phase
+                        WHERE   phase_status_id IN (1,2)
+                            AND project_id       = p.project_id
+                        )))
+                THEN 1
+                ELSE 0
+        END AS show_receipt
+FROM    informixoltp:payment pm
+        INNER JOIN informixoltp:payment_detail pmd
+        ON      pm.most_recent_detail_id = pmd.payment_detail_id,
+                informixoltp:payment_type_lu pt                 ,
+                project p                                       ,
+                project_category_lu pcl                         ,
+                project_info pi57
+WHERE   pmd.component_project_id                         = p.project_id
+    AND pmd.payment_type_id                              = pt.payment_type_id
+    AND pmd.installment_number                           = 1
+    AND pmd.payment_type_id                             != 4
+    AND NOT pmd.payment_status_id                       IN (65,68, 69)
+    AND p.project_id                                     = @pj@
+    AND p.project_category_id                            = pcl.project_category_id
+    AND p.project_id                                     = pi57.project_id
+    AND pi57.project_info_type_id                        = 57
+    AND ((CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) > 0)
+
+UNION ALL
+
+SELECT 'Contest Fee'                                                                AS payment_type  ,
+        NVL(pmd2.total_amount, 0) * (CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) AS payment_amoumt,
+         (SELECT value
+                FROM    project_info
+                WHERE   project_info_type_id = 58
+                    AND project_id           = p.project_id
+                ) AS contest_launcher_id,
+        CASE
+                WHEN p.project_status_id IN (7,4,5,6,8,9,10,11)
+                THEN 'Finished'
+                ELSE 'Not Finished'
+        END AS status,
+        CASE
+                WHEN (p.project_status_id NOT IN (1,2,3)
+                     OR (p.project_status_id   = 1
+                    AND NOT EXISTS
+                        (SELECT *
+                        FROM    project_phase
+                        WHERE   phase_status_id IN (1,2)
+                            AND project_id       = p.project_id
+                        )))
+                THEN 1
+                ELSE 0
+        END AS show_receipt
+FROM    informixoltp:payment pm
+        INNER JOIN informixoltp:payment_detail pmd
+        ON      pm.most_recent_detail_id = pmd.payment_detail_id
+        INNER JOIN (informixoltp:payment_detail pmd2
+                JOIN informixoltp:payment pm2
+                ON      pm2.most_recent_detail_id   = pmd2.payment_detail_id
+                    AND pmd2.payment_type_id       IN (24, 67)
+                    AND NOT pmd2.payment_status_id IN (65, 68, 69))
+        ON      pm.payment_id                       = pmd2.parent_payment_id,
+                informixoltp:payment_type_lu pt                             ,
+                project p                                                   ,
+                project_category_lu pcl                                     ,
+                project_info pi57
+WHERE   pmd.component_project_id                         = p.project_id
+    AND pmd.payment_type_id                              = pt.payment_type_id
+    AND pmd.installment_number                           = 1
+    AND pmd2.payment_type_id                            != 4
+    AND NOT pmd.payment_status_id                       IN (65,68, 69)
+    AND p.project_id                                     = @pj@
+    AND p.project_category_id                            = pcl.project_category_id
+    AND p.project_id                                     = pi57.project_id
+    AND pi57.project_info_type_id                        = 57
+    AND ((CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) > 0)
+
+UNION ALL
+
+SELECT 'Contest Fee ' AS payment_type ,
+        (
+        CASE
+                WHEN p.project_status_id IN (1,7)
+                THEN NVL(
+                        (SELECT SUM(NVL(amount,0))
+                        FROM    dr_points
+                        WHERE   reference_id = p.project_id
+                            AND is_potential = 'f'
+                        ), 0)
+                ELSE 0
+        END) * (CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) AS payment_amount,
+        (SELECT value
+        FROM    project_info
+        WHERE   project_info_type_id = 58
+            AND project_id           = p.project_id
+        ) AS contest_launcher_id,
+        CASE
+                WHEN p.project_status_id IN (7,4,5,6,8,9,10,11)
+                THEN 'Finished'
+                ELSE 'Not Finished'
+        END AS status,
+        CASE
+                WHEN (p.project_status_id NOT IN (1,2,3)
+                     OR (p.project_status_id   = 1
+                    AND NOT EXISTS
+                        (SELECT *
+                        FROM    project_phase
+                        WHERE   phase_status_id IN (1,2)
+                            AND project_id       = p.project_id
+                        )))
+                THEN 1
+                ELSE 0
+        END AS show_receipt
+FROM    project p              ,
+        project_category_lu pcl,
+        project_info pi57
+WHERE   p.project_id                                     = @pj@
+    AND p.project_category_id                            = pcl.project_category_id
+    AND p.project_id                                     = pi57.project_id
+    AND pi57.project_info_type_id                        = 57
+    AND ((CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) > 0)
