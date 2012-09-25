@@ -1502,6 +1502,7 @@ INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, 
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (130, 'Bug Hunt Spec Reviewer', 1120, 18);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (131, 'Bug Hunt Reviewer', 120, 4);
 INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (132, 'Marathon Match Reviewer', 148, 4);
+INSERT INTO 'informix'.review_resp (review_resp_id, review_resp_name, phase_id, resource_role_id) VALUES (133, 'Process Reviewer', 123, 4);
 
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (11010, null, 'User_List', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (12154, null, 'Inquiry Detail', 0, null);
