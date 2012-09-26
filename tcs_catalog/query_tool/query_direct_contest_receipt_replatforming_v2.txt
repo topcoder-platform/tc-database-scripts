@@ -33,13 +33,8 @@ SELECT
         END AS status,
         CASE
                 WHEN (p.project_status_id NOT IN (1,2,3)
-                     OR (p.project_status_id   = 1
-                    AND NOT EXISTS
-                        (SELECT *
-                        FROM    project_phase
-                        WHERE   phase_status_id IN (1,2)
-                            AND project_id       = p.project_id
-                        )))
+                    OR (p.project_status_id = 1
+							and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3))))
                 THEN 1
                 ELSE 0
         END AS show_receipt
@@ -76,13 +71,8 @@ SELECT CASE WHEN pmd2.payment_type_id = 24
         END AS status,
         CASE
                 WHEN (p.project_status_id NOT IN (1,2,3)
-                     OR (p.project_status_id   = 1
-                    AND NOT EXISTS
-                        (SELECT *
-                        FROM    project_phase
-                        WHERE   phase_status_id IN (1,2)
-                            AND project_id       = p.project_id
-                        )))
+						OR (p.project_status_id = 1
+							and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3))))
                 THEN 1
                 ELSE 0
         END AS show_receipt
@@ -115,7 +105,7 @@ SELECT 'DR points' AS payment_type ,
                         (SELECT SUM(NVL(amount,0))
                         FROM    dr_points
                         WHERE   reference_id = p.project_id
-                            AND is_potential = 'f'
+                          --  AND is_potential = 'f'
                         ), 0)
                 ELSE 0
         END AS payment_amount,
@@ -131,13 +121,8 @@ SELECT 'DR points' AS payment_type ,
         END AS status,
         CASE
                 WHEN (p.project_status_id NOT IN (1,2,3)
-                     OR (p.project_status_id   = 1
-                    AND NOT EXISTS
-                        (SELECT *
-                        FROM    project_phase
-                        WHERE   phase_status_id IN (1,2)
-                            AND project_id       = p.project_id
-                        )))
+                     OR (p.project_status_id = 1
+							and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3))))
                 THEN 1
                 ELSE 0
         END AS show_receipt
@@ -182,13 +167,8 @@ SELECT 'Contest Fee' AS payment_type ,
         END AS status,
         CASE
                 WHEN (p.project_status_id NOT IN (1,2,3)
-                     OR (p.project_status_id   = 1
-                    AND NOT EXISTS
-                        (SELECT *
-                        FROM    project_phase
-                        WHERE   phase_status_id IN (1,2)
-                            AND project_id       = p.project_id
-                        )))
+                     OR (p.project_status_id = 1
+							and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3))))
                 THEN 1
                 ELSE 0
         END AS show_receipt
@@ -240,13 +220,8 @@ SELECT 'Contest Fee'                                                            
         END AS status,
         CASE
                 WHEN (p.project_status_id NOT IN (1,2,3)
-                     OR (p.project_status_id   = 1
-                    AND NOT EXISTS
-                        (SELECT *
-                        FROM    project_phase
-                        WHERE   phase_status_id IN (1,2)
-                            AND project_id       = p.project_id
-                        )))
+                     OR (p.project_status_id = 1
+							and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3))))
                 THEN 1
                 ELSE 0
         END AS show_receipt
@@ -284,13 +259,8 @@ SELECT 'Contest Fee'                                                            
         END AS status,
         CASE
                 WHEN (p.project_status_id NOT IN (1,2,3)
-                     OR (p.project_status_id   = 1
-                    AND NOT EXISTS
-                        (SELECT *
-                        FROM    project_phase
-                        WHERE   phase_status_id IN (1,2)
-                            AND project_id       = p.project_id
-                        )))
+                    OR (p.project_status_id = 1
+							and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3))))
                 THEN 1
                 ELSE 0
         END AS show_receipt
@@ -328,7 +298,7 @@ SELECT 'Contest Fee ' AS payment_type ,
                         (SELECT SUM(NVL(amount,0))
                         FROM    dr_points
                         WHERE   reference_id = p.project_id
-                            AND is_potential = 'f'
+                          --  AND is_potential = 'f'
                         ), 0)
                 ELSE 0
         END) * (CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) AS payment_amount,
@@ -344,13 +314,8 @@ SELECT 'Contest Fee ' AS payment_type ,
         END AS status,
         CASE
                 WHEN (p.project_status_id NOT IN (1,2,3)
-                     OR (p.project_status_id   = 1
-                    AND NOT EXISTS
-                        (SELECT *
-                        FROM    project_phase
-                        WHERE   phase_status_id IN (1,2)
-                            AND project_id       = p.project_id
-                        )))
+                   OR (p.project_status_id = 1
+							and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3))))
                 THEN 1
                 ELSE 0
         END AS show_receipt
