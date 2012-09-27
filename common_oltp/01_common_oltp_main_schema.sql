@@ -1081,6 +1081,7 @@ create table 'informix'.vm_instance_audit (
   create_date DATETIME YEAR to FRACTION(3) NOT NULL ,
   modify_date DATETIME YEAR to FRACTION(3) NOT NULL ,
   action VARCHAR(50) NOT NULL ,
+  user_id DECIMAL(10,0) NOT NULL,
   PRIMARY KEY (vm_instance_audit_id) constraint "informix".vm_instance_audit_pk
 )
 extent size 15000 next size 4000
