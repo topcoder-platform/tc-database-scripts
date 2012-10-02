@@ -15,12 +15,12 @@ SELECT pm.create_date payment_date, p.project_id as contest_id,  ttc.name client
           THEN 'Active'
        ELSE 'Active'
        END as contest_status,
-  SUM(case when p.project_status_id  in (1,7) 
+  SUM(case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id in (29, 9) then 4
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
-                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
+                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3)))
    then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
@@ -137,11 +137,12 @@ SELECT pm2.create_date payment_date, p.project_id as contest_id, ttc.name client
        WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
           THEN 'Active'
        ELSE 'Active' END as contest_status,
-  SUM(case when p.project_status_id  in (1,7) 
+  SUM(case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id in (9, 29) then 4
-                                           when pcl.project_type_id in (1,2) then 10 else 4 end) 
-                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
+                                           when pcl.project_type_id in (1,2) then 10
+										   else 4 end) 
+                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3)))
    then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
@@ -247,12 +248,12 @@ SELECT (pm.create_date) payment_date, p.project_id as contest_id, ttc.name clien
        ELSE
           'Active'
        END as contest_status,
-  SUM(case when p.project_status_id  in (1,7) 
+  SUM(case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10
-										   else 4 end)  
-                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
+										   else 4 end) 
+                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3)))
    then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
@@ -373,12 +374,12 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
        ELSE 'Active'
        END as contest_status,
 
-  SUM(case when p.project_status_id  in (1,7) 
+  SUM(case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
-                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
+                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3)))
    then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
@@ -508,12 +509,12 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
           THEN 'Active' 
        ELSE 'Active'
        END as contest_status, 
-  (case when p.project_status_id  in (1,7) 
+  (case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
-                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
+                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3)))
    then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
@@ -605,12 +606,12 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
           THEN 'Active'
        ELSE 'Active'
        END as contest_status,
-  (case when p.project_status_id  in (1,7) 
+  (case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
-                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
+                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3)))
    then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
@@ -702,12 +703,12 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
           THEN 'Active'
        ELSE 'Active'
        END as contest_status,
-  (case when p.project_status_id  in (1,7) 
+  (case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id in (9, 29) then 4
                                            when pcl.project_type_id in (1,2) then 10
 										   else 4 end) 
-                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3) 
+                and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id and phase_status_id = 3)))
    then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
