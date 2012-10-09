@@ -397,3 +397,4 @@ query_project_ids.txt|UPDATE query SET text = ? WHERE query_id = 32332
 query_project_id.txt|UPDATE query SET text = ? WHERE query_id = 32331
 query_project_name.txt|UPDATE query SET text = ? WHERE query_id = 32333
 query_direct_contest_receipt_replatforming_v2.txt|UPDATE query SET text = ? WHERE query_id = 32334
+query_project_contest_submissions.txt|UPDATE query SET text = ? WHERE query_id = 32346

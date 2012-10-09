@@ -1,0 +1,22 @@
+SELECT
+      p.project_id AS contest_id
+    , proj_name.value AS contest_name
+    , s.submission_id
+    , s.final_score
+    , s.placement
+FROM project p
+INNER JOIN project_info proj_name ON p.project_id = proj_name.project_id
+LEFT  JOIN upload u ON p.project_id = u.project_id
+LEFT  JOIN submission s ON s.upload_id = u.upload_id
+WHERE p.tc_direct_project_id = @tcdirectid@
+AND   p.project_status_id = 7
+AND   proj_name.project_info_type_id = 6
+AND   s.submission_type_id = 1
+AND   s.placement in (1, 2)
+AND
+(
+    (SELECT actual_start_time FROM project_phase WHERE project_phase_id = (SELECT MIN(project_phase_id) FROM project_phase WHERE project_id = p.project_id)) >= TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S')
+    AND
+    (SELECT actual_end_time FROM project_phase WHERE project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE project_id = p.project_id)) <= TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S')
+)
+ORDER BY 1, 5;
