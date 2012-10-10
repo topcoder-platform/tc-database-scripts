@@ -428,6 +428,59 @@ lock mode row;
 revoke all on "informix".direct_project_account from "public" as "informix";
 
 
+CREATE TABLE 'informix'.project_question(
+	question_id INT NOT NULL,
+	question_text LVARCHAR(1000) NOT NULL,
+	direct_project_type_id INT NOT NULL,
+	answer_html_id VARCHAR(45),
+	multiple_answers_html_xpath VARCHAR(100)
+) 
+EXTENT SIZE 32 NEXT SIZE 32 
+LOCK MODE ROW;
+revoke all on "informix".project_question from "public" as "informix";
+
+CREATE TABLE 'informix'.project_question_option(
+	question_option_id INT NOT NULL,
+	question_id INT NOT NULL,
+	question_option_text LVARCHAR(1000) NOT NULL,
+	answer_html_id VARCHAR(45),
+	has_associated_textbox BOOLEAN NOT NULL,
+	associated_textbox_html_id VARCHAR(45)
+) 
+EXTENT SIZE 32 NEXT SIZE 32 
+LOCK MODE ROW;
+revoke all on "informix".project_question_option from "public" as "informix";
+
+CREATE TABLE 'informix'.project_answer(
+	answer_id INT NOT NULL,
+	question_id INT NOT NULL,
+	textual_answer LVARCHAR(4000),
+	tc_direct_project_id INT NOT NULL
+) 
+EXTENT SIZE 32 NEXT SIZE 32 
+LOCK MODE ROW;
+revoke all on "informix".project_answer from "public" as "informix";
+
+CREATE TABLE 'informix'.project_multiple_answer(
+	project_multiple_answer_id INT NOT NULL,
+	answer_id INT NOT NULL,
+	answer_value VARCHAR(255)
+)
+EXTENT SIZE 32 NEXT SIZE 32 
+LOCK MODE ROW;
+revoke all on "informix".project_multiple_answer from "public" as "informix";
+
+CREATE TABLE 'informix'.project_answer_option(
+	project_answer_option_id INT NOT NULL,
+	answer_id INT NOT NULL,
+	question_option_id INT NOT NULL,
+	answer_html_value LVARCHAR(1000)
+)
+EXTENT SIZE 32 NEXT SIZE 32 
+LOCK MODE ROW;
+revoke all on "informix".project_answer_option from "public" as "informix";
+
+
 grant select on "informix".unit_type_lu to "public" as "informix";
 grant update on "informix".unit_type_lu to "public" as "informix";
 grant insert on "informix".unit_type_lu to "public" as "informix";
@@ -636,3 +689,35 @@ grant select on "informix".direct_project_account to "public" as "informix";
 grant update on "informix".direct_project_account to "public" as "informix";
 grant insert on "informix".direct_project_account to "public" as "informix";
 grant delete on "informix".direct_project_account to "public" as "informix";
+
+grant select on "informix".project_question to "public" as "informix";
+grant update on "informix".project_question to "public" as "informix";
+grant insert on "informix".project_question to "public" as "informix";
+grant delete on "informix".project_question to "public" as "informix";
+
+grant select on "informix".project_question_option to "public" as "informix";
+grant update on "informix".project_question_option to "public" as "informix";
+grant insert on "informix".project_question_option to "public" as "informix";
+grant delete on "informix".project_question_option to "public" as "informix";
+
+grant select on "informix".project_answer to "public" as "informix";
+grant update on "informix".project_answer to "public" as "informix";
+grant insert on "informix".project_answer to "public" as "informix";
+grant delete on "informix".project_answer to "public" as "informix";
+
+grant select on "informix".project_multiple_answer to "public" as "informix";
+grant update on "informix".project_multiple_answer to "public" as "informix";
+grant insert on "informix".project_multiple_answer to "public" as "informix";
+grant delete on "informix".project_multiple_answer to "public" as "informix";
+
+grant select on "informix".project_answer_option to "public" as "informix";
+grant update on "informix".project_answer_option to "public" as "informix";
+grant insert on "informix".project_answer_option to "public" as "informix";
+grant delete on "informix".project_answer_option to "public" as "informix";
+
+CREATE SEQUENCE project_question_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
+CREATE SEQUENCE project_question_option_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
+CREATE SEQUENCE project_answer_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
+CREATE SEQUENCE project_multiple_answer_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
+CREATE SEQUENCE project_answer_option_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
+

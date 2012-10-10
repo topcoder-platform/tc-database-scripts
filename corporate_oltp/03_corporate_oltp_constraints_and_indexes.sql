@@ -73,3 +73,40 @@ alter table 'informix'.direct_project_account add constraint unique
 	(project_id, billing_account_id)
 constraint u_project_id_billing_account_id;
 
+ALTER TABLE 'informix'.project_question
+	ADD CONSTRAINT PRIMARY KEY(question_id) CONSTRAINT project_question_pk;
+	
+ALTER TABLE 'informix'.project_question
+	ADD CONSTRAINT FOREIGN KEY(direct_project_type_id) REFERENCES 'informix'.direct_project_type(direct_project_type_id) CONSTRAINT project_question_direct_project_type_fk; 
+
+ALTER TABLE 'informix'.project_question_option
+	ADD CONSTRAINT PRIMARY KEY(question_option_id) CONSTRAINT project_question_option_pk;
+	
+ALTER TABLE 'informix'.project_question_option
+	ADD CONSTRAINT FOREIGN KEY(question_id) REFERENCES 'informix'.project_question(question_id) CONSTRAINT project_question_option_project_question_fk;
+
+ALTER TABLE 'informix'.project_answer 
+	ADD CONSTRAINT PRIMARY KEY(answer_id) CONSTRAINT project_answer_pk;
+	
+ALTER TABLE 'informix'.project_answer
+	ADD CONSTRAINT FOREIGN KEY(tc_direct_project_id) REFERENCES 'informix'.tc_direct_project(project_id) CONSTRAINT project_answer_tcdirect_project_fk;
+	
+ALTER TABLE 'informix'.project_answer
+	ADD CONSTRAINT FOREIGN KEY(question_id) REFERENCES 'informix'.project_question(question_id) CONSTRAINT project_answer_project_question_fk;  
+
+ALTER TABLE 'informix'.project_multiple_answer
+	ADD CONSTRAINT PRIMARY KEY(project_multiple_answer_id) CONSTRAINT project_multiple_answer_pk;
+	
+ALTER TABLE 'informix'.project_multiple_answer 
+	ADD CONSTRAINT FOREIGN KEY(answer_id) REFERENCES 'informix'.project_answer(answer_id) CONSTRAINT project_multiple_answer_project_answer_fk;
+	
+ALTER TABLE 'informix'.project_answer_option
+	ADD CONSTRAINT PRIMARY KEY(project_answer_option_id) CONSTRAINT project_answer_option_pk;
+	
+ALTER TABLE 'informix'.project_answer_option
+	ADD CONSTRAINT FOREIGN KEY(answer_id) REFERENCES 'informix'.project_answer(answer_id) CONSTRAINT project_answer_option_project_answer_fk;
+	
+ALTER TABLE 'informix'.project_answer_option
+	ADD CONSTRAINT FOREIGN KEY(question_option_id) REFERENCES 'informix'.project_question_option(question_option_id) CONSTRAINT project_answer_option_project_question_option_fk;
+	
+
