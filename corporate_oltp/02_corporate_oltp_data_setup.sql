@@ -216,13 +216,13 @@ insert into direct_project_category (direct_project_category_id,direct_project_t
 insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (81, 8, "QA Existing Product"); 
 
 
--- Project type
+
 INSERT INTO direct_project_type(direct_project_type_id, name) VALUES(9, 'Custom Project');
 INSERT INTO direct_project_type(direct_project_type_id, name) VALUES(10, 'Mobile Project');
 INSERT INTO direct_project_type(direct_project_type_id, name) VALUES(11, 'Presentation Project');
 INSERT INTO direct_project_type(direct_project_type_id, name) VALUES(12, 'Analytic Project');
 
--- Test data for project mobile type.
+
 INSERT INTO project_question VALUES(1, "What type of app do you want to build: cross-platform, native, or web?", 10, "", "");
 INSERT INTO project_question VALUES(2, "Do you require the use of a specific cross-platform framework?", 10, "", "");
 INSERT INTO project_question VALUES(3, "What operating system(s) do you want to target?", 10, "", "");
@@ -293,7 +293,7 @@ INSERT INTO project_question_option VALUES(53, 13, "Upload", "upload", "f", "");
 INSERT INTO project_question_option VALUES(54, 13, "Remote file (URL)", "url", "f", "");
 INSERT INTO project_question_option VALUES(55, 13, "Direct entry ", "directEntry", "f", "");
 
--- Test data for project presentation type
+
 INSERT INTO project_question VALUES(14, "What do you want us to deliver?", 11, "", "");
 INSERT INTO project_question VALUES(15, "Title", 11, "presentationTitle", "");
 INSERT INTO project_question VALUES(16, "Summary", 11, "presentationSummary", "");
@@ -363,7 +363,7 @@ INSERT INTO project_question_option VALUES(111, 21, "<span>Dispassionate</span>"
 INSERT INTO project_question_option VALUES(112, 21, "<span>Factual</span>", "factual", "f", "");
 INSERT INTO project_question_option VALUES(113, 21, "<span>Emotional</span>", "emotional", "f", "");
 
--- Test data for project type analytics
+
 INSERT INTO project_question VALUES(23, 'Estimated Budget<span class="red">*</span>', 12, "estimatedBudget", "");
 INSERT INTO project_question VALUES(24, 'Estimated Timeline<span class="red">*</span>', 12, "", "");
 INSERT INTO project_question VALUES(25, "Do you require a Copilot for your Project ?", 12, "", "div[id=selectionConfirmationModal] dd span");
@@ -416,7 +416,7 @@ INSERT INTO project_question_option VALUES(145, 37, "Upload", "", "f", "");
 INSERT INTO project_question_option VALUES(146, 37, "Remote file (URL)", "", "f", "");
 INSERT INTO project_question_option VALUES(147, 37, "Direct entry", "", "f", "");
 
--- Test data for project type custom
+
 INSERT INTO project_question VALUES(39, "Do you require a Copilot for your Project ?", 9, "", "div[id=selectionConfirmationModal] dd span");
 INSERT INTO project_question VALUES(40, "<span>5</span>Who can access your Project?", 9, "", ".customProject .checkPermissions .userRow .group");
 INSERT INTO project_question VALUES(41, "<span>6</span>Manage Project Forum", 9, "", "table.forums tr");
