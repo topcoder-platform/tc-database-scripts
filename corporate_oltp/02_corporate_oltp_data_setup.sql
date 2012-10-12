@@ -216,7 +216,6 @@ insert into direct_project_category (direct_project_category_id,direct_project_t
 insert into direct_project_category (direct_project_category_id,direct_project_type_id,name) VALUES (81, 8, "QA Existing Product"); 
 
 
-DATABASE corporate_oltp;
 -- Project type
 INSERT INTO direct_project_type(direct_project_type_id, name) VALUES(9, 'Custom Project');
 INSERT INTO direct_project_type(direct_project_type_id, name) VALUES(10, 'Mobile Project');
