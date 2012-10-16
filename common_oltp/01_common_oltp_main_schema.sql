@@ -2119,3 +2119,14 @@ grant select on user_preference to 'public' as 'informix';
 grant insert on user_preference to 'public' as 'informix';
 
 grant update on user_preference to 'public' as 'informix';
+
+grant delete on invalid_handles to 'public' as 'informix';
+
+grant index on invalid_handles to 'public' as 'informix';
+
+grant select on invalid_handles to 'public' as 'informix';
+
+grant insert on invalid_handles to 'public' as 'informix';
+
+grant update on invalid_handles to 'public' as 'informix';
+
