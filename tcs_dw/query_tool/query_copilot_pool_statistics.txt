@@ -1,0 +1,10 @@
+select 
+contests_count as total_contests_number, 
+projects_count as total_projects_number, 
+failures_count as failed_contests_number, 
+reposts_count as reposted_contests_number, 
+current_contests_count as current_contests_number, 
+current_projects_count as current_projects_number, 
+user_id
+from
+copilot_statistics
