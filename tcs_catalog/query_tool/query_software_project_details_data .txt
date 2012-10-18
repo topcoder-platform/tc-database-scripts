@@ -19,8 +19,8 @@ select (p.project_studio_spec_id IS NOT NULL) as is_studio
            and proj.project_id = p.project_id
            and ppd.phase_type_id = 1) as posting_date
      , pp2.scheduled_end_time as submission_date
-     , pp6.scheduled_end_time as winner_announced_date
-     , pp9.scheduled_end_time final_submission_date
+     , nvl(pp6.scheduled_end_time, pp4.scheduled_end_time) as winner_announced_date
+     , nvl(pp9.scheduled_end_time, pp4.scheduled_end_time) final_submission_date
      , nd_phase.scheduled_end_time as next_deadline
      , case when (nd_phase.scheduled_end_time IS NOT NULL) then
                 (select phase_type_lu.description from phase_type_lu
@@ -48,9 +48,9 @@ select (p.project_studio_spec_id IS NOT NULL) as is_studio
      , project_spec ps
      , project_phase pp1
      , project_phase pp2
-     , project_phase pp6
-     , project_phase pp9
-     , project_phase pp3
+     , outer project_phase pp6
+     , outer project_phase pp9
+     , outer project_phase pp3
      , project_phase pp4
      , project_info pn
      , project_info pidr
