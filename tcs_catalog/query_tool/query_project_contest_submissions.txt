@@ -1,10 +1,13 @@
-SELECT
+SELECT unique
       p.project_id AS contest_id
     , proj_name.value AS contest_name
     , s.submission_id
     , s.final_score
     , s.placement
 FROM project p
+INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
+INNER JOIN project_phase ph ON p.project_id = ph.project_id
+INNER JOIN tc_direct_project tdp ON p.tc_direct_project_id = tdp.project_id
 INNER JOIN project_info proj_name ON p.project_id = proj_name.project_id
 LEFT  JOIN upload u ON p.project_id = u.project_id
 LEFT  JOIN submission s ON s.upload_id = u.upload_id
@@ -15,8 +18,41 @@ AND   s.submission_type_id = 1
 AND   s.placement in (1, 2)
 AND
 (
-    (SELECT actual_start_time FROM project_phase WHERE project_phase_id = (SELECT MIN(project_phase_id) FROM project_phase WHERE project_id = p.project_id)) >= TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S')
-    AND
-    (SELECT actual_end_time FROM project_phase WHERE project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE project_id = p.project_id)) <= TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S')
+   (
+       pcl.project_type_id = 3 AND p.project_status_id = 7 AND 
+	   (
+	   (SELECT actual_end_time FROM project_phase WHERE project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE phase_type_id = 4 AND project_id = p.project_id)) >= TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND
+		(SELECT actual_end_time FROM project_phase WHERE project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE phase_type_id = 4 AND project_id = p.project_id)) <= TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S')
+	   )
+   ) 
+   OR (
+	p.project_status_id in (1,7) AND pcl.project_type_id != 3  AND
+      (
+		EXISTS(SELECT project_phase_id FROM project_phase WHERE project_id = p.project_id AND phase_type_id = 10) AND
+		(SELECT actual_end_time FROM project_phase WHERE project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE phase_type_id = 10 AND project_id = p.project_id)) >= TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND
+		(SELECT actual_end_time FROM project_phase WHERE project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE phase_type_id = 10 AND project_id = p.project_id)) <= TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S')
+      ) 
+      OR
+      (
+      (ph.project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE project_id = p.project_id AND phase_type_id = 4 AND phase_status_id = 3)) 
+      AND
+		(NOT EXISTS(SELECT project_phase_id FROM project_phase WHERE project_id = p.project_id AND phase_type_id = 10)) AND
+		(SELECT actual_end_time FROM project_phase WHERE project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE phase_type_id = 4 AND project_id = p.project_id)) >= TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND
+		(SELECT actual_end_time FROM project_phase WHERE project_phase_id = (SELECT MAX(project_phase_id) FROM project_phase WHERE phase_type_id = 4 AND project_id = p.project_id)) <= TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S')
+      )
+    )
 )
+AND (EXISTS (SELECT u.user_id 
+         FROM user AS u 
+         JOIN user_role_xref AS uref 
+            ON u.user_id = @uid@
+            AND u.user_id = uref.login_id 
+         JOIN security_roles AS sr 
+            ON uref.role_id = sr.role_id 
+            AND sr.description IN ('TC Staff'))
+     OR EXISTS (SELECT permission_type_id 
+               FROM user_permission_grant AS upg   
+              WHERE resource_id=p.tc_direct_project_id AND permission_type_id in (1,2,3) 
+               AND upg.user_id = @uid@ ))
+AND tdp.project_id in (4514, 4480)
 ORDER BY 1, 5;
