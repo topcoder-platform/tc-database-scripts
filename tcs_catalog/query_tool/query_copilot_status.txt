@@ -1,0 +1,3 @@
+select cp.reliability, cp.suspension_count, cps.name as status_name, cps.copilot_profile_status_id as status_id 
+from copilot_profile cp, copilot_profile_status cps 
+where cp.copilot_profile_status_id = cps.copilot_profile_status_id and cp.user_id = @uid@
