@@ -603,6 +603,14 @@ alter table 'informix'.payment_detail_xref add constraint primary key
     (payment_id, payment_detail_id)
     constraint payment_detail_xref_pk;
 
+alter table 'informix'.payment_release add constraint primary key 
+    (payment_release_id)
+    constraint payment_release_pk;
+
+alter table 'informix'.payment_release_xref add constraint primary key 
+    (payment_release_id, payment_id)
+    constraint payment_release_xref_pk;
+
 alter table 'informix'.modification_rationale_lu add constraint primary key 
     (modification_rationale_id)
     constraint modification_rationale_lu_pk;
@@ -2035,6 +2043,24 @@ alter table 'informix'.payment_detail_xref add constraint foreign key
     references 'informix'.payment_detail
     (payment_detail_id) 
     constraint paymentdetailxref_paymentdetail_fk;
+
+alter table 'informix'.payment_release add constraint foreign key 
+    (payment_method_id)
+    references 'informix'.payment_method_lu
+    (payment_method_id) 
+    constraint paymentrelease_paymentmethodlu_fk;
+
+alter table 'informix'.payment_release_xref add constraint foreign key 
+    (payment_release_id)
+    references 'informix'.payment_release
+    (payment_release_id) 
+    constraint paymentreleasexref_paymentrelease_fk;
+
+alter table 'informix'.payment_release_xref add constraint foreign key 
+    (payment_id)
+    references 'informix'.payment
+    (payment_id) 
+    constraint paymentreleasexref_payment_fk;
 
 alter table 'informix'.user_payment_method add constraint foreign key 
     (payment_method_id)

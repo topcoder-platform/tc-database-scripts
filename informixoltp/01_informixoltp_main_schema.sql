@@ -1643,6 +1643,25 @@ extent size 1000 next size 500
 lock mode row;
 
 revoke all on payment_detail_xref from 'public';
+create table 'informix'.payment_release (
+    payment_release_id serial NOT NULL,
+    user_id DECIMAL(10,0) NOT NULL,
+    total_net_amount DECIMAL(12,2) NOT NULL,
+    payment_method_id DECIMAL(3,0) NOT NULL,
+    release_date DATETIME YEAR TO FRACTION NOT NULL
+)
+extent size 1024 next size 1024
+lock mode row;
+
+revoke all on payment_release from 'public';
+create table 'informix'.payment_release_xref (
+    payment_release_id INT,
+    payment_id DECIMAL(10,0)
+)
+extent size 512 next size 512
+lock mode row;
+
+revoke all on payment_release_xref from 'public';
 create table 'informix'.modification_rationale_lu (
     modification_rationale_id DECIMAL(3,0),
     modification_rationale_desc VARCHAR(100)
@@ -3177,7 +3196,8 @@ revoke all on round_group_xref from 'public';
 create table 'informix'.payment_method_lu (
     payment_method_desc VARCHAR(100),
     payment_method_id DECIMAL(3,0),
-    payment_method_list_order DECIMAL(3,0)
+    payment_method_list_order DECIMAL(3,0),
+    active boolean not null
 )
 extent size 32 next size 32
 lock mode page;
@@ -5833,6 +5853,10 @@ grant insert on payment_detail_xref to 'public' as 'informix';
 grant update on payment_detail_xref to 'public' as 'informix';
 
 grant delete on payment_detail_xref to 'public' as 'informix';
+
+grant select,insert,update,delete on payment_release to public as 'informix';
+
+grant select,insert,update,delete on payment_release_xref to public as 'informix';
 
 grant select on modification_rationale_lu to 'public' as 'informix';
 
