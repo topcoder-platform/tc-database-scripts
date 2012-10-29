@@ -327,7 +327,7 @@ where  pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.paym
   and p.tc_direct_project_id = tdp.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
-  and exists (select * from dr_points where reference_id = p.project_id)
+  and exists (select * from dr_points where reference_id = p.project_id and is_potential = 'f')
   and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
   and pmd.payment_detail_id =
   (select min(pmd2.payment_detail_id) from informixoltp:payment pm2  
