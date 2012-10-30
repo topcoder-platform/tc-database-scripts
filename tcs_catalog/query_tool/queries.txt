@@ -400,4 +400,7 @@ query_direct_contest_receipt_replatforming_v2.txt|UPDATE query SET text = ? WHER
 query_project_contest_submissions.txt|UPDATE query SET text = ? WHERE query_id = 32346
 query_copilot_status.txt|UPDATE query SET text = ? WHERE query_id = 32367
 query_direct_my_pm_projects_contests.txt|UPDATE query SET text = ? WHERE query_id = 32368
+query_non_admin_client_billing_accounts_v2.txt|UPDATE query SET text = ? WHERE query_id = 32406
+query_client_direct_project_ids_v2.txt|UPDATE query SET text = ? WHERE query_id = 32407
+query_admin_client_billing_accounts_v2.txt|UPDATE query SET text = ? WHERE query_id = 32408
 
