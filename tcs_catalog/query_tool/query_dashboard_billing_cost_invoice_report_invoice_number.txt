@@ -413,7 +413,7 @@ where  pmd.component_project_id = p.project_id
   and pi3.value = ttp.project_id
   and ttp.project_id = ttcp.project_id
   and ttcp.client_id = ttc.client_id
-  and exists (select * from dr_points where reference_id = p.project_id and is_potential = 'f')
+  and exists (select * from dr_points where reference_id = p.project_id)
    and (p.project_status_id = 7 
          OR (p.project_status_id in (9, 10) 
 				and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3)))
