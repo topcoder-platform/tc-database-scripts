@@ -1587,6 +1587,7 @@ create table 'informix'.payment_detail (
     algorithm_problem_id DECIMAL(10,0),
     component_contest_id DECIMAL(10,0),
     component_project_id DECIMAL(10,0),
+    cockpit_project_id DECIMAL(10,0),
     studio_contest_id DECIMAL(10,0),
     digital_run_stage_id DECIMAL(10,0),
     digital_run_season_id DECIMAL(10,0),
