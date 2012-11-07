@@ -200,11 +200,7 @@ and (exists (select u.user_id
             and u.user_id = uref.login_id 
          join security_roles as sr 
             on uref.role_id = sr.role_id 
-            and sr.description in ('TC Staff'))
-     and exists (select permission_type_id 
-               from user_permission_grant as upg   
-              where resource_id=p.tc_direct_project_id and permission_type_id in (0,1,2,3) 
-               and upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) ))
+            and sr.description in ('TC Staff')))
 )) AS s
 GROUP BY 1, 2, 3, 4, 5, 6, 7
 order by tc_direct_project_id
