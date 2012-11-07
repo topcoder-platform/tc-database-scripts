@@ -861,10 +861,6 @@ alter table 'informix'.copilot_contest_extra_info_type add constraint primary ke
 alter table 'informix'.copilot_contest_extra_info add constraint primary key 
   (copilot_posting_contest_id, copilot_contest_extra_info_type_id)
   constraint pk_copilot_contest_extra_info;
-
-ALTER TABLE 'informix'.evaluation_type_lu
-      ADD CONSTRAINT PRIMARY KEY (evaluation_type_id) 
-      CONSTRAINT pk_evaluation_type_lu;
 	  
 alter table 'informix'.project_milestone add constraint primary key
     (project_milestone_id)
@@ -2062,18 +2058,6 @@ REFERENCES direct_project_metadata_key (project_metadata_key_id) CONSTRAINT fk_p
 
 ALTER TABLE direct_project_metadata_predefined_value_audit ADD CONSTRAINT FOREIGN KEY (audit_action_type_id) 
 REFERENCES audit_action_type_lu (audit_action_type_id) CONSTRAINT fk_project_metadata_predefined_value_audit_audit_action_type_1;
-
-alter table 'informix'.review_item_comment add constraint foreign key
-    (evaluation_type_id)
-    references 'informix'.evaluation_type_lu
-    (evaluation_type_id)
-    constraint fk_reviewitemcomment_evaluationtype;
-
-alter table 'informix'.review_comment add constraint foreign key
-    (evaluation_type_id)
-    references 'informix'.evaluation_type_lu
-    (evaluation_type_id)
-    constraint fk_reviewcomment_evaluationtype;
 
 
 ALTER TABLE 'informix'.project_category_lu ADD CONSTRAINT FOREIGN KEY
