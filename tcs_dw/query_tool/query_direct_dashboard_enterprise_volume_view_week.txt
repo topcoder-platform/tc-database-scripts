@@ -1,0 +1,18 @@
+SELECT
+       week_start_date AS stat_date,
+       SUM(s.total_completed_contests) as completed_contests_number,
+       SUM(s.total_failed_contests) as failed_contests_number,
+       s.project_category_id as category_id
+FROM table(multiset(SELECT client_project_id, tc_direct_project_id, project_category_id, year, week, total_completed_contests, total_failed_contests
+      FROM weekly_contest_stats)) s
+INNER JOIN client_project_dim c ON s.client_project_id = c.client_project_id
+INNER JOIN TABLE(MULTISET(SELECT year, week_of_year, MIN(date) AS week_start_date FROM calendar GROUP BY year, week_of_year)) cal
+      ON cal.year = s.year AND cal.week_of_year = s.week
+WHERE s.tc_direct_project_id = DECODE(@tcdirectid@, 0, s.tc_direct_project_id, @tcdirectid@)
+AND c.billing_project_id = DECODE(@billingaccountid@, 0, c.billing_project_id, @billingaccountid@)
+AND c.client_id = DECODE(@clientid@, 0, c.client_id, @clientid@)
+AND   s.project_category_id IN (@pcids@)
+AND   cal.week_start_date BETWEEN TO_DATE('@sdt@', '%Y-%m-%d') AND TO_DATE('@edt@', '%Y-%m-%d')
+GROUP BY cal.week_start_date, s.project_category_id
+ORDER BY cal.week_start_date
+

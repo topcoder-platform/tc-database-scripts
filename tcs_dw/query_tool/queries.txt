@@ -165,4 +165,5 @@ query_dashboard_jira_issues_report.txt|UPDATE query SET text = ? WHERE query_id 
 query_dashboard_participation_stats_aggregation_contest.txt|UPDATE query SET text = ? WHERE query_id = 32317
 query_copilot_profile_statistics.txt|UPDATE query SET text = ? WHERE query_id = 32366
 query_copilot_pool_statistics.txt|UPDATE query SET text = ? WHERE query_id = 32376
+query_direct_dashboard_enterprise_volume_view_week.txt|UPDATE query SET text = ? WHERE query_id = 32446
 
