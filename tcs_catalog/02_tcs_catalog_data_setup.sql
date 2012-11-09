@@ -792,7 +792,7 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31909, 'project_contest_submissions', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31959, 'non_admin_client_billing_accounts_v2', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31960, 'client_direct_project_ids_v2', 13337);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31961, 'non_admin_client_billing_accounts_v2', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31961, 'admin_client_billing_accounts_v2', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31979, 'direct_my_pm_projects_contests', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31989, 'dashboard_billing_cost_invoice_report_v2', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31990, 'dashboard_billing_cost_invoice_report_invoice_number_v2', 13337);
