@@ -841,7 +841,8 @@ revoke all on user_achievement_type_lu from 'public';
 CREATE TABLE 'informix'.user_achievement_xref (
 	user_id DECIMAL(12,0) NOT NULL,
 	user_achievement_rule_id DECIMAL(12,0) NOT NULL,
-	create_date DATETIME YEAR TO FRACTION NOT NULL
+	create_date DATETIME YEAR TO FRACTION NOT NULL,
+	auto_loaded BOOLEAN
 )
 extent size 128 next size 128
 lock mode page;
