@@ -1161,6 +1161,25 @@ lock mode row;
 
 revoke all on invalid_handles from 'public';
 
+create table 'informix'.page_tracker (
+	tracking_id SERIAL not null,
+    user_id VARCHAR(50) not null,
+	action_id DECIMAL(12,0) not null,
+    action_time DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION not null,
+	next_page_url VARCHAR(250)
+)
+extent size 32 next size 32
+lock mode row;
+
+create table 'informix'.page_tracker_action (
+	action_id DECIMAL(12,0) not null,
+	action_name VARCHAR(50) not null,
+    action_description VARCHAR(250)
+)
+extent size 32 next size 32
+lock mode row;
+
+
 
 CREATE SEQUENCE "informix".CONTEST_ELIGIBILITY_SEQ INCREMENT BY 1 START WITH 1 MINVALUE 1;
 
@@ -2129,4 +2148,8 @@ grant select on invalid_handles to 'public' as 'informix';
 grant insert on invalid_handles to 'public' as 'informix';
 
 grant update on invalid_handles to 'public' as 'informix';
+
+grant select,update,insert,delete on page_tracker to public as informix;
+
+grant select,update,insert,delete on page_tracker_action to public as informix;
 

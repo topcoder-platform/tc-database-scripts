@@ -83,6 +83,17 @@ create index 'informix'.phone_user_id_idx on 'informix'.phone
     primary_ind
     );
 
+create unique index 'informix'.page_tracker_i2 on 'informix'.page_tracker
+(
+tracking_id
+);
+	
+create unique index 'informix'.page_tracker_action_i2 on 'informix'.page_tracker_action
+    (
+    action_id
+    );
+	
+	
 alter table 'informix'.phone add constraint primary key 
     (phone_id)
     constraint u112_25;
@@ -390,6 +401,14 @@ alter table 'informix'.permission_code add constraint primary key
 alter table 'informix'.invalid_handles add constraint primary key 
 	(invalid_handle_id)
 	constraint pk_invalid_hand556;
+	
+alter table 'informix'.page_tracker add constraint primary key 
+    (tracking_id)
+    constraint pk_page_tracker;
+
+alter table 'informix'.page_tracker_action add constraint primary key 
+    (action_id)
+    constraint pk_page_tracker_action;
 
 alter table 'informix'.user_role_xref add constraint foreign key 
     (login_id)
@@ -924,6 +943,12 @@ ALTER TABLE 'informix'.member_image
 ALTER TABLE 'informix'.member_image
         ADD CONSTRAINT FOREIGN KEY(member_id)
         REFERENCES user(user_id) CONSTRAINT member_image_user_fk;
+
+alter table 'informix'.page_tracker add constraint foreign key
+    (action_id)
+    references 'informix'.page_tracker_action
+    (action_id)
+    constraint action_fk;
 
 
 
