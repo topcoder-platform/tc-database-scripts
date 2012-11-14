@@ -1,0 +1,50 @@
+select
+  p.description as rating_type,
+  r.rating as rating,
+  r.num_ratings as num_ratings
+from
+  tcs_catalog:phase p, 
+  tcs_catalog:user_rating r
+where
+  r.phase_id = p.phase_id and
+  r.user_id = @cr@
+union
+select 
+  'Algorithm',
+  r.rating,
+  r.num_ratings
+from
+  informixoltp:algo_rating r
+where
+  r.coder_id = @cr@
+  and r.algo_rating_type_id = 1
+union
+select 
+  'Marathon',
+  r.rating,
+  r.num_ratings
+from
+  informixoltp:algo_rating r
+where
+  r.coder_id = @cr@
+  and r.algo_rating_type_id = 3
+union
+select 
+  'High School Algorithm',
+  r.rating,
+  r.num_ratings
+from
+  informixoltp:algo_rating r
+where
+  r.coder_id = @cr@
+  and r.algo_rating_type_id = 2
+union
+select 
+  'Studio', 
+  0, 
+  count(distinct contest_id) 
+from 
+  studio_oltp:submission
+where
+  submitter_id = @cr@
+order by 1
