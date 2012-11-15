@@ -1,7 +1,7 @@
 select ttc.client_id, p.tc_direct_project_id as tc_direct_id
  from project p
   left join project_info pi3 on p.project_id = pi3.project_id and pi3.project_info_type_id = 32
-  left join time_oltp:project ttp on pi3.value = ttp.project_id
-  left join time_oltp:client_project ttcp on ttp.project_id = ttcp.project_id
-  left join time_oltp:client ttc on ttcp.client_id = ttc.client_id
+  left join tt_project ttp on pi3.value = ttp.project_id
+  left join tt_client_project ttcp on ttp.project_id = ttcp.project_id
+  left join tt_client ttc on ttcp.client_id = ttc.client_id
  where p.project_id=@pj@
