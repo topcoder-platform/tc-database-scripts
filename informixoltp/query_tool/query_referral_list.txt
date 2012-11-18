@@ -1,14 +1,11 @@
 select u.handle
      , c.member_since
      , c.coder_id
-     , r.rating
+     , NVL(r.rating, 0) as rating
   from coder_referral cr
-     , user u
-     , coder c
-     , rating r
+  inner join user u on u.user_id=cr.coder_id
+  inner join coder c on c.coder_id=cr.coder_id
+  left join rating r on cr.coder_id=r.coder_id
  where cr.referral_id = 40
    and cr.reference_id = @uid@
-   and cr.coder_id = u.user_id
-   and c.coder_id = cr.coder_id
-   and c.coder_id = r.coder_id
    and u.status = 'A'
