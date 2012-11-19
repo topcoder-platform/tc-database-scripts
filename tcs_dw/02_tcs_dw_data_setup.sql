@@ -1123,6 +1123,7 @@ INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) values (4, 'TCS 
 INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) values (5, 'Participation Metrics');
 INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) VALUES (6, 'JIRA Load');
 INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) VALUES (7, 'Copilot Stats');
+INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) VALUES (8, 'Client Users Stats');
 
 
 

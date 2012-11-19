@@ -933,7 +933,18 @@ LOCK MODE PAGE;
 
 revoke all on copilot_statistics from 'public';
 
+CREATE TABLE 'informix'.client_user_stats (
+    client_user_stats_id INT not null,
+    client_id INT not null,
+    year INT not null,
+    month INT not null,
+    user_count INT not null,
+    PRIMARY KEY(client_user_stats_id)
+)
+EXTENT SIZE 600 NEXT SIZE 296
+LOCK MODE PAGE;
 
+revoke all on client_user_stats from 'public';
 
 revoke all on "informix".user_permission_grant from "public" as "informix";
 
@@ -1601,3 +1612,4 @@ grant index, update, delete, select, insert on jira_issue to 'public' as 'inform
 grant select on jira_issue_seq to 'public' as 'informix';
 
 grant index, update, delete, select, insert on copilot_statistics to 'public' as 'informix';
+grant index, update, delete, select, insert on client_user_stats to 'public' as 'informix';
