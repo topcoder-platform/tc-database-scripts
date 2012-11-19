@@ -933,7 +933,7 @@ CREATE TABLE 'informix'.copilot_statistics (
 EXTENT SIZE 32 NEXT SIZE 32
 LOCK MODE PAGE;
 
-revoke all on copilot_statistics from 'public'  as "informix";;
+revoke all on copilot_statistics from 'public'  as "informix";
 
 CREATE TABLE 'informix'.client_user_stats (
     client_user_stats_id INT not null,
@@ -946,7 +946,7 @@ CREATE TABLE 'informix'.client_user_stats (
 EXTENT SIZE 32 NEXT SIZE 32
 LOCK MODE PAGE;
 
-revoke all on client_user_stats from 'public'  as "informix";;
+revoke all on client_user_stats from 'public'  as "informix";
 
 
 
