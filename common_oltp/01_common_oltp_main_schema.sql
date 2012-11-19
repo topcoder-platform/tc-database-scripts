@@ -1181,7 +1181,7 @@ lock mode row;
 
 create table 'informix'.gov_id_document (
     gov_id_document_id SERIAL NOT NULL,
-    user_id INT NOT NULL,
+    user_id DECIMAL(10,0) NOT NULL,
     country_code VARCHAR(3) NOT NULL,
     id_number VARCHAR(64) NOT NULL,
     received_date DATETIME YEAR TO FRACTION,
