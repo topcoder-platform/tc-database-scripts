@@ -1179,7 +1179,17 @@ create table 'informix'.page_tracker_action (
 extent size 32 next size 32
 lock mode row;
 
-
+create table 'informix'.gov_id_document (
+    gov_id_document_id SERIAL NOT NULL,
+    user_id INT NOT NULL,
+    country_code VARCHAR(3) NOT NULL,
+    id_number VARCHAR(64) NOT NULL,
+    received_date DATETIME YEAR TO FRACTION,
+    expire_date DATETIME YEAR TO FRACTION
+)
+extent size 2500 next size 2500
+lock mode row;
+revoke all on gov_id_document from 'public';
 
 CREATE SEQUENCE "informix".CONTEST_ELIGIBILITY_SEQ INCREMENT BY 1 START WITH 1 MINVALUE 1;
 
@@ -2152,4 +2162,5 @@ grant update on invalid_handles to 'public' as 'informix';
 grant select,update,insert,delete on page_tracker to public as informix;
 
 grant select,update,insert,delete on page_tracker_action to public as informix;
+grant select,update,insert,delete on gov_id_document to public as informix;
 

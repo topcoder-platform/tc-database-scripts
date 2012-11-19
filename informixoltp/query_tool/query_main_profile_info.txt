@@ -33,6 +33,7 @@ SELECT u.user_id
 , con.title
 , case when exists (select '1' from common_oltp:user_preference where user_id= u.user_id and preference_id in (2,7)) then '1' else '0' end as registered_for_placement
 , case when exists (select '1' from user_note_xref where user_id= u.user_id ) then '1' else '0' end as has_notes
+, case when exists (select '1' from common_oltp:gov_id_document where user_id= u.user_id ) then '1' else '0' end as has_gov_id
 , l.language_name
 , (
   select min(p.path || i.file_name)

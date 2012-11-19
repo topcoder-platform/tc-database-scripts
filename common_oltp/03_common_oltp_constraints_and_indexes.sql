@@ -410,6 +410,10 @@ alter table 'informix'.page_tracker_action add constraint primary key
     (action_id)
     constraint pk_page_tracker_action;
 
+alter table 'informix'.gov_id_document add constraint primary key 
+    (gov_id_document_id)
+    constraint goviddocument_pkey;
+
 alter table 'informix'.user_role_xref add constraint foreign key 
     (login_id)
     references 'informix'.security_user
@@ -950,5 +954,15 @@ alter table 'informix'.page_tracker add constraint foreign key
     (action_id)
     constraint action_fk;
 
+alter table 'informix'.gov_id_document add constraint foreign key
+    (user_id)
+    references 'informix'.user
+    (user_id)
+    constraint goviddocument_user_fk;
 
+alter table 'informix'.gov_id_document add constraint foreign key
+    (country_code)
+    references 'informix'.country
+    (country_code)
+    constraint goviddocument_country_fk;
 
