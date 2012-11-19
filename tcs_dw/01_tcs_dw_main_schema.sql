@@ -891,6 +891,8 @@ create table "informix".user_permission_grant
   )  
   extent size 500 next size 500
   lock mode row;
+
+revoke all on "informix".user_permission_grant from "public" as "informix";
   
   CREATE TABLE 'informix'.jira_issue(
 	jira_issue_id INT,
@@ -928,10 +930,10 @@ CREATE TABLE 'informix'.copilot_statistics (
     submission_rate DECIMAL(5,2),
     total_earnings DECIMAL(10,2)
 )
-EXTENT SIZE 600 NEXT SIZE 296
+EXTENT SIZE 32 NEXT SIZE 32
 LOCK MODE PAGE;
 
-revoke all on copilot_statistics from 'public';
+revoke all on copilot_statistics from 'public'  as "informix";;
 
 CREATE TABLE 'informix'.client_user_stats (
     client_user_stats_id INT not null,
@@ -939,14 +941,14 @@ CREATE TABLE 'informix'.client_user_stats (
     year INT not null,
     month INT not null,
     user_count INT not null,
-    PRIMARY KEY(client_user_stats_id)
+    PRIMARY KEY(client_user_stats_id) CONSTRAINT  "informix".pk_client_user_stats
 )
-EXTENT SIZE 600 NEXT SIZE 296
+EXTENT SIZE 32 NEXT SIZE 32
 LOCK MODE PAGE;
 
-revoke all on client_user_stats from 'public';
+revoke all on client_user_stats from 'public'  as "informix";;
 
-revoke all on "informix".user_permission_grant from "public" as "informix";
+
 
 create view "informix".active_developers (user_id) as
    select x0.user_id 
