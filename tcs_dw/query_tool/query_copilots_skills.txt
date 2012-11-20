@@ -1,0 +1,4 @@
+SELECT user_id, user_achievement_rule_id AS copilot_skill_id FROM user_achievement_xref
+WHERE
+user_achievement_rule_id BETWEEN 55 AND 68
+and user_id in (@uids@);
