@@ -1,0 +1,7 @@
+SELECT c.user_id, tdp.project_status_id, tdp.direct_project_type_id, tdp.direct_project_category_id, dpt.name as direct_project_type_name, dpc.name as direct_project_category_name
+FROM copilot_project cp, copilot_profile c, tc_direct_project tdp
+LEFT OUTER JOIN direct_project_type dpt ON tdp.direct_project_type_id = dpt.direct_project_type_id
+LEFT OUTER JOIN direct_project_category dpc ON tdp.direct_project_category_id = dpc.direct_project_category_id
+WHERE cp.copilot_profile_id = c.copilot_profile_id
+AND cp.tc_direct_project_id = tdp.project_id
+AND c.user_id IN (@uids@);

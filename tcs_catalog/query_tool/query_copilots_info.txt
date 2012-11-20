@@ -1,0 +1,45 @@
+select distinct u.handle
+
+     , u.user_id
+
+     , lower(u.handle) as lower_handle
+
+     , p.path || i.file_name as image_path
+
+     , cp.is_software_copilot
+
+     , cp.is_studio_copilot
+     
+     , ct.country_name
+
+     , tz.timezone_desc as timezone
+    
+  from copilot_profile cp
+
+     , user u
+
+     , outer(informixoltp:coder_image_xref cix, informixoltp:image i, informixoltp:path p)
+     , outer(common_oltp:user_address_xref uax, common_oltp:address adr, common_oltp:country ct)
+     , outer(common_oltp:timezone_lu tz)
+
+ where cp.user_id = u.user_id
+
+   and cix.coder_id = u.user_id
+
+   and cix.display_flag = 1
+
+   and cix.image_id = i.image_id
+
+   and i.image_type_id = 1
+
+   and i.path_id = p.path_id
+
+   and uax.user_id = u.user_id
+
+   and uax.address_id = adr.address_id
+
+   and adr.country_code = ct.country_code
+
+   and tz.timezone_id = u.timezone_id
+
+   and cp.user_id IN (@uids@)

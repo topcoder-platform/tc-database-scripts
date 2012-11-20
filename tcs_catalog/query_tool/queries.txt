@@ -405,4 +405,6 @@ query_client_direct_project_ids_v2.txt|UPDATE query SET text = ? WHERE query_id 
 query_admin_client_billing_accounts_v2.txt|UPDATE query SET text = ? WHERE query_id = 32408
 query_dashboard_billing_cost_invoice_report_v2.txt|UPDATE query SET text = ? WHERE query_id = 32426
 query_dashboard_billing_cost_invoice_report_invoice_number_v2.txt|UPDATE query SET text = ? WHERE query_id = 32436
+query_copilots_info.txt|UPDATE query SET text = ? WHERE query_id = 32476
+query_copilots_experience.txt|UPDATE query SET text = ? WHERE query_id = 32477
 
