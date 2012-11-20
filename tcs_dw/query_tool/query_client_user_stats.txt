@@ -1,0 +1,14 @@
+SELECT client_name, year||'-'||lpad(month, 2, 0) AS year_month, user_count, client_id FROM (
+   SELECT distinct cpd.client_name, year, month, cus.user_count, cus.client_id
+    FROM client_user_stats AS cus, 
+         client_project_dim AS cpd
+    WHERE cus.client_id = cpd.client_id
+              AND MDY(month,
+                      CASE 
+                          WHEN month=2 THEN CASE WHEN DAY(TODAY)<=28 THEN DAY(TODAY)-1 ELSE 27 END
+                          WHEN month IN (4, 6, 9, 11) THEN CASE WHEN DAY(TODAY)<=30 THEN DAY(TODAY)-1 ELSE 29 END
+                          ELSE DAY(TODAY)-1
+                      END,
+                      year)>=TODAY-365 UNITS DAY
+    ORDER BY cpd.client_name, year, month DESC
+)
