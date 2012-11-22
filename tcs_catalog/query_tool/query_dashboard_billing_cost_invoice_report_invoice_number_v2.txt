@@ -918,7 +918,7 @@ where  p.project_status_id = ps.project_status_id
 
 union all  -- contest fee (status7 and % enabled) (DR)
 
-SELECT (pm.create_date) as payment_date,
+SELECT (TO_DATE(SUBSTR(pi21.value, 0, 16)::varchar(16), '%m.%d.%Y %H:%M')) as payment_date,
        p.project_id as contest_id,
        ttc.name client,	
        ttp.name billing_project_name,
@@ -988,8 +988,9 @@ SELECT (pm.create_date) as payment_date,
 	   
 'Contest Fee' as line_item_category,
     '' as reference_id,
-    
-    nvl((select sum(nvl(amount,0)) from dr_points where reference_id = p.project_id ), 0) * (cast (nvl(pi57.value, '0') as DECIMAL (10,2))) as line_item_amount,
+nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+            where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id
+            and pi26.value = 'On'  and pi26.project_id =  p.project_id), 0) * (cast (nvl(pi57.value, '0') as DECIMAL (10,2))) as line_item_amount,
 
      ttc.client_id,
      ttp.project_id billing_project_id,
@@ -1009,30 +1010,24 @@ else 0 end as is_studio,
   i.invoice_number,
   ir.invoice_id,
   ir.invoice_record_id
-FROM informixoltp:payment pm  
-        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
-     informixoltp:payment_type_lu pt,
-	 project p,
+FROM project p,
      tc_direct_project tdp,
      project_status_lu ps,
      project_category_lu pc,
      project_info pi, -- project name
      project_info pi3, -- billing account
      project_info pi57, -- percentage contest fee
+     project_info pi21,project_info pi2,
      time_oltp:project ttp,
      time_oltp:client_project ttcp,
      time_oltp:client ttc,
      informixoltp:invoice_record ir,
      informixoltp:invoice i
 
-where pmd.component_project_id = p.project_id
-   and pmd.payment_type_id = pt.payment_type_id
-   and pmd.installment_number = 1
-   AND NOT pmd.payment_status_id IN (65,68, 69)
-   and p.project_status_id = ps.project_status_id
+where p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
-  and p.project_status_id not in (1,2,3)
+  and p.project_status_id = 7
   and p.project_id = pi57.project_id and pi57.project_info_type_id = 57
   and ((cast (nvl(pi57.value, '0') as DECIMAL (10,2))) > 0) 
   and p.project_id = pi.project_id
@@ -1040,6 +1035,10 @@ where pmd.component_project_id = p.project_id
   and p.project_id = pi3.project_id
   and pi3.project_info_type_id = 32
   and pi3.value = ttp.project_id
+    and p.project_id = pi2.project_id
+  and pi2.project_info_type_id = 31
+   and p.project_id = pi21.project_id
+  and pi21.project_info_type_id = 21
   and ttp.project_id = ttcp.project_id
   and ttcp.client_id = ttc.client_id
   and p.project_status_id != 3 and p.project_category_id != 27
@@ -1053,15 +1052,7 @@ where pmd.component_project_id = p.project_id
   and ir.payment_id is null
   and ir.invoice_id = i.invoice_id
   and i.invoice_number = '@invoicenumber@'
-   and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
-  and pmd.payment_detail_id =
-  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2  
-        INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
-        where pmd2.component_project_id = p.project_id
-           and pmd2.installment_number = 1
-           AND NOT pmd2.payment_status_id IN (65,68, 69)
-           and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))
-  and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+   and (TO_DATE(SUBSTR(pi21.value, 0, 16)::varchar(16), '%m.%d.%Y %H:%M') BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
    and exists 
   (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
