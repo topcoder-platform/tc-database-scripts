@@ -14,7 +14,7 @@ and upg.user_id = @uid@
 
 and upg.permission_type_id in (1,2,3)
 
-and tdp.project_status_id = 1
+and tdp.project_status_id not in (3,5)
 
 and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
 
