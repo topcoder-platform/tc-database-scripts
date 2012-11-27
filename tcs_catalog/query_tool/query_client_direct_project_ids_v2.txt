@@ -4,4 +4,4 @@ WHERE tdp.project_id = dpa.project_id
 AND dpa.billing_account_id = p.project_id
 AND p.project_id = cp.project_id
 AND cp.client_id = c.client_id
-AND c.name = '@clientname@'
+AND lower(c.name) = lower('@clientname@')
