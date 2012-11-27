@@ -1,0 +1,16 @@
+SELECT
+ i.pkey AS ticket_id,
+ i.summary AS contest,
+ CAST(IFNULL(payment.numbervalue, '0') AS SIGNED INTEGER) AS payment,
+ CAST(IFNULL(tcopoints.STRINGVALUE, '0') AS SIGNED INTEGER) AS tco_points,
+ i.votes AS registrants,
+ i.created AS active_since
+FROM jiraissue AS i
+LEFT JOIN customfieldvalue payment ON payment.customfield = 10012
+ AND payment.issue = i.id
+LEFT JOIN customfieldvalue tcopoints ON tcopoints.customfield = 10080
+ AND tcopoints.issue = i.id
+WHERE i.issuestatus in (1, 4) -- Open, Reopened
+ AND i.project=@pj@
+ and issuetype  in (1, 2, 3, 4, 5, 6, 7, 8)
+ORDER BY 6 desc

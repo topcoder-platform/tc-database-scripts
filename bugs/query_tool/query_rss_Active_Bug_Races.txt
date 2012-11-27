@@ -1,0 +1,16 @@
+SELECT
+ CONVERT(CONCAT('Active Since: ', i.created, '<br />',
+  'Payment: ', CAST(IFNULL(payment.numbervalue, '0') AS SIGNED INTEGER), '<br />',
+  'TCO Points: ', CAST(IFNULL(tcopoints.STRINGVALUE, '0') AS SIGNED INTEGER)
+ ), CHAR) as description,
+ CONCAT('https://apps.topcoder.com/bugs/browse/', i.pkey) as link,
+ i.summary as title,
+ i.pkey as guid
+FROM jiraissue AS i
+LEFT JOIN customfieldvalue payment ON payment.customfield = 10012
+ AND payment.issue = i.id
+LEFT JOIN customfieldvalue tcopoints ON tcopoints.customfield = 10080
+ AND tcopoints.issue = i.id
+WHERE i.issuestatus in (1, 4) -- Open, Reopened
+ AND i.project=10021
+ORDER BY i.created DESC
