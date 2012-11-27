@@ -2268,6 +2268,7 @@ INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment
 INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,requires_client_ind,global_ad_ind) VALUES ("Project Bug Fixes Payment", 68, 10, 1, 1, 30, current, current, 2, 't');
 INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,requires_client_ind,global_ad_ind) VALUES ("Project Copilot Payment", 69, 10, 1, 1, 30, current, current, 2, 'f');
 INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,requires_client_ind,global_ad_ind) VALUES ("Project Deployment Task Payment", 70, 10, 1, 1, 30, current, current, 2, 't');
+INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,requires_client_ind,global_ad_ind) VALUES ("Project Enhancements Payment", 71, 10, 1, 1, 30, current, current, 2, 't');
 
 INSERT INTO 'informix'.affidavit_template (affidavit_template_id, country_code, affidavit_type_id, text) values (1, 840, 1, null);
 INSERT INTO 'informix'.affidavit_template (affidavit_template_id, country_code, affidavit_type_id, text) values (10, 850, 1, null);
