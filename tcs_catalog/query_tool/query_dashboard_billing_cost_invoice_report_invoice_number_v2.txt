@@ -400,7 +400,7 @@ FROM project p,
      project_status_lu ps,
      project_category_lu pc,
      project_info pi, -- project name
-     project_info pi2, -- contest_fee
+     project_info pi26, -- contest_fee
      project_info pi3, -- billing account
      project_info pi21,
      time_oltp:project ttp,
@@ -414,8 +414,8 @@ where  p.project_status_id = ps.project_status_id
   and p.project_category_id IN (@pcids@) 
   and p.project_id = pi.project_id
   and pi.project_info_type_id = 6
-  and p.project_id = pi2.project_id
-  and pi2.project_info_type_id = 31
+  and p.project_id = pi26.project_id
+  and pi26.project_info_type_id = 26 and pi26.value = 'On'
   and p.project_id = pi3.project_id
   and pi3.project_info_type_id = 32
   and pi3.value = ttp.project_id
@@ -1017,7 +1017,7 @@ FROM project p,
      project_info pi, -- project name
      project_info pi3, -- billing account
      project_info pi57, -- percentage contest fee
-     project_info pi21,project_info pi2,
+     project_info pi21,project_info pi26,
      time_oltp:project ttp,
      time_oltp:client_project ttcp,
      time_oltp:client ttc,
@@ -1035,8 +1035,8 @@ where p.project_status_id = ps.project_status_id
   and p.project_id = pi3.project_id
   and pi3.project_info_type_id = 32
   and pi3.value = ttp.project_id
-    and p.project_id = pi2.project_id
-  and pi2.project_info_type_id = 31
+    and p.project_id = pi26.project_id
+  and pi26.project_info_type_id = 26 and pi26.value = 'On'
    and p.project_id = pi21.project_id
   and pi21.project_info_type_id = 21
   and ttp.project_id = ttcp.project_id
