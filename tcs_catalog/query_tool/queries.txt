@@ -407,4 +407,5 @@ query_dashboard_billing_cost_invoice_report_v2.txt|UPDATE query SET text = ? WHE
 query_dashboard_billing_cost_invoice_report_invoice_number_v2.txt|UPDATE query SET text = ? WHERE query_id = 32436
 query_copilots_info.txt|UPDATE query SET text = ? WHERE query_id = 32476
 query_copilots_experience.txt|UPDATE query SET text = ? WHERE query_id = 32477
+query_direct_my_pm_projects_contests_v2.txt|UPDATE query SET text = ? WHERE query_id = 32486
 

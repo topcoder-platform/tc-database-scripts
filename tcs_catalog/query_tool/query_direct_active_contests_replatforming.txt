@@ -26,6 +26,18 @@ where ph.project_phase_id =
 
 (select ptl.name from project_phase ph left outer join phase_type_lu ptl on (ph.phase_type_id = ptl.phase_type_id)
 where ph.project_phase_id =
+(select max(project_phase_id) from project_phase  where phase_status_id = 2 and project_id = p.project_id and project_phase_id < (
+select max(project_phase_id) from project_phase  where phase_status_id = 2 and project_id = p.project_id
+))) as active_phase_2,
+
+(select ptl.name from project_phase ph left outer join phase_type_lu ptl on (ph.phase_type_id = ptl.phase_type_id)
+where ph.project_phase_id =
+(select max(project_phase_id) from project_phase  where phase_status_id = 2 and project_id = p.project_id)) as active_phase_3,
+
+(select min(project_phase_id) from project_phase ph where ph.project_id = p.project_id and phase_status_id = 2 and CURRENT > scheduled_end_time) as is_late,
+
+(select ptl.name from project_phase ph left outer join phase_type_lu ptl on (ph.phase_type_id = ptl.phase_type_id)
+where ph.project_phase_id =
 (select min(project_phase_id) from project_phase  where phase_status_id = 1 and project_id = p.project_id)) as next_scheduled_phase,
 
 nvl((select ptl.name from project_phase ph left outer join phase_type_lu ptl on (ph.phase_type_id = ptl.phase_type_id)
