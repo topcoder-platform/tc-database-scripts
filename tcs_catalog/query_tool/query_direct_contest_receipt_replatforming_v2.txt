@@ -99,16 +99,14 @@ WHERE   pmd.component_project_id   = p.project_id
 UNION ALL
 
 SELECT 'DR points' AS payment_type ,
-        CASE
-                WHEN p.project_status_id IN (1,7)
-                THEN NVL(
-                        (SELECT SUM(NVL(amount,0))
-                        FROM    dr_points
-                        WHERE   reference_id = p.project_id
-                          --  AND is_potential = 'f'
-                        ), 0)
-                ELSE 0
-        END AS payment_amount,
+
+		
+case when p.project_status_id = 7 then
+	nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+			where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+			and pi26.value = 'On'
+			and pi26.project_id =  p.project_id ), 0)
+	else 0 end as payment_amount,
         (SELECT value
         FROM    project_info
         WHERE   project_info_type_id = 58
@@ -292,16 +290,12 @@ UNION ALL
 
 SELECT 'Contest Fee ' AS payment_type ,
         (
-        CASE
-                WHEN p.project_status_id IN (1,7)
-                THEN NVL(
-                        (SELECT SUM(NVL(amount,0))
-                        FROM    dr_points
-                        WHERE   reference_id = p.project_id
-                          --  AND is_potential = 'f'
-                        ), 0)
-                ELSE 0
-        END) * (CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) AS payment_amount,
+       case when p.project_status_id = 7 then
+	nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+			where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+			and pi26.value = 'On'
+			and pi26.project_id =  p.project_id ), 0)
+	else 0 end ) * (CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) AS payment_amount,
         (SELECT value
         FROM    project_info
         WHERE   project_info_type_id = 58
