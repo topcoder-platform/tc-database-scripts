@@ -1166,7 +1166,8 @@ create table 'informix'.page_tracker (
     user_id VARCHAR(50) not null,
 	action_id DECIMAL(12,0) not null,
     action_time DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION not null,
-	next_page_url VARCHAR(250)
+	next_page_url VARCHAR(250),
+	source VARCHAR(250)
 )
 extent size 32 next size 32
 lock mode row;
