@@ -138,7 +138,7 @@ where  pmd.component_project_id = p.project_id
   and p.tc_direct_project_id = tdp.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
-  and p.project_status_id not in (1,2,3)
+  and (p.project_status_id not in (1,2,3) or (pmd.payment_type_id in (23,37,46,47, 45, 57) and pmd.jira_issue_id is not null))
   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
   and ir.contest_id = p.project_id
   and ir.payment_id = pm.payment_id
@@ -738,7 +738,7 @@ FROM project p,
 where  p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
-  and p.project_status_id not in (1,2,3)
+  and (p.project_status_id not in (1,2,3) or (pmd.payment_type_id in (23,37,46,47, 45, 57) and pmd.jira_issue_id is not null))
   and p.project_id = pi57.project_id and pi57.project_info_type_id = 57
   and ((cast (nvl(pi57.value, '0') as DECIMAL (10,2))) > 0) 
   and p.project_id = pi.project_id
