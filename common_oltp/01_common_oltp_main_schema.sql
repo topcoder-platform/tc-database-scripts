@@ -1,4 +1,4 @@
-CREATE DATABASE common_oltp IN datadbs WITH BUFFERED LOG;
+CREATE DATABASE common_oltp IN rootdbs WITH BUFFERED LOG;
 database common_oltp;
 
 grant dba to informix ;
@@ -180,9 +180,7 @@ create table 'informix'.terms_of_use (
     create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     title VARCHAR(50) NOT NULL,
-    electronically_signable decimal(1,0) NOT NULL,
     url VARCHAR(100),
-    member_agreeable decimal(1,0) DEFAULT 1 NOT NULL,
 	terms_of_use_agreeability_type_id DECIMAL(5,0) DEFAULT 3 NOT NULL
 )
 extent size 512 next size 512
