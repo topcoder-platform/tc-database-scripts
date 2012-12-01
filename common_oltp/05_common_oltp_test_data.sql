@@ -318,17 +318,20 @@ INSERT INTO 'informix'.user_address_xref(user_id,address_id) VALUES (124852, 992
 INSERT INTO 'informix'.user_address_xref(user_id,address_id) VALUES (124853, 9923);
 INSERT INTO 'informix'.user_address_xref(user_id,address_id) VALUES (124856, 9924);
 INSERT INTO 'informix'.user_address_xref(user_id,address_id) VALUES (124857, 9925);
-INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) VALUES (20493, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Another terms of use text", 1, null);
-INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) VALUES (20623, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Submitter terms of use text", 1, null);
-INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) VALUES (17, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Reviewer terms of use text", 1, null);
-INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) VALUES (20703, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Submitter terms of use text 20703", 1, null);
-INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) VALUES (20704, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Reviewer terms of use text 20704", 1, null);
-INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) VALUES (20543, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Submitter terms of use text 20543", 1, null);
-insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) values (20713, null, 8, CURRENT, CURRENT, 'CCA terms of use text 20713', 1, null);
-insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) values (20794, null, 5, CURRENT, CURRENT, 'Approved OR Managers - TopCoder Technical Team', 0, null);
-insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) values (20893 , null, 5, CURRENT, CURRENT, 'MSA', 0, null);
-insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) values (20753  , null, 5, CURRENT, CURRENT, 'Assignment 2.0', 0, null);
-insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, electronically_signable, url) values (20963  , null, 5, CURRENT, CURRENT, 'Government id term', 0, null);
+
+INSERT INTO 'informix'.terms_of_use_agreeability_type_lu(terms_of_use_agreeability_type_id, name, description) VALUES (1, 'member-agreeable', 'Member agreeable');
+
+INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) VALUES (20493, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Another terms of use text", null, 1);
+INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) VALUES (20623, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Submitter terms of use text", null, 1);
+INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) VALUES (17, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Reviewer terms of use text", 1, null, 1);
+INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) VALUES (20703, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Submitter terms of use text 20703", null, 1);
+INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) VALUES (20704, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Reviewer terms of use text 20704", null, 1);
+INSERT INTO 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) VALUES (20543, null, 8, "2006-07-10 13:31:58.000", "2006-07-10 13:31:58.000", "Submitter terms of use text 20543", null, 1);
+insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (20713, null, 8, CURRENT, CURRENT, 'CCA terms of use text 20713', null, 1);
+insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (20794, null, 5, CURRENT, CURRENT, 'Approved OR Managers - TopCoder Technical Team', null, 1);
+insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (20893 , null, 5, CURRENT, CURRENT, 'MSA', null, 1);
+insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (20753  , null, 5, CURRENT, CURRENT, 'Assignment 2.0', null, 1);
+insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (20963  , null, 5, CURRENT, CURRENT, 'Government id term', null, 1);
 
 
 INSERT INTO 'informix'.key_generation(user_def,high_value) VALUES ('main_sequence', 18);
