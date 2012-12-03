@@ -370,7 +370,43 @@ grant execute on procedure proc_reliability_update(decimal,decimal,decimal,decim
 grant execute on procedure millis_to_time(decimal) to 'public' as 'informix';
 
 grant execute on procedure category_list(decimal) to 'public' as 'informix';
-	
+
+
+
+CREATE PROCEDURE last_posters(forumid DECIMAL(12,0))
+ RETURNING VARCHAR(255);
+    DEFINE posters varchar(255);
+    DEFINE userid varchar(255);
+	DEFINE handle varchar(255);
+	DEFINE daysAgo varchar(255);
+    LET posters = "";
+
+	IF forumid IS NOT NULL THEN
+		FOREACH SELECT FIRST 3 DISTINCT u.user_id, u.handle, TRIM(((current - Millis_to_time(min(m.modificationdate)))::INTERVAL DAY(6) TO DAY)::CHAR(10)) as modificationdate  
+				 INTO userid, handle, daysAgo
+				 FROM   jivemessage m, 
+						 USER u, 
+						 jivecategory jc, 
+						 jiveforum jf
+				 WHERE  u.user_id = m.userid 
+						 AND jc.categoryid = forumid 
+						 AND jc.categoryid = jf.categoryid 
+						 AND m.forumid = jf.forumid 
+						 GROUP BY user_id, handle 
+						 ORDER BY modificationdate desc 
+				IF length(posters) == 0 THEN
+					LET posters = userid || ',' || handle || ',' || daysAgo;
+				ELSE
+					LET posters = posters || ';' || userid || ',' || handle || ',' || daysAgo;
+				END IF
+	    END FOREACH
+	END IF
+
+    RETURN posters;
+END PROCEDURE;
+
+grant execute on procedure last_posters(decimal) to 'public' as 'informix';
+
 create procedure component_developer(component_id decimal(12)) returning lvarchar(1000);
 	define user_list lvarchar(1000);
 	define users_desc lvarchar(1000);
