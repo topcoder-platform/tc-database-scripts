@@ -11920,5 +11920,6 @@ insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, mo
 insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (9,'Contest Fee','132456',current,'132456',current);
 insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (10,'Digital Run','132456',current,'132456',current);
 insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (11,'Platform Fee','132456',current,'132456',current);
+insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (12,'Credit','132456',current,'132456',current);
 
 
