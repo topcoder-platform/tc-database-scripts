@@ -424,6 +424,13 @@ INSERT INTO project_question VALUES(41, "<span>6</span>Manage Project Forum", 9,
 INSERT INTO project_question_option VALUES(148, 39, "Yes, I need a Copilot", "needCopilotCustom", "f", "");
 INSERT INTO project_question_option VALUES(149, 39, "No Thanks, I don't need a copilot", "noCopilotCustom", "f", "");
 
+INSERT INTO audit_action_type_lu (audit_action_type_id, name, description, create_user, create_date, modify_user, modify_date)
+ VALUES (1, "Create", "Create", 156859, CURRENT, 156859, CURRENT);
+INSERT INTO audit_action_type_lu (audit_action_type_id, name, description, create_user, create_date, modify_user, modify_date)
+ VALUES (2, "Delete", "Delete", 156859, CURRENT, 156859, CURRENT);
+INSERT INTO audit_action_type_lu (audit_action_type_id, name, description, create_user, create_date, modify_user, modify_date)
+ VALUES (3, "Update", "Update", 156859, CURRENT, 156859, CURRENT);
+
 
 
 

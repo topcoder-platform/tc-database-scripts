@@ -481,6 +481,49 @@ LOCK MODE ROW;
 revoke all on "informix".project_answer_option from "public" as "informix";
 
 
+create table 'informix'.tc_direct_project_audit (
+	tc_direct_project_audit_id DECIMAL(10, 0) NOT NULL,
+	tc_direct_project_id DECIMAL(10, 0) NOT NULL,
+	audit_action_type_id INT NOT NULL,				-- the operation type (create, update, delete), refer to audit_action_type_lu
+    user_id DECIMAL(10,0) NOT NULL,		-- who made the change
+    field_name VARCHAR(30) NOT NULL,		-- the field of the change
+    old_value VARCHAR(254),		-- the old value of the field
+    new_value VARCHAR(254),		-- the new value of the field
+    timestamp DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION	-- the timestamp
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on tc_direct_project_audit from 'public';
+
+create table 'informix'.user_permission_grant_audit (
+	user_permission_grant_audit_id DECIMAL(10, 0) NOT NULL,
+	user_permission_grant_id DECIMAL(10, 0) NOT NULL,
+	audit_action_type_id  INT NOT NULL,				-- the operation type (create, update, delete), refer to audit_action_type_lu
+    user_id DECIMAL(10,0) NOT NULL,		-- who made the change
+    field_name VARCHAR(30) NOT NULL,		-- the field of the change
+    old_value VARCHAR(254),		-- the old value of the field
+    new_value VARCHAR(254),		-- the new value of the field
+    timestamp DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION	-- the timestamp
+)
+extent size 64 next size 64
+lock mode row;
+revoke all on user_permission_grant_audit from 'public';
+
+create table 'informix'.audit_action_type_lu (
+    audit_action_type_id INT not null,
+    name VARCHAR(50) not null,
+    description VARCHAR(50) not null,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION not null
+) 
+extent size 64 next size 64 
+lock mode row;
+revoke all on "informix".audit_action_type_lu from "public" as "informix";
+
+
 grant select on "informix".unit_type_lu to "public" as "informix";
 grant update on "informix".unit_type_lu to "public" as "informix";
 grant insert on "informix".unit_type_lu to "public" as "informix";
@@ -720,4 +763,24 @@ CREATE SEQUENCE project_question_option_sequence INCREMENT BY 1 START WITH 1 MIN
 CREATE SEQUENCE project_answer_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
 CREATE SEQUENCE project_multiple_answer_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
 CREATE SEQUENCE project_answer_option_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
+
+grant select on tc_direct_project_audit to 'public' as 'informix';
+grant index on tc_direct_project_audit to 'public' as 'informix';
+grant insert on tc_direct_project_audit to 'public' as 'informix';
+grant update on tc_direct_project_audit to 'public' as 'informix';
+grant delete on tc_direct_project_audit to 'public' as 'informix';
+
+grant select on user_permission_grant_audit to 'public' as 'informix';
+grant index on user_permission_grant_audit to 'public' as 'informix';
+grant insert on user_permission_grant_audit to 'public' as 'informix';
+grant update on user_permission_grant_audit to 'public' as 'informix';
+grant delete on user_permission_grant_audit to 'public' as 'informix';
+
+grant select on "informix".audit_action_type_lu to "public" as "informix";
+grant update on "informix".audit_action_type_lu to "public" as "informix";
+grant insert on "informix".audit_action_type_lu to "public" as "informix";
+grant delete on "informix".audit_action_type_lu to "public" as "informix";
+
+create sequence "informix".tc_direct_project_audit_sequence increment by 1 start with 1 maxvalue 9223372036854775807 minvalue 1 cache 20  order;
+create sequence "informix".user_permission_grant_audit_sequence increment by 1 start with 1 maxvalue 9223372036854775807 minvalue 1 cache 20  order;
 

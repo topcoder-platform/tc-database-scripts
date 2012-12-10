@@ -108,5 +108,29 @@ ALTER TABLE 'informix'.project_answer_option
 	
 ALTER TABLE 'informix'.project_answer_option
 	ADD CONSTRAINT FOREIGN KEY(question_option_id) REFERENCES 'informix'.project_question_option(question_option_id) CONSTRAINT project_answer_option_project_question_option_fk;
+
+alter table 'informix'.tc_direct_project_audit add constraint primary key 
+    (tc_direct_project_audit_id)
+    constraint pk_tc_direct_project_audit;
+
+alter table 'informix'.user_permission_grant_audit add constraint primary key 
+    (user_permission_grant_audit_id)
+    constraint pk_user_permission_grant_audit;
+
+alter table 'informix'.audit_action_type_lu add constraint primary key 
+    (audit_action_type_id)
+    constraint audit_action_type_lu_pkey;
+
+alter table 'informix'.tc_direct_project_audit add constraint foreign key 
+    (audit_action_type_id)
+    references 'informix'.audit_action_type_lu
+    (audit_action_type_id) 
+    constraint tc_direct_project_audit_audit_action_type_lu_fk;
+
+alter table 'informix'.user_permission_grant_audit add constraint foreign key 
+    (audit_action_type_id)
+    references 'informix'.audit_action_type_lu
+    (audit_action_type_id) 
+    constraint user_permission_grant_audit_audit_action_type_lu_fk;
 	
 
