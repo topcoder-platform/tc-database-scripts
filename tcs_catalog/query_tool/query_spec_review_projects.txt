@@ -13,7 +13,7 @@ SELECT distinct
    , cvd.level_id
    , cv.version_text as version
    , 0 prize
-   , specrev.actual_start_time as opens_on
+   , specrev.actual_start_time + 5 units minute as opens_on
    , p.project_id as ref_project_id
   FROM project p
      , project_info projinfo

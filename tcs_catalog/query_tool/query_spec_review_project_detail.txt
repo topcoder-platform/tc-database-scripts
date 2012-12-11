@@ -17,7 +17,7 @@ SELECT c.component_name
      , cv.version
      , cv.version_text
      , 0 prize
-     , pi14.scheduled_start_time as opens_on
+     , pi14.scheduled_start_time + 5 units minute as opens_on
      , exists (select * from project_phase where project_id = p.project_id and phase_type_id = 14 and phase_status_id in (2)) as open
      , (SELECT MIN(review_resp_id) from review_resp WHERE phase_id = p.project_category_id + 1111) as reviewer_type_id
 , NVL((SELECT user_id FROM rboard_application WHERE project_id = p.project_id AND phase_id=p.project_category_id + 1111), 0) as review_user_id
