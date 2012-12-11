@@ -8,7 +8,8 @@
 --       response_severity_lu, review_resp, roles, scorecard_question_type_lu, scorecard_status_lu, scorecard_type_lu,
 --       screening_response_lu, screening_status_lu, specification_type, status, submission_status_lu, technology_types,
 --       track_contest_result_calculator_lu, track_contest_type_lu, track_status_lu, track_type_lu, upload_status_lu,
---       upload_type_lu, command_query_xref, query, query_input_xref, late_deliverable_type_lu;
+--       upload_type_lu, command_query_xref, query, query_input_xref, late_deliverable_type_lu, review_auction_category_lu
+--       review_auction_type_lu, review_application_role_lu, review_application_role_resource_role_xref, review_application_status_lu
 --
 -- The following tables are NOT included in this script:
 --        royalty, sample_inquiry, scorecard, scorecard_group, scorecard_question, scorecard_section, screening_result,
@@ -28,6 +29,7 @@
 --        comp_version_dates_before_moving_price, comp_version_dates_history, comp_versions, comp_link, comp_reg_answer,
 --        comp_reg_question, comp_reg_response, comp_catalog, comp_categories, comp_client, comp_dependencies,
 --        comp_documentation, comp_download, comp_examples, comp_forum_xref_bak, comp_jive_category_xref, comp_keywords,
+--        review_auction, review_application
 --
 -- should project_pablo, gp_user_contest_prize, gp_user_reliability,  be deleted?
 
@@ -3001,5 +3003,36 @@ INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create
 INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(3, 'feedback_author', 'system', CURRENT, 'system', CURRENT);
 INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(4, 'feedback_status', 'system', CURRENT, 'system', CURRENT);
 
+INSERT INTO 'informix'.review_auction_category_lu(review_auction_category_id,name) VALUES (1, 'Contest Review');
+INSERT INTO 'informix'.review_auction_category_lu(review_auction_category_id,name) VALUES (2, 'Specification Review');
 
+INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (1, 'Regular Contest Review', 1);
+INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (2, 'Component Development Review', 1);
+INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (3, 'Specification Review', 2);
 
+INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (1, 'Primary Reviewer', 1, 1, 1);
+INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (2, 'Secondary Reviewer', 1, 3, 2);
+INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (3, 'Primary Failure Reviewer', 2, 1, 1);
+INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (4, 'Accuracy Reviewer', 2, 1, 2);
+INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (5, 'Stress Reviewer', 2, 1, 3);
+INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (6, 'Failure Reviewer', 2, 1, 4);
+INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (7, 'Specification Reviewer', 3, 1, 1);
+
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (1, 2, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (1, 4, 'f');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (1, 8, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (1, 9, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (2, 4, 'f');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (3, 2, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (3, 6, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (3, 8, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (3, 9, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (4, 5, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (5, 7, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (6, 6, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (7, 18, 't');
+
+INSERT INTO 'informix'.review_application_status_lu(review_application_status_id,name) VALUES (1, 'Pending');
+INSERT INTO 'informix'.review_application_status_lu(review_application_status_id,name) VALUES (2, 'Cancelled');
+INSERT INTO 'informix'.review_application_status_lu(review_application_status_id,name) VALUES (3, 'Approved');
+INSERT INTO 'informix'.review_application_status_lu(review_application_status_id,name) VALUES (4, 'Rejected');

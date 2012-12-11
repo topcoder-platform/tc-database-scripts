@@ -2882,7 +2882,6 @@ lock mode row;
 revoke all on comp_milestone_feedback from 'public';
 
 
-
 CREATE TABLE 'informix'.customer_group (
 	group_id INT NOT NULL,
 	name VARCHAR(45) NOT NULL,
@@ -2975,6 +2974,86 @@ EXTENT SIZE 32 NEXT SIZE 32
 LOCK MODE ROW;
 
 revoke all on group_audit_record from 'public';
+
+
+create table 'informix'.review_auction_category_lu (
+    review_auction_category_id serial NOT NULL,
+    name VARCHAR(64) NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on review_auction_category_lu from 'public';
+
+
+create table 'informix'.review_auction_type_lu (
+    review_auction_type_id serial NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    review_auction_category_id INT NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on review_auction_type_lu from 'public';
+
+
+create table 'informix'.review_application_role_lu (
+    review_application_role_id serial NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    review_auction_type_id INT NOT NULL,
+    positions INT NOT NULL,
+    order_index INT NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on review_application_role_lu from 'public';
+
+
+create table 'informix'.review_application_role_resource_role_xref (
+    review_application_role_id INT NOT NULL,
+    resource_role_id INT NOT NULL,
+    unique_role BOOLEAN NOT NULL
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on review_application_role_resource_role_xref from 'public';
+
+
+create table 'informix'.review_application_status_lu (
+    review_application_status_id serial NOT NULL,
+    name VARCHAR(64) NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on review_application_status_lu from 'public';
+
+
+create table 'informix'.review_auction (
+    review_auction_id serial NOT NULL,
+    project_id INT NOT NULL,
+    review_auction_type_id INT NOT NULL
+)
+extent size 256 next size 256
+lock mode row;
+
+revoke all on review_auction from 'public';
+
+
+create table 'informix'.review_application (
+    review_application_id serial NOT NULL,
+    user_id DECIMAL(10,0) NOT NULL,
+    review_auction_id INT NOT NULL,
+    review_application_role_id INT NOT NULL,
+    review_application_status_id INT NOT NULL,
+    create_date DATETIME YEAR TO FRACTION NOT NULL
+)
+extent size 1500 next size 1500
+lock mode row;
+
+revoke all on review_application from 'public';
 
 
 grant select on v_latest_version to 'informix' with grant option ;
@@ -4912,3 +4991,17 @@ grant update on group_audit_record to 'public' as 'informix';
 grant index on group_audit_record to 'public' as 'informix';
 
 grant delete on group_audit_record to 'public' as 'informix';
+
+grant select,insert,update,delete on review_auction_category_lu to public as 'informix';
+
+grant select,insert,update,delete on review_auction_type_lu to public as 'informix';
+
+grant select,insert,update,delete on review_application_role_lu to public as 'informix';
+
+grant select,insert,update,delete on review_application_role_resource_role_xref to public as 'informix';
+
+grant select,insert,update,delete on review_application_status_lu to public as 'informix';
+
+grant select,insert,update,delete on review_auction to public as 'informix';
+
+grant select,insert,update,delete on review_application to public as 'informix';

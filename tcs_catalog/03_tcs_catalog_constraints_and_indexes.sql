@@ -874,7 +874,66 @@ alter table 'informix'.comp_milestone_feedback add constraint primary key
 	(comp_milestone_feedback_id)
 	constraint pk_comp_milestone_feedback_id;
       
-      
+ALTER TABLE 'informix'.customer_group
+	ADD CONSTRAINT PRIMARY KEY (group_id)
+	CONSTRAINT pk_security_group;
+
+ALTER TABLE 'informix'.group_associated_billing_accounts
+	ADD CONSTRAINT PRIMARY KEY(group_id, billing_account_id)
+	CONSTRAINT pk_group_associated_billing_accounts;
+
+ALTER TABLE 'informix'.group_associated_direct_projects
+	ADD CONSTRAINT PRIMARY KEY(group_direct_project_id)
+	CONSTRAINT pk_group_associated_direct_projects;
+
+ALTER TABLE 'informix'.customer_administrator
+	ADD CONSTRAINT PRIMARY KEY(customer_administrator_id)
+	CONSTRAINT pk_customer_administrator;
+
+ALTER TABLE 'informix'.group_restriction_resources
+	ADD CONSTRAINT PRIMARY KEY(group_id, resource_type)
+	CONSTRAINT pk_group_restriction_resources;
+
+ALTER TABLE 'informix'.group_member ADD CONSTRAINT PRIMARY KEY(group_member_id)
+	CONSTRAINT pk_group_member;
+
+ALTER TABLE 'informix'.group_invitation ADD CONSTRAINT PRIMARY KEY(group_invitation_id)
+	CONSTRAINT pk_group_invitation;
+
+ALTER TABLE 'informix'.group_audit_record ADD CONSTRAINT PRIMARY KEY(id)
+	CONSTRAINT pk_group_audit_record;
+
+
+alter table 'informix'.review_auction_category_lu add constraint primary key 
+    (review_auction_category_id)
+    constraint review_auction_category_lu_pk;
+
+alter table 'informix'.review_auction_type_lu add constraint primary key 
+    (review_auction_type_id)
+    constraint review_auction_type_lu_pk;
+
+alter table 'informix'.review_application_role_lu add constraint primary key 
+    (review_application_role_id)
+    constraint review_application_role_lu_pk;
+
+alter table 'informix'.review_application_role_resource_role_xref add constraint primary key 
+    (review_application_role_id, resource_role_id)
+    constraint review_application_role_resource_role_xref_pk;
+
+alter table 'informix'.review_application_status_lu add constraint primary key 
+    (review_application_status_id)
+    constraint review_application_status_lu_pk;
+
+alter table 'informix'.review_auction add constraint primary key 
+    (review_auction_id)
+    constraint review_auction_pk;
+
+alter table 'informix'.review_application add constraint primary key 
+    (review_application_id)
+    constraint review_application_pk;      
+
+
+
 alter table 'informix'.comp_categories add constraint foreign key 
     (category_id)
     references 'informix'.categories
@@ -2080,43 +2139,67 @@ create index 'informix'.direct_project_metadata_val_idx on 'informix'.direct_pro
     );
 
 
-ALTER TABLE 'informix'.customer_group
-	ADD CONSTRAINT PRIMARY KEY (group_id)
-	CONSTRAINT pk_security_group;
-
-ALTER TABLE 'informix'.group_associated_billing_accounts
-	ADD CONSTRAINT PRIMARY KEY(group_id, billing_account_id)
-	CONSTRAINT pk_group_associated_billing_accounts;
-
 ALTER TABLE 'informix'.group_associated_billing_accounts
 	ADD CONSTRAINT FOREIGN KEY(group_id) REFERENCES 'informix'.customer_group(group_id)
 	CONSTRAINT fk_group_associated_billing_accounts_group;
-
-ALTER TABLE 'informix'.group_associated_direct_projects
-	ADD CONSTRAINT PRIMARY KEY(group_direct_project_id)
-	CONSTRAINT pk_group_associated_direct_projects;
-
-ALTER TABLE 'informix'.customer_administrator
-	ADD CONSTRAINT PRIMARY KEY(customer_administrator_id)
-	CONSTRAINT pk_customer_administrator;
-
-ALTER TABLE 'informix'.group_restriction_resources
-	ADD CONSTRAINT PRIMARY KEY(group_id, resource_type)
-	CONSTRAINT pk_group_restriction_resources;
 
 ALTER TABLE 'informix'.group_restriction_resources
 	ADD CONSTRAINT FOREIGN KEY(group_id) REFERENCES 'informix'.customer_group(group_id)
 	CONSTRAINT fk_group_restriction_resources_group;
 
-ALTER TABLE 'informix'.group_member ADD CONSTRAINT PRIMARY KEY(group_member_id)
-	CONSTRAINT pk_group_member;
-
-ALTER TABLE 'informix'.group_invitation ADD CONSTRAINT PRIMARY KEY(group_invitation_id)
-	CONSTRAINT pk_group_invitation;
-
 ALTER TABLE 'informix'.group_invitation ADD CONSTRAINT FOREIGN KEY(group_member_id) REFERENCES 'informix'.group_member(group_member_id)
 	CONSTRAINT fk_group_invitation_group_member;
-
-ALTER TABLE 'informix'.group_audit_record ADD CONSTRAINT PRIMARY KEY(id)
-	CONSTRAINT pk_group_audit_record;
 	
+alter table 'informix'.review_auction_type_lu add constraint foreign key 
+    (review_auction_category_id)
+    references 'informix'.review_auction_category_lu
+    (review_auction_category_id) 
+    constraint reviewauctiontypelu_reviewauctioncategorylu_fk;
+
+alter table 'informix'.review_application_role_lu add constraint foreign key 
+    (review_auction_type_id)
+    references 'informix'.review_auction_type_lu
+    (review_auction_type_id) 
+    constraint reviewapplicationrolelu_reviewauctiontypelu_fk;
+
+alter table 'informix'.review_application_role_resource_role_xref add constraint foreign key 
+    (review_application_role_id)
+    references 'informix'.review_application_role_lu
+    (review_application_role_id) 
+    constraint reviewapplicationroleresourcerolexref_reviewapplicationrolelu_fk;
+
+alter table 'informix'.review_application_role_resource_role_xref add constraint foreign key 
+    (resource_role_id)
+    references 'informix'.resource_role_lu
+    (resource_role_id) 
+    constraint reviewapplicationroleresourcerolexref_resourcerolelu_fk;
+
+alter table 'informix'.review_auction add constraint foreign key 
+    (review_auction_type_id)
+    references 'informix'.review_auction_type_lu
+    (review_auction_type_id) 
+    constraint reviewauction_reviewauctiontypelu_fk;
+
+alter table 'informix'.review_auction add constraint foreign key 
+    (project_id)
+    references 'informix'.project
+    (project_id) 
+    constraint reviewauction_project_fk;
+
+alter table 'informix'.review_application add constraint foreign key 
+    (review_auction_id)
+    references 'informix'.review_auction
+    (review_auction_id) on delete cascade
+    constraint reviewapplication_reviewauction_fk;
+
+alter table 'informix'.review_application add constraint foreign key 
+    (review_application_role_id)
+    references 'informix'.review_application_role_lu
+    (review_application_role_id) 
+    constraint reviewapplication_reviewapplicationrolelu_fk;
+
+alter table 'informix'.review_application add constraint foreign key 
+    (review_application_status_id)
+    references 'informix'.review_application_status_lu
+    (review_application_status_id) 
+    constraint reviewapplication_reviewapplicationstatuslu_fk;
