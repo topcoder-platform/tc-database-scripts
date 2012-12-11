@@ -4910,6 +4910,8 @@ grant select,insert,update,delete on "informix".project_milestone to public as "
 
 grant select,insert,update,delete on "informix".project_milestone_owner to public as "informix";
 
+grant select,insert,update,delete on "informix".comp_milestone_feedback to public as "informix";
+
 
 
 grant insert on customer_group to 'public' as 'informix';
