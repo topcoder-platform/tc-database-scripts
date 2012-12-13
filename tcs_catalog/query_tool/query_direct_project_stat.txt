@@ -42,7 +42,8 @@ p.tc_direct_project_id as tc_direct_project_id,
 case when ppd.actual_start_time is not null then ppd.actual_start_time else psd.actual_start_time end as posting_date,
 to_date(pi1.value[1,16], '%m.%d.%Y %H:%M') as complete_date,
 
-case when p.project_status_id = 7 then
+case when p.project_status_id = 7 or 
+         (project_status_id = 1 and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3))) then
     NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
@@ -79,7 +80,12 @@ case when p.project_status_id = 7 then
  end as member_cost,
 
 (select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
-        where project_info_type_id = 31 and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
+        where project_info_type_id = 31 
+		and (p.project_status_id = 7 
+								 OR (p.project_status_id in (9, 10) 
+										and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3)))
+								 OR (p.project_status_id = 1
+										and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3))))
         and project_id = p.project_id) as contest_fee,
         
 nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
@@ -87,6 +93,7 @@ nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
 
 case when p.project_status_id = 7 then 'Completed'
 when p.project_status_id in (9, 10) then 'Cancelled'
+when p.project_status_id in (1) then 'Active'
 else 'Failed' end as status,
 NVL((SELECT SUM(((actual_end_time - actual_start_time)::INTERVAL MINUTE(9) TO MINUTE::CHAR(20)::DECIMAL(10)) / 60) 
      FROM project_phase ppa
@@ -98,7 +105,9 @@ AS approval_phase_duration
 from project p, OUTER project_phase psd, OUTER project_phase ppd, outer project_info pi1
 where p.project_id = ppd.project_id and psd.phase_type_id = 2 and ppd.phase_type_id = 1 and psd.project_id = p.project_id
 and pi1.project_id = p.project_id  and pi1.project_info_type_id = 21
-and p.tc_direct_project_id = @tcdirectid@ and project_status_id in (7,4,5,6,8,9,10,11) 
+and p.tc_direct_project_id = @tcdirectid@
+and  (project_status_id in ( 7,4,5,6,8,9,10,11)  
+   or (project_status_id = 1 and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3)) ))
 and p.project_category_id != 27
 and (exists (select u.user_id 
          from user as u 
