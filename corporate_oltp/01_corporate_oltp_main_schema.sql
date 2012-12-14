@@ -485,7 +485,7 @@ create table 'informix'.tc_direct_project_audit (
 	tc_direct_project_audit_id DECIMAL(10, 0) NOT NULL,
 	tc_direct_project_id DECIMAL(10, 0) NOT NULL,
 	audit_action_type_id INT NOT NULL,				-- the operation type (create, update, delete), refer to audit_action_type_lu
-    user_id DECIMAL(10,0) NOT NULL,		-- who made the change
+    action_user_id DECIMAL(10,0) NOT NULL,		-- who made the change
     field_name VARCHAR(30) NOT NULL,		-- the field of the change
     old_value VARCHAR(254),		-- the old value of the field
     new_value VARCHAR(254),		-- the new value of the field
@@ -497,15 +497,18 @@ lock mode row;
 revoke all on tc_direct_project_audit from 'public';
 
 create table 'informix'.user_permission_grant_audit (
-	user_permission_grant_audit_id DECIMAL(10, 0) NOT NULL,
-	user_permission_grant_id DECIMAL(10, 0) NOT NULL,
-	audit_action_type_id  INT NOT NULL,				-- the operation type (create, update, delete), refer to audit_action_type_lu
-    user_id DECIMAL(10,0) NOT NULL,		-- who made the change
-    field_name VARCHAR(30) NOT NULL,		-- the field of the change
-    old_value VARCHAR(254),		-- the old value of the field
-    new_value VARCHAR(254),		-- the new value of the field
-    timestamp DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION	-- the timestamp
+    user_permission_grant_audit_id DECIMAL(10, 0) NOT NULL,
+    user_permission_grant_id DECIMAL(10, 0) NOT NULL,
+    audit_action_type_id  INT NOT NULL,                -- the operation type (create, update, delete), refer to audit_action_type_lu
+    user_id DECIMAL(10,0) NOT NULL,
+    resource_id DECIMAL(10,0) NOT NULL,
+    action_user_id DECIMAL(10,0) NOT NULL,        -- who made the change
+    field_name VARCHAR(30) NOT NULL,        -- the field of the change
+    old_value VARCHAR(254),        -- the old value of the field
+    new_value VARCHAR(254),        -- the new value of the field
+    timestamp DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION    -- the timestamp
 )
+
 extent size 64 next size 64
 lock mode row;
 revoke all on user_permission_grant_audit from 'public';
