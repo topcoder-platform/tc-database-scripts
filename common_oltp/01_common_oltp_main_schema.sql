@@ -1190,10 +1190,102 @@ extent size 2500 next size 2500
 lock mode row;
 revoke all on gov_id_document from 'public';
 
+CREATE  TABLE access_token (
+  access_token_id DECIMAL(12,0) NOT NULL ,
+  token_type VARCHAR(20) NOT NULL ,
+  token_key VARCHAR(200) NOT NULL ,
+  grant_type VARCHAR(20) NOT NULL ,
+  issued_at DATETIME YEAR TO FRACTION NOT NULL ,
+  lifetime DECIMAL(12,0) NOT NULL ,
+  client_id VARCHAR(45) NOT NULL ,
+  user_login_name VARCHAR(45) NOT NULL
+)
+extent size 2048 next size 2048
+lock mode row;
+revoke all on "informix".access_token from "public";  
+
+CREATE  TABLE authorization_code_grant (
+  authorization_code_grant_id DECIMAL(12,0) NOT NULL ,
+  redirect_uri VARCHAR(100) NOT NULL ,
+  code VARCHAR(100) NOT NULL ,
+  issued_at DATETIME YEAR TO FRACTION NOT NULL ,
+  lifetime DECIMAL(12,0) NOT NULL ,
+  client_id VARCHAR(45) NOT NULL ,
+  user_login_name VARCHAR(45) NOT NULL
+)
+extent size 2048 next size 2048
+lock mode row;
+revoke all on "informix".authorization_code_grant from "public";
+
+CREATE  TABLE oauth_permission (
+  permission_id DECIMAL(12,0) NOT NULL ,
+  name VARCHAR(45) NOT NULL ,
+  description VARCHAR(200) NOT NULL ,
+  default CHAR(1) NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+revoke all on "informix".oauth_permission from "public";
+
+CREATE  TABLE http_verb (
+  http_verb_id DECIMAL(12,0) NOT NULL ,
+  name VARCHAR(45) NOT NULL 
+)
+extent size 16 next size 16
+lock mode row;
+revoke all on "informix".http_verb from "public";
+
+CREATE  TABLE http_uri (
+  http_uri_id DECIMAL(12,0) NOT NULL ,
+  path VARCHAR(100) NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+revoke all on "informix".http_uri from "public";
+    
+CREATE  TABLE oauth_permission_has_http_verb (
+  permission_permission_id DECIMAL(12,0) NOT NULL ,
+  http_verb_http_verb_id DECIMAL(12,0) NOT NULL 
+)
+extent size 512 next size 512
+lock mode row;
+revoke all on "informix".oauth_permission_has_http_verb from "public";
+
+
+CREATE  TABLE oauth_permission_has_http_uri (
+  permission_permission_id DECIMAL(12,0) NOT NULL ,
+  http_uri_http_uri_id DECIMAL(12,0) NOT NULL 
+)
+extent size 512 next size 512
+lock mode row;
+revoke all on "informix".oauth_permission_has_http_uri from "public";
+
+CREATE  TABLE access_token_has_permission (
+  access_token_access_token_id DECIMAL(12,0) NOT NULL ,
+  permission_permission_id DECIMAL(12,0) NOT NULL 
+)
+extent size 512 next size 512
+lock mode row;
+revoke all on "informix".access_token_has_permission from "public";
+
+
+CREATE  TABLE authorization_code_grant_has_permission (
+  code_grant_id DECIMAL(12,0) NOT NULL ,
+  permission_permission_id DECIMAL(12,0) NOT NULL
+)
+extent size 512 next size 512
+lock mode row;
+revoke all on "informix".authorization_code_grant_has_permission from "public";
+
 CREATE SEQUENCE "informix".CONTEST_ELIGIBILITY_SEQ INCREMENT BY 1 START WITH 1 MINVALUE 1;
 
 revoke all on "informix".CONTEST_ELIGIBILITY_SEQ from "public";
 
+CREATE SEQUENCE seq_access_token;
+revoke all on "informix".seq_access_token from "public";   
+
+CREATE SEQUENCE seq_authorization_code_grant;
+revoke all on "informix".seq_authorization_code_grant from "public";
 
 create view "informix".email_user (user_id,first_name,last_name,
        create_date,modify_date,handle,last_login,status,
@@ -2162,4 +2254,15 @@ grant select,update,insert,delete on page_tracker to public as informix;
 
 grant select,update,insert,delete on page_tracker_action to public as informix;
 grant select,update,insert,delete on gov_id_document to public as informix;
+grant select,update,insert,delete on access_token to public as informix;
+grant select,update,insert,delete on authorization_code_grant to public as informix;
+grant select,update,insert,delete on oauth_permission to public as informix;
+grant select,update,insert,delete on http_verb to public as informix;
+grant select,update,insert,delete on http_uri to public as informix;
+grant select,update,insert,delete on oauth_permission_has_http_verb to public as informix;
+grant select,update,insert,delete on oauth_permission_has_http_uri to public as informix;
+grant select,update,insert,delete on access_token_has_permission to public as informix;
+grant select,update,insert,delete on authorization_code_grant_has_permission to public as informix;
+grant select on "informix".seq_access_token to "public" as "informix";
+grant select on "informix".seq_authorization_code_grant to "public" as "informix";
 
