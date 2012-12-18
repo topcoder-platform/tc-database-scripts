@@ -965,4 +965,95 @@ alter table 'informix'.gov_id_document add constraint foreign key
     references 'informix'.country
     (country_code)
     constraint goviddocument_country_fk;
+	
 
+alter table access_token add constraint primary key 
+    (access_token_id)
+    constraint pk_access_token;
+    
+alter table authorization_code_grant add constraint primary key 
+    (authorization_code_grant_id)
+    constraint pk_authorization_code_grant;
+
+
+alter table oauth_permission add constraint primary key 
+    (permission_id)
+    constraint pk_permission;
+
+
+alter table http_verb add constraint primary key 
+    (http_verb_id)
+    constraint pk_http_verb;
+
+
+alter table http_uri add constraint primary key 
+    (http_uri_id)
+    constraint pk_http_uri;
+
+
+alter table oauth_permission_has_http_verb add constraint primary key 
+    (permission_permission_id, http_verb_http_verb_id)
+    constraint pk_permission_has_http_verb;
+    
+alter table oauth_permission_has_http_verb add constraint foreign key
+    (permission_permission_id)
+    references oauth_permission
+    (permission_id)
+    constraint fk_permission_has_http_verb_1;
+    
+alter table oauth_permission_has_http_verb add constraint foreign key
+    (http_verb_http_verb_id)
+    references http_verb
+    (http_verb_id)
+    constraint fk_permission_has_http_verb_2;
+
+
+alter table oauth_permission_has_http_uri add constraint primary key 
+    (permission_permission_id, http_uri_http_uri_id)
+    constraint pk_permission_has_http_uri;
+    
+alter table oauth_permission_has_http_uri add constraint foreign key
+    (permission_permission_id)
+    references oauth_permission
+    (permission_id)
+    constraint fk_permission_has_http_uri_1;
+    
+alter table oauth_permission_has_http_uri add constraint foreign key
+    (http_uri_http_uri_id)
+    references http_uri
+    (http_uri_id)
+    constraint fk_permission_has_http_uri_2;
+
+
+alter table access_token_has_permission add constraint primary key 
+    (access_token_access_token_id, permission_permission_id)
+    constraint pk_access_token_has_permission;
+    
+alter table access_token_has_permission add constraint foreign key
+    (permission_permission_id)
+    references oauth_permission
+    (permission_id)
+    constraint fk_access_token_has_permission_1;
+    
+alter table access_token_has_permission add constraint foreign key
+    (access_token_access_token_id)
+    references access_token
+    (access_token_id)
+    constraint fk_access_token_has_permission_2;
+
+
+alter table authorization_code_grant_has_permission add constraint primary key 
+    (permission_permission_id, code_grant_id)
+    constraint pk_authorization_code_grant_has_permission;
+    
+alter table authorization_code_grant_has_permission add constraint foreign key
+    (permission_permission_id)
+    references oauth_permission
+    (permission_id)
+    constraint fk_authorization_code_grant_has_permission_1;
+    
+alter table authorization_code_grant_has_permission add constraint foreign key
+    (code_grant_id)
+    references authorization_code_grant
+    (authorization_code_grant_id)
+    constraint fk_authorization_code_grant_has_permission_2;
