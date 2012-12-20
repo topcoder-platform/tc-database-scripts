@@ -1,5 +1,9 @@
-select nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                  where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
+ select nvl(sum( (case when s.contest_fee_percentage = 0 then s.contest_fee + s.member_cost
+      else s.member_cost + s.member_cost * s.contest_fee_percentage
+      end)), 0) as projected_cost
+FROM table(MULTISET(
+select (nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (33, 35, 16, 38, 39, 49) 
                     and pi.project_id = p.project_id), 0) 
               + 
                   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
@@ -10,6 +14,17 @@ select nvl((select sum(nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (1
                 nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
                     where project_info_type_id = 16  
                     and pi.project_id = p.project_id)/2), 0)
-               ) from project p where p.project_status_id IN (1 ,2)  and p.project_category_id != 27 and p.project_status_id != 3
-                                and p.tc_direct_project_id = tcd.project_id), 0) as projected_cost
-from tc_direct_project tcd where tcd.project_id = @tcdirectid@
+               ) as member_cost,
+			   
+nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id  = 31 and p.project_id = pi.project_id), 0) as contest_fee,
+				  
+nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
+                where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage
+
+from project p, tc_direct_project tcd 
+where tcd.project_id = @tcdirectid@ and p.project_status_id IN (1 ,2)  and p.project_category_id != 27 and p.project_status_id != 3
+and not exists (select total_amount from informixoltp:payment_detail where component_project_id = p.project_id)
+              and p.tc_direct_project_id = tcd.project_id)) as s
+			 
+
