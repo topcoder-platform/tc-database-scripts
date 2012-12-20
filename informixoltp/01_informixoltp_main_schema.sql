@@ -4031,7 +4031,8 @@ REVOKE ALL ON invoice_type_lu FROM 'public';
 CREATE TABLE invoice_record (
     invoice_record_id DECIMAL(10,0) NOT NULL,
     billing_account INTEGER NOT NULL,
-    contest_id INTEGER NOT NULL,
+    contest_id INTEGER,
+    cockpit_project_id INTEGER,
     invoice_type_id INTEGER NOT NULL,
     payment_id DECIMAL(10,0),
     processed BOOLEAN not null,
