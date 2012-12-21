@@ -24,7 +24,6 @@ nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
 
 from project p, tc_direct_project tcd 
 where tcd.project_id = @tcdirectid@ and p.project_status_id IN (1 ,2)  and p.project_category_id != 27 and p.project_status_id != 3
-and not exists (select total_amount from informixoltp:payment_detail where component_project_id = p.project_id)
               and p.tc_direct_project_id = tcd.project_id)) as s
 			 
 
