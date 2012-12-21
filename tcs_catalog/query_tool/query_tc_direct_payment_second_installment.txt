@@ -1,0 +1,9 @@
+select p.payment_id, p2.payment_id as payment_id_second from informixoltp:payment p, informixoltp:payment_detail pd, informixoltp:payment p2, informixoltp:payment_detail pd2
+where p.most_recent_detail_id = pd.payment_detail_id
+and p2.most_recent_detail_id = pd2.payment_detail_id
+and p.user_id = p2.user_id
+and p.payment_id in (@payids@)
+and pd.component_project_id = pd2.component_project_id
+and pd.installment_number = 1 and pd2.installment_number = 2
+and pd.total_amount = pd2.total_amount
+and pd.gross_amount + pd2.gross_amount = pd.total_amount
