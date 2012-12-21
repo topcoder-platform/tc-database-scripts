@@ -382,7 +382,7 @@ CREATE PROCEDURE last_posters(forumid DECIMAL(12,0))
     LET posters = "";
 
 	IF forumid IS NOT NULL THEN
-		FOREACH SELECT FIRST 3 DISTINCT u.user_id, u.handle, TRIM(((current - Millis_to_time(max(m.modificationdate)))::INTERVAL DAY(6) TO DAY)::CHAR(10)) as modificationdate  
+		FOREACH SELECT FIRST 3 DISTINCT u.user_id, u.handle, to_number(TRIM(((current - Millis_to_time(max(m.modificationdate)))::INTERVAL DAY(6) TO DAY)::CHAR(10))) as modificationdate  
 				 INTO userid, handle, daysAgo
 				 FROM   jivemessage m, 
 						 USER u, 
