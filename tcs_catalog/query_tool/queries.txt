@@ -55,7 +55,6 @@ query_contest_details.txt|UPDATE query SET text= ? WHERE query_id=15902
 query_contest_info.txt|UPDATE query SET text= ? WHERE query_id=15904
 query_contest_project_status.txt|UPDATE query SET text= ? WHERE query_id=28786
 query_contest_projects.txt|UPDATE query SET text= ? WHERE query_id=15903
-query_contest_registrants.txt|UPDATE query SET text= ? WHERE query_id=28858
 query_contest_results_monthly.txt|UPDATE query SET text= ? WHERE query_id=15905
 query_contest_status.txt|UPDATE query SET text= ? WHERE query_id=26503
 query_datasource_info.txt|UPDATE query SET text= ? WHERE query_id=28507

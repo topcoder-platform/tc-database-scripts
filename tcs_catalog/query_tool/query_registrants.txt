@@ -39,7 +39,7 @@ select c.component_name
   and p.project_id = pi_vi.project_id
   and pi_vi.project_info_type_id = 1
   and pi_vi.value = cv.comp_vers_id  
-  and cv.phase_id IN (112, 113) 
+--  and cv.phase_id IN (112, 113) 
   and c.component_id = cv.component_id
   and sub.upload_id = s.upload_id
   and sub.submission_type_id = 1
