@@ -79,8 +79,7 @@ case when p.project_status_id = 7  then
  else 0 end as member_cost,
 
 (select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
-        where project_info_type_id = 31 
-		and p.project_status_id = 7 ) as contest_fee,
+        where project_info_type_id = 31 and p.project_id = project_id and p.project_status_id = 7 ) as contest_fee,
         
 nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage, 
