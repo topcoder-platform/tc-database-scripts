@@ -1,0 +1,20 @@
+SELECT  unique s.project_id,
+        s.name,
+        s.pipeline_date,
+        s.project_status_id,
+        (month(pipeline_date) + year(pipeline_date) * 100) as monthcount
+FROM    TABLE(MULTISET
+        (select
+         (case when project_status_id = 4
+         then completion_date::DATETIME YEAR TO FRACTION
+         else create_date
+         END) as pipeline_date,
+         project_id,
+         name,
+         project_status_id
+         from tc_direct_project
+         where project_id IN (@tcdirectids@)
+         ORDER BY pipeline_date
+        )) AS s WHERE (month(pipeline_date) + year(pipeline_date) * 100)
+                BETWEEN (month(TO_DATE('@sdt@', '%Y-%m')) + year(TO_DATE('@sdt@', '%Y-%m')) * 100)
+                AND (month(TO_DATE('@edt@', '%Y-%m')) + year(TO_DATE('@edt@', '%Y-%m')) * 100);
