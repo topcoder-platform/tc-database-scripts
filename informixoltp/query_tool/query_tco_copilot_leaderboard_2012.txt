@@ -1,62 +1,39 @@
 SELECT
-  sum(line_item_amount) as line_item_amount,
-  handle,
-  DECODE(sum(fulfillment), -2, -1, sum(fulfillment))  as fulfillment
+  sum(earning.line_item_amount) as line_item_amount,
+  (select u.handle from informixoltp:user u where u.user_id=earning.user_id) as handle,
+  ROUND(((contest.total_contests - contest.failed_contests) / contest.total_contests ) * 100, 2) as fulfillment
+
   FROM table(multiset(
-                SELECT
-                    sum(pmd.total_amount) as line_item_amount,
-                     u.handle,
-                     (select DECODE(r1.total_contests_number, 0, -1, ROUND(((r1.total_contests_number - r3.failed_contests_number) / r1.total_contests_number ) * 100,2)) as fulfillment
-                        from
-                           table(multiset(select count(DISTINCT p1.project_id) as total_contests_number from tcs_catalog:project p1
-                               inner join tcs_catalog:resource r on r.project_id = p1.project_id and r.resource_role_id = 14 and p1.project_status_id != 2 and p1.project_status_id != 3 and p1.project_category_id != 27
-                               inner join tcs_catalog:resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1 and ri.value = u.user_id
-                               inner join tcs_catalog:project_phase pp1 on pp1.project_id = p1.project_id and pp1.phase_type_id = 1 and pp1.actual_start_time 
-                               BETWEEN DATE('@sdate@') AND DATE('@edate@'))) as r1,
-                           table(multiset(select count(DISTINCT p2.project_id) as failed_contests_number from tcs_catalog:project p2
-                               inner join tcs_catalog:resource r on r.project_id = p2.project_id and r.resource_role_id = 14 and p2.project_status_id IN (4, 5, 6, 10, 11) and p2.project_category_id != 27
-                               inner join tcs_catalog:resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1 and ri.value =  u.user_id 
-                               inner join tcs_catalog:project_phase pp2 on pp2.project_id = p2.project_id and pp2.phase_type_id = 1 and pp2.actual_start_time 
-                               BETWEEN DATE('@sdate@') AND DATE('@edate@'))) as r3) as fulfillment
-                FROM informixoltp:payment pm,
-                     informixoltp:payment_detail pmd,
-                     informixoltp:payment_type_lu pt,
-                     tcs_catalog:project p,   
-                     tcs_catalog:tc_direct_project tdp,
-                     tcs_catalog:project_status_lu ps,
-                     tcs_catalog:project_category_lu pc,
-                     tcs_catalog:project_info pi, -- project name
-                     tcs_catalog:project_info pi2, -- contest_fee
-                     tcs_catalog:project_info pi3, -- billing account
-                     time_oltp:project ttp,
-                     time_oltp:client_project ttcp,
-                     time_oltp:client ttc,
-                     table (multiset((select  project_id, MAX(NVL(actual_start_time, scheduled_start_time)) as competition_start_time from tcs_catalog:project_phase where phase_type_id = 1 GROUP BY project_id))) ct,
-                     informixoltp:user u
-                where  pmd.component_project_id = p.project_id
-                   and pm.most_recent_detail_id = pmd.payment_detail_id
-                   and pmd.payment_type_id = pt.payment_type_id
-                   and installment_number = 1
-                   AND NOT pmd.payment_status_id IN (65,68, 69)
-                   and p.project_status_id = ps.project_status_id
-                  and p.project_category_id = pc.project_category_id
-                  and p.project_id = ct.project_id
-                  and p.project_id = pi.project_id
-                  and pi.project_info_type_id = 6
-                  and p.project_id = pi2.project_id
-                  and pi2.project_info_type_id = 31
-                  and p.project_id = pi3.project_id
-                  and pi3.project_info_type_id = 32
-                  and pi3.value = ttp.project_id
-                  and ttp.project_id = ttcp.project_id
-                  and ttcp.client_id = ttc.client_id
-                  and p.project_status_id != 3 and p.project_category_id != 27
-                  and p.tc_direct_project_id = tdp.project_id
-                  and (ct.competition_start_time BETWEEN DATE('@sdate@') AND DATE('@edate@'))
-                  and pmd.payment_type_id in (45,57)
-                  and pm.user_id = u.user_id
-                  and p.project_category_id in (23,6,7,1,2,25,24,19,14,13,26,35,36)
-                group by 2,3
-  )) group by handle
-    order by 1 desc, 2 asc;
-    
+                SELECT pm.user_id, sum(pmd.total_amount) as line_item_amount
+                FROM informixoltp:payment_detail pmd
+                INNER JOIN informixoltp:payment pm ON pm.most_recent_detail_id = pmd.payment_detail_id
+                INNER JOIN tcs_catalog:project p ON p.project_id = pmd.component_project_id AND p.project_status_id != 3
+                INNER JOIN tcs_catalog:project_phase pp ON pp.phase_type_id = 1 AND pp.project_id = p.project_id
+                WHERE pmd.payment_type_id in (45,57)
+                  AND pmd.payment_status_id NOT IN (65,68,69)
+                  AND pmd.installment_number = 1
+                  AND
+                  (
+                    (pmd.jira_issue_id is null AND NVL(pp.actual_start_time, pp.scheduled_start_time) BETWEEN DATE('@sdate@') AND DATE('@edate@'))
+                    OR
+                    (pmd.jira_issue_id is not null AND pm.create_date BETWEEN DATE('@sdate@') AND DATE('@edate@'))
+                  )
+                GROUP BY 1
+  )) earning
+
+LEFT OUTER JOIN table(multiset(
+                SELECT ri.value::int as user_id,
+                    sum(case when p.project_status_id IN (4, 5, 6,11) then 1 else 0 end) failed_contests,
+                    count(*) total_contests
+                FROM tcs_catalog:project p
+                INNER JOIN tcs_catalog:project_category_lu pc on p.project_category_id = pc.project_category_id and pc.project_type_id in (1,2)
+                INNER JOIN tcs_catalog:project_phase pp on pp.project_id = p.project_id and pp.phase_type_id = 1 and
+                           pp.actual_start_time BETWEEN DATE('@sdate@') AND DATE('@edate@')
+                INNER JOIN tcs_catalog:resource r on r.project_id = p.project_id and r.resource_role_id = 14
+                INNER JOIN tcs_catalog:resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1
+                WHERE p.project_status_id NOT IN (2,3,9,10)
+                GROUP BY 1
+  )) contest ON earning.user_id = contest.user_id
+
+GROUP BY 2, 3
+ORDER BY 1 DESC, 2 ASC
