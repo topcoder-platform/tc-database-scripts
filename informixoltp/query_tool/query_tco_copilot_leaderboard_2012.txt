@@ -23,7 +23,7 @@ SELECT
 
 LEFT OUTER JOIN table(multiset(
                 SELECT ri.value::int as user_id,
-                    sum(case when p.project_status_id IN (4, 5, 6,11) then 1 else 0 end) failed_contests,
+                    sum(case when p.project_status_id IN (4, 5, 6, 10, 11) then 1 else 0 end) failed_contests,
                     count(*) total_contests
                 FROM tcs_catalog:project p
                 INNER JOIN tcs_catalog:project_category_lu pc on p.project_category_id = pc.project_category_id and pc.project_type_id in (1,2)
@@ -31,7 +31,7 @@ LEFT OUTER JOIN table(multiset(
                            pp.actual_start_time BETWEEN DATE('@sdate@') AND DATE('@edate@')
                 INNER JOIN tcs_catalog:resource r on r.project_id = p.project_id and r.resource_role_id = 14
                 INNER JOIN tcs_catalog:resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1
-                WHERE p.project_status_id NOT IN (2,3,9,10)
+                WHERE p.project_status_id NOT IN (2,3,9)
                 GROUP BY 1
   )) contest ON earning.user_id = contest.user_id
 
