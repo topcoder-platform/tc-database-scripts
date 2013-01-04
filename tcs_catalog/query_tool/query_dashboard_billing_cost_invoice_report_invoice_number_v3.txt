@@ -851,7 +851,7 @@ where  p.project_status_id = ps.project_status_id
   and pi3.value = ttp.project_id
   and pm.payment_id = pmd2.parent_payment_id
   and pmd.component_project_id = p.project_id 
-  and pmd2.installment_number = 1
+  and pmd2.installment_number = 1 and pmd2.payment_type_id != 4
   and pm.most_recent_detail_id = pmd.payment_detail_id 
   and pm2.most_recent_detail_id = pmd2.payment_detail_id
   and (NOT pmd2.payment_status_id IN (65, 68, 69))

@@ -187,7 +187,7 @@ SELECT (TO_DATE(SUBSTR(pi21.value, 0, 16)::varchar(16), '%m.%d.%Y %H:%M')) payme
 				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', pc.name) category, pi.value as contest_name,
-       'Active' as contest_status,
+       'Finished' as contest_status,
   SUM(case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase ph, project_category_lu pcl
                 where phase_type_id = (case when p.project_category_id in (9, 29) then 4
@@ -566,7 +566,7 @@ where  p.project_status_id = ps.project_status_id
   and pi3.value = ttp.project_id and pm.payment_id = pmd2.parent_payment_id
   and pmd.component_project_id = p.project_id 
   and pmd2.installment_number = 1 and pm.most_recent_detail_id = pmd.payment_detail_id 
-  and pm2.most_recent_detail_id = pmd2.payment_detail_id  and (NOT pmd2.payment_status_id IN (65, 68, 69))
+  and pm2.most_recent_detail_id = pmd2.payment_detail_id  and (NOT pmd2.payment_status_id IN (65, 68, 69)) and pmd2.payment_type_id != 4
   and ttp.project_id = ttcp.project_id and ttcp.client_id = ttc.client_id
   and p.project_category_id != 27
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
@@ -712,7 +712,7 @@ where pmd.cockpit_project_id = tdp.project_id
                             where dpa.project_id = tdp.project_id)
     and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)                    
     and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
-    and NVL(pmd.component_project_id, 0) = @pj@
+    and pmd.cockpit_project_id = DECODE(@pj@, 0, pmd.cockpit_project_id, @pj@)
     and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
    and exists (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = tdp.project_id)
