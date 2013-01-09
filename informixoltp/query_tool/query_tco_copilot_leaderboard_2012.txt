@@ -31,7 +31,8 @@ LEFT OUTER JOIN table(multiset(
                            pp.actual_start_time BETWEEN DATE('@sdate@') AND DATE('@edate@')
                 INNER JOIN tcs_catalog:resource r on r.project_id = p.project_id and r.resource_role_id = 14
                 INNER JOIN tcs_catalog:resource_info ri on ri.resource_id = r.resource_id and ri.resource_info_type_id = 1
-                WHERE p.project_status_id NOT IN (2,3,9)
+                WHERE p.project_status_id NOT IN (2,3,9) AND
+                      p.project_id not in (select project_id from tcs_catalog:project_info where project_info_type_id=60 and value="true")
                 GROUP BY 1
   )) contest ON earning.user_id = contest.user_id
 
