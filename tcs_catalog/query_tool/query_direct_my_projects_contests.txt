@@ -1,4 +1,4 @@
-select  tcd.project_id, tcd.name as project_name, tcd.create_date, tcd.project_status_id, tcdpsl.name as project_status_name, tcd.project_forum_id as project_forum_id, tcd.completion_date,
+select  tcd.project_id, tcd.name as project_name, tcd.create_date, tcd.project_status_id, tcdpsl.name as project_status_name, tcd.project_forum_id as project_forum_id,
 
 (select count(project_id) from project p where tc_direct_project_id = tcd.project_id and p.project_status_id = 2 and p.project_category_id != 27) as num_draft,
 
@@ -10,11 +10,42 @@ select  tcd.project_id, tcd.name as project_name, tcd.create_date, tcd.project_s
  
 (select count(project_id) from project p where tc_direct_project_id = tcd.project_id and p.project_status_id in (7,4,5,6,8) and p.project_category_id != 27) as num_finished,
 
-(select count(project_id) from project p where tc_direct_project_id = tcd.project_id and p.project_status_id in (9,10) and p.project_category_id != 27) as num_cancelled
+(select count(project_id) from project p where tc_direct_project_id = tcd.project_id and p.project_status_id in (9,10) and p.project_category_id != 27) as num_cancelled,
 
-from tc_direct_project tcd, user_permission_grant upg, corporate_oltp:tc_direct_project_status_lu tcdpsl
+( 0=@uid@ or exists (
+select upg.user_id from user_permission_grant upg where upg.user_id = @uid@ and upg.resource_id = tcd.project_id and upg.permission_type_id in (2,3)
+)
+or exists (
+  select gm.group_id from group_member gm,
+  group_associated_direct_projects gadp,
+  customer_group g
+ where gm.active=1 and gm.unassigned_on is null
+  and gadp.group_id=gm.group_id
+  and gadp.tc_direct_project_id=tcd.project_id
+  and gm.specific_permission in ('WRITE', 'FULL')
+  and gm.user_id = @uid@
+  and g.group_id = gm.group_id
+  and g.archived = 0
+) 
+) as has_write_permission 
+from tc_direct_project tcd, corporate_oltp:tc_direct_project_status_lu tcdpsl
 
-where upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) and upg.resource_id = tcd.project_id and upg.permission_type_id in (0,1,2,3)
+where (0=@uid@ or exists (
+select upg.user_id from user_permission_grant upg where upg.user_id = @uid@ and upg.resource_id = tcd.project_id and upg.permission_type_id in (0,1,2,3)
+)
+or exists (
+  select gm.group_id from group_member gm,
+  group_associated_direct_projects gadp,
+  customer_group g
+ where gm.active=1 and gm.unassigned_on is null
+  and gadp.group_id=gm.group_id
+  and gadp.tc_direct_project_id=tcd.project_id
+  and gm.specific_permission != 'REPORT'
+  and gm.user_id = @uid@
+  and g.group_id = gm.group_id
+  and g.archived = 0
+)
+)
 and tcdpsl.project_status_id = tcd.project_status_id
 
 order by upper(tcd.name)

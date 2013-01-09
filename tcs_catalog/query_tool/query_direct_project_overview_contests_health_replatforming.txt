@@ -124,4 +124,16 @@ and (exists (select u.user_id
      OR exists (select permission_type_id 
                from user_permission_grant as upg   
               where resource_id=p.tc_direct_project_id and permission_type_id in (1,2,3) 
-               and upg.user_id = @uid@ ))
+               and upg.user_id = @uid@ )
+     OR exists (
+        select gm.group_id from group_member gm,
+          group_associated_direct_projects gadp,
+          customer_group g
+         where gm.active=1 and gm.unassigned_on is null
+          and gadp.group_id=gm.group_id
+          and gadp.tc_direct_project_id=p.tc_direct_project_id
+          and gm.specific_permission != 'REPORT'
+          and gm.user_id = @uid@
+          and g.group_id = gm.group_id
+          and g.archived = 0
+     ))
