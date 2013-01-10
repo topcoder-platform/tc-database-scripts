@@ -1,4 +1,4 @@
-select  tcd.project_id, tcd.name as project_name, tcd.create_date, tcd.project_status_id, tcdpsl.name as project_status_name, tcd.project_forum_id as project_forum_id,
+select  tcd.project_id, tcd.name as project_name, tcd.create_date, tcd.project_status_id, tcdpsl.name as project_status_name, tcd.project_forum_id as project_forum_id,  tcd.completion_date,
 
 (select count(project_id) from project p where tc_direct_project_id = tcd.project_id and p.project_status_id = 2 and p.project_category_id != 27) as num_draft,
 
@@ -49,5 +49,3 @@ or exists (
 and tcdpsl.project_status_id = tcd.project_status_id
 
 order by upper(tcd.name)
-
-
