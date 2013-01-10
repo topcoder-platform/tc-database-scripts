@@ -169,4 +169,5 @@ query_direct_dashboard_enterprise_volume_view_week.txt|UPDATE query SET text = ?
 query_client_user_stats.txt|UPDATE query SET text = ? WHERE query_id = 32466
 query_copilots_statistics.txt|UPDATE query SET text = ? WHERE query_id = 32478
 query_copilots_skills.txt|UPDATE query SET text = ? WHERE query_id = 32479
+query_copilot_skills.txt|UPDATE query SET text = ? WHERE query_id = 32536
 

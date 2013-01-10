@@ -139,6 +139,7 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31999, 'direct_dashboard_enterprise_volume_view_week', 24750);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32019, 'client_user_stats', 24750);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32030, 'copilots_statistics', 20449);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32089, 'copilot_skills', 24750);
 
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (20447, 'Data Dump');
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (20449, 'Statistics');
@@ -388,6 +389,7 @@ INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (32
 INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (32466, null, 'client_user_stats', 0, null);
 INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (32478, null, 'copilots_statistics', 0, null);
 INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (32479, null, 'copilots_skills', 0, null);
+INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (32536, null, 'copilot_skills', 0, null);
 
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (21617, NULL, NULL, 20479, NULL);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (21627, 'N', NULL, 20483, 1);
@@ -868,6 +870,7 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32019, 32466, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32030, 32478, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32030, 32479, NULL);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32089, 32536, NULL);
 
 ------------------------------------------------------------------------------------------------------
 ------------------------- Populating Data For user_achievement_type_lu -------------------------------

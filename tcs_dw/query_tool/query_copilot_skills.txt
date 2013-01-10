@@ -1,0 +1,3 @@
+SELECT user_achievement_rule_id as rule_id, user_achievement_name as name, user_achievement_rule_desc as description
+FROM user_achievement_rule
+WHERE user_achievement_rule_id BETWEEN 55 and 68;
