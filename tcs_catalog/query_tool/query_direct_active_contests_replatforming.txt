@@ -82,10 +82,11 @@ where (exists (
   select gm.group_id from group_member gm,
   group_associated_direct_projects gadp,
   customer_group g
- where gm.active=1 and gm.unassigned_on is null
+ where gm.active=1
   and gadp.group_id=gm.group_id
   and gadp.tc_direct_project_id=p.tc_direct_project_id
-  and gm.specific_permission != 'REPORT'
+  and ((gm.use_group_default=0 and gm.specific_permission!='REPORT')
+        or (gm.use_group_default=1 and g.default_permission != 'REPORT'))
   and gm.user_id = @uid@
   and g.group_id = gm.group_id
   and g.archived = 0
