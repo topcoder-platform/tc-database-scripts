@@ -1,12 +1,11 @@
 SELECT pm.create_date payment_date, p.project_id as contest_id,  ttc.name client,	ttp.name billing_project_name,  tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-       nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id in (29, 9) then 4 when pcl.project_type_id in (1,2) then 10 				   else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+       nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase
+                where phase_type_id = (case when p.project_category_id in (29, 9) then 4 when pc.project_type_id in (1,2) then 10 else 4 end) 
+				and project_id = p.project_id), 
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', pc.name) category, pi.value as contest_name,
-       CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
-            WHEN ps.project_status_id = 1 THEN 'Active' ELSE 'Draft' END as contest_status,
+       CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'  WHEN ps.project_status_id = 1 THEN 'Active' ELSE 'Draft' END as contest_status,
   SUM(case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase
                 where phase_type_id = (case when p.project_category_id in (9, 29) then 4
@@ -30,8 +29,7 @@ SELECT pm.create_date payment_date, p.project_id as contest_id,  ttc.name client
      +
     nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
         where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
-        and pi26.value = 'On'
-        and pi26.project_id =  p.project_id ), 0)
+        and pi26.value = 'On' and pi26.project_id =  p.project_id ), 0)
   else NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
@@ -59,8 +57,7 @@ SELECT pm.create_date payment_date, p.project_id as contest_id,  ttc.name client
          ELSE 'Misc' END as line_item_category,
     CASE WHEN pmd.payment_type_id in (23,37,46,47, 45, 57) THEN pmd.jira_issue_id ELSE '' END as reference_id,
     pmd.total_amount as line_item_amount, ttc.client_id,  ttp.project_id billing_project_id,
-    tdp.project_id direct_project_id, p.project_category_id, pmd.payment_detail_id, 0 is_studio,
- pm.payment_id, pmd.payment_desc,
+    tdp.project_id direct_project_id, p.project_category_id, pmd.payment_detail_id, 0 is_studio,  pm.payment_id, pmd.payment_desc,
   (select invoice_amount from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id and invoice_type_id!=9) as invoice_amount,
   (select processed from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id and invoice_type_id!=9) as processed,
   (select i.invoice_date from informixoltp:invoice_record ir, informixoltp:invoice i where ir.contest_id = p.project_id and ir.payment_id = pm.payment_id and ir.invoice_type_id!=9 and ir.invoice_id = i.invoice_id)  as process_date,
@@ -87,12 +84,10 @@ where  pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.paym
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
   and (p.project_status_id not in (1,2,3) OR (pmd.payment_type_id in (23,37,46,47, 45, 57) and pmd.jira_issue_id is not null)
        OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
-       	   and exists (select phase_type_id from project_phase
-				where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3))
+       	   and exists (select phase_type_id from project_phase where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3))
 	  OR (p.project_status_id  = 1 and (p.project_category_id not in (9, 29) and pc.project_type_id in (1,2))
        	   and (exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =11 and phase_status_id in (2,3))
 		        OR not exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =10 and phase_status_id in ( 1,2)))))
-
   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
    and exists (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
@@ -101,10 +96,9 @@ group by 1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28
 union -- reliability
 SELECT pm2.create_date payment_date, p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-       nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
-                                           when pcl.project_type_id in (1,2) then 10  else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+       nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4 when pcl.project_type_id in (1,2) then 10  else 4 end) 
+				and project_id = p.project_id), 
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', pc.name) category,  pi.value as contest_name,
        CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
@@ -164,7 +158,6 @@ FROM informixoltp:payment pm  INNER JOIN informixoltp:payment_detail pmd ON pm.m
                                             AND pmd2.payment_type_id in (24, 67) AND NOT pmd2.payment_status_id IN (65, 68, 69)) on pm.payment_id = pmd2.parent_payment_id,
      informixoltp:payment_type_lu pt, project p, tc_direct_project tdp, project_status_lu ps, project_category_lu pc,
      project_info pi, project_info pi2, project_info pi3, time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc
-
 where  pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.payment_type_id
    and pmd.installment_number = 1 and pmd2.payment_type_id != 4 AND NOT pmd.payment_status_id IN (65,68, 69)
    and p.project_status_id = ps.project_status_id and p.project_category_id = pc.project_category_id
@@ -179,28 +172,24 @@ where  pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.paym
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@) and p.project_category_id != 27
   and (p.project_status_id not in (1,2,3) 
           OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
-       	   and exists (select phase_type_id from project_phase
-				where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3))
+       	   and exists (select phase_type_id from project_phase where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3))
 	  OR (p.project_status_id  = 1 and (p.project_category_id not in (9, 29) and pc.project_type_id in (1,2))
        	   and (exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =11 and phase_status_id in (2,3))
 		        OR not exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =10 and phase_status_id in ( 1,2)))))
   and (pm2.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-   and exists (select resource_id from user_permission_grant upg
-                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
+   and exists (select resource_id from user_permission_grant upg where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
 group by 1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
 
 union   -- DR
 SELECT (TO_DATE(SUBSTR(pi21.value, 0, 16)::varchar(16), '%m.%d.%Y %H:%M')) payment_date, p.project_id as contest_id, ttc.name client,	
        ttp.name billing_project_name, tdp.name direct_project_name, 
 	   (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-       nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
-                                           when pcl.project_type_id in (1,2) then 10  else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+       nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4 when pc.project_type_id in (1,2) then 10 else 4 end) 
+				and project_id = p.project_id), 
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', pc.name) category, pi.value as contest_name,
-       CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
-            WHEN ps.project_status_id = 1 THEN 'Active'  ELSE 'Draft' END as contest_status,
+       CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished' WHEN ps.project_status_id = 1 THEN 'Active'  ELSE 'Draft' END as contest_status,
   SUM(case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase
                 where phase_type_id = (case when p.project_category_id in (9, 29) then 4
@@ -284,7 +273,6 @@ where  p.project_status_id = ps.project_status_id
   and p.tc_direct_project_id = tdp.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
-  
   and (TO_DATE(SUBSTR(pi21.value, 0, 16)::varchar(16), '%m.%d.%Y %H:%M') BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
   and exists (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
@@ -295,15 +283,12 @@ SELECT s.payment_date, s.contest_id, s.client, s.billing_project_name, s.direct_
     (case when s.contest_fee_percentage = 0 then s.line_item_amount   else s.contest_fee_percentage * s.estimated_member_costs end) as line_item_amount,
     s.client_id, s.billing_project_id, s.direct_project_id, s.project_category_id,  s.payment_detail_id, s.is_studio, s.payment_id,
     s.payment_desc, s.invoice_amount, s.processed, s.process_date, s.invoice_number,  s.invoice_id, s.invoice_record_id
-    
 FROM table(MULTISET(
-SELECT (pm.create_date) as payment_date,p.project_id as contest_id,
-       ttc.name client,	ttp.name billing_project_name, tdp.name direct_project_name,
+SELECT (pm.create_date) as payment_date,p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id in (9,  29) then 4
-                                           when pcl.project_type_id in (1,2) then 10  else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase
+                where phase_type_id = (case when p.project_category_id in (9,  29) then 4 when pc.project_type_id in (1,2) then 10  else 4 end) 
+				and project_id = p.project_id), 
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', pc.name) category, pi.value as contest_name,
        CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
@@ -424,11 +409,9 @@ group by 1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28
 union  -- contest fee (%  regardless status) (payment_detail)
 SELECT (pm.create_date) as payment_date, p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
-                                           when pcl.project_type_id in (1,2) then 10
-										   else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4 when pcl.project_type_id in (1,2) then 10 else 4 end) 
+				and project_id = p.project_id), 
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', pc.name) category,
        pi.value as contest_name,
@@ -520,10 +503,9 @@ where  p.project_status_id = ps.project_status_id
 union  -- contest fee (%) (payment_detail2)
 SELECT (pm2.create_date) as payment_date, p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
-                                           when pcl.project_type_id in (1,2) then 10  else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4 when pc.project_type_id in (1,2) then 10  else 4 end) 
+				and project_id = p.project_id), 
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', pc.name) category,  pi.value as contest_name,
        CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
@@ -612,10 +594,9 @@ where  p.project_status_id = ps.project_status_id
 union  -- contest fee (status7 and % enabled) (DR)
 SELECT (TO_DATE(SUBSTR(pi21.value, 0, 16)::varchar(16), '%m.%d.%Y %H:%M')) payment_date, p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
        (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl
-                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
-                                           when pcl.project_type_id in (1,2) then 10  else 4 end) 
-				and pcl.project_category_id = p.project_category_id and ph.project_id = p.project_id), 
+nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4 when pc.project_type_id in (1,2) then 10  else 4 end) 
+				and project_id = p.project_id), 
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', pc.name) category, pi.value as contest_name,
        CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
