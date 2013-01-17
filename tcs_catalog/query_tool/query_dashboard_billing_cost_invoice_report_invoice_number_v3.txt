@@ -131,7 +131,7 @@ where  pmd.component_project_id = p.project_id
   and pi3.value = ttp.project_id
   and ttp.project_id = ttcp.project_id
   and ttcp.client_id = ttc.client_id
-  and p.project_status_id != 3 and p.project_category_id != 27
+  and p.project_category_id != 27
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
