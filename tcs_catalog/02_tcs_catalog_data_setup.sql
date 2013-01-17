@@ -803,6 +803,8 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32061, 'dashboard_billing_cost_invoice_report_invoice_number_v3', 13343);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32062, 'tc_direct_payment_second_installment', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32069, 'enterprise_dashboard_projects_pipeline', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32111, 'enterprise_dashboard_projects', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32112, 'enterprise_dashboard_total_spend_v2', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -1868,7 +1870,8 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32508, null, 'dashboard_billing_cost_invoice_report_invoice_number_v3', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32509, null, 'tc_direct_payment_second_installment', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32516, null, 'enterprise_dashboard_projects_pipeline', 0, null);
-
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32557, null, 'enterprise_dashboard_projects', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32558, null, 'enterprise_dashboard_total_spend_v2', 0, null);
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (13717, 'N', NULL, 25190, 1);
@@ -2363,6 +2366,10 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32516, NULL, NULL, 25600, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32516, NULL, NULL, 25601, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32516, NULL, NULL, 25650, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32557, NULL, NULL, 25650, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32558, NULL, NULL, 25600, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32558, NULL, NULL, 25601, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32558, NULL, NULL, 25650, 0);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (11010, 11010, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12153, 12154, 0);
@@ -2802,6 +2809,8 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32061, 32508, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32062, 32509, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32069, 32516, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32111, 32557, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32112, 32558, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);
