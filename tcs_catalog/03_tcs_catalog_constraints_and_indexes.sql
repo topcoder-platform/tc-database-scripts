@@ -2203,3 +2203,19 @@ alter table 'informix'.review_application add constraint foreign key
     references 'informix'.review_application_status_lu
     (review_application_status_id) 
     constraint reviewapplication_reviewapplicationstatuslu_fk;
+	
+create index 'informix'.group_archived_idx on 'informix'.customer_group
+    (
+    archived
+    );
+	
+create index 'informix'.group_member_permission_idx on 'informix'.group_member
+    (
+    specific_permission
+    );
+
+create index 'informix'.group_member_active_idx on 'informix'.group_member
+    (
+    active
+    );
+	

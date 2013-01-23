@@ -795,8 +795,6 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31960, 'client_direct_project_ids_v2', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31961, 'admin_client_billing_accounts_v2', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31979, 'direct_my_pm_projects_contests', 13337);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31989, 'dashboard_billing_cost_invoice_report_v2', 13337);
-INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31990, 'dashboard_billing_cost_invoice_report_invoice_number_v2', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32029, 'copilots_info', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32039, 'direct_my_pm_projects_contests_v2', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32060, 'dashboard_billing_cost_invoice_report_v3', 13343);
@@ -805,6 +803,8 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32069, 'enterprise_dashboard_projects_pipeline', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32111, 'enterprise_dashboard_projects', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32112, 'enterprise_dashboard_total_spend_v2', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31989, 'dashboard_billing_cost_invoice_report_v4', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31990, 'dashboard_billing_cost_invoice_report_invoice_number_v4', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -1860,8 +1860,6 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32406, null, 'non_admin_client_billing_accounts_v2', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32407, null, 'client_direct_project_ids_v2', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32408, null, 'admin_client_billing_accounts_v2', 0, null);
-INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32426, null, 'dashboard_billing_cost_invoice_report_v2', 0, null);
-INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32436, null, 'dashboard_billing_cost_invoice_report_invoice_number_v2', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32476, null, 'copilots_info', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32477, null, 'copilots_experience', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32486, null, 'direct_my_pm_projects_contests_v2', 0, null);
@@ -1872,6 +1870,8 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32516, null, 'enterprise_dashboard_projects_pipeline', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32557, null, 'enterprise_dashboard_projects', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32558, null, 'enterprise_dashboard_total_spend_v2', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32426, null, 'dashboard_billing_cost_invoice_report_v4', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32436, null, 'dashboard_billing_cost_invoice_report_invoice_number_v4', 0, null);
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (13717, 'N', NULL, 25190, 1);
