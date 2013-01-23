@@ -103,7 +103,7 @@ SELECT c.handle
            and c.coder_type_id = 1) as school_name
      , NVL((SELECT SUM(up.gross_amount) 
           FROM payment p, user_payment up
-         WHERE p.payment_id = up.payment_id 
+         WHERE p.payment_id = up.payment_id and p.payment_status_id not in (65,69)
          and up.user_id = @cr@ and p.show_in_profile_ind = 1), 0) AS overall_earnings
      , (select count(*) from user_achievement where coder_id = c.coder_id and achievement_type_id in (1,4,5,6,7,8)) as has_achievements
      , case when exists (select '1' from long_comp_result where attended = 'Y' and coder_id = c.coder_id) then '1' else '0' end as has_long_comp
