@@ -1,10 +1,10 @@
 select tcp.project_id, tcp.name,
 
-(select NVL(MIN(due_date), CURRENT + 1000 UNITS YEAR)from project_milestone pm where pm.project_id = tcp.project_id) as min_milestone_due_date,
+(select NVL(MIN(due_date), CURRENT + 1000 UNITS YEAR)from project_milestone pm where pm.project_id = tcp.project_id and pm.completed = 'f') as min_milestone_due_date,
 
 (select MIN(pm2.name) from project_milestone pm2
-where pm2.due_date = (select NVL(MIN(due_date), CURRENT + 1000 UNITS YEAR)from project_milestone pm where pm.project_id = tcp.project_id)
-and pm2.project_id = tcp.project_id) as milestone_name,
+where pm2.due_date = (select NVL(MIN(due_date), CURRENT + 1000 UNITS YEAR)from project_milestone pm where pm.project_id = tcp.project_id and pm.completed = 'f')
+and pm2.project_id = tcp.project_id and pm2.completed = 'f') as milestone_name,
 
 (select count(p.project_id) from project p where p.project_status_id = 1 and p.tc_direct_project_id = tcp.project_id) as active_contests_number
 
