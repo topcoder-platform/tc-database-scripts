@@ -2589,6 +2589,7 @@ revoke all on 'informix'.file_type_lu from public;
 
 create table 'informix'.prize (
   prize_id INTEGER not null,
+  project_id INT,
   place INTEGER not null,
   prize_amount FLOAT not null,
   prize_type_id DECIMAL(5,0) not null,

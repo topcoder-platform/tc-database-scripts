@@ -1998,6 +1998,12 @@ alter table 'informix'.prize add constraint foreign key
     (prize_type_id) 
     constraint prize_file_type_fk;
 
+alter table 'informix'.prize add constraint foreign key 
+    (project_id) 
+    references 'informix'.project
+    (project_id) 
+    constraint prize_project_fk;
+
 alter table 'informix'.project add constraint foreign key 
     (project_studio_spec_id) 
     references 'informix'.project_studio_specification 
