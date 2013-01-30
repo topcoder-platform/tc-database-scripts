@@ -3,7 +3,7 @@ select c.component_name
      , ci.user_id
      , ci.create_time as inquiry_date
      , s.modify_date as submission_date
-     , ur.rating
+     , ri4.value::int as rating
      , cv.component_id
      , cv.version_text
      , (select name from project_category_lu where project_category_id = p.project_category_id) as phase
@@ -13,29 +13,33 @@ select c.component_name
      , (select category_id from comp_categories where component_id = c.component_id and category_id = 22774808) as aol_brand
     , (select category_id from comp_categories where component_id = c.component_id and category_id in (27416670, 27416669, 27416668, 27416667, 27416666, 27416665, 27416664, 27416663, 27416662, 27416661, 27416660, 27416659, 27416658, 27416657))
         as paypal_brand
-     , rel.rating as reliability
+     , ri5.value::float/100 as reliability
      , exists (select 1 from project_phase pp where pp.project_id = p.project_id and pp.phase_status_id in (1,2) and pp.phase_type_id in (1,2,3,4,5,6) and p.project_status_id=1) as hide_submissions
   from resource rur
-     , resource_info ri
+     , resource_info ri1
      , comp_versions cv
      , project p
      , project_phase pi
      , comp_catalog c
      , OUTER (submission sub, upload s)
-     , OUTER user_rating ur
      , component_inquiry ci
      , categories pcat
      , user u
      , project_info pi_vi
-     , outer user_reliability rel
+     , outer resource_info ri4
+     , outer resource_info ri5
  where 1 = 1
   and ci.user_id = u.user_id
   and ci.project_id = p.project_id
   and p.project_id = rur.project_id
-  and rur.resource_id = ri.resource_id
+  and rur.resource_id = ri1.resource_id
   and rur.resource_role_id = 1
-  and ri.resource_info_type_id = 1
-  and ci.user_id = ri.value
+  and ri1.resource_info_type_id = 1
+  and ri4.resource_id = rur.resource_id
+  and ri4.resource_info_type_id = 4
+  and ri5.resource_id = rur.resource_id
+  and ri5.resource_info_type_id = 5
+  and ci.user_id = ri1.value
   and p.project_id = pi_vi.project_id
   and pi_vi.project_info_type_id = 1
   and pi_vi.value = cv.comp_vers_id  
@@ -48,10 +52,6 @@ select c.component_name
   and s.resource_id = rur.resource_id
   and s.upload_status_id = 1
   and s.upload_type_id = 1
-  and ur.user_id = ci.user_Id
-  and ur.phase_id = p.project_category_id + 111
-  and rel.user_id = ci.user_id
-  and rel.phase_id = p.project_category_id + 111
   and pi.project_id = p.project_id
   and pi.phase_type_id = 2
   and p.project_id = @pj@
