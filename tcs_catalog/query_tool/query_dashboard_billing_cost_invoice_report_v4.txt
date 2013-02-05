@@ -142,7 +142,7 @@ SELECT pm2.create_date payment_date, p.project_id as contest_id, ttc.name client
             and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
   end) as actual_total_member_costs,  pt.payment_type_desc,
-    CASE WHEN pmd2.payment_type_id in (24)  THEN 'Reliability' ELSE 'Misc' END as line_item_category,
+    CASE WHEN pmd2.payment_type_id in (24, 67)  THEN 'Reliability' ELSE 'Misc' END as line_item_category,
     CASE WHEN pmd.payment_type_id in (23,37,46,47, 45, 57) THEN pmd.jira_issue_id  ELSE ''  END as reference_id,
     pmd2.total_amount as line_item_amount, ttc.client_id, ttp.project_id billing_project_id, tdp.project_id direct_project_id,
 	p.project_category_id, pmd.payment_detail_id,  0 as is_studio, pm2.payment_id, pmd.payment_desc,
@@ -159,7 +159,7 @@ FROM informixoltp:payment pm  INNER JOIN informixoltp:payment_detail pmd ON pm.m
      informixoltp:payment_type_lu pt, project p, tc_direct_project tdp, project_status_lu ps, project_category_lu pc,
      project_info pi, project_info pi2, project_info pi3, time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc
 where  pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.payment_type_id
-   and pmd.installment_number = 1 and pmd2.payment_type_id != 4 AND NOT pmd.payment_status_id IN (65,68, 69)
+   and pmd2.installment_number = 1 and pmd2.payment_type_id != 4 AND NOT pmd.payment_status_id IN (65,68, 69)
    and p.project_status_id = ps.project_status_id and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@) 
   and p.project_id = pi.project_id and pi.project_info_type_id = 6
