@@ -1,6 +1,18 @@
 select p.project_id,
        (select to_char(max(scheduled_start_time), '%Y-%m-%dT%R:%S%F3') from project_phase where phase_type_id = 1 and project_id = p.project_id) as launch_date,
-       (select to_char(max(nvl(actual_end_time, scheduled_end_time)), '%Y-%m-%dT%R:%S%F3') from project_phase where project_id = p.project_id) completion_date,
+	   
+	   case when DECODE(@newEndDateformat@, 0, 0, 1) = 0 then 
+			(select to_char(max(nvl(actual_end_time, scheduled_end_time)),'%Y-%m-%dT%R:%S%F3') from project_phase where project_id = p.project_id) 
+	    when (select max(nvl(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4) < mdy(12,01,2012) then
+             (select to_char(max(nvl(actual_end_time, scheduled_end_time)),'%Y-%m-%dT%R:%S%F3') from project_phase where project_id = p.project_id)
+	   when p.project_status_id in (1,2,3)
+                 or not exists(select contest_id from informixoltp:invoice_record where contest_id = p.project_id and invoice_type_id = 3) then
+             (select  to_char(max(nvl(actual_end_time, scheduled_end_time)),'%Y-%m-%dT%R:%S%F3') from project_phase where project_id = p.project_id) 
+		
+       else (select  to_char(min(invoice_date),'%Y-%m-%dT%R:%S%F3') from informixoltp:invoice_record ir, informixoltp:invoice i 
+             where ir.contest_id = p.project_id and i.invoice_id=ir.invoice_id and invoice_type_id = 3) end
+       completion_date,
+	   
        ttc.name client,
        ttp.name billing_project,
        tdp.name project_name,
