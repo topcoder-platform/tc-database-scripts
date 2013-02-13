@@ -410,8 +410,8 @@ query_dashboard_billing_cost_invoice_report_v3.txt|UPDATE query SET text = ? WHE
 query_dashboard_billing_cost_invoice_report_invoice_number_v3.txt|UPDATE query SET text = ? WHERE query_id = 32508
 query_tc_direct_payment_second_installment.txt|UPDATE query SET text = ? WHERE query_id = 32509
 query_enterprise_dashboard_projects_pipeline.txt|UPDATE query SET text = ? WHERE query_id = 32516
-query_enterprise_dashboard_projects.txt|UPDATE query SET text = ? WHERE query_id = 32516
-query_enterprise_dashboard_projects_pipeline.txt|UPDATE query SET text = ? WHERE query_id = 32516
+query_enterprise_dashboard_projects.txt|UPDATE query SET text = ? WHERE query_id = 32557
+query_enterprise_dashboard_total_spend_v2.txt|UPDATE query SET text = ? WHERE query_id = 32558
 query_dashboard_billing_cost_invoice_report_v4.txt|UPDATE query SET text = ? WHERE query_id = 32426
 query_dashboard_billing_cost_invoice_report_invoice_number_v4.txt|UPDATE query SET text = ? WHERE query_id = 32436
 
