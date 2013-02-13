@@ -1,6 +1,8 @@
 SELECT  unique s.project_id,
         s.name,
         s.pipeline_date,
+        s.create_date,
+        s.completion_date,
         s.project_status_id,
         (month(pipeline_date) + year(pipeline_date) * 100) as monthcount
 FROM    TABLE(MULTISET
@@ -9,6 +11,8 @@ FROM    TABLE(MULTISET
          then completion_date::DATETIME YEAR TO FRACTION
          else create_date
          END) as pipeline_date,
+         create_date,
+         completion_date,
          project_id,
          name,
          project_status_id

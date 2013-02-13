@@ -1,18 +1,30 @@
 SELECT  unique s.contest_id,
         s.sname         ,
-        s.start_time    ,
+        s.contest_name,
+        s.start_date    ,
+        s.end_date,
         s.current_phase ,
         s.newstatus     ,
         s.phases,
-        (month(start_time) + year(start_time) * 100) as monthcount
+        s.copilot,
+        s.direct_project_id,
+        s.direct_project_name,
+        (month(start_date) + year(start_date) * 100) as monthcount
 FROM    TABLE(MULTISET
         (SELECT c.project_id AS contest_id ,
+                (select pinfo.value from project_info as pinfo where pinfo.project_id = c.project_id and pinfo.project_info_type_id = 6) as contest_name,
+                c.tc_direct_project_id AS direct_project_id,
+                tcp.name as direct_project_name,
                 psl.name     AS sname      ,
                 c.project_status_id        ,
                 (SELECT MIN(NVL(actual_start_time, scheduled_start_time))
                 FROM    project_phase ph
                 WHERE   ph.project_id=c.project_id
-                ) AS start_time,
+                ) AS start_date,
+                (SELECT MAX(NVL(actual_end_time, scheduled_end_time))
+                                FROM    project_phase ph
+                                WHERE   ph.project_id=c.project_id
+                ) AS end_date,
                 (SELECT ptl.name
                 FROM    phase_type_lu ptl
                 WHERE   phase_type_id =
@@ -62,14 +74,18 @@ FROM    TABLE(MULTISET
                                 )
                         THEN 'Completed'
                         ELSE NULL
-                END)                   AS phases
+                END)                   AS phases,
+                (select min(ri.value) from resource r INNER JOIN resource_info ri ON r.resource_id = ri.resource_id
+                where r.project_id = c.project_id and r.resource_role_id = 14 and ri.resource_info_type_id = 2) as copilot
         FROM    project                AS c
                 JOIN project_status_lu AS psl
                 ON      c.project_status_id = psl.project_status_id
+                JOIN tc_direct_project AS tcp
+                ON c.tc_direct_project_id = tcp.project_id
         WHERE c.project_status_id            != 3
             AND c.project_category_id         != 27
             AND c.tc_direct_project_id IN (@tcdirectids@)
-        ORDER BY start_time
-        )) AS s WHERE (month(start_time) + year(start_time) * 100) 
+        ORDER BY start_date
+        )) AS s WHERE (month(start_date) + year(start_date) * 100)
                 BETWEEN (month(TO_DATE('@sdt@', '%Y-%m')) + year(TO_DATE('@sdt@', '%Y-%m')) * 100)
                 AND (month(TO_DATE('@edt@', '%Y-%m')) + year(TO_DATE('@edt@', '%Y-%m')) * 100);
