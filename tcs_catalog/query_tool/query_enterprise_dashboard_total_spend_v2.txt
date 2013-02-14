@@ -1,10 +1,9 @@
-select month(paydate) + year(paydate) * 100 as monthCount, tc_direct_project_id as direct_project_id, tdp.name as direct_project_name,
-sum(cost_amount) as monthCost, sum(contest_fee_amount) as monthContestFee
+select month(paydate) + year(paydate) * 100 as monthCount, sum(cost_amount) as monthCost, sum(contest_fee_amount) as monthContestFee
 FROM 
 table( 
 
 MULTISET(SELECT
-	pm.create_date as paydate, p.tc_direct_project_id, (0 + nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
+	pm.create_date as paydate, (0 + nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0)) * NVL(pmd.total_amount, 0) as contest_fee_amount,  NVL(pmd.total_amount, 0) as cost_amount
 FROM 
 informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id, project p
@@ -18,7 +17,7 @@ AND   p.tc_direct_project_id IN (@tcdirectids@)
 UNION ALL
 
 SELECT
-	pm2.create_date as paydate, p.tc_direct_project_id, (0 + nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
+	pm2.create_date as paydate, (0 + nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0)) * NVL(pmd2.total_amount, 0) as contest_fee_amount, NVL(pmd2.total_amount, 0) as cost_amount
 FROM 
 informixoltp:payment pm  
@@ -36,7 +35,7 @@ AND   p.tc_direct_project_id IN (@tcdirectids@)
 
 UNION ALL
 
-SELECT pm.create_date as paydate, p.tc_direct_project_id,
+SELECT pm.create_date as paydate, 
 case when p.project_status_id  in (1,7) then
 	(0 + nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0)) *
@@ -70,7 +69,7 @@ and   pmd.payment_detail_id =
 
 UNION ALL
 
-SELECT (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as paydate, p.tc_direct_project_id,
+SELECT (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as paydate,
 case when p.project_status_id in (9, 10) and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
             then pi2.value::DECIMAL(10,2)
             when p.project_status_id in (9, 10) and not exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
@@ -85,9 +84,8 @@ AND   p.tc_direct_project_id IN (@tcdirectids@)
 AND (nvl((select (cast (nvl(pi57.value, '0') as DECIMAL (10,2))) from project_info pi57 where
     pi57.project_id=p.project_id and pi57.project_info_type_id=57), 0) = 0) 
 AND (cast (nvl(pi2.value, '0') as DECIMAL (10,2))) != 0
- )) as s, tc_direct_project tdp
+ ))
  where (month(paydate) + year(paydate) * 100) >= (month(TO_DATE('@sdt@', '%Y-%m')) + year(TO_DATE('@sdt@', '%Y-%m')) * 100)
  AND  (month(paydate) + year(paydate) * 100) <= (month(TO_DATE('@edt@', '%Y-%m')) + year(TO_DATE('@edt@', '%Y-%m')) * 100)
- AND s.tc_direct_project_id = tdp.project_id
- group by 1, 2, 3
+ group by 1
  order by 1 ASC
