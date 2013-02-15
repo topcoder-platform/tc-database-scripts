@@ -8,15 +8,17 @@ SELECT
     s.total_budget as total_budget,
      s.name_of_project_manager as name_of_project_manager,  
 	 s.last_posters as last_posters,  
-     nvl(round(SUM(case when s.contest_status_id=7 then -- finished
-    		(
-    		CASE WHEN s.contest_fee_percentage IS NOT NULL
-						THEN s.cost + s.cost * s.contest_fee_percentage + s.dr_points + (s.dr_points * s.contest_fee_percentage) 
-						ELSE s.cost + s.admin_fee + s.dr_points END
-    		)
-		when s.contest_status_id not in (1,2, 7) then s.cost
-		    
-    		end), 2), 0)
+     nvl(round(SUM(
+                    case 
+                        when s.contest_status_id=7 then -- finished
+                        (
+                            CASE WHEN s.contest_fee_percentage IS NOT NULL
+                                THEN s.cost + s.cost * s.contest_fee_percentage + s.dr_points + (s.dr_points * s.contest_fee_percentage) 
+                                ELSE s.cost + s.admin_fee + s.dr_points END
+                        )
+                        when s.contest_status_id not in (1, 2, 7) then s.cost
+                    end
+                ), 2), 0)
 			   AS actual_cost,
                                   
     nvl(round(SUM(case when s.contest_status_id=7 then -- finished
@@ -34,11 +36,10 @@ SELECT
 			  else s.cost
     		end), 2), 0)
 	   AS cost_projected,
-    
     SUM(is_stalled) as stalled_contests_number,
     
-
     min(late_phase_id) IS NOT NULL as has_late_contests,
+    
     min(s.start_date) as start_date,
     max(s.end_date) as end_date,  
 	  CASE WHEN min(start_date) is null or max(end_date) is null THEN '0'		
@@ -55,9 +56,45 @@ SELECT
                jivemessage m
         WHERE  jc.categoryid = s.project_forum_id  
                AND  jc.categoryid = jf.categoryid and s.project_forum_id is not null
-               AND m.forumid = jf.forumid) as message_number
-      
+               AND m.forumid = jf.forumid) as message_number,
+               
+    SUM(
+        CASE 
+            WHEN late_phase_id IS NOT NULL 
+            THEN 1 
+            ELSE 0
+        END
+    ) as phase_late_contests_number,
+               
+    SUM(is_launch_late) as launch_late_contests_number,
+        
+    SUM(is_milestone_late) as milestone_late_contests_number,
     
+    SUM(is_stalled) as stalled_contests_number,
+
+    SUM(is_ap_off) as ap_off_contests_number,
+
+    SUM(
+        CASE 
+            WHEN s.contest_status_id = 7 -- finished
+            THEN 
+                (
+                    CASE 
+                        WHEN project_activate_fee = -1 -- not set
+                        THEN 
+                        (
+                            CASE WHEN s.contest_fee_percentage IS NOT NULL
+                            THEN s.project_contest_fee + s.project_contest_fee * s.contest_fee_percentage + s.dr_points + (s.dr_points * s.contest_fee_percentage) 
+                            ELSE s.project_contest_fee + s.admin_fee + s.dr_points END
+                        )
+                        ELSE project_activate_fee
+                    END
+                )
+            
+            ELSE 0
+        END
+    ) as historical_projected_cost    
+      
 FROM table(MULTISET(SELECT
 p.project_id as project_id,
 p.tc_direct_project_id as tc_direct_project_id,
@@ -141,8 +178,58 @@ p.project_status_id as contest_status_id,
                     AND mb.tc_direct_project_id = tdp.project_id  
                     AND mb.project_metadata_key_id = 2)::lvarchar, 
 'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as name_of_project_manager, 
-  last_posters(tdp.project_forum_id) as last_posters 
+  last_posters(tdp.project_forum_id) as last_posters, 
  
+CASE 
+    WHEN 
+        p.project_status_id = 2 -- draft
+        and (select min(scheduled_start_time) from project_phase ph where ph.project_id = p.project_id) < CURRENT 
+    THEN 1
+    WHEN 
+        p.project_status_id = 1 -- active
+        and (
+                select ph.project_phase_id 
+                from project_phase ph
+                where ph.project_phase_id = (select min(project_phase_id)
+                    from project_phase
+                    where project_phase.project_id = p.project_id)
+                and ph.phase_status_id = 1
+                and ph.scheduled_start_time < CURRENT
+            ) IS NOT NULL -- the first phase of contest is scheduled and its scheduled start time is ealier than now
+    THEN 1
+    ELSE 0
+END as is_launch_late,
+
+CASE
+    WHEN
+    NVL((select min(scheduled_end_time)
+        from project_phase ph 
+        where ph.project_id = p.project_id and ph.phase_type_id in (15, 16, 17) -- milestone phase
+        and ph.phase_status_id in (1, 2)) -- scheduled or open
+        , CURRENT + 1 units day) -- just to make sure if there is no un-finished milestone phase, is_milestone_late will be 0
+    < CURRENT THEN 1
+    ELSE 0
+END as is_milestone_late,
+ 
+CASE
+    WHEN
+        NVL((select value from project_info pi where pi.project_info_type_id = 9 and pi.project_id = p.project_id), 'Off') = 'Off'
+    THEN 1
+    ELSE 0
+END as is_ap_off,
+
+nvl((select cast (nvl(pi61.value, '0') as DECIMAL(10, 2)) from project_info pi61
+                where p.project_id = pi61.project_id and pi61.project_info_type_id = 61), -1) as project_activate_fee,
+                
+nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+      where project_info_type_id in (33, 35, 16, 38, 39, 49) 
+        and pi.project_id = p.project_id and p.project_status_id = 7), 0) 
+  +
+    nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+        where project_info_type_id = 16  
+        and pi.project_id = p.project_id and p.project_status_id = 7)/2), 0)
+   ) , 0) as project_contest_fee
+
  from 
   project p, 
 	outer project_info pi1,
