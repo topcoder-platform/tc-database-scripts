@@ -4061,6 +4061,16 @@ extent size 1000 next size 1000
 lock mode row;
 REVOKE ALL ON invoice FROM 'public';
 
+create table 'informix'.round_event (
+    round_id DECIMAL(10,0),
+    event_id DECIMAL(10,0),    
+    event_name VARCHAR(50),
+    registration_url VARCHAR(255)
+)
+extent size 32 next size 32
+lock mode row;
+REVOKE ALL ON round_event FROM 'public';
+
 create view "informix".rating (coder_id,round_id,rating,num_ratings,
        modify_date,vol,rating_no_vol) as
    select x0.coder_id ,x0.round_id ,x0.rating ,x0.num_ratings ,
@@ -7176,3 +7186,4 @@ GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice_type_lu TO 'public' AS 'i
 GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice_record TO 'public' AS 'informix';
 
 GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice TO 'public' AS 'informix';
+grant insert, update, select, delete on round_event to 'public' as 'informix';

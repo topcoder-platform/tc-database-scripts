@@ -3183,3 +3183,13 @@ create unique index 'informix'.invoice_record1 on 'informix'.invoice_record
     );
     
 CREATE UNIQUE INDEX 'informix'.invoice_invoice_number on 'informix'.invoice (invoice_number);
+
+alter table 'informix'.round_event add constraint primary key 
+    (round_id, event_id)
+    constraint round_event_pkey;
+    
+alter table 'informix'.round_event add constraint foreign key 
+    (round_id)
+    references 'informix'.round
+    (round_id) 
+    constraint roundevt_round_to_event_fk;
