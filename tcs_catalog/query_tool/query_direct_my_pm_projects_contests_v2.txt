@@ -213,7 +213,7 @@ END as is_milestone_late,
  
 CASE
     WHEN
-        NVL((select value from project_info pi where pi.project_info_type_id = 9 and pi.project_id = p.project_id and p.project_status_id = 1), 'Off') = 'Off'
+        NVL((select value from project_info pi where pi.project_info_type_id = 9 and pi.project_id = p.project_id and p.project_status_id = 1), 'On') = 'Off'
     THEN 1
     ELSE 0
 END as is_ap_off,
