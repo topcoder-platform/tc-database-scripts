@@ -205,7 +205,7 @@ CASE
     NVL((select min(scheduled_end_time)
         from project_phase ph 
         where ph.project_id = p.project_id and ph.phase_type_id in (15, 16, 17) -- milestone phase
-        and ph.phase_status_id in (1, 2)) -- scheduled or open
+        and p.project_status_id = 1 and ph.phase_status_id in (1, 2)) -- scheduled or open
         , CURRENT + 1 units day) -- just to make sure if there is no un-finished milestone phase, is_milestone_late will be 0
     < CURRENT THEN 1
     ELSE 0
@@ -213,7 +213,7 @@ END as is_milestone_late,
  
 CASE
     WHEN
-        NVL((select value from project_info pi where pi.project_info_type_id = 9 and pi.project_id = p.project_id), 'Off') = 'Off'
+        NVL((select value from project_info pi where pi.project_info_type_id = 9 and pi.project_id = p.project_id and p.project_status_id = 1), 'Off') = 'Off'
     THEN 1
     ELSE 0
 END as is_ap_off,
