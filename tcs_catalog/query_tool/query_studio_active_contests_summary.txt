@@ -1,14 +1,12 @@
 select count(unique p.project_id) as total_contests
      , NVL(sum (pr.prize_amount * pr.number_of_submissions), 0) as total_prizes
   from project p
-     , project_prize_xref ppx
      , prize pr
      , project_category_lu pcl
      , project_phase pp
  where p.project_category_id = pcl.project_category_id
    and pcl.project_type_id = 3
-   and p.project_id = ppx.project_id
-   and ppx.prize_id = pr.prize_id
+   and p.project_id = pr.project_id
    and pp.project_id = p.project_id
    and pp.phase_type_id = 2
    and pp.phase_status_id = 2

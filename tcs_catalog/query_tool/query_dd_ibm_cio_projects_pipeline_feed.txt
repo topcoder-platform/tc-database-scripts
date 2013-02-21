@@ -80,8 +80,8 @@ where m.project_metadata_key_id = k.project_metadata_key_id and client_id =70014
 
 
 
-        nvl((SELECT sum(prize_amount * number_of_submissions) from project_prize_xref ppx, prize pr
-                where ppx.prize_id = pr.prize_id  and ppx.project_id = p.project_id), 0)
+        nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
 		+
 		nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info
 			where project_info_type_id in (33, 35, 31, 38, 39, 49)

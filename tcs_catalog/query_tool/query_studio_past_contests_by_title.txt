@@ -27,12 +27,10 @@ SELECT @pagination@ *,
          , pi_forum.value::INT AS forum_id
          , (SELECT SUM(pr.prize_amount * pr.number_of_submissions) 
             FROM prize pr 
-            INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
-            WHERE prx.project_id = p.project_id
+            WHERE pr.project_id = p.project_id
             AND pr.prize_type_id IN (14, 15))::DECIMAL(10,2) AS prize_total
          , (SELECT pr.prize_amount FROM prize pr
-            INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
-            WHERE prx.project_id = p.project_id
+            WHERE pr.project_id = p.project_id
             AND pr.prize_type_id = 15 and pr.place = 1)::DECIMAL(10,2) AS first_place
          , pi_dr.value::DECIMAL(10, 2) AS dr_points
          , (SELECT c.event_id

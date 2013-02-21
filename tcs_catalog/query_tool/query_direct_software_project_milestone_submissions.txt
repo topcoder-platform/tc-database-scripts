@@ -13,7 +13,7 @@
     p.number_of_submissions AS milestone_prize_number,
     p.prize_amount AS milestone_prize_amount
 FROM
-    project_prize_xref ppx, prize p, submission s
+    prize p, submission s
     INNER JOIN upload u ON s.upload_id = u.upload_id
     INNER JOIN resource r ON u.resource_id = r.resource_id
     INNER JOIN resource_info ri1 ON r.resource_id = ri1.resource_id
@@ -24,7 +24,6 @@ AND   s.submission_type_id = 3
 AND   s.submission_status_id in (1,4)
 AND   ri1.resource_info_type_id = 1
 AND   ri2.resource_info_type_id = 2
-AND   p.prize_id = ppx.prize_id
-AND   ppx.project_id = @pj@
+AND   p.project_id = @pj@
 AND   p.prize_type_id = 14
 ORDER BY NVL(s.placement, 1000), s.create_date

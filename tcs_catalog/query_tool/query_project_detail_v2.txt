@@ -62,8 +62,8 @@ select cc.component_name
      , pp1.scheduled_end_time as register_end_date
      , pp15.scheduled_end_time as milestone_submission_date
      , NVL(pp17.phase_status_id, 0) as milestone_review_status
-     , (SELECT pr.prize_amount FROM prize pr, project_prize_xref ppx WHERE ppx.project_id = p.project_id AND pr.prize_id = ppx.prize_id AND prize_type_id = 14) as milestone_prize
-     , (SELECT pr.number_of_submissions FROM prize pr, project_prize_xref ppx WHERE ppx.project_id = p.project_id AND pr.prize_id = ppx.prize_id AND prize_type_id = 14) as milestone_number
+     , (SELECT pr.prize_amount FROM prize pr WHERE pr.project_id = p.project_id AND prize_type_id = 14) as milestone_prize
+     , (SELECT pr.number_of_submissions FROM prize pr WHERE pr.project_id = p.project_id AND prize_type_id = 14) as milestone_number
      , mf.feedback as milestone_general_feedback
      , p.project_status_id as project_status_id
      , CASE WHEN (pp2.phase_status_id = 2) THEN 'open' ELSE 'closed' END as submission_phase_opened

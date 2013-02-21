@@ -8,8 +8,7 @@ SELECT (p.project_studio_spec_id is not null) as is_studio
      , project_name.project_id as contestID
      , (SELECT SUM(pr.prize_amount * pr.number_of_submissions) 
        FROM prize pr 
-       INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
-       WHERE prx.project_id = p.project_id
+       WHERE pr.project_id = p.project_id
        AND pr.prize_type_id IN (14, 15))::DECIMAL(10,2) as prize
      , nd_phase.scheduled_end_time as next_deadline
      , nd_phase_name.description as next_deadline_description
