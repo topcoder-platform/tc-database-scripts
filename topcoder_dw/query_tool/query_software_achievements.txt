@@ -1,7 +1,8 @@
 select ar.user_achievement_rule_id as id
- , DATE(arx.create_date) as creation_date
+ , CASE WHEN ar.user_achievement_earned_sql_file IS NULL OR (ar.user_achievement_earned_sql_file IS NOT NULL AND arx.is_earned_date_populated='t') THEN DATE(arx.create_date) ELSE NULL END AS creation_date
  , ar.user_achievement_name as name
  , ar.user_achievement_rule_desc as desc
+ , user_achievement_count_sql_file IS NOT NULL AS has_currently_at
  from tcs_dw:user_achievement_rule ar, tcs_dw:user_achievement_xref arx
  where ar.user_achievement_rule_id = arx.user_achievement_rule_id
     and ar.user_achievement_type_id = 3
