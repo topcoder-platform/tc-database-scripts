@@ -1,10 +1,4 @@
-SELECT c.component_name
-     , cat.category_name as catalog
-     , cat.category_id
-     , (select name from project_category_lu where project_category_id = p.project_category_id) || ' Spec Review' as phase_desc
-     , p.project_id
-     , p.project_category_id
-     , p.project_category_id + 1111 as phase_id
+SELECT pi6.value AS component_name
      , pi13.scheduled_start_time as specification_submission_start
      , pi13.scheduled_end_time as specification_submission_end
      , (pi13.scheduled_end_time - pi13.scheduled_start_time + 1 units minute)::INTERVAL HOUR(4) to HOUR as specification_submission_duration
@@ -12,36 +6,14 @@ SELECT c.component_name
      , pi14.scheduled_end_time as specification_review_end
      , (pi14.scheduled_end_time - pi14.scheduled_start_time + 1 units minute)::INTERVAL HOUR(4) to HOUR as specification_review_duration
     , (case when pi14.phase_status_id=2 and current + 2 units hour > pi14.scheduled_end_time then 't' else 'f' end)::boolean as spec_review_extension_needed
-     , cl.description as level
-     , cvd.level_id
-     , cv.version
-     , cv.version_text
-     , 0 prize
-     , pi14.scheduled_start_time + 5 units minute as opens_on
-     , exists (select * from project_phase where project_id = p.project_id and phase_type_id = 14 and phase_status_id in (2)) as open
-     , (SELECT MIN(review_resp_id) from review_resp WHERE phase_id = p.project_category_id + 1111) as reviewer_type_id
-, NVL((SELECT user_id FROM rboard_application WHERE project_id = p.project_id AND phase_id=p.project_category_id + 1111), 0) as review_user_id
-, NVL((SELECT u.handle FROM rboard_application ra, user u WHERE ra.project_id = p.project_id AND
-       ra.phase_id=p.project_category_id + 1111 AND ra.user_id = u.user_id), '') as review_user_handle
 FROM project p
-     , comp_versions cv
      , project_phase pi13
      , project_phase pi14
-     , comp_catalog c
-     , categories cat
-     , comp_version_dates cvd
-     , comp_level cl
-     , project_info pinfo
- WHERE p.project_id = pinfo.project_id
-   AND pinfo.project_info_type_id = 1
-   AND pinfo.value = cv.comp_vers_id
+     , project_info pi6
+ WHERE p.project_id = pi6.project_id
+   AND pi6.project_info_type_id = 6
    AND p.project_id = pi13.project_id
    AND pi13.phase_type_id = 13
    AND p.project_id = pi14.project_id
    AND pi14.phase_type_id = 14
    AND p.project_id = @pj@
-   AND c.component_id = cv.component_id
-   AND c.root_category_id = cat.category_id
-   AND cvd.comp_vers_id = cv.comp_vers_id
-   AND cvd.phase_id = cv.phase_id
-   AND cvd.level_id = cl.level_id

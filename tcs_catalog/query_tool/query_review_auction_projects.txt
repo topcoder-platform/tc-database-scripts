@@ -1,0 +1,31 @@
+SELECT DISTINCT
+  (SELECT COUNT(DISTINCT u.resource_id)
+   FROM upload u
+   INNER JOIN submission s ON u.upload_id = s.upload_id 
+   WHERE u.project_id = p.project_id
+   AND s.submission_type_id = 1
+   AND s.submission_status_id in (1,2,3,4)
+   AND u.upload_type_id = 1) AS submission_count 
+   ,
+   (SELECT COUNT(DISTINCT u.resource_id)
+    FROM submission s
+    INNER JOIN upload u ON s.upload_id = u.upload_id 
+    WHERE u.project_id = p.project_id
+    AND u.upload_type_id = 1
+    AND s.submission_type_id = 1
+    AND s.submission_status_id IN (1,3,4)) AS submission_passed_screening_count 
+   , pi6.value AS component_name 
+   , cat.category_name AS catalog 
+   , p.project_id 
+   , reviewpp.scheduled_start_time AS review_start 
+   , pi7.value AS version 
+   , pi_prize.value::FLOAT AS prize 
+  FROM project p
+  INNER JOIN project_phase reviewpp ON reviewpp.project_id = p.project_id AND reviewpp.phase_type_id = 4
+  INNER JOIN project_info pi_prize ON p.project_id = pi_prize.project_id AND pi_prize.project_info_type_id = 16
+  INNER JOIN project_info pi5 ON p.project_id = pi5.project_id AND pi5.project_info_type_id = 5
+  INNER JOIN project_info pi6 ON p.project_id = pi6.project_id AND pi6.project_info_type_id = 6
+  INNER JOIN project_info pi7 ON p.project_id = pi7.project_id AND pi7.project_info_type_id = 7
+  INNER JOIN categories cat ON cat.category_id = pi5.value::DECIMAL(12,0) 
+ WHERE 1=1
+   AND p.project_id IN (@pids@)

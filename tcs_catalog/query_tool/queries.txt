@@ -64,10 +64,8 @@ query_dd_ProjectCategories.txt|UPDATE query SET text= ? WHERE query_id=28996
 query_dd_ProjectStatus.txt|UPDATE query SET text= ? WHERE query_id=28737
 query_dd_WidgetVersion.txt|UPDATE query SET text= ? WHERE query_id=28846
 query_design_contests.txt|UPDATE query SET text= ? WHERE query_id=26405
-query_design_reviewers.txt|UPDATE query SET text= ? WHERE query_id=13723
 query_dev_contests.txt|UPDATE query SET text= ? WHERE query_id=26404
 query_development_project_status.txt|UPDATE query SET text= ? WHERE query_id=28946
-query_development_reviewers.txt|UPDATE query SET text= ? WHERE query_id=13724
 query_download_key_members.txt|UPDATE query SET text= ? WHERE query_id=29066
 query_dr_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=28968
 query_dr_contests_for_season.txt|UPDATE query SET text= ? WHERE query_id=27791
@@ -99,7 +97,6 @@ query_old_arch_spec_projects.txt|UPDATE query SET text= ? WHERE query_id=28306
 query_open_reviewer_positions.txt|UPDATE query SET text= ? WHERE query_id=27432
 query_passed_review_for_event.txt|UPDATE query SET text= ? WHERE query_id=27726
 query_pending_tournament_projects.txt|UPDATE query SET text= ? WHERE query_id=28156
-query_pm_details.txt|UPDATE query SET text= ? WHERE query_id=15916
 query_pm_project_calendar.txt|UPDATE query SET text= ? WHERE query_id=29231
 query_predictor.txt|UPDATE query SET text= ? WHERE query_id=27186
 query_ProblemProjects.txt|UPDATE query SET text= ? WHERE query_id=21696
@@ -124,17 +121,14 @@ query_registrants.txt|UPDATE query SET text= ? WHERE query_id=26406
 query_reliability_detail.txt|UPDATE query SET text= ? WHERE query_id=26866
 query_remaining_tco_contests.txt|UPDATE query SET text= ? WHERE query_id=26603
 query_repeat_phases.txt|UPDATE query SET text= ? WHERE query_id=27396
-query_Retrieve open projects.txt|UPDATE query SET text= ? WHERE query_id=12168
 query_review_board_members.txt|UPDATE query SET text= ? WHERE query_id=15982
 query_review_board_payments.txt|UPDATE query SET text= ? WHERE query_id=15878
 query_review_project_detail.txt|UPDATE query SET text= ? WHERE query_id=13722
-query_review_projects.txt|UPDATE query SET text= ? WHERE query_id=13717
 query_review_resp_info.txt|UPDATE query SET text= ? WHERE query_id=26277
 query_reviewer_activity.txt|UPDATE query SET text= ? WHERE query_id=15910
 query_reviewer_activity_by_day.txt|UPDATE query SET text= ? WHERE query_id=15911
 query_reviewer_check.txt|UPDATE query SET text= ? WHERE query_id=15950
 query_reviewer_data.txt|UPDATE query SET text= ? WHERE query_id=26607
-query_reviewers.txt|UPDATE query SET text= ? WHERE query_id=21635
 query_reviewers_report.txt|UPDATE query SET text= ? WHERE query_id=15913
 query_reviewers_status_query.txt|UPDATE query SET text= ? WHERE query_id=12408
 query_roles_by_component.txt|UPDATE query SET text= ? WHERE query_id=13709
@@ -201,7 +195,6 @@ query_ria_build_active_contests_summary.txt|UPDATE query SET text= ? WHERE query
 query_ria_component_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29647
 query_ui_prototype_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29648
 query_project_requirements.txt|UPDATE query SET text= ? WHERE query_id= 29736
-query_spec_review_projects.txt|UPDATE query SET text= ? WHERE query_id= 29787
 query_spec_review_board_payments.txt|UPDATE query SET text= ? WHERE query_id= 29789
 query_spec_review_project_detail.txt|UPDATE query SET text= ? WHERE query_id= 29788
 query_project_docs.txt|UPDATE query SET text= ? WHERE query_id= 29966
@@ -250,7 +243,6 @@ query_comp_version.txt|UPDATE query SET text = ? WHERE query_id = 30676
 query_comp_version_documents.txt|UPDATE query SET text = ? WHERE query_id = 30677
 query_copilot_profile_info.txt|UPDATE query SET text = ? WHERE query_id = 30696
 query_copilot_user_info.txt|UPDATE query SET text = ? WHERE query_id = 30697
-query_resource_role_by_review_resp.txt|UPDATE query SET text = ? WHERE query_id = 30726
 query_project_categories.txt|UPDATE query SET text = ? WHERE query_id = 30769
 query_is_in_copilot_pool.txt|UPDATE query SET text = ? WHERE query_id = 30786
 query_copilot_postings_permission.txt|UPDATE query SET text = ? WHERE query_id = 30787
@@ -414,6 +406,7 @@ query_enterprise_dashboard_total_spend_v2.txt|UPDATE query SET text = ? WHERE qu
 query_dashboard_billing_cost_invoice_report_v4.txt|UPDATE query SET text = ? WHERE query_id = 32426
 query_dashboard_billing_cost_invoice_report_invoice_number_v4.txt|UPDATE query SET text = ? WHERE query_id = 32436
 query_enterprise_dashboard_total_spend_v3.txt|UPDATE query SET text = ? WHERE query_id = 32219
-
-
-
+query_member_for_project.txt|UPDATE query SET text = ? WHERE query_id = 32628
+query_review_auction_projects.txt|UPDATE query SET text = ? WHERE query_id = 32629
+query_spec_review_auction_projects.txt|UPDATE query SET text = ? WHERE query_id = 32630
+query_review_board_member_for_project.txt|UPDATE query SET text = ? WHERE query_id = 32637

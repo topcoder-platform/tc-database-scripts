@@ -1,0 +1,14 @@
+SELECT DISTINCT
+     pi6.value AS component_name 
+   , p.project_id 
+   , specrev.scheduled_start_time AS review_start  
+   , pi7.value AS version 
+   , cat.category_name AS catalog 
+  FROM project p
+  INNER JOIN project_phase specrev ON specrev.project_id = p.project_id AND specrev.phase_type_id = 14
+  INNER JOIN project_info pi5 ON p.project_id = pi5.project_id AND pi5.project_info_type_id = 5
+  INNER JOIN project_info pi6 ON p.project_id = pi6.project_id AND pi6.project_info_type_id = 6
+  INNER JOIN project_info pi7 ON p.project_id = pi7.project_id AND pi7.project_info_type_id = 7
+  INNER JOIN categories cat ON cat.category_id = pi5.value::DECIMAL(12,0) 
+ WHERE 1=1
+   AND p.project_id IN (@pids@)

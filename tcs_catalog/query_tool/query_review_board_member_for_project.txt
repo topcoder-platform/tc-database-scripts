@@ -1,0 +1,7 @@
+SELECT 1 
+FROM rboard_user ru
+INNER JOIN project p ON ru.project_type_id = p.project_category_id  
+WHERE ru.user_id = @uid@ 
+AND ru.status_id = 100 
+AND p.project_id = @pj@
+

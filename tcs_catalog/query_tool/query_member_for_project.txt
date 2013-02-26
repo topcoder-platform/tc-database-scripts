@@ -1,0 +1,7 @@
+SELECT 1 
+FROM resource r
+INNER JOIN resource_info ri ON ri.resource_id = r.resource_id
+WHERE r.project_id = @pj@ 
+AND r.resource_role_id IN (@rrids@) 
+AND  ri.resource_info_type_id = 1 
+AND  ri.value::INT = @uid@
