@@ -55,6 +55,7 @@ select cc.component_name
      , pc3.parameter as screening_scorecard_id
      , pc4.parameter as review_scorecard_id
      , NVL((select value from project_info pi13 where pi13.project_id=p.project_id and pi13.project_info_type_id=13),"No") as rated
+     , exists (select * from project_info pi34 where pi34.project_id=p.project_id and pi34.project_info_type_id=34 and pi34.value='standard_cca') as is_cca_required
      , not exists (select * from project_info pi45 where pi45.project_info_type_id=45 and pi45.project_id=p.project_id and (pi45.value='false' or pi45.value='False')) as reliability_bonus_eligible
      , case when pi26.value = 'On' then
         NVL((select value::decimal from project_info pi30 where pi30.project_info_type_id = 30 and pi30.project_id = p.project_id), round(nvl(pi16.value::decimal, 0)))
