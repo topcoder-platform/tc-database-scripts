@@ -822,7 +822,9 @@ CREATE TABLE 'informix'.user_achievement_rule (
 	user_achievement_rule_sql_file NVARCHAR(254,0),
 	user_achievement_type_id DECIMAL(12,0) NOT NULL,
 	is_automated BOOLEAN DEFAULT 't',
-	db_schema VARCHAR(50) DEFAULT 'tcs_catalog'
+	db_schema VARCHAR(50) DEFAULT 'tcs_catalog',
+    user_achievement_earned_sql_file NVARCHAR(254,0),
+    user_achievement_count_sql_file NVARCHAR(254,0)
 )
 extent size 128 next size 128
 lock mode page;
@@ -842,7 +844,8 @@ CREATE TABLE 'informix'.user_achievement_xref (
 	user_id DECIMAL(12,0) NOT NULL,
 	user_achievement_rule_id DECIMAL(12,0) NOT NULL,
 	create_date DATETIME YEAR TO FRACTION NOT NULL,
-	auto_loaded BOOLEAN
+	auto_loaded BOOLEAN,
+    is_earned_date_populated BOOLEAN DEFAULT 'f'
 )
 extent size 128 next size 128
 lock mode page;
