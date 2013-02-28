@@ -2976,7 +2976,6 @@ LOCK MODE ROW;
 
 revoke all on group_audit_record from 'public';
 
-
 create table 'informix'.review_auction_category_lu (
     review_auction_category_id serial NOT NULL,
     name VARCHAR(64) NOT NULL
@@ -2985,7 +2984,6 @@ extent size 16 next size 16
 lock mode row;
 
 revoke all on review_auction_category_lu from 'public';
-
 
 create table 'informix'.review_auction_type_lu (
     review_auction_type_id serial NOT NULL,
@@ -2996,7 +2994,6 @@ extent size 16 next size 16
 lock mode row;
 
 revoke all on review_auction_type_lu from 'public';
-
 
 create table 'informix'.review_application_role_lu (
     review_application_role_id serial NOT NULL,
@@ -3010,7 +3007,6 @@ lock mode row;
 
 revoke all on review_application_role_lu from 'public';
 
-
 create table 'informix'.review_application_role_resource_role_xref (
     review_application_role_id INT NOT NULL,
     resource_role_id INT NOT NULL,
@@ -3021,7 +3017,6 @@ lock mode row;
 
 revoke all on review_application_role_resource_role_xref from 'public';
 
-
 create table 'informix'.review_application_status_lu (
     review_application_status_id serial NOT NULL,
     name VARCHAR(64) NOT NULL
@@ -3030,7 +3025,6 @@ extent size 16 next size 16
 lock mode row;
 
 revoke all on review_application_status_lu from 'public';
-
 
 create table 'informix'.review_auction (
     review_auction_id serial NOT NULL,
@@ -3041,7 +3035,6 @@ extent size 256 next size 256
 lock mode row;
 
 revoke all on review_auction from 'public';
-
 
 create table 'informix'.review_application (
     review_application_id serial NOT NULL,
@@ -3055,6 +3048,51 @@ extent size 1500 next size 1500
 lock mode row;
 
 revoke all on review_application from 'public';
+
+create table 'informix'.project_payment_type_lu (
+    project_payment_type_id serial NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    mergeable boolean(1) NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on project_payment_type_lu from 'public';
+
+create table 'informix'.project_payment (
+    project_payment_id serial NOT NULL,
+    project_payment_type_id INT NOT NULL,
+    resource_id INT NOT NULL,
+    submission_id INT,
+    amount DECIMAL(12,2) NOT NULL,
+    pacts_payment_id DECIMAL(10,0),
+    create_date DATETIME YEAR TO FRACTION NOT NULL
+)
+extent size 1024 next size 1024
+lock mode row;
+
+create table 'informix'.project_payment_adjustment (
+    project_id INT NOT NULL,
+    resource_role_id INT NOT NULL,
+    fixed_amount DECIMAL(12,2),
+    multiplier FLOAT
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on project_payment_adjustment from 'public';
+
+create table 'informix'.default_project_payment (
+    project_category_id INT NOT NULL,
+    resource_role_id INT NOT NULL,
+    fixed_amount DECIMAL(12,2) NOT NULL,
+    base_coefficient FLOAT NOT NULL,
+    incremental_coefficient FLOAT NOT NULL
+)
+extent size 32 next size 32
+lock mode row;
+
+revoke all on default_project_payment from 'public';
 
 
 grant select on v_latest_version to 'informix' with grant option ;
@@ -5008,3 +5046,11 @@ grant select,insert,update,delete on review_application_status_lu to public as '
 grant select,insert,update,delete on review_auction to public as 'informix';
 
 grant select,insert,update,delete on review_application to public as 'informix';
+
+grant select,insert,update,delete on project_payment_type_lu to public as 'informix';
+
+grant select,insert,update,delete on project_payment to public as 'informix';
+
+grant select,insert,update,delete on project_payment_adjustment to public as 'informix';
+
+grant select,insert,update,delete on default_project_payment to public as 'informix';

@@ -932,6 +932,21 @@ alter table 'informix'.review_application add constraint primary key
     (review_application_id)
     constraint review_application_pk;      
 
+alter table 'informix'.project_payment_type_lu add constraint primary key 
+    (project_payment_type_id)
+    constraint project_payment_type_lu_pk;
+
+alter table 'informix'.project_payment add constraint primary key 
+    (project_payment_id)
+    constraint project_payment_pk;
+
+alter table 'informix'.project_payment_adjustment add constraint primary key 
+    (project_id, resource_role_id)
+    constraint project_payment_adjustment_pk;
+
+alter table 'informix'.default_project_payment add constraint primary key 
+    (project_category_id, resource_role_id)
+    constraint default_project_payment_pk;
 
 
 alter table 'informix'.comp_categories add constraint foreign key 
@@ -2210,6 +2225,48 @@ alter table 'informix'.review_application add constraint foreign key
     (review_application_status_id) 
     constraint reviewapplication_reviewapplicationstatuslu_fk;
 	
+alter table 'informix'.project_payment add constraint foreign key 
+    (project_payment_type_id)
+    references 'informix'.project_payment_type_lu
+    (project_payment_type_id) 
+    constraint projectpayment_projectpaymenttypelu_fk;
+
+alter table 'informix'.project_payment add constraint foreign key 
+    (resource_id)
+    references 'informix'.resource
+    (resource_id) 
+    constraint projectpayment_resource_fk;
+
+alter table 'informix'.project_payment add constraint foreign key 
+    (submission_id)
+    references 'informix'.submission
+    (submission_id) 
+    constraint projectpayment_submission_fk;
+
+alter table 'informix'.project_payment_adjustment add constraint foreign key 
+    (project_id)
+    references 'informix'.project
+    (project_id) 
+    constraint projectpaymentadjustment_project_fk;
+
+alter table 'informix'.project_payment_adjustment add constraint foreign key 
+    (resource_role_id)
+    references 'informix'.resource_role_lu
+    (resource_role_id) 
+    constraint projectpaymentadjustment_resourcerolelu_fk;
+
+alter table 'informix'.default_project_payment add constraint foreign key 
+    (project_category_id)
+    references 'informix'.project_category_lu
+    (project_category_id) 
+    constraint defaultprojectpayment_projectcategorylu_fk;
+
+alter table 'informix'.default_project_payment add constraint foreign key 
+    (resource_role_id)
+    references 'informix'.resource_role_lu
+    (resource_role_id) 
+    constraint defaultprojectpayment_resourcerolelu_fk;
+
 create index 'informix'.group_archived_idx on 'informix'.customer_group
     (
     archived
