@@ -475,3 +475,4 @@ INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) V
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (1000, 3, "2001-06-01 00:00:00.000", "2004-01-03 00:00:00.000", "P");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (1000, 4, "2001-06-01 00:00:00.000", "2004-01-03 00:00:00.000", "P");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (1000, 5, "2001-06-01 00:00:00.000", "2004-01-03 00:00:00.000", "P");
+INSERT INTO 'informix'.round_type_lu(round_type_id,round_type_desc,algo_rating_type_id) VALUES (27, 'Marathon Match QA', NULL);
