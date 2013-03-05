@@ -6,7 +6,7 @@
   <!-- stops Jboss, reinstalls database, redeploys OR and starts jboss. -->
   <target name="redeploy">
 	<!-- Re-enable after getting DB working on new BAMBOO -->
-    <!-- antcall target="stop_tools" -->
+    <antcall target="stop_tools" />
 
     <!-- install databases -->
     <antcall target="deploy_tools" />
