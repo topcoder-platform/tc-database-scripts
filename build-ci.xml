@@ -36,7 +36,9 @@
 
   <!-- Stops all tools -->
   <target name="stop_tools">
+	<echo message="-------------------- Stopping OR"/>
     <stop_jboss jboss-home="${or.jboss_home}" bind-addr="${or.bind_addr}" jnp-port="${or.jnp_port}" />
+	<echo message="-------------------- Stopping DIRECT"/>
     <stop_jboss jboss-home="${direct.jboss_home}" bind-addr="${direct.bind_addr}" jnp-port="${direct.jnp_port}" />
 
     <if>
