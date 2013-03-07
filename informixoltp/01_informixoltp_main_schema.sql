@@ -439,6 +439,7 @@ create table 'informix'.coder (
     language_id DECIMAL(3,0),
     coder_type_id DECIMAL(3,0),
     date_of_birth DATETIME YEAR TO FRACTION,
+	home_country_code VARCHAR(3),
     comp_country_code VARCHAR(3),
     contact_date DATE,
     display_quote smallint DEFAULT 1,
