@@ -1297,6 +1297,7 @@ create table 'informix'.review (
     review_id INT not null,
     resource_id INT not null,
     submission_id INT,
+    project_phase_id INT not null,
     scorecard_id INT not null,
     committed DECIMAL(1,0) not null,
     score FLOAT,

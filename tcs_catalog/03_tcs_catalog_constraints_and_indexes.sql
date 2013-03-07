@@ -1381,6 +1381,12 @@ alter table 'informix'.review add constraint foreign key
     (resource_id) 
     constraint fk_review_resource_resourceid;
 
+alter table 'informix'.review add constraint foreign key 
+    (project_phase_id)
+    references 'informix'.project_phase
+    (project_phase_id) 
+    constraint fk_review_projectphase_projectphaseid;
+
 alter table 'informix'.review_item add constraint foreign key 
     (review_id)
     references 'informix'.review
