@@ -1,0 +1,43 @@
+SELECT UNIQUE
+       tdp.project_id as tc_direct_project_id, 
+       name as tc_direct_project_name
+FROM   tc_direct_project tdp, user_permission_grant upg
+WHERE  tdp.project_id = upg.resource_id
+AND    upg.user_id = @uid@
+AND    upg.permission_type_id in (1,2,3)
+AND    tdp.project_status_id = 1
+UNION
+SELECT UNIQUE 
+       tdp.project_id as tc_direct_project_id, 
+       tdp.name as tc_direct_project_name
+FROM tc_direct_project tdp
+INNER JOIN group_associated_direct_projects gadp ON tdp.project_id = gadp.tc_direct_project_id
+INNER JOIN customer_group sg ON sg.group_id = gadp.group_id
+INNER JOIN group_member gm ON gm.group_id = sg.group_id
+WHERE gm.user_id = @uid@
+AND   gm.active = 1
+AND   sg.archived = 0
+AND   tdp.project_status_id = 1
+UNION
+SELECT UNIQUE 
+       tdp.project_id as tc_direct_project_id, 
+       tdp.name as tc_direct_project_name
+FROM project_info pi
+INNER JOIN project p ON pi.project_id = p.project_id
+INNER JOIN tc_direct_project tdp ON p.tc_direct_project_id = tdp.project_id
+INNER JOIN tt_client_project cp ON cp.project_id = pi.value::INT
+INNER JOIN tt_client c ON c.client_id = cp.client_id
+INNER JOIN customer_administrator ca ON ca.client_id = c.client_id
+WHERE pi.project_info_type_id = 32
+AND   tdp.project_status_id = 1
+AND   c.is_deleted = 0
+AND   c.client_status_id = 1
+AND   ca.user_id = @uid@
+UNION
+SELECT UNIQUE
+       tdp.project_id as tc_direct_project_id, 
+       name as tc_direct_project_name
+FROM   tc_direct_project tdp
+WHERE  tdp.project_status_id = 1
+AND    EXISTS (SELECT 1 FROM user_role_xref urx WHERE urx.login_id = @uid@ AND urx.role_id = 9385)
+ORDER BY tc_direct_project_name
