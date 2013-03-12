@@ -370,7 +370,15 @@ and (exists (select u.user_id
      OR exists (select permission_type_id 
                from user_permission_grant as upg   
               where resource_id=p.tc_direct_project_id and permission_type_id in (0,1,2,3) 
-               and upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) ))
+               and upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) )
+     OR exists (select 
+     				cg.group_id
+     			from 
+     				customer_group AS cg, group_member AS gm, group_associated_direct_projects AS gadp
+     			where
+     				cg.group_id = gm.group_id AND cg.group_id = gadp.group_id AND gm.active = 1
+     				AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+     				AND gadp.tc_direct_project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@) ))
 )) AS s
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
 order by tc_direct_project_id

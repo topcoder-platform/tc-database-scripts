@@ -114,9 +114,8 @@ from project p,
                                         where phase_type_id = (case when pp.project_category_id in (9, 29) then 4
                                                                    when pcl.project_type_id in (1,2) then 10
 								else 4 end)
-				and pcl.project_category_id = pp.project_category_id and ph.project_id = pp.project_id  GROUP BY ph.project_id))) ct,
-     table (multiset((select unique upg.resource_id from user_permission_grant upg
-                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)))) up --user permission table
+				and pcl.project_category_id = pp.project_category_id and ph.project_id = pp.project_id  GROUP BY ph.project_id))) ct
+
 where p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@)
@@ -134,7 +133,17 @@ where p.project_status_id = ps.project_status_id
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
-  and up.resource_id = tdp.project_id
+  and (
+       exists(select unique upg.resource_id from user_permission_grant upg
+                where upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)
+                 and upg.resource_id = DECODE(@tcdirectid@, 0, upg.resource_id, @tcdirectid@))
+       or 
+       exists(select gadp.tc_direct_project_id 
+     		from group_member AS gm, group_associated_direct_projects AS gadp
+     		where gm.group_id = gadp.group_id AND gm.active = 1 
+     		AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+     		AND gadp.tc_direct_project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@))
+       )
   and pc.project_type_id  != 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
@@ -232,9 +241,8 @@ from project p,
      time_oltp:project ttp,
      time_oltp:client_project ttcp,
      time_oltp:client ttc,
-     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 4 GROUP BY project_id))) ct,
-     table (multiset((select unique upg.resource_id from user_permission_grant upg
-                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)))) up --user permission table     
+     table (multiset((select  project_id, MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase where phase_type_id = 4 GROUP BY project_id))) ct
+
 where p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
   and p.project_category_id IN (@pcids@)
@@ -252,7 +260,17 @@ where p.project_status_id = ps.project_status_id
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
-  and up.resource_id = tdp.project_id
+  and (
+       exists(select unique upg.resource_id from user_permission_grant upg
+                where upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)
+                 and upg.resource_id = DECODE(@tcdirectid@, 0, upg.resource_id, @tcdirectid@))
+       or 
+       exists(select gadp.tc_direct_project_id 
+     		from group_member AS gm, group_associated_direct_projects AS gadp
+     		where gm.group_id = gadp.group_id AND gm.active = 1 
+     		AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+     		AND gadp.tc_direct_project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@))
+       )
   and pc.project_type_id = 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
