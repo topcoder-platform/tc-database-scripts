@@ -410,3 +410,13 @@ query_member_for_project.txt|UPDATE query SET text = ? WHERE query_id = 32628
 query_review_auction_projects.txt|UPDATE query SET text = ? WHERE query_id = 32629
 query_spec_review_auction_projects.txt|UPDATE query SET text = ? WHERE query_id = 32630
 query_review_board_member_for_project.txt|UPDATE query SET text = ? WHERE query_id = 32637
+query_achievements_studio_placements.txt|UPDATE query SET text = ? WHERE query_id = 32666
+query_achievements_first_wins.txt|UPDATE query SET text = ? WHERE query_id = 32667
+query_achievements_forum_posts.txt|UPDATE query SET text = ? WHERE query_id = 32668
+query_achievements_milestone_prizes.txt|UPDATE query SET text = ? WHERE query_id = 32669
+query_achievements_passing_submissions.txt|UPDATE query SET text = ? WHERE query_id = 32670
+query_achievements_placements.txt|UPDATE query SET text = ? WHERE query_id = 32671
+query_achievements_studio_first_wins.txt|UPDATE query SET text = ? WHERE query_id = 32672
+query_achievements_studio_forum_posts.txt|UPDATE query SET text = ? WHERE query_id = 32673
+query_achievements_studio_passing_submissions.txt|UPDATE query SET text = ? WHERE query_id = 32674
+query_achievements_studio_milestone_prizes.txt|UPDATE query SET text = ? WHERE query_id = 32676
