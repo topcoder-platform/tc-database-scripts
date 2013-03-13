@@ -263,3 +263,16 @@ query_Winning_Debuts.txt|UPDATE query SET text= ? WHERE query_id=16
 query_user_rating_list.txt|UPDATE query SET text= ? WHERE query_id=31836
 query_software_achievements.txt|UPDATE query SET text= ? WHERE query_id=31950
 query_copilot_achievements.txt|UPDATE query SET text= ? WHERE query_id=32246
+query_achievements_srm_room_wins.txt|UPDATE query SET text= ? WHERE query_id=32687
+query_achievements_rated_algorithm_participations.txt|UPDATE query SET text= ? WHERE query_id=32688
+query_achievements_marathon_wins.txt|UPDATE query SET text= ? WHERE query_id=32689
+query_achievements_top5_marathons.txt|UPDATE query SET text= ? WHERE query_id=32690
+query_achievements_marathon_participations.txt|UPDATE query SET text= ? WHERE query_id=32691
+query_achievements_srm_solved_problems.txt|UPDATE query SET text= ? WHERE query_id=32692
+query_achievements_successful_challenges.txt|UPDATE query SET text= ? WHERE query_id=32693
+query_achievements_marathon_target.txt|UPDATE query SET text= ? WHERE query_id=32694
+query_achievements_srm_target.txt|UPDATE query SET text= ? WHERE query_id=32695
+query_achievements_solved_div1_hard.txt|UPDATE query SET text= ? WHERE query_id=32679
+query_achievements_solved_div2_hard.txt|UPDATE query SET text= ? WHERE query_id=32696
+query_achievements_srm_div2_wins.txt|UPDATE query SET text= ? WHERE query_id=32697
+query_achievements_srm_div1_wins.txt|UPDATE query SET text= ? WHERE query_id=32698
