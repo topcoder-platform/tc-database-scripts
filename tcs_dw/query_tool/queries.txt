@@ -170,4 +170,7 @@ query_client_user_stats.txt|UPDATE query SET text = ? WHERE query_id = 32466
 query_copilots_statistics.txt|UPDATE query SET text = ? WHERE query_id = 32478
 query_copilots_skills.txt|UPDATE query SET text = ? WHERE query_id = 32479
 query_copilot_skills.txt|UPDATE query SET text = ? WHERE query_id = 32536
-
+query_achievements_digital_run_top_five.txt|UPDATE query SET text = ? WHERE query_id = 32675
+query_achievements_digital_run_wins.txt|UPDATE query SET text = ? WHERE query_id = 32677
+query_achievements_studio_cup_top_five.txt|UPDATE query SET text = ? WHERE query_id = 32678
+query_achievements_studio_cup_wins.txt|UPDATE query SET text = ? WHERE query_id = 32686
