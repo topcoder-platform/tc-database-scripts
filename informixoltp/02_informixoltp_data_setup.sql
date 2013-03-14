@@ -11922,4 +11922,5 @@ insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, mo
 insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (11,'Platform Fee','132456',current,'132456',current);
 insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, modify_user, modify_date) values (12,'Credit','132456',current,'132456',current);
 
+INSERT INTO 'informix'.round_type_lu(round_type_id,round_type_desc,algo_rating_type_id) VALUES (27, 'Marathon Match QA', NULL);
 
