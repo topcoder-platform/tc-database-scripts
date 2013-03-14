@@ -174,3 +174,5 @@ query_achievements_digital_run_top_five.txt|UPDATE query SET text = ? WHERE quer
 query_achievements_digital_run_wins.txt|UPDATE query SET text = ? WHERE query_id = 32677
 query_achievements_studio_cup_top_five.txt|UPDATE query SET text = ? WHERE query_id = 32678
 query_achievements_studio_cup_wins.txt|UPDATE query SET text = ? WHERE query_id = 32686
+query_restapi_statistics_copilot_profile_basic_data.txt|UPDATE query SET text = ? WHERE query_id = 32720
+query_restapi_statistics_copilot_profile_achievements.txt|UPDATE query SET text = ? WHERE query_id = 32721

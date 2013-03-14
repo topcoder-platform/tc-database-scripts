@@ -1,0 +1,5 @@
+SELECT projects_count, contests_count, reposts_count, failures_count, bug_races_count,
+       current_projects_count, current_contests_count, fulfillment 
+FROM copilot_statistics AS cs
+JOIN coder AS c ON c.coder_id = cs.user_id
+WHERE c.handle = '@ha@'
