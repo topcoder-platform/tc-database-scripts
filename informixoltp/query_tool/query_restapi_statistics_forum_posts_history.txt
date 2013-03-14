@@ -1,0 +1,9 @@
+SELECT jm.subject AS post_title, jm.body AS post_text, jf.name AS forum_name, jm.modificationdate AS date,
+(SELECT COUNT(*) FROM jive:jivemessage AS ijm WHERE ijm.parentmessageid = jm.messageid) AS replies,
+(SELECT COUNT(*) FROM jive:message_history AS mh WHERE mh.messageid = jm.messageid) AS edits,
+(SELECT SUM(jr.score) FROM jive:jiverating AS jr WHERE jr.objectid = jm.messageid AND jr.score>0) AS rating_plus,
+(SELECT SUM(jr.score) FROM jive:jiverating AS jr WHERE jr.objectid = jm.messageid AND jr.score<0) AS rating_minus
+FROM jive:jivemessage AS jm
+JOIN jive:jiveforum AS jf ON jf.forumid = jm.forumid
+JOIN common_oltp:user AS u on u.user_id = jm.userid
+WHERE u.handle = '@ha@'
