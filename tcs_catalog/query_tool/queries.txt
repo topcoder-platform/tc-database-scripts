@@ -420,3 +420,14 @@ query_achievements_studio_first_wins.txt|UPDATE query SET text = ? WHERE query_i
 query_achievements_studio_forum_posts.txt|UPDATE query SET text = ? WHERE query_id = 32673
 query_achievements_studio_passing_submissions.txt|UPDATE query SET text = ? WHERE query_id = 32674
 query_achievements_studio_milestone_prizes.txt|UPDATE query SET text = ? WHERE query_id = 32676
+query_restapi_statistics_copilot_profile_basic_data.txt|UPDATE query SET text = ? WHERE query_id = 32722
+query_restapi_statistics_copilot_profile_is_copilot.txt|UPDATE query SET text = ? WHERE query_id = 32723
+query_restapi_statistics_copilot_profile_contest_types.txt|UPDATE query SET text = ? WHERE query_id = 32724
+query_restapi_statistics_copilot_profile_feedbacks.txt|UPDATE query SET text = ? WHERE query_id = 32725
+query_restapi_statistics_studio_profile_basic.txt|UPDATE query SET text = ? WHERE query_id = 32726
+query_restapi_statistics_studio_profile_submission.txt|UPDATE query SET text = ? WHERE query_id = 32727
+query_restapi_statistics_studio_profile_submission_all.txt|UPDATE query SET text = ? WHERE query_id = 32728
+query_restapi_statistics_studio_profile_submission_both.txt|UPDATE query SET text = ? WHERE query_id = 32729
+query_restapi_statistics_studio_profile_current_registration.txt|UPDATE query SET text = ? WHERE query_id = 32730
+query_restapi_statistics_handle_exists.txt|UPDATE query SET text = ? WHERE query_id = 32731
+query_restapi_statistics_category_name_valid.txt|UPDATE query SET text = ? WHERE query_id =32732

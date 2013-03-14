@@ -805,6 +805,14 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32173, 'spec_review_auction_projects', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32172, 'review_board_member_for_project', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32209, 'coder_achievements', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32229, 'restapi_statistics_copilot_profile', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32230, 'restapi_statistics_copilot_profile_contest_types', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32231, 'restapi_statistics_copilot_profile_feedbacks', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32232, 'restapi_statistics_studio_profile_basic', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32233, 'restapi_statistics_studio_profile_submission', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32234, 'restapi_statistics_studio_profile_current_registration', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32235, 'restapi_statistics_handle_exists', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32236, 'restapi_statistics_category_name_valid', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -880,6 +888,8 @@ INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VAL
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25833, 'metavalue', 1005, 'The project metadata value');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25510, 'pname', 1005, 'direct project name');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25860, 'uids', 1005, 'user ids');
+INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25881, 'ctn', 1005, 'Category Name');
+INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25882, 'prid', 1001, 'prize type id');
 
 INSERT INTO 'informix'.comp_level(level_id,description) VALUES (0, 'No Level Selected');
 INSERT INTO 'informix'.comp_level(level_id,description) VALUES (100, 'Level 1');
@@ -1880,6 +1890,17 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32673, null, 'achievements_studio_forum_posts', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32674, null, 'achievements_studio_passing_submissions', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32676, null, 'achievements_studio_milestone_prizes', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32722, null, 'restapi_statistics_copilot_profile_basic_data', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32723, null, 'restapi_statistics_copilot_profile_is_copilot', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32724, null, 'restapi_statistics_copilot_profile_contest_types', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32725, null, 'restapi_statistics_copilot_profile_feedbacks', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32726, null, 'restapi_statistics_studio_profile_basic', 0, null);6
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32727, null, 'restapi_statistics_studio_profile_submission', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32728, null, 'restapi_statistics_studio_profile_submission_all', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32729, null, 'restapi_statistics_studio_profile_submission_both', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32730, null, 'restapi_statistics_studio_profile_current_registration', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32731, null, 'restapi_statistics_handle_exists', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32732, null, 'restapi_statistics_category_name_valid', 0, null);
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (13717, 'N', NULL, 25190, 1);
@@ -2386,6 +2407,18 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32673, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32674, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32676, NULL, NULL, 13347, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32722, NULL, NULL, 16912, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32723, NULL, NULL, 16912, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32724, NULL, NULL, 16912, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32725, NULL, NULL, 16912, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32726, NULL, NULL, 16912, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32727, NULL, NULL, 16912, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32727, NULL, NULL, 25882, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32728, NULL, NULL, 16912, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32729, NULL, NULL, 16912, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32730, NULL, NULL, 16912, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32731, NULL, NULL, 16912, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32732, NULL, NULL, 25881, 0);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (11010, 11010, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12153, 12154, 0);
@@ -2822,7 +2855,6 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32172, 32628, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32172, 32637, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32173, 32630, 0);
-
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32209, 32666, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32209, 32667, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32209, 32668, 0);
@@ -2833,6 +2865,17 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32209, 32673, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32209, 32674, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32209, 32676, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32229, 32722, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32229, 32723, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32230, 32724, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32231, 32725, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32232, 32726, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32233, 32727, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32233, 32728, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32233, 32729, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32234, 32730, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32235, 32731, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32236, 32732, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);

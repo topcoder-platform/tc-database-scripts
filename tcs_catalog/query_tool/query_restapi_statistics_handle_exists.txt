@@ -1,0 +1,3 @@
+SELECT COUNT(user_id) > 0 AS handle_exists
+FROM user AS u 
+WHERE u.handle = '@hn@'

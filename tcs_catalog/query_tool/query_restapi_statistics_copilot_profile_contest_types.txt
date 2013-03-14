@@ -1,0 +1,9 @@
+SELECT p.project_id, p.tc_direct_project_id, p.project_status_id, p.project_category_id, pc.name AS category_name, ps.name AS status_name, CASE WHEN lp.source_project_id IS NULL THEN 0 ELSE 1 END AS Reposted
+FROM project p
+     INNER JOIN project_category_lu pc ON p.project_category_id = pc.project_category_id AND p.project_category_id != 27
+     INNER JOIN project_status_lu ps ON p.project_status_id = ps.project_status_id 
+     INNER JOIN resource r ON r.project_id = p.project_id AND r.resource_role_id = 14 AND p.project_status_id != 2 AND p.project_status_id != 3 
+     INNER JOIN resource_info ri ON ri.resource_id = r.resource_id AND ri.resource_info_type_id = 1
+     LEFT OUTER JOIN linked_project_xref lp ON p.project_id = lp.source_project_id AND lp.link_type_id = 5
+     LEFT JOIN user AS u ON u.user_id = ri.value
+WHERE u.handle = '@hn@'

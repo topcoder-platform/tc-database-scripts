@@ -1,0 +1,35 @@
+SELECT p.project_id AS contest_id, 
+    (SELECT pi.value FROM project_info pi WHERE pi.project_id = p.project_id AND pi.project_info_type_id = 6) AS contest_name 
+    , (SELECT pi.value FROM project_info pi WHERE pi.project_id = p.project_id AND pi.project_info_type_id = 53) AS viewable 
+    , (SELECT MAX(r.modify_date) FROM review rv WHERE rv.submission_id = s.submission_id AND rv.committed = 1) AS review_time 
+    , p.project_category_id as contest_type_id 
+    , pcl.name as contest_type_name 
+    , sslu.name AS submission_status 
+    , s.create_date AS submission_date
+    , s.placement 
+    , pzz.place as prize_place   
+    , pzz.prize_amount AS prize_amount   
+    , s.screening_score 
+    , s.initial_score 
+    , s.final_score 
+    , s.submission_id 
+    , ptlu.prize_type_desc AS prize_type
+FROM project p 
+INNER JOIN resource r ON r.project_id = p.project_id  
+INNER JOIN resource_info ri ON r.resource_id = ri.resource_id  
+INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id 
+INNER JOIN upload u ON u.project_id = p.project_id AND u.resource_id = r.resource_id 
+INNER JOIN submission s ON u.upload_id = s.upload_id 
+LEFT  JOIN prize pzz ON s.prize_id = pzz.prize_id
+INNER JOIN user ON ri.value = user.user_id
+LEFT  JOIN prize_type_lu AS ptlu ON ptlu.prize_type_id = pzz.prize_type_id
+INNER JOIN submission_status_lu AS sslu ON sslu.submission_status_id = s.submission_status_id
+WHERE pcl.project_type_id = 3 
+AND   r.resource_role_id = 1 
+AND   ri.resource_info_type_id = 1 
+AND   u.upload_status_id = 1 
+AND   u.upload_type_id = 1 
+AND   s.submission_type_id in (1, 3) 
+AND   s.submission_status_id <> 5
+AND   pzz.prize_type_id IN (14, 15)
+AND   user.handle = '@hn@'
