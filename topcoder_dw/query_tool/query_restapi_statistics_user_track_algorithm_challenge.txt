@@ -1,0 +1,13 @@
+SELECT cl.level_id AS level,
+SUM(cl.challenge_attempts_made) AS challenge_attempts_made,
+SUM(cl.challenges_made_failed) AS challenges_made_failed,
+SUM(cl.challenges_made_successful) AS challenges_made_successful,
+(CASE SUM(cl.challenge_attempts_made)
+  WHEN 0 THEN 0.0
+  ELSE SUM(cl.challenges_made_successful) / SUM(cl.challenge_attempts_made)
+  END) AS success_percentage
+FROM coder_level AS cl
+JOIN coder AS c ON c.coder_id = cl.coder_id
+WHERE c.handle = '@ha@'
+AND cl.algo_rating_type_id = 1
+GROUP BY cl.level_id

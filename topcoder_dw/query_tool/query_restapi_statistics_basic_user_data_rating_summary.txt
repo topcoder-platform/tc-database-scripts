@@ -1,0 +1,4 @@
+SELECT r.rating, pcu.name FROM coder c
+LEFT JOIN tcs_dw:user_rating AS r ON r.user_id = c.coder_id
+JOIN tcs_dw:project_category_lu AS pcu ON pcu.project_category_id + 111 = r.phase_id
+WHERE c.handle = '@ha@'

@@ -1,0 +1,51 @@
+select NVL(ar.rating, 0) AS rating
+      , NVL(ar.num_competitions, 0) AS num_competitions
+      , (select NVL(avg(lcr.placed), 0) from long_comp_result lcr where lcr.coder_id = c.coder_id and attended='Y') as avg_rank
+      , (select NVL(avg(lcr.num_submissions), 0) from long_comp_result lcr where lcr.coder_id = c.coder_id and attended='Y') as avg_submissions
+      , c.coder_id
+      , (select NVL(min(placed), 0) from long_comp_result where placed > 0 and coder_id = c.coder_id) as best_rank
+      , (select count(*) from long_comp_result where placed =1 and coder_id = c.coder_id) as num_wins
+      , (select count(*) from long_comp_result where placed between 1 and 5 and coder_id = c.coder_id) as num_top_five
+      , (select count(*) from long_comp_result where placed between 1 and 10 and coder_id = c.coder_id) as num_top_ten
+      , NVL(cr.rank, 0) AS rank
+      , NVL(cr.percentile, 0) AS percentile
+      , NVL(ar.vol, 0) AS vol
+      , NVL(ar.lowest_rating, 0) AS lowest_rating
+      , NVL(ar.highest_rating, 0) AS highest_rating
+      , NVL(ccr.rank, 0) as country_rank
+      , NVL(rd.short_name, '') as last_round
+      , cl.date as last_round_date
+      , (select count(*)
+          from coder_rank cr1
+           where cr1.coder_rank_type_id = cr.coder_rank_type_id
+           and cr1.algo_rating_type_id = 3) as num_ranked
+      , (select count(*)
+          from country_coder_rank ccr1
+         where ccr1.coder_rank_type_id = cr.coder_rank_type_id
+           and ccr1.country_code = ccr.country_code
+       and ccr1.algo_rating_type_id = 3) as num_country_ranked
+     , NVL(scr.rank, 0) as school_rank
+     , (select count(*)
+          from school_coder_rank scr1
+         where scr1.coder_rank_type_id = scr.coder_rank_type_id
+           and scr1.school_id = scr.school_id
+            and scr1.algo_rating_type_id = 3) as num_school_ranked
+  from  coder c
+       , OUTER coder_rank cr
+       , OUTER country_coder_rank ccr
+       , OUTER school_coder_rank scr
+       , OUTER(algo_rating ar, round rd, calendar cl)
+ where c.handle='@ha@'
+   and ar.coder_id = c.coder_id
+   and ar.algo_Rating_type_id = 3
+   and cr.coder_id = c.coder_id
+   and cr.coder_rank_type_id = 2
+   and cr.algo_rating_type_id = 3
+   and ccr.coder_id = c.coder_id
+   and ccr.coder_rank_type_id = 2
+   and ccr.algo_rating_type_id = 3
+   and rd.round_id = ar.last_rated_round_id
+   and cl.calendar_id = rd.calendar_id
+   and scr.coder_id = c.coder_id
+   and scr.coder_rank_type_id = 2
+   and scr.algo_rating_type_id = 3

@@ -1,0 +1,27 @@
+SELECT r.rating, 
+       cr.percentile,
+       cr.rank, (SELECT COUNT(*) FROM coder_rank AS cr1 WHERE cr1.coder_rank_type_id = cr.coder_rank_type_id AND cr1.algo_rating_type_id = 1) AS num_ranked,
+       ccr.rank AS country_rank, (SELECT COUNT(*) FROM country_coder_rank AS ccr1 WHERE ccr1.coder_rank_type_id = scr.coder_rank_type_id AND ccr1.country_code = ccr.country_code AND ccr1.algo_rating_type_id = 1) AS num_country_ranked,
+       scr.rank as school_rank, (SELECT COUNT(*) FROM school_coder_rank AS scr1 WHERE scr1.coder_rank_type_id = scr.coder_rank_type_id AND scr1.school_id = scr.school_id AND scr1.algo_rating_type_id = 1) AS num_school_ranked,
+       r.vol AS volatility,
+       r.highest_rating AS maximum_rating,
+       r.lowest_rating AS minimum_rating,
+       l.language_name AS default_language, 
+       r.num_ratings AS competitions,
+       rd.short_name AS event_name,
+       cl.date AS event_date
+FROM rating AS r
+    JOIN coder AS c ON c.coder_id = r.coder_id
+    JOIN language_lu AS l ON l.language_id = c.language_id
+    JOIN round AS rd ON rd.round_id = r.last_rated_round_id
+    JOIN calendar AS cl ON cl.calendar_id = rd.calendar_id
+    JOIN coder_rank AS cr ON cr.coder_id = c.coder_id
+    JOIN school_coder_rank AS scr ON scr.coder_id = c.coder_id
+    JOIN country_coder_rank ccr ON ccr.coder_id = c.coder_id
+WHERE cr.coder_rank_type_id = 2
+AND scr.coder_rank_type_id = 2
+AND ccr.coder_rank_type_id = 2
+AND cr.algo_rating_type_id = 1
+AND ccr.algo_rating_type_id = 1
+AND scr.algo_rating_type_id = 1
+AND c.handle = '@ha@'
