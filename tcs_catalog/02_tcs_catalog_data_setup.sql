@@ -1894,7 +1894,7 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32723, null, 'restapi_statistics_copilot_profile_is_copilot', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32724, null, 'restapi_statistics_copilot_profile_contest_types', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32725, null, 'restapi_statistics_copilot_profile_feedbacks', 0, null);
-INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32726, null, 'restapi_statistics_studio_profile_basic', 0, null);6
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32726, null, 'restapi_statistics_studio_profile_basic', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32727, null, 'restapi_statistics_studio_profile_submission', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32728, null, 'restapi_statistics_studio_profile_submission_all', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32729, null, 'restapi_statistics_studio_profile_submission_both', 0, null);
