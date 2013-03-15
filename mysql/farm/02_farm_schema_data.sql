@@ -162,7 +162,7 @@ CREATE TABLE `FARM_PROCESSOR_PROPERTIES` (
 
 /*!40000 ALTER TABLE `FARM_PROCESSOR_PROPERTIES` DISABLE KEYS */;
 LOCK TABLES `FARM_PROCESSOR_PROPERTIES` WRITE;
-INSERT INTO `FARM_PROCESSOR_PROPERTIES` VALUES (1,'Linux Dev Generic'),(2,'Windows Dev Generic'),(3,'Linux MM Tester'),(4,'Windows MM Tester'),(5,'Linux IMM Compiler'),(6,'Linux IMM Tester'),(7,'Windows IMM Tester'),(8,'Linux Generic Processor'),(9,'Windows Generic Processor'),(10,'AMD Tester/Compiler'),(11,'AMD Compiler'),(12, 'Linux QA Dev Generic');
+INSERT INTO `FARM_PROCESSOR_PROPERTIES` VALUES (1,'Linux Dev Generic'),(2,'Windows Dev Generic'),(3,'Linux MM Tester'),(4,'Windows MM Tester'),(5,'Linux IMM Compiler'),(6,'Linux IMM Tester'),(7,'Windows IMM Tester'),(8,'Linux Generic Processor'),(9,'Windows Generic Processor'),(10,'AMD Tester/Compiler'),(11,'AMD Compiler'),(12, 'Linux QA Dev Generic'),(13, 'Windows QA Dev Generic');
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `FARM_PROCESSOR_PROPERTIES` ENABLE KEYS */;
 
