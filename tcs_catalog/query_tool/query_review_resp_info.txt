@@ -1,2 +1,0 @@
-select review_resp_id, review_resp_name, phase_id
- from review_resp

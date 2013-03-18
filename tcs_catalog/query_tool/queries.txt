@@ -124,7 +124,6 @@ query_repeat_phases.txt|UPDATE query SET text= ? WHERE query_id=27396
 query_review_board_members.txt|UPDATE query SET text= ? WHERE query_id=15982
 query_review_board_payments.txt|UPDATE query SET text= ? WHERE query_id=15878
 query_review_project_detail.txt|UPDATE query SET text= ? WHERE query_id=13722
-query_review_resp_info.txt|UPDATE query SET text= ? WHERE query_id=26277
 query_reviewer_activity.txt|UPDATE query SET text= ? WHERE query_id=15910
 query_reviewer_activity_by_day.txt|UPDATE query SET text= ? WHERE query_id=15911
 query_reviewer_check.txt|UPDATE query SET text= ? WHERE query_id=15950
