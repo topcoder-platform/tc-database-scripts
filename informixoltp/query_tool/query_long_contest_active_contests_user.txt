@@ -30,7 +30,7 @@ SELECT ct.contest_id
    and i.image_type_id = 16
    and rix.display_flag = 1
    and r.round_id <> 10844
-   AND r.round_type_id in (13,15,19,22,24,25)
+   AND r.round_type_id in (13,15,19,22,24,25,27)
    AND rb.round_id = r.round_id AND rb.behavior_id = 3
    AND NOT EXISTS
      (select * from round_behavior rb where rb.round_id = r.round_id and rb.behavior_id = 3)
@@ -69,7 +69,7 @@ SELECT ct.contest_id
    and i.image_type_id = 16
    and rix.display_flag = 1
    and r.round_id <> 10844
-   AND r.round_type_id in (13,15,19,22,24,25)
+   AND r.round_type_id in (13,15,19,22,24,25,27)
    AND rb.round_id = r.round_id AND rb.behavior_id = 3
    AND EXISTS
      (select * from round_behavior rb where rb.round_id = r.round_id and rb.behavior_id = 3)
