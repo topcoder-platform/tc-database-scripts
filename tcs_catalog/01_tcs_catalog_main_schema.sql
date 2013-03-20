@@ -1022,7 +1022,8 @@ create table 'informix'.project (
     project_id INT not null,
     project_status_id INT not null,
     project_category_id INT not null,
-    project_studio_spec_id INTEGER,                        
+    project_studio_spec_id INTEGER,   
+    project_mm_spec_id INTEGER, 
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -2633,6 +2634,20 @@ create table 'informix'.project_studio_specification (
 extent size 16 next size 16
 lock mode row; 
 revoke all on 'informix'.project_studio_specification from public;
+
+create table 'informix'.project_mm_specification (
+  project_mm_spec_id INTEGER not null,
+  match_details    text,
+  match_rules      text,
+  problem_id       INTEGER,
+  create_user      VARCHAR(64) not null,
+  create_date      DATETIME YEAR TO FRACTION(3) not null,
+  modify_user      VARCHAR(64) not null,
+  modify_date      DATETIME YEAR TO FRACTION(3) not null
+)
+extent size 16 next size 16
+lock mode row; 
+revoke all on 'informix'.project_mm_specification from public;
 
 create table 'informix'.project_prize_xref (
   project_id INTEGER not null,
@@ -4874,6 +4889,7 @@ grant select,insert,update,delete on "informix".copilot_project_info to public a
 grant select,insert,update,delete on "informix".file_type_lu to public as informix;
 grant select,insert,update,delete on "informix".prize to public as informix;
 grant select,insert,update,delete on "informix".project_studio_specification to public as informix;
+grant select,insert,update,delete on "informix".project_mm_specification to public as informix;
 grant select,insert,update,delete on "informix".project_prize_xref to public as informix;
 grant select,insert,update,delete on "informix".project_file_type_xref to public as informix;
 grant select,insert,update,delete on "informix".default_terms to public as informix;

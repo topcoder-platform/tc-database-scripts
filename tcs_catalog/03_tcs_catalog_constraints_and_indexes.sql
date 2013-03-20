@@ -833,6 +833,10 @@ alter table 'informix'.project_studio_specification add constraint primary key
     (project_studio_spec_id)
     constraint pk_project_studio_spec;
 
+alter table 'informix'.project_mm_specification add constraint primary key
+    (project_mm_spec_id)
+    constraint pk_project_mm_spec;
+    
 alter table 'informix'.project_prize_xref add constraint primary key
     (project_id, prize_id)
     constraint pk_project_prize_xref;
@@ -2031,6 +2035,12 @@ alter table 'informix'.project add constraint foreign key
     (project_studio_spec_id) 
     constraint project_project_studio_spec_fk;
 
+alter table 'informix'.project add constraint foreign key 
+    (project_mm_spec_id) 
+    references 'informix'.project_mm_specification 
+    (project_mm_spec_id) 
+    constraint project_project_mm_spec_fk;
+    
 alter table 'informix'.project_prize_xref add constraint foreign key 
     (project_id) 
     references 'informix'.project
