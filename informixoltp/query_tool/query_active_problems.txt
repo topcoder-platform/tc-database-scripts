@@ -1,0 +1,9 @@
+SELECT distinct
+    p.problem_id as problem_id,
+    p.name as problem_name
+FROM
+    problem p
+WHERE
+    status_id = 75
+    AND problem_type_id = 3
+ORDER BY 1

@@ -1135,3 +1135,4 @@ query_user_rating_list.txt|UPDATE query SET text= ? WHERE query_id=29986
 query_email_history.txt|UPDATE query SET text= ? WHERE query_id=32046
 query_restapi_statistics_basic_user_data.txt|UPDATE query SET text= ? WHERE query_id=32706
 query_restapi_statistics_forum_posts_history.txt|UPDATE query SET text= ? WHERE query_id=32707
+query_active_problems.txt|UPDATE query SET text= ? WHERE query_id=32747
