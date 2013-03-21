@@ -106,7 +106,7 @@ from project p,
      project_category_lu pc,
      project_info pi, -- project name
      project_info pi2, -- contest_fee
-     project_info pi3, -- billing account
+     direct_project_account db, -- billing account
      time_oltp:project ttp,
      time_oltp:client_project ttcp,
      time_oltp:client ttc,
@@ -124,9 +124,8 @@ where p.project_status_id = ps.project_status_id
   and pi.project_info_type_id = 6
   and p.project_id = pi2.project_id
   and pi2.project_info_type_id = 31
-  and p.project_id = pi3.project_id
-  and pi3.project_info_type_id = 32
-  and pi3.value = ttp.project_id
+  and db.project_id = p.tc_direct_project_id
+  and db.billing_account_id = ttp.project_id
   and ttp.project_id = ttcp.project_id
   and ttcp.client_id = ttc.client_id
   and p.project_status_id != 3 and p.project_category_id != 27
@@ -237,7 +236,7 @@ from project p,
      project_category_lu pc,
      project_info pi, -- project name
      project_info pi2, -- contest_fee
-     project_info pi3, -- billing account
+     direct_project_account db, -- billing account
      time_oltp:project ttp,
      time_oltp:client_project ttcp,
      time_oltp:client ttc,
@@ -251,9 +250,8 @@ where p.project_status_id = ps.project_status_id
   and pi.project_info_type_id = 6
   and p.project_id = pi2.project_id
   and pi2.project_info_type_id = 31
-  and p.project_id = pi3.project_id
-  and pi3.project_info_type_id = 32
-  and pi3.value = ttp.project_id
+  and db.project_id = p.tc_direct_project_id
+  and db.billing_account_id = ttp.project_id
   and ttp.project_id = ttcp.project_id
   and ttcp.client_id = ttc.client_id
   and p.project_status_id != 3 and p.project_category_id != 27
