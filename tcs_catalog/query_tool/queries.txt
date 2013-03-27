@@ -122,10 +122,7 @@ query_reliability_detail.txt|UPDATE query SET text= ? WHERE query_id=26866
 query_remaining_tco_contests.txt|UPDATE query SET text= ? WHERE query_id=26603
 query_repeat_phases.txt|UPDATE query SET text= ? WHERE query_id=27396
 query_review_board_members.txt|UPDATE query SET text= ? WHERE query_id=15982
-query_review_board_payments.txt|UPDATE query SET text= ? WHERE query_id=15878
 query_review_project_detail.txt|UPDATE query SET text= ? WHERE query_id=13722
-query_reviewer_activity.txt|UPDATE query SET text= ? WHERE query_id=15910
-query_reviewer_activity_by_day.txt|UPDATE query SET text= ? WHERE query_id=15911
 query_reviewer_check.txt|UPDATE query SET text= ? WHERE query_id=15950
 query_reviewer_data.txt|UPDATE query SET text= ? WHERE query_id=26607
 query_reviewers_report.txt|UPDATE query SET text= ? WHERE query_id=15913
@@ -171,13 +168,11 @@ query_tco04_overall_results.txt|UPDATE query SET text= ? WHERE query_id=15969
 query_tco05_online_round_results.txt|UPDATE query SET text= ? WHERE query_id=21585
 query_tco05_overall_results.txt|UPDATE query SET text= ? WHERE query_id=21586
 query_tco_submissions_by_user.txt|UPDATE query SET text= ? WHERE query_id=12285
-query_test.txt|UPDATE query SET text= ? WHERE query_id=28986
 query_timelines_by_component.txt|UPDATE query SET text= ? WHERE query_id=28621
 query_top_downloads.txt|UPDATE query SET text= ? WHERE query_id=21524
 query_Total Inquiries in Last week.txt|UPDATE query SET text= ? WHERE query_id=12156
 query_total_component_prices.txt|UPDATE query SET text= ? WHERE query_id=12361
 query_tournament_project.txt|UPDATE query SET text= ? WHERE query_id=26424
-query_tournament_review_projects.txt|UPDATE query SET text= ? WHERE query_id=13751
 query_unique_submissions.txt|UPDATE query SET text= ? WHERE query_id=12284
 query_upload_url.txt|UPDATE query SET text= ? WHERE query_id=12244
 query_usdc_monthly_results.txt|UPDATE query SET text= ? WHERE query_id=15895
@@ -194,7 +189,6 @@ query_ria_build_active_contests_summary.txt|UPDATE query SET text= ? WHERE query
 query_ria_component_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29647
 query_ui_prototype_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29648
 query_project_requirements.txt|UPDATE query SET text= ? WHERE query_id= 29736
-query_spec_review_board_payments.txt|UPDATE query SET text= ? WHERE query_id= 29789
 query_spec_review_project_detail.txt|UPDATE query SET text= ? WHERE query_id= 29788
 query_project_docs.txt|UPDATE query SET text= ? WHERE query_id= 29966
 query_dr_point_breakdown.txt|UPDATE query SET text = ? WHERE query_id = 30006

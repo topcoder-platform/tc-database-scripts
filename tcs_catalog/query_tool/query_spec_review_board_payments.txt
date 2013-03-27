@@ -1,6 +1,0 @@
-select rp.amount as amount
-from rboard_payment rp, project p
-where rp.project_id = @pj@ and p.project_id=rp.project_id and
-((rp.primary_ind=1 and rp.phase_id=138 and p.project_category_id=27)
-or
-(rp.primary_ind=0 and rp.phase_id=@ph@ and p.project_category_id!=27))
