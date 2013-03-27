@@ -424,3 +424,5 @@ query_restapi_statistics_studio_profile_submission_both.txt|UPDATE query SET tex
 query_restapi_statistics_studio_profile_current_registration.txt|UPDATE query SET text = ? WHERE query_id = 32730
 query_restapi_statistics_handle_exists.txt|UPDATE query SET text = ? WHERE query_id = 32731
 query_restapi_statistics_category_name_valid.txt|UPDATE query SET text = ? WHERE query_id =32732
+query_get_all_platform_specialists.txt|UPDATE query SET text = ? WHERE query_id = 32776
+query_member_spend_by_platform_specialist.txt|UPDATE query SET text = ? WHERE query_id = 32777

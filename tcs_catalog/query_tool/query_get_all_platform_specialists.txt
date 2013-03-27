@@ -1,0 +1,11 @@
+SELECT unique (metadata_value::NUMERIC) AS user_id, u.handle
+FROM direct_project_metadata dpm
+JOIN user as u
+ON dpm.metadata_value = u.user_id
+JOIN user_role_xref AS uref 
+ON u.user_id = uref.login_id 
+JOIN security_roles AS sr 
+ON uref.role_id = sr.role_id  
+WHERE dpm.project_metadata_key_id = 2
+AND sr.description IN ('TC Staff')
+ORDER BY 2 ASC;

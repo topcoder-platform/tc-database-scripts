@@ -1,0 +1,110 @@
+SELECT  ttc.name                    ,
+        month(payment_date) + year(payment_date) * 100 as monthCount,
+        u.user_id                   ,
+        u.handle                    ,
+        SUM(total_amount) member_spent
+FROM
+        (SELECT pmd.total_amount              ,
+                m.metadata_value              ,
+                pm.create_date AS payment_date,
+                ttcp.client_id AS client_id
+        FROM    project p                      ,
+                tc_direct_project tdp          ,
+                informixoltp:payment pm        ,
+                informixoltp:payment_detail pmd,
+                tt_client_project ttcp         ,
+                tt_project ttp                 ,
+                direct_project_account b       ,
+                OUTER direct_project_metadata m
+        WHERE   pm.most_recent_detail_id   = pmd.payment_detail_id
+            AND p.tc_direct_project_id     = tdp.project_id
+            AND pmd.component_project_id   = p.project_id
+            AND pmd.installment_number     = 1
+            AND pmd.payment_type_id       != 4
+            AND NOT pmd.payment_status_id IN (65,68,69)
+            AND m.project_metadata_key_id  = 2
+            AND m.tc_direct_project_id     = tdp.project_id
+            AND b.project_id               = tdp.project_id
+            AND b.billing_account_id       = ttp.project_id
+            AND ttcp.project_id            = ttp.project_id
+            AND b.billing_account_id       =
+                (SELECT MAX(billing_account_id)
+                FROM    direct_project_account
+                WHERE   project_id = tdp.project_id
+                )
+        
+        UNION
+        
+        SELECT  pmd2.total_amount              ,
+                m.metadata_value               ,
+                pm2.create_date AS payment_date,
+                ttcp.client_id  AS client_id
+        FROM    project p                       ,
+                tc_direct_project tdp           ,
+                informixoltp:payment pm         ,
+                informixoltp:payment_detail pmd ,
+                informixoltp:payment_detail pmd2,
+                informixoltp:payment pm2        ,
+                tt_client_project ttcp          ,
+                tt_project ttp                  ,
+                direct_project_account b        ,
+                OUTER direct_project_metadata m
+        WHERE   pm.most_recent_detail_id    = pmd.payment_detail_id
+            AND p.tc_direct_project_id      = tdp.project_id
+            AND pmd.component_project_id    = p.project_id
+            AND pmd.installment_number      = 1
+            AND pmd.payment_type_id        != 4
+            AND NOT pmd.payment_status_id  IN (65,68, 69)
+            AND m.project_metadata_key_id   = 2
+            AND m.tc_direct_project_id      = tdp.project_id
+            AND pm2.most_recent_detail_id   = pmd2.payment_detail_id
+            AND pmd2.payment_type_id       IN (24, 67)
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)
+            AND pm.payment_id               = pmd2.parent_payment_id
+            AND b.project_id                = tdp.project_id
+            AND b.billing_account_id        = ttp.project_id
+            AND ttcp.project_id             = ttp.project_id
+            AND b.billing_account_id        =
+                (SELECT MAX(billing_account_id)
+                FROM    direct_project_account
+                WHERE   project_id = tdp.project_id
+                )
+        
+        UNION
+        
+        SELECT  pmd.total_amount              ,
+                m.metadata_value              ,
+                pm.create_date AS payment_date,
+                ttcp.client_id AS client_id
+        FROM    tc_direct_project tdp          ,
+                informixoltp:payment pm        ,
+                informixoltp:payment_detail pmd,
+                tt_client_project ttcp         ,
+                tt_project ttp                 ,
+                direct_project_account b       ,
+                OUTER direct_project_metadata m
+        WHERE   pm.most_recent_detail_id   = pmd.payment_detail_id
+            AND pmd.cockpit_project_id     = tdp.project_id
+            AND pmd.installment_number     = 1
+            AND pmd.payment_type_id       != 4
+            AND NOT pmd.payment_status_id IN (65,68, 69)
+            AND m.project_metadata_key_id  = 2
+            AND m.tc_direct_project_id     = tdp.project_id
+            AND b.project_id               = tdp.project_id
+            AND b.billing_account_id       = ttp.project_id
+            AND ttcp.project_id            = ttp.project_id
+            AND b.billing_account_id       =
+                (SELECT MAX(billing_account_id)
+                FROM    direct_project_account
+                WHERE   project_id = tdp.project_id
+                )
+        ) p          ,
+        tt_client ttc,
+        USER u
+WHERE   u.user_id     = metadata_value
+    AND ttc.client_id = p.client_id
+    AND u.user_id  IN (@uids@)
+    AND (month(payment_date) + year(payment_date) * 100) >= (month(TO_DATE('@sdt@', '%Y-%m')) + year(TO_DATE('@sdt@', '%Y-%m')) * 100)
+    AND  (month(payment_date) + year(payment_date) * 100) <= (month(TO_DATE('@edt@', '%Y-%m')) + year(TO_DATE('@edt@', '%Y-%m')) * 100)
+GROUP BY 1,2,3,4
+ORDER BY 1,2,3,4
