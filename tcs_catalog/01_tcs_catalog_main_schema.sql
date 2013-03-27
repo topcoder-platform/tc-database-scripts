@@ -528,62 +528,6 @@ extent size 16 next size 16
 lock mode row;
 
 revoke all on rboard_status_lu from 'public';
-create table 'informix'.rboard_user_audit (
-    user_id DECIMAL(10,0) not null,
-    phase_id DECIMAL(5,0),
-    data_element VARCHAR(64) not null,
-    old_val VARCHAR(255),
-    new_val VARCHAR(255),
-    timestamp DATETIME YEAR TO SECOND default CURRENT YEAR TO SECOND
-)
-extent size 32 next size 32
-lock mode row;
-
-revoke all on rboard_user_audit from 'public';
-create table 'informix'.rboard_notes (
-    user_id DECIMAL(10,0) not null,
-    note VARCHAR(255),
-    timestamp DATETIME YEAR TO SECOND default CURRENT YEAR TO SECOND
-)
-extent size 64 next size 64
-lock mode row;
-
-revoke all on rboard_notes from 'public';
-create table 'informix'.rboard_contact_sched (
-    user_id DECIMAL(10,0) not null,
-    phase_id DECIMAL(5,0),
-    contact_on DATE not null,
-    note VARCHAR(255)
-)
-extent size 32 next size 32
-lock mode row;
-
-revoke all on rboard_contact_sched from 'public';
-create table 'informix'.rboard_application (
-    user_id DECIMAL(10,0) not null,
-    project_id DECIMAL(12,0) not null,
-    phase_id DECIMAL(5,0) not null,
-    review_resp_id DECIMAL(3,0),
-    primary_ind DECIMAL(1,0),
-    create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
-    modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION
-)
-extent size 256 next size 256
-lock mode row;
-
-revoke all on rboard_application from 'public';
-create table 'informix'.rboard_payment (
-    project_id DECIMAL(10,0) not null,
-    phase_id DECIMAL(5,0) not null,
-    primary_ind DECIMAL(1,0) not null,
-    amount DECIMAL(7,2) not null,
-    modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
-    create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION
-)
-extent size 32 next size 32
-lock mode row;
-
-revoke all on rboard_payment from 'public';
 create table 'informix'.contest_type_lu (
     contest_type_id DECIMAL(5,0),
     contest_type_desc VARCHAR(64)
@@ -687,20 +631,6 @@ extent size 64 next size 64
 lock mode row;
 
 revoke all on user_event_xref from 'public';
-create table 'informix'.rboard_payment_stage (
-    component_name VARCHAR(254),
-    level_id VARCHAR(10),
-    phase_desc VARCHAR(254),
-    handle VARCHAR(20),
-    function VARCHAR(10),
-    total_payment DECIMAL(7,2),
-    date_paid VARCHAR(20),
-    check_num DECIMAL(10,0)
-)
-extent size 1000 next size 1000
-lock mode row;
-
-revoke all on rboard_payment_stage from 'public';
 create table 'informix'.notification_mail_type_lu (
     notification_mail_type_id DECIMAL(3,0),
     mail_template VARCHAR(254) not null,
@@ -3914,46 +3844,6 @@ grant update on rboard_status_lu to 'public' as 'informix';
 
 grant index on rboard_status_lu to 'public' as 'informix';
 
-grant index on rboard_user_audit to 'public' as 'informix';
-
-grant delete on rboard_user_audit to 'public' as 'informix';
-
-grant update on rboard_user_audit to 'public' as 'informix';
-
-grant insert on rboard_user_audit to 'public' as 'informix';
-
-grant select on rboard_user_audit to 'public' as 'informix';
-
-grant index on rboard_notes to 'public' as 'informix';
-
-grant insert on rboard_notes to 'public' as 'informix';
-
-grant select on rboard_notes to 'public' as 'informix';
-
-grant delete on rboard_notes to 'public' as 'informix';
-
-grant update on rboard_notes to 'public' as 'informix';
-
-grant delete on rboard_contact_sched to 'public' as 'informix';
-
-grant insert on rboard_contact_sched to 'public' as 'informix';
-
-grant index on rboard_contact_sched to 'public' as 'informix';
-
-grant select on rboard_contact_sched to 'public' as 'informix';
-
-grant update on rboard_contact_sched to 'public' as 'informix';
-
-grant update on rboard_application to 'public' as 'informix';
-
-grant insert on rboard_application to 'public' as 'informix';
-
-grant select on rboard_application to 'public' as 'informix';
-
-grant index on rboard_application to 'public' as 'informix';
-
-grant delete on rboard_application to 'public' as 'informix';
-
 grant select on submission_status_lu to 'public' as 'informix';
 
 grant delete on submission_status_lu to 'public' as 'informix';
@@ -3969,16 +3859,6 @@ grant insert on submission to 'public' as 'informix';
 grant delete on submission to 'public' as 'informix';
 
 grant select on submission to 'public' as 'informix';
-
-grant update on rboard_payment to 'public' as 'informix';
-
-grant index on rboard_payment to 'public' as 'informix';
-
-grant delete on rboard_payment to 'public' as 'informix';
-
-grant insert on rboard_payment to 'public' as 'informix';
-
-grant select on rboard_payment to 'public' as 'informix';
 
 grant delete on resource_submission to 'public' as 'informix';
 
@@ -4129,16 +4009,6 @@ grant insert on user_event_xref to 'public' as 'informix';
 grant update on user_event_xref to 'public' as 'informix';
 
 grant delete on user_event_xref to 'public' as 'informix';
-
-grant insert on rboard_payment_stage to 'public' as 'informix';
-
-grant index on rboard_payment_stage to 'public' as 'informix';
-
-grant delete on rboard_payment_stage to 'public' as 'informix';
-
-grant select on rboard_payment_stage to 'public' as 'informix';
-
-grant update on rboard_payment_stage to 'public' as 'informix';
 
 grant insert on review_item_comment to 'public' as 'informix';
 

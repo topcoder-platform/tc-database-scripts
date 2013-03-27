@@ -280,30 +280,6 @@ alter table 'informix'.rboard_status_lu add constraint primary key
     (status_id)
     constraint rboard_stat_lu_pk;
 
-create index 'informix'.rboard_user_aud_idx1 on 'informix'.rboard_user_audit
-    (
-    user_id
-    );
-
-create index 'informix'.rboard_notes_idx1 on 'informix'.rboard_notes
-    (
-    user_id
-    );
-
-create index 'informix'.rboard_app_idx1 on 'informix'.rboard_application
-    (
-    project_id, 
-    phase_id
-    );
-
-alter table 'informix'.rboard_application add constraint primary key 
-    (user_id, project_id, phase_id)
-    constraint rboard_app_pk;
-
-alter table 'informix'.rboard_payment add constraint primary key 
-    (project_id, phase_id, primary_ind)
-    constraint rboard_payment_pk;
-
 alter table 'informix'.contest_type_lu add constraint primary key 
     (contest_type_id)
     constraint contest_type_lu_pkey;

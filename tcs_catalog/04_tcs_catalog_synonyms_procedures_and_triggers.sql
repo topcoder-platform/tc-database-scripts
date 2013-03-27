@@ -186,47 +186,7 @@ create role read_only ;
 create procedure "informix".get_current() returning datetime year to fraction(3);
       return CURRENT;
     end procedure;
-create procedure "informix".proc_rboard_update(
-  user_id decimal(10,0),
-  phase_id decimal(5,0),
-  o_status_id decimal(3,0),
-  n_status_id decimal(3,0),
-  o_contract_ind decimal(1,0),
-  n_contract_ind decimal(1,0),
-  o_java_ind decimal(1,0),
-  n_java_ind decimal(1,0),
-  o_net_ind decimal(1,0),
-  n_net_ind decimal(1,0),
-  o_flash_ind decimal(1,0),
-  n_flash_ind decimal(1,0)
-)
- 
-  if (o_status_id != n_status_id) then
-     insert into rboard_user_audit (user_id, phase_id, data_element, old_val, new_val)
-     values (user_id, phase_id, 'STATUS_ID', o_status_id , n_status_id);
-  end if;
 
-  if (o_contract_ind != n_contract_ind) then
-     insert into rboard_user_audit (user_id, phase_id, data_element, old_val, new_val)
-     values (user_id, phase_id, 'CONTRACT_IND', o_contract_ind , n_contract_ind);
-  end if;
-
-  if (o_java_ind != n_java_ind) then
-     insert into rboard_user_audit (user_id, phase_id, data_element, old_val, new_val)
-     values (user_id, phase_id, 'JAVA_IND', o_java_ind , n_java_ind);
-  end if;
-
-  if (o_net_ind != n_net_ind) then
-     insert into rboard_user_audit (user_id, phase_id, data_element, old_val, new_val)
-     values (user_id, phase_id, 'NET_IND', o_net_ind , n_net_ind);
-  end if;
-
-  if (o_flash_ind != n_flash_ind) then
-     insert into rboard_user_audit (user_id, phase_id, data_element, old_val, new_val)
-     values (user_id, phase_id, 'FLASH_IND', o_flash_ind , n_flash_ind);
-  end if;
-
-end procedure;
 CREATE PROCEDURE predictor(project_id DECIMAL(12,0)) RETURNING DECIMAL(5,4)
  	DEFINE reliability DECIMAL(5,4);
  	DEFINE product DECIMAL(5,4);
@@ -358,8 +318,6 @@ grant execute on procedure ifx_replace_module(varchar,varchar,varchar) to 'publi
 grant execute on procedure systdist(integer,integer) to 'public' as 'informix';
 
 grant execute on procedure get_current() to 'public' as 'informix';
-
-grant execute on procedure proc_rboard_update(decimal,decimal,decimal,decimal,decimal,decimal,decimal,decimal,decimal,decimal,decimal,decimal) to 'public' as 'informix';
 
 grant execute on procedure predictor(decimal) to 'public' as 'informix';
 
@@ -563,9 +521,6 @@ grant execute on technology_list to public as informix;
 create trigger "informix".trig_comp_version_dates_modified update of comp_vers_id,phase_id,posting_date,initial_submission_date,winner_announced_date,final_submission_date,estimated_dev_date,price,total_submissions,status_id,level_id,screening_complete_date,review_complete_date,aggregation_complete_date,phase_complete_date,production_date,aggregation_complete_date_comment,phase_complete_date_comment,review_complete_date_comment,winner_announced_date_comment,initial_submission_date_comment,screening_complete_date_comment,final_submission_date_comment,production_date_comment on "informix".comp_version_dates referencing old as old                                                                                                                                         for each row
         (
         execute function "informix".get_current() into "informix".comp_version_dates.modify_date);
-create trigger "informix".trig_rboardpayment_modified update of amount on "informix".rboard_payment referencing old as o new as n                                                                                                                                   for each row
-        (
-        execute function "informix".get_current() into "informix".rboard_payment.modify_date);
 create trigger "informix".trig_contest_prize_modified update of contest_id,prize_type_id,place,prize_amount,prize_desc on "informix".contest_prize referencing old as old                                                                                           for each row
         (
         execute function "informix".get_current() into "informix".contest_prize.modify_date);
