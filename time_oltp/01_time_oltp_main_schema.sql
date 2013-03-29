@@ -1605,6 +1605,25 @@ lock mode row;
 
 revoke all on customer_platform_fee from 'public';
 
+CREATE TABLE invoice_upload (
+  invoice_upload_id        INTEGER NOT NULL,
+  client_id				   INTEGER NOT NULL,
+  invoice_upload_date      DATETIME YEAR TO FRACTION DEFAULT CURRENT YEAR TO FRACTION NOT NULL,
+  description              LVARCHAR(500),
+  file_name	               VARCHAR(255) NOT NULL,
+  creation_date            DATETIME YEAR TO FRACTION DEFAULT CURRENT YEAR TO FRACTION,
+  creation_user            VARCHAR(64),
+  modification_date        DATETIME YEAR TO FRACTION DEFAULT CURRENT YEAR TO FRACTION,
+  modification_user        VARCHAR(64)
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on invoice_upload from 'public';
+
+CREATE SEQUENCE invoice_upload_seq; 
+grant select on "informix".invoice_upload_seq to "public" as "informix";
+
 
 grant insert on principal to 'public' as 'informix';
 
@@ -2805,4 +2824,11 @@ grant insert on customer_platform_fee to 'public' as 'informix';
 grant delete on customer_platform_fee to 'public' as 'informix';
 grant select on customer_platform_fee to 'public' as 'informix';
 grant index on customer_platform_fee to 'public' as 'informix';
+
+grant update on invoice_upload to 'public' as 'informix';
+grant insert on invoice_upload to 'public' as 'informix';
+grant delete on invoice_upload to 'public' as 'informix';
+grant select on invoice_upload to 'public' as 'informix';
+grant index on invoice_upload to 'public' as 'informix';
+
 
