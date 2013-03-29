@@ -357,6 +357,7 @@ and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccou
 and p.tc_direct_project_id = DECODE(@tcdirectid@, 0, p.tc_direct_project_id, @tcdirectid@)
 and (tdp.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 and tcdpsl.project_status_id IN (@directProjectStatusIds@) 
+and db.billing_account_id = (select max(billing_account_id) from direct_project_account where project_id = tdp.project_id)
 
 and (exists (select u.user_id 
          from user as u 
