@@ -1,0 +1,12 @@
+select 
+	pd.net_amount as net_amount, pd.date_paid as date_paid 
+from 
+	payment p
+	INNER JOIN payment_detail pd ON p.most_recent_detail_id = pd.payment_detail_id
+	INNER JOIN payment_status_lu psl ON pd.payment_status_id = psl.payment_status_id and psl.payment_status_id not in (69)
+	INNER JOIN payment_type_lu ptl ON pd.payment_type_id = ptl.payment_type_id and ptl.payment_type_id not in (3, 5)
+where 
+	(pd.date_paid BETWEEN TO_DATE('@sda@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@ed@ 23:59:59', '%Y-%m-%d %H:%M:%S')) 
+    AND psl.payment_status_id = DECODE(@psid@, 0, psl.payment_status_id, @psid@)
+ORDER BY @sc@ @sdir@
+

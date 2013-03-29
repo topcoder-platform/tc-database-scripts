@@ -1136,3 +1136,10 @@ query_email_history.txt|UPDATE query SET text= ? WHERE query_id=32046
 query_restapi_statistics_basic_user_data.txt|UPDATE query SET text= ? WHERE query_id=32706
 query_restapi_statistics_forum_posts_history.txt|UPDATE query SET text= ? WHERE query_id=32707
 query_active_problems.txt|UPDATE query SET text= ? WHERE query_id=32747
+query_get_created_payments_trends.txt|UPDATE query SET text=? WHERE query_id=32778
+query_get_paid_payments_trends.txt|UPDATE query SET text=? WHERE query_id=32779
+query_get_payment_history.txt|UPDATE query SET text=? WHERE query_id=32780
+query_get_payments_by_status.txt|UPDATE query SET text=? WHERE query_id=32781
+query_get_potential_member_payments.txt|UPDATE query SET text=? WHERE query_id=32782
+query_get_pullable_payments.txt|UPDATE query SET text=? WHERE query_id=32783
+query_top_10_payments_summary.txt|UPDATE query SET text=? WHERE query_id=32767

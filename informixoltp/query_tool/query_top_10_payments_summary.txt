@@ -1,0 +1,14 @@
+select 
+    first @rl@
+	sum(pd.net_amount) as net_amount, u.handle 
+from 
+	payment p
+	INNER JOIN payment_detail pd ON p.most_recent_detail_id = pd.payment_detail_id
+	INNER JOIN payment_status_lu psl ON pd.payment_status_id = psl.payment_status_id and psl.payment_status_id not in (69)
+	INNER JOIN payment_type_lu ptl ON pd.payment_type_id = ptl.payment_type_id and ptl.payment_type_id not in (3, 5)
+	INNER JOIN User u ON  p.user_id = u.user_id
+WHERE 
+	psl.payment_status_id IN (56, 71)
+group by  p.user_id, u.handle
+order by @sc@ @sdir@ 
+
