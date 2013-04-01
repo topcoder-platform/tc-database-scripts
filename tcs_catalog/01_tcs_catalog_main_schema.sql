@@ -2991,7 +2991,8 @@ create table 'informix'.review_application (
     review_auction_id INT NOT NULL,
     review_application_role_id INT NOT NULL,
     review_application_status_id INT NOT NULL,
-    create_date DATETIME YEAR TO FRACTION NOT NULL
+    create_date DATETIME YEAR TO FRACTION NOT NULL,
+    modify_date DATETIME YEAR TO FRACTION NOT NULL
 )
 extent size 1500 next size 1500
 lock mode row;
