@@ -1,6 +1,7 @@
 SELECT  
 	  s.tc_direct_project_id AS tc_direct_project_id,
     s.tc_direct_project_name AS tc_direct_project_name,
+    s.customer_id as customer_id,
     s.customer_name as customer_name,    
     s.project_status_id as project_status_id,
 	  s.project_forum_id as project_forum_id,
@@ -101,6 +102,7 @@ p.tc_direct_project_id as tc_direct_project_id,
 p.project_category_id as project_category_id,
 tdp.name as tc_direct_project_name,
 ttc.name as customer_name,
+ttc.client_id as customer_id,
 tdp.project_status_id as project_status_id,
 tdp.project_forum_id as project_forum_id,
 
@@ -264,5 +266,5 @@ p.project_id = pi3.project_id
             on uref.role_id = sr.role_id 
             and sr.description in ('TC Staff')))
 )) AS s 
- GROUP BY 1, 2, 3, 4, 5, 6, 7 , 8, 9
+ GROUP BY 1, 2, 3, 4, 5, 6, 7 , 8, 9, 10
  order by tc_direct_project_id 

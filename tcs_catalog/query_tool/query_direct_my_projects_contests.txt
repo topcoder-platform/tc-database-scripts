@@ -1,5 +1,5 @@
 select  tcd.project_id, tcd.name as project_name, tcd.create_date, tcd.project_status_id, tcdpsl.name as project_status_name, tcd.project_forum_id as project_forum_id,  tcd.completion_date,
-
+c.client_id as customer_id, c.name as customer_name,
 (select count(project_id) from project p where tc_direct_project_id = tcd.project_id and p.project_status_id = 2 and p.project_category_id != 27) as num_draft,
 
 (select count(project_id) from project p where tc_direct_project_id = tcd.project_id and p.project_status_id = 1 and p.project_category_id != 27 
@@ -29,7 +29,10 @@ or exists (
   and g.archived = 0
 ) 
 ) as has_write_permission 
-from tc_direct_project tcd, corporate_oltp:tc_direct_project_status_lu tcdpsl
+from corporate_oltp:tc_direct_project_status_lu tcdpsl, tc_direct_project tcd
+LEFT OUTER JOIN corporate_oltp:direct_project_account dpa ON tcd.project_id = dpa.project_id
+LEFT OUTER JOIN time_oltp:client_project cp ON dpa.billing_account_id = cp.project_id
+LEFT OUTER JOIN time_oltp:client c ON cp.client_id = c.client_id
 
 where (0=@uid@ or exists (
 select upg.user_id from user_permission_grant upg where upg.user_id = @uid@ and upg.resource_id = tcd.project_id and upg.permission_type_id in (0,1,2,3)
