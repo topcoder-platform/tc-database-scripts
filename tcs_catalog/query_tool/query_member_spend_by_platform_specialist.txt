@@ -15,7 +15,7 @@ FROM
                 tt_client_project ttcp         ,
                 tt_project ttp                 ,
                 direct_project_account b       ,
-                OUTER direct_project_metadata m
+                direct_project_metadata m
         WHERE   pm.most_recent_detail_id   = pmd.payment_detail_id
             AND p.tc_direct_project_id     = tdp.project_id
             AND pmd.component_project_id   = p.project_id
@@ -48,7 +48,7 @@ FROM
                 tt_client_project ttcp          ,
                 tt_project ttp                  ,
                 direct_project_account b        ,
-                OUTER direct_project_metadata m
+                direct_project_metadata m
         WHERE   pm.most_recent_detail_id    = pmd.payment_detail_id
             AND p.tc_direct_project_id      = tdp.project_id
             AND pmd.component_project_id    = p.project_id
@@ -82,7 +82,7 @@ FROM
                 tt_client_project ttcp         ,
                 tt_project ttp                 ,
                 direct_project_account b       ,
-                OUTER direct_project_metadata m
+                direct_project_metadata m
         WHERE   pm.most_recent_detail_id   = pmd.payment_detail_id
             AND pmd.cockpit_project_id     = tdp.project_id
             AND pmd.installment_number     = 1
