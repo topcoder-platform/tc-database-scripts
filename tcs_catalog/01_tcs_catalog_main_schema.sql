@@ -3002,7 +3002,8 @@ revoke all on review_application from 'public';
 create table 'informix'.project_payment_type_lu (
     project_payment_type_id serial NOT NULL,
     name VARCHAR(64) NOT NULL,
-    mergeable boolean(1) NOT NULL
+    mergeable boolean(1) NOT NULL,
+    pacts_payment_type_id DECIMAL(3,0) NOT NULL
 )
 extent size 16 next size 16
 lock mode row;
@@ -3016,7 +3017,10 @@ create table 'informix'.project_payment (
     submission_id INT,
     amount DECIMAL(12,2) NOT NULL,
     pacts_payment_id DECIMAL(10,0),
-    create_date DATETIME YEAR TO FRACTION NOT NULL
+    create_user VARCHAR(64) NOT NULL, 
+    create_date DATETIME YEAR TO FRACTION NOT NULL,
+    modify_user VARCHAR(64) NOT NULL, 
+    modify_date DATETIME YEAR TO FRACTION NOT NULL
 )
 extent size 1024 next size 1024
 lock mode row;

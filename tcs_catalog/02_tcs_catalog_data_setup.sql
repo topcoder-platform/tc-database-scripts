@@ -3132,10 +3132,10 @@ INSERT INTO 'informix'.review_application_status_lu(review_application_status_id
 INSERT INTO 'informix'.review_application_status_lu(review_application_status_id,name) VALUES (3, 'Approved');
 INSERT INTO 'informix'.review_application_status_lu(review_application_status_id,name) VALUES (4, 'Rejected');
 
-INSERT INTO 'informix'.project_payment_type_lu(project_payment_type_id,name,mergeable) VALUES (1, 'Contest Payment', 'f');
-INSERT INTO 'informix'.project_payment_type_lu(project_payment_type_id,name,mergeable) VALUES (2, 'Contest Checkpoint Payment', 'f');
-INSERT INTO 'informix'.project_payment_type_lu(project_payment_type_id,name,mergeable) VALUES (3, 'Review Payment', 't');
-INSERT INTO 'informix'.project_payment_type_lu(project_payment_type_id,name,mergeable) VALUES (4, 'Copilot Payment', 'f');
+INSERT INTO 'informix'.project_payment_type_lu(project_payment_type_id,name,mergeable,pacts_payment_type_id) VALUES (1, 'Contest Payment', 'f', 65);
+INSERT INTO 'informix'.project_payment_type_lu(project_payment_type_id,name,mergeable,pacts_payment_type_id) VALUES (2, 'Contest Checkpoint Payment', 'f', 64);
+INSERT INTO 'informix'.project_payment_type_lu(project_payment_type_id,name,mergeable,pacts_payment_type_id) VALUES (3, 'Review Payment', 't', 7);
+INSERT INTO 'informix'.project_payment_type_lu(project_payment_type_id,name,mergeable,pacts_payment_type_id) VALUES (4, 'Copilot Payment', 'f', 45);
 
 -- Component Design
 INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (1, 2, 0.0, 0.0, 0.01);
