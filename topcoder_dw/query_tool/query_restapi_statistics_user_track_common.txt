@@ -4,9 +4,7 @@ SELECT DISTINCT(c.coder_id), NVL(ur.rating, 0.0) AS rating
      , (SELECT count(*)
           FROM tcs_dw:project_result mx
              , tcs_dw:project mx1
-             , tcs_dw:project_category_lu AS pc
-         WHERE mx1.phase_id = 111 + pc.project_category_id
-           AND pc.name = '@catn@'
+         WHERE mx1.phase_id = 111 + @catid@
            AND mx1.project_id = mx.project_id
            AND user_id = ur.user_id
            AND mx1.status_id in (4,5,7,8))as num_ratings
@@ -14,42 +12,34 @@ SELECT DISTINCT(c.coder_id), NVL(ur.rating, 0.0) AS rating
      , (SELECT NVL(min(new_rating), 0)
           FROM tcs_dw:project_result mx
              , tcs_dw:project mx1
-             , tcs_dw:project_category_lu pc
-         WHERE mx1.phase_id = 111 + pc.project_category_id
-           AND pc.name = '@catn@'
+         WHERE mx1.phase_id = 111 + @catid@
            AND mx1.project_id = mx.project_id
            AND user_id = ur.user_id
            AND new_rating > 0) as min_rating
      , (SELECT NVL(max(new_rating), 0)
           FROM tcs_dw:project_result mx
              , tcs_dw:project mx1
-             , tcs_dw:project_category_lu AS pc
-         WHERE mx1.phase_id = 111 + pc.project_category_id
-           AND pc.name = '@catn@'
+         WHERE mx1.phase_id = 111 + @catid@
            AND mx1.project_id = mx.project_id
            AND user_id = ur.user_id
            AND new_rating > 0) as max_rating
      , (SELECT NVL(SUM(payment),0)
           FROM coder c
              , OUTER(tcs_dw:project_result r
-             , tcs_dw:project p
-             , tcs_dw:project_category_lu AS pc)
+             , tcs_dw:project p)
          WHERE c.coder_id = ur.user_id
            AND c.coder_id = r.user_id
            AND p.project_id = r.project_id
            AND p.status_id not in (1)
-           AND p.phase_id = 111 + pc.project_category_id
-           AND pc.name='@catn@')
+           AND p.phase_id = 111 + @catid@)
      + (SELECT NVL(SUM(prize_payment),0)
           FROM coder c
              , OUTER( tcs_dw:user_contest_prize u
-             , tcs_dw:contest ct
-             , tcs_dw:project_category_lu AS pc)
+             , tcs_dw:contest ct)
          WHERE c.coder_id = ur.user_id
            AND c.coder_id = u.user_id
            AND ct.contest_id = u.contest_id
-           AND ct.phase_id = 111 + pc.project_category_id
-           AND pc.name='@catn@') as earnings
+           AND ct.phase_id = 111 + @catid@) as earnings
      , NVL(sur.rank, 0) as school_rank
      , NVL(cur.rank, 0) as country_rank
      , (SELECT count(*)
@@ -73,10 +63,9 @@ SELECT DISTINCT(c.coder_id), NVL(ur.rating, 0.0) AS rating
      , OUTER tcs_dw:user_rank rank
      , OUTER tcs_dw:country_user_rank cur
      , OUTER tcs_dw:school_user_rank sur
-     , OUTER tcs_dw:project_category_lu AS pc
      , coder AS c
  WHERE ur.user_id = c.coder_id
-   AND ur.phase_id = 111 + pc.project_category_id
+   AND ur.phase_id = 111 + @catid@
    AND rank.phase_id = ur.phase_id
    AND rank.user_id = ur.user_id
    AND rank.user_rank_type_id = 2
@@ -89,4 +78,3 @@ SELECT DISTINCT(c.coder_id), NVL(ur.rating, 0.0) AS rating
    AND cur.user_rank_type_id = 2
    AND cur.phase_id = ur.phase_id
    AND c.handle= '@ha@'
-   AND pc.name = '@catn@'
