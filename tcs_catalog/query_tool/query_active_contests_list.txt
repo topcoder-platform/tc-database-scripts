@@ -34,9 +34,9 @@ SELECT submpp.scheduled_end_time as initial_submission_date
   as total_submissions
   , regpp.phase_status_id <> 2 as is_reg_closed
   , p.project_id
-  , (select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id) as price
+  , round(pr.prize_amount) as price
 , case when pidr.value = 'On' then 
-  NVL((select value::decimal from project_info pi_dr where pi_dr.project_info_type_id = 30 and pi_dr.project_id = p.project_id), (select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id)) 
+  (select value::decimal from project_info pi_dr where pi_dr.project_info_type_id = 30 and pi_dr.project_id = p.project_id)
   else null end as dr_points
  , nvl((select max(event_id) from contest_project_xref x, contest c where project_id = p.project_id and c.contest_id = x.contest_id), 0) as tourny_project
   , (select count(*) from comp_categories where category_id = 27240258 and component_id = cc.component_id) as sensations_project
@@ -61,20 +61,21 @@ FROM project p
    ,project_info pidr
    ,comp_catalog cc
    ,comp_versions cv
+   ,prize pr
 WHERE p.project_category_id = @pt@
 AND regpp.project_id = p.project_id
 AND regpp.phase_type_id = 1
 AND submpp.project_id = p.project_id
 AND submpp.phase_type_id = 2
-and p.project_status_id = 1
+AND p.project_status_id = 1
 AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2)
-and cc.root_category_id = cat.category_id
+AND cc.root_category_id = cat.category_id
 AND pi_ci.project_id = p.project_id 
 AND pi_ci.project_info_type_id = 1
-and pidr.project_id = p.project_id
-  and pidr.project_info_type_id = 26
- AND cv.comp_vers_id = pi_ci.value
-and cv.component_id= cc.component_id
- AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
- WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+AND pidr.project_id = p.project_id
+AND pidr.project_info_type_id = 26
+AND cv.comp_vers_id = pi_ci.value
+AND cv.component_id= cc.component_id
+AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
+AND pr.project_id = p.project_id and pr.place = 1 and pr.prize_type_id = 15
 order by @sc@ @sd@

@@ -1,5 +1,5 @@
 SELECT ps.scheduled_end_time as initial_submission_date, 
-  (select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id) as price,
+  round(pr.prize_amount) as price,
  (select value from project_info where project_id = p.project_id and project_info_type_id = 6) 
   as component_name,
  cat.category_name as catalog_name,
@@ -50,7 +50,7 @@ SELECT ps.scheduled_end_time as initial_submission_date,
    as paypal_brand
 , regpp.scheduled_end_time < current as is_reg_closed
 , case when pidr.value = 'On' then 
-  NVL((select value::decimal from project_info pi_dr where pi_dr.project_info_type_id = 30 and pi_dr.project_id = p.project_id), (select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id)) 
+  (select value::decimal from project_info pi_dr where pi_dr.project_info_type_id = 30 and pi_dr.project_id = p.project_id)
   else null end as dr_points
 , "Design" as type
   , (select count(*) from comp_categories where category_id = 27240258 and component_id = cc.component_id) as sensations_project
@@ -71,7 +71,8 @@ SELECT ps.scheduled_end_time as initial_submission_date,
    project_info pidr, 
    comp_catalog cc,
    categories cat,
-   comp_versions cv
+   comp_versions cv,
+   prize pr
  WHERE p.project_status_id = 1
  AND p.project_category_id = 1 
 and (ps.phase_status_id = 2 or regpp.phase_status_id = 2)
@@ -86,5 +87,6 @@ AND ps.phase_type_id = 2
  and cv.component_id = cc.component_id
  AND cat.category_id in (select distinct category_id from category_catalog where catalog_id != 4)
  AND regpp.project_id = p.project_id and regpp.phase_type_id = 1
+ AND pr.project_id=p.project_id and pr.place=1 and pr.prize_type_id=15
 -- order by regpp.scheduled_end_time desc, initial_submission_date, catalog_name, component_name
 order by @sc@ @sd@
