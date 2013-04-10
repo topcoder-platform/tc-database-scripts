@@ -5,11 +5,15 @@ SELECT reg_phase.scheduled_end_time as registration_end
      , project_name.project_id as guid
      , project_name.project_id as contestID
      , project_forum.value::int as forumID
-     , ((payments.value::decimal) * 1.5) as prize
-     , 'http://www.topcoder.com/tc?module=ProjectDetail&pj=' || project_name.project_id as details_link
-     , 'http://forums.topcoder.com/?module=Category&categoryID=' || project_forum.value::int as forum_link
+     , NVL( (select sum(pr.prize_amount * pr.number_of_submissions) from prize pr where pr.project_id=p.project_id),
+            (payments.value::decimal) * 1.5 ) as prize
+     , (case when pcl.project_type_id=3 then 'http://studio.topcoder.com/?module=ViewContestDetails&ct=' || project_name.project_id
+                                        else 'http://community.topcoder.com/tc?module=ProjectDetail&pj=' || project_name.project_id end) as details_link
+     , (case when pcl.project_type_id=3 then 'http://studio.topcoder.com/forums?module=ThreadList&forumID=' || project_forum.value::int
+                                        else 'http://forums.topcoder.com/?module=Category&categoryID=' || project_forum.value::int end) as forum_link
      , 'http://www.topcoder.com/tc?module=ViewRegistration&pj=' || project_name.project_id as registration_link
   FROM project p,
+       project_category_lu pcl,
        project_phase reg_phase, 
        project_phase sub_phase,
        project_info project_name,
@@ -21,6 +25,7 @@ SELECT reg_phase.scheduled_end_time as registration_end
        time_oltp:client ttc
  WHERE 
      p.project_id = reg_phase.project_id
+     and p.project_category_id = pcl.project_category_id
      and project_name.project_info_type_id = 6
      and project_name.project_Id = reg_phase.project_id
      and project_name.project_Id = sub_phase.project_id

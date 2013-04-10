@@ -3,8 +3,8 @@ SELECT DISTINCT(p.project_id) AS contest_id
    ,(SELECT pp1.actual_start_time FROM project_phase pp1 WHERE pp1.project_id = p.project_id AND pp1.phase_type_id = 1) AS start_time
    ,(SELECT pp2.scheduled_end_time FROM project_phase pp2 WHERE pp2.project_id = p.project_id AND pp2.phase_type_id = 2) AS end_time
    ,(SELECT SUM(pr.prize_amount * pr.number_of_submissions)
-         FROM prize pr INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
-	     WHERE prx.project_id = p.project_id AND pr.prize_type_id IN (14, 15))::DECIMAL(10,2) AS prize_total
+         FROM prize pr
+	     WHERE pr.project_id = p.project_id AND pr.prize_type_id IN (14, 15))::DECIMAL(10,2) AS prize_total
    ,(SELECT pi.value FROM project_info pi WHERE pi.project_id = p.project_id AND pi.project_info_type_id = 30)::DECIMAL(10, 2) AS dr_points
    ,(SELECT pp.scheduled_end_time FROM project_phase pp WHERE pp.project_id = p.project_id AND pp.phase_type_id = 15) AS milestone_date
    ,p.project_category_id AS contest_type_id

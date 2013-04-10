@@ -2,12 +2,10 @@ select (p.project_studio_spec_id IS NOT NULL) as is_studio
      , pn.value as contest_name
      , p.project_id
      , (SELECT pr.prize_amount FROM prize pr
-       INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
-       WHERE prx.project_id = p.project_id
+       WHERE pr.project_id = p.project_id
        AND pr.prize_type_id = 15 and pr.place = 1)::DECIMAL(10,2) AS first_place_payment
      , (SELECT pr.prize_amount FROM prize pr
-       INNER JOIN project_prize_xref prx ON pr.prize_id = prx.prize_id
-       WHERE prx.project_id = p.project_id
+       WHERE pr.project_id = p.project_id
        AND pr.prize_type_id = 15 and pr.place = 2)::DECIMAL(10,2) AS second_place_payment
      , (select NVL(NVL(ppd.actual_start_time, psd.actual_start_time), ppd.scheduled_start_time)
           from project proj
