@@ -2523,7 +2523,7 @@ revoke all on 'informix'.file_type_lu from public;
 
 create table 'informix'.prize (
   prize_id INTEGER not null,
-  project_id INT,
+  project_id INT not null,
   place INTEGER not null,
   prize_amount FLOAT not null,
   prize_type_id DECIMAL(5,0) not null,
@@ -2578,14 +2578,6 @@ create table 'informix'.project_mm_specification (
 extent size 16 next size 16
 lock mode row; 
 revoke all on 'informix'.project_mm_specification from public;
-
-create table 'informix'.project_prize_xref (
-  project_id INTEGER not null,
-  prize_id INTEGER not null
-)
-extent size 16 next size 16
-lock mode row;   
-revoke all on 'informix'.project_prize_xref from public;
 
 create table 'informix'.project_file_type_xref (
   project_id INTEGER not null,
@@ -4765,7 +4757,6 @@ grant select,insert,update,delete on "informix".file_type_lu to public as inform
 grant select,insert,update,delete on "informix".prize to public as informix;
 grant select,insert,update,delete on "informix".project_studio_specification to public as informix;
 grant select,insert,update,delete on "informix".project_mm_specification to public as informix;
-grant select,insert,update,delete on "informix".project_prize_xref to public as informix;
 grant select,insert,update,delete on "informix".project_file_type_xref to public as informix;
 grant select,insert,update,delete on "informix".default_terms to public as informix;
 grant select,insert,update,delete on "informix".mime_type_lu to public as informix;

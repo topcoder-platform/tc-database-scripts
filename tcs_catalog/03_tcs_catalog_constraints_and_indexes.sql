@@ -813,10 +813,6 @@ alter table 'informix'.project_mm_specification add constraint primary key
     (project_mm_spec_id)
     constraint pk_project_mm_spec;
     
-alter table 'informix'.project_prize_xref add constraint primary key
-    (project_id, prize_id)
-    constraint pk_project_prize_xref;
-
 alter table 'informix'.project_file_type_xref add constraint primary key
     (project_id, file_type_id)
     constraint pk_project_file_type_xref;
@@ -2017,18 +2013,6 @@ alter table 'informix'.project add constraint foreign key
     (project_mm_spec_id) 
     constraint project_project_mm_spec_fk;
     
-alter table 'informix'.project_prize_xref add constraint foreign key 
-    (project_id) 
-    references 'informix'.project
-    (project_id) 
-    constraint project_project_prize_xref_fk;
-
-alter table 'informix'.project_prize_xref add constraint foreign key 
-    (prize_id) 
-    references 'informix'.prize 
-    (prize_id) 
-    constraint prize_project_prize_xref_fk;
-
 alter table 'informix'.project_file_type_xref add constraint foreign key 
     (project_id) 
     references 'informix'.project 
