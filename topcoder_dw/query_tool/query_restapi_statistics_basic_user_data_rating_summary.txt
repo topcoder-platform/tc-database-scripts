@@ -2,4 +2,4 @@ SELECT r.rating
      , r.phase_id
   FROM coder c
   LEFT JOIN tcs_dw:user_rating AS r ON r.user_id = c.coder_id
- WHERE c.handle = '@ha@'
+ WHERE LOWER(c.handle) = LOWER('@ha@')

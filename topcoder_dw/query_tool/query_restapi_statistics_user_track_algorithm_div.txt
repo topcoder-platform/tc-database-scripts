@@ -12,6 +12,6 @@ FROM level_lu l
  JOIN coder_level cl ON l.level_id = cl.level_id
  JOIN coder AS c ON c.coder_id = cl.coder_id
 WHERE cl.algo_rating_type_id = 1
-AND c.handle = '@ha@'
+AND LOWER(c.handle) = LOWER('@ha@')
 GROUP by cl.division_id, l.level_id
 ORDER by l.level_id

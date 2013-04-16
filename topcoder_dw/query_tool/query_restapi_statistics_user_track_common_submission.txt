@@ -12,11 +12,11 @@ select count(*) as inquiry_count
      , NVL(case when sum(case when placed > 0 then 1 else 0 end) = 0 then 0 else sum(case when placed > 0 then placed else 0 end) / sum(case when placed > 0 then 1 else 0 end) end, 0) as avg_placement
      , NVL(sum(case when placed = 1 and passed_review_ind = 1 then 1 else 0 end), 0) as wins
      , NVL(sum(case when num_successful_appeals is null then 0 else num_appeals end), 0) as num_appeals
-     , NVL(case when sum(case when num_successful_appeals is null then 0 else num_appeals end) = 0 then 0 else
+   , NVL(case when sum(case when num_successful_appeals is null then 0 else num_appeals end) = 0 then 0 else
            sum(num_successful_appeals) / sum(case when num_successful_appeals is null then 0 else num_appeals end) end, 0) as successful_appeal_percentage
 from tcs_dw:project_result pr, tcs_dw:project p, coder AS c
 where pr.user_id = c.coder_id
 and p.project_id = pr.project_id
 and p.phase_id = @catid@ + 111
 and p.status_id in (4,5,7,8)
-and c.handle = '@ha@'
+and LOWER(c.handle) = LOWER('@ha@')

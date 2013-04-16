@@ -35,7 +35,7 @@ select NVL(ar.rating, 0) AS rating
        , OUTER country_coder_rank ccr
        , OUTER school_coder_rank scr
        , OUTER(algo_rating ar, round rd, calendar cl)
- where c.handle='@ha@'
+ where LOWER(c.handle)=LOWER('@ha@')
    and ar.coder_id = c.coder_id
    and ar.algo_Rating_type_id = 3
    and cr.coder_id = c.coder_id

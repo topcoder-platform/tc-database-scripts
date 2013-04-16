@@ -24,4 +24,4 @@ AND ccr.coder_rank_type_id = 2
 AND cr.algo_rating_type_id = 1
 AND ccr.algo_rating_type_id = 1
 AND scr.algo_rating_type_id = 1
-AND c.handle = '@ha@'
+AND LOWER(c.handle) = LOWER('@ha@')

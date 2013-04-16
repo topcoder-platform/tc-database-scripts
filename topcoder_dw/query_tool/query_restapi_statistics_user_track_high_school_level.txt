@@ -9,7 +9,7 @@ SUM(cl.problems_correct) AS problems_correct,
   END) AS success_percentage
 FROM coder_level AS cl
 JOIN coder AS c ON cl.coder_id = c.coder_id
-WHERE c.handle='@ha@'
+WHERE LOWER(c.handle)=LOWER('@ha@')
 AND cl.algo_rating_type_id = 2
 GROUP BY cl.level_id
 ORDER BY cl.level_id

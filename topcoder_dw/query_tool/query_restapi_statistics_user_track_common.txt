@@ -77,4 +77,4 @@ SELECT DISTINCT(c.coder_id), NVL(ur.rating, 0.0) AS rating
    AND cur.user_id = ur.user_id
    AND cur.user_rank_type_id = 2
    AND cur.phase_id = ur.phase_id
-   AND c.handle= '@ha@'
+   AND LOWER(c.handle)= LOWER('@ha@')

@@ -32,7 +32,7 @@ select DISTINCT(c.coder_id), r.rating
      , OUTER school_coder_rank scr
      , OUTER country_coder_rank ccr
      , OUTER (team_coder_xref tc, team t)
-where c.handle = 'heffan'
+where LOWER(c.handle) = LOWER('@ha@')
 and c.coder_id = r.coder_id
 and l.language_id = c.language_id
 and rd.round_id = r.last_rated_round_id
