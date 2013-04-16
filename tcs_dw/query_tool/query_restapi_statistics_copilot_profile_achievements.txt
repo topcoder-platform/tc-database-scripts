@@ -3,4 +3,4 @@ FROM user_achievement_xref uax, user_achievement_rule uar, topcoder_dw:coder c
 WHERE uax.user_id = c.coder_id
   AND uax.user_achievement_rule_id = uar.user_achievement_rule_id 
   AND uar.user_achievement_type_id = 1
-  AND c.handle = '@ha@'
+  AND LOWER(c.handle) = LOWER('@ha@')
