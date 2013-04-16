@@ -6,4 +6,4 @@ FROM project p
      INNER JOIN resource_info ri ON ri.resource_id = r.resource_id AND ri.resource_info_type_id = 1
      LEFT OUTER JOIN linked_project_xref lp ON p.project_id = lp.source_project_id AND lp.link_type_id = 5
      LEFT JOIN user AS u ON u.user_id = ri.value
-WHERE u.handle = '@hn@'
+WHERE u.handle_lower = LOWER('@hn@')

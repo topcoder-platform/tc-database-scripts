@@ -12,4 +12,4 @@ AND cp.copilot_profile_id = c.copilot_profile_id
 AND cp.tc_direct_project_id = tdp.project_id
 AND c.user_id = u.user_id
 AND LOWER(ss.value) = 'approved'
-AND u.handle = '@hn@'
+AND u.handle_lower = LOWER('@hn@')

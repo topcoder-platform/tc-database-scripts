@@ -3,4 +3,4 @@ SELECT cp.reliability, cp.suspension_count, cps.name as status_name,
 FROM copilot_profile AS cp
 JOIN copilot_profile_status AS cps ON cp.copilot_profile_status_id = cps.copilot_profile_status_id
 JOIN user AS u ON cp.user_id = u.user_id
-WHERE u.handle = '@hn@'
+WHERE u.handle_lower = LOWER('@hn@')
