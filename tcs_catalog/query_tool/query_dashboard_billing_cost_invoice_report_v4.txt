@@ -595,7 +595,7 @@ where  p.project_status_id = ps.project_status_id
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
    and exists (select resource_id from user_permission_grant upg
                 where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = p.tc_direct_project_id)
-  and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+  and (pm2.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 
 union  -- contest fee (status7 and % enabled) (DR)
 SELECT (pm.create_date) as payment_date, p.project_id as contest_id, ttc.name client, ttp.name billing_project_name, tdp.name direct_project_name,
