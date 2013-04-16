@@ -1,18 +1,37 @@
 SELECT u.handle
-     , c.country_name
-     , coder.member_since
-     , coder.quote
-     , (CASE WHEN r.rating<0 THEN 't' ELSE 'f' END) AS is_pm
-     , (CASE WHEN cp.user_id>0 THEN 't' ELSE 'f' END) AS is_copilot
+     , c.country_name       
+     , co.member_since       
+     , co.quote
+     , (CASE WHEN r.rating  < 0
+             THEN 't' 
+             ELSE 'f'
+             END) AS is_pm
+     , (CASE WHEN cp.user_id>0
+             THEN 't' 
+             ELSE 'f'
+             END) AS is_copilot
      , NVL(cp.is_software_copilot, 'f') AS is_software_copilot
-     , NVL(cp.is_studio_copilot, 'f') AS is_studio_copilot
-     , i.link AS photo_link
-  FROM user AS u
-  JOIN coder ON u.user_id = coder.coder_id
-  JOIN country AS c ON c.country_code = coder.comp_country_code
-  LEFT JOIN rating AS r ON r.coder_id = coder.coder_id
-  LEFT JOIN tcs_catalog:copilot_profile AS cp ON u.user_id = cp.user_id
-  LEFT JOIN coder_image_xref AS cix ON cix.coder_id = u.user_id 
-  LEFT JOIN image AS i ON i.image_id = cix.image_id
- WHERE u.handle = '@ha@';
- 
+     , NVL(cp.is_studio_copilot, 'f') AS is_studio_copilot       
+     , p.path || i.file_name as photo_link
+     , up.value as show_earnings
+  FROM user u
+     , coder co
+     , OUTER rating r  
+     , OUTER country c
+     , OUTER tcs_catalog:copilot_profile AS cp
+     , OUTER(informixoltp:coder_image_xref cix
+            , informixoltp:image i
+            , informixoltp:path p)   
+     , OUTER user_preference up  
+ WHERE LOWER(u.handle) = LOWER('heffan')  
+   AND u.user_id = cp.user_id  
+   AND u.user_id = co.coder_id 
+   AND u.user_id = r.coder_id 
+   AND u.user_id = cix.coder_id     
+   AND c.country_code = co.comp_country_code   
+   AND cix.display_flag = 1   
+   AND cix.image_id = i.image_id   
+   AND i.image_type_id = 1   
+   AND i.path_id = p.path_id
+   AND u.user_id = up.user_id
+   AND up.preference_id = 100;

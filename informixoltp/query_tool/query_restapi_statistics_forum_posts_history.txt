@@ -6,4 +6,4 @@ SELECT jm.subject AS post_title, jm.body AS post_text, jf.name AS forum_name, jm
 FROM jive:jivemessage AS jm
 JOIN jive:jiveforum AS jf ON jf.forumid = jm.forumid
 JOIN common_oltp:user AS u on u.user_id = jm.userid
-WHERE u.handle = '@ha@'
+WHERE LOWER(u.handle) = LOWER('@ha@')
