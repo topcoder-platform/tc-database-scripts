@@ -3017,6 +3017,8 @@ create table 'informix'.project_payment (
 extent size 1024 next size 1024
 lock mode row;
 
+revoke all on project_payment from 'public';
+
 create table 'informix'.project_payment_adjustment (
     project_id INT NOT NULL,
     resource_role_id INT NOT NULL,
