@@ -132,6 +132,7 @@ where p.project_status_id = ps.project_status_id
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
+  and db.billing_account_id = (select max(billing_account_id) from direct_project_account where project_id = tdp.project_id)
   and (
        exists(select unique upg.resource_id from user_permission_grant upg
                 where upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)
@@ -258,6 +259,7 @@ where p.project_status_id = ps.project_status_id
   and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
   and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
   and p.tc_direct_project_id = tdp.project_id
+  and db.billing_account_id = (select max(billing_account_id) from direct_project_account where project_id = tdp.project_id)
   and (
        exists(select unique upg.resource_id from user_permission_grant upg
                 where upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)
