@@ -378,7 +378,15 @@ and (exists (select u.user_id
      			where
      				cg.group_id = gm.group_id AND cg.group_id = gadp.group_id AND gm.active = 1
      				AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
-     				AND gadp.tc_direct_project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@) ))
+     				AND gadp.tc_direct_project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@) )
+     OR exists (select 
+                    cg.group_id
+                from
+                    customer_group AS cg, group_member AS gm, group_associated_billing_accounts AS gaba
+                where
+                    cg.group_id = gm.group_id AND cg.group_id = gaba.group_id AND gm.active = 1
+                    AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+                    AND gaba.billing_account_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)))
 )) AS s
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
 order by tc_direct_project_id

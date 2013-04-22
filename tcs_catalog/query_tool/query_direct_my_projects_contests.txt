@@ -27,7 +27,22 @@ or exists (
   and gm.user_id = @uid@
   and g.group_id = gm.group_id
   and g.archived = 0
-) 
+)
+or exists (
+  select gm.group_id from group_member gm,
+  group_associated_billing_accounts gaba,
+  customer_group g,
+  corporate_oltp:direct_project_account dpa
+ where gm.active=1
+  and gaba.group_id=gm.group_id
+  and dpa.project_id=tcd.project_id 
+  and gaba.billing_account_id=dpa.billing_account_id
+  and ((gm.use_group_default=0 and gm.specific_permission in ('WRITE', 'FULL'))
+       or (gm.use_group_default=1 and g.default_permission in ('WRITE', 'FULL')))
+  and gm.user_id = @uid@
+  and g.group_id = gm.group_id
+  and g.archived = 0
+)  
 ) as has_write_permission 
 from corporate_oltp:tc_direct_project_status_lu tcdpsl, tc_direct_project tcd
 LEFT OUTER JOIN corporate_oltp:direct_project_account dpa ON tcd.project_id = dpa.project_id
@@ -50,6 +65,20 @@ or exists (
   and g.group_id = gm.group_id
   and g.archived = 0
 )
+or exists (
+  select gm.group_id from group_member gm,
+  group_associated_billing_accounts gaba,
+  customer_group g,
+  corporate_oltp:direct_project_account dpa
+ where gm.active=1 and gm.unassigned_on is null
+  and gaba.group_id=gm.group_id
+  and dpa.project_id=tcd.project_id 
+  and gaba.billing_account_id=dpa.billing_account_id
+    and ((gm.use_group_default=0 and gm.specific_permission!='REPORT')
+              or (gm.use_group_default=1 and g.default_permission != 'REPORT'))
+  and gm.user_id = @uid@
+  and g.group_id = gm.group_id
+  and g.archived = 0
 )
 and tcdpsl.project_status_id = tcd.project_status_id
 and dpa.billing_account_id = (select max(billing_account_id) from direct_project_account where project_id = tcd.project_id)

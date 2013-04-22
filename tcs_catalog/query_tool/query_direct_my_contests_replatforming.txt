@@ -132,5 +132,18 @@ and (exists (select u.user_id
           and gm.user_id = @uid@
           and g.group_id = gm.group_id
           and g.archived = 0
+     )
+     OR exists (
+        select gm.group_id from group_member gm,
+          group_associated_billing_accounts gaba,
+          customer_group g
+         where gm.active=1
+          and gaba.group_id=gm.group_id
+          and gaba.billing_account_id=pi.value
+          and ((gm.use_group_default=0 and gm.specific_permission!='REPORT')
+              or (gm.use_group_default=1 and g.default_permission != 'REPORT'))
+          and gm.user_id = @uid@
+          and g.group_id = gm.group_id
+          and g.archived = 0
      ))
 
