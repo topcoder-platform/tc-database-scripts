@@ -387,8 +387,6 @@ query_copilots_info.txt|UPDATE query SET text = ? WHERE query_id = 32476
 query_copilots_experience.txt|UPDATE query SET text = ? WHERE query_id = 32477
 query_direct_my_pm_projects_contests_v2.txt|UPDATE query SET text = ? WHERE query_id = 32486
 query_tc_direct_payment_invoice_v2.txt|UPDATE query SET text = ? WHERE query_id = 32506
-query_dashboard_billing_cost_invoice_report_v3.txt|UPDATE query SET text = ? WHERE query_id = 32507
-query_dashboard_billing_cost_invoice_report_invoice_number_v3.txt|UPDATE query SET text = ? WHERE query_id = 32508
 query_tc_direct_payment_second_installment.txt|UPDATE query SET text = ? WHERE query_id = 32509
 query_enterprise_dashboard_projects_pipeline.txt|UPDATE query SET text = ? WHERE query_id = 32516
 query_enterprise_dashboard_projects.txt|UPDATE query SET text = ? WHERE query_id = 32557
@@ -423,3 +421,5 @@ query_restapi_statistics_handle_exists.txt|UPDATE query SET text = ? WHERE query
 query_restapi_statistics_category_name_valid.txt|UPDATE query SET text = ? WHERE query_id =32732
 query_get_all_platform_specialists.txt|UPDATE query SET text = ? WHERE query_id = 32776
 query_member_spend_by_platform_specialist.txt|UPDATE query SET text = ? WHERE query_id = 32777
+query_dashboard_billing_cost_invoice_report_v5.txt|UPDATE query SET text = ? WHERE query_id = 32507
+query_dashboard_billing_cost_invoice_report_invoice_number_v5.txt|UPDATE query SET text = ? WHERE query_id = 32508
