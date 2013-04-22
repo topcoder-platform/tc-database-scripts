@@ -3,7 +3,7 @@ SELECT UNIQUE
        name as tc_direct_project_name
 FROM   tc_direct_project tdp, user_permission_grant upg
 WHERE  tdp.project_id = upg.resource_id
-AND    upg.user_id = @uid@
+AND    upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@)
 AND    upg.permission_type_id in (1,2,3)
 AND    tdp.project_status_id = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
 UNION
@@ -14,10 +14,23 @@ FROM tc_direct_project tdp
 INNER JOIN group_associated_direct_projects gadp ON tdp.project_id = gadp.tc_direct_project_id
 INNER JOIN customer_group sg ON sg.group_id = gadp.group_id
 INNER JOIN group_member gm ON gm.group_id = sg.group_id
-WHERE gm.user_id = @uid@
+WHERE gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
 AND   gm.active = 1
 AND   sg.archived = 0
 AND   tdp.project_status_id = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
+UNION
+SELECT UNIQUE 
+       tdp.project_id as tc_direct_project_id, 
+       tdp.name as tc_direct_project_name
+FROM tc_direct_project tdp
+INNER JOIN corporate_oltp:direct_project_account dpa ON tdp.project_id = dpa.project_id
+INNER JOIN group_associated_billing_accounts gaba ON gaba.billing_account_id = dpa.billing_account_id
+INNER JOIN customer_group sg ON sg.group_id = gaba.group_id
+INNER JOIN group_member gm ON gm.group_id = sg.group_id
+WHERE gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+AND   gm.active = 1
+AND   sg.archived = 0
+AND   tdp.project_status_id = 1
 UNION
 SELECT UNIQUE 
        tdp.project_id as tc_direct_project_id, 
@@ -32,7 +45,7 @@ WHERE pi.project_info_type_id = 32
 AND   tdp.project_status_id = 1
 AND   c.is_deleted = 0
 AND   c.client_status_id = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
-AND   ca.user_id = @uid@
+AND   ca.user_id = DECODE(@uid@,0,ca.user_id,@uid@)
 UNION
 SELECT UNIQUE
        tdp.project_id as tc_direct_project_id, 

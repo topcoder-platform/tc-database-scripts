@@ -136,13 +136,19 @@ where p.project_status_id = ps.project_status_id
   and (
        exists(select unique upg.resource_id from user_permission_grant upg
                 where upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)
-                 and upg.resource_id = DECODE(@tcdirectid@, 0, upg.resource_id, @tcdirectid@))
+                 and upg.resource_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@))
        or 
        exists(select gadp.tc_direct_project_id 
      		from group_member AS gm, group_associated_direct_projects AS gadp
      		where gm.group_id = gadp.group_id AND gm.active = 1 
      		AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
      		AND gadp.tc_direct_project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@))
+       or
+       exists(select gaba.billing_account_id
+            from group_member AS gm, group_associated_billing_accounts AS gaba
+            where gm.group_id = gaba.group_id AND gm.active = 1
+            AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+            AND gaba.billing_account_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@))
        )
   and pc.project_type_id  != 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
@@ -263,13 +269,19 @@ where p.project_status_id = ps.project_status_id
   and (
        exists(select unique upg.resource_id from user_permission_grant upg
                 where upg.user_id = DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3)
-                 and upg.resource_id = DECODE(@tcdirectid@, 0, upg.resource_id, @tcdirectid@))
+                 and upg.resource_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@))
        or 
        exists(select gadp.tc_direct_project_id 
      		from group_member AS gm, group_associated_direct_projects AS gadp
      		where gm.group_id = gadp.group_id AND gm.active = 1 
      		AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
      		AND gadp.tc_direct_project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@))
+       or
+       exists(select gaba.billing_account_id
+            from group_member AS gm, group_associated_billing_accounts AS gaba
+            where gm.group_id = gaba.group_id AND gm.active = 1
+            AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+            AND gaba.billing_account_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@))
        )
   and pc.project_type_id = 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
