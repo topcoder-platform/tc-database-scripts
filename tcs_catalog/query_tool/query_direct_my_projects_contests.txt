@@ -79,7 +79,7 @@ or exists (
   and gm.user_id = @uid@
   and g.group_id = gm.group_id
   and g.archived = 0
-)
+))
 and tcdpsl.project_status_id = tcd.project_status_id
 and dpa.billing_account_id = (select max(billing_account_id) from direct_project_account where project_id = tcd.project_id)
 
