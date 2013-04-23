@@ -16,7 +16,7 @@ AND   u.upload_type_id = 1
 AND   s.submission_type_id in (1, 3) 
 AND   s.submission_status_id <> 5 
 AND   pzz.prize_type_id = 14
-AND   LOWER(user.handle) = LOWER('@hn@')),
+AND   user.handle_lower = LOWER('@hn@')),
 (SELECT COUNT(DISTINCT p.project_id) as wins
 FROM project p 
 INNER JOIN resource r ON r.project_id = p.project_id  
@@ -35,7 +35,7 @@ AND   s.submission_type_id in (1, 3)
 AND   s.submission_status_id <> 5
 AND   s.placement = 1
 AND   pzz.prize_type_id = 15
-AND   user.handle = '@hn@'),
+AND   user.handle_lower = LOWER('@hn@')),
 (SELECT COUNT(DISTINCT p.project_id) AS submit_contest_num
 FROM project p 
 INNER JOIN resource r ON r.project_id = p.project_id  
@@ -51,4 +51,4 @@ AND   u.upload_status_id = 1
 AND   u.upload_type_id = 1 
 AND   s.submission_type_id in (1, 3) 
 AND   s.submission_status_id <> 5 
-AND   user.handle = '@hn@')
+AND   user.handle_lower = LOWER('@hn@'))
