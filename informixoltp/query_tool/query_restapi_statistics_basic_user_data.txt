@@ -23,7 +23,7 @@ SELECT u.handle
             , informixoltp:image i
             , informixoltp:path p)   
      , OUTER user_preference up  
- WHERE LOWER(u.handle) = LOWER('heffan')  
+ WHERE LOWER(u.handle) = LOWER(@ha@)  
    AND u.user_id = cp.user_id  
    AND u.user_id = co.coder_id 
    AND u.user_id = r.coder_id 
