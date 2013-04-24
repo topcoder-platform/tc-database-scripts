@@ -1,5 +1,5 @@
 select 
-	pd.net_amount as net_amount, pd.create_date as date_paid 
+	pd.net_amount as net_amount, pd.create_date as date_paid, pd.payment_method_id  
 from 
 	payment p
 	INNER JOIN payment_detail pd ON p.most_recent_detail_id = pd.payment_detail_id

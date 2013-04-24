@@ -9,4 +9,4 @@ from
 where 
 	(pd.date_due BETWEEN TO_DATE('@sda@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@ed@ 23:59:59', '%Y-%m-%d %H:%M:%S')) 
 	AND (psl.payment_status_id = 56 OR psl.payment_status_id = 71)
-	AND upm.payment_method_id=@paymentMethodId@
+	AND upm.payment_method_id in (@paymentMethodIds@)

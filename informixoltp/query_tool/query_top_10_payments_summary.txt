@@ -1,6 +1,6 @@
 select 
     first @rl@
-	sum(pd.net_amount) as net_amount, u.handle 
+	sum(pd.net_amount) as net_amount, min(pd.create_date) as min_create_date, u.handle, u.user_id
 from 
 	payment p
 	INNER JOIN payment_detail pd ON p.most_recent_detail_id = pd.payment_detail_id
@@ -9,6 +9,6 @@ from
 	INNER JOIN User u ON  p.user_id = u.user_id
 WHERE 
 	psl.payment_status_id IN (56, 71)
-group by  p.user_id, u.handle
+group by  p.user_id, u.handle, u.user_id
 order by @sc@ @sdir@ 
 
