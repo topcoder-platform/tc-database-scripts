@@ -99,7 +99,7 @@ from project p, OUTER project_phase psd, OUTER project_phase ppd, outer project_
 where p.project_id = ppd.project_id and psd.phase_type_id = 2 and ppd.phase_type_id = 1 and psd.project_id = p.project_id
 and pi1.project_id = p.project_id  and pi1.project_info_type_id = 21
 and p.tc_direct_project_id = @tcdirectid@
-and  project_status_id != 3
+and  project_status_id not in (2,3)
 and p.project_category_id != 27
 and (exists (select u.user_id 
          from user as u 
