@@ -1,0 +1,5 @@
+SELECT rr.project_id, rr.rating, rr.review_date
+FROM reviewer_rating rr
+INNER JOIN project p ON p.project_category_id=@ph@-111 and p.project_id=rr.project_id
+WHERE rr.user_id=@uid@
+ORDER BY 3 desc;

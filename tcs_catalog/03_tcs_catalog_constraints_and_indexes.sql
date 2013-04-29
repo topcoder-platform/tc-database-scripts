@@ -924,6 +924,10 @@ alter table 'informix'.default_project_payment add constraint primary key
     (project_category_id, resource_role_id)
     constraint default_project_payment_pk;
 
+alter table 'informix'.reviewer_rating add constraint primary key 
+    (project_id, user_id)
+    constraint reviewer_rating_pk;
+
 
 alter table 'informix'.comp_categories add constraint foreign key 
     (category_id)
@@ -2242,6 +2246,12 @@ alter table 'informix'.default_project_payment add constraint foreign key
     references 'informix'.resource_role_lu
     (resource_role_id) 
     constraint defaultprojectpayment_resourcerolelu_fk;
+
+alter table 'informix'.reviewer_rating add constraint foreign key 
+    (project_id)
+    references 'informix'.project
+    (project_id) 
+    constraint fk_reviewerrating_project_projectid;
 
 create index 'informix'.group_archived_idx on 'informix'.customer_group
     (

@@ -3042,6 +3042,16 @@ lock mode row;
 
 revoke all on default_project_payment from 'public';
 
+create table 'informix'.reviewer_rating (
+    project_id INT NOT NULL,
+    user_id DECIMAL(10,0) NOT NULL,
+    review_date DATETIME YEAR TO FRACTION NOT NULL,
+    rating FLOAT NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on reviewer_rating from 'public';
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -4942,3 +4952,5 @@ grant select,insert,update,delete on project_payment to public as 'informix';
 grant select,insert,update,delete on project_payment_adjustment to public as 'informix';
 
 grant select,insert,update,delete on default_project_payment to public as 'informix';
+
+grant select,insert,update,delete on reviewer_rating to public as 'informix';

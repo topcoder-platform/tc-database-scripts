@@ -423,3 +423,5 @@ query_get_all_platform_specialists.txt|UPDATE query SET text = ? WHERE query_id 
 query_member_spend_by_platform_specialist.txt|UPDATE query SET text = ? WHERE query_id = 32777
 query_dashboard_billing_cost_invoice_report_v5.txt|UPDATE query SET text = ? WHERE query_id = 32507
 query_dashboard_billing_cost_invoice_report_invoice_number_v5.txt|UPDATE query SET text = ? WHERE query_id = 32508
+query_reviewer_rating.txt|UPDATE query SET text = ? WHERE query_id = 32818
+
