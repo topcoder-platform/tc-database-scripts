@@ -1,6 +1,11 @@
-SELECT cp.reliability, cp.suspension_count, cps.name as status_name, 
-       (CASE WHEN cp.user_id>0 THEN 't' ELSE 'f' END) AS is_copilot
-FROM copilot_profile AS cp
-JOIN copilot_profile_status AS cps ON cp.copilot_profile_status_id = cps.copilot_profile_status_id
-JOIN user AS u ON cp.user_id = u.user_id
-WHERE LOWER(u.handle) = LOWER('@ha@')
+SELECT projects_count
+ , contests_count
+ , reposts_count
+ , failures_count
+ , bug_races_count
+ , current_projects_count
+ , current_contests_count
+ , fulfillment 
+ FROM copilot_statistics AS cs
+ JOIN coder AS c ON c.coder_id = cs.user_id
+ WHERE LOWER(c.handle) = LOWER('@ha@')
