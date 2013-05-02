@@ -12,7 +12,7 @@ SELECT s.project_id,
     s.contest_name,
     s.is_studio,
    nvl((case when s.contest_fee_percentage = 0 or s.contest_fee_percentage is null then s.contest_fee
-         else (case when s.project_status_id = 7 then s.contest_fee_percentage * s.actual_Member_Costs
+         else (case when s.project_status_id not in (1,2) then s.contest_fee_percentage * s.actual_Member_Costs
                 else s.contest_fee_percentage * s.estimated_member_costs end)
          end), 0) as contest_fee,
     s.contest_status,
@@ -32,14 +32,15 @@ FROM table(MULTISET(select p.project_id,
        pc.project_category_id,
        pi.value as contest_name,
        0 as is_studio,
-       case when p.project_status_id in (9, 10) and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
-            then pi2.value::DECIMAL(10,2)
-            when p.project_status_id in (9, 10) and not exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
-            then 0 
+       case when p.project_status_id not in (1,2,7) then 0 
             else pi2.value::DECIMAL(10,2) end as contest_fee,
        CASE
-       WHEN ps.project_status_id not in (1,2,3)
-          THEN 'Finished'
+       WHEN ps.project_status_id in (9, 10)
+          THEN 'Cancelled'
+       WHEN ps.project_status_id in (4, 5, 6, 8, 11)
+          THEN 'Failed'
+       WHEN ps.project_status_id = 7
+          THEN 'Completed'
        WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
           THEN 'Scheduled'
        WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
@@ -170,14 +171,15 @@ select p.project_id,
        pc.project_category_id,
        pi.value as contest_name,
        0 as is_studio,
-       case when p.project_status_id in (9, 10) and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
-            then pi2.value::DECIMAL(10,2)
-            when p.project_status_id in (9, 10) and not exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
-            then 0 
+       case when p.project_status_id not in (1,2,7) then 0 
             else pi2.value::DECIMAL(10,2) end as contest_fee,
        CASE
-       WHEN ps.project_status_id not in (1,2,3)
-          THEN 'Finished'
+       WHEN ps.project_status_id in (9, 10)
+          THEN 'Cancelled'
+       WHEN ps.project_status_id in (4, 5, 6, 8, 11)
+          THEN 'Failed'
+       WHEN ps.project_status_id = 7
+          THEN 'Completed'
        WHEN not exists(select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current )
           THEN 'Scheduled'
        WHEN (select actual_start_time from project_phase pp where pp.project_id = p.project_id and pp.phase_type_id = 1 and pp.actual_start_time <= current ) <= current
