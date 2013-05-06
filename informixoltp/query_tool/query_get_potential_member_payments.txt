@@ -1,12 +1,11 @@
 select 
-	pd.net_amount as net_amount, pd.date_due, upm.payment_method_id
+	pd.net_amount as net_amount, pd.date_due, NVL(pd.payment_method_id, 1) as payment_method_id
 from 
 	payment p
 	INNER JOIN payment_detail pd ON p.most_recent_detail_id = pd.payment_detail_id
 	INNER JOIN payment_status_lu psl ON pd.payment_status_id = psl.payment_status_id and psl.payment_status_id not in (69)
 	INNER JOIN payment_type_lu ptl ON pd.payment_type_id = ptl.payment_type_id and ptl.payment_type_id not in (3, 5)
-	INNER JOIN user_payment_method upm on upm.user_id=p.user_id
 where 
-	(pd.date_due BETWEEN TO_DATE('@sda@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@ed@ 23:59:59', '%Y-%m-%d %H:%M:%S')) 
+	pd.date_due <= TO_DATE('@ed@ 23:59:59', '%Y-%m-%d %H:%M:%S')
 	AND (psl.payment_status_id = 56 OR psl.payment_status_id = 71)
-	AND upm.payment_method_id in (@paymentMethodIds@)
+	AND (pd.payment_method_id is null or pd.payment_method_id in (@paymentMethodIds@))
