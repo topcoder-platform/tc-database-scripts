@@ -2,28 +2,28 @@
       else s.member_cost + s.member_cost * s.contest_fee_percentage
       end)), 0) as projected_cost
 FROM table(MULTISET(
-select (nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                  where project_info_type_id in (33, 35, 16, 38, 39, 49) 
-                    and pi.project_id = p.project_id), 0) 
-              + 
-                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+select 
+(nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
+	 + 
+	   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
                   where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
                   and pi26.value = 'On' 
-                  and pi26.project_id =  p.project_id ), 0) 
-              +
-                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                    where project_info_type_id = 16  
-                    and pi.project_id = p.project_id)/2), 0)
-               ) as member_cost,
-			   
+                  and pi26.project_id =  p.project_id )
+           +
+           nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (33, 35, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0), 0) )	 as member_cost,		
+					
 nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
                   where project_info_type_id  = 31 and p.project_id = pi.project_id), 0) as contest_fee,
 				  
 nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage
 
-from project p, tc_direct_project tcd 
+from project p, tc_direct_project tcd, project_category_lu pcl
 where tcd.project_id = @tcdirectid@ and p.project_status_id IN (1 ,2)  and p.project_category_id != 27 and p.project_status_id != 3
+              and pcl.project_category_id = p.project_category_id
               and p.tc_direct_project_id = tcd.project_id)) as s
 			 
 
