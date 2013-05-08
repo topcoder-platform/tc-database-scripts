@@ -4,7 +4,7 @@ SELECT  ttc.name                    ,
         u.handle                    ,
         SUM(total_amount) member_spent
 FROM
-        (SELECT pmd.total_amount              ,
+        (SELECT pmd.total_amount       as total_amount        ,
                 m.metadata_value              ,
                 pm.create_date AS payment_date,
                 ttcp.client_id AS client_id
@@ -37,7 +37,7 @@ FROM
         
         UNION ALL
         
-        SELECT  pmd2.total_amount              ,
+        SELECT  pmd2.total_amount  as total_amount              ,
                 m.metadata_value               ,
                 pm2.create_date AS payment_date,
                 ttcp.client_id  AS client_id
@@ -73,10 +73,54 @@ FROM
                 FROM    direct_project_account
                 WHERE   project_id = tdp.project_id
                 )
+				
+		UNION ALL
+		
+		SELECT cast (nvl (pi30.value, '0') as DECIMAL (10,2)) as total_amount              ,
+                m.metadata_value              ,
+                pm.create_date AS payment_date,
+                ttcp.client_id AS client_id
+        FROM    project p                      ,
+                tc_direct_project tdp          ,
+                informixoltp:payment pm        ,
+                informixoltp:payment_detail pmd,
+                tt_client_project ttcp         ,
+                tt_project ttp                 ,
+                direct_project_account b       ,
+                direct_project_metadata m,
+				project_info pi26, project_info pi30
+        WHERE   pm.most_recent_detail_id   = pmd.payment_detail_id
+		    AND (month(pm.create_date) + year(pm.create_date) * 100) >= (month(TO_DATE('@sdt@', '%Y-%m')) + year(TO_DATE('@sdt@', '%Y-%m')) * 100)
+            AND  (month(pm.create_date) + year(pm.create_date) * 100) <= (month(TO_DATE('@edt@', '%Y-%m')) + year(TO_DATE('@edt@', '%Y-%m')) * 100)
+            AND p.tc_direct_project_id     = tdp.project_id
+            AND pmd.component_project_id   = p.project_id
+            AND pmd.installment_number     = 1
+            AND pmd.payment_type_id       != 4
+            AND NOT pmd.payment_status_id IN (65,68,69)
+            AND m.project_metadata_key_id  = 2
+            AND m.tc_direct_project_id     = tdp.project_id
+            AND b.project_id               = tdp.project_id
+            AND b.billing_account_id       = ttp.project_id
+            AND ttcp.project_id            = ttp.project_id
+			AND pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+			AND pi26.value = 'On' and p.project_status_id = 7
+			AND pi26.project_id =  p.project_id
+			AND pmd.payment_detail_id =
+			  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2  
+					INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+					where pmd2.component_project_id = p.project_id
+					   and pmd2.installment_number = 1
+					   AND NOT pmd2.payment_status_id IN (65,68, 69)
+					   AND pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))
+            AND b.billing_account_id       =
+                (SELECT MAX(billing_account_id)
+                FROM    direct_project_account
+                WHERE   project_id = tdp.project_id
+                )
+		
+		UNION ALL
         
-        UNION ALL
-        
-        SELECT  pmd.total_amount              ,
+        SELECT  pmd.total_amount        as total_amount       ,
                 m.metadata_value              ,
                 pm.create_date AS payment_date,
                 ttcp.client_id AS client_id
@@ -120,7 +164,7 @@ SELECT  ttc.name                    ,
         'UNASSIGNED' as handle                    ,
         SUM(total_amount) member_spend
 FROM
-        (SELECT pmd.total_amount              ,
+        (SELECT pmd.total_amount        as total_amount       ,
                 '' as handle              ,
                 pm.create_date AS payment_date,
                 ttcp.client_id AS client_id
@@ -152,7 +196,7 @@ FROM
         
         UNION ALL
         
-        SELECT  pmd2.total_amount              ,
+        SELECT  pmd2.total_amount        as total_amount       ,
                 '' as handle               ,
                 pm2.create_date AS payment_date,
                 ttcp.client_id  AS client_id
@@ -187,10 +231,46 @@ FROM
                 WHERE   project_id = tdp.project_id
                 )
 				and not exists (select tc_direct_project_id from direct_project_metadata where tc_direct_project_id= tdp.project_id and project_metadata_key_id=2)
+				
+		UNION ALL
+		
+		SELECT cast (nvl (pi30.value, '0') as DECIMAL (10,2)) as total_amount             ,
+                '' as handle              ,
+                pm.create_date AS payment_date,
+                ttcp.client_id AS client_id
+        FROM    project p                      ,
+                tc_direct_project tdp          ,
+                informixoltp:payment pm        ,
+                informixoltp:payment_detail pmd,
+                tt_client_project ttcp         ,
+                tt_project ttp                 ,
+                direct_project_account b ,
+				project_info pi26, project_info pi30
+                
+        WHERE   pm.most_recent_detail_id   = pmd.payment_detail_id
+            AND (month(pm.create_date) + year(pm.create_date) * 100) >= (month(TO_DATE('@sdt@', '%Y-%m')) + year(TO_DATE('@sdt@', '%Y-%m')) * 100)
+            AND  (month(pm.create_date) + year(pm.create_date) * 100) <= (month(TO_DATE('@edt@', '%Y-%m')) + year(TO_DATE('@edt@', '%Y-%m')) * 100)
+            AND p.tc_direct_project_id     = tdp.project_id
+            AND pmd.component_project_id   = p.project_id
+            AND pmd.installment_number     = 1
+            AND pmd.payment_type_id       != 4
+            AND NOT pmd.payment_status_id IN (65,68,69)
+            AND b.project_id               = tdp.project_id
+            AND b.billing_account_id       = ttp.project_id
+            AND ttcp.project_id            = ttp.project_id
+			AND pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
+			AND pi26.value = 'On' and p.project_status_id = 7
+			AND pi26.project_id =  p.project_id
+            AND b.billing_account_id       =
+                (SELECT MAX(billing_account_id)
+                FROM    direct_project_account
+                WHERE   project_id = tdp.project_id
+                )
+				and not exists (select tc_direct_project_id from direct_project_metadata where tc_direct_project_id= tdp.project_id and project_metadata_key_id=2)
         
         UNION ALL
         
-        SELECT  pmd.total_amount              ,
+        SELECT  pmd.total_amount          as total_amount     ,
                 '' as handle           ,
                 pm.create_date AS payment_date,
                 ttcp.client_id AS client_id

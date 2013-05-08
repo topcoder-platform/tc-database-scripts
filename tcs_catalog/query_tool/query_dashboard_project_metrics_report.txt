@@ -71,89 +71,77 @@ ttp.project_id as billing_project_id,
 tdp.create_date as create_date,
 tdp.completion_date as completion_date,
 to_date(pi1.value[1,16], '%m.%d.%Y %H:%M') as complete_date,
-nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                  where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
-                    and pi.project_id = p.project_id), 0) 
-              + 
-                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+(nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
+	 + 
+	   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
                   where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
                   and pi26.value = 'On' 
-                  and pi26.project_id =  p.project_id ), 0) 
-              +
-                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                    where project_info_type_id = 16  
-                    and pi.project_id = p.project_id)/2), 0)
-               ) , 0) as cost_draft,
+                  and pi26.project_id =  p.project_id )
+           +
+           nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (31, 33, 35, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0), 0) ) as cost_draft,
                
-nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                  where project_info_type_id in (33, 35, 16, 38, 39, 49) 
-                    and pi.project_id = p.project_id), 0) 
-              + 
-                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+(nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
+	 + 
+	   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
                   where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
                   and pi26.value = 'On' 
-                  and pi26.project_id =  p.project_id ), 0) 
-              +
-                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                    where project_info_type_id = 16  
-                    and pi.project_id = p.project_id)/2), 0)
-               ), 0) as percentage_cost_draft,
+                  and pi26.project_id =  p.project_id )
+           +
+           nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (33, 35, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0), 0) ) as percentage_cost_draft,
 
-nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                  where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
-                    and pi.project_id = p.project_id), 0) 
-              + 
-                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+(nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
+	 + 
+	   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
                   where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
                   and pi26.value = 'On' 
-                  and pi26.project_id =  p.project_id ), 0) 
-              +
-                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                    where project_info_type_id = 16 
-                    and pi.project_id = p.project_id)/2), 0)
-               ), 0) as cost_scheduled,
+                  and pi26.project_id =  p.project_id )
+           +
+           nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (31, 33, 35, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0), 0) ) as cost_scheduled,
                
-nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                  where project_info_type_id in ( 33, 35, 16, 38, 39, 49) 
-                    and pi.project_id = p.project_id), 0) 
-              + 
-                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+(nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
+	 + 
+	   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
                   where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
                   and pi26.value = 'On' 
-                  and pi26.project_id =  p.project_id ), 0) 
-              +
-                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                    where project_info_type_id = 16 
-                    and pi.project_id = p.project_id)/2), 0)
-               ), 0) as percentage_cost_scheduled,
+                  and pi26.project_id =  p.project_id )
+           +
+           nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (33, 35, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0), 0) ) as percentage_cost_scheduled,
                                 
-nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                  where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
-                    and pi.project_id = p.project_id), 0) 
-              + 
-                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+(nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
+	 + 
+	   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
                   where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
                   and pi26.value = 'On' 
-                  and pi26.project_id =  p.project_id ), 0) 
-              +
-                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                    where project_info_type_id = 16  
-                    and pi.project_id = p.project_id)/2), 0)
-               ), 0) as cost_active,
+                  and pi26.project_id =  p.project_id )
+           +
+           nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (31, 33, 35, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0), 0) ) as cost_active,
                
-nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                  where project_info_type_id in (33, 35, 16, 38, 39, 49) 
-                    and pi.project_id = p.project_id), 0) 
-              + 
-                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+(nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
+	 + 
+	   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
                   where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
                   and pi26.value = 'On' 
-                  and pi26.project_id =  p.project_id ), 0) 
-              +
-                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                    where project_info_type_id = 16  
-                    and pi.project_id = p.project_id)/2), 0)
-               ), 0) as percentage_cost_active,
+                  and pi26.project_id =  p.project_id )
+           +
+           nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (33, 35, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0), 0) ) as percentage_cost_active,
 
 nvl((                              
   NVL((SELECT sum(total_amount)
@@ -238,33 +226,30 @@ nvl((
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0))
      from project p where p.tc_direct_project_id = tdp.project_id 
                    and p.project_status_id in (9, 10) and p.project_category_id != 27), 0) as cost_cancelled,
-nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                  where project_info_type_id in (31, 33, 35, 16, 38, 39, 49) 
-                    and pi.project_id = p.project_id), 0) 
-              + 
-                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+				   
+(nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
+	 + 
+	   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
                   where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
                   and pi26.value = 'On' 
-                  and pi26.project_id =  p.project_id ), 0) 
-              +
-                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                    where project_info_type_id = 16  
-                    and pi.project_id = p.project_id)/2), 0)
-               ), 0) as planned_cost,
+                  and pi26.project_id =  p.project_id )
+           +
+           nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (31, 33, 35, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0), 0) )	 as planned_cost,
                                 
-nvl((nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                  where project_info_type_id in (33, 35, 16, 38, 39, 49) 
-                    and pi.project_id = p.project_id), 0) 
-              + 
-                  nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+(nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
+	 + 
+	   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
                   where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id  
                   and pi26.value = 'On' 
-                  and pi26.project_id =  p.project_id ), 0) 
-              +
-                nvl(((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
-                    where project_info_type_id = 16  
-                    and pi.project_id = p.project_id)/2), 0)
-               ), 0) as percentage_planned_cost,
+                  and pi26.project_id =  p.project_id )
+           +
+           nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (33, 35, 38, 39, 49) 
+                    and pi.project_id = p.project_id), 0), 0) ) as percentage_planned_cost,
                                 
 nvl((select nvl(mb.metadata_value, 0) from  direct_project_metadata mb where mb.tc_direct_project_id = tdp.project_id  and mb.project_metadata_key_id = 3), 0) as total_budget,
 nvl((select count(project_id) from project p where tc_direct_project_id = tdp.project_id and p.project_status_id = 2 and p.project_category_id != 27),0) as num_draft,
