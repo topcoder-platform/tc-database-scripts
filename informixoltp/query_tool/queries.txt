@@ -1143,3 +1143,6 @@ query_get_payments_by_status.txt|UPDATE query SET text=? WHERE query_id=32781
 query_get_pullable_payments.txt|UPDATE query SET text=? WHERE query_id=32782
 query_get_potential_member_payments.txt|UPDATE query SET text=? WHERE query_id=32783
 query_top_10_payments_summary.txt|UPDATE query SET text=? WHERE query_id=32767
+query_reg_secret_question_response.txt|UPDATE query SET text=? WHERE query_id=32829
+query_reg_user_info.txt|UPDATE query SET text=? WHERE query_id=32836
+query_reg_email_available.txt|UPDATE query SET text=? WHERE query_id=32837

@@ -1,0 +1,4 @@
+SELECT u.status AS user_status, u.user_id, e.status_id AS email_status, e.address
+FROM user AS u
+LEFT JOIN email AS e ON e.user_id = u.user_id
+WHERE u.handle_lower = LOWER('@ha@')
