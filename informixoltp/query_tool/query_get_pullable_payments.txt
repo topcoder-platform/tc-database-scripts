@@ -1,5 +1,5 @@
 select 
-  sum(pd.net_amount) as net_amount, NVL(pd.payment_method_id, -1) as payment_method_id
+  sum(pd.net_amount) as net_amount, NVL(upm.payment_method_id, -1) as payment_method_id
 from 
   payment p
   INNER JOIN payment_detail pd ON p.most_recent_detail_id = pd.payment_detail_id
@@ -8,4 +8,4 @@ from
   LEFT JOIN user_payment_method upm on upm.user_id=p.user_id
 where 
   pd.date_due <= today AND (psl.payment_status_id = 56 OR psl.payment_status_id = 71)
-GROUP BY pd.payment_method_id
+GROUP BY 2
