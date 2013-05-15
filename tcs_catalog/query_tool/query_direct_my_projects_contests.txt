@@ -46,6 +46,7 @@ or exists (
 ) as has_write_permission 
 from corporate_oltp:tc_direct_project_status_lu tcdpsl, tc_direct_project tcd
 LEFT OUTER JOIN corporate_oltp:direct_project_account dpa ON tcd.project_id = dpa.project_id
+                 and dpa.billing_account_id = (select max(billing_account_id) from direct_project_account where project_id = tcd.project_id)
 LEFT OUTER JOIN time_oltp:client_project cp ON dpa.billing_account_id = cp.project_id
 LEFT OUTER JOIN time_oltp:client c ON cp.client_id = c.client_id
 
@@ -81,6 +82,5 @@ or exists (
   and g.archived = 0
 ))
 and tcdpsl.project_status_id = tcd.project_status_id
-and dpa.billing_account_id = (select max(billing_account_id) from direct_project_account where project_id = tcd.project_id)
 
 order by upper(tcd.name)
