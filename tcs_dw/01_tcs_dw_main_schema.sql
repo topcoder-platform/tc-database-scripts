@@ -824,7 +824,9 @@ CREATE TABLE 'informix'.user_achievement_rule (
 	is_automated BOOLEAN DEFAULT 't',
 	db_schema VARCHAR(50) DEFAULT 'tcs_catalog',
     user_achievement_earned_sql_file NVARCHAR(254,0),
+	user_achievement_count_sql_file NVARCHAR(254,0),
     user_achievement_count_query NVARCHAR(254,0)
+	
 )
 extent size 128 next size 128
 lock mode page;
