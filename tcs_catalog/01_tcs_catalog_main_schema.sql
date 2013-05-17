@@ -3053,6 +3053,99 @@ lock mode row;
 
 revoke all on reviewer_rating from 'public';
 
+
+CREATE  TABLE 'informix'.file_type_icon (
+  id SERIAL8 NOT NULL,
+  file_type VARCHAR(50) NOT NULL ,
+  file_type_category VARCHAR(50) NOT NULL ,
+  icon_path VARCHAR(200) NOT NULL ,
+  PRIMARY KEY (id) )
+extent size 128 next size 128
+lock mode row;
+
+revoke all on file_type_icon from 'public';
+
+
+CREATE  TABLE 'informix'.asset_category (
+  id SERIAL8 NOT NULL,
+  name VARCHAR(50) NOT NULL ,
+  container_type VARCHAR(50) NOT NULL ,
+  container_id INT8 NOT NULL ,
+  PRIMARY KEY (id) )
+extent size 128 next size 128
+lock mode row;
+
+revoke all on asset_category from 'public';
+
+
+
+CREATE  TABLE 'informix'.asset (
+  id SERIAL8 NOT NULL,
+  name VARCHAR(100) NOT NULL ,
+  current_version_id INT8 ,
+  container_type VARCHAR(50) NOT NULL ,
+  container_id INT8 NOT NULL ,
+  public CHAR(1) NOT NULL ,
+  PRIMARY KEY (id))
+extent size 128 next size 128
+lock mode row;
+
+revoke all on asset from 'public';
+
+
+CREATE  TABLE 'informix'.asset_version (
+  id SERIAL8 NOT NULL,
+  version VARCHAR(50) NOT NULL ,
+  file_name VARCHAR(100) NOT NULL ,
+  file_type VARCHAR(100) NOT NULL ,
+  file_size_bytes INT8 NOT NULL ,
+  uploader_id INT8 NOT NULL ,
+  upload_time DATETIME YEAR TO FRACTION NOT NULL ,
+  description LVARCHAR(1000) ,
+  asset_id INT8 NOT NULL ,
+  preview_image_path VARCHAR(200) ,
+  file_path VARCHAR(200) NOT NULL ,
+  PRIMARY KEY (id))
+extent size 128 next size 128
+lock mode row;
+
+revoke all on asset_version from 'public';
+  
+CREATE  TABLE 'informix'.asset_category_mapping (
+  asset_id INT8 NOT NULL,
+  category_id INT8 NOT NULL ,
+  PRIMARY KEY (asset_id, category_id))
+extent size 128 next size 128
+lock mode row;
+
+revoke all on asset_category_mapping from 'public';
+  
+CREATE  TABLE 'informix'.asset_permission (
+  id SERIAL8 NOT NULL,
+  asset_id INT8 NOT NULL ,
+  user_id INT8 NOT NULL ,
+  PRIMARY KEY (id))
+extent size 128 next size 128
+lock mode row;
+
+revoke all on asset_permission from 'public';
+	
+CREATE  TABLE 'informix'.asset_audit_record (
+  id SERIAL8 NOT NULL,
+  timestamp DATETIME YEAR TO FRACTION NOT NULL ,
+  user_id INT8 NOT NULL ,
+  action VARCHAR(200) NOT NULL ,
+  entity_type VARCHAR(200) NOT NULL ,
+  entity_id INT8 NOT NULL ,
+  old_value LVARCHAR(4000) ,
+  new_value LVARCHAR(4000) ,
+  PRIMARY KEY (id) )
+extent size 128 next size 128
+lock mode row;
+
+revoke all on asset_audit_record from 'public';
+
+
 grant select on v_latest_version to 'informix' with grant option ;
 
 grant select on user_customer to 'informix' with grant option ;
@@ -4954,3 +5047,12 @@ grant select,insert,update,delete on project_payment_adjustment to public as 'in
 grant select,insert,update,delete on default_project_payment to public as 'informix';
 
 grant select,insert,update,delete on reviewer_rating to public as 'informix';
+
+
+grant select,insert,update,delete on file_type_icon to public as 'informix';
+grant select,insert,update,delete on asset_category to public as 'informix';
+grant select,insert,update,delete on asset to public as 'informix';
+grant select,insert,update,delete on asset_version to public as 'informix';
+grant select,insert,update,delete on asset_category_mapping to public as 'informix';
+grant select,insert,update,delete on asset_permission to public as 'informix';
+grant select,insert,update,delete on asset_audit_record to public as 'informix';

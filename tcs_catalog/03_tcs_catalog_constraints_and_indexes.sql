@@ -2253,6 +2253,30 @@ alter table 'informix'.reviewer_rating add constraint foreign key
     (project_id) 
     constraint fk_reviewerrating_project_projectid;
 
+alter table 'informix'.asset_version add constraint foreign key 
+    (asset_id)
+    references 'informix'.asset (id )
+    ON DELETE CASCADE
+    constraint version_asset_id_ref;
+    
+alter table 'informix'.asset add constraint foreign key 
+    (current_version_id)
+    references 'informix'.asset_version (id )
+    constraint asset_current_version_id_ref;
+
+alter table 'informix'.asset_category_mapping add constraint foreign key 
+    (asset_id)
+    references 'informix'.asset (id )
+    ON DELETE CASCADE
+    constraint mapping_asset_id_ref;
+    
+alter table 'informix'.asset_category_mapping add constraint foreign key 
+    (category_id)
+    references 'informix'.asset_category (id )
+    ON DELETE CASCADE
+    constraint mapping_category_id_ref;
+    
+
 create index 'informix'.group_archived_idx on 'informix'.customer_group
     (
     archived
@@ -2267,4 +2291,6 @@ create index 'informix'.group_member_active_idx on 'informix'.group_member
     (
     active
     );
+	
+
 	
