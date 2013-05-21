@@ -3251,3 +3251,15 @@ INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role
 INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (34, 2, 100.0, 0.0, 0.0);
 INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (34, 18, 75.0, 0.0, 0.0);
 INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (34, 14, 600.0, 0.0, 0.0);
+
+
+insert into asset_category VALUES(1, "Conceptualization", "GLOBAL", 0);
+insert into asset_category VALUES(2, "Specification", "GLOBAL", 0);
+insert into asset_category VALUES(3, "Architecture Deliverable", "GLOBAL", 0);
+insert into asset_category VALUES(4, "UI Prototype", "GLOBAL", 0);
+insert into asset_category VALUES(5, "Storyboards", "GLOBAL", 0);
+insert into asset_category VALUES(6, "QA Plan", "GLOBAL", 0);
+insert into asset_category VALUES(7, "Wireframes", "GLOBAL", 0);
+insert into asset_category VALUES(8, "Project Game Plan", "GLOBAL", 0);
+insert into asset_category VALUES(9, "Project Strategy", "GLOBAL", 0);
+insert into asset_category VALUES(10, "Client Questionnaire", "GLOBAL", 0);
