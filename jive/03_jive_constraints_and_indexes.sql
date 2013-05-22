@@ -183,3 +183,13 @@ alter table comment_message_xref add constraint foreign key
     references jivemessage
     (messageid) 
     constraint comment_message_xref_message_fk;
+
+create unique index "informix".jive_reply_to_identifiers_identifier_idx on "informix".jive_reply_to_identifiers 
+    (reply_to_identifier) using btree  in datadbs ;
+
+create unique index "informix".jive_reply_to_identifiers_user_id_msg_id_idx on "informix".jive_reply_to_identifiers 
+    (user_id, message_id) using btree  in datadbs ;
+    
+alter table "informix".jive_reply_to_identifiers add constraint (foreign 
+    key (message_id) references "informix".jivemessage  constraint 
+    "informix".jive_reply_to_identifiers_msgid_fk);

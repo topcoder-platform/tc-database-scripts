@@ -684,6 +684,18 @@ extent size 64 next size 64
 lock mode row;
 revoke all on "informix".comment_message_xref from "public" as "informix";
 
+create table "informix".jive_reply_to_identifiers 
+  (
+    reply_to_identifier_id BIGSERIAL not null,
+    reply_to_identifier varchar(50) not null ,
+    user_id decimal(10, 0) not null ,
+    message_id integer not null,
+    primary key (reply_to_identifier_id) constraint "informix".jivereply_to_identifiers_pk
+  )  
+  extent size 16 next size 16 
+  lock mode row;
+revoke all on "informix".jive_reply_to_identifiers from "public" as "informix";
+
 
 grant select on "informix".dual to "public" as "informix";
 grant update on "informix".dual to "public" as "informix";
@@ -931,3 +943,9 @@ grant select on "informix".template_project_forum to "public" as "informix";
 grant update on "informix".template_project_forum to "public" as "informix";
 grant insert on "informix".template_project_forum to "public" as "informix";
 grant delete on "informix".template_project_forum to "public" as "informix";
+
+grant select on "informix".jive_reply_to_identifiers to "public" as "informix";
+grant update on "informix".jive_reply_to_identifiers to "public" as "informix";
+grant insert on "informix".jive_reply_to_identifiers to "public" as "informix";
+grant delete on "informix".jive_reply_to_identifiers to "public" as "informix";
+grant index on "informix".jive_reply_to_identifiers to "public" as "informix";
