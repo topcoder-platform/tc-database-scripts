@@ -425,3 +425,20 @@ query_dashboard_billing_cost_invoice_report_v5.txt|UPDATE query SET text = ? WHE
 query_dashboard_billing_cost_invoice_report_invoice_number_v5.txt|UPDATE query SET text = ? WHERE query_id = 32508
 query_reviewer_rating.txt|UPDATE query SET text = ? WHERE query_id = 32818
 
+query_dashboard_billing_cost_invoice_report_DR.txt|UPDATE query SET text = ? WHERE query_id = 32866
+query_dashboard_billing_cost_invoice_report_fixed_fee.txt|UPDATE query SET text = ? WHERE query_id = 32876
+query_dashboard_billing_cost_invoice_report_member_payments.txt|UPDATE query SET text = ? WHERE query_id = 32867
+query_dashboard_billing_cost_invoice_report_percentage_fee_DR.txt|UPDATE query SET text = ? WHERE query_id = 32877
+query_dashboard_billing_cost_invoice_report_percentage_fee_payment.txt|UPDATE query SET text = ? WHERE query_id = 32868
+query_dashboard_billing_cost_invoice_report_percentage_fee_payment2.txt|UPDATE query SET text = ? WHERE query_id = 32869
+query_dashboard_billing_cost_invoice_report_project_level_payments.txt|UPDATE query SET text = ? WHERE query_id = 32870
+query_dashboard_billing_cost_invoice_report_reliability.txt|UPDATE query SET text = ? WHERE query_id = 32871
+query_dashboard_billing_cost_invoice_report_invoice_number_DR.txt|UPDATE query SET text = ? WHERE query_id = 32878
+query_dashboard_billing_cost_invoice_report_invoice_number_fixed_fee.txt|UPDATE query SET text = ? WHERE query_id = 32872
+query_dashboard_billing_cost_invoice_report_invoice_number_member_payments.txt|UPDATE query SET text = ? WHERE query_id = 32873
+query_dashboard_billing_cost_invoice_report_invoice_number_percentage_fee_DR.txt|UPDATE query SET text = ? WHERE query_id = 32879
+query_dashboard_billing_cost_invoice_report_invoice_number_percentage_fee_payment.txt|UPDATE query SET text = ? WHERE query_id = 32874
+query_dashboard_billing_cost_invoice_report_invoice_number_percentage_fee_payment2.txt|UPDATE query SET text = ? WHERE query_id = 32875
+query_dashboard_billing_cost_invoice_report_invoice_number_project_level_payments.txt|UPDATE query SET text = ? WHERE query_id = 32880
+query_dashboard_billing_cost_invoice_report_invoice_number_reliability.txt|UPDATE query SET text = ? WHERE query_id = 32881
+

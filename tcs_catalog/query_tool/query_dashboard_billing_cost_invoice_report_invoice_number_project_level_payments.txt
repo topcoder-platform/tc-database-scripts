@@ -1,0 +1,101 @@
+SELECT pm.create_date payment_date, null::int as contest_id,  ttc.name client,	ttp.name billing_project_name,  tdp.name direct_project_name,
+  null::datetime year to fraction as launch_date,
+  null::datetime year to fraction as completion_date, null::varchar as category,
+  null::varchar as contest_name, null::varchar as contest_status,
+  SUM(NVL((SELECT sum(total_amount)
+       FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+        WHERE pmd.cockpit_project_id = tdp.project_id and pmd.installment_number = 1
+        and pm.most_recent_detail_id = pmd.payment_detail_id and pmd.payment_type_id != 4
+        AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+    +
+    NVL((SELECT sum(pmd2.total_amount) 
+           FROM  informixoltp:payment_detail pmd,  
+                 informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id, 
+                 informixoltp:payment pm2 
+            WHERE pmd.cockpit_project_id = tdp.project_id and pmd2.installment_number = 1 
+            and pm.most_recent_detail_id = pmd.payment_detail_id  
+            and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
+            AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+    ) as actual_total_member_costs,
+    pt.payment_type_desc,
+    CASE WHEN pmd.payment_type_id in (69)  
+	     THEN 'Copilot'
+     WHEN pmd.payment_type_id in (68, 70, 71)  
+	      THEN 'Bugs'
+     ELSE 'Misc' 
+	END as line_item_category,
+    CASE WHEN pmd.payment_type_id in (68,69,70,71)
+         THEN pmd.jira_issue_id 
+         ELSE ''
+    END as reference_id,
+    pmd.total_amount as line_item_amount, ttc.client_id,  ttp.project_id billing_project_id,
+    tdp.project_id direct_project_id, null::int as project_category_id, pmd.payment_detail_id,    
+    0 as is_studio,
+    pm.payment_id,
+    pmd.payment_desc,
+    ir.invoice_amount,
+    ir.processed,
+    i.invoice_date as process_date,
+    i.invoice_number,
+    ir.invoice_id,
+    ir.invoice_record_id
+    
+FROM informixoltp:payment pm
+        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
+     informixoltp:payment_type_lu pt, tc_direct_project tdp, 
+     time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc,
+     informixoltp:invoice_record ir, informixoltp:invoice i
+where pmd.cockpit_project_id = tdp.project_id
+    and pmd.payment_type_id = pt.payment_type_id
+    and pmd.installment_number = 1 and pmd.payment_type_id != 4
+    and NOT pmd.payment_status_id IN (65,68, 69)
+    and ttp.project_id = ttcp.project_id
+    and ttcp.client_id = ttc.client_id
+    and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
+    and ttp.project_id = (select min(billing_account_id) 
+                            from corporate_oltp:direct_project_account dpa 
+                            where dpa.project_id = tdp.project_id)
+    and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)                    
+    and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
+    and NVL(pmd.component_project_id, 0) = @pj@
+    and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
+    and ir.cockpit_project_id = tdp.project_id
+    and ir.payment_id = pm.payment_id
+    and ir.invoice_id = i.invoice_id
+    and ir.invoice_type_id!=9
+    and i.invoice_number = '@invoicenumber@'
+    and (
+                 exists (
+                         select resource_id from user_permission_grant upg
+                         where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) and upg.permission_type_id IN (0,1,2,3) and upg.resource_id = tdp.project_id
+                         )
+
+              OR
+                 exists (
+                         SELECT
+                                tdpt.project_id as tc_direct_project_id
+                         FROM tc_direct_project tdpt
+                         INNER JOIN group_associated_direct_projects gadp ON tdpt.project_id = gadp.tc_direct_project_id
+                         INNER JOIN customer_group sg ON sg.group_id = gadp.group_id
+                         INNER JOIN group_member gm ON gm.group_id = sg.group_id
+                         WHERE gm.user_id = DECODE(@uid@, 0, gm.user_id, @uid@)
+                         AND   gm.active = 1
+                         AND   sg.archived = 0
+                         AND   tdpt.project_id = tdp.project_id
+                         )
+              OR
+                  exists (
+                          SELECT
+                                 tdpt.project_id as tc_direct_project_id
+                          FROM tc_direct_project tdpt
+                          INNER JOIN corporate_oltp:direct_project_account dpa ON tdpt.project_id = dpa.project_id
+                          INNER JOIN group_associated_billing_accounts gaba ON gaba.billing_account_id = dpa.billing_account_id
+                          INNER JOIN customer_group sg ON sg.group_id = gaba.group_id
+                          INNER JOIN group_member gm ON gm.group_id = sg.group_id
+                          WHERE gm.user_id = DECODE(@uid@, 0, gm.user_id, @uid@)
+                          AND   gm.active = 1
+                          AND   sg.archived = 0
+                          AND tdpt.project_id = tdp.project_id
+                          )
+              )
+group by 1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
