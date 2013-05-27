@@ -3146,6 +3146,133 @@ lock mode row;
 revoke all on asset_audit_record from 'public';
 
 
+create table direct_project_task_list (
+    direct_project_task_list_id Serial NOT NULL,
+    project_id INT NOT NULL,
+    name VARCHAR(80) NOT NULL,
+    notes VARCHAR(250),
+    create_date DATETIME YEAR TO FRACTION NOT NULL,
+    create_user VARCHAR(64) NOT NULL,
+    modify_date DATETIME YEAR TO FRACTION,
+    modify_user VARCHAR(64),
+    is_active CHAR DEFAULT 'Y' NOT NULL,
+    is_default CHAR DEFAULT 'N' NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task_list from 'public';
+
+create table direct_project_task_status (
+    direct_project_task_status_id int NOT NULL,
+    name VARCHAR(64) NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task_status from 'public';
+
+create table direct_project_task_list_permitted_user (
+    direct_project_task_list_id INT NOT NULL,
+    user_id INT NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task_list_permitted_user from 'public';
+
+create table direct_project_task_priority (
+    direct_project_task_priority_id int NOT NULL,
+    name VARCHAR(64) NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task_priority from 'public';
+
+
+create table direct_project_task (
+    direct_project_task_id Serial NOT NULL,
+    direct_project_task_list_id INT NOT NULL,
+    name VARCHAR(80) NOT NULL,
+    notes VARCHAR(250),
+    create_date DATETIME YEAR TO FRACTION NOT NULL,
+    create_user VARCHAR(64) NOT NULL,
+    modify_date DATETIME YEAR TO FRACTION,
+    modify_user VARCHAR(64),
+    start_date DATETIME YEAR TO FRACTION,
+    due_date DATETIME YEAR TO FRACTION,
+    status INT NOT NULL,
+    priority INT NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task from 'public';
+
+	
+create table direct_project_task_list_milestone_xref (
+    direct_project_task_attachment_id Serial NOT NULL,
+    direct_project_task_id INT NOT NULL,
+    file_name VARCHAR(64) NOT NULL,
+    mime_type VARCHAR(64) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION NOT NULL,
+    create_user VARCHAR(64) NOT NULL,
+    modify_date DATETIME YEAR TO FRACTION,
+    modify_user VARCHAR(64)
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task_list_milestone_xref from 'public';
+
+
+create table direct_project_task_list_milestone_xref (
+    direct_project_task_list_id INT NOT NULL,
+    project_milestone_id INT NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task_list_milestone_xref from 'public';
+
+create table direct_project_task_contest_xref (
+    direct_project_task_id INT NOT NULL,
+    project_id INT NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task_contest_xref from 'public';
+
+create table direct_project_task_assignee (
+    direct_project_task_id INT NOT NULL,
+    user_id INT NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task_assignee from 'public';
+
+create table direct_project_task_milestone_xref (
+    direct_project_task_id INT NOT NULL,
+    project_milestone_id INT NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task_milestone_xref from 'public';
+
+create table direct_project_task_list_contest_xref (
+    direct_project_task_list_id INT NOT NULL,
+    project_id INT NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+
+revoke all on direct_project_task_list_contest_xref from 'public';
+
+
 grant select on v_latest_version to 'informix' with grant option ;
 
 grant select on user_customer to 'informix' with grant option ;
@@ -5056,3 +5183,16 @@ grant select,insert,update,delete on asset_version to public as 'informix';
 grant select,insert,update,delete on asset_category_mapping to public as 'informix';
 grant select,insert,update,delete on asset_permission to public as 'informix';
 grant select,insert,update,delete on asset_audit_record to public as 'informix';
+
+grant select,insert,update,delete on direct_project_task_list to public as 'informix';
+grant select,insert,update,delete on direct_project_task_status to public as 'informix';
+grant select,insert,update,delete on direct_project_task_list_permitted_user to public as 'informix';
+grant select,insert,update,delete on direct_project_task_priority to public as 'informix';
+grant select,insert,update,delete on direct_project_task to public as 'informix';
+grant select,insert,update,delete on direct_project_task_attachment to public as 'informix';
+grant select,insert,update,delete on direct_project_task_list_milestone_xref to public as 'informix';
+grant select,insert,update,delete on direct_project_task_contest_xref to public as 'informix';
+grant select,insert,update,delete on direct_project_task_assignee to public as 'informix';
+grant select,insert,update,delete on direct_project_task_milestone_xref to public as 'informix';
+grant select,insert,update,delete on direct_project_task_list_contest_xref to public as 'informix';
+

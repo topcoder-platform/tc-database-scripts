@@ -927,6 +927,67 @@ alter table 'informix'.default_project_payment add constraint primary key
 alter table 'informix'.reviewer_rating add constraint primary key 
     (project_id, user_id)
     constraint reviewer_rating_pk;
+	
+alter table direct_project_task_list add constraint primary key 
+	(direct_project_task_list_id)
+	constraint pk_direct_project_task_list;
+	
+	
+	
+
+alter table direct_project_task_list_permitted_user add constraint primary key 
+	(direct_project_task_list_id, user_id)
+	constraint pk_direct_project_task_list_permitted_user;
+
+	
+
+alter table direct_project_task_status add constraint primary key 
+	(direct_project_task_status_id)
+	constraint pk_direct_project_task_status_id;
+
+
+
+alter table direct_project_task_priority add constraint primary key 
+	(direct_project_task_priority_id)
+	constraint pk_direct_project_task_priority;
+
+
+alter table direct_project_task add constraint primary key 
+	(direct_project_task_id)
+	constraint pk_direct_project_task;
+
+alter table direct_project_task_attachment add constraint primary key 
+	(direct_project_task_attachment_id)
+	constraint pk_direct_project_task_attachment;
+
+alter table direct_project_task_contest_xref add constraint primary key 
+	(direct_project_task_id, project_id)
+	constraint pk_direct_project_task_contest_xref;
+
+
+
+alter table direct_project_task_assignee add constraint primary key 
+	(direct_project_task_id, user_id)
+	constraint pk_direct_project_task_assignee;
+
+
+
+
+alter table direct_project_task_milestone_xref add constraint primary key 
+	(direct_project_task_id, project_milestone_id)
+	constraint pk_direct_project_task_milestone_xref;
+
+
+
+
+alter table direct_project_task_list_contest_xref add constraint primary key 
+	(direct_project_task_list_id, project_id)
+	constraint pk_direct_project_task_list_contest_xref;
+
+
+alter table direct_project_task_list_milestone_xref add constraint primary key 
+	(direct_project_task_list_id, project_milestone_id)
+	constraint pk_direct_project_task_list_milestone_xref;
 
 
 alter table 'informix'.comp_categories add constraint foreign key 
@@ -2291,6 +2352,79 @@ create index 'informix'.group_member_active_idx on 'informix'.group_member
     (
     active
     );
-	
+
+alter table direct_project_task_list_permitted_user add constraint foreign key 
+	(direct_project_task_list_id)
+	references direct_project_task_list
+	(direct_project_task_list_id) 
+	constraint fk_task_list_permitted_user_to_task_list;
+
+alter table direct_project_task add constraint foreign key 
+	(direct_project_task_list_id)
+	references direct_project_task_list
+	(direct_project_task_list_id) 
+	constraint fk_task_to_task_list;
+
+alter table direct_project_task add constraint foreign key 
+	(status)
+	references direct_project_task_status
+	(direct_project_task_status_id) 
+	constraint fk_task_to_task_status;
+
+alter table direct_project_task add constraint foreign key 
+	(priority)
+	references direct_project_task_priority
+	(direct_project_task_priority_id) 
+	constraint fk_task_to_task_priority;
+
+alter table direct_project_task_attachment add constraint foreign key 
+	(direct_project_task_id)
+	references direct_project_task
+	(direct_project_task_id) 
+	constraint fk_task_attachment_to_task;
+
+alter table direct_project_task_contest_xref add constraint foreign key 
+	(direct_project_task_id)
+	references direct_project_task
+	(direct_project_task_id) 
+	constraint fk_task_contest_xref_to_task;
+
+
+alter table direct_project_task_assignee add constraint foreign key 
+	(direct_project_task_id)
+	references direct_project_task
+	(direct_project_task_id) 
+	constraint fk_task_assignee_to_task;
+
+alter table direct_project_task_milestone_xref add constraint foreign key 
+	(direct_project_task_id)
+	references direct_project_task
+	(direct_project_task_id) 
+	constraint fk_task_milestone_xref_to_task;
+
+alter table direct_project_task_milestone_xref add constraint foreign key 
+	(project_milestone_id)
+	references project_milestone
+	(project_milestone_id) 
+	constraint fk_task_milestone_xref_to_project;
+
+
+alter table direct_project_task_list_contest_xref add constraint foreign key 
+	(direct_project_task_list_id)
+	references direct_project_task_list
+	(direct_project_task_list_id) 
+	constraint fk_task_list_context_xref_to_task_list;
+
+alter table direct_project_task_list_milestone_xref add constraint foreign key 
+	(project_milestone_id)
+	references project_milestone
+	(project_milestone_id) 
+	constraint fk_task_list_milestone_xref_to_project;
+
+alter table direct_project_task_list_milestone_xref add constraint foreign key 
+	(direct_project_task_list_id)
+	references direct_project_task_list
+	(direct_project_task_list_id) 
+	constraint fk_task_list_milestone_xref_to_task_list;
 
 	
