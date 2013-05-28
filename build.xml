@@ -219,5 +219,13 @@
   <target name="update_properties" >
     <ant antfile="build-configuration.xml" target="update_properties" />
   </target>
+  
+  <target name="query_catalog" description="reload query of tcs_catalog">
+    <updatetextcolumn database="tcs_catalog" outfile="tcs_catalog.log" append="true" />
+  </target>
+  
+  <target name="query_dw" description="reload query of tcs_dw">
+    <updatetextcolumn database="tcs_dw" outfile="tcs_dw.log" append="true" />
+  </target>
 
 </project>
