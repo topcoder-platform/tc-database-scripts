@@ -41,7 +41,7 @@ where pmd.cockpit_project_id = tdp.project_id   and pmd.payment_type_id = pt.pay
     and ttp.project_id = (select min(billing_account_id) from corporate_oltp:direct_project_account dpa where dpa.project_id = tdp.project_id)
     and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
     and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
-    and pmd.cockpit_project_id = DECODE(@pj@, 0, pmd.cockpit_project_id, @pj@)
+    and 0 = DECODE(@pj@, 0, 0, @pj@)
     and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
    and (
              exists (
