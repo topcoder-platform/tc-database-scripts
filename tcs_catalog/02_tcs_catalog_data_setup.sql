@@ -3040,6 +3040,9 @@ values (6, "Spec Review Required", "Spec Review Required", "user", CURRENT, "use
 INSERT INTO 'informix'.client_billing_config_type_lu (client_billing_config_type_id, name, description , create_user, create_date, modify_user, modify_date)
 values (7, "Track Late Deliverables", "Track Late Deliverables", "user", CURRENT, "user", CURRENT);
 
+INSERT INTO 'informix'.client_billing_config_type_lu (client_billing_config_type_id, name, description , create_user, create_date, modify_user, modify_date)
+values (8, "CCA Required", "CCA Required", "user", CURRENT, "user", CURRENT);
+
 
 INSERT INTO audit_action_type_lu (audit_action_type_id, name, description, create_user, create_date, modify_user, modify_date)
  VALUES (1, "Create", "Create", 156859, CURRENT, 156859, CURRENT);
