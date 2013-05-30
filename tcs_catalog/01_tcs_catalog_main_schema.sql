@@ -3053,6 +3053,15 @@ lock mode row;
 
 revoke all on reviewer_rating from 'public';
 
+CREATE TABLE "informix".collaborating_members (
+    collaborating_group_id INT NOT NULL,
+    user_id DECIMAL(10,0) NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on "informix".collaborating_members from public as "informix";
+
 
 CREATE  TABLE 'informix'.file_type_icon (
   id SERIAL8 NOT NULL,
@@ -5174,6 +5183,8 @@ grant select,insert,update,delete on project_payment_adjustment to public as 'in
 grant select,insert,update,delete on default_project_payment to public as 'informix';
 
 grant select,insert,update,delete on reviewer_rating to public as 'informix';
+
+grant select,insert,update,delete on collaborating_members to public as 'informix';
 
 
 grant select,insert,update,delete on file_type_icon to public as 'informix';

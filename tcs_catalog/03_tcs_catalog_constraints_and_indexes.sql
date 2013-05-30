@@ -927,6 +927,10 @@ alter table 'informix'.default_project_payment add constraint primary key
 alter table 'informix'.reviewer_rating add constraint primary key 
     (project_id, user_id)
     constraint reviewer_rating_pk;
+
+alter table 'informix'.collaborating_members add constraint primary key 
+    (collaborating_group_id, user_id)
+    constraint pk_collaborating_members;
 	
 alter table direct_project_task_list add constraint primary key 
 	(direct_project_task_list_id)
