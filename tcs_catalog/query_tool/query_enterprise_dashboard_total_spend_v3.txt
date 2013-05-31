@@ -36,6 +36,17 @@ AND   p.tc_direct_project_id IN (@tcdirectids@)
 
 UNION ALL
 
+SELECT
+	pm.create_date as paydate, pmd.cockpit_project_id, 0 as contest_fee_amount,  NVL(pmd.total_amount, 0) as cost_amount
+FROM
+informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+WHERE pmd.cockpit_project_id IN (@tcdirectids@)
+AND   pmd.installment_number = 1
+AND   NOT pmd.payment_status_id IN (65,68, 69)
+
+
+UNION ALL
+
 SELECT pm.create_date as paydate, p.tc_direct_project_id,
 case when p.project_status_id  in (1,7) then
 	(0 + nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
