@@ -3220,7 +3220,7 @@ lock mode row;
 revoke all on direct_project_task from 'public';
 
 	
-create table direct_project_task_list_milestone_xref (
+create table direct_project_task_attachment (
     direct_project_task_attachment_id Serial NOT NULL,
     direct_project_task_id INT NOT NULL,
     file_name VARCHAR(64) NOT NULL,
@@ -3233,7 +3233,7 @@ create table direct_project_task_list_milestone_xref (
 extent size 128 next size 128
 lock mode row;
 
-revoke all on direct_project_task_list_milestone_xref from 'public';
+revoke all on direct_project_task_attachment from 'public';
 
 
 create table direct_project_task_list_milestone_xref (
