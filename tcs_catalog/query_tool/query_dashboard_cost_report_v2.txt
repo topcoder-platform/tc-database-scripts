@@ -155,7 +155,7 @@ where p.project_status_id = ps.project_status_id
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
 
-UNION
+UNION ALL
 
 select p.project_id,
        ttc.name client,
@@ -287,9 +287,9 @@ where p.project_status_id = ps.project_status_id
   and pc.project_type_id = 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17)
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17)) AS s
 
-UNION
+UNION ALL
 
  SELECT NULL::int as project_id, ttc.name as client, ttc.client_id as client_id, ttp.name as billing_project_name, ttp.project_id as billing_project_id,
  tdp.name as direct_project_name, tdp.project_id as direct_project_id, NULL::datetime year to fraction as launch_date, NULL::datetime year to fraction as completion_date,
@@ -338,7 +338,7 @@ NVL((SELECT sum(total_amount)
             AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
             AND gaba.billing_account_id = DECODE(0, 0, ttp.project_id, 0))
        )
-group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17)) AS s
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
 
 
 
