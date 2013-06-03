@@ -111,7 +111,7 @@ from project p,
      time_oltp:client_project ttcp,
      time_oltp:client ttc,
           table (multiset((select  ph.project_id,  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl, project pp
-                                        where phase_type_id = (case when pp.project_category_id in (9, 29) then 4
+                                        where phase_type_id = (case when pp.project_category_id in (9, 29, 37) then 4
                                                                    when pcl.project_type_id in (1,2) then 10
 								else 4 end)
 				and pcl.project_category_id = pp.project_category_id and ph.project_id = pp.project_id  GROUP BY ph.project_id))) ct
@@ -287,7 +287,7 @@ where p.project_status_id = ps.project_status_id
   and pc.project_type_id = 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17)) AS s
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17)
 
 UNION
 
@@ -338,7 +338,7 @@ NVL((SELECT sum(total_amount)
             AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
             AND gaba.billing_account_id = DECODE(0, 0, ttp.project_id, 0))
        )
-group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17)) AS s
 
 
 
