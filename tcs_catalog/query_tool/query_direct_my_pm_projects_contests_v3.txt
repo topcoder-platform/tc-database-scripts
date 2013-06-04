@@ -271,7 +271,7 @@ where ttp.project_id = ttcp.project_id
             on uref.role_id = sr.role_id 
             and sr.description in ('TC Staff')))
             
-union
+union all
 
 SELECT
 	null::int as project_id,
