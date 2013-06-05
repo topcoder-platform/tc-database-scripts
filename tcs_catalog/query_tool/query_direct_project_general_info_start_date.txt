@@ -3,4 +3,4 @@ from
 table(multiset(SELECT
 (select min(nvl(actual_start_time, scheduled_start_time)) from project_phase ph where ph.project_id = p.project_id and ph.phase_type_id = 1) as contest_start_date
 FROM project p
-WHERE p.tc_direct_project_id = @tcdirectid@))
+WHERE p.tc_direct_project_id = @tcdirectid@ and p.project_status_id !=3))
