@@ -2401,16 +2401,51 @@ revoke all on "informix".late_deliverable from public as "informix";
 
 CREATE TABLE "informix".review_feedback (
     review_feedback_id serial NOT NULL,
-    project_id INT not null,
-    reviewer_user_id DECIMAL(10,0) NOT NULL,
-    score INTEGER NOT NULL,
-    feedback_text lvarchar(4096),
+    project_id INT NOT NULL,
+    comment lvarchar(4096),
     create_user VARCHAR(64) NOT NULL,
-    create_date DATETIME YEAR TO FRACTION NOT NULL
+    create_date DATETIME YEAR TO FRACTION NOT NULL,
+    modify_user VARCHAR(64) NOT NULL,
+    modify_date DATETIME YEAR TO FRACTION NOT NULL
 )
-extent size 3000 next size 3000
+extent size 128 next size 128
 lock mode row;
 revoke all on "informix".review_feedback from public as "informix";
+
+CREATE TABLE "informix".review_feedback_audit (
+    review_feedback_id INT NOT NULL,
+    project_id INT NOT NULL,
+    comment lvarchar(4096),
+    audit_action_type_id INT NOT NULL,
+    action_user VARCHAR(64) NOT NULL,
+    action_date DATETIME YEAR TO FRACTION NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+revoke all on "informix".review_feedback_audit from public as "informix";
+
+CREATE TABLE "informix".review_feedback_detail (
+    review_feedback_id INT NOT NULL,
+    reviewer_user_id DECIMAL(10,0) NOT NULL,
+    score INTEGER NOT NULL,
+    feedback_text lvarchar(4096) NOT NULL
+)
+extent size 196 next size 196
+lock mode row;
+revoke all on "informix".review_feedback_detail from public as "informix";
+
+CREATE TABLE "informix".review_feedback_detail_audit (
+    review_feedback_id INT NOT NULL,
+    reviewer_user_id DECIMAL(10,0) NOT NULL,
+    score INTEGER,
+    feedback_text lvarchar(4096),
+    audit_action_type_id INT NOT NULL,
+    action_user VARCHAR(64) NOT NULL,
+    action_date DATETIME YEAR TO FRACTION NOT NULL
+)
+extent size 256 next size 256
+lock mode row;
+revoke all on "informix".review_feedback_detail_audit from public as "informix";
 
 CREATE TABLE "informix".project_reliability (
     project_id INT NOT NULL,
@@ -4986,6 +5021,9 @@ grant select,insert,update,delete on "informix".client_billing_config_type_lu to
 grant select,insert,update,delete on "informix".late_deliverable_type_lu to public as "informix";
 grant select,insert,update,delete on "informix".late_deliverable to public as "informix";
 grant select,insert,update,delete on "informix".review_feedback to public as "informix";
+grant select,insert,update,delete on "informix".review_feedback_audit to public as "informix";
+grant select,insert,update,delete on "informix".review_feedback_detail to public as "informix";
+grant select,insert,update,delete on "informix".review_feedback_detail_audit to public as "informix";
 grant select,insert,update,delete on "informix".project_reliability to public as "informix";
 
 grant select,insert,update,delete on "informix".copilot_project_status to public as informix;

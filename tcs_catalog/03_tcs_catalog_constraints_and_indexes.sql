@@ -793,6 +793,10 @@ alter table 'informix'.review_feedback add constraint primary key
   (review_feedback_id)
   constraint pk_review_feedback;
 
+alter table 'informix'.review_feedback_detail add constraint primary key
+  (review_feedback_id, reviewer_user_id)
+  constraint pk_review_feedback_detail;
+
 alter table 'informix'.project_reliability add constraint primary key
     (project_id, user_id)
     constraint pk_project_reliability;
@@ -2018,6 +2022,36 @@ alter table 'informix'.review_feedback add constraint foreign key
     references 'informix'.project
     (project_id)
     constraint fk_reviewfeedback_project_projectid;
+
+alter table 'informix'.review_feedback_audit add constraint foreign key
+    (review_feedback_id)
+    references 'informix'.review_feedback
+    (review_feedback_id)
+    constraint fk_reviewfeedbackaudit_reviewfeedback_reviewfeedbackid;
+
+alter table 'informix'.review_feedback_audit add constraint foreign key
+    (audit_action_type_id)
+    references 'informix'.audit_action_type_lu
+    (audit_action_type_id)
+    constraint fk_reviewfeedbackaudit_auditactiontypelu_auditactiontypeid;
+
+alter table 'informix'.review_feedback_detail add constraint foreign key
+    (review_feedback_id)
+    references 'informix'.review_feedback
+    (review_feedback_id)
+    constraint fk_reviewfeedbackdetail_reviewfeedback_reviewfeedbackid;
+
+alter table 'informix'.review_feedback_detail_audit add constraint foreign key
+    (review_feedback_id)
+    references 'informix'.review_feedback
+    (review_feedback_id)
+    constraint fk_reviewfeedbackdetailaudit_reviewfeedback_reviewfeedbackid;
+
+alter table 'informix'.review_feedback_detail_audit add constraint foreign key
+    (audit_action_type_id)
+    references 'informix'.audit_action_type_lu
+    (audit_action_type_id)
+    constraint fk_reviewfeedbackdetailaudit_auditactiontypelu_auditactiontypeid;
 
 alter table 'informix'.project_reliability add constraint foreign key 
     (project_id)
