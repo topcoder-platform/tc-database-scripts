@@ -168,7 +168,7 @@ where p.project_status_id <> DECODE(@includeDeletes@,0,3,-1)
   and ttp.project_id = ttcp.project_id
   and ttcp.client_id = ttc.client_id
   and ttc.client_id = 70014096 --IBM
-  and ttp.project_id in ( 70016347, 70016500, 70016501)
+  and ttp.project_id in ( 70016347, 70016500, 70016501, 70016530)
   and p.tc_direct_project_id = tdp.project_id
   and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) >= mdy(8,1,2009) and (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) >= (today - @days@)
  
