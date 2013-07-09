@@ -42,7 +42,37 @@ p.tc_direct_project_id as tc_direct_project_id,
 case when ppd.actual_start_time is not null then ppd.actual_start_time else psd.actual_start_time end as posting_date,
 to_date(pi1.value[1,16], '%m.%d.%Y %H:%M') as complete_date,
 
-case when p.project_status_id = 7  then
+case when (p.project_status_id = 7
+           OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pcl.project_type_id = 3)
+       	   and exists (select phase_type_id from project_phase
+				where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3)
+		   and exists (select payment_id from informixoltp:payment pm 
+		                   INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+					  where pmd.component_project_id = p.project_id 
+						and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+						 and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+						   and pmd.payment_detail_id =
+						  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+								INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+								where pmd2.component_project_id = p.project_id
+								   and pmd2.installment_number = 1
+								   AND NOT pmd2.payment_status_id IN (65,68, 69)
+									and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))))
+	  OR (p.project_status_id  = 1 and (p.project_category_id not in (9, 29) and pcl.project_type_id in (1,2))
+       	   and (exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =11 and phase_status_id in(2,3))
+		        OR not exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =10 and phase_status_id in (1,2)))
+		   	   and exists (select payment_id from informixoltp:payment pm 
+		                   INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+					  where pmd.component_project_id = p.project_id 
+						and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+						 and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+						   and pmd.payment_detail_id =
+						  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+								INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+								where pmd2.component_project_id = p.project_id
+								   and pmd2.installment_number = 1
+								   AND NOT pmd2.payment_status_id IN (65,68, 69)
+									and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)))))  then
     NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
@@ -96,10 +126,11 @@ NVL((SELECT SUM(((actual_end_time - actual_start_time)::INTERVAL MINUTE(9) TO MI
      AND NOT (ppa.actual_start_time IS NULL 
               OR ppa.actual_end_time IS NULL)), 0) 
 AS approval_phase_duration
-from project p, OUTER project_phase psd, OUTER project_phase ppd, outer project_info pi1
+from project p, project_category_lu pcl, OUTER project_phase psd, OUTER project_phase ppd, outer project_info pi1
 where p.project_id = ppd.project_id and psd.phase_type_id = 2 and ppd.phase_type_id = 1 and psd.project_id = p.project_id
 and pi1.project_id = p.project_id  and pi1.project_info_type_id = 21
 and p.tc_direct_project_id = @tcdirectid@
+and p.project_category_id = pcl.project_category_id
 and  project_status_id != 3
 and p.project_category_id != 27
 and (exists (select u.user_id 
