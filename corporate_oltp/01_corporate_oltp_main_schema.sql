@@ -235,6 +235,8 @@ create table "informix".tc_direct_project
 	direct_project_type_id INT,
 	direct_project_category_id INT,
 	completion_date DATETIME YEAR TO SECOND,
+	fixed_bug_contest_fee DECIMAL(5,0),
+	percentage_bug_contest_fee DECIMAL(7,2),
     primary key (project_id)  constraint "informix".tc_direct_project_pkey
   )  
   extent size 20000 next size 20000
