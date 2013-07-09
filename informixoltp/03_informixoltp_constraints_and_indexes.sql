@@ -3179,7 +3179,7 @@ alter table 'informix'.invoice_record add constraint foreign key
 
 create unique index 'informix'.invoice_record1 on 'informix'.invoice_record
     (
-    contest_id,invoice_type_id,payment_id
+    jira_issue_id, contest_id,invoice_type_id,payment_id
     );
     
 CREATE UNIQUE INDEX 'informix'.invoice_invoice_number on 'informix'.invoice (invoice_number);

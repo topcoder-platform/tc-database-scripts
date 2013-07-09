@@ -4043,7 +4043,8 @@ CREATE TABLE invoice_record (
     create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
     modify_user VARCHAR(64) NOT NULL,
     modify_date DATETIME YEAR TO FRACTION(3) NOT NULL,
-	reference_id DECIMAL(10,0)
+	reference_id DECIMAL(10,0),
+	jira_issue_id varchar(100)
 )
 extent size 1000 next size 1000
 lock mode row;
