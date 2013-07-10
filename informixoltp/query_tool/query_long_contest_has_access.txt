@@ -1,0 +1,10 @@
+SELECT 1
+FROM round r
+WHERE r.round_id = @rd@ AND
+(
+(NOT EXISTS (SELECT 1 FROM round_behavior rb
+WHERE rb.round_id=r.round_id AND rb.behavior_id=3))
+OR
+(EXISTS (SELECT 1 FROM round_registration rr
+WHERE rr.round_Id=r.round_id AND rr.coder_id=@cr@))
+)
