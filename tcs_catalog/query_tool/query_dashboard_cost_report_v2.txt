@@ -11,13 +11,13 @@ SELECT s.project_id,
     s.project_category_id,
     s.contest_name,
     s.is_studio,
-   nvl((case when s.contest_fee_percentage = 0 or s.contest_fee_percentage is null then s.contest_fee
-         else (case when s.project_status_id not in (1,2) then s.contest_fee_percentage * s.actual_Member_Costs
+      nvl((case when s.contest_fee_percentage = 0 or s.contest_fee_percentage is null then s.contest_fee
+         else (case when s.project_status_id not in (1,2) or (s.project_status_id = 1 and actual_active = 1) then s.contest_fee_percentage * s.actual_Member_Costs
                 else s.contest_fee_percentage * s.estimated_member_costs end)
          end), 0) as contest_fee,
     s.contest_status,
     s.estimated_member_costs,
-    s.actual_Member_Costs
+    s.actual_Member_Costs, s.actual_active
     
 FROM table(MULTISET(select p.project_id,
        ttc.name client,
@@ -52,6 +52,38 @@ FROM table(MULTISET(select p.project_id,
     nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage,
     p.project_status_id,
+	
+	case when (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
+       	   and exists (select phase_type_id from project_phase
+				where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3)
+		   and exists (select payment_id from informixoltp:payment pm 
+		                   INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+					  where pmd.component_project_id = p.project_id 
+						and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+						 and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+						   and pmd.payment_detail_id =
+						  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+								INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+								where pmd2.component_project_id = p.project_id
+								   and pmd2.installment_number = 1
+								   AND NOT pmd2.payment_status_id IN (65,68, 69)
+									and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))))
+	  OR (p.project_status_id  = 1 and (p.project_category_id not in (9, 29) and pc.project_type_id in (1,2))
+       	   and (exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =11 and phase_status_id in(2,3))
+		        OR not exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =10 and phase_status_id in (1,2)))
+		   	   and exists (select payment_id from informixoltp:payment pm 
+		                   INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+					  where pmd.component_project_id = p.project_id 
+						and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+						 and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+						   and pmd.payment_detail_id =
+						  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+								INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+								where pmd2.component_project_id = p.project_id
+								   and pmd2.installment_number = 1
+								   AND NOT pmd2.payment_status_id IN (65,68, 69)
+									and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)))) 
+	then 1 else 0 end as actual_active,
     
 (nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
                 where pr.project_id = p.project_id), 0)
@@ -65,7 +97,37 @@ FROM table(MULTISET(select p.project_id,
                   where project_info_type_id in (33, 35, 38, 39, 49) 
                     and pi.project_id = p.project_id), 0), 0) )	  as estimated_member_costs,
 
-  SUM(case when p.project_status_id = 7 then
+  SUM(case when (p.project_status_id = 7
+           OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
+       	   and exists (select phase_type_id from project_phase
+				where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3)
+		   and exists (select payment_id from informixoltp:payment pm 
+		                   INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+					  where pmd.component_project_id = p.project_id 
+						and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+						 and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+						   and pmd.payment_detail_id =
+						  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+								INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+								where pmd2.component_project_id = p.project_id
+								   and pmd2.installment_number = 1
+								   AND NOT pmd2.payment_status_id IN (65,68, 69)
+									and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))))
+	  OR (p.project_status_id  = 1 and (p.project_category_id not in (9, 29) and pc.project_type_id in (1,2))
+       	   and (exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =11 and phase_status_id in(2,3))
+		        OR not exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =10 and phase_status_id in (1,2)))
+		   	   and exists (select payment_id from informixoltp:payment pm 
+		                   INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+					  where pmd.component_project_id = p.project_id 
+						and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+						 and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+						   and pmd.payment_detail_id =
+						  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+								INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+								where pmd2.component_project_id = p.project_id
+								   and pmd2.installment_number = 1
+								   AND NOT pmd2.payment_status_id IN (65,68, 69)
+									and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)))))  then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
@@ -153,7 +215,7 @@ where p.project_status_id = ps.project_status_id
   and pc.project_type_id  != 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, 18
 
 UNION ALL
 
@@ -190,6 +252,38 @@ select p.project_id,
     (select nvl(pcfp.contest_fee_percentage, 0) from time_oltp:project_contest_fee_percentage pcfp
             where ttp.project_id = pcfp.project_id and pcfp.active = 'T') as contest_fee_percentage,
     p.project_status_id,
+	
+	case when (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
+       	   and exists (select phase_type_id from project_phase
+				where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3)
+		   and exists (select payment_id from informixoltp:payment pm 
+		                   INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+					  where pmd.component_project_id = p.project_id 
+						and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+						 and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+						   and pmd.payment_detail_id =
+						  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+								INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+								where pmd2.component_project_id = p.project_id
+								   and pmd2.installment_number = 1
+								   AND NOT pmd2.payment_status_id IN (65,68, 69)
+									and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))))
+	  OR (p.project_status_id  = 1 and (p.project_category_id not in (9, 29) and pc.project_type_id in (1,2))
+       	   and (exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =11 and phase_status_id in(2,3))
+		        OR not exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =10 and phase_status_id in (1,2)))
+		   	   and exists (select payment_id from informixoltp:payment pm 
+		                   INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+					  where pmd.component_project_id = p.project_id 
+						and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+						 and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+						   and pmd.payment_detail_id =
+						  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+								INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+								where pmd2.component_project_id = p.project_id
+								   and pmd2.installment_number = 1
+								   AND NOT pmd2.payment_status_id IN (65,68, 69)
+									and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)))) 
+	then 1 else 0 end as actual_active,
     
         nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
                 where pr.project_id = p.project_id), 0)
@@ -203,7 +297,37 @@ select p.project_id,
 			and pi26.value = 'On'
 			and pi26.project_id =  p.project_id ), 0) as estimated_member_costs,
 
-  SUM(case when p.project_status_id = 7 then
+  SUM(case when (p.project_status_id = 7
+           OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
+       	   and exists (select phase_type_id from project_phase
+				where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3)
+		   and exists (select payment_id from informixoltp:payment pm 
+		                   INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+					  where pmd.component_project_id = p.project_id 
+						and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+						 and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+						   and pmd.payment_detail_id =
+						  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+								INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+								where pmd2.component_project_id = p.project_id
+								   and pmd2.installment_number = 1
+								   AND NOT pmd2.payment_status_id IN (65,68, 69)
+									and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))))
+	  OR (p.project_status_id  = 1 and (p.project_category_id not in (9, 29) and pc.project_type_id in (1,2))
+       	   and (exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =11 and phase_status_id in(2,3))
+		        OR not exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =10 and phase_status_id in (1,2)))
+		   	   and exists (select payment_id from informixoltp:payment pm 
+		                   INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id 
+					  where pmd.component_project_id = p.project_id 
+						and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+						 and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+						   and pmd.payment_detail_id =
+						  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+								INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+								where pmd2.component_project_id = p.project_id
+								   and pmd2.installment_number = 1
+								   AND NOT pmd2.payment_status_id IN (65,68, 69)
+									and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)))))  then
       NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
@@ -287,14 +411,14 @@ where p.project_status_id = ps.project_status_id
   and pc.project_type_id = 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
-group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17)) AS s
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18)) AS s
 
 UNION ALL
 
  SELECT NULL::int as project_id, ttc.name as client, ttc.client_id as client_id, ttp.name as billing_project_name, ttp.project_id as billing_project_id,
  tdp.name as direct_project_name, tdp.project_id as direct_project_id, NULL::datetime year to fraction as launch_date, NULL::datetime year to fraction as completion_date,
  'Bug Race' as category, NULL::int as project_category_id, NULL::varchar as contest_name,
- 0 as is_studio, NULL::DECIMAL(10,2) as contest_fee, NULL::varchar as contest_status, NULL::DECIMAL(10,2) as estimated_member_costs,
+ 0 as is_studio, 0 as contest_fee, NULL::varchar as contest_status, 0 as estimated_member_costs,
 NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.cockpit_project_id = tdp.project_id and pmd.installment_number = 1
@@ -309,7 +433,7 @@ NVL((SELECT sum(total_amount)
             and pm.most_recent_detail_id = pmd.payment_detail_id
             and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-     as actual_member_costs
+     as actual_member_costs, 0 as actual_active
  FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
      informixoltp:payment_type_lu pt, tc_direct_project tdp,
      time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc
@@ -338,7 +462,7 @@ NVL((SELECT sum(total_amount)
             AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
             AND gaba.billing_account_id = DECODE(0, 0, ttp.project_id, 0))
        )
-group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
 
 
 
