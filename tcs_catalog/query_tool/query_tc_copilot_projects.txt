@@ -1,6 +1,6 @@
 select unique tdp.project_id as tc_direct_project_id, tdp.name as tc_direct_project_name, cpr.user_id, u.handle, ct.name, cp.copilot_project_id, cpr.copilot_profile_id
 
-from user_permission_grant upg, tc_direct_project tdp
+from tc_direct_project tdp
 
 left outer join copilot_project cp on tdp.project_id = cp.tc_direct_project_id
 left outer join copilot_profile cpr on cpr.copilot_profile_id = cp.copilot_profile_id
@@ -8,14 +8,65 @@ left outer join user u on u.user_id = cpr.user_id
 left outer join copilot_type ct on ct.copilot_type_id = cp.copilot_type_id
 
 
-where tdp.project_id = upg.resource_id
-
-and upg.user_id = @uid@
-
-and upg.permission_type_id in (1,2,3)
-
-and tdp.project_status_id not in (3,5)
-
+where
+tdp.project_status_id not in (3,5)
 and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
+and (
+    exists( select upg.resource_id
+            from user_permission_grant upg
+            where
+                tdp.project_id = upg.resource_id
+                and upg.user_id = @uid@
+                and upg.permission_type_id in (1,2,3)
+)
+or exists (
+  select gm.group_id from group_member gm,
+  group_associated_direct_projects gadp,
+  customer_group g
+ where gm.active=1 and gm.unassigned_on is null
+  and gadp.group_id=gm.group_id
+  and gadp.tc_direct_project_id=tdp.project_id
+    and ((gm.use_group_default=0 and gm.specific_permission!='REPORT')
+              or (gm.use_group_default=1 and g.default_permission != 'REPORT'))
+  and gm.user_id = @uid@
+  and g.group_id = gm.group_id
+  and g.archived = 0
+)
+or exists (
+  select gm.group_id from group_member gm,
+  group_associated_billing_accounts gaba,
+  customer_group g,
+  corporate_oltp:direct_project_account dpa
+ where gm.active=1 and gm.unassigned_on is null
+  and gaba.group_id=gm.group_id
+  and dpa.project_id=tdp.project_id
+  and gaba.billing_account_id=dpa.billing_account_id
+    and ((gm.use_group_default=0 and gm.specific_permission!='REPORT')
+              or (gm.use_group_default=1 and g.default_permission != 'REPORT'))
+  and gm.user_id = @uid@
+  and g.group_id = gm.group_id
+  and g.archived = 0
+)
+or exists(
+    SELECT
+        gm.group_id
+    FROM
+        tc_direct_project tdp2
+        INNER JOIN corporate_oltp:direct_project_account dpa ON tdp2.project_id = dpa.project_id
+        INNER JOIN tt_project ttp ON dpa.billing_account_id = ttp.project_id
+        INNER JOIN tt_client_project ttcp ON ttp.project_id = ttcp.project_id
+        INNER JOIN tt_client ttc ON ttcp.client_id = ttc.client_id
+        INNER JOIN customer_group sg ON sg.client_id = ttc.client_id
+        INNER JOIN group_member gm ON sg.group_id = gm.group_id
+    WHERE
+        sg.auto_grant = 1
+        AND   gm.active = 1 and gm.unassigned_on is null
+        AND   sg.archived = 0
+        AND tdp2.project_id = tdp.project_id
+        AND ttc.client_status_id = 1
+        AND ((gm.use_group_default=0 and gm.specific_permission!='REPORT')
+                OR (gm.use_group_default=1 and sg.default_permission != 'REPORT'))
+        AND   gm.user_id = @uid@
+))
 
 order by tc_direct_project_name
