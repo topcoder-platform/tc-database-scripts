@@ -2866,7 +2866,8 @@ CREATE TABLE 'informix'.customer_group (
 	client_id INT NOT NULL,
 	archived SMALLINT NOT NULL,
 	archived_on DATETIME YEAR TO SECOND,
-	effective_group_id INT
+	effective_group_id INT,
+	auto_grant SMALLINT DEFAULT 0
 ) 
 EXTENT SIZE 32 NEXT SIZE 32
 LOCK MODE ROW;
@@ -2901,14 +2902,6 @@ LOCK MODE ROW;
 
 revoke all on customer_administrator from 'public';
 
-CREATE TABLE 'informix'.group_restriction_resources(
-	group_id INT NOT NULL,
-	resource_type VARCHAR(20)
-)
-EXTENT SIZE 32 NEXT SIZE 32
-LOCK MODE ROW;
-
-revoke all on group_restriction_resources from 'public';
 
 CREATE TABLE 'informix'.group_member(
 	group_member_id INT NOT NULL,
@@ -5158,15 +5151,6 @@ grant index on customer_administrator to 'public' as 'informix';
 
 grant delete on customer_administrator to 'public' as 'informix';
 
-grant insert on group_restriction_resources to 'public' as 'informix';
-
-grant select on group_restriction_resources to 'public' as 'informix';
-
-grant update on group_restriction_resources to 'public' as 'informix';
-
-grant index on group_restriction_resources to 'public' as 'informix';
-
-grant delete on group_restriction_resources to 'public' as 'informix';
 
 grant insert on group_member to 'public' as 'informix';
 
