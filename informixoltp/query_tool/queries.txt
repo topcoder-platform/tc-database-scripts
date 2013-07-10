@@ -1146,3 +1146,4 @@ query_top_10_payments_summary.txt|UPDATE query SET text=? WHERE query_id=32767
 query_reg_secret_question_response.txt|UPDATE query SET text=? WHERE query_id=32829
 query_reg_user_info.txt|UPDATE query SET text=? WHERE query_id=32836
 query_reg_email_available.txt|UPDATE query SET text=? WHERE query_id=32837
+query_long_contest_has_access.txt|UPDATE query SET text=? WHERE query_id=32936
