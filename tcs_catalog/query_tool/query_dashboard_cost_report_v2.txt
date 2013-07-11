@@ -211,6 +211,25 @@ where p.project_status_id = ps.project_status_id
             where gm.group_id = gaba.group_id AND gm.active = 1
             AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
             AND gaba.billing_account_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@))
+       or
+       exists(
+           SELECT
+               gm.group_id
+           FROM
+               tc_direct_project tdp2
+               INNER JOIN corporate_oltp:direct_project_account dpa ON tdp2.project_id = dpa.project_id
+               INNER JOIN tt_project ttp2 ON dpa.billing_account_id = ttp2.project_id
+               INNER JOIN tt_client_project ttcp2 ON ttp2.project_id = ttcp2.project_id
+               INNER JOIN tt_client ttc2 ON ttcp2.client_id = ttc2.client_id
+               INNER JOIN customer_group sg ON sg.client_id = ttc2.client_id
+               INNER JOIN group_member gm ON sg.group_id = gm.group_id
+           WHERE
+               sg.auto_grant = 1
+               AND   gm.active = 1
+               AND   sg.archived = 0
+               AND tdp2.project_id = tdp.project_id
+               AND ttc2.client_status_id = 1
+               AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@))
        )
   and pc.project_type_id  != 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
@@ -407,6 +426,25 @@ where p.project_status_id = ps.project_status_id
             where gm.group_id = gaba.group_id AND gm.active = 1
             AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
             AND gaba.billing_account_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@))
+       or
+          exists(
+              SELECT
+                  gm.group_id
+              FROM
+                  tc_direct_project tdp2
+                  INNER JOIN corporate_oltp:direct_project_account dpa ON tdp2.project_id = dpa.project_id
+                  INNER JOIN tt_project ttp2 ON dpa.billing_account_id = ttp2.project_id
+                  INNER JOIN tt_client_project ttcp2 ON ttp2.project_id = ttcp2.project_id
+                  INNER JOIN tt_client ttc2 ON ttcp2.client_id = ttc2.client_id
+                  INNER JOIN customer_group sg ON sg.client_id = ttc2.client_id
+                  INNER JOIN group_member gm ON sg.group_id = gm.group_id
+              WHERE
+                  sg.auto_grant = 1
+                  AND   gm.active = 1
+                  AND   sg.archived = 0
+                  AND tdp2.project_id = tdp.project_id
+                  AND ttc2.client_status_id = 1
+                  AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@))
        )
   and pc.project_type_id = 3
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
@@ -461,7 +499,26 @@ NVL((SELECT sum(total_amount)
             where gm.group_id = gaba.group_id AND gm.active = 1
             AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
             AND gaba.billing_account_id = DECODE(0, 0, ttp.project_id, 0))
-       )
+      or
+      exists(
+          SELECT
+              gm.group_id
+          FROM
+              tc_direct_project tdp2
+              INNER JOIN corporate_oltp:direct_project_account dpa2 ON tdp2.project_id = dpa2.project_id
+              INNER JOIN tt_project ttp2 ON dpa2.billing_account_id = ttp2.project_id
+              INNER JOIN tt_client_project ttcp2 ON ttp2.project_id = ttcp2.project_id
+              INNER JOIN tt_client ttc2 ON ttcp2.client_id = ttc2.client_id
+              INNER JOIN customer_group sg ON sg.client_id = ttc2.client_id
+              INNER JOIN group_member gm ON sg.group_id = gm.group_id
+          WHERE
+              sg.auto_grant = 1
+              AND   gm.active = 1
+              AND   sg.archived = 0
+              AND tdp2.project_id = tdp.project_id
+              AND ttc2.client_status_id = 1
+              AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@) )
+      )
 group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
 
 
