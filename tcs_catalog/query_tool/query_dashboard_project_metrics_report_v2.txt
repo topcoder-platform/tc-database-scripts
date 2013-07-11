@@ -375,7 +375,26 @@ and (exists (select u.user_id
                 where
                     cg.group_id = gm.group_id AND cg.group_id = gaba.group_id AND gm.active = 1
                     AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
-                    AND gaba.billing_account_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)))
+                    AND gaba.billing_account_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@))
+    OR exists(
+                         SELECT
+                             gm.group_id
+                         FROM
+                             tc_direct_project tdp2
+                             INNER JOIN corporate_oltp:direct_project_account dpa ON tdp2.project_id = dpa.project_id
+                             INNER JOIN tt_project ttp ON dpa.billing_account_id = ttp.project_id
+                             INNER JOIN tt_client_project ttcp ON ttp.project_id = ttcp.project_id
+                             INNER JOIN tt_client ttc ON ttcp.client_id = ttc.client_id
+                             INNER JOIN customer_group sg ON sg.client_id = ttc.client_id
+                             INNER JOIN group_member gm ON sg.group_id = gm.group_id
+                         WHERE
+                             sg.auto_grant = 1
+                             AND   gm.active = 1
+                             AND   sg.archived = 0
+                             AND tdp2.project_id = tdp.project_id
+                             AND ttc.client_status_id = 1
+                             AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+             ))
                     
 union
 
@@ -478,8 +497,27 @@ FROM tc_direct_project tdp,
                     where
                         cg.group_id = gm.group_id AND cg.group_id = gaba.group_id AND gm.active = 1
                         AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
-                        AND gaba.billing_account_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)))
+                        AND gaba.billing_account_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@))
                     
+         OR exists(
+                     SELECT
+                         gm.group_id
+                     FROM
+                         tc_direct_project tdp2
+                         INNER JOIN corporate_oltp:direct_project_account dpa ON tdp2.project_id = dpa.project_id
+                         INNER JOIN tt_project ttp ON dpa.billing_account_id = ttp.project_id
+                         INNER JOIN tt_client_project ttcp ON ttp.project_id = ttcp.project_id
+                         INNER JOIN tt_client ttc ON ttcp.client_id = ttc.client_id
+                         INNER JOIN customer_group sg ON sg.client_id = ttc.client_id
+                         INNER JOIN group_member gm ON sg.group_id = gm.group_id
+                     WHERE
+                         sg.auto_grant = 1
+                         AND   gm.active = 1
+                         AND   sg.archived = 0
+                         AND tdp2.project_id = tdp.project_id
+                         AND ttc.client_status_id = 1
+                         AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+         ))
 )) AS s
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
 order by tc_direct_project_id
