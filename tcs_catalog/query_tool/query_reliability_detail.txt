@@ -1,6 +1,6 @@
-select FIRST 15 pr.user_id 
-     , cc.component_name
-     , cv.version_text
+select FIRST 15 pr.user_id
+     , pi6.value as contest_name
+     , pi7.value as version_text
      , c.category_name as catalog_name 
      , case when pr.reliable_ind = 1 then 'Yes' else 'No' end as reliable
      , ci.create_time
@@ -15,22 +15,14 @@ select FIRST 15 pr.user_id
      , pr.resolution_date
      , pr.reliability_on_registration
      , (select max(actual_end_time) from project_phase where project_id = p.project_id) as completion_date
-  from project_reliability pr
-     , project p
-     , comp_versions cv
-     , comp_catalog cc
-     , categories c
-     , component_inquiry ci
-     , project_info pi
- where pr.user_id = @uid@
-   and pr.project_id = p.project_id
-   and p.project_category_id +111 = @ph@
-   and pi.value = cv.comp_vers_id
-   and cv.component_id = cc.component_id
-   and cc.root_category_id = c.category_id
---   and c.category_id in (select distinct category_id from category_catalog where catalog_id != 4)
-   and ci.user_id = pr.user_id 
-   and ci.project_id = pr.project_id 
-   and pi.project_id = p.project_id
-   and pi.project_info_type_id = 1
- order by resolution_date desc
+  FROM project_reliability pr
+  INNER JOIN project p ON pr.project_id = p.project_id and p.project_category_id +111 = @ph@
+  INNER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1
+  INNER JOIN project_info pi6 ON pi6.project_id = p.project_id and pi6.project_info_type_id = 6
+  INNER JOIN project_info pi7 ON pi7.project_id = p.project_id and pi7.project_info_type_id = 7
+  INNER JOIN comp_versions cv ON pi1.value = cv.comp_vers_id
+  INNER JOIN comp_catalog cc ON cv.component_id = cc.component_id
+  INNER JOIN categories c ON cc.root_category_id = c.category_id
+  INNER JOIN component_inquiry ci ON ci.user_id = pr.user_id and ci.project_id = pr.project_id 
+ WHERE pr.user_id = @uid@
+ ORDER BY resolution_date DESC
