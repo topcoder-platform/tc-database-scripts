@@ -110,10 +110,47 @@ else 0 end as digital_run,
                  and upg.resource_id = p.tc_direct_project_id)
        or 
        exists(select gadp.tc_direct_project_id 
-     		from group_member AS gm, group_associated_direct_projects AS gadp
-     		where gm.group_id = gadp.group_id AND gm.active = 1 
+     		from group_member AS gm, group_associated_direct_projects AS gadp, customer_group g
+     		where
+     		    gm.group_id = gadp.group_id
+     	    AND g.group_id = gm.group_id
+     	    AND g.archived = 0
+     		AND gm.active = 1
      		AND gm.user_id = DECODE( @uid@ ,0,gm.user_id, @uid@ )
      		AND gadp.tc_direct_project_id = p.tc_direct_project_id)
+       or
+       exists(
+            select gm.group_id from group_member gm,
+              group_associated_billing_accounts gaba,
+              customer_group g,
+              corporate_oltp:direct_project_account dpa
+             where gm.active=1 and gm.unassigned_on is null
+              and gaba.group_id=gm.group_id
+              and dpa.project_id = p.tc_direct_project_id
+              and gaba.billing_account_id=dpa.billing_account_id
+              and gm.user_id = DECODE( @uid@ ,0,gm.user_id, @uid@ )
+              and g.group_id = gm.group_id
+              and g.archived = 0
+       )
+       or
+       exists(
+          SELECT
+              gm.group_id
+          FROM
+              tc_direct_project tdp
+              INNER JOIN corporate_oltp:direct_project_account dpa ON tdp.project_id = dpa.project_id
+              INNER JOIN tt_project ttp ON dpa.billing_account_id = ttp.project_id
+              INNER JOIN tt_client_project ttcp ON ttp.project_id = ttcp.project_id
+              INNER JOIN tt_client ttc ON ttcp.client_id = ttc.client_id
+              INNER JOIN customer_group sg ON sg.client_id = ttc.client_id
+              INNER JOIN group_member gm ON sg.group_id = gm.group_id
+          WHERE
+              sg.auto_grant = 1
+              AND   gm.active = 1
+              AND   sg.archived = 0
+              AND tdp.project_id = p.tc_direct_project_id
+              AND ttc.client_status_id = 1
+              AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@))
        )
 
 
