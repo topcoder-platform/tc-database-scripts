@@ -445,6 +445,8 @@ query_dashboard_cost_report_v2.txt|UPDATE query SET text = ? WHERE query_id = 32
 query_dashboard_project_metrics_report_v2.txt|UPDATE query SET text = ? WHERE query_id = 32887
 query_direct_my_pm_projects_contests_v3.txt|UPDATE query SET text = ? WHERE query_id = 32896
 query_direct_project_stat_v2.txt|UPDATE query SET text = ? WHERE query_id = 32888
+query_enterprise_dashboard_total_spend_projected.txt|UPDATE query SET text = ? WHERE query_id = 32946
+
 
 
 

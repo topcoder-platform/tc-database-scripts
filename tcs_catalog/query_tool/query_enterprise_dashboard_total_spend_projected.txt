@@ -1,0 +1,36 @@
+select month(paydate) + year(paydate) * 100 as monthCount, tc_direct_project_id as direct_project_id, tdp.name as direct_project_name,
+      nvl(sum( (case when s.contest_fee_percentage = 0 then s.contest_fee
+      else s.member_cost * s.contest_fee_percentage
+      end)), 0) as projected_contest_fee,
+      nvl(sum(s.member_cost), 0) as projected_member_cost
+FROM table(MULTISET(                                             
+select (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as paydate, p.tc_direct_project_id,
+(nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
+                where pr.project_id = p.project_id), 0)
+	 +
+	   nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
+                  where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id
+                  and pi26.value = 'On'
+                  and pi26.project_id =  p.project_id )
+           +
+           nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id in (33, 35, 38, 39, 49)
+                    and pi.project_id = p.project_id), 0), 0) )	 as member_cost,
+
+nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project_info pi
+                  where project_info_type_id  = 31 and p.project_id = pi.project_id), 0) as contest_fee,
+
+nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
+                where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage
+
+from project p, tc_direct_project tcd, project_category_lu pcl
+where tcd.project_id = p.tc_direct_project_id and p.project_status_id IN (1 ,2)  and p.project_category_id != 27 and p.project_status_id != 3
+              and pcl.project_category_id = p.project_category_id
+              and p.tc_direct_project_id IN (@tcdirectids@)))
+              as s, tc_direct_project tdp
+               where (month(paydate) + year(paydate) * 100) >= (month(TO_DATE('@sdt@', '%Y-%m')) + year(TO_DATE('@sdt@', '%Y-%m')) * 100)
+               AND  (month(paydate) + year(paydate) * 100) <= (month(TO_DATE('@edt@', '%Y-%m')) + year(TO_DATE('@edt@', '%Y-%m')) * 100)
+               AND s.tc_direct_project_id = tdp.project_id
+               group by 1, 2, 3
+               order by 1 ASC
+
