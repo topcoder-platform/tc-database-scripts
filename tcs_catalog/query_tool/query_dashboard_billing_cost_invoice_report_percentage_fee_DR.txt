@@ -127,4 +127,15 @@ where   pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.pay
                       AND   sg.archived = 0
                       AND tdp.project_id = p.tc_direct_project_id
                       )
+          OR
+           exists (
+                   SELECT sg.group_id
+                   FROM customer_group sg
+                   INNER JOIN group_member gm ON gm.group_id = sg.group_id
+                   WHERE gm.user_id = DECODE(@uid@, 0, gm.user_id, @uid@)
+                   AND   gm.active = 1
+                   AND   sg.archived = 0
+                   AND   sg.auto_grant = 1
+                   AND   sg.client_id = ttc.client_id
+                   )            
           )
