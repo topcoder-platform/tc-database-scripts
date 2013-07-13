@@ -1,0 +1,8 @@
+select p.tc_direct_project_id, p.project_id as contest_id , pi.value as billing_project_id
+from project p,
+OUTER project_info pi
+where p.tc_direct_project_id = @tcdirectid@
+and p.project_status_id IN (1, 7)
+and p.project_category_id = 29
+and pi.project_id = p.project_id
+and pi.project_info_type_id = 32;
