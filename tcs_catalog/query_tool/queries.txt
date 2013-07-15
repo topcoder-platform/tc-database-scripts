@@ -447,6 +447,13 @@ query_direct_my_pm_projects_contests_v3.txt|UPDATE query SET text = ? WHERE quer
 query_direct_project_stat_v2.txt|UPDATE query SET text = ? WHERE query_id = 32888
 query_enterprise_dashboard_total_spend_projected.txt|UPDATE query SET text = ? WHERE query_id = 32946
 query_project_copilot_postings.txt|UPDATE query SET text = ? WHERE query_id = 32956
+query_tc_direct_jira_invoice.txt|UPDATE query SET text = ? WHERE query_id = 32957
+query_dashboard_billing_cost_invoice_report_fixed_bug_fee.txt|UPDATE query SET text = ? WHERE query_id = 32947
+query_dashboard_billing_cost_invoice_report_fixed_project_level_bug_fee.txt|UPDATE query SET text = ? WHERE query_id = 32948
+query_dashboard_billing_cost_invoice_report_percentage_fee_project_level_payment.txt|UPDATE query SET text = ? WHERE query_id = 32949
+query_dashboard_billing_cost_invoice_report_invoice_number_fixed_bug_fee.txt|UPDATE query SET text = ? WHERE query_id = 32958
+query_dashboard_billing_cost_invoice_report_invoice_number_fixed_project_level_bug_fee.txt|UPDATE query SET text = ? WHERE query_id = 32950
+query_dashboard_billing_cost_invoice_report_invoice_number_percentage_fee_project_level_payment.txt|UPDATE query SET text = ? WHERE query_id = 32951
 
 
 

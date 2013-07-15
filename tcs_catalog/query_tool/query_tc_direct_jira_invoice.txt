@@ -1,0 +1,19 @@
+select pmd.jira_issue_id, ttp.project_id as billing_account_id
+ from informixoltp:payment_detail pmd,
+     project p,     
+     time_oltp:project ttp,
+     project_info pi3 -- billing account
+ where pmd.component_project_id = p.project_id
+   and p.project_id = pi3.project_id
+   and pi3.project_info_type_id = 32
+   and pi3.value = ttp.project_id
+   and pmd.jira_issue_id in (@jiraids@)
+
+union
+-- project level
+select pmd.jira_issue_id, min(billing_account_id)
+  from informixoltp:payment_detail pmd,
+       corporate_oltp:direct_project_account dpa
+  where pmd.cockpit_project_id = dpa.project_id
+    and pmd.jira_issue_id in (@jiraids@)
+  group by pmd.jira_issue_id
