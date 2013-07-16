@@ -1057,3 +1057,11 @@ alter table authorization_code_grant_has_permission add constraint foreign key
     references authorization_code_grant
     (authorization_code_grant_id)
     constraint fk_authorization_code_grant_has_permission_2;
+
+alter table 'informix'.password_reset_token add constraint primary key 
+    (user_id)
+    constraint pk_password_reset_token;
+
+alter table 'informix'.second_email_request add constraint primary key 
+    (user_id)
+    constraint pk_second_email_request;

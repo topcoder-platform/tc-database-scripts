@@ -14,7 +14,7 @@ grant connect to openxtraz ;
 create table 'informix'.security_user (
     login_id DECIMAL(12,0) not null,
     user_id VARCHAR(50) not null,
-    password VARCHAR(50) not null,
+    password LVARCHAR(300) not null,
     create_user_id DECIMAL(12,0)
 )
 extent size 5000 next size 2500
@@ -1277,6 +1277,29 @@ extent size 512 next size 512
 lock mode row;
 revoke all on "informix".authorization_code_grant_has_permission from "public";
 
+CREATE TABLE password_reset_token (
+  user_id INT NOT NULL,
+  token VARCHAR(10) NOT NULL,
+  expired_at DATETIME YEAR TO FRACTION NOT NULL
+)
+extent size 32 next size 32
+lock mode row;
+
+revoke all on 'informix'.password_reset_token from 'public';
+
+
+CREATE  TABLE  second_email_request (
+  user_id INT  NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  random_key INT  NOT NULL,
+  expired_at DATETIME YEAR TO FRACTION NOT NULL
+)
+extent size 32 next size 32
+lock mode row;
+
+revoke all on 'informix'.second_email_request from 'public';
+
+
 CREATE SEQUENCE "informix".CONTEST_ELIGIBILITY_SEQ INCREMENT BY 1 START WITH 1 MINVALUE 1;
 
 revoke all on "informix".CONTEST_ELIGIBILITY_SEQ from "public";
@@ -1286,6 +1309,7 @@ revoke all on "informix".seq_access_token from "public";
 
 CREATE SEQUENCE seq_authorization_code_grant;
 revoke all on "informix".seq_authorization_code_grant from "public";
+
 
 create view "informix".email_user (user_id,first_name,last_name,
        create_date,modify_date,handle,last_login,status,
@@ -2265,4 +2289,6 @@ grant select,update,insert,delete on access_token_has_permission to public as in
 grant select,update,insert,delete on authorization_code_grant_has_permission to public as informix;
 grant select on "informix".seq_access_token to "public" as "informix";
 grant select on "informix".seq_authorization_code_grant to "public" as "informix";
+grant select,update,insert,delete on password_reset_token to public as informix;
+grant select,update,insert,delete on second_email_request to public as informix;
 
