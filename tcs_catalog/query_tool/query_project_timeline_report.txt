@@ -1,6 +1,8 @@
-select cat.category_name || ' ' || pi6.value || ' ' || pi7.value as component
+SELECT cat.category_name || ' ' || pi6.value || ' ' || pi7.value as component
      , pcl.name as category
      , '<a href=https://software.topcoder.com/review/actions/ViewProjectDetails.do?method=viewProjectDetails&pid=' || p.project_id || '>' || p.project_id || '</a>' as project_id
+     , nvl(tdp.name, 'N/A') as direct_project_name
+     , ttc.name as client
      , nvl(date(pp1.actual_start_time), 'N/A') as posting_date
      , nvl(max(pp1.actual_end_time) - min(pp1.actual_start_time), 'N/A') as registration_length
      , nvl(max(pp2.actual_end_time) - min(pp2.actual_start_time), 'N/A') as submission_length
@@ -9,52 +11,27 @@ select cat.category_name || ' ' || pi6.value || ' ' || pi7.value as component
      , nvl(max(pp5.actual_end_time) - min(pp5.actual_start_time), 'N/A') as appeals_length
      , nvl(max(pp6.actual_end_time) - min(pp6.actual_start_time), 'N/A') as appeals_response_length
      , nvl(max(pp7.actual_end_time) - min(pp7.actual_start_time), 'N/A') as aggregation_length
-     , nvl(max(pp8.actual_end_time) - min(pp8.actual_start_time), 'N/A') as aggregation_review_length
      , nvl(max(pp9.actual_end_time) - min(pp9.actual_start_time), 'N/A') as final_fixes_length
      , nvl(max(pp10.actual_end_time) - min(pp10.actual_start_time), 'N/A') as final_review_length
-  from project p
-     , project_category_lu pcl
-     , project_info pi5
-     , project_info pi6
-     , project_info pi7
-     , categories cat
-     , project_phase pp1
-     , project_phase pp2
-     , project_phase pp3
-     , project_phase pp4
-     , project_phase pp5
-     , project_phase pp6
-     , project_phase pp7
-     , project_phase pp8
-     , project_phase pp9
-     , project_phase pp10
- where p.project_category_id = pcl.project_category_id
-   and p.project_id = pi5.project_id
-   and pi5.project_info_type_id = 5
-   and pi5.value::integer = cat.category_id
-   and p.project_id = pi6.project_id
-   and pi6.project_info_type_id = 6
-   and p.project_id = pi7.project_id
-   and pi7.project_info_type_id = 7
-   and p.project_id = pp1.project_id
-   and pp1.phase_type_id = 1
-   and p.project_id = pp2.project_id
-   and pp2.phase_type_id = 2
-   and p.project_id = pp3.project_id
-   and pp3.phase_type_id = 3
-   and p.project_id = pp4.project_id
-   and pp4.phase_type_id = 4
-   and p.project_id = pp5.project_id
-   and pp5.phase_type_id = 5
-   and p.project_id = pp6.project_id
-   and pp6.phase_type_id = 6
-   and p.project_id = pp7.project_id
-   and pp7.phase_type_id = 7
-   and p.project_id = pp8.project_id
-   and pp8.phase_type_id = 8
-   and p.project_id = pp9.project_id
-   and pp9.phase_type_id = 9
-   and p.project_id = pp10.project_id
-   and pp10.phase_type_id = 10
-group by 1, 2, 3, 4
-order by 1, 2, 3, 4;
+FROM project p
+INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
+INNER JOIN project_info pi5 ON p.project_id = pi5.project_id and pi5.project_info_type_id = 5
+INNER JOIN project_info pi6 ON p.project_id = pi6.project_id and pi6.project_info_type_id = 6
+INNER JOIN project_info pi7 ON p.project_id = pi7.project_id and pi7.project_info_type_id = 7
+INNER JOIN categories cat ON pi5.value::integer = cat.category_id
+LEFT OUTER JOIN tc_direct_project tdp ON tdp.project_id = p.tc_direct_project_id
+LEFT OUTER JOIN project_info pi32 ON p.project_id = pi32.project_id and pi32.project_info_type_id = 32
+LEFT OUTER JOIN time_oltp:project ttp ON ttp.project_id = pi32.value
+LEFT OUTER JOIN time_oltp:client_project ttcp ON ttcp.project_id = ttp.project_id
+LEFT OUTER JOIN time_oltp:client ttc ON ttc.client_id = ttcp.client_id
+INNER JOIN project_phase pp1 ON p.project_id = pp1.project_id and pp1.phase_type_id = 1and pp1.actual_start_time > current - @days@ units day
+INNER JOIN project_phase pp2 ON p.project_id = pp2.project_id and pp2.phase_type_id = 2
+INNER JOIN project_phase pp3 ON p.project_id = pp3.project_id and pp3.phase_type_id = 3
+INNER JOIN project_phase pp4 ON p.project_id = pp4.project_id and pp4.phase_type_id = 4
+LEFT OUTER JOIN project_phase pp5 ON p.project_id = pp5.project_id and pp5.phase_type_id = 5
+LEFT OUTER JOIN project_phase pp6 ON p.project_id = pp6.project_id and pp6.phase_type_id = 6
+LEFT OUTER JOIN project_phase pp7 ON p.project_id = pp7.project_id and pp7.phase_type_id = 7
+LEFT OUTER JOIN project_phase pp9 ON p.project_id = pp9.project_id and pp9.phase_type_id = 9
+LEFT OUTER JOIN project_phase pp10 ON p.project_id = pp10.project_id and pp10.phase_type_id = 10
+GROUP BY 1, 2, 3, 4, 5, 6
+ORDER BY 6 desc;
