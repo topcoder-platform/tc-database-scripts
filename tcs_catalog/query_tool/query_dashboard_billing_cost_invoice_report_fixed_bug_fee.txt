@@ -82,13 +82,6 @@ where  pmd.component_project_id = p.project_id
   and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
   and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
   and pmd.payment_type_id in(23, 37, 46, 47) and pmd.jira_issue_id is not null
-  and pmd.payment_detail_id =
-  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
-        INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
-        where pmd2.jira_issue_id = pmd.jira_issue_id
-           and pmd2.installment_number = 1
-           AND NOT pmd2.payment_status_id IN (65,68, 69)
-           and pmd2.payment_type_id in (23, 37, 46, 47))
   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
    and (
              exists (
@@ -123,7 +116,19 @@ where  pmd.component_project_id = p.project_id
                       AND   sg.archived = 0
                       AND tdp.project_id = p.tc_direct_project_id
                       )
+		   OR
+           exists (
+                   SELECT sg.group_id
+                   FROM customer_group sg
+                   INNER JOIN group_member gm ON gm.group_id = sg.group_id
+                   WHERE gm.user_id = DECODE(@uid@, 0, gm.user_id, @uid@)
+                   AND   gm.active = 1
+                   AND   sg.archived = 0
+                   AND   sg.auto_grant = 1
+                   AND   sg.client_id = ttc.client_id
+                   )          
           )
    and tdp.fixed_bug_contest_fee > 0
-   and NVL(cast(pi57.value as DECIMAL (12, 0)), 0) = 0
+     and pmd.jira_issue_id like 'BUGR%'
+   and (pi57.value is null or pi57.value = 0)
 group by 1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
