@@ -10,4 +10,4 @@ and pm2.project_id = tcp.project_id and pm2.completed = 'f') as milestone_name,
 
 from tc_direct_project tcp
 where tcp.project_id IN (@tcdirectids@)
-order by min_milestone_due_date ASC, active_contests_number DESC;
+order by active_contests_number DESC, min_milestone_due_date ASC;
