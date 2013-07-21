@@ -8,6 +8,7 @@ SELECT s.submission_number
      , r.round_type_id
      , comp.class_name AS problem_name
      , comp.component_id
+     , s.language_id
   FROM component comp
      , long_component_state cs
      , round r
