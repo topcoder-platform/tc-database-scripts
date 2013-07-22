@@ -1,5 +1,6 @@
 SELECT submission_number
      , submission_text
+     , ps.language_id
      , r.round_id
      , p.problem_id
      , ps.coder_id
