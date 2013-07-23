@@ -251,6 +251,7 @@ null::int as payment_id
   
 where ttp.project_id = ttcp.project_id
   and ttcp.client_id = ttc.client_id
+  and ttc.status = 1
   and tdp.project_id = p.tc_direct_project_id 
     and db.project_id = p.tc_direct_project_id
   and db.billing_account_id = ttp.project_id
@@ -338,6 +339,7 @@ SELECT
 where 
 	pmd.cockpit_project_id = tdp.project_id
 	and pmd.payment_type_id = pt.payment_type_id
+	and ttc.status = 1
     and pmd.payment_detail_id = pm.most_recent_detail_id
     and pmd.installment_number = 1 and pmd.payment_type_id != 4 and NOT pmd.payment_status_id IN (65,68, 69)
     
