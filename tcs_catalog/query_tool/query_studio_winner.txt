@@ -1,0 +1,8 @@
+SELECT ri.value::INT AS user_id
+FROM upload u
+INNER JOIN submission s ON s.upload_id = u.upload_id
+INNER JOIN resource_info ri ON ri.resource_id = u.resource_id
+WHERE u.project_id = @ct@
+  AND s.submission_type_id = 1 
+  AND s.placement = 1
+  AND ri.resource_info_type_id = 1

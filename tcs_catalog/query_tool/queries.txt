@@ -454,6 +454,7 @@ query_dashboard_billing_cost_invoice_report_percentage_fee_project_level_payment
 query_dashboard_billing_cost_invoice_report_invoice_number_fixed_bug_fee.txt|UPDATE query SET text = ? WHERE query_id = 32958
 query_dashboard_billing_cost_invoice_report_invoice_number_fixed_project_level_bug_fee.txt|UPDATE query SET text = ? WHERE query_id = 32950
 query_dashboard_billing_cost_invoice_report_invoice_number_percentage_fee_project_level_payment.txt|UPDATE query SET text = ? WHERE query_id = 32951
+query_studio_winner.txt|UPDATE query SET text = ? WHERE query_id = 32966
 
 
 
