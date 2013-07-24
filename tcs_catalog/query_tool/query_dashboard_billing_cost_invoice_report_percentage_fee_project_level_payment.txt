@@ -42,7 +42,6 @@ where pmd.cockpit_project_id = tdp.project_id
   and 0 = DECODE(@pj@, 0, 0, @pj@)
    and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
    and tdp.percentage_bug_contest_fee > 0
-   and pmd.jira_issue_id like 'BUGR%'
    and (
              exists (
                      select resource_id from user_permission_grant upg
