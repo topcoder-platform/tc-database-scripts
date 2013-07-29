@@ -4,7 +4,7 @@ select month(paydate) + year(paydate) * 100 as monthCount, tc_direct_project_id 
       end)), 0) as projected_contest_fee,
       nvl(sum(s.member_cost), 0) as projected_member_cost
 FROM table(MULTISET(                                             
-select (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as paydate, p.tc_direct_project_id,
+select ct.completion_time as paydate, p.tc_direct_project_id,
 (nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
                 where pr.project_id = p.project_id), 0)
 	 +
@@ -23,9 +23,15 @@ nvl((select nvl(sum (cast (nvl (value, '0') as DECIMAL (10,2))), 0) from project
 nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage
 
-from project p, tc_direct_project tcd, project_category_lu pcl
+from project p, tc_direct_project tcd, project_category_lu pcl, 
+  table (multiset((select  ph.project_id,  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time from project_phase ph, project_category_lu pcl, project pp
+                                        where phase_type_id = (case when pp.project_category_id in (9, 29, 37) then 4
+                                                                   when pcl.project_type_id in (1,2) then 10
+								else 4 end)
+				and pcl.project_category_id = pp.project_category_id and ph.project_id = pp.project_id  GROUP BY ph.project_id))) ct
 where tcd.project_id = p.tc_direct_project_id and p.project_status_id IN (1 ,2)  and p.project_category_id != 27 and p.project_status_id != 3
               and pcl.project_category_id = p.project_category_id
+			  and p.project_id = ct.project_id
               and p.tc_direct_project_id IN (@tcdirectids@)))
               as s, tc_direct_project tdp
                where (month(paydate) + year(paydate) * 100) >= (month(TO_DATE('@sdt@', '%Y-%m')) + year(TO_DATE('@sdt@', '%Y-%m')) * 100)
