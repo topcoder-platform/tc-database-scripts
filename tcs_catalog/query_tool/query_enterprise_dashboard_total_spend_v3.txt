@@ -81,17 +81,28 @@ and   pmd.payment_detail_id =
 
 UNION ALL
 
-SELECT (select max (scheduled_start_time) from project_phase where phase_type_id = 1 and project_id = p.project_id) as paydate, p.tc_direct_project_id,
+SELECT (pm.create_date) as paydate,  p.tc_direct_project_id,
 case when p.project_status_id in (9, 10) and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
             then pi2.value::DECIMAL(10,2)
             when p.project_status_id in (9, 10) and not exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
             then 0 
             else pi2.value::DECIMAL(10,2) end as contest_fee_amount, 0 as cost_amount
-FROM project p, project_info pi2
+FROM project p, project_info pi2, informixoltp:payment pm, informixoltp:payment_detail pmd 
 WHERE  p.project_status_id IN (7, 9, 10)
 AND   p.project_category_id != 27
 AND   pi2.project_id = p.project_id
 AND   pi2.project_info_type_id = 31
+AND   pm.most_recent_detail_id = pmd.payment_detail_id
+AND   pmd.component_project_id = p.project_id 
+AND   pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
+AND   pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+AND   pmd.payment_detail_id =
+		  (select min(pmd2.payment_detail_id) from informixoltp:payment pm2
+				INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
+				where pmd2.component_project_id = p.project_id
+				   and pmd2.installment_number = 1
+				   AND NOT pmd2.payment_status_id IN (65,68, 69)
+				   and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))
 AND   p.tc_direct_project_id IN (@tcdirectids@)
 AND (nvl((select (cast (nvl(pi57.value, '0') as DECIMAL (10,2))) from project_info pi57 where
     pi57.project_id=p.project_id and pi57.project_info_type_id=57), 0) = 0) 
