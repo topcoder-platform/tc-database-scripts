@@ -11996,3 +11996,11 @@ insert into invoice_type_lu (invoice_type_id, name, create_user, create_date, mo
 
 INSERT INTO 'informix'.round_type_lu(round_type_id,round_type_desc,algo_rating_type_id) VALUES (27, 'Marathon Match QA', NULL);
 
+INSERT INTO 'informix'.problem_round_type_lu(problem_round_type_id,problem_round_type_desc,problem_type) VALUES (1, 'Individual Problem Round', 1);
+INSERT INTO 'informix'.problem_round_type_lu(problem_round_type_id,problem_round_type_desc,problem_type) VALUES (2, 'Individual QA Problem Round', 1);
+INSERT INTO 'informix'.problem_round_type_lu(problem_round_type_id,problem_round_type_desc,problem_type) VALUES (13, 'Long Problem Round', 3);
+INSERT INTO 'informix'.problem_round_type_lu(problem_round_type_id,problem_round_type_desc,problem_type) VALUES (15, 'Intel Long Problem Round', 3);
+INSERT INTO 'informix'.problem_round_type_lu(problem_round_type_id,problem_round_type_desc,problem_type) VALUES (22, 'AMD Long Problem Round', 3);
+INSERT INTO 'informix'.problem_round_type_lu(problem_round_type_id,problem_round_type_desc,problem_type) VALUES (25, 'CUDA Long Problem Round', 3);
+INSERT INTO 'informix'.problem_round_type_lu(problem_round_type_id,problem_round_type_desc,problem_type) VALUES (27, 'Long Problem QA Round', 3);
+

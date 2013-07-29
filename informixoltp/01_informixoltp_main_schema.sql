@@ -4097,6 +4097,17 @@ lock mode row;
 revoke all on round_behavior FROM 'public';
 grant delete, select, insert, update, index on round_behavior to 'public' as 'informix';
 
+create table 'informix'.problem_round_type_lu (
+    problem_round_type_id DECIMAL(3,0) NOT NULL,
+    problem_round_type_desc VARCHAR(100) NOT NULL,
+    problem_type DECIMAL(3,0) NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+revoke all on problem_round_type_lu from 'public';
+
+grant insert, update, select, delete on problem_round_type_lu to 'public' as 'informix';
+
 grant select on rating to 'informix' with grant option ;
 
 grant delete on rating to 'informix' with grant option ;

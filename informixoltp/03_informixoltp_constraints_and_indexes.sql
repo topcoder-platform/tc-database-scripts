@@ -3193,3 +3193,7 @@ alter table 'informix'.round_event add constraint foreign key
     references 'informix'.round
     (round_id) 
     constraint roundevt_round_to_event_fk;
+	
+alter table 'informix'.problem_round_type_lu add constraint primary key 
+    (problem_round_type_id)
+    constraint problem_round_type_lu_pk;
