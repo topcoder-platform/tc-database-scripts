@@ -1,0 +1,41 @@
+SELECT 
+      u.handle as handle
+    , u.user_id as coder_id
+     , rreg.round_id as roundId
+     , rr.point_total as  provisional_score
+     , cs.submission_number as submission_count
+     , s.submit_time as last_submission_date
+     , l.language_name as  language_name
+     , rreg.timestamp as registration_date
+     , ar.rating as rating
+    ,(CASE
+        WHEN ar.rating > 0 AND ar.rating < 900
+            THEN 'Gray'
+        WHEN ar.rating > 899 AND ar.rating < 1200
+            THEN 'Green'
+        WHEN ar.rating > 1199 AND ar.rating < 1500
+            THEN 'Blue'
+        WHEN ar.rating > 1499 AND ar.rating < 2200
+            THEN 'Yellow'
+        WHEN ar.rating > 2199
+            THEN 'Red'
+		ELSE 'Unrated' END
+	) as color
+ FROM user u
+    , round_registration rreg
+    , outer (long_comp_result rr, long_component_state cs, long_submission s, language l )
+   ,  outer algo_rating ar
+ WHERE rreg.coder_id = u.user_id
+   and rreg.round_id = @rd@
+   and rreg.coder_id = ar.coder_id
+   and rreg.round_id = rr.round_id
+   and rreg.coder_id = rr.coder_id
+   and rr.attended = 'Y'
+   and rr.round_id = cs.round_id
+   and rr.coder_id = cs.coder_id
+   and s.long_component_state_id = cs.long_component_state_id
+   and s.submission_number = cs.submission_number
+   and s.example = 0
+   and s.language_id = l.language_id
+   and ar.algo_rating_type_id = 3
+AND lower(u.handle) MATCHES lower('@ha@')

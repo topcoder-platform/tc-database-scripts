@@ -1,0 +1,17 @@
+SELECT
+
+   count(*) as count
+
+FROM long_submission ls
+    ,long_component_state lcs
+    ,long_comp_result lcr
+    ,user usr
+
+WHERE lcs.long_component_state_id = ls.long_component_state_id
+    AND lcs.round_id = @rd@
+    AND lcr.round_id = @rd@
+    AND lcs.coder_id = usr.user_id
+    AND lcr.coder_id = usr.user_id
+    AND lower(usr.handle) MATCHES lower('@ha@')
+
+

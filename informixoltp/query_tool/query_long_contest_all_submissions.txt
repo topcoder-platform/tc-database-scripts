@@ -1,0 +1,10 @@
+select u.handle, lcs.coder_id, submission_points,extend(dbinfo("UTC_TO_DATETIME",ls.submit_time/1000), year to fraction) 
+as submit_time
+ from 
+long_component_state lcs, 
+long_submission ls,
+ user u where 
+ls.example = 0 
+and lcs.round_id = @rd@ 
+and lcs.coder_id = u.user_id 
+and ls.long_component_state_id = lcs.long_component_state_id order by ls.submit_time;

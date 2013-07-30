@@ -1,0 +1,30 @@
+SELECT 
+    rd.round_id as round_id
+    ,p.name as name
+    ,rd.name AS round_name     
+    ,(select count(*) from round_registration where round_id =  rd.round_id) as num_registrants
+    ,(select count(*) from long_comp_result where round_id =  rd.round_id and attended = 'Y') as num_competitors
+     , (select count(*) from long_component_state cs, long_submission s where s.example = 0 and s.long_component_state_id = cs.long_component_state_id and cs.round_id = rd.round_id) as submission_count
+    ,rs.start_time start_date
+    ,rs.end_time end_date
+    ,(select rr.system_point_total from long_comp_result rr where placed =1 AND rr.round_id= rd.round_id) as high_score
+    ,(select u.handle from long_comp_result rr, coder c, user u where rr.coder_id = c.coder_id and u.user_Id = c.coder_id and placed =1 AND rr.round_id= rd.round_id) as high_score_handle
+    ,strs.start_time as system_test_start_date
+FROM round rd       
+    ,contest ct
+    ,round_component rc
+    ,problem p
+    ,component cm
+   ,round_segment rs
+   ,round_segment strs
+    
+WHERE rd.round_id = @rd@
+    AND rd.contest_id = ct.contest_id
+    AND rc.round_id =  rd.round_id
+    AND rc.component_Id = cm.component_id
+    AND p.problem_id = cm.problem_id
+    and rs.round_id = rd.round_id
+    and strs.round_id = rd.round_id
+    and rs.segment_id = 1
+    and strs.segment_id = 5
+    AND rd.round_type_id in (10,13,15,19,22,24,25, 27)

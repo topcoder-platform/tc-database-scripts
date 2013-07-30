@@ -1,0 +1,30 @@
+SELECT
+    SKIP @fri@
+    FIRST @ps@
+
+    ls.submission_number as submission_number
+    ,l.language_name as language_name
+    ,ls.submit_time as submit_time
+    ,ls.submission_points as point_total
+    ,lcr.placed as placed
+    ,ls.example as submissiontype
+    ,lcs.coder_id  as coder_id
+
+FROM long_submission ls
+    ,long_component_state lcs
+    ,language l
+    ,long_comp_result lcr
+    ,user usr
+
+WHERE lcs.long_component_state_id = ls.long_component_state_id
+    AND lcs.round_id = @rd@
+    AND lcr.round_id = @rd@
+    AND lcs.coder_id = usr.user_id
+    AND lcr.coder_id = usr.user_id
+    AND lower(usr.handle) MATCHES lower('@ha@')
+    AND ls.language_id = l.language_id 
+    AND ls.example = 0
+
+
+
+ORDER BY @sc@ @sdir@

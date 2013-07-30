@@ -1147,3 +1147,18 @@ query_reg_secret_question_response.txt|UPDATE query SET text=? WHERE query_id=32
 query_reg_user_info.txt|UPDATE query SET text=? WHERE query_id=32836
 query_reg_email_available.txt|UPDATE query SET text=? WHERE query_id=32837
 query_long_contest_has_access.txt|UPDATE query SET text=? WHERE query_id=32936
+
+query_long_contest_competitor_basic_information_submission_history.txt|UPDATE query SET text=? WHERE query_id=31060
+query_long_contest_registrants.txt|UPDATE query SET text=? WHERE query_id=31048
+query_long_contest_match_details.txt|UPDATE query SET text=? WHERE query_id=31050
+query_long_contest_competitor_submission_history.txt|UPDATE query SET text=? WHERE query_id=31062
+query_long_contest_active_contest.txt|UPDATE query SET text=? WHERE query_id=31054
+query_long_contest_active_contest_count.txt|UPDATE query SET text=? WHERE query_id=31055
+query_long_contest_all_submissions.txt|UPDATE query SET text=? WHERE query_id=31070
+query_long_contest_competitor_basic_information.txt|UPDATE query SET text=? WHERE query_id=31059
+query_long_contest_competitor_basic_information_test_cases.txt|UPDATE query SET text=? WHERE query_id=31061
+query_long_contest_competitor_submission_history_count.txt|UPDATE query SET text=? WHERE query_id=31063
+query_long_contest_registrants_rating_summary.txt|UPDATE query SET text=? WHERE query_id=31052
+query_long_contest_submitters_rating_summary.txt|UPDATE query SET text=? WHERE query_id=31053
+query_long_contest_all_registrants.txt|UPDATE query SET text=? WHERE query_id=31069
+query_long_contest_registrants_count.txt|UPDATE query SET text=? WHERE query_id=31049
