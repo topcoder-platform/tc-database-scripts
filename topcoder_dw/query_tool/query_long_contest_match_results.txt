@@ -1,0 +1,21 @@
+SELECT 
+    
+    SKIP @fri@
+    FIRST @ps@
+    
+    lcr.placed AS placed
+    ,c.handle as handle 
+    ,c.coder_id AS coder_id
+    ,ar.rating as rating
+    ,lcr.system_point_total as system_point_total
+    ,lcr.point_total as provisional_score
+FROM long_comp_result lcr
+    ,coder c
+    ,outer algo_rating ar
+WHERE lcr.round_id = @rd@
+    AND c.coder_id = lcr.coder_id
+    AND ar.coder_id = c.coder_id
+    AND lcr.attended = 'Y'
+    and ar.algo_rating_type_id = 3
+    
+ORDER BY @sc@ @sd@

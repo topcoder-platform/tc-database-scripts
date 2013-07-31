@@ -1,0 +1,25 @@
+select lcr.coder_id
+     , c.handle
+     , lcr.system_point_total
+     ,(CASE
+        WHEN lcr.new_rating < 0
+    		THEN 'Orange'
+        WHEN lcr.new_rating > 0 AND lcr.new_rating < 900
+            THEN 'Gray'
+        WHEN lcr.new_rating > 899 AND lcr.new_rating < 1200
+            THEN 'Green'
+        WHEN lcr.new_rating > 1199 AND lcr.new_rating < 1500
+            THEN 'Blue'
+        WHEN lcr.new_rating > 1499 AND lcr.new_rating < 2200
+            THEN 'Yellow'
+        WHEN lcr.new_rating > 2199
+            THEN 'Red'
+		ELSE 'Unrated' END
+	) as color
+  from long_comp_result lcr
+     , coder c
+ where lcr.round_id = @rd@
+   and exists (select '1' from long_system_test_result where coder_id = c.coder_id and round_id = lcr.round_id and example = 0)
+   and lcr.coder_id = c.coder_id
+   and c.status = 'A'
+   and c.coder_id = @cr@

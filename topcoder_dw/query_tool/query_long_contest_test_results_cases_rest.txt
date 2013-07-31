@@ -1,0 +1,6 @@
+SELECT stc.test_case_id
+  FROM system_test_case stc, problem p
+ WHERE stc.problem_id = p.problem_id
+   and p.round_id = @rd@
+   and example_flag= 0
+   and system_flag = 1

@@ -1,0 +1,15 @@
+SELECT str.coder_id
+     , str.test_case_id
+     , str.score
+     , str.processing_time
+     , str.fatal_error_ind
+  FROM long_system_test_result str, system_test_case stc, coder c
+ WHERE str.round_id = @rd@
+   and str.example = 0 
+   and stc.problem_id = str.problem_id
+   and stc.test_case_id = str.test_case_id
+   and stc.example_flag = 0
+   and c.coder_id = str.coder_id
+   and c.status = 'A'
+   and str.coder_id in (@crs@)
+   and str.test_case_id in (@tids@)

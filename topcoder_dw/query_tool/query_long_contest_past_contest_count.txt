@@ -1,0 +1,19 @@
+select 
+    count(*) as count
+from round r
+    , contest c
+    , calendar cal
+    , long_comp_result lcr
+    ,coder co
+    , outer algo_rating ar
+where 
+    r.contest_id = c.contest_id
+    and r.calendar_id = cal.calendar_id
+    and r.round_type_id in (10,13,15,19,22,24,25,27)
+    and r.failed = 0
+    and r.round_id = lcr.round_id
+    and co.coder_id = lcr.coder_id
+    AND ar.coder_id = co.coder_id
+    AND lcr.attended = 'Y'
+    and ar.algo_rating_type_id = 3
+    and lcr.placed = 1
