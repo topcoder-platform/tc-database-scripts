@@ -7,12 +7,17 @@ MULTISET(SELECT
 	pm.create_date as paydate, p.tc_direct_project_id, (0 + nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0)) * NVL(pmd.total_amount, 0) as contest_fee_amount,  NVL(pmd.total_amount, 0) as cost_amount
 FROM 
-informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id, project p
+informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id, project p, project_category_lu pcl
 WHERE pmd.component_project_id = p.project_id
 AND   pmd.installment_number = 1
 AND   NOT pmd.payment_status_id IN (65,68, 69)
-AND   p.project_status_id != 3
-AND   p.project_category_id != 27
+and (p.project_status_id not in (1,2,3) OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pcl.project_type_id = 3)
+       	   and exists (select phase_type_id from project_phase
+				where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3))
+	  OR (p.project_status_id  = 1 and (p.project_category_id not in (9, 29) and pcl.project_type_id in (1,2))
+       	   and (exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =11 and phase_status_id in (2,3))
+		        OR not exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =10 and phase_status_id in (1,2)))))
+AND   p.project_category_id != 27 and p.project_category_id = pcl.project_category_id
 AND   p.tc_direct_project_id IN (@tcdirectids@)
 
 UNION ALL
@@ -26,12 +31,17 @@ informixoltp:payment pm
 	    INNER JOIN (informixoltp:payment_detail pmd2 JOIN informixoltp:payment pm2 on pm2.most_recent_detail_id = pmd2.payment_detail_id  
 	    									AND pmd2.payment_type_id != 4
                                             AND NOT pmd2.payment_status_id IN (65, 68, 69))
-                   on pm.payment_id = pmd2.parent_payment_id, project p
+                   on pm.payment_id = pmd2.parent_payment_id, project p, project_category_lu pcl
 WHERE pmd.component_project_id = p.project_id
 AND   pmd.installment_number = 1
 AND   NOT pmd.payment_status_id IN (65,68, 69)
-AND   p.project_status_id != 3
-AND   p.project_category_id != 27
+and (p.project_status_id not in (1,2,3) OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pcl.project_type_id = 3)
+       	   and exists (select phase_type_id from project_phase
+				where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3))
+	  OR (p.project_status_id  = 1 and (p.project_category_id not in (9, 29) and pcl.project_type_id in (1,2))
+       	   and (exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =11 and phase_status_id in (2,3))
+		        OR not exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =10 and phase_status_id in (1,2)))))
+AND   p.project_category_id != 27 and p.project_category_id = pcl.project_category_id
 AND   p.tc_direct_project_id IN (@tcdirectids@)
 
 UNION ALL
@@ -63,12 +73,17 @@ case when p.project_status_id  in (1,7) then
         and pi26.project_id =  p.project_id ), 0)
 else 0 end as cost_amount
 FROM informixoltp:payment pm  
-        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id, project p
+        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id, project p, project_category_lu pcl
 WHERE pmd.component_project_id = p.project_id
 AND   pmd.installment_number = 1
 AND   NOT pmd.payment_status_id IN (65,68, 69)
-AND   p.project_status_id != 3
-AND   p.project_category_id != 27
+and (p.project_status_id not in (1,2,3) OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pcl.project_type_id = 3)
+       	   and exists (select phase_type_id from project_phase
+				where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3))
+	  OR (p.project_status_id  = 1 and (p.project_category_id not in (9, 29) and pcl.project_type_id in (1,2))
+       	   and (exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =11 and phase_status_id in (2,3))
+		        OR not exists (select phase_type_id from project_phase	where project_id = p.project_id and phase_type_id =10 and phase_status_id in (1,2)))))
+AND   p.project_category_id != 27 and p.project_category_id = pcl.project_category_id
 AND   p.tc_direct_project_id IN (@tcdirectids@)
 AND   pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65,60, 13)
 and   pmd.payment_detail_id =
@@ -87,9 +102,13 @@ case when p.project_status_id in (9, 10) and exists (select * from project_phase
             when p.project_status_id in (9, 10) and not exists (select * from project_phase where project_id = p.project_id and phase_type_id = 1 and phase_status_id in (2,3))
             then 0 
             else pi2.value::DECIMAL(10,2) end as contest_fee_amount, 0 as cost_amount
-FROM project p, project_info pi2, informixoltp:payment pm, informixoltp:payment_detail pmd 
-WHERE  p.project_status_id IN (7, 9, 10)
-AND   p.project_category_id != 27
+FROM project p, project_info pi2, informixoltp:payment pm, informixoltp:payment_detail pmd , project_category_lu pcl
+WHERE  (p.project_status_id  = 7 OR (p.project_status_id  = 1
+        and exists (select phase_type_id from project_phase
+                where phase_type_id = (case when p.project_category_id in (9, 29) then 4
+                                           when pcl.project_type_id in (1,2) then 10  else 4 end)
+                and project_id = p.project_id and phase_status_id = 3)))
+AND   p.project_category_id != 27 and p.project_category_id = pcl.project_category_id
 AND   pi2.project_id = p.project_id
 AND   pi2.project_info_type_id = 31
 AND   pm.most_recent_detail_id = pmd.payment_detail_id
