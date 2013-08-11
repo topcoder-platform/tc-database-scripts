@@ -145,3 +145,4 @@ SELECT c.handle
    AND r.algo_rating_type_id = 1
    AND cr.algo_rating_type_id = 1
    AND cps.algo_rating_type_id = 1
+   AND c.status = 'A'
