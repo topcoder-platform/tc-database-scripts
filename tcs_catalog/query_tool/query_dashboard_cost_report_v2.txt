@@ -12,13 +12,15 @@ SELECT s.project_id,
     s.contest_name,
     s.is_studio,
       nvl((case when s.contest_fee_percentage = 0 or s.contest_fee_percentage is null then s.contest_fee
+           when s.project_id = 0 or s.project_id is null then s.contest_fee
          else (case when s.project_status_id not in (1,2) or (s.project_status_id = 1 and actual_active = 1) then s.contest_fee_percentage * s.actual_Member_Costs
                 else s.contest_fee_percentage * s.estimated_member_costs end)
          end), 0) as contest_fee,
     s.contest_status,
     s.estimated_member_costs,
     s.actual_Member_Costs, s.actual_active
-    
+
+
 FROM table(MULTISET(select p.project_id,
        ttc.name client,
        ttc.client_id,
@@ -32,8 +34,15 @@ FROM table(MULTISET(select p.project_id,
        pc.project_category_id,
        pi.value as contest_name,
        0 as is_studio,
-       case when p.project_status_id not in (1,2,7) then 0 
-            else pi2.value::DECIMAL(10,2) end as contest_fee,
+       (case when p.project_status_id not in (1,2,7) then 0
+            else pi2.value::DECIMAL(10,2) end)
+            + NVL(tdp.fixed_bug_contest_fee, 0) * (select count(payment_id) from informixoltp:payment pm
+                 INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+                 left join project_info pi57 ON pi57.project_id = pmd.component_project_id and pi57.project_info_type_id = 57
+                 where pmd.component_project_id = p.project_id
+                 and (pi57.value is null or pi57.value = 0)
+                 and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68,69)
+                  and pmd.payment_type_id in(23, 37, 46, 47) and pmd.jira_issue_id is not null) as contest_fee,
        CASE
        WHEN ps.project_status_id in (9, 10)
           THEN 'Cancelled'
@@ -236,7 +245,7 @@ where p.project_status_id = ps.project_status_id
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, 18
 
-UNION ALL
+UNION ALL   -- studio contest
 
 select p.project_id,
        ttc.name client,
@@ -251,8 +260,15 @@ select p.project_id,
        pc.project_category_id,
        pi.value as contest_name,
        0 as is_studio,
-       case when p.project_status_id not in (1,2,7) then 0 
-            else pi2.value::DECIMAL(10,2) end as contest_fee,
+       (case when p.project_status_id not in (1,2,7) then 0
+                   else pi2.value::DECIMAL(10,2) end)
+                   + NVL(tdp.fixed_bug_contest_fee, 0) * (select count(payment_id) from informixoltp:payment pm
+                        INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+                        left join project_info pi57 ON pi57.project_id = pmd.component_project_id and pi57.project_info_type_id = 57
+                        where pmd.component_project_id = p.project_id
+                        and (pi57.value is null or pi57.value = 0)
+                        and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68,69)
+                         and pmd.payment_type_id in(23, 37, 46, 47) and pmd.jira_issue_id is not null) as contest_fee,
        CASE
        WHEN ps.project_status_id in (9, 10)
           THEN 'Cancelled'
@@ -268,8 +284,8 @@ select p.project_id,
           'Active'
        END as contest_status,
 
-    (select nvl(pcfp.contest_fee_percentage, 0) from time_oltp:project_contest_fee_percentage pcfp
-            where ttp.project_id = pcfp.project_id and pcfp.active = 'T') as contest_fee_percentage,
+    nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
+                    where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage,
     p.project_status_id,
 	
 	case when (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
@@ -451,12 +467,38 @@ where p.project_status_id = ps.project_status_id
   and (ct.completion_time BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
 group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18)) AS s
 
-UNION ALL
+UNION ALL -- project level cost & bug race fee
 
  SELECT NULL::int as project_id, ttc.name as client, ttc.client_id as client_id, ttp.name as billing_project_name, ttp.project_id as billing_project_id,
  tdp.name as direct_project_name, tdp.project_id as direct_project_id, NULL::datetime year to fraction as launch_date, NULL::datetime year to fraction as completion_date,
  'Bug Race' as category, NULL::int as project_category_id, NULL::varchar as contest_name,
- 0 as is_studio, 0 as contest_fee, NULL::varchar as contest_status, 0 as estimated_member_costs,
+ 0 as is_studio,
+ CASE
+    WHEN tdp.fixed_bug_contest_fee > 0
+    THEN tdp.fixed_bug_contest_fee * (select count(payment_id) from informixoltp:payment pm
+                                                             INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+                                                             where pmd.cockpit_project_id = tdp.project_id
+                                                             and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68,69)
+                                                             and pmd.payment_type_id in(68, 70, 71) and pmd.jira_issue_id is not null)
+    WHEN tdp.percentage_bug_contest_fee > 0
+    THEN tdp.percentage_bug_contest_fee * (NVL((SELECT sum(total_amount)
+                                                 FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+                                                  WHERE pmd.cockpit_project_id = tdp.project_id and pmd.installment_number = 1
+                                                  and pm.most_recent_detail_id = pmd.payment_detail_id and pmd.payment_type_id != 4
+                                                  AND NOT pmd.payment_status_id IN (65, 68, 69) and pmd.payment_type_id in(68, 70, 71) and pmd.jira_issue_id is not null), 0)
+                                              +
+                                              NVL((SELECT sum(pmd2.total_amount)
+                                                     FROM  informixoltp:payment_detail pmd,
+                                                           informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id,
+                                                           informixoltp:payment pm2
+                                                      WHERE pmd.cockpit_project_id = tdp.project_id and pmd2.installment_number = 1
+                                                      and pm.most_recent_detail_id = pmd.payment_detail_id
+                                                      and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
+                                                      AND NOT pmd2.payment_status_id IN (65, 68, 69) and pmd2.payment_type_id in(68, 70, 71) and pmd2.jira_issue_id is not null) , 0))
+    ELSE 0
+ END
+ as contest_fee,
+ NULL::varchar as contest_status, 0 as estimated_member_costs,
 NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.cockpit_project_id = tdp.project_id and pmd.installment_number = 1
@@ -520,6 +562,3 @@ NVL((SELECT sum(total_amount)
               AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@) )
       )
 group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
-
-
-
