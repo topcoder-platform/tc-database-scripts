@@ -1062,6 +1062,12 @@ alter table 'informix'.password_reset_token add constraint primary key
     (user_id)
     constraint pk_password_reset_token;
 
-alter table 'informix'.second_email_request add constraint primary key 
-    (user_id)
-    constraint pk_second_email_request;
+alter table 'informix'.email_request add constraint primary key 
+    (request_id)
+    constraint pk_email_request;
+
+alter table 'informix'.email_request add constraint foreign key
+(user_id)
+references 'informix'.user
+(user_id)
+constraint emailrequest_user_fk;

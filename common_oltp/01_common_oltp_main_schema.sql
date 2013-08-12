@@ -1287,17 +1287,18 @@ lock mode row;
 
 revoke all on 'informix'.password_reset_token from 'public';
 
-
-CREATE  TABLE  second_email_request (
-  user_id INT  NOT NULL,
+CREATE TABLE 'informix'.email_request (
+  request_id INT NOT NULL,
+  user_id DECIMAL(10, 0) NOT NULL,
   email VARCHAR(100) NOT NULL,
   random_key INT  NOT NULL,
-  expired_at DATETIME YEAR TO FRACTION NOT NULL
+  expired_at DATETIME YEAR TO FRACTION NOT NULL,
+  request_type INT NOT NULL
 )
 extent size 32 next size 32
 lock mode row;
 
-revoke all on 'informix'.second_email_request from 'public';
+revoke all on 'informix'.email_request from 'public';
 
 
 CREATE SEQUENCE "informix".CONTEST_ELIGIBILITY_SEQ INCREMENT BY 1 START WITH 1 MINVALUE 1;
@@ -2290,5 +2291,5 @@ grant select,update,insert,delete on authorization_code_grant_has_permission to 
 grant select on "informix".seq_access_token to "public" as "informix";
 grant select on "informix".seq_authorization_code_grant to "public" as "informix";
 grant select,update,insert,delete on password_reset_token to public as informix;
-grant select,update,insert,delete on second_email_request to public as informix;
+grant select,update,insert,delete on email_request to public as informix;
 
