@@ -233,11 +233,6 @@ alter table 'informix'.direct_project_dim add constraint primary key
 	(direct_project_id)
 	constraint direct_project_dim_pkey;
 
-alter table 'informix'.direct_project_dim add constraint foreign key
-	(billing_project_id)
-	references 'informix'.client_project_dim
-	(billing_project_id)
-	constraint directprojectdim_clientprojectdim_billingprojectid_fk;
 	
 
 	ALTER TABLE 'informix'.user_achievement_rule 
@@ -545,6 +540,12 @@ ALTER TABLE 'informix'.user_achievement_xref
 	ADD CONSTRAINT FOREIGN KEY(user_achievement_rule_id)
 	REFERENCES user_achievement_rule(user_achievement_rule_id)
 	CONSTRAINT fk_user_achievement_xref_user_achievement_rule;
+
+alter table 'informix'.direct_project_dim add constraint foreign key
+	(billing_project_id)
+	references 'informix'.client_project_dim
+	(billing_project_id)
+	constraint directproject_clientproject_billingprojectid_fk;
 
 CREATE INDEX 'informix'.userpermissiongrant_resource_idx ON 'informix'.user_permission_grant(resource_id);
 CREATE INDEX 'informix'.userpermissiongrant_userid_idx ON 'informix'.user_permission_grant(user_id);
