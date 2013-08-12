@@ -232,6 +232,12 @@ alter table 'informix'.monthly_contest_stats add constraint primary key
 alter table 'informix'.direct_project_dim add constraint primary key 
 	(direct_project_id)
 	constraint direct_project_dim_pkey;
+
+alter table 'informix'.direct_project_dim add constraint foreign key
+	(billing_project_id)
+	references 'informix'.client_project_dim
+	(billing_project_id)
+	constraint directprojectdim_clientprojectdim_billingprojectid_fk;
 	
 
 	ALTER TABLE 'informix'.user_achievement_rule 

@@ -771,6 +771,7 @@ create table "informix".direct_project_dim
     direct_project_id integer not null,
     name varchar(200) not null,
     description lvarchar(10000),
+    billing_project_id DECIMAL(12, 0),
     project_status_id INT default 1 not null,
     project_create_date DATETIME YEAR TO SECOND NOT NULL,
     project_modification_date DATETIME YEAR TO SECOND NOT NULL
@@ -915,6 +916,7 @@ revoke all on "informix".user_permission_grant from "public" as "informix";
 	winner VARCHAR(255),
 	payment_amount DECIMAL(15, 2),
 	contest_id INT,
+	project_id INT,
 	status VARCHAR(255),
 	PRIMARY KEY(jira_issue_id) CONSTRAINT  "informix".pk_jira_issue
 ) 
