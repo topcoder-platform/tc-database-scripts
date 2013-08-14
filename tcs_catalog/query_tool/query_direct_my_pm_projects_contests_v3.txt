@@ -11,16 +11,20 @@ SELECT
 	 s.last_posters as last_posters,  
     nvl(round(SUM(
                     case 
-                        when s.contest_status_id=7 then -- finished
+                        when s.contest_status_id = 7 then -- finished contest
                         (
                             CASE WHEN s.contest_fee_percentage IS NOT NULL and s.contest_fee_percentage != 0 
                                 THEN s.cost + s.cost * s.contest_fee_percentage + s.dr_points + (s.dr_points * s.contest_fee_percentage) 
-                                ELSE s.cost + s.admin_fee + s.dr_points END
+                                ELSE s.cost + s.admin_fee + s.bug_admin_fee + s.dr_points END
                         )
-                        when s.contest_status_id not in (1,2, 7) then  
-						      CASE WHEN s.contest_fee_percentage IS NOT NULL and s.contest_fee_percentage != 0
+                        when s.contest_status_id not in (1,2,7) and s.contest_status_id > 0 then -- deleted and cancelled contest
+						      (CASE WHEN s.contest_fee_percentage IS NOT NULL and s.contest_fee_percentage != 0
                               THEN s.cost + s.cost * s.contest_fee_percentage
-                              ELSE s.cost END
+                              ELSE s.cost + s.bug_admin_fee END)
+                        when s.contest_status_id IN (1,2) then
+                              s.bug_cost + s.bug_admin_fee
+                        when s.contest_status_id < 0 then -- project level cost
+                              s.cost + s.bug_admin_fee
                     end
                 ), 2), 0)
 			   AS actual_cost,
@@ -29,17 +33,19 @@ SELECT
     		(
     		CASE WHEN s.contest_fee_percentage IS NOT NULL and s.contest_fee_percentage != 0 
 						THEN s.cost + s.cost * s.contest_fee_percentage + s.dr_points + (s.dr_points * s.contest_fee_percentage) 
-						ELSE s.cost + s.admin_fee + s.dr_points END
+						ELSE s.cost + s.admin_fee + s.bug_admin_fee + s.dr_points END
     		)
 		when s.contest_status_id = 1 OR s.contest_status_id = 2 then -- active/draft
     		(
     		CASE WHEN s.contest_fee_percentage IS NOT NULL and s.contest_fee_percentage != 0 
 						THEN s.cost + s.cost * s.contest_fee_percentage + s.dr_points + (s.dr_points * s.contest_fee_percentage) 
-						ELSE s.cost + s.admin_fee + s.dr_points END
+						ELSE s.cost + s.admin_fee + s.dr_points + s.bug_admin_fee + s.bug_cost END
     		)
-                else CASE WHEN s.contest_fee_percentage IS NOT NULL and s.contest_fee_percentage != 0 
-						THEN s.cost + s.cost * s.contest_fee_percentage 
-						ELSE s.cost END
+    	when s.contest_status_id < 0 then -- project level cost
+              s.cost + s.bug_admin_fee
+        else CASE WHEN s.contest_fee_percentage IS NOT NULL and s.contest_fee_percentage != 0
+                THEN s.cost + s.cost * s.contest_fee_percentage
+                ELSE s.cost + s.bug_admin_fee END
     		end), 2), 0)
 	   AS cost_projected,
 	   
@@ -136,6 +142,41 @@ nvl((select nvl(mb.metadata_value, 0) from  direct_project_metadata mb where mb.
 
 nvl((select cast (nvl(pi31.value, '0') as DECIMAL (10,2)) from project_info pi31
                 where p.project_id = pi31.project_id and pi31.project_info_type_id = 31),0) as admin_fee, 
+
+CASE
+
+WHEN nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
+                     where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) > 0 THEN
+
+nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
+                     where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0)
+                     * (select sum(total_amount) from informixoltp:payment pm
+      INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+      where pmd.component_project_id = p.project_id
+      and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68,69)
+      and pmd.payment_type_id in(23, 37, 46, 47) and pmd.jira_issue_id is not null)
+
+WHEN tdp.fixed_bug_contest_fee > 0 THEN
+
+NVL(tdp.fixed_bug_contest_fee, 0) * (select count(payment_id) from informixoltp:payment pm
+      INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+      left join project_info pi57 ON pi57.project_id = pmd.component_project_id and pi57.project_info_type_id = 57
+      where pmd.component_project_id = p.project_id
+      and (pi57.value is null or pi57.value = 0)
+      and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68,69)
+      and pmd.payment_type_id in(23, 37, 46, 47) and pmd.jira_issue_id is not null)
+
+ELSE
+0
+
+END as bug_admin_fee,
+
+(select sum(total_amount) from informixoltp:payment pm
+      INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+      where pmd.component_project_id = p.project_id
+      and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68,69)
+       and pmd.payment_type_id in(23, 37, 46, 47) and pmd.jira_issue_id is not null) as bug_cost,
+
 
 nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage, 
@@ -270,7 +311,7 @@ where ttp.project_id = ttcp.project_id
             and u.user_id = uref.login_id 
          join security_roles as sr 
             on uref.role_id = sr.role_id 
-            and sr.description in ('TC Staff')))
+            and sr.description in ('TC Staff', 'Platform Specialist')))
             
 union all
 
@@ -293,8 +334,24 @@ SELECT
 	
 	nvl((select nvl(mb.metadata_value, 0) from  direct_project_metadata mb where mb.tc_direct_project_id = tdp.project_id  and mb.project_metadata_key_id = 6), 0) as planned_duration,
 	nvl((select nvl(mb.metadata_value, 0) from  direct_project_metadata mb where mb.tc_direct_project_id = tdp.project_id  and mb.project_metadata_key_id = 3), 0) as total_budget,
-	
-	0::decimal(10,2) as admin_fee, 
+
+	0::decimal(10,2) as admin_fee,
+
+	CASE
+        WHEN tdp.fixed_bug_contest_fee > 0 AND pmd.payment_type_id in (68, 70, 71) AND pmd.jira_issue_id is not null
+        THEN tdp.fixed_bug_contest_fee
+        WHEN tdp.percentage_bug_contest_fee > 0 AND pmd.payment_type_id in (68, 70, 71) AND pmd.jira_issue_id is not null
+        THEN tdp.percentage_bug_contest_fee * pmd.total_amount
+        ELSE 0
+     END
+	 as bug_admin_fee,
+
+	 CASE
+	    WHEN pmd.payment_type_id in (68, 70, 71) AND pmd.jira_issue_id is not null
+	    THEN pmd.total_amount
+	    ELSE
+	        0
+	 END as bug_cost,
 	
 	0::decimal(10,2) as contest_fee_percentage, 
 	
@@ -356,7 +413,7 @@ where
             and u.user_id = uref.login_id 
          join security_roles as sr 
             on uref.role_id = sr.role_id 
-            and sr.description in ('TC Staff')))
+            and sr.description in ('TC Staff', 'Platform Specialist')))
 
 )) AS s 
  GROUP BY 1, 2, 3, 4, 5, 6, 7 , 8, 9, 10
