@@ -3326,6 +3326,7 @@ insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, p
 insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (8, 'Data Warehousing', 'Data Warehousing');
 insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (9, 'Marketing Campaigns', 'Marketing Campaigns');
 insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (10, 'Marathon Match', 'Marathon Match');
+insert into 'informix'.project_copilot_type_lu (project_copilot_type_id, name, project_copilot_type_desc) values (11, 'Salesforce', 'Salesforce');
 
 insert into 'informix'.copilot_contest_extra_info_type (copilot_contest_extra_info_type_id, name, copilot_contest_extra_info_type_desc) values (1, 'Budget', 'Budget');
 insert into 'informix'.copilot_contest_extra_info_type (copilot_contest_extra_info_type_id, name, copilot_contest_extra_info_type_desc) values (2, 'Other Managing Experience', 'Other Managing Experience');
