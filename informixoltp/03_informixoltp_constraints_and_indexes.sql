@@ -3197,3 +3197,13 @@ alter table 'informix'.round_event add constraint foreign key
 alter table 'informix'.problem_round_type_lu add constraint primary key 
     (problem_round_type_id)
     constraint problem_round_type_lu_pk;
+	
+alter table 'informix'.long_component_configuration add constraint primary key 
+    (component_id)
+    constraint long_component_configuration_pk;
+
+alter table 'informix'.long_component_configuration add constraint foreign key 
+    (component_id)
+    references 'informix'.component
+    (component_id) 
+    constraint longcomponentconfiguration_component_fk;

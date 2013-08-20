@@ -4108,6 +4108,16 @@ revoke all on problem_round_type_lu from 'public';
 
 grant insert, update, select, delete on problem_round_type_lu to 'public' as 'informix';
 
+create table 'informix'.long_component_configuration (
+    component_id DECIMAL(10,0) NOT NULL,
+    submission_rate DECIMAL(10,0),
+    example_submission_rate DECIMAL(10,0)
+)
+extent size 32 next size 32
+lock mode row;
+revoke all on long_component_configuration from 'public';
+grant insert, update, select, delete on long_component_configuration to 'public' as 'informix';
+
 grant select on rating to 'informix' with grant option ;
 
 grant delete on rating to 'informix' with grant option ;
