@@ -12071,3 +12071,17 @@ INSERT INTO 'informix'.problem_round_type_lu(problem_round_type_id,problem_round
 INSERT INTO 'informix'.problem_round_type_lu(problem_round_type_id,problem_round_type_desc,problem_type) VALUES (25, 'CUDA Long Problem Round', 3);
 INSERT INTO 'informix'.problem_round_type_lu(problem_round_type_id,problem_round_type_desc,problem_type) VALUES (27, 'Long Problem QA Round', 3);
 
+INSERT INTO language(language_id,language_name,status) VALUES (7,'R','Y');
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'int', 1);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'float', 4);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'char', 6);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'byte', 7);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'short', 13);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'long', 14);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'double', 15);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'String', 18);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'boolean', 19);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'int[]', 20);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'double[]', 21);
+INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'String[]', 22);
+
