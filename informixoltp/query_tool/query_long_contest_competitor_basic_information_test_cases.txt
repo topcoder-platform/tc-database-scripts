@@ -7,7 +7,7 @@ SELECT
 FROM long_system_test_result str
     ,system_test_case stc
     , user u
-WHERE lower(u.handle) MATCHES lower('@ha@')
+WHERE lower(u.handle) = lower('@ha@')
     AND str.round_id = @rd@
     and str.test_case_id = stc.test_case_id
     AND u.user_id = str.coder_id

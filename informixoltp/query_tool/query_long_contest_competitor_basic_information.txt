@@ -38,4 +38,4 @@ SELECT
    and s.example = 0
    and s.language_id = l.language_id
    and ar.algo_rating_type_id = 3
-AND lower(u.handle) MATCHES lower('@ha@')
+AND lower(u.handle) = lower('@ha@')

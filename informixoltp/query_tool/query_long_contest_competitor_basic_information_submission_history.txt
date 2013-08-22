@@ -19,5 +19,5 @@ WHERE lcs.long_component_state_id = ls.long_component_state_id
     AND lcr.round_id = @rd@
     AND lcs.coder_id = usr.user_id
     AND lcr.coder_id = usr.user_id
-    AND lower(usr.handle) MATCHES lower('@ha@')
+    AND lower(usr.handle) = lower('@ha@')
     AND ls.language_id = l.language_id
