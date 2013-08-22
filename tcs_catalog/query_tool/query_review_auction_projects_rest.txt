@@ -1,0 +1,33 @@
+SELECT  DISTINCT 
+(SELECT COUNT(DISTINCT u.resource_id) 
+ FROM upload u 
+ INNER JOIN submission s ON u.upload_id = s.upload_id  
+ WHERE u.project_id = p.project_id 
+ AND s.submission_type_id = 1 
+ AND s.submission_status_id in (1,2,3,4) 
+ AND u.upload_type_id = 1) AS submission_number  
+ , pi6.value AS contest_name  
+ , p.project_id  
+ , p.tc_direct_project_id 
+ , reviewpp.scheduled_start_time AS review_start  
+ , reviewpp.scheduled_end_time AS review_end 
+ , ppreg.scheduled_start_time AS opens_on  
+ , ppsub.scheduled_start_time AS contest_start_time 
+ , cat.category_name AS catalog 
+ , pc.name AS type 
+ , (case when reviewpp.phase_type_id = 4 then "contest_review" when reviewpp.phase_type_id = 14 then "spec_review" end) as review_type 
+ , regispp.scheduled_start_time AS registration_start
+ , ppsub.scheduled_end_time AS submission_end
+FROM project p  
+INNER JOIN project_phase reviewpp ON reviewpp.project_id = p.project_id AND (reviewpp.phase_type_id = 4 OR reviewpp.phase_type_id = 14)
+INNER JOIN project_phase regispp ON regispp.project_id = p.project_id AND regispp.phase_type_id = 1
+INNER JOIN project_info pi5 ON p.project_id = pi5.project_id AND pi5.project_info_type_id = 5 
+INNER JOIN project_info pi6 ON p.project_id = pi6.project_id AND pi6.project_info_type_id = 6 
+INNER JOIN project_category_lu pc ON pc.project_category_id = p.project_category_id 
+INNER JOIN project_phase ppreg ON ppreg.project_id = p.project_id AND ppreg.phase_type_id = 1 AND ppreg.scheduled_start_time <= CURRENT 
+INNER JOIN project_phase ppsub ON ppsub.project_id = p.project_id AND ppsub.phase_type_id = 2 AND ppsub.scheduled_start_time <= CURRENT 
+INNER JOIN categories cat ON cat.category_id = pi5.value::DECIMAL(12,0) 
+WHERE 1=1
+AND LOWER(pi6.value) LIKE LOWER('%@pjn@%')
+AND p.project_id IN (@pids@)
+ORDER BY @sc@ @sd@
