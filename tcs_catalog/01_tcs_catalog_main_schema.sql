@@ -3311,6 +3311,19 @@ lock mode row;
 
 revoke all on direct_project_task_list_contest_xref from 'public';
 
+CREATE TABLE 'informix'.contest_milestone_xref (
+    contest_id INT NOT NULL,
+    project_milestone_id INT NOT NULL,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION not null
+)
+EXTENT SIZE 32 NEXT SIZE 32
+LOCK MODE PAGE;
+
+revoke all on contest_milestone_xref from 'public';
+
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -5230,4 +5243,6 @@ grant select,insert,update,delete on direct_project_task_contest_xref to public 
 grant select,insert,update,delete on direct_project_task_assignee to public as 'informix';
 grant select,insert,update,delete on direct_project_task_milestone_xref to public as 'informix';
 grant select,insert,update,delete on direct_project_task_list_contest_xref to public as 'informix';
+
+grant select,insert,update,delete on contest_milestone_xref to public as 'informix';
 
