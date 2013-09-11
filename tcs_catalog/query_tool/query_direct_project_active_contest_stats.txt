@@ -1,0 +1,13 @@
+SELECT tdp.project_id AS tc_direct_project_id, 
+       pcl.name AS project_category_name,
+       COUNT(p.project_id) AS active_contests_count
+FROM tc_direct_project tdp
+INNER JOIN project p ON p.tc_direct_project_id = tdp.project_id
+INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id
+WHERE p.project_status_id = 1
+AND (EXISTS (SELECT u.user_id 
+             FROM user AS u 
+             JOIN user_role_xref AS uref ON u.user_id = DECODE(@uid@,0,u.user_id,@uid@) AND u.user_id = uref.login_id 
+             JOIN security_roles AS sr ON uref.role_id = sr.role_id AND sr.description IN ('TC Staff', 'Platform Specialist')))
+GROUP BY 1, 2
+ORDER BY 1, 2

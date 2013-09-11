@@ -8,6 +8,7 @@ SELECT
     s.planned_duration as planned_duration,
     s.total_budget as total_budget,
      s.name_of_project_manager as name_of_project_manager,  
+     s.copilots as copilots,  
 	 s.last_posters as last_posters,  
     nvl(round(SUM(
                     case 
@@ -52,6 +53,7 @@ SELECT
     SUM(is_stalled) as stalled_contests_number,
     
     min(late_phase_id) IS NOT NULL as has_late_contests,
+    MIN(late_phase_time) AS late_phase_end_time,
     
     min(s.start_date) as start_date,
     max(s.end_date) as end_date,  
@@ -80,6 +82,8 @@ SELECT
     ) as phase_late_contests_number,
                
     SUM(is_launch_late) as launch_late_contests_number,
+    
+    MIN(launch_delayed_time) AS launch_delayed_time,
         
     SUM(is_milestone_late) as milestone_late_contests_number,
     
@@ -133,7 +137,26 @@ CASE WHEN ((SELECT Min(project_phase_id)
 
 )) THEN 1 ELSE 0 END as is_stalled,
 
-(select min(project_phase_id) from project_phase ph where ph.project_id = p.project_id and ph.phase_status_id = 2 and CURRENT > ph.scheduled_end_time) as late_phase_id,
+(SELECT MIN(project_phase_id) 
+ FROM project_phase ph 
+ WHERE ph.project_id = p.project_id
+ AND NOT p.project_status_id IN (4,5,6,9,10) 
+ AND ph.phase_status_id = 2 
+ AND CURRENT > ph.scheduled_end_time) 
+AS late_phase_id,
+
+(
+    SELECT ph.scheduled_end_time
+    FROM project_phase ph
+    WHERE ph.project_phase_id = (SELECT MIN(project_phase_id) 
+                                 FROM project_phase ph2 
+                                 WHERE ph2.project_id = p.project_id
+                                 AND NOT p.project_status_id IN (4,5,6,9,10) 
+                                 AND ph2.phase_status_id = 2 
+                                 AND CURRENT > ph2.scheduled_end_time) 
+) 
+AS late_phase_time,
+
 
 (select min(nvl(actual_start_time, scheduled_start_time)) from project_phase ph where ph.project_id = p.project_id and ph.phase_type_id = 1) as start_date,
 (select max(nvl(actual_end_time, scheduled_end_time)) from project_phase ph where ph.project_id = p.project_id) as end_date,
@@ -225,6 +248,14 @@ p.project_status_id as contest_status_id,
                     AND mb.tc_direct_project_id = tdp.project_id  
                     AND mb.project_metadata_key_id = 2)::lvarchar, 
 'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as name_of_project_manager, 
+ 
+  replace(replace(replace(replace(replace( multiset (SELECT DISTINCT u1.handle AS copilot_handle  
+                                                     FROM copilot_project cproj
+                                                     INNER JOIN copilot_profile cprof ON cproj.copilot_profile_id = cprof.copilot_profile_id  
+                                                     INNER JOIN user u1 ON u1.user_id = cprof.user_id  
+                                                     WHERE cproj.tc_direct_project_id = tdp.project_id )::lvarchar, 
+  'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as copilots,
+ 
   last_posters(tdp.project_forum_id) as last_posters, 
  
 CASE 
@@ -246,7 +277,19 @@ CASE
     THEN 1
     ELSE 0
 END as is_launch_late,
-
+CASE
+    WHEN 
+        p.project_status_id < 3 -- draft or active
+    THEN 
+        (SELECT ph.scheduled_start_time 
+         FROM project_phase ph
+         WHERE ph.project_phase_id = (SELECT MIN(project_phase_id)
+                                     FROM project_phase
+                                     WHERE project_phase.project_id = p.project_id)
+         AND ph.phase_status_id = 1
+         AND ph.scheduled_start_time < CURRENT)
+    ELSE NULL::DATETIME YEAR TO FRACTION
+END AS launch_delayed_time,
 CASE
     WHEN
     NVL((select min(scheduled_end_time)
@@ -328,6 +371,7 @@ SELECT
 	null::int as is_stalled,
 	
 	null::int as late_phase_id,
+	null::DATETIME YEAR TO FRACTION as late_phase_time,
 	
 	null::datetime year to fraction as start_date,
 	null::datetime year to fraction as end_date,
@@ -367,10 +411,17 @@ SELECT
                     AND mb.tc_direct_project_id = tdp.project_id  
                     AND mb.project_metadata_key_id = 2)::lvarchar, 
    'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as name_of_project_manager, 
+  replace(replace(replace(replace(replace( multiset (SELECT DISTINCT u1.handle AS copilot_handle  
+                                                     FROM copilot_project cproj
+                                                     INNER JOIN copilot_profile cprof ON cproj.copilot_profile_id = cprof.copilot_profile_id  
+                                                     INNER JOIN user u1 ON u1.user_id = cprof.user_id  
+                                                     WHERE cproj.tc_direct_project_id = tdp.project_id )::lvarchar, 
+  'MULTISET{ROW(''', ''), 'ROW(''', ''), ''')}', ''), ''')', ''), 'MULTISET{}', '') as copilots,
    
     last_posters(tdp.project_forum_id) as last_posters,
 	 
 	null::int as is_launch_late,
+	null::DATETIME YEAR TO FRACTION as launch_delayed_time,
 	
 	null::int as is_milestone_late,
 	 
@@ -416,5 +467,5 @@ where
             and sr.description in ('TC Staff', 'Platform Specialist')))
 
 )) AS s 
- GROUP BY 1, 2, 3, 4, 5, 6, 7 , 8, 9, 10
+ GROUP BY 1, 2, 3, 4, 5, 6, 7 , 8, 9, 10, 11
  order by tc_direct_project_id 

@@ -1932,6 +1932,7 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32951, null, 'dashboard_billing_cost_invoice_report_invoice_number_percentage_fee_project_level_payment', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (32966, null, 'studio_winner', 0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (33026, null, 'review_auction_projects_rest', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (33046, null, 'direct_project_active_contest_stats', 0, null);
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (13717, 'N', NULL, 25190, 1);
@@ -2641,6 +2642,7 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33026, 'N', NULL, 25561, 2);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33026, 'N', NULL, 16916, 3);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33026, 'N', NULL, 16917, 4);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33046, NULL, NULL, 13347, 0);
 
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (11010, 11010, NULL);
@@ -3118,6 +3120,7 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32389, 32886, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32390, 32887, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32391, 32896, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32391, 33030, 1);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32392, 32888, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32459, 32956, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (31279, 32957, 0);

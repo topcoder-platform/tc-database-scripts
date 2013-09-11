@@ -456,6 +456,7 @@ query_dashboard_billing_cost_invoice_report_invoice_number_fixed_project_level_b
 query_dashboard_billing_cost_invoice_report_invoice_number_percentage_fee_project_level_payment.txt|UPDATE query SET text = ? WHERE query_id = 32951
 query_studio_winner.txt|UPDATE query SET text = ? WHERE query_id = 32966
 query_review_auction_projects_rest.txt|UPDATE query SET text = ? WHERE query_id = 33026
+query_direct_project_active_contest_stats.txt|UPDATE query SET text = ? WHERE query_id = 33046
 
 
 
