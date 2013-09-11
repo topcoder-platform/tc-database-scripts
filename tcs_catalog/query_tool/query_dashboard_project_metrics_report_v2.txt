@@ -8,10 +8,9 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
   s.completion_date as completion_date,  
   s.total_budget as total_budget,
   s.num_draft as num_draft,
-  s.cost_cancelled as cost_cancelled,
+  sum(s.cost_cancelled) as cost_cancelled,
   SUM(s.total_number) AS total_number,
-  SUM(s.project_level_cost) as project_level_cost,
-
+  SUM(s.project_level_cost + (CASE WHEN s.project_id = 0 OR s.project_id IS NULL THEN s.bug_race_fee ELSE 0 END)) as project_level_cost,
 	SUM(CASE WHEN s.contest_fee_percentage IS NULL  or s.contest_fee_percentage =0
 	         THEN s.planned_cost ELSE s.contest_fee_percentage * s.percentage_planned_cost  + s.percentage_planned_cost END) AS planned_cost,
 
@@ -24,7 +23,7 @@ SELECT  s.tc_direct_project_id AS tc_direct_project_id,
      
       SUM(case when s.contest_status_id in (9, 10) then 1 else 0 end) AS num_cancelled,  
 	
-	SUM((CASE WHEN ((s.contest_fee_percentage IS NULL  or s.contest_fee_percentage =0) and s.contest_status_id=7 ) THEN s.contest_fee ELSE s.contest_fee_percentage * s.member_cost END) + s.member_cost) AS actual_cost,
+	SUM((CASE WHEN ((s.contest_fee_percentage IS NULL  or s.contest_fee_percentage =0) and s.contest_status_id=7 ) THEN s.contest_fee ELSE s.contest_fee_percentage * s.member_cost END) + s.member_cost + s.bug_race_fee) AS actual_cost,
 	
 	ROUND (SUM(case when s.contest_status_id=7 then 1 else 0 end)*100/(case when SUM (case when s.contest_status_id in (4,5,6,7,8) then 1 else 0 end)=0
                                then 1 else SUM (case when s.contest_status_id  in (4,5,6,7,8) then 1 else 0 end) end), 2) AS fullfillment,
@@ -50,13 +49,13 @@ SUM(case when s.contest_status_id=1 and exists (select project_phase_id from pro
 		)
 	 else 0 end) AS cost_active,    
 	 
-SUM(case when s.contest_status_id=7 then 
+SUM((case when s.contest_status_id=7 then 
 		(
 		CASE WHEN s.contest_fee_percentage IS NULL  or s.contest_fee_percentage =0
 	         THEN s.payment_dr_fixed_finished ELSE s.contest_fee_percentage * s.payment_dr_finished  + s.payment_dr_finished END
 		)
 		when s.contest_status_id in (4,5,6,8) then payment_finished
-	  else 0 end) AS cost_finished
+	  else 0 end) + (CASE WHEN s.project_id = 0 OR s.project_id IS NULL THEN 0 ELSE s.bug_race_fee END) ) as cost_finished
        
 FROM table(MULTISET(SELECT
 p.project_id as project_id,
@@ -229,6 +228,14 @@ nvl((
 1 as total_number,
 
 0 as project_level_cost,
+
+NVL(tdp.fixed_bug_contest_fee, 0) * (select count(payment_id) from informixoltp:payment pm
+                 INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+                 left join project_info pi57 ON pi57.project_id = pmd.component_project_id and pi57.project_info_type_id = 57
+                 where pmd.component_project_id = p.project_id
+                 and (pi57.value is null or pi57.value = 0)
+                 and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68,69)
+                 and pmd.payment_type_id in(23, 37, 46, 47) and pmd.jira_issue_id is not null) as bug_race_fee,
 
 (nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
                 where pr.project_id = p.project_id), 0)
@@ -436,6 +443,31 @@ NVL((SELECT sum(total_amount)
             and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
      as project_level_cost,
+CASE
+    WHEN tdp.fixed_bug_contest_fee > 0
+    THEN tdp.fixed_bug_contest_fee * (select count(payment_id) from informixoltp:payment pm
+                                                             INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id
+                                                             where pmd.cockpit_project_id = tdp.project_id
+                                                             and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68,69)
+                                                             and pmd.payment_type_id in(68, 70, 71) and pmd.jira_issue_id is not null)
+    WHEN tdp.percentage_bug_contest_fee > 0
+    THEN tdp.percentage_bug_contest_fee * (NVL((SELECT sum(total_amount)
+                                                 FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
+                                                  WHERE pmd.cockpit_project_id = tdp.project_id and pmd.installment_number = 1
+                                                  and pm.most_recent_detail_id = pmd.payment_detail_id and pmd.payment_type_id != 4
+                                                  AND NOT pmd.payment_status_id IN (65, 68, 69) and pmd.payment_type_id in(68, 70, 71) and pmd.jira_issue_id is not null), 0)
+                                              +
+                                              NVL((SELECT sum(pmd2.total_amount)
+                                                     FROM  informixoltp:payment_detail pmd,
+                                                           informixoltp:payment pm LEFT OUTER JOIN informixoltp:payment_detail pmd2 on pm.payment_id = pmd2.parent_payment_id,
+                                                           informixoltp:payment pm2
+                                                      WHERE pmd.cockpit_project_id = tdp.project_id and pmd2.installment_number = 1
+                                                      and pm.most_recent_detail_id = pmd.payment_detail_id
+                                                      and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
+                                                      AND NOT pmd2.payment_status_id IN (65, 68, 69) and pmd.payment_type_id in(68, 70, 71) and pmd.jira_issue_id is not null), 0))
+    ELSE 0
+ END
+as bug_race_fee,
 0::decimal(10,2) as planned_cost,
 0::decimal(10,2) as percentage_planned_cost,
 nvl((select nvl(mb.metadata_value, 0) from  direct_project_metadata mb where mb.tc_direct_project_id = tdp.project_id  and mb.project_metadata_key_id = 3), 0) as total_budget,
@@ -465,7 +497,7 @@ FROM tc_direct_project tdp,
  WHERE ttp.project_id = ttcp.project_id and ttcp.client_id = ttc.client_id AND  tcdpsl.project_status_id = tdp.project_status_id
     AND dpt.direct_project_type_id = tdp.direct_project_type_id
     and ttc.client_id = DECODE(@clientid@, 0, ttc.client_id, @clientid@)
-    and ttp.project_id = (select min(billing_account_id) from corporate_oltp:direct_project_account dpa where dpa.project_id = tdp.project_id)
+    and ttp.project_id = (select max(billing_account_id) from corporate_oltp:direct_project_account dpa where dpa.project_id = tdp.project_id)
     and ttp.project_id = DECODE(@billingaccountid@, 0, ttp.project_id, @billingaccountid@)
     and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
     and tdp.project_status_id IN (@directProjectStatusIds@)
@@ -519,5 +551,5 @@ FROM tc_direct_project tdp,
                          AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
          ))
 )) AS s
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 order by tc_direct_project_id
