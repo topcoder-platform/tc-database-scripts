@@ -237,7 +237,7 @@ where p.project_status_id = ps.project_status_id
                AND   gm.active = 1
                AND   sg.archived = 0
                AND tdp2.project_id = tdp.project_id
-               AND ttc2.client_status_id = 1
+               AND ttc2.status = 1
                AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@))
        )
   and pc.project_type_id  != 3
@@ -459,7 +459,7 @@ where p.project_status_id = ps.project_status_id
                   AND   gm.active = 1
                   AND   sg.archived = 0
                   AND tdp2.project_id = tdp.project_id
-                  AND ttc2.client_status_id = 1
+                  AND ttc2.status = 1
                   AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@))
        )
   and pc.project_type_id = 3
@@ -558,7 +558,7 @@ NVL((SELECT sum(total_amount)
               AND   gm.active = 1
               AND   sg.archived = 0
               AND tdp2.project_id = tdp.project_id
-              AND ttc2.client_status_id = 1
+              AND ttc2.status = 1
               AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@) )
       )
 group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18

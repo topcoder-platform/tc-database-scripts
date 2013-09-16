@@ -547,7 +547,7 @@ FROM tc_direct_project tdp,
                          AND   gm.active = 1
                          AND   sg.archived = 0
                          AND tdp2.project_id = tdp.project_id
-                         AND ttc.client_status_id = 1
+                         AND ttc.status = 1
                          AND   gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
          ))
 )) AS s

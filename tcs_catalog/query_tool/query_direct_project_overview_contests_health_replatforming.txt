@@ -169,7 +169,7 @@ and (exists (select u.user_id
              AND   gm.active = 1
              AND   sg.archived = 0
              AND tdp2.project_id = p.tc_direct_project_id
-             AND ttc.client_status_id = 1
+             AND ttc.status = 1
              AND ((gm.use_group_default=0 and gm.specific_permission!='REPORT')
                      OR (gm.use_group_default=1 and sg.default_permission != 'REPORT'))
              AND   gm.user_id = @uid@

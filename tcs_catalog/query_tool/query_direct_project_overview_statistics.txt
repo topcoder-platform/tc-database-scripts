@@ -149,7 +149,7 @@ and (exists (select u.user_id
                               sg.auto_grant = 1
                               AND   gm.active = 1
                               AND   sg.archived = 0
-                              AND ttc.client_status_id = 1
+                              AND ttc.status = 1
                               AND tdp.project_id = p.tc_direct_project_id
                               AND   gm.user_id = @uid@
                       )

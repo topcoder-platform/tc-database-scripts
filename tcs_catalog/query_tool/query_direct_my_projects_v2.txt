@@ -48,7 +48,7 @@ WHERE
     AND   gm.active = 1
     AND   sg.archived = 0
     AND   tdp.project_status_id = 1
-    AND   ttc.client_status_id = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
+    AND   ttc.status = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
     AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
 UNION
 SELECT UNIQUE 
@@ -63,7 +63,7 @@ INNER JOIN customer_administrator ca ON ca.client_id = c.client_id
 WHERE pi.project_info_type_id = 32
 AND   tdp.project_status_id = 1
 AND   c.is_deleted = 0
-AND   c.client_status_id = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
+AND   c.status = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
 AND   ca.user_id = DECODE(@uid@,0,ca.user_id,@uid@)
 UNION
 SELECT UNIQUE

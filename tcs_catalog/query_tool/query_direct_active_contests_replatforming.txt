@@ -119,7 +119,7 @@ where (exists (
         sg.auto_grant = 1
         AND   gm.active = 1
         AND   sg.archived = 0
-        AND   ttc2.client_status_id = 1
+        AND   ttc2.status = 1
         AND tdp2.project_id = p.tc_direct_project_id
         AND ((gm.use_group_default=0 and gm.specific_permission!='REPORT')
                 OR (gm.use_group_default=1 and sg.default_permission != 'REPORT'))
