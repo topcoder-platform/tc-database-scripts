@@ -954,6 +954,7 @@ create table 'informix'.project (
     project_category_id INT not null,
     project_studio_spec_id INTEGER,   
     project_mm_spec_id INTEGER, 
+    project_sub_category_id INTEGER,     
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -3324,6 +3325,17 @@ LOCK MODE PAGE;
 
 revoke all on contest_milestone_xref from 'public';
 
+CREATE TABLE 'informix'.project_sub_category_lu (
+  project_sub_category_id INT NOT NULL ,
+  name VARCHAR(45) ,
+  description VARCHAR(45) ,
+  project_category_id INT
+)
+extent size 16 next size 16
+lock mode row;
+  
+revoke all on project_sub_category_lu from 'public';
+
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -5246,3 +5258,4 @@ grant select,insert,update,delete on direct_project_task_list_contest_xref to pu
 
 grant select,insert,update,delete on contest_milestone_xref to public as 'informix';
 
+grant select,insert,update,delete on project_sub_category_lu to public as 'informix';

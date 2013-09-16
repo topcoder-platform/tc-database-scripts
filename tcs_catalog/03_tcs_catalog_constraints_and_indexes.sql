@@ -996,6 +996,10 @@ alter table direct_project_task_list_milestone_xref add constraint primary key
 alter table 'informix'.contest_milestone_xref add constraint primary key 
     (contest_id, project_milestone_id)
     constraint pk_contest_milestone_xref;
+	
+alter table 'informix'.project_sub_category_lu add constraint primary key 
+    (project_sub_category_id)
+    constraint project_sub_category_pk;
 
 
 alter table 'informix'.comp_categories add constraint foreign key 
@@ -2474,4 +2478,14 @@ alter table 'informix'.contest_milestone_xref add constraint foreign key
     (project_milestone_id) 
     constraint fk_contestmilestonexref_projectmilestone_projectmilestoneid;
 
-	
+alter table 'informix'.project_sub_category_lu add constraint foreign key 
+    (project_category_id)
+    references 'informix'.project_category_lu
+    (project_category_id) 
+    constraint project_sub_category_fk;    
+
+alter table 'informix'.project add constraint foreign key 
+    (project_sub_category_id) 
+    references 'informix'.project_sub_category_lu 
+    (project_sub_category_id) 
+    constraint project_project_sub_category_fk;    

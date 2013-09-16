@@ -3577,3 +3577,9 @@ insert into direct_project_task_status (direct_project_task_status_id, name) val
 insert into direct_project_task_priority (direct_project_task_priority_id, name) values (0, 'HIGH');
 insert into direct_project_task_priority (direct_project_task_priority_id, name) values (1, 'LOW');
 insert into direct_project_task_priority (direct_project_task_priority_id, name) values (2, 'NORMAL');
+
+-- Set project sub categories
+INSERT INTO project_sub_category_lu (project_sub_category_id, name, description, project_category_id) VALUES(1, 'Module Assembly', 'Module Assembly description', 14);
+INSERT INTO project_sub_category_lu (project_sub_category_id, name, description, project_category_id) VALUES(2, 'System Assembly', 'System Assembly description', 14);
+INSERT INTO project_sub_category_lu (project_sub_category_id, name, description, project_category_id) VALUES(3, 'Prototype Assembly', 'Prototype Assembly description', 14);
+INSERT INTO project_sub_category_lu (project_sub_category_id, name, description, project_category_id) VALUES(4, 'Release Assembly', 'Release Assembly description', 14);
