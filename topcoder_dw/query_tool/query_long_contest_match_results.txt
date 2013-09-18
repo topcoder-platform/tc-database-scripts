@@ -3,19 +3,28 @@ SELECT
     SKIP @fri@
     FIRST @ps@
     
-    lcr.placed AS placed
+     lcr.placed AS placed
     ,c.handle as handle 
     ,c.coder_id AS coder_id
     ,ar.rating as rating
     ,lcr.system_point_total as system_point_total
     ,lcr.point_total as provisional_score
+     , ll.language_name
 FROM long_comp_result lcr
     ,coder c
     ,outer algo_rating ar
+    , long_problem_submission ps
+    , language_lu ll
 WHERE lcr.round_id = @rd@
     AND c.coder_id = lcr.coder_id
     AND ar.coder_id = c.coder_id
+    AND ps.coder_id = lcr.coder_id
+    AND ps.round_id = lcr.round_id
     AND lcr.attended = 'Y'
-    and ar.algo_rating_type_id = 3
+    AND ar.algo_rating_type_id = 3
+    AND ps.last_submission = 1
+    AND ps.example = 0
+    AND ll.language_id = ps.language_id
+
     
 ORDER BY @sc@ @sd@
