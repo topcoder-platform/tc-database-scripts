@@ -255,7 +255,8 @@ create table 'informix'.country (
     participating DECIMAL(1,0),
     default_taxform_id DECIMAL(10,0),
     longitude DECIMAL(10,7),
-    latitude DECIMAL(10,7)
+    latitude DECIMAL(10,7),
+	region VARCHAR(64)
 )
 extent size 64 next size 64
 lock mode row;
