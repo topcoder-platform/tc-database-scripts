@@ -5,13 +5,15 @@ ri1.value as final_fixer_user_id,
 ri2.value as final_fixer_handle,	
 u.project_id as contest_id,
 u.upload_id as upload_id,
-u.parameter as upload_parameter
+u.parameter as upload_parameter,
+s.submission_id
 
 FROM
 upload u 
 INNER JOIN resource r ON u.resource_id = r.resource_id and r.resource_role_id = 1
 INNER JOIN resource_info ri1 ON r.resource_id = ri1.resource_id
 INNER JOIN resource_info ri2 ON r.resource_id = ri2.resource_id
+LEFT JOIN submission s ON u.upload_id = s.upload_id
 WHERE u.project_id = @pj@
 
 AND u.upload_type_id = 3
