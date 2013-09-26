@@ -1301,6 +1301,26 @@ lock mode row;
 
 revoke all on 'informix'.email_request from 'public';
 
+create table 'informix'.corona_event_type (
+    corona_event_type_id DECIMAL(3,0),
+    corona_event_type_name VARCHAR(100)
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on corona_event_type from 'public';
+create table 'informix'.corona_event (
+  corona_event_id SERIAL not null,
+  corona_event_type_id decimal(3, 0) not null,
+  user_id decimal(10, 0) not null,
+  scanned_ind DECIMAL(1,0) DEFAULT 0 NOT NULL,
+  corona_event_timestamp DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on corona_event from 'public';
+
 
 CREATE SEQUENCE "informix".CONTEST_ELIGIBILITY_SEQ INCREMENT BY 1 START WITH 1 MINVALUE 1;
 
@@ -1322,7 +1342,6 @@ create view "informix".email_user (user_id,first_name,last_name,
    from "informix".user x0 ,"informix".email x1 
    where ((((x0.user_id = x1.user_id ) AND (x1.primary_ind = 1. ) ) AND (x1.status_id = 1. ) ) AND (x0.status = 'A' ) ) ;
 revoke all on email_user from 'public';
-
 
 
 grant select on email_user to 'informix' with grant option ;
@@ -2275,6 +2294,27 @@ grant select on invalid_handles to 'public' as 'informix';
 grant insert on invalid_handles to 'public' as 'informix';
 
 grant update on invalid_handles to 'public' as 'informix';
+
+grant insert on corona_event_type to 'public' as 'informix';
+
+grant index on corona_event_type to 'public' as 'informix';
+
+grant update on corona_event_type to 'public' as 'informix';
+
+grant delete on corona_event_type to 'public' as 'informix';
+
+grant select on corona_event_type to 'public' as 'informix';
+
+grant select on corona_event to 'public' as 'informix';
+
+grant insert on corona_event to 'public' as 'informix';
+
+grant index on corona_event to 'public' as 'informix';
+
+grant delete on corona_event to 'public' as 'informix';
+
+grant update on corona_event to 'public' as 'informix';
+
 
 grant select,update,insert,delete on page_tracker to public as informix;
 

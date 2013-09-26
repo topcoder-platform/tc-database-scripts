@@ -414,6 +414,14 @@ alter table 'informix'.gov_id_document add constraint primary key
     (gov_id_document_id)
     constraint goviddocument_pkey;
 
+alter table 'informix'.corona_event_type add constraint primary key
+    (corona_event_type_id)
+    constraint corona_event_type_pkey;
+
+alter table 'informix'.corona_event add constraint primary key
+    (corona_event_id)
+    constraint corona_event_prkey;
+
 alter table 'informix'.user_role_xref add constraint foreign key 
     (login_id)
     references 'informix'.security_user
@@ -1071,3 +1079,15 @@ alter table 'informix'.email_request add constraint foreign key
 references 'informix'.user
 (user_id)
 constraint emailrequest_user_fk;
+
+alter table 'informix'.corona_event add constraint foreign key
+    (corona_event_type_id)
+    references 'informix'.corona_event_type
+    (corona_event_type_id)
+    constraint corona_event_eventtype_fk;
+
+alter table 'informix'.corona_event add constraint foreign key
+    (user_id)
+    references 'informix'.user
+    (user_id)
+    constraint corona_event_user_fk;
