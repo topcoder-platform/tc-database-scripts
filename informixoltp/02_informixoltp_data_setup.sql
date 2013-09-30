@@ -1299,6 +1299,8 @@ INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VAL
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25900, 'rl', 1001, 'Result Limit');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25901, 'psid', 1001, 'payment Status Id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25902, 'paymentMethodIds', 1005, 'payment Method Ids');
+INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25320, 'ps', 1001, 'page size');
+INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25321, 'fri', 1005, 'First Row Index');
 
 
 INSERT INTO 'informix'.email_template_group_lu(email_template_group_id,email_template_group_name) VALUES (99999, '[Deleted]');
