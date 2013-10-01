@@ -182,6 +182,11 @@ for corporate_oltp:"informix".direct_project_category;
 create synonym "informix".direct_project_account
 for corporate_oltp:"informix".direct_project_account;
 
+create synonym 'informix'.corona_event
+for common_oltp:'informix'.corona_event;
+
+
+
 create role read_only ;
 create procedure "informix".get_current() returning datetime year to fraction(3);
       return CURRENT;
@@ -518,6 +523,72 @@ end procedure;
 
 grant execute on technology_list to public as informix;
 
+create procedure proc_resource_insert( r_id INT, resoure_info_type_id INT, value VARCHAR(255))
+   
+    if (resoure_info_type_id == 1 and exists (select resource_id from resource where resource_id = r_id and resource_role_id = 1)) then
+		insert into corona_event (corona_event_type_id,user_id)  values (3, TO_NUMBER(value));
+	end if;
+
+end procedure;
+
+grant execute on proc_resource_insert to public as informix;
+
+create procedure "informix".proc_contest_creation_insert (create_user VARCHAR(64), project_status_id INT)
+
+      if (project_status_id == 1) then
+         insert into corona_event (corona_event_type_id,user_id)  values (5, TO_NUMBER(create_user));
+      end if;
+end procedure;
+
+grant execute on proc_contest_creation_insert to public as informix;
+
+create procedure "informix".proc_contest_creation_update (create_user VARCHAR(64), old_project_status_id INT, new_project_status_id INT)
+
+      if (old_project_status_id != new_project_status_id and new_project_status_id == 1) then
+         insert into corona_event (corona_event_type_id,user_id)  values (5, TO_NUMBER(create_user));
+      end if;
+end procedure;
+
+grant execute on proc_contest_creation_update to public as informix;
+
+create procedure "informix".proc_review_scorecard_completion (modify_user VARCHAR(64), review_id INT, committed DECIMAL(1,0))
+    define project_category_id INT;
+    define project_type_id INT;
+    
+    if(committed == 1) then
+    
+        SELECT s.project_category_id into project_category_id FROM review r, scorecard s WHERE r.review_id = review_id and r.scorecard_id = s.scorecard_id;
+        SELECT pc.project_type_id into project_type_id FROM review r, resource re, project p, project_category_lu pc WHERE r.review_id = review_id and re.resource_id = r.resource_id and p.project_id = re.project_id and p.project_category_id = pc.project_category_id;
+    
+        if (project_type_id != 3 and project_category_id != 29) then
+           insert into corona_event (corona_event_type_id,user_id)  values (6, TO_NUMBER(modify_user));
+        end if;
+    end if;
+end procedure;
+
+
+create procedure "informix".proc_review_scorecard_completion (modify_user VARCHAR(64), review_id INT, committed DECIMAL(1,0))
+    define project_category_id INT;
+    define scorecard_type_id INT;
+	define project_type_id INT;
+
+    if(committed == 1) then
+
+        SELECT s.project_category_id into project_category_id FROM review r, scorecard s WHERE r.review_id = review_id and r.scorecard_id = s.scorecard_id;
+        SELECT s.scorecard_type_id into scorecard_type_id FROM review r, scorecard s WHERE r.review_id = review_id and r.scorecard_id = s.scorecard_id;
+		SELECT pc.project_type_id into project_type_id FROM review r, resource re, project p, project_category_lu pc WHERE r.review_id = review_id and re.resource_id = r.resource_id and p.project_id = re.project_id and p.project_category_id = pc.project_category_id;
+
+        if ((project_type_id in (1,2) and project_category_id not in (29, 9) and (scorecard_type_Id == 2 or scorecard_type_id == 5)) 
+		          or (project_type_id == 3 and (scorecard_type_Id == 1 or scorecard_type_id == 5 or scorecard_type_id == 6))) then            
+						insert into corona_event (corona_event_type_id,user_id)  values (6, TO_NUMBER(modify_user));
+        end if;
+    end if;
+end procedure;
+
+
+grant execute on proc_review_scorecard_completion to public as informix; 
+
+
 create trigger "informix".trig_comp_version_dates_modified update of comp_vers_id,phase_id,posting_date,initial_submission_date,winner_announced_date,final_submission_date,estimated_dev_date,price,total_submissions,status_id,level_id,screening_complete_date,review_complete_date,aggregation_complete_date,phase_complete_date,production_date,aggregation_complete_date_comment,phase_complete_date_comment,review_complete_date_comment,winner_announced_date_comment,initial_submission_date_comment,screening_complete_date_comment,final_submission_date_comment,production_date_comment on "informix".comp_version_dates referencing old as old                                                                                                                                         for each row
         (
         execute function "informix".get_current() into "informix".comp_version_dates.modify_date);
@@ -554,4 +625,24 @@ create trigger "informix".trig_stage_modified update of season_id,name,start_dat
 create trigger "informix".trig_contest_modified update of contest_name,phase_id,contest_type_id,start_date,end_date,event_id,contest_result_calculator_id on "informix".contest referencing old as old                                                              for each row
         (
         execute function "informix".get_current() into "informix".contest.modify_date);
+		
+create trigger "informix".trig_resource_insert insert on "informix".resource_info referencing new as nw                   for each row
+        (
+        execute procedure "informix".proc_resource_insert(nw.resource_id, nw.resource_info_type_id, nw.value));
+
+create trigger "informix".trig_project_insert insert on "informix".project referencing new as nw             for each row
+        (
+        execute procedure "informix".proc_contest_creation_insert(nw.modify_user, nw.project_status_id));
+
+create trigger "informix".trig_project_update update on "informix".project referencing old as old new as nw      for each row
+        (
+        execute procedure "informix".proc_contest_creation_update(nw.modify_user, old.project_status_id, nw.project_status_id));
+		
+create trigger "informix".trig_review_completion insert on "informix".review referencing new as nw      for each row
+        (
+        execute procedure "informix".proc_review_scorecard_completion(nw.modify_user, nw.review_id, nw.committed));
+
+		
+
+
 
