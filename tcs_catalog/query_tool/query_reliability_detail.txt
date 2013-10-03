@@ -16,7 +16,7 @@ select FIRST 15 pr.user_id
      , pr.reliability_on_registration
      , (select max(actual_end_time) from project_phase where project_id = p.project_id) as completion_date
   FROM project_reliability pr
-  INNER JOIN project p ON pr.project_id = p.project_id and p.project_category_id +111 = @ph@
+  INNER JOIN project p ON pr.project_id = p.project_id and p.project_category_id = @pt@
   INNER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1
   INNER JOIN project_info pi6 ON pi6.project_id = p.project_id and pi6.project_info_type_id = 6
   INNER JOIN project_info pi7 ON pi7.project_id = p.project_id and pi7.project_info_type_id = 7
