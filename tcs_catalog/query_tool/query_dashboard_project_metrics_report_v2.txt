@@ -455,7 +455,7 @@ CASE
                                                  FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
                                                   WHERE pmd.cockpit_project_id = tdp.project_id and pmd.installment_number = 1
                                                   and pm.most_recent_detail_id = pmd.payment_detail_id and pmd.payment_type_id != 4
-                                                  AND NOT pmd.payment_status_id IN (65, 68, 69) and pmd.payment_type_id in(68, 70, 71) and pmd.jira_issue_id is not null), 0)
+                                                  AND NOT pmd.payment_status_id IN (65, 68, 69) and pmd.payment_type_id in(68, 69, 70, 71) and pmd.jira_issue_id is not null), 0)
                                               +
                                               NVL((SELECT sum(pmd2.total_amount)
                                                      FROM  informixoltp:payment_detail pmd,
@@ -464,7 +464,7 @@ CASE
                                                       WHERE pmd.cockpit_project_id = tdp.project_id and pmd2.installment_number = 1
                                                       and pm.most_recent_detail_id = pmd.payment_detail_id
                                                       and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
-                                                      AND NOT pmd2.payment_status_id IN (65, 68, 69) and pmd.payment_type_id in(68, 70, 71) and pmd.jira_issue_id is not null), 0))
+                                                      AND NOT pmd2.payment_status_id IN (65, 68, 69) and pmd.payment_type_id in(68, 69, 70, 71) and pmd.jira_issue_id is not null), 0))
     ELSE 0
  END
 as bug_race_fee,

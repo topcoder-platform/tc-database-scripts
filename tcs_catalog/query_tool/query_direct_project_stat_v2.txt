@@ -206,7 +206,7 @@ null::datetime year to fraction as posting_date,
 null::datetime year to fraction as complete_date,
 pmd.total_amount as member_cost,
 CASE WHEN (pmd.jira_issue_id IS NOT NULL AND pmd.payment_type_id IN (68, 70, 71)) THEN NVL(tdp.fixed_bug_contest_fee, 0) ELSE 0 END as contest_fee,
-CASE WHEN (pmd.jira_issue_id IS NOT NULL AND pmd.payment_type_id IN (68, 70, 71)) THEN NVL(tdp.percentage_bug_contest_fee, 0) ELSE 0 END as contest_fee_percentage,
+CASE WHEN (pmd.jira_issue_id IS NOT NULL AND pmd.payment_type_id IN (68, 69, 70, 71)) THEN NVL(tdp.percentage_bug_contest_fee, 0) ELSE 0 END as contest_fee_percentage,
 null::lvarchar as status,
 null::decimal(10,2) as approval_phase_duration
 

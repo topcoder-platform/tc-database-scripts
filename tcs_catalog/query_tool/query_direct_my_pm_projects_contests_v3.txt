@@ -384,14 +384,14 @@ SELECT
 	CASE
         WHEN tdp.fixed_bug_contest_fee > 0 AND pmd.payment_type_id in (68, 70, 71) AND pmd.jira_issue_id is not null
         THEN tdp.fixed_bug_contest_fee
-        WHEN tdp.percentage_bug_contest_fee > 0 AND pmd.payment_type_id in (68, 70, 71) AND pmd.jira_issue_id is not null
+        WHEN tdp.percentage_bug_contest_fee > 0 AND pmd.payment_type_id in (68, 69, 70, 71) AND pmd.jira_issue_id is not null
         THEN tdp.percentage_bug_contest_fee * pmd.total_amount
         ELSE 0
      END
 	 as bug_admin_fee,
 
 	 CASE
-	    WHEN pmd.payment_type_id in (68, 70, 71) AND pmd.jira_issue_id is not null
+	    WHEN pmd.payment_type_id in (68, 69, 70, 71) AND pmd.jira_issue_id is not null
 	    THEN pmd.total_amount
 	    ELSE
 	        0
