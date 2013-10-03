@@ -12,6 +12,7 @@ create synonym "informix".input_lu for informixoltp:"informix".input_lu;
 create synonym "informix".data_type for informixoltp:"informix".data_type;
 create synonym "informix".user for common_oltp:"informix".user;
 create synonym "informix".email for common_oltp:"informix".email;
+create synonym "informix".corona_event for common_oltp:"informix".corona_event;
 
 create procedure "informix".millis_to_time(milli_val decimal(14,0))
  returning datetime year to fraction(3);
@@ -45,4 +46,8 @@ create view "informix".jiveuser (userid,username,passwordhash,name,namevisible,e
   select x0.user_id ,x0.handle ,'' ,'' ,0 ,x1.address 
     ,0 ,0 ,0 from common_oltp:"informix".user x0 ,common_oltp:
     "informix".email x1 where ((x0.user_id = x1.user_id ) AND 
-    (x1.primary_ind = 1. ) ) ;      
+    (x1.primary_ind = 1. ) ) ;
+
+create trigger "informix".trig_jivemessage_insert insert on "informix".jivemessage referencing new as nw                                                                                                                                               for each row
+        (
+        insert into "informix".corona_event (corona_event_type_id,user_id)  values (2, nw.userid));
