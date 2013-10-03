@@ -235,6 +235,13 @@ user_id)
 
 end procedure;
 
+create procedure "informix".proc_user_last_login (user_id DECIMAL(10,0), o_last_login DATETIME YEAR TO FRACTION, n_last_login DATETIME YEAR TO FRACTION)
+
+      if (o_last_login != n_last_login) then
+         insert into corona_event (corona_event_type_id,user_id, corona_event_timestamp)  values (1, user_id, n_last_login);
+      end if;
+end procedure;
+
 grant execute on procedure ifx_load_module(varchar,varchar) to 'public' as 'informix';
 
 grant execute on procedure ifx_trigger_cols(integer) to 'public' as 'informix';
@@ -296,3 +303,8 @@ create trigger "informix".trig_event_modified update of event_type_id,event_desc
 create trigger "informix".trig_event_inserted insert on "informix".event referencing new as nw                                                                                                                                                                      for each row
         (
         execute function "informix".get_current() into "informix".event.modify_date);
+
+create trigger "informix".trig_user_last_login update of last_login on "informix".user referencing old as old new as new   
+        (
+        execute procedure "informix".proc_user_last_login(old.user_id, old.last_login, new.last_login));
+
