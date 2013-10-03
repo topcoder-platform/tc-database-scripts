@@ -458,4 +458,5 @@ query_studio_winner.txt|UPDATE query SET text = ? WHERE query_id = 32966
 query_review_auction_projects_rest.txt|UPDATE query SET text = ? WHERE query_id = 33026
 query_direct_project_active_contest_stats.txt|UPDATE query SET text = ? WHERE query_id = 33046
 query_studio_members.txt|UPDATE query SET text = ? WHERE query_id = 33056
-query_reviewer_rating_history .txt|UPDATE query SET text = ? WHERE query_id = 33067
+query_reviewer_rating_history.txt|UPDATE query SET text = ? WHERE query_id = 33067
+query_direct_project_milestones_contests_associations.txt|UPDATE query SET text = ? WHERE query_id =33076
