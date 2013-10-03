@@ -585,8 +585,15 @@ create procedure "informix".proc_review_scorecard_completion (modify_user VARCHA
     end if;
 end procedure;
 
-
 grant execute on proc_review_scorecard_completion to public as informix; 
+
+create procedure "informix".proc_contest_submission (modify_user VARCHAR(64), submission_type_id INTEGER)
+    if(submission_type_id in (1,3)) then
+        insert into corona_event (corona_event_type_id,user_id)  values (4, TO_NUMBER(modify_user));
+    end if;
+end procedure;
+
+grant execute on proc_contest_submission to public as informix; 
 
 
 create trigger "informix".trig_comp_version_dates_modified update of comp_vers_id,phase_id,posting_date,initial_submission_date,winner_announced_date,final_submission_date,estimated_dev_date,price,total_submissions,status_id,level_id,screening_complete_date,review_complete_date,aggregation_complete_date,phase_complete_date,production_date,aggregation_complete_date_comment,phase_complete_date_comment,review_complete_date_comment,winner_announced_date_comment,initial_submission_date_comment,screening_complete_date_comment,final_submission_date_comment,production_date_comment on "informix".comp_version_dates referencing old as old                                                                                                                                         for each row
@@ -641,6 +648,10 @@ create trigger "informix".trig_project_update update on "informix".project refer
 create trigger "informix".trig_review_completion insert on "informix".review referencing new as nw      for each row
         (
         execute procedure "informix".proc_review_scorecard_completion(nw.modify_user, nw.review_id, nw.committed));
+
+create trigger "informix".trig_contest_submission insert on "informix".submission referencing new as nw                                                                                                                                               for each row
+        (
+        execute procedure "informix".proc_contest_submission(nw.modify_user, nw.submission_type_id));
 
 		
 
