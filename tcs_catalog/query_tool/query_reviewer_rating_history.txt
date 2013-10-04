@@ -18,5 +18,6 @@ LEFT OUTER JOIN review_feedback_detail rfd ON rfd.review_feedback_id = rf.review
 LEFT OUTER JOIN reviewer_rating rr ON rr.project_id=p.project_id and rr.user_id = ri.value
 
 WHERE
+(rf.comment is not null or rfd.reviewer_user_id is not null) and
 p.project_category_id = @pt@
 ORDER BY @sc@ @sd@
