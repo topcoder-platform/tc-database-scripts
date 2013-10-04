@@ -1,0 +1,14 @@
+SELECT
+rf.project_id,
+pi6.value as project_name,
+rf.create_user, rf.create_date,
+rf.modify_user, rf.modify_date,
+rf.comment,
+rfd.reviewer_user_id,
+(CASE WHEN rfd.score = 0 THEN "Bad" WHEN rfd.score = 1 THEN "Average" WHEN rfd.score = 2 THEN "Good" ELSE NULL END) as score,
+rfd.feedback_text
+
+FROM review_feedback rf
+INNER JOIN project_info pi6 ON pi6.project_id=rf.project_id and pi6.project_info_type_id=6
+LEFT OUTER JOIN review_feedback_detail rfd ON rfd.review_feedback_id = rf.review_feedback_id
+WHERE rf.project_id = @pj@

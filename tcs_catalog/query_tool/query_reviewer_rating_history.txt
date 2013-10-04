@@ -1,15 +1,22 @@
 SELECT
 p.project_id,
 pi6.value as project_name,
-(CASE WHEN rfd.score = 0 THEN "Bad" WHEN rfd.score = 1 THEN "Average" WHEN rfd.score = 2 THEN "Good" ELSE "Unknown" END) as score,
+(CASE WHEN rfd.score = 0 THEN "Bad" WHEN rfd.score = 1 THEN "Average" WHEN rfd.score = 2 THEN "Good" ELSE NULL END) as score,
 rr.rating as new_rating,
-rr.review_date
-FROM reviewer_rating rr
-INNER JOIN project p ON p.project_id=rr.project_id
+pp.actual_start_time as review_date
+
+FROM project p
 INNER JOIN project_info pi6 ON pi6.project_id=p.project_id and pi6.project_info_type_id=6
+INNER JOIN project_info pi59 ON pi59.project_id=p.project_id and pi59.project_info_type_id=59 and pi59.value="true"
+INNER JOIN project_phase pp ON pp.project_id=p.project_id and pp.phase_type_id=4 and pp.phase_status_id=3
+
+INNER JOIN resource r ON r.project_id=p.project_id and r.resource_role_id in (4,5,6,7)
+INNER JOIN resource_info ri ON ri.resource_id=r.resource_id and ri.resource_info_type_id=1 and ri.value = "" || @uid@
+
 INNER JOIN review_feedback rf ON rf.project_id=p.project_id
-INNER JOIN review_feedback_detail rfd ON rfd.review_feedback_id=rf.review_feedback_id and rfd.reviewer_user_id=rr.user_id
+LEFT OUTER JOIN review_feedback_detail rfd ON rfd.review_feedback_id = rf.review_feedback_id and rfd.reviewer_user_id = ri.value
+LEFT OUTER JOIN reviewer_rating rr ON rr.project_id=p.project_id and rr.user_id = ri.value
+
 WHERE
-p.project_category_id = @pt@ and
-rr.user_id = @uid@
-order by @sc@ @sd@, rr.review_date desc
+p.project_category_id = @pt@
+ORDER BY @sc@ @sd@
