@@ -551,21 +551,6 @@ end procedure;
 
 grant execute on proc_contest_creation_update to public as informix;
 
-create procedure "informix".proc_review_scorecard_completion (modify_user VARCHAR(64), review_id INT, committed DECIMAL(1,0))
-    define project_category_id INT;
-    define project_type_id INT;
-    
-    if(committed == 1) then
-    
-        SELECT s.project_category_id into project_category_id FROM review r, scorecard s WHERE r.review_id = review_id and r.scorecard_id = s.scorecard_id;
-        SELECT pc.project_type_id into project_type_id FROM review r, resource re, project p, project_category_lu pc WHERE r.review_id = review_id and re.resource_id = r.resource_id and p.project_id = re.project_id and p.project_category_id = pc.project_category_id;
-    
-        if (project_type_id != 3 and project_category_id != 29) then
-           insert into corona_event (corona_event_type_id,user_id)  values (6, TO_NUMBER(modify_user));
-        end if;
-    end if;
-end procedure;
-
 
 create procedure "informix".proc_review_scorecard_completion (modify_user VARCHAR(64), review_id INT, committed DECIMAL(1,0))
     define project_category_id INT;
