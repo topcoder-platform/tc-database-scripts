@@ -270,41 +270,40 @@ grant execute on procedure tc_lower(varchar) to 'public' as 'informix';
 
 grant execute on procedure proc_address_update(decimal,decimal,decimal,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,char,char,varchar,varchar,varchar,varchar,char,char) to 'public' as 'informix';
 
-create trigger "informix".trig_audit_address update of address_type_id,address1,address2,address3,city,state_code,province,zip,country_code on "informix".address referencing old as old new as new                                                                 for each row
+create trigger "informix".trig_audit_address update of address_type_id,address1,address2,address3,city,state_code,province,zip,country_code on "informix".address referencing old as old new as new   for each row
         (
         execute procedure "informix".proc_address_update(old.address_id ,old.address_type_id ,new.address_type_id ,old.address1 ,new.address1 ,old.address2 ,new.address2 ,old.address3 ,new.address3 ,old.city ,new.city ,old.state_code ,new.state_code ,old.province ,new.province ,old.zip ,new.zip ,old.country_code ,new.country_code ));
-create trigger "informix".trig_audit_email update of email_type_id,address,primary_ind,status_id on "informix".email referencing old as old new as new                                                                                                              for each row
+create trigger "informix".trig_audit_email update of email_type_id,address,primary_ind,status_id on "informix".email referencing old as old new as new    for each row
         (
         execute procedure "informix".proc_email_update(old.email_id ,old.user_id ,old.email_type_id ,new.email_type_id ,old.address ,new.address ,old.primary_ind ,new.primary_ind ,old.status_id ,new.status_id ));
-create trigger "informix".trig_audit_phone update of phone_type_id,phone_number,primary_ind on "informix".phone referencing old as old new as new                                                                                                                   for each row
+create trigger "informix".trig_audit_phone update of phone_type_id,phone_number,primary_ind on "informix".phone referencing old as old new as new      for each row
         (
         execute procedure "informix".proc_phone_update(old.phone_id ,old.user_id ,old.phone_type_id ,new.phone_type_id ,old.phone_number ,new.phone_number ,old.primary_ind ,new.primary_ind ));
-create trigger "informix".trig_note_modified update of text,submitted_by,note_type_id on "informix".note referencing old as old                                                                                                                                     for each row
+create trigger "informix".trig_note_modified update of text,submitted_by,note_type_id on "informix".note referencing old as old  for each row
         (
         execute function "informix".get_current() into "informix".note.modify_date);
-create trigger "informix".trig_user_insert insert on "informix".user referencing new as n                                                                                                                                                                           for each row
+create trigger "informix".trig_user_insert insert on "informix".user referencing new as n      for each row
         (
         execute procedure "informix".proc_user_update(n.handle ,n.user_id ));
-create trigger "informix".trig_user_preference_update update of preference_id,value,preference_value_id on "informix".user_preference referencing old as o new as n                                                                                                 for each row
+create trigger "informix".trig_user_preference_update update of preference_id,value,preference_value_id on "informix".user_preference referencing old as o new as n    for each ro
         (
         execute function "informix".get_current() into "informix".user_preference.modify_date);
-create trigger "informix".trig_audit_user update of first_name,last_name,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date on "informix".user referencing old as old new as new                                          for each row
+create trigger "informix".trig_audit_user update of first_name,last_name,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date on "informix".user referencing old as old new as new    for each row
         (
         execute procedure "informix".proc_user_update(old.user_id ,old.first_name ,new.first_name ,old.last_name ,new.last_name ,old.handle ,new.handle ,old.status ,new.status ,old.activation_code ,new.activation_code ,old.middle_name ,new.middle_name ,old.timezone_id ,new.timezone_id ));
-create trigger "informix".trig_event_reg_modified update of event_id,user_id,eligible_ind on "informix".event_registration referencing old as old                                                                                                                   for each row
+create trigger "informix".trig_event_reg_modified update of event_id,user_id,eligible_ind on "informix".event_registration referencing old as old      for each row
         (
         execute function "informix".get_current() into "informix".event_registration.modify_date);
-create trigger "informix".trig_demographic_response_modified update of demographic_answer_id,demographic_response on "informix".demographic_response referencing old as old                                                                                         for each row
+create trigger "informix".trig_demographic_response_modified update of demographic_answer_id,demographic_response on "informix".demographic_response referencing old as old      for each row
         (
         execute function "informix".get_current() into "informix".demographic_response.modify_date);
-create trigger "informix".trig_event_modified update of event_type_id,event_desc,start_registration,end_registration,terms_of_use_id,survey_id on "informix".event referencing old as old                                                                           for each row
+create trigger "informix".trig_event_modified update of event_type_id,event_desc,start_registration,end_registration,terms_of_use_id,survey_id on "informix".event referencing old as old     for each row
         (
         execute function "informix".get_current() into "informix".event.modify_date);
-create trigger "informix".trig_event_inserted insert on "informix".event referencing new as nw                                                                                                                                                                      for each row
+create trigger "informix".trig_event_inserted insert on "informix".event referencing new as nw   for each row
         (
         execute function "informix".get_current() into "informix".event.modify_date);
 
-create trigger "informix".trig_user_last_login update of last_login on "informix".user referencing old as old new as new   
-        (
+create trigger "informix".trig_user_last_login update of last_login on "informix".user referencing old as old new as new   for each row       (
         execute procedure "informix".proc_user_last_login(old.user_id, old.last_login, new.last_login));
 
