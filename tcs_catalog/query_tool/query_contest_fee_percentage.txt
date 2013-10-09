@@ -1,0 +1,135 @@
+SELECT (pm.create_date) as payment_date,                             -- 1
+    p.project_id as contest_id,                                     -- 2
+        
+    pi.value as contest_name,                                        -- 3
+    tdp.project_id direct_project_id,                                 -- 4
+      pm.payment_id as payment_id,                                    -- 5
+
+      'CONTEST_FEE' as payment_type,                                 -- 6
+
+      
+      -- Use the payment amount to multiple the 'Contest Fee Percentage' (57)
+    NVL(pmd.total_amount, 0)  * 
+            (cast (nvl(pi57.value, '0') as DECIMAL (10,2)))        
+        as amount,                                        -- 7
+      
+      'Contest Fee' as payment_type_desc                                 -- 8
+          
+FROM project p, 
+        tc_direct_project tdp, 
+        project_status_lu ps, 
+        project_category_lu pc,
+        project_info pi, 
+        project_info pi3, 
+        project_info pi57,  
+        informixoltp:payment_detail pmd, 
+        informixoltp:payment pm,
+        time_oltp:project ttp 
+        
+where  p.project_status_id = ps.project_status_id
+    and pmd.component_project_id = p.project_id 
+    and pmd.installment_number = 1 
+      and pm.most_recent_detail_id = pmd.payment_detail_id
+    and pmd.payment_type_id != 4                                    -- The payment shouldn't be 'Coder Referral Payment'
+      and p.project_category_id != 27                                    -- The contest (project) shouldn't be a 'Spec Review'
+    and p.project_category_id = pc.project_category_id
+    and p.tc_direct_project_id = tdp.project_id
+      
+       AND NOT pmd.payment_status_id IN (65,68, 69)                    -- Filter out all the 'Cancelled', 'Expired', 'Deleted'    
+       
+    -- There must be "Contest Fee Percentage" value for this contest and it must be larger than 0.
+      and p.project_id = pi57.project_id and pi57.project_info_type_id = 57         -- 'Contest Fee Percentage' project_info
+     and ((cast (nvl(pi57.value, '0') as DECIMAL (10,2))) > 0) 
+     
+    and p.project_id = pi.project_id and pi.project_info_type_id = 6            -- Project info for 'Project Name'
+    
+    -- Join the billing project
+      and p.project_id = pi3.project_id  and pi3.project_info_type_id = 32        -- "Billing Project"
+      and pi3.value = ttp.project_id  
+       
+       -- If parameter specifies the contest category name, we only use the corresponding contest category and the related contests.    
+      and pc.name = DECODE('@ctn@', '', pc.name, '@ctn@')
+      
+      -- If parameter specifies the direct project ID, we only use the corresponding direct project and the related records.
+      and tdp.project_id = DECODE(@tcdirectid@, 0, tdp.project_id, @tcdirectid@)
+      
+      -- If parameter specifies the contest, only use the contest and the related records.
+      and p.project_id = DECODE(@pj@, 0, p.project_id, @pj@)
+      
+      -- The following statements select the contest where the payments are applicable here:
+      and (p.project_status_id not in (1,2,3)             -- 'Active', 'Draft', 'Deleted'    
+          or (pmd.payment_type_id in (23,37,46,47, 57) 
+                                                         -- 'Bug Fixes Payment' (23), 'Component Enhancements Payment' (37), 'Studio Bug Fixes Payment' (46), 'Studio Enhancements Payment' (47)
+                                                         -- 'Studio Copilot Payment' (57)
+              and pmd.jira_issue_id is not null)
+        OR (p.project_status_id  = 1                     -- 'Active'
+            and (p.project_category_id in (9, 29)         -- 'Bug Hunt', "Copilot Posting"
+                or pc.project_type_id = 3)                -- 'Studio'
+                  and exists (select phase_type_id 
+                              from project_phase
+                        where project_id = p.project_id 
+                            and phase_type_id =4         -- 'Review'
+                            and phase_status_id = 3))    --    'Closed'
+          OR (p.project_status_id  = 1                     -- 'Active'
+              and (p.project_category_id not in (9, 29)     -- 'Bug Hunt', "Copilot Posting"
+                  and pc.project_type_id in (1,2))        -- 'Component', 'Application'
+                  and (exists (select phase_type_id from project_phase 
+                              where project_id = p.project_id 
+                                  and phase_type_id =11             -- 'Approval'
+                                  and phase_status_id in (2,3))    -- 'Open', 'Closed'
+                OR not exists 
+                    (select phase_type_id from project_phase    
+                        where project_id = p.project_id 
+                            and phase_type_id =10                 -- 'Final Review'
+                            and phase_status_id in (1,2)))))    -- 'Scheduled', 'Open'
+                                    
+
+      
+    --- Here we specify the payment creation date range                 
+       and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') 
+               AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))    
+               
+      --- The following are permission related       
+    and (exists (select resource_id 
+                from user_permission_grant upg
+                where upg.user_id=DECODE(@uid@,0,upg.user_id,@uid@) 
+                    and upg.permission_type_id IN (0,1,2,3)         -- 'project_report', 'project_read', 'project_write', 'project_full' 
+                    and upg.resource_id = p.tc_direct_project_id)
+           
+           or
+           exists(select gadp.tc_direct_project_id
+                from group_member AS gm, group_associated_direct_projects AS gadp
+                where gm.group_id = gadp.group_id AND gm.active = 1
+                AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+                AND gadp.tc_direct_project_id = tdp.project_id)
+       or
+       exists(select gaba.billing_account_id
+            from group_member AS gm, group_associated_billing_accounts AS gaba
+            where gm.group_id = gaba.group_id AND gm.active = 1
+            AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
+            AND gaba.billing_account_id = ttp.project_id)
+            
+            
+		or exists(
+		    SELECT UNIQUE
+		        gm.group_id
+		    FROM
+		        tc_direct_project tdp2
+		        INNER JOIN corporate_oltp:direct_project_account dpa ON tdp2.project_id = dpa.project_id
+		        INNER JOIN tt_project ttp2 ON dpa.billing_account_id = ttp2.project_id
+		        INNER JOIN tt_client_project ttcp2 ON ttp2.project_id = ttcp2.project_id
+		        INNER JOIN tt_client ttc2 ON ttcp2.client_id = ttc2.client_id
+		        INNER JOIN customer_group sg ON sg.client_id = ttc2.client_id
+		        INNER JOIN group_member gm ON sg.group_id = gm.group_id
+		    WHERE
+		        sg.auto_grant = 1
+		        AND   gm.active = 1
+		        AND   sg.archived = 0
+		        AND   ttc2.status = 1
+		        AND tdp2.project_id = p.tc_direct_project_id
+		        AND ((gm.use_group_default=0 and gm.specific_permission!='REPORT')
+		                OR (gm.use_group_default=1 and sg.default_permission != 'REPORT'))
+		        AND   gm.user_id = @uid@
+		)
+       )
+                    

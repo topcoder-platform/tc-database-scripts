@@ -459,5 +459,16 @@ query_review_auction_projects_rest.txt|UPDATE query SET text = ? WHERE query_id 
 query_direct_project_active_contest_stats.txt|UPDATE query SET text = ? WHERE query_id = 33046
 query_studio_members.txt|UPDATE query SET text = ? WHERE query_id = 33056
 query_reviewer_rating_history.txt|UPDATE query SET text = ? WHERE query_id = 33067
-query_direct_project_milestones_contests_associations.txt|UPDATE query SET text = ? WHERE query_id = 33076
+query_direct_project_milestones_contests_associations.txt|UPDATE query SET text = ? WHERE query_id =33076
 query_review_feedback.txt|UPDATE query SET text = ? WHERE query_id = 33077
+query_payment_member_payment.txt|UPDATE query SET text = ? WHERE query_id = 31048
+query_payment_reliability_in_child_payments.txt|UPDATE query SET text = ? WHERE query_id = 31049
+query_payment_dr.txt|UPDATE query SET text = ? WHERE query_id = 31050
+query_contest_fee_admin_fee_not_percentage.txt|UPDATE query SET text = ? WHERE query_id = 31051
+query_contest_fee_percentage.txt|UPDATE query SET text = ? WHERE query_id = 31052
+query_contest_fee_percentage_in_child_payments.txt|UPDATE query SET text = ? WHERE query_id = 31053
+query_contest_fee_for_dr.txt|UPDATE query SET text = ? WHERE query_id = 31054
+query_project_level_cost.txt|UPDATE query SET text = ? WHERE query_id = 31055
+query_user_has_read_permission_to_direct_project.txt|UPDATE query SET text = ? WHERE query_id = 31056
+query_project_budget.txt|UPDATE query SET text = ? WHERE query_id = 31057
+

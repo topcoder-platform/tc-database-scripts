@@ -1,0 +1,57 @@
+SELECT tdp.project_id direct_project_id   
+
+FROM corporate_oltp:tc_direct_project tdp, 
+         time_oltp:project ttp
+         
+WHERE tdp.project_id = @tcdirectid@
+
+    -- Join the billing projects
+    and ttp.project_id = 
+        (select min(billing_account_id) 
+            from corporate_oltp:direct_project_account dpa 
+            where dpa.project_id = tdp.project_id)
+    
+    -- Permissing related
+    and (exists (select resource_id 
+                from corporate_oltp:user_permission_grant upg
+                where upg.user_id = @uid@
+                    and upg.permission_type_id IN (0,1,2,3)         
+                    -- 'project_report', 'project_read', 'project_write', 'project_full' 
+                    and upg.resource_id = tdp.project_id)
+           
+        or
+           exists(select gadp.tc_direct_project_id
+                from tcs_catalog:group_member AS gm, tcs_catalog:group_associated_direct_projects AS gadp
+                where gm.group_id = gadp.group_id AND gm.active = 1
+                AND gm.user_id = @uid@
+                AND gadp.tc_direct_project_id = tdp.project_id)
+        or
+        exists(select gaba.billing_account_id
+            from tcs_catalog:group_member AS gm, tcs_catalog:group_associated_billing_accounts AS gaba
+            where gm.group_id = gaba.group_id AND gm.active = 1
+            AND gm.user_id = @uid@
+            AND gaba.billing_account_id = ttp.project_id)
+
+		or exists(
+		    SELECT UNIQUE
+		        gm.group_id
+		    FROM
+		        tc_direct_project tdp2
+		        INNER JOIN corporate_oltp:direct_project_account dpa ON tdp2.project_id = dpa.project_id
+		        INNER JOIN tt_project ttp2 ON dpa.billing_account_id = ttp2.project_id
+		        INNER JOIN tt_client_project ttcp2 ON ttp2.project_id = ttcp2.project_id
+		        INNER JOIN tt_client ttc2 ON ttcp2.client_id = ttc2.client_id
+		        INNER JOIN customer_group sg ON sg.client_id = ttc2.client_id
+		        INNER JOIN group_member gm ON sg.group_id = gm.group_id
+		    WHERE
+		        sg.auto_grant = 1
+		        AND   gm.active = 1
+		        AND   sg.archived = 0
+		        AND   ttc2.status = 1
+		        AND tdp2.project_id = tdp.project_id
+		        AND ((gm.use_group_default=0 and gm.specific_permission!='REPORT')
+		                OR (gm.use_group_default=1 and sg.default_permission != 'REPORT'))
+		        AND   gm.user_id = @uid@
+		)
+       )
+         
