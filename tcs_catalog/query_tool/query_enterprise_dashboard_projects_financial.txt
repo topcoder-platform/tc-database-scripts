@@ -77,6 +77,6 @@ case when p.project_status_id = 7 then
 nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57
                 where p.project_id = pi57.project_id and pi57.project_info_type_id = 57),0) as contest_fee_percentage
 from project p
-where p.tc_direct_project_id IN (@tcdirectids@) and project_status_id in (4,5,6,7,8,9,10,11)
+where p.tc_direct_project_id IN (@tcdirectids@) and project_status_id in (1,2,4,5,6,7,8,9,10,11)
 and p.project_category_id != 27)) AS s
 GROUP BY tc_direct_project_id;
