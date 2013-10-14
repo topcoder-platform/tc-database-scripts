@@ -1,0 +1,17 @@
+SELECT 
+      FIRST 1
+       s.submission_number
+     , s.submission_text
+  FROM component comp
+     , long_component_state cs
+     , round r
+     , long_submission s
+     , problem p
+ WHERE cs.coder_id = @cr@
+   AND cs.round_id = @rd@
+   AND cs.long_component_state_id = s.long_component_state_id
+   AND p.problem_id = comp.problem_id
+   AND cs.component_id = comp.component_id
+   AND s.example = 0
+   AND r.round_id = cs.round_id
+   ORDER BY s.submission_number DESC

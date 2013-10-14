@@ -1162,3 +1162,4 @@ query_long_contest_registrants_rating_summary.txt|UPDATE query SET text=? WHERE 
 query_long_contest_submitters_rating_summary.txt|UPDATE query SET text=? WHERE query_id=31053
 query_long_contest_all_registrants.txt|UPDATE query SET text=? WHERE query_id=31069
 query_long_contest_registrants_count.txt|UPDATE query SET text=? WHERE query_id=31049
+query_long_contest_latest_submission.txt|UPDATE query SET text=? WHERE query_id=33000
