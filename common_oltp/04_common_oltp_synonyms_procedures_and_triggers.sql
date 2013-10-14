@@ -285,7 +285,7 @@ create trigger "informix".trig_note_modified update of text,submitted_by,note_ty
 create trigger "informix".trig_user_insert insert on "informix".user referencing new as n      for each row
         (
         execute procedure "informix".proc_user_update(n.handle ,n.user_id ));
-create trigger "informix".trig_user_preference_update update of preference_id,value,preference_value_id on "informix".user_preference referencing old as o new as n    for each ro
+create trigger "informix".trig_user_preference_update update of preference_id,value,preference_value_id on "informix".user_preference referencing old as o new as n    for each row
         (
         execute function "informix".get_current() into "informix".user_preference.modify_date);
 create trigger "informix".trig_audit_user update of first_name,last_name,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date on "informix".user referencing old as old new as new    for each row
