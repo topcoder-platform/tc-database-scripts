@@ -1,0 +1,125 @@
+select * from (
+  select 
+    tcd.project_id as project_id, 
+    tcd.name as project_name, 
+    cast(upg.permission_type_id as VARCHAR(20)) as permission
+  from corporate_oltp:tc_direct_project tcd
+    inner join user_permission_grant upg on tcd.project_id = upg.resource_id
+                                         and upg.permission_type_id is not null
+    inner join user u on upg.user_id = u.user_id
+  where u.handle_lower = LOWER('@ha@')
+
+  union 
+  select 
+    tcd.project_id as project_id, 
+    tcd.name as project_name, 
+    (case when gm.use_group_default=0 then gm.specific_permission else g.default_permission end) as permission
+  from corporate_oltp:tc_direct_project tcd
+    inner join group_associated_direct_projects gadp on tcd.project_id = gadp.tc_direct_project_id
+    inner join group_member gm on gadp.group_id = gm.group_id 
+                               and gm.active=1 and gm.unassigned_on is null
+    inner join customer_group g on gm.group_id = g.group_id 
+                                and g.archived = 0 
+                                and ((gm.use_group_default=0 and gm.specific_permission is not null) 
+                                    or (gm.use_group_default=1 and g.default_permission is not null))
+    inner join user u on gm.user_id = u.user_id
+  where u.handle_lower = LOWER('@ha@')
+
+  union
+  select 
+    tcd.project_id as project_id, 
+    tcd.name as project_name, 
+    (case when gm.use_group_default=0 then gm.specific_permission else g.default_permission end) as permission
+  from corporate_oltp:tc_direct_project tcd
+    inner join corporate_oltp:direct_project_account dpa on tcd.project_id = dpa.project_id
+    inner join group_associated_billing_accounts gaba on dpa.billing_account_id = gaba.billing_account_id
+    inner join group_member gm on gaba.group_id = gm.group_id 
+                               and gm.active = 1 and gm.unassigned_on is null
+    inner join customer_group g on gm.group_id = g.group_id
+                                and g.archived = 0
+                                and ((gm.use_group_default=0 and gm.specific_permission is not null) 
+                                    or (gm.use_group_default=1 and g.default_permission is not null))
+    inner join user u on gm.user_id = u.user_id
+  where u.handle_lower = LOWER('@ha@')
+
+  union
+  select
+    tcd.project_id as project_id, 
+    tcd.name as project_name, 
+    (case when gm.use_group_default=0 then gm.specific_permission else g.default_permission end) as permission
+  from corporate_oltp:tc_direct_project tcd
+    inner join corporate_oltp:direct_project_account dpa on tcd.project_id = dpa.project_id
+    inner join studio_oltp:tt_project ttp on dpa.billing_account_id = ttp.project_id
+    inner join studio_oltp:tt_client_project ttcp on ttp.project_id = ttcp.project_id
+    inner join studio_oltp:tt_client ttc on ttcp.client_id = ttc.client_id
+    inner join customer_group g on ttc.client_id = g.client_id
+    inner join group_member gm on g.group_id = gm.group_id
+    inner join user u on gm.user_id = u.user_id
+  where
+    g.auto_grant = 1
+    and g.archived = 0
+    and gm.active = 1
+    and ttc.client_status_id = 1
+    and ((gm.use_group_default=0 and gm.specific_permission is not null)
+         or (gm.use_group_default=1 and g.default_permission is not null))
+    and u.handle_lower = LOWER('@ha@')
+
+) as t
+
+where 
+  0=@auid@
+  or exists (
+    select upg.user_id 
+    from corporate_oltp:user_permission_grant upg 
+    where upg.user_id = @auid@ and upg.resource_id = t.project_id and upg.permission_type_id in (1,2,3)
+  )
+  or exists (
+    select gm.group_id from group_member gm,
+    group_associated_direct_projects gadp,
+    customer_group g
+   where gm.active=1 and gm.unassigned_on is null
+    and gadp.group_id=gm.group_id
+    and gadp.tc_direct_project_id=t.project_id
+      and ((gm.use_group_default=0 and gm.specific_permission in ('READ', 'WRITE', 'FULL'))
+                or (gm.use_group_default=1 and g.default_permission in ('READ', 'WRITE', 'FULL')))
+    and gm.user_id = @auid@
+    and g.group_id = gm.group_id
+    and g.archived = 0
+  )
+  or exists (
+    select gm.group_id 
+    from group_member gm,
+    group_associated_billing_accounts gaba,
+    customer_group g,
+    corporate_oltp:direct_project_account dpa
+   where gm.active=1 and gm.unassigned_on is null
+    and gaba.group_id=gm.group_id
+    and dpa.project_id=t.project_id 
+    and gaba.billing_account_id=dpa.billing_account_id
+      and ((gm.use_group_default=0 and gm.specific_permission in ('READ', 'WRITE', 'FULL'))
+           or (gm.use_group_default=1 and g.default_permission in ('READ', 'WRITE', 'FULL')))
+    and gm.user_id = @auid@
+    and g.group_id = gm.group_id
+    and g.archived = 0
+  )
+  or exists (
+    select gm.group_id
+    from corporate_oltp:tc_direct_project tdp
+        inner join corporate_oltp:direct_project_account dpa on tdp.project_id = dpa.project_id
+        inner join studio_oltp:tt_project ttp on dpa.billing_account_id = ttp.project_id
+        inner join studio_oltp:tt_client_project ttcp on ttp.project_id = ttcp.project_id
+        inner join studio_oltp:tt_client ttc on ttcp.client_id = ttc.client_id
+        inner join customer_group sg on sg.client_id = ttc.client_id
+        inner join group_member gm on sg.group_id = gm.group_id
+    where
+        sg.auto_grant = 1
+        and gm.active = 1
+        and sg.archived = 0
+        and tdp.project_id = t.project_id
+        and ttc.client_status_id = 1
+        and ((gm.use_group_default=0 and gm.specific_permission in ('READ', 'WRITE', 'FULL'))
+             or (gm.use_group_default=1 and sg.default_permission in ('READ', 'WRITE', 'FULL'))
+        and gm.user_id = @auid@
+  ))
+
+order by upper(project_name)

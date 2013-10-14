@@ -471,4 +471,10 @@ query_contest_fee_for_dr.txt|UPDATE query SET text = ? WHERE query_id = 31054
 query_project_level_cost.txt|UPDATE query SET text = ? WHERE query_id = 31055
 query_user_has_read_permission_to_direct_project.txt|UPDATE query SET text = ? WHERE query_id = 31056
 query_project_budget.txt|UPDATE query SET text = ? WHERE query_id = 31057
+query_restapi_projects_basic_data.txt|UPDATE query SET text = ? WHERE query_id = 33086
+query_restapi_projects_by_user.txt|UPDATE query SET text = ? WHERE query_id = 33087
+query_restapi_users_by_project_check_exists.txt|UPDATE query SET text = ? WHERE query_id = 33088
+query_restapi_permissions_types.txt|UPDATE query SET text = ? WHERE query_id = 33089
+query_restapi_projects_by_user_check_exists.txt|UPDATE query SET text = ? WHERE query_id = 33096
+query_restapi_users_by_project.txt|UPDATE query SET text = ? WHERE query_id = 33097
 

@@ -1,0 +1,1 @@
+SELECT permission_type_id, name FROM permission_type where permission_type_id in (0,1,2,3)

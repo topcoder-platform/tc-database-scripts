@@ -1,0 +1,1 @@
+select 1 as user_exists from user u where u.handle_lower = LOWER('@ha@')

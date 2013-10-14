@@ -1,0 +1,57 @@
+select tcd.project_id
+     , tcd.name 
+  from corporate_oltp:tc_direct_project tcd
+  where 
+    0=@auid@
+    or exists (
+      select upg.user_id from corporate_oltp:user_permission_grant upg where upg.user_id = @auid@ and upg.resource_id = tcd.project_id and upg.permission_type_id in (0,1,2,3)
+    )
+    or exists (
+      select gm.group_id from group_member gm,
+      group_associated_direct_projects gadp,
+      customer_group g
+     where gm.active=1 and gm.unassigned_on is null
+      and gadp.group_id=gm.group_id
+      and gadp.tc_direct_project_id=tcd.project_id
+        and ((gm.use_group_default=0 and gm.specific_permission in ('REPORT', 'READ', 'WRITE', 'FULL'))
+                  or (gm.use_group_default=1 and g.default_permission in ('REPORT', 'READ', 'WRITE', 'FULL')))
+      and gm.user_id = @auid@
+      and g.group_id = gm.group_id
+      and g.archived = 0
+    )
+    or exists (
+      select gm.group_id from group_member gm,
+      group_associated_billing_accounts gaba,
+      customer_group g,
+      corporate_oltp:direct_project_account dpa
+     where gm.active=1 and gm.unassigned_on is null
+      and gaba.group_id=gm.group_id
+      and dpa.project_id=tcd.project_id 
+      and gaba.billing_account_id=dpa.billing_account_id
+        and ((gm.use_group_default=0 and gm.specific_permission in ('REPORT', 'READ', 'WRITE', 'FULL'))
+                  or (gm.use_group_default=1 and g.default_permission in ('REPORT', 'READ', 'WRITE', 'FULL')))
+      and gm.user_id = @auid@
+      and g.group_id = gm.group_id
+      and g.archived = 0
+    )
+    or exists(
+        select
+            gm.group_id
+        from
+            corporate_oltp:tc_direct_project tdp
+            inner join corporate_oltp:direct_project_account dpa on tdp.project_id = dpa.project_id
+            inner join studio_oltp:tt_project ttp on dpa.billing_account_id = ttp.project_id
+            inner join studio_oltp:tt_client_project ttcp on ttp.project_id = ttcp.project_id
+            inner join studio_oltp:tt_client ttc on ttcp.client_id = ttc.client_id
+            inner join customer_group sg on sg.client_id = ttc.client_id
+            inner join group_member gm on sg.group_id = gm.group_id
+        where
+            sg.auto_grant = 1
+            and gm.active = 1
+            and sg.archived = 0
+            and tdp.project_id = tcd.project_id
+            and ttc.client_status_id = 1
+            and ((gm.use_group_default=0 and gm.specific_permission in ('REPORT', 'READ', 'WRITE', 'FULL'))
+                    or (gm.use_group_default=1 and sg.default_permission in ('REPORT', 'READ', 'WRITE', 'FULL'))
+            and   gm.user_id = @auid@
+    ));
