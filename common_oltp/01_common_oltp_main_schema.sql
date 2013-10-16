@@ -1321,6 +1321,24 @@ lock mode row;
 
 revoke all on corona_event from 'public';
 
+create table 'informix'.social_login_provider (
+  social_login_provider_id decimal(10, 0) not null,
+  name VARCHAR(50)
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on social_login_provider from 'public';
+
+create table 'informix'.user_social_login (
+  user_id decimal(10, 0) not null,
+  social_login_provider_id decimal(10, 0) not null
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on user_social_login from 'public';
+
 
 CREATE SEQUENCE "informix".CONTEST_ELIGIBILITY_SEQ INCREMENT BY 1 START WITH 1 MINVALUE 1;
 
@@ -2333,4 +2351,7 @@ grant select on "informix".seq_access_token to "public" as "informix";
 grant select on "informix".seq_authorization_code_grant to "public" as "informix";
 grant select,update,insert,delete on password_reset_token to public as informix;
 grant select,update,insert,delete on email_request to public as informix;
+
+grant select,update,insert,delete on social_login_provider to public as informix;
+grant select,update,insert,delete on user_social_login to public as informix;
 

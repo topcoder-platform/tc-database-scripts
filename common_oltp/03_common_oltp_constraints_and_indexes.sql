@@ -421,6 +421,14 @@ alter table 'informix'.corona_event_type add constraint primary key
 alter table 'informix'.corona_event add constraint primary key
     (corona_event_id)
     constraint corona_event_prkey;
+	
+alter table 'informix'.social_login_provider add constraint primary key
+    (social_login_provider_id)
+    constraint social_provider_prkey;
+	
+alter table 'informix'.user_social_login add constraint primary key
+    (user_id)
+    constraint user_social_prkey;
 
 alter table 'informix'.user_role_xref add constraint foreign key 
     (login_id)
@@ -1091,3 +1099,9 @@ alter table 'informix'.corona_event add constraint foreign key
     references 'informix'.user
     (user_id)
     constraint corona_event_user_fk;
+
+alter table 'informix'.user_social_login add constraint foreign key
+    (social_login_provider_id)
+    references 'informix'.social_login_provider
+    (social_login_provider_id)
+    constraint user_social_provider_fk;
