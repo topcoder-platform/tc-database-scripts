@@ -1105,3 +1105,10 @@ alter table 'informix'.user_social_login add constraint foreign key
     references 'informix'.social_login_provider
     (social_login_provider_id)
     constraint user_social_provider_fk;
+
+alter table 'informix'.user_social_login add constraint foreign key
+    (user_id)
+    references 'informix'.user
+    (user_id)
+    constraint user_social_user_fk;
+
