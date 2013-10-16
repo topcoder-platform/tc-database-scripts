@@ -127,22 +127,13 @@ CREATE TABLE `FARM_PROCESSOR` (
   `MAX_TASKS` int(11) NOT NULL,
   `ACTIVE` bit(1) NOT NULL,
   `PROC_PROPERTIES_ID` bigint(20) NOT NULL,
+  `IP` varchar(64) NOT NULL,
   PRIMARY KEY  (`PRC_ID`),
   UNIQUE KEY `NAME` (`NAME`),
   KEY `FK_FARMPROC_TO_PROCPROPS` (`PROC_PROPERTIES_ID`),
   CONSTRAINT `FK_FARMPROC_TO_PROCPROPS` FOREIGN KEY (`PROC_PROPERTIES_ID`) REFERENCES `FARM_PROCESSOR_PROPERTIES` (`PRO_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `FARM_PROCESSOR`
---
-
-
-/*!40000 ALTER TABLE `FARM_PROCESSOR` DISABLE KEYS */;
-LOCK TABLES `FARM_PROCESSOR` WRITE;
-INSERT INTO `FARM_PROCESSOR` VALUES (1,0,'PR-LX-1',2,'',1),(2,0,'PR-WN-1',2,'',2),(3,0,'LX-MM-TEST-CJP-1',1,'',3),(4,0,'LX-MM-TEST-CJP-2',1,'',3),(5,0,'LX-MM-TEST-CJP-3',1,'',3),(6,0,'WN-MM-TEST-NET-1',1,'',4),(7,0,'WN-MM-TEST-NET-2',1,'',4),(8,0,'WN-MM-TEST-NET-3',1,'',4),(9,0,'LX-IMM-COMP-CJP-1',2,'',5),(10,0,'LX-IMM-COMP-CJP-2',2,'',5),(11,0,'LX-IMM-TEST-CJP-1',1,'',10),(12,0,'LX-IMM-TEST-CJP-2',1,'',6),(13,0,'LX-IMM-TEST-CJP-3',1,'',6),(14,0,'WN-IMM-TEST-NET-1',1,'',7),(15,0,'WN-IMM-TEST-NET-2',1,'',7),(16,0,'WN-IMM-TEST-NET-3',1,'',7),(17,1,'LX-GEN-1',8,'',8),(18,0,'LX-GEN-2',2,'',8),(19,0,'LX-GEN-3',2,'',8),(20,0,'LX-GEN-4',2,'',8),(21,0,'LX-GEN-5',2,'',8),(22,0,'LX-GEN-6',2,'',8),(23,0,'LX-GEN-7',2,'',8),(24,0,'LX-GEN-8',2,'',8),(25,0,'LX-GEN-9',2,'',8),(26,0,'LX-GEN-10',2,'',8),(27,0,'LX-GEN-11',2,'',8),(28,0,'LX-GEN-12',2,'',8),(29,0,'LX-GEN-13',2,'',8),(30,0,'LX-GEN-14',2,'',8),(31,0,'LX-GEN-15',2,'',8),(32,0,'WN-GEN-1',2,'',9),(33,0,'WN-GEN-2',2,'',9),(34,0,'WN-GEN-3',2,'',9),(35,0,'WN-GEN-4',2,'',9),(36,0,'WN-GEN-5',2,'',9),(37,1,'AMD-1',1,'',10),(38, 0, 'LX-QA-1', 1, '', 12),(39, 0, 'WN-QA-1', 1, '', 13);
-UNLOCK TABLES;
-/*!40000 ALTER TABLE `FARM_PROCESSOR` ENABLE KEYS */;
 
 --
 -- Table structure for table `FARM_PROCESSOR_PROPERTIES`
@@ -152,6 +143,8 @@ DROP TABLE IF EXISTS `FARM_PROCESSOR_PROPERTIES`;
 CREATE TABLE `FARM_PROCESSOR_PROPERTIES` (
   `PRO_ID` bigint(20) NOT NULL auto_increment,
   `DESCRIPTION` varchar(50) default NULL,
+  `NAME` varchar(20) default NULL,
+  `MAX_TASKS` int(11) default 1,
   PRIMARY KEY  (`PRO_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -162,7 +155,7 @@ CREATE TABLE `FARM_PROCESSOR_PROPERTIES` (
 
 /*!40000 ALTER TABLE `FARM_PROCESSOR_PROPERTIES` DISABLE KEYS */;
 LOCK TABLES `FARM_PROCESSOR_PROPERTIES` WRITE;
-INSERT INTO `FARM_PROCESSOR_PROPERTIES` VALUES (1,'Linux Dev Generic'),(2,'Windows Dev Generic'),(3,'Linux MM Tester'),(4,'Windows MM Tester'),(5,'Linux IMM Compiler'),(6,'Linux IMM Tester'),(7,'Windows IMM Tester'),(8,'Linux Generic Processor'),(9,'Windows Generic Processor'),(10,'AMD Tester/Compiler'),(11,'AMD Compiler'),(12, 'Linux QA Dev Generic'),(13, 'Windows QA Dev Generic');
+INSERT INTO `FARM_PROCESSOR_PROPERTIES` VALUES (1,'Linux Dev Generic', 'PR-LX', 2),(2,'Windows Dev Generic', 'PR-WN', 2),(3,'Linux MM Tester', 'LX-MM-TEST-CJP', 1),(4,'Windows MM Tester', 'WN-MM-TEST-NET', 1),(5,'Linux IMM Compiler', 'LX-IMM-COMP-CJP', 2),(6,'Linux IMM Tester', 'LX-IMM-TEST-CJP', 1),(7,'Windows IMM Tester', 'WN-IMM-TEST-NET', 1),(8,'Linux Generic Processor', 'LX-GEN', 2),(9,'Windows Generic Processor', 'WN-GEN', 2),(10,'AMD Tester/Compiler'),(11,'AMD Compiler', 'AMD', 1),(12, 'Linux QA Dev Generic', 'LX-QA', 1),(13, 'Windows QA Dev Generic', 'WN-QA', 1);
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `FARM_PROCESSOR_PROPERTIES` ENABLE KEYS */;
 
