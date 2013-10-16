@@ -1,0 +1,4 @@
+SELECT t.project_category_id, t.name, t.description, t.project_catalog_id, t.project_type_id 
+FROM project_category_lu AS t
+WHERE t.display = 't'
+ORDER BY display_order ASC
