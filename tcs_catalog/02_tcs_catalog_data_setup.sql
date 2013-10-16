@@ -3710,3 +3710,5 @@ INSERT INTO project_sub_category_lu (project_sub_category_id, name, description,
 INSERT INTO project_sub_category_lu (project_sub_category_id, name, description, project_category_id) VALUES(2, 'System Assembly', 'System Assembly description', 14);
 INSERT INTO project_sub_category_lu (project_sub_category_id, name, description, project_category_id) VALUES(3, 'Prototype Assembly', 'Prototype Assembly description', 14);
 INSERT INTO project_sub_category_lu (project_sub_category_id, name, description, project_category_id) VALUES(4, 'Release Assembly', 'Release Assembly description', 14);
+
+INSERT INTO 'informix'.contact_type (contact_type_id,description,status_id) VALUES (11, 'github', 1);
