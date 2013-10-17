@@ -12091,3 +12091,21 @@ INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7,
 INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'double[]', 21);
 INSERT INTO data_type_mapping(language_id,display_value,data_type_id) VALUES (7, 'String[]', 22);
 
+INSERT INTO 'informix'.custom_build_setting_type_lu (custom_build_setting_type_id, custom_build_setting_type_desc) values (1,'MM GCC Build Command');
+INSERT INTO 'informix'.custom_build_setting_type_lu (custom_build_setting_type_id, custom_build_setting_type_desc) values (2,'MM CPP Approved Path');
+INSERT INTO 'informix'.custom_build_setting_type_lu (custom_build_setting_type_id, custom_build_setting_type_desc) values (3,'MM Python Command');
+INSERT INTO 'informix'.custom_build_setting_type_lu (custom_build_setting_type_id, custom_build_setting_type_desc) values (4,'MM Python Approved Path');
+INSERT INTO 'informix'.custom_build_setting_type_lu (custom_build_setting_type_id, custom_build_setting_type_desc) values (5,'SRM GCC Build Command');
+INSERT INTO 'informix'.custom_build_setting_type_lu (custom_build_setting_type_id, custom_build_setting_type_desc) values (6,'SRM CPP Approved Path');
+INSERT INTO 'informix'.custom_build_setting_type_lu (custom_build_setting_type_id, custom_build_setting_type_desc) values (7,'SRM Python Command');
+INSERT INTO 'informix'.custom_build_setting_type_lu (custom_build_setting_type_id, custom_build_setting_type_desc) values (8,'SRM Python Approved Path');
+INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (1,'GCC 4.4 with C++0x support for MM','g++ --std=c++0x -W -Wall -Wno-sign-compare -O2 -s -pipe -mmmx -msse -msse2 -msse3',1);
+INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (2,'GCC 4.8 with C++0x support for MM','/usr/local/gcc48/bin/g++ --std=c++0x -W -Wall -Wno-sign-compare -O2 -s -pipe -mmmx -msse -msse2 -msse3',1);
+INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (3,'GCC 4.8 with C++0x support for SRM','/usr/local/gcc48/bin/g++ --std=c++0x -W -Wall -Wno-sign-compare -O2',5);
+INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (4,'Approved Path for GCC 4.8','/lib64,/usr/lib64,/usr/local/gcc48/lib64',2);
+INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (5,'Approved Path for GCC 4.8','/lib64,/usr/lib64,/usr/local/gcc48/lib64',6);
+INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (6,'Python 2.7.5','/usr/local/python-2.7.5/bin/python2.7',3);
+INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (7,'Python 2.7.5','/usr/local/python-2.7.5/bin/python2.7',7);
+INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (8,'Approved Path for Python 2.7.5','/lib64,/usr/lib64,/usr/local/python-2.7.5',8);
+INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (9,'Approved Path for Python 2.7.5','/lib64,/usr/lib64,/usr/local/python-2.7.5',4);
+

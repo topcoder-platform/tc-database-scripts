@@ -3207,3 +3207,18 @@ alter table 'informix'.long_component_configuration add constraint foreign key
     references 'informix'.component
     (component_id) 
     constraint longcomponentconfiguration_component_fk;
+    
+alter table 'informix'.custom_build_setting_type_lu add constraint primary key 
+    (custom_build_setting_type_id)
+    constraint custom_build_setting_type_lu_pk; 
+    
+alter table 'informix'.custom_build_setting add constraint primary key 
+    (custom_build_setting_id)
+    constraint custom_build_setting_pk;
+
+alter table 'informix'.custom_build_setting add constraint foreign key
+    (custom_build_setting_type_id)
+    references 'informix'.custom_build_setting_type_lu
+    (custom_build_setting_type_id)
+    constraint custombuildsetting_custombuildsettingtype_fk;
+    

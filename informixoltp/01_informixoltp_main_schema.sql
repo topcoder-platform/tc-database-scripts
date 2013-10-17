@@ -4118,6 +4118,29 @@ lock mode row;
 revoke all on long_component_configuration from 'public';
 grant insert, update, select, delete on long_component_configuration to 'public' as 'informix';
 
+create table 'informix'.custom_build_setting_type_lu (
+    custom_build_setting_type_id DECIMAL(3,0)  NOT NULL,
+    custom_build_setting_type_desc VARCHAR(100) NOT NULL
+)
+extent size 32 next size 32
+lock mode row;
+
+revoke all on custom_build_setting_type_lu from 'public';
+
+grant insert, update, select, delete on custom_build_setting_type_lu to 'public' as 'informix';
+
+create table 'informix'.custom_build_setting (
+    custom_build_setting_id DECIMAL(3,0)  NOT NULL,
+    custom_build_setting_desc VARCHAR(50) NOT NULL,
+    custom_build_setting_value VARCHAR(255) NOT NULL, 
+    custom_build_setting_type_id DECIMAL(3,0)  NOT NULL
+)
+extent size 32 next size 32
+lock mode row;
+revoke all on custom_build_setting from 'public';
+
+grant insert, update, select, delete on custom_build_setting to 'public' as 'informix';
+
 grant select on rating to 'informix' with grant option ;
 
 grant delete on rating to 'informix' with grant option ;
