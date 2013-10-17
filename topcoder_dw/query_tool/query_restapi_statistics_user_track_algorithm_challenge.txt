@@ -7,7 +7,6 @@ SUM(cl.challenges_made_successful) AS challenges_made_successful,
   ELSE SUM(cl.challenges_made_successful) / SUM(cl.challenge_attempts_made)
   END) AS success_percentage
 FROM coder_level AS cl
-JOIN coder AS c ON c.coder_id = cl.coder_id
-WHERE LOWER(c.handle) = LOWER('@ha@')
-AND cl.algo_rating_type_id = 1
+JOIN coder AS c ON c.coder_id = cl.coder_id AND LOWER(c.handle) = LOWER('@ha@')
+WHERE cl.algo_rating_type_id = 1
 GROUP BY cl.level_id

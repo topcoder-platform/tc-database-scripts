@@ -108,6 +108,8 @@ create index "informix".jivemessage_threadid_idx on "informix"
     .jivemessage (threadid) using btree  in datadbs ;
 create index "informix".jivemessage_userid_idx on "informix".jivemessage 
     (userid) using btree  in datadbs ;
+create index "informix".jivemessage_parentmessageid_idx on "informix".jivemessage 
+    (parentmessageid) using btree  in datadbs ;
 create index "informix".jivethread_cdate_idx on "informix".jivethread 
     (creationdate) using btree  in datadbs ;
 create index "informix".jivethread_fid_mv_idx on "informix".jivethread 

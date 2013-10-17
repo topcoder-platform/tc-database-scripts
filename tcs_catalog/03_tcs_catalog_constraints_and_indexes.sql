@@ -455,6 +455,11 @@ alter table 'informix'.resource add constraint primary key
     (resource_id)
     constraint pk_resource;
 
+create cluster index 'informix'.resource_resourcerule_idx on 'informix'.resource
+    (
+    resource_role_id
+    );
+    
 alter table 'informix'.resource_info_type_lu add constraint primary key 
     (resource_info_type_id)
     constraint pk_resource_info_type_lu;

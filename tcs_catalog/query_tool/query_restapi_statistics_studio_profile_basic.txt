@@ -1,54 +1,23 @@
-SELECT * FROM 
-(SELECT COUNT(DISTINCT p.project_id) AS milestone_wins
-FROM project p 
+SELECT 
+COUNT(milestone_con) AS milestone_wins, COUNT(win_con) AS wins, COUNT(distinct submit_contest) AS submit_contest_num
+FROM
+(SELECT distinct 
+  (CASE pzz.prize_type_id WHEN 14 THEN p.project_id ELSE NULL END) AS milestone_con,
+  (CASE WHEN (s.placement = 1 AND pzz.prize_type_id = 15) THEN p.project_id ELSE NULL END) AS win_con,
+  p.project_id AS submit_contest
+FROM 
+project p
 INNER JOIN resource r ON r.project_id = p.project_id  
 INNER JOIN resource_info ri ON r.resource_id = ri.resource_id  
 INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id 
 INNER JOIN upload u ON u.project_id = p.project_id AND u.resource_id = r.resource_id 
 INNER JOIN submission s ON u.upload_id = s.upload_id 
-INNER JOIN prize pzz ON s.prize_id = pzz.prize_id
 INNER JOIN user ON ri.value = user.user_id
+LEFT JOIN prize pzz ON s.prize_id = pzz.prize_id AND pzz.prize_type_id in (14,15) 
 WHERE pcl.project_type_id = 3 
 AND   r.resource_role_id = 1 
 AND   ri.resource_info_type_id = 1 
 AND   u.upload_status_id = 1 
 AND   u.upload_type_id = 1 
-AND   s.submission_type_id in (1, 3) 
-AND   s.submission_status_id <> 5 
-AND   pzz.prize_type_id = 14
-AND   user.handle_lower = LOWER('@hn@')),
-(SELECT COUNT(DISTINCT p.project_id) as wins
-FROM project p 
-INNER JOIN resource r ON r.project_id = p.project_id  
-INNER JOIN resource_info ri ON r.resource_id = ri.resource_id  
-INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id 
-INNER JOIN upload u ON u.project_id = p.project_id AND u.resource_id = r.resource_id 
-INNER JOIN submission s ON u.upload_id = s.upload_id 
-INNER JOIN prize pzz ON s.prize_id = pzz.prize_id
-INNER JOIN user ON user.user_id = ri.value
-WHERE pcl.project_type_id = 3 
-AND   r.resource_role_id = 1 
-AND   ri.resource_info_type_id = 1 
-AND   u.upload_status_id = 1 
-AND   u.upload_type_id = 1 
-AND   s.submission_type_id in (1, 3) 
-AND   s.submission_status_id <> 5
-AND   s.placement = 1
-AND   pzz.prize_type_id = 15
-AND   user.handle_lower = LOWER('@hn@')),
-(SELECT COUNT(DISTINCT p.project_id) AS submit_contest_num
-FROM project p 
-INNER JOIN resource r ON r.project_id = p.project_id  
-INNER JOIN resource_info ri ON r.resource_id = ri.resource_id  
-INNER JOIN project_category_lu pcl ON p.project_category_id = pcl.project_category_id 
-INNER JOIN upload u ON u.project_id = p.project_id AND u.resource_id = r.resource_id 
-INNER JOIN submission s ON u.upload_id = s.upload_id 
-INNER JOIN user ON user.user_id = ri.value
-WHERE pcl.project_type_id = 3 
-AND   r.resource_role_id = 1 
-AND   ri.resource_info_type_id = 1 
-AND   u.upload_status_id = 1 
-AND   u.upload_type_id = 1 
-AND   s.submission_type_id in (1, 3) 
-AND   s.submission_status_id <> 5 
+AND   s.submission_type_id in (1, 3)
 AND   user.handle_lower = LOWER('@hn@'))

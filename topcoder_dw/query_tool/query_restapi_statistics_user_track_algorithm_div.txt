@@ -9,9 +9,7 @@ SUM(cl.problems_correct) AS problems_correct,
   ELSE SUM(cl.problems_correct) / SUM(cl.problems_submitted)
   END) AS success_percentage
 FROM level_lu l
- JOIN coder_level cl ON l.level_id = cl.level_id
- JOIN coder AS c ON c.coder_id = cl.coder_id
-WHERE cl.algo_rating_type_id = 1
-AND LOWER(c.handle) = LOWER('@ha@')
+ JOIN coder_level cl ON l.level_id = cl.level_id AND cl.algo_rating_type_id = 1
+ JOIN coder AS c ON c.coder_id = cl.coder_id AND LOWER(c.handle) = LOWER('@ha@')
 GROUP by cl.division_id, l.level_id
 ORDER by l.level_id

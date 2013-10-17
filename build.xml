@@ -228,4 +228,12 @@
     <updatetextcolumn database="tcs_dw" outfile="tcs_dw.log" append="true" />
   </target>
 
+  <target name="query_informixoltp" description="reload query of informixoltp">
+    <updatetextcolumn database="informixoltp" outfile="informixoltp.log" append="true"/>
+  </target>
+
+  <target name="query_topcoder_dw" description="reload query of topcoder_dw">
+    <updatetextcolumn database="topcoder_dw" outfile="topcoder_dw.log" append="true"/>
+  </target>
+
 </project>

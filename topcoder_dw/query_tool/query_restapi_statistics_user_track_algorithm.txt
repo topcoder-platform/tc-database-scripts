@@ -11,17 +11,10 @@ SELECT r.rating,
        rd.short_name AS event_name,
        cl.date AS event_date
 FROM rating AS r
-    JOIN coder AS c ON c.coder_id = r.coder_id
+    JOIN coder AS c ON c.coder_id = r.coder_id AND LOWER(c.handle) = LOWER('@ha@')
     JOIN language_lu AS l ON l.language_id = c.language_id
     JOIN round AS rd ON rd.round_id = r.last_rated_round_id
     JOIN calendar AS cl ON cl.calendar_id = rd.calendar_id
-    JOIN coder_rank AS cr ON cr.coder_id = c.coder_id
-    JOIN school_coder_rank AS scr ON scr.coder_id = c.coder_id
-    JOIN country_coder_rank ccr ON ccr.coder_id = c.coder_id
-WHERE cr.coder_rank_type_id = 2
-AND scr.coder_rank_type_id = 2
-AND ccr.coder_rank_type_id = 2
-AND cr.algo_rating_type_id = 1
-AND ccr.algo_rating_type_id = 1
-AND scr.algo_rating_type_id = 1
-AND LOWER(c.handle) = LOWER('@ha@')
+    JOIN coder_rank AS cr ON cr.coder_id = c.coder_id AND cr.coder_rank_type_id = 2 AND cr.algo_rating_type_id = 1
+    JOIN school_coder_rank AS scr ON scr.coder_id = c.coder_id AND scr.algo_rating_type_id = 1 AND scr.coder_rank_type_id = 2
+    JOIN country_coder_rank ccr ON ccr.coder_id = c.coder_id AND ccr.algo_rating_type_id = 1 AND ccr.coder_rank_type_id = 2
