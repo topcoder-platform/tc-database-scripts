@@ -1332,7 +1332,8 @@ revoke all on social_login_provider from 'public';
 
 create table 'informix'.user_social_login (
   user_id decimal(10, 0) not null,
-  social_login_provider_id decimal(10, 0) not null
+  social_login_provider_id decimal(10, 0) not null,
+  user_name  VARCHAR(100) not null
 )
 extent size 64 next size 64
 lock mode row;
