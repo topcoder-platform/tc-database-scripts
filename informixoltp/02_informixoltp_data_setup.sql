@@ -4731,7 +4731,7 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32287, 32767, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32332, 32836, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32339, 32829, 0);
-INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32340, 32340, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32340, 32837, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32449, 32936, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (29015, 31060, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (29015, 31059, 0);
