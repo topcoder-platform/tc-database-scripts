@@ -1243,6 +1243,15 @@ INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (61, 'Historical Projected Cost', 'Historical Projected Cost', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (62, 'Project Activate Date', 'Project Activate Date', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (63, 'Estimated Total Cost', 'Estimated Total Cost', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (64, 'CloudSpokes Challenge Id', 'CloudSpokes Challenge Id', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (65, 'CloudSpokes Account', 'CloudSpokes Account', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (66, 'CloudSpokes Scorecard Type', 'CloudSpokes  Scorecard Type', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (67, 'CloudSpokes Reference_Number', 'Reference_Number', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (68, 'CloudSpokes Line of Business', 'CloudSpokes Line of  Business', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (69, 'CloudSpokes Terms of Service', 'CloudSpokes Terms of Service', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (70, 'CloudSpokes CMC Task', 'CloudSpokes CMC Task', 'System', CURRENT, 'System', CURRENT);
+
+
 
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scheduled', 'Scheduled', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Open', 'Open', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
