@@ -3336,6 +3336,17 @@ lock mode row;
   
 revoke all on project_sub_category_lu from 'public';
 
+create table 'informix'.platform_lu (
+    platform_id DECIMAL(10,0) not null,
+    name VARCHAR(100) not null,
+    description VARCHAR(254) not null,
+    status_id DECIMAL(10,0) not null
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on platform_lu from 'public';
+
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -5259,3 +5270,5 @@ grant select,insert,update,delete on direct_project_task_list_contest_xref to pu
 grant select,insert,update,delete on contest_milestone_xref to public as 'informix';
 
 grant select,insert,update,delete on project_sub_category_lu to public as 'informix';
+
+grant select,insert,update,delete on platform_lu to public as 'informix';

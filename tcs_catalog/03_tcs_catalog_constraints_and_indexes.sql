@@ -1006,6 +1006,11 @@ alter table 'informix'.project_sub_category_lu add constraint primary key
     (project_sub_category_id)
     constraint project_sub_category_pk;
 
+alter table 'informix'.platform_lu add constraint primary key 
+    (platform_id)
+    constraint platform_lu_pk;
+
+
 
 alter table 'informix'.comp_categories add constraint foreign key 
     (category_id)
