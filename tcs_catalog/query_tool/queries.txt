@@ -478,4 +478,11 @@ query_restapi_users_by_project_check_exists.txt|UPDATE query SET text = ? WHERE 
 query_restapi_permissions_types.txt|UPDATE query SET text = ? WHERE query_id = 33089
 query_restapi_projects_by_user_check_exists.txt|UPDATE query SET text = ? WHERE query_id = 33096
 query_restapi_users_by_project.txt|UPDATE query SET text = ? WHERE query_id = 33097
-
+query_restapi_search_active_contest.txt|UPDATE query SET text = ? WHERE query_id = 33100
+query_restapi_search_active_contest_count.txt|UPDATE query SET text = ? WHERE query_id = 33101
+query_restapi_search_open_contest.txt|UPDATE query SET text = ? WHERE query_id = 33102
+query_restapi_search_open_contest_count.txt|UPDATE query SET text = ? WHERE query_id = 33103
+query_restapi_search_past_contest.txt|UPDATE query SET text = ? WHERE query_id = 33104
+query_restapi_search_past_contest_count.txt|UPDATE query SET text = ? WHERE query_id = 33105
+query_restapi_search_upcoming_contest.txt|UPDATE query SET text = ? WHERE query_id = 33106
+query_restapi_search_upcoming_contest_count.txt|UPDATE query SET text = ? WHERE query_id = 33107
