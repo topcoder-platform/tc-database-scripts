@@ -488,3 +488,15 @@ query_restapi_search_upcoming_contest.txt|UPDATE query SET text = ? WHERE query_
 query_restapi_search_upcoming_contest_count.txt|UPDATE query SET text = ? WHERE query_id = 33107
 query_max_recent_items_number.txt|UPDATE query SET text = ? WHERE query_id = 33058
 query_user_recent_direct_projects.txt|UPDATE query SET text = ? WHERE query_id = 33059
+query_restapi_check_project_exists.txt|UPDATE query SET text = ? WHERE query_id = 33110
+query_restapi_check_project_read_access.txt|UPDATE query SET text = ? WHERE query_id = 33111
+query_restapi_check_project_write_access.txt|UPDATE query SET text = ? WHERE query_id = 33112
+query_restapi_check_billing_account_exists.txt|UPDATE query SET text = ? WHERE query_id = 33113
+query_restapi_get_project_by_id.txt|UPDATE query SET text = ? WHERE query_id = 33114
+query_restapi_get_project_billing_accounts.txt|UPDATE query SET text = ? WHERE query_id = 33115
+query_restapi_user_ids_by_project.txt|UPDATE query SET text = ? WHERE query_id = 33116
+query_restapi_project_contests_info.txt|UPDATE query SET text = ? WHERE query_id = 33117
+query_restapi_project_answers.txt|UPDATE query SET text = ? WHERE query_id = 33118
+query_restapi_answer_options.txt|UPDATE query SET text = ? WHERE query_id = 33119
+query_restapi_answer_multiple_answers.txt|UPDATE query SET text = ? WHERE query_id = 33120
+query_restapi_billing_accounts.txt|UPDATE query SET text = ? WHERE query_id = 33121
