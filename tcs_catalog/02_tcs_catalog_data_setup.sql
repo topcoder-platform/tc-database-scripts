@@ -927,7 +927,7 @@ INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) 
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25937, 'priupper', 1001, 'prize upper bound');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25938, 'registstartend', 1005, 'registration start end date');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25939, 'registstartstart', 1005, 'registration start start date');
-INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25940, 'subendend', 1005, 'submission end end date');
+INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25948, 'subendend', 1005, 'submission end end date');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25941, 'subendstart', 1005, 'submission end start date');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25942, 'sf', 1005, 'Sort field');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25943, 'frendend', 1005, 'final review end end date');
@@ -2793,13 +2793,13 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (31056, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32057, NULL, NULL, 25430, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (32057, NULL, NULL, 13347, 0);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33086, NULL, NULL, 25940, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33086, NULL, NULL, 25948, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33087, NULL, NULL, 16915, 0);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33087, NULL, NULL, 25940, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33087, NULL, NULL, 25948, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33088, NULL, NULL, 13342, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33096, NULL, NULL, 16915, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33097, NULL, NULL, 13342, 0);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33097, NULL, NULL, 25940, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33097, NULL, NULL, 25948, 0);
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, sort_order) VALUES(33100, 25921, 'N', 0); -- first row index
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, sort_order) VALUES(33100, 25690, 'N', 1); -- page size
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33100, 25936, 'Y', '-1', 2); -- first prize lower bound
@@ -2807,7 +2807,7 @@ INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_va
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33100, 25761, 'Y', '%', 4); -- project name
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33100, 25938, 'Y', '2199-01-01', 5); -- register start end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33100, 25939, 'Y', '1900-01-01', 6); -- register start start date
-INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33100, 25940, 'Y', '2199-01-01', 7); -- submission end end date
+INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33100, 25948, 'Y', '2199-01-01', 7); -- submission end end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33100, 25941, 'Y', '1900-01-01', 8); -- submission end start date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33100, 25430, 'Y', '0', 9); -- tc direct project id
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33100, 25943, 'Y', '2199-01-01', 10); -- final review end date
@@ -2821,7 +2821,7 @@ INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_va
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33101, 25761, 'Y', '%', 2); -- project name
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33101, 25938, 'Y', '2199-01-01', 3); -- register start end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33101, 25939, 'Y', '1900-01-01', 4); -- register start start date
-INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33101, 25940, 'Y', '2199-01-01', 5); -- submission end end date
+INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33101, 25948, 'Y', '2199-01-01', 5); -- submission end end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33101, 25941, 'Y', '1900-01-01', 6); -- submission end start date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33101, 25430, 'Y', '0', 7); -- tc direct project id
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33101, 25943, 'Y', '2199-01-01', 8); -- final review end date
@@ -2833,7 +2833,7 @@ INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, sort_order
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33102, 25430, 'Y', '0', 2); -- tc direct project id
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33102, 25938, 'Y', '2199-01-01', 3); -- register start end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33102, 25939, 'Y', '1900-01-01', 4); -- register start start date
-INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33102, 25940, 'Y', '2199-01-01', 5); -- submission end end date
+INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33102, 25948, 'Y', '2199-01-01', 5); -- submission end end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33102, 25941, 'Y', '1900-01-01', 6); -- submission end start date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33102, 25936, 'Y', '-1', 7); -- first prize lower bound
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33102, 25937, 'Y', '1000000', 8); -- first prize upper bound
@@ -2848,7 +2848,7 @@ INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, sort_order
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33103, 25430, 'Y', '0', 0); -- tc direct project id
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33103, 25938, 'Y', '2199-01-01', 1); -- register start end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33103, 25939, 'Y', '1900-01-01', 2); -- register start start date
-INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33103, 25940, 'Y', '2199-01-01', 3); -- submission end end date
+INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33103, 25948, 'Y', '2199-01-01', 3); -- submission end end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33103, 25941, 'Y', '1900-01-01', 4); -- submission end start date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33103, 25936, 'Y', '-1', 5); -- first prize lower bound
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33103, 25937, 'Y', '1000000', 6); -- first prize upper bound
@@ -2863,7 +2863,7 @@ INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, sort_order
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33104, 25761, 'Y', '%', 2); -- project name
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33104, 25938, 'Y', '2199-01-01', 3); -- register start end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33104, 25939, 'Y', '1900-01-01', 4); -- register start start date
-INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33104, 25940, 'Y', '2199-01-01', 5); -- submission end end date
+INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33104, 25948, 'Y', '2199-01-01', 5); -- submission end end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33104, 25941, 'Y', '1900-01-01', 6); -- submission end start date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33104, 25430, 'Y', '0', 7); -- tc direct project id
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33104, 16912, 'Y', '%', 8); -- winner handle
@@ -2876,7 +2876,7 @@ INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, sort_order
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33105, 25761, 'Y', '%', 0); -- project name
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33105, 25938, 'Y', '2199-01-01', 1); -- register start end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33105, 25939, 'Y', '1900-01-01', 2); -- register start start date
-INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33105, 25940, 'Y', '2199-01-01', 3); -- submission end end date
+INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33105, 25948, 'Y', '2199-01-01', 3); -- submission end end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33105, 25941, 'Y', '1900-01-01', 4); -- submission end start date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33105, 25430, 'Y', '0', 5); -- tc direct project id
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33105, 16912, 'Y', '%', 6); -- winner handle
@@ -2889,7 +2889,7 @@ INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, sort_order
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33106, 25761, 'Y', '%', 2); -- project name
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33106, 25938, 'Y', '2199-01-01', 3); -- register start end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33106, 25939, 'Y', '1900-01-01', 4); -- register start start date
-INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33106, 25940, 'Y', '2199-01-01', 5); -- submission end end date
+INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33106, 25948, 'Y', '2199-01-01', 5); -- submission end end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33106, 25941, 'Y', '1900-01-01', 6); -- submission end start date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33106, 25430, 'Y', '0', 7); -- tc direct project id
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33106, 25936, 'Y', '-1', 8); -- first prize lower bound
@@ -2901,7 +2901,7 @@ INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, sort_order
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25761, 'Y', '%', 0); -- project name
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25938, 'Y', '2199-01-01', 1); -- register start end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25939, 'Y', '1900-01-01', 2); -- register start start date
-INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25940, 'Y', '2199-01-01', 3); -- submission end end date
+INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25948, 'Y', '2199-01-01', 3); -- submission end end date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25941, 'Y', '1900-01-01', 4); -- submission end start date
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25430, 'Y', '0', 5); -- tc direct project id
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25936, 'Y', '-1', 6); -- first prize lower bound
