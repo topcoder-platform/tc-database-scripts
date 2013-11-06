@@ -1010,6 +1010,16 @@ alter table 'informix'.platform_lu add constraint primary key
     (platform_id)
     constraint platform_lu_pk;
 
+alter table 'informix'.user_recent_item_type add constraint primary key
+    (recent_item_type_id)
+    constraint user_recent_item_type_pk;
+
+alter table 'informix'.user_recent_item add constraint primary key
+    (user_recent_item_id)
+    constraint user_recent_item_pk;
+
+ALTER TABLE 'informix'.user_recent_item
+   ADD CONSTRAINT UNIQUE (user_id, item_id, recent_item_type_id) CONSTRAINT u_user_recent_item;
 
 
 alter table 'informix'.comp_categories add constraint foreign key 
@@ -2499,3 +2509,9 @@ alter table 'informix'.project add constraint foreign key
     references 'informix'.project_sub_category_lu 
     (project_sub_category_id) 
     constraint project_project_sub_category_fk;    
+
+alter table 'informix'.user_recent_item add constraint foreign key
+    (recent_item_type_id)
+    references 'informix'.user_recent_item_type
+    (recent_item_type_id)
+    constraint user_recent_item_user_recent_item_type_fk;

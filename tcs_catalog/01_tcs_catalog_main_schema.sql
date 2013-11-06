@@ -3347,6 +3347,28 @@ lock mode row;
 
 revoke all on platform_lu from 'public';
 
+CREATE TABLE 'informix'.user_recent_item_type (
+  recent_item_type_id INT NOT NULL,
+  item_type_name VARCHAR(64) NOT NULL,
+  max_records_number INT NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+
+revoke all on user_recent_item_type from 'public';
+
+CREATE TABLE 'informix'.user_recent_item (
+  user_recent_item_id INT NOT NULL,
+  user_id INT NOT NULL,
+  item_id INT NOT NULL,
+  recent_item_type_id INT NOT NULL,
+  access_time DATETIME YEAR TO FRACTION not null
+)
+extent size 2000 next size 2000
+lock mode row;
+
+revoke all on user_recent_item from 'public';
+
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -5044,8 +5066,11 @@ grant insert on copilot_profile_info_type to 'public' as 'informix';
 
 CREATE SEQUENCE "informix".PROJECT_USER_AUDIT_SEQ;
 revoke all on "informix".PROJECT_USER_AUDIT_SEQ from "public";
-
 grant select on "informix".PROJECT_USER_AUDIT_SEQ to "public" as "informix";
+
+CREATE SEQUENCE "informix".user_recent_item_sequence;
+revoke all on "informix".user_recent_item_sequence from "public";
+grant select on "informix".user_recent_item_sequence to "public" as "informix";
 
 grant select,insert,update,delete on "informix".client_billing_config to public as "informix";
 grant select,insert,update,delete on "informix".client_billing_config_type_lu to public as "informix";
@@ -5272,3 +5297,6 @@ grant select,insert,update,delete on contest_milestone_xref to public as 'inform
 grant select,insert,update,delete on project_sub_category_lu to public as 'informix';
 
 grant select,insert,update,delete on platform_lu to public as 'informix';
+
+grant select,insert,update,delete on user_recent_item_type to public as 'informix';
+grant select,insert,update,delete on user_recent_item to public as 'informix';

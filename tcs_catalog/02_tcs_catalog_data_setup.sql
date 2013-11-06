@@ -840,6 +840,8 @@ INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUE
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32571, 'restapi_search_open_contest', 11004);
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32572, 'restapi_search_past_contest', 11004);
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32573, 'restapi_search_upcoming_contest', 11004);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32531, 'max_recent_items_number', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32532, 'user_recent_direct_projects', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -920,6 +922,7 @@ INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VAL
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25920, 'jiraids', 1005, 'jira ids');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25921, 'fri', 1005, 'First Row Index');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25930, 'permTypeIds', 1005, 'perm type ids');
+INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25931, 'itemTypeId', 1005, 'recent item type id');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25936, 'prilower', 1001, 'prize lower bound');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25937, 'priupper', 1001, 'prize upper bound');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25938, 'registstartend', 1005, 'registration start end date');
@@ -2016,6 +2019,9 @@ INSERT INTO 'informix'.query(query_id, name, ranking) VALUES(33104, 'restapi_sea
 INSERT INTO 'informix'.query(query_id, name, ranking) VALUES(33105, 'restapi_search_past_contest_count', 0);
 INSERT INTO 'informix'.query(query_id, name, ranking) VALUES(33106, 'restapi_search_upcoming_contest', 0);
 INSERT INTO 'informix'.query(query_id, name, ranking) VALUES(33107, 'restapi_search_upcoming_contest_count', 0);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (33058, null, 'max_recent_items_number', 0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (33059, null, 'user_recent_direct_projects', 0, null);
+
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (13717, 'N', NULL, 25190, 1);
@@ -2902,6 +2908,9 @@ INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_va
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25937, 'Y', '1000000', 7); -- first prize upper bound
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25881, 'Y', '', 8); -- project category description
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25947, 'Y', '', 9); -- project catalog name
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33058, NULL, NULL, 25931, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33059, NULL, NULL, 13347, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33059, NULL, NULL, 25690, 0);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (11010, 11010, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12153, 12154, 0);
@@ -3414,6 +3423,8 @@ INSERT INTO 'informix'.command_query_xref(command_id, query_id) VALUES(32572, 33
 INSERT INTO 'informix'.command_query_xref(command_id, query_id) VALUES(32572, 33105);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id) VALUES(32573, 33106);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id) VALUES(32573, 33107);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32531, 33058, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32532, 33059, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);
@@ -3866,3 +3877,6 @@ INSERT INTO project_sub_category_lu (project_sub_category_id, name, description,
 INSERT INTO project_sub_category_lu (project_sub_category_id, name, description, project_category_id) VALUES(4, 'Release Assembly', 'Release Assembly description', 14);
 
 INSERT INTO 'informix'.contact_type (contact_type_id,description,status_id) VALUES (11, 'github', 1);
+
+-- set user recent item types
+INSERT INTO user_recent_item_type (recent_item_type_id, item_type_name, max_records_number) VALUES(1, 'Cockpit Project', 10);
