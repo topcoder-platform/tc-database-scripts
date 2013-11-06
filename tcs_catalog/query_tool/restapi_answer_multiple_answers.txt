@@ -1,0 +1,3 @@
+select pma.answer_value
+from corporate_oltp:project_multiple_answer pma
+where pma.answer_id = @answerid@

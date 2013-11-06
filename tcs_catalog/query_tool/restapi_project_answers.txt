@@ -1,0 +1,3 @@
+select pa.answer_id, pa.question_id, pa.textual_answer
+from corporate_oltp:project_answer pa
+where pa.tc_direct_project_id = @pj@

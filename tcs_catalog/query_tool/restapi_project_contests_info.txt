@@ -1,0 +1,7 @@
+select  
+  (select value from project_info where project_id = p.project_id and project_info_type_id =6) as contest_name, 
+  p.project_id as contest_id
+from project p
+where  p.tc_direct_project_id = @pj@
+and p.project_status_id != 3 
+and p.project_category_id != 27

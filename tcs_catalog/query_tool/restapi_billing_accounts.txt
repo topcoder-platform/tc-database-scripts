@@ -1,0 +1,33 @@
+select 
+  p.project_id,
+  p.company_id,
+  p.name,
+  p.description,
+  p.active,
+  p.sales_tax,
+  p.po_box_number,
+  p.payment_terms_id,
+  p.project_status_id,
+  p.client_id,
+  p.parent_project_id,
+  p.is_manual_prize_setting
+
+from time_oltp:project as p 
+left join time_oltp:client_project as cp on p.project_id = cp.project_id 
+left join time_oltp:client c on c.client_id = cp.client_id and (c.is_deleted = 0 or c.is_deleted is null)
+left join user on user.user_id = @auid@
+where p.start_date <= current 
+      and current <= p.end_date
+      and p.active = 1 
+      and p.project_id in (select distinct project_id from time_oltp:project_manager p, time_oltp:user_account u 
+                           where p.user_account_id = u.user_account_id 
+                                 and p.active = 1 
+                                 and  upper(u.user_name) = upper(user.handle) 
+                                 
+                           union 
+                           select distinct project_id from time_oltp:project_worker p, time_oltp:user_account u 
+                           where p.start_date <= current 
+                                 and current <= p.end_date 
+                                 and p.active =1 
+                                 and p.user_account_id = u.user_account_id and upper(u.user_name) = upper(user.handle))
+order by upper(name)

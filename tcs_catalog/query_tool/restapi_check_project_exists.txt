@@ -1,0 +1,1 @@
+select 1 as project_exists from corporate_oltp:tc_direct_project tcd where tcd.project_id = @pj@

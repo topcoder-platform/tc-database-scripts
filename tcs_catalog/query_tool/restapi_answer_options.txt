@@ -1,0 +1,3 @@
+select pao.project_answer_option_id, pao.question_option_id, pao.answer_html_value
+from corporate_oltp:project_answer_option pao
+where pao.answer_id = @answerid@

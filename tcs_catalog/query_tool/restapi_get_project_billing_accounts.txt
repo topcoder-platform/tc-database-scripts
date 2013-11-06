@@ -1,0 +1,3 @@
+select dpa.direct_project_account_id, dpa.billing_account_id
+from direct_project_account dpa
+where dpa.project_id = @pj@

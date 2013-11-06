@@ -1,0 +1,1 @@
+select 1 as billing_account_exists from time_oltp:project p where p.project_id = @billingaccountid@

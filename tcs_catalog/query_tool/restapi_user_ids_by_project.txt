@@ -1,0 +1,46 @@
+select 
+  upg.user_id as user_id
+from user_permission_grant upg
+where upg.resource_id = @pj@
+
+union 
+select 
+  gm.user_id as user_id
+from group_associated_direct_projects gadp, group_member gm, customer_group g
+where gadp.tc_direct_project_id = @pj@
+    and gadp.group_id = gm.group_id
+    and gm.active=1 and gm.unassigned_on is null
+    and (gm.use_group_default=0 and gm.specific_permission is not null)
+    and gm.group_id = g.group_id 
+    and g.archived = 0
+
+union 
+select 
+  gm.user_id as user_id
+from corporate_oltp:direct_project_account dpa, group_associated_billing_accounts gaba, group_member gm, customer_group g
+where dpa.project_id = @pj@
+    and dpa.billing_account_id = gaba.billing_account_id
+    and gaba.group_id = gm.group_id
+    and gm.active=1 and gm.unassigned_on is null
+    and (gm.use_group_default=0 and gm.specific_permission is not null)
+    and gm.group_id = g.group_id 
+    and g.archived = 0
+
+union
+select
+  gm.user_id as user_id
+from corporate_oltp:direct_project_account dpa, studio_oltp:tt_project ttp, studio_oltp:tt_client_project ttcp, 
+     studio_oltp:tt_client ttc, customer_group g, group_member gm
+where dpa.project_id = @pj@
+  and dpa.billing_account_id = ttp.project_id
+  and ttp.project_id = ttcp.project_id
+  and ttcp.client_id = ttc.client_id
+  and ttc.client_id = g.client_id
+  and ttc.client_status_id = 1
+  and g.group_id = gm.group_id
+  and g.auto_grant = 1
+  and g.archived = 0
+  and gm.active = 1
+  and (gm.use_group_default=0 and gm.specific_permission is not null)
+
+order by user_id

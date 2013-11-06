@@ -1,0 +1,20 @@
+select tdp.project_id, 
+       tdp.name, 
+       tdp.description, 
+       tdp.user_id, 
+       tdp.project_status_id,
+       tdp.project_forum_id, 
+       tdp.create_date, 
+       tdp.modify_date, 
+       tdp.completion_date,
+       tdp.direct_project_type_id, 
+       dpt.name as direct_project_type_name,
+       tdp.direct_project_category_id, 
+       dpc.name as category_name,
+       dpc.direct_project_type_id as category_type_id,
+       tdp.fixed_bug_contest_fee, 
+       tdp.percentage_bug_contest_fee
+from corporate_oltp:tc_direct_project tdp
+left outer join direct_project_type dpt on tdp.direct_project_type_id = dpt.direct_project_type_id
+left outer join direct_project_category dpc on tdp.direct_project_category_id = dpc.direct_project_category_id
+where tdp.project_id = @pj@
