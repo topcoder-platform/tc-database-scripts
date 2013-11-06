@@ -486,3 +486,5 @@ query_restapi_search_past_contest.txt|UPDATE query SET text = ? WHERE query_id =
 query_restapi_search_past_contest_count.txt|UPDATE query SET text = ? WHERE query_id = 33105
 query_restapi_search_upcoming_contest.txt|UPDATE query SET text = ? WHERE query_id = 33106
 query_restapi_search_upcoming_contest_count.txt|UPDATE query SET text = ? WHERE query_id = 33107
+query_max_recent_items_number.txt|UPDATE query SET text = ? WHERE query_id = 33058
+query_user_recent_direct_projects.txt|UPDATE query SET text = ? WHERE query_id = 33059

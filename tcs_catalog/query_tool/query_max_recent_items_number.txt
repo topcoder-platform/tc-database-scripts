@@ -1,0 +1,1 @@
+select max_records_number from user_recent_item_type where recent_item_type_id = @itemTypeId@;

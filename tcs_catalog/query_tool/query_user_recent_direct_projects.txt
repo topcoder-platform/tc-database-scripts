@@ -1,0 +1,6 @@
+SELECT FIRST @ps@ tdp.project_id as project_id, tdp.name as project_name, urp.access_time as project_access_time
+FROM user_recent_item urp, tc_direct_project tdp
+WHERE urp.recent_item_type_id = 1
+AND urp.item_id = tdp.project_id
+AND urp.user_id = @uid@
+order by urp.access_time DESC;
