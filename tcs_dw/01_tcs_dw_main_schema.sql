@@ -884,7 +884,7 @@ create table 'informix'.participation_metrics_report_member (
 extent size 600 next size 296
 lock mode page;
 
-revoke all on participation_metrics_report_copilot from 'public';
+revoke all on participation_metrics_report_member from 'public';
 
 create table "informix".user_permission_grant 
   (
@@ -955,6 +955,15 @@ LOCK MODE PAGE;
 
 revoke all on client_user_stats from 'public'  as "informix";
 
+create table 'informix'.participation (
+    user_id DECIMAL(10) not null,
+    participation_type INT not null,
+    participation_date DATETIME YEAR TO DAY not null
+)
+extent size 20000 next size 20000
+lock mode page;
+
+revoke all on participation from 'public';
 
 
 create view "informix".active_developers (user_id) as
@@ -1622,3 +1631,5 @@ grant select on jira_issue_seq to 'public' as 'informix';
 
 grant index, update, delete, select, insert on copilot_statistics to 'public' as 'informix';
 grant index, update, delete, select, insert on client_user_stats to 'public' as 'informix';
+
+grant index, update, delete, select, insert on 'informix'.participation to 'public' as 'informix';
