@@ -1279,6 +1279,9 @@ INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (68, 'CloudSpokes Line of Business', 'CloudSpokes Line of  Business', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (69, 'CloudSpokes Terms of Service', 'CloudSpokes Terms of Service', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (70, 'CloudSpokes CMC Task', 'CloudSpokes CMC Task', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (71, 'CloudSpokes Appirio Cost Center', 'CloudSpokes Appirio Cost Center', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (72, 'CloudSpokes Appirio Payment Type', 'CloudSpokes Appirio Payment Type', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (73, 'CloudSpokes Community', 'CloudSpokes Community', 'System', CURRENT, 'System', CURRENT);
 
 
 
@@ -3927,3 +3930,9 @@ INSERT INTO 'informix'.contact_type (contact_type_id,description,status_id) VALU
 
 -- set user recent item types
 INSERT INTO user_recent_item_type (recent_item_type_id, item_type_name, max_records_number) VALUES(1, 'Cockpit Project', 10);
+
+INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (1, 'Heroku', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (2, 'Salesforce.com', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (3, 'Google', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (4, 'AWS', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (5, 'Other', 'System', CURRENT, 'System', CURRENT);

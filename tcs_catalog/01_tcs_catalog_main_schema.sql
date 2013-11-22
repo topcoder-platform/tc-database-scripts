@@ -3369,6 +3369,30 @@ lock mode row;
 
 revoke all on user_recent_item from 'public';
 
+create table 'informix'.project_platform (
+    project_id DECIMAL(10,0) not null,
+    project_platform_id DECIMAL(10,0) not null,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION not null
+)
+extent size 2000 next size 2000
+lock mode row;
+revoke all on project_platform from 'public';
+
+create table 'informix'.project_platform_lu (
+    project_platform_id DECIMAL(10,0) not null,
+    name VARCHAR(255) not null,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION not null
+)
+extent size 64 next size 64
+lock mode row;
+revoke all on project_platform_lu from 'public';
+
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -5300,3 +5324,18 @@ grant select,insert,update,delete on platform_lu to public as 'informix';
 
 grant select,insert,update,delete on user_recent_item_type to public as 'informix';
 grant select,insert,update,delete on user_recent_item to public as 'informix';
+
+grant insert on project_platform to 'public' as 'informix';
+grant update on project_platform to 'public' as 'informix';
+grant delete on project_platform to 'public' as 'informix';
+grant select on project_platform to 'public' as 'informix';
+grant insert on project_platform_lu to 'public' as 'informix';
+grant update on project_platform_lu to 'public' as 'informix';
+grant delete on project_platform_lu to 'public' as 'informix';
+grant select on project_platform_lu to 'public' as 'informix';
+
+create index 'informix'.project_platform_name_idx on 'informix'.project_platform_lu
+    (
+    name
+    );
+
