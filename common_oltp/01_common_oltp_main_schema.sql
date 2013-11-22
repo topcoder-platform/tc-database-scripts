@@ -786,7 +786,10 @@ create table 'informix'.user (
     name_in_another_language VARCHAR(64),
 	password VARCHAR(16),
     open_id VARCHAR(200),
-    reg_source VARCHAR(20)
+    reg_source VARCHAR(20),
+	utm_source VARCHAR(50),
+	utm_medium VARCHAR(50),
+	utm_campaign VARCHAR(50)
 )
 extent size 10000 next size 5000
 lock mode row;
