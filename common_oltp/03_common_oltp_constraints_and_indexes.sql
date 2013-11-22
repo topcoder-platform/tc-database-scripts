@@ -427,7 +427,7 @@ alter table 'informix'.social_login_provider add constraint primary key
     constraint social_provider_prkey;
 	
 alter table 'informix'.user_social_login add constraint primary key
-    (user_id)
+    (user_id, social_login_provider_id)
     constraint user_social_prkey;
 
 alter table 'informix'.user_role_xref add constraint foreign key 
