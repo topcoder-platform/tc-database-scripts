@@ -80,7 +80,9 @@ AND submpp.scheduled_end_time > CURRENT
 (select count(*) from tc_direct_project dp
 where exists (select project_id from project where tc_direct_project_id = dp.project_id and project_status_id in (1,2)))  AS active_projects_count,
 
-    (SELECT 4 FROM dual) AS completed_projects_count,
+    (select count(*) 
+      from tcs_catalog:tc_direct_project
+    where project_status_id = 4) AS completed_projects_count,
 
     (SELECT sum((select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id))*1.5 
  as prize_purse
