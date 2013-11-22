@@ -3370,8 +3370,8 @@ lock mode row;
 revoke all on user_recent_item from 'public';
 
 create table 'informix'.project_platform (
-    project_id DECIMAL(10,0) not null,
-    project_platform_id DECIMAL(10,0) not null,
+    project_id INT not null,
+    project_platform_id INT not null,
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -3382,7 +3382,7 @@ lock mode row;
 revoke all on project_platform from 'public';
 
 create table 'informix'.project_platform_lu (
-    project_platform_id DECIMAL(10,0) not null,
+    project_platform_id INT not null,
     name VARCHAR(255) not null,
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
