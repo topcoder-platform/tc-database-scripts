@@ -848,6 +848,9 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32577, 'restapi_get_project_by_id', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32578, 'restapi_answer_data', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32579, 'restapi_billing_accounts', 13337);
+INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32580, 'restapi_statistics_studio_profile_submission_select', 13337);
+INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32581, 'restapi_statistics_studio_profile_submission_all', 13337);
+INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32583, 'restapi_statistics_studio_profile_submission_both', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -3475,6 +3478,9 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32578, 33119, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32578, 33120, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32579, 33121, 0);
+INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32580, 32727, 0);
+INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32581, 32728, 0);
+INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32583, 32729, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);
