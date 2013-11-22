@@ -184,6 +184,9 @@ for common_oltp:'informix'.terms_of_use_agreeability_type_lu;
 create synonym 'informix'.invalid_handles
 for common_oltp:'informix'.invalid_handles;
 
+create synonym 'informix'.user_social_login for common_oltp:'informix'.user_social_login;
+ 
+
 create procedure "informix".calc_seconds( start datetime year to fraction(3) , 
                                       end   datetime year to fraction(3) )
 returning int;
