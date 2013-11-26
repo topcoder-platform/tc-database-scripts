@@ -290,9 +290,12 @@ query_restapi_statistics_user_track_common.txt|UPDATE query SET text= ? WHERE qu
 query_restapi_statistics_user_track_common_submission.txt|UPDATE query SET text= ? WHERE query_id=32719
 query_long_contest_match_results.txt|UPDATE query SET text= ? WHERE query_id=31064
 query_long_contest_match_results_count.txt|UPDATE query SET text= ? WHERE query_id=31065
-query_long_contest_past_contes.txt|UPDATE query SET text= ? WHERE query_id=31057
-query_long_contest_past_contest_count|UPDATE query SET text= ? WHERE query_id=31058
+query_long_contest_past_contest.txt|UPDATE query SET text= ? WHERE query_id=31057
+query_long_contest_past_contest_count.txt|UPDATE query SET text= ? WHERE query_id=31058
 query_long_contest_test_results_coders_with_cid_rest.txt|UPDATE query SET text= ? WHERE query_id=32999
 query_long_contest_system_test_results_rest.txt|UPDATE query SET text= ? WHERE query_id=32998
 query_long_contest_test_results_coders_rest.txt|UPDATE query SET text= ? WHERE query_id=32997
 query_long_contest_test_results_cases_rest.txt|UPDATE query SET text= ? WHERE query_id=32996
+query_long_contest_past_contest_of_problem.txt|UPDATE query SET text= ? WHERE query_id=33000
+query_long_contest_past_contest_of_problem_count.txt|UPDATE query SET text= ? WHERE query_id=33001
+query_long_contest_test_results_cases_rest_count.txt|UPDATE query SET text= ? WHERE query_id=33002

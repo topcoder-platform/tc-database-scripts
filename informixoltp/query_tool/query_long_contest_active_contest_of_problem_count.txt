@@ -1,0 +1,18 @@
+SELECT 
+     count(*) as count
+  FROM round_segment rs
+     , round r
+     , contest ct
+     , problem p
+     , component comp
+     , long_component_state cs
+ WHERE rs.round_id = r.round_id
+   AND ct.contest_id = r.contest_id
+   AND rs.segment_id = 2
+   AND p.problem_id = @pm@
+   AND comp.problem_id = p.problem_id
+   AND comp.component_id = cs.component_id
+   AND cs.round_id = r.round_id
+   AND r.round_type_id in (13,15,19,22,24,25,27)
+   AND CURRENT < rs.end_time 
+   AND CURRENT >= rs.start_time

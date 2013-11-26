@@ -1,14 +1,12 @@
 SELECT 
      SKIP @fri@
      FIRST @ps@
-      u.handle as handleName
-     , u.user_id as handleId
-     , rr.round_id as roundId
-     , rr.point_total as  provisional_score
+      u.handle as handle_name
+     , u.user_id as handle_id
+     , rr.round_id as round_id
      , cs.submission_number as submission_number
-     , s.submit_time as submission_time
-     , l.language_name as  languageName
-     , rreg.timestamp as registrationDate
+     , l.language_name as  language_name
+     , rreg.timestamp as registration_date
      , ar.rating as rating
  FROM user u
 , round_registration rreg

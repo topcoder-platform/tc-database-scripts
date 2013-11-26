@@ -1,0 +1,21 @@
+SELECT 
+  COUNT(*) AS count
+ FROM 
+ user u
+ , round_registration rreg
+ , long_comp_result rr
+ , long_component_state cs
+ , long_submission s
+ , OUTER algo_rating ar
+ WHERE rreg.coder_id = u.user_id
+   AND rreg.round_id = @rd@
+   AND rreg.round_id = rr.round_id
+   AND rreg.coder_id = ar.coder_id
+   AND rreg.coder_id = rr.coder_id
+   AND rr.attended = 'Y'
+   AND rr.round_id = cs.round_id
+   AND rr.coder_id = cs.coder_id
+   AND s.long_component_state_id = cs.long_component_state_id
+   AND s.submission_number = cs.submission_number
+   AND s.example = 0
+   AND ar.algo_rating_type_id = 3

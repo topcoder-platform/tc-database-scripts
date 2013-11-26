@@ -1,0 +1,44 @@
+SELECT 
+
+    SKIP @fri@
+    FIRST @ps@
+    
+     r.round_id
+     , ct.contest_id
+     , ct.name AS contest_name
+     , r.name AS round_name
+     , rs.start_time
+     , rs.end_time
+     , (SELECT count(*) FROM round_registration WHERE round_id = r.round_id) AS num_registrants
+     , (SELECT count(*) FROM long_comp_result WHERE round_id = r.round_id AND attended = 'Y') AS num_competitors
+     , (SELECT count(*) FROM long_component_state cs, long_submission s WHERE s.example = 0 AND s.long_component_state_id = cs.long_component_state_id AND cs.round_id = r.round_id) AS submission_count
+     , NVL((SELECT * FROM (SELECT FIRST 1 u.handle FROM long_comp_result rr
+                                   , user u
+                                   , long_component_state cs 
+                               WHERE rr.round_id = r.round_id
+                                  AND rr.attended = 'Y'
+                                   AND rr.coder_id = u.user_id
+                                 AND cs.coder_id = u.user_id 
+                                 AND rr.round_id = cs.round_id ORDER BY rr.point_total DESC
+                             )), '') AS handle_high_provisional_score
+     , NVL((SELECT * FROM (SELECT FIRST 1 rr.point_total FROM long_comp_result rr
+                               WHERE rr.round_id = r.round_id
+                                  AND rr.attended = 'Y' ORDER BY rr.point_total DESC
+                             )), 0.0) AS high_provisional_score
+  FROM round_segment rs
+     , round r
+     , contest ct
+     , problem p
+     , component comp
+     , long_component_state cs
+ WHERE rs.round_id = r.round_id
+   AND ct.contest_id = r.contest_id
+   AND rs.segment_id = 2
+   AND p.problem_id = @pm@
+   AND comp.problem_id = p.problem_id
+   AND comp.component_id = cs.component_id
+   AND cs.round_id = r.round_id
+   AND r.round_type_id in (13,15,19,22,24,25,27)
+   AND CURRENT < rs.end_time 
+   AND CURRENT >= rs.start_time
+ORDER BY @sc@ @sdir@

@@ -1,0 +1,39 @@
+SELECT 
+
+    SKIP @fri@
+    FIRST @ps@
+    
+r.round_id
+, c.contest_id
+, r.name AS round_name
+, c.name AS contest_name
+, c.start_date AS start_time
+, c.end_date AS end_time
+, cal.date
+,(SELECT count(*) FROM long_comp_result WHERE round_id = r.round_id AND attended = 'Y') AS num_competitors
+,(SELECT sum(num_submissions) FROM long_comp_result WHERE round_id = r.round_id AND attended = 'Y') AS num_submissions
+,((SELECT sum(num_submissions) FROM long_comp_result WHERE round_id = r.round_id AND attended = 'Y') /
+(SELECT count(*) FROM long_comp_result WHERE round_id = r.round_id AND attended = 'Y')) AS avg_submissions
+,co.handle AS handle
+,co.coder_id AS coder_id
+,lcr.system_point_total AS system_point_total
+FROM round r
+, contest c
+, calendar cal
+, long_comp_result lcr
+,coder co
+, outer algo_rating ar
+, problem p
+WHERE r.contest_id = c.contest_id
+AND r.calendar_id = cal.calendar_id
+AND r.round_type_id in (10,13,15,19,22,24,25,27)
+AND r.failed = 0
+AND r.round_id = lcr.round_id
+AND co.coder_id = lcr.coder_id
+AND ar.coder_id = co.coder_id
+AND lcr.attended = 'Y'
+AND ar.algo_rating_type_id = 3
+AND lcr.placed = 1
+AND p.problem_id = @pm@
+AND p.round_id = r.round_id
+ORDER BY @sc@ @sd@

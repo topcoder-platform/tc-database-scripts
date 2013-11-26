@@ -13,5 +13,5 @@ WHERE lcs.long_component_state_id = ls.long_component_state_id
     AND lcs.coder_id = usr.user_id
     AND lcr.coder_id = usr.user_id
     AND lower(usr.handle) MATCHES lower('@ha@')
-
+	AND ls.example = 0
 

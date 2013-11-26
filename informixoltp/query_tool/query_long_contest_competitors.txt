@@ -1,0 +1,36 @@
+SELECT 
+     SKIP @fri@
+     FIRST @ps@
+      u.handle AS handle_name
+     , u.user_id AS handle_id
+     , rr.round_id AS round_id
+     , rr.point_total AS  provisional_score
+     , cs.submission_number AS submission_number
+     , s.submit_time AS submission_time
+     , l.language_name AS  language_name
+     , rreg.timestamp AS registration_date
+     , ar.rating AS rating
+     , rr.placed AS rank
+     , (SELECT COUNT(*) FROM long_submission ls WHERE ls.example = 0 AND ls.long_component_state_id = cs.long_component_state_id) AS total_submissions
+ FROM 
+ user u
+ , round_registration rreg
+ , long_comp_result rr
+ , long_component_state cs
+ , long_submission s
+ , language l
+ , OUTER algo_rating ar
+ WHERE rreg.coder_id = u.user_id
+   AND rreg.round_id = @rd@
+   AND rreg.coder_id = ar.coder_id
+   AND rreg.round_id = rr.round_id
+   AND rreg.coder_id = rr.coder_id
+   AND rr.attended = 'Y'
+   AND rr.round_id = cs.round_id
+   AND rr.coder_id = cs.coder_id
+   AND s.long_component_state_id = cs.long_component_state_id
+   AND s.submission_number = cs.submission_number
+   AND s.example = 0
+   AND s.language_id = l.language_id
+   AND ar.algo_rating_type_id = 3
+ORDER BY @sc@ @sdir@

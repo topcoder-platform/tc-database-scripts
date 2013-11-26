@@ -3,13 +3,35 @@ SELECT str.coder_id
      , str.score
      , str.processing_time
      , str.fatal_error_ind
-  FROM long_system_test_result str, system_test_case stc, coder c
+     , c.handle
+     ,(CASE
+        WHEN lcr.new_rating < 0
+        THEN 'Orange'
+        WHEN lcr.new_rating > 0 AND lcr.new_rating < 900
+            THEN 'Gray'
+        WHEN lcr.new_rating > 899 AND lcr.new_rating < 1200
+            THEN 'Green'
+        WHEN lcr.new_rating > 1199 AND lcr.new_rating < 1500
+            THEN 'Blue'
+        WHEN lcr.new_rating > 1499 AND lcr.new_rating < 2200
+            THEN 'Yellow'
+        WHEN lcr.new_rating > 2199
+            THEN 'Red'
+        ELSE 'Unrated' END
+      ) AS color
+     , lcr.system_point_total
+  FROM 
+  long_system_test_result str
+  , system_test_case stc
+  , coder c
+  , long_comp_result lcr
  WHERE str.round_id = @rd@
-   and str.example = 0 
-   and stc.problem_id = str.problem_id
-   and stc.test_case_id = str.test_case_id
-   and stc.example_flag = 0
-   and c.coder_id = str.coder_id
-   and c.status = 'A'
-   and str.coder_id in (@crs@)
-   and str.test_case_id in (@tids@)
+   AND str.example = 0 
+   AND stc.problem_id = str.problem_id
+   AND stc.test_case_id = str.test_case_id
+   AND stc.example_flag = 0
+   AND c.coder_id = str.coder_id
+   AND c.status = 'A'
+   AND lcr.round_id = str.round_id
+   AND lcr.coder_id = c.coder_id
+   AND str.test_case_id IN (@tids@)

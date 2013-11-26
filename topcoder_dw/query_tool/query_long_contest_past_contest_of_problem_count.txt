@@ -1,0 +1,22 @@
+SELECT 
+    count(DISTINCT r.round_id) AS count
+FROM round r
+    , contest c
+    , calendar cal
+    , long_comp_result lcr
+    ,coder co
+    , outer algo_rating ar
+    , problem p
+WHERE 
+    r.contest_id = c.contest_id
+    AND r.calendar_id = cal.calendar_id
+    AND r.round_type_id IN (10,13,15,19,22,24,25,27)
+    AND r.failed = 0
+    AND r.round_id = lcr.round_id
+    AND co.coder_id = lcr.coder_id
+    AND ar.coder_id = co.coder_id
+    AND lcr.attended = 'Y'
+    AND ar.algo_rating_type_id = 3
+    AND lcr.placed = 1
+    AND p.problem_id = @pm@
+    AND p.round_id = r.round_id
