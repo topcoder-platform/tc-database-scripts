@@ -1285,6 +1285,7 @@ INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (71, 'CloudSpokes Appirio Cost Center', 'CloudSpokes Appirio Cost Center', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (72, 'CloudSpokes Appirio Payment Type', 'CloudSpokes Appirio Payment Type', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (73, 'CloudSpokes Community', 'CloudSpokes Community', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (74, 'CloudSpokes Challenge SFDC Id', 'CloudSpokes Challenge SFDC Id', 'System', CURRENT, 'System', CURRENT);
 
 
 
