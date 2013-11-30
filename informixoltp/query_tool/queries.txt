@@ -1147,7 +1147,6 @@ query_reg_secret_question_response.txt|UPDATE query SET text=? WHERE query_id=32
 query_reg_user_info.txt|UPDATE query SET text=? WHERE query_id=32836
 query_reg_email_available.txt|UPDATE query SET text=? WHERE query_id=32837
 query_long_contest_has_access.txt|UPDATE query SET text=? WHERE query_id=32936
-
 query_long_contest_competitor_basic_information_submission_history.txt|UPDATE query SET text=? WHERE query_id=31060
 query_long_contest_registrants.txt|UPDATE query SET text=? WHERE query_id=31048
 query_long_contest_match_details.txt|UPDATE query SET text=? WHERE query_id=31050
@@ -1168,3 +1167,4 @@ query_long_contest_competitors.txt|UPDATE query SET text=? WHERE query_id=32945
 query_long_contest_competitors_count.txt|UPDATE query SET text=? WHERE query_id=32946
 query_long_contest_active_contest_of_problem.txt|UPDATE query SET text=? WHERE query_id=32950
 query_long_contest_active_contest_of_problem_count.txt|UPDATE query SET text=? WHERE query_id=32951
+query_terms_of_use_agree_type_list.txt|UPDATE query SET text=? WHERE query_id=31782

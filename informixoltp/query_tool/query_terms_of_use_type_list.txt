@@ -1,3 +1,2 @@
-select terms_of_use_type_id
-     , terms_of_use_type_desc
-  from terms_of_use_type
+select terms_of_use_agreeability_type_id as id, name
+ from terms_of_use_agreeability_type_lu
