@@ -3905,6 +3905,10 @@ INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role
 INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (34, 18, 75.0, 0.0, 0.0);
 INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (34, 14, 600.0, 0.0, 0.0);
 
+-- First2Finish
+INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (38, 14, 40.0, 0.0, 0.0);
+INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (38, 21, 0.0, 0.02, 0.04);
+
 
 insert into asset_category VALUES(1, "Conceptualization", "GLOBAL", 0);
 insert into asset_category VALUES(2, "Specification", "GLOBAL", 0);
