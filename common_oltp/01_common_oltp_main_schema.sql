@@ -1284,7 +1284,8 @@ revoke all on "informix".authorization_code_grant_has_permission from "public";
 CREATE TABLE password_reset_token (
   user_id INT NOT NULL,
   token VARCHAR(10) NOT NULL,
-  expired_at DATETIME YEAR TO FRACTION NOT NULL
+  expired_at DATETIME YEAR TO FRACTION NOT NULL,
+  email_type_id INT DEFAULT 1 NOT NULL
 )
 extent size 32 next size 32
 lock mode row;
