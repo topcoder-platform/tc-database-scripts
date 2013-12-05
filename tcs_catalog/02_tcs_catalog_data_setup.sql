@@ -1286,7 +1286,8 @@ INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (72, 'CloudSpokes Appirio Payment Type', 'CloudSpokes Appirio Payment Type', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (73, 'CloudSpokes Community', 'CloudSpokes Community', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (74, 'CloudSpokes Challenge SFDC Id', 'CloudSpokes Challenge SFDC Id', 'System', CURRENT, 'System', CURRENT);
-
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (75, 'Thurgood Platform', 'Thurgood Platform', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (76, 'Thurgood Language', 'Thurgood Language', 'System', CURRENT, 'System', CURRENT);
 
 
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scheduled', 'Scheduled', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
