@@ -3222,3 +3222,19 @@ alter table 'informix'.custom_build_setting add constraint foreign key
     (custom_build_setting_type_id)
     constraint custombuildsetting_custombuildsettingtype_fk;
     
+alter table 'informix'.user_api_spin add constraint primary key 
+    (user_id, api_ranking)
+    constraint user_api_spin_pkey;
+    
+alter table 'informix'.user_api_spin add constraint foreign key 
+    (user_id)
+    references 'informix'.coder
+    (coder_id) 
+    constraint user_api_spin_user_id_fk;   
+	
+alter table 'informix'.coder add constraint foreign key 
+	(comp_country_code)
+	references 'informix'.country
+	(country_code) 
+	constraint codercompcountry_country_fk;
+    

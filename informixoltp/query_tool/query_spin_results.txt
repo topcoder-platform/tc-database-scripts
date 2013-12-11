@@ -1,0 +1,4 @@
+select u.user_id, u.handle, s.api_ranking, s.api_name
+from user_api_spin s 
+join user u on s.user_id = u.user_id
+order by handle, api_ranking;

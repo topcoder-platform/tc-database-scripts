@@ -4139,6 +4139,15 @@ extent size 32 next size 32
 lock mode row;
 revoke all on custom_build_setting from 'public';
 
+create table 'informix'.user_api_spin (
+    user_id DECIMAL(10,0),
+    api_ranking DECIMAL(2,0) not null,
+    api_name VARCHAR(128) not null
+)
+extent size 250 next size 100
+lock mode row;
+revoke all on user_api_spin from 'public';
+
 grant insert, update, select, delete on custom_build_setting to 'public' as 'informix';
 
 grant select on rating to 'informix' with grant option ;
@@ -7233,3 +7242,5 @@ GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice_record TO 'public' AS 'in
 
 GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice TO 'public' AS 'informix';
 grant insert, update, select, delete on round_event to 'public' as 'informix';
+
+grant insert, update, select, delete on user_api_spin to 'public' as 'informix';
