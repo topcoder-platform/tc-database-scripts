@@ -1,0 +1,12 @@
+SELECT pi6.value AS component_name
+     , pp2.scheduled_start_time as submission_start
+     , pp2.scheduled_end_time as submission_end
+     , (pp2.scheduled_end_time - pp2.scheduled_start_time + 1 units minute)::INTERVAL HOUR(4) to HOUR as submission_duration
+     , pp18.scheduled_start_time as iterative_review_start
+     , pp18.scheduled_end_time as iterative_review_end
+     , (pp18.scheduled_end_time - pp18.scheduled_start_time + 1 units minute)::INTERVAL HOUR(4) to HOUR as iterative_review_duration
+FROM project p
+INNER JOIN project_phase pp2 ON pp2.project_id = p.project_id and pp2.phase_type_id=2
+INNER JOIN project_phase pp18 ON pp18.project_id = p.project_id and pp18.phase_type_id=18
+INNER JOIN project_info pi6 ON pi6.project_id = p.project_id and pi6.project_info_type_id = 6
+WHERE p.project_id = @pj@

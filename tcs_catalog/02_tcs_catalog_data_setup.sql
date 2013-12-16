@@ -821,7 +821,6 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32549, 'direct_project_milestones_contests_associations', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32550, 'review_feedback', 13337);
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES (32530, 'restapi_list_project_categories', 13337);
-
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (29009, 'payment_member_payment', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (29010, 'payment_reliability_in_child_payments', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (29011, 'payment_dr', 13337);
@@ -851,6 +850,8 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32580, 'restapi_statistics_studio_profile_submission_select', 13337);
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32581, 'restapi_statistics_studio_profile_submission_all', 13337);
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32583, 'restapi_statistics_studio_profile_submission_both', 13337);
+INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32669, 'iterative_review_auction_projects', 13337);
+INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32679, 'iterative_review_project_detail', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -2049,6 +2050,8 @@ INSERT INTO 'informix'.query (query_id, name, ranking) values (33118, 'restapi_p
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33119, 'restapi_answer_options', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33120, 'restapi_answer_multiple_answers', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33121, 'restapi_billing_accounts', 0);
+INSERT INTO 'informix'.query (query_id, name, ranking) values (33187, 'iterative_review_auction_projects', 0);
+INSERT INTO 'informix'.query (query_id, name, ranking) values (33188, 'iterative_review_project_detail', 0);
 
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
@@ -2950,9 +2953,11 @@ INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_va
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25937, 'Y', '1000000', 7); -- first prize upper bound
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25881, 'Y', '', 8); -- project category description
 INSERT INTO 'informix'.query_input_xref(query_id, input_id, optional, default_value, sort_order) VALUES(33107, 25947, 'Y', '', 9); -- project catalog name
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33058, NULL, NULL, 25931, 0);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33059, NULL, NULL, 13347, 0);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33059, NULL, NULL, 25690, 0);
+INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33058, NULL, NULL, 25931, 0);
+INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33059, NULL, NULL, 13347, 0);
+INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33059, NULL, NULL, 25690, 0);
+INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33187, 'N', NULL, 25561, 0);
+INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33188, 'N', NULL, 13342, 0);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (11010, 11010, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12153, 12154, 0);
@@ -3483,6 +3488,8 @@ INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32580, 32727, 0);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32581, 32728, 0);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32583, 32729, 0);
+INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32669, 33187, 0);
+INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32679, 33188, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);
@@ -3724,10 +3731,12 @@ INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create
 
 INSERT INTO 'informix'.review_auction_category_lu(review_auction_category_id,name) VALUES (1, 'Contest Review');
 INSERT INTO 'informix'.review_auction_category_lu(review_auction_category_id,name) VALUES (2, 'Specification Review');
+INSERT INTO 'informix'.review_auction_category_lu(review_auction_category_id,name) VALUES (3, 'Iterative Review');
 
 INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (1, 'Regular Contest Review', 1);
 INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (2, 'Component Development Review', 1);
 INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (3, 'Specification Review', 2);
+INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (4, 'Regular Iterative Review', 3);
 
 INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (1, 'Primary Reviewer', 1, 1, 1);
 INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (2, 'Secondary Reviewer', 1, 3, 2);
@@ -3736,6 +3745,7 @@ INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,nam
 INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (5, 'Stress Reviewer', 2, 1, 3);
 INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (6, 'Failure Reviewer', 2, 1, 4);
 INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (7, 'Specification Reviewer', 3, 1, 1);
+INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (8, 'Iterative Reviewer', 4, 3, 1);
 
 INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (1, 2, 't');
 INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (1, 4, 'f');
@@ -3750,6 +3760,7 @@ INSERT INTO 'informix'.review_application_role_resource_role_xref(review_applica
 INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (5, 7, 't');
 INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (6, 6, 't');
 INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (7, 18, 't');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (8, 21, 'f');
 
 INSERT INTO 'informix'.review_application_status_lu(review_application_status_id,name) VALUES (1, 'Pending');
 INSERT INTO 'informix'.review_application_status_lu(review_application_status_id,name) VALUES (2, 'Cancelled');

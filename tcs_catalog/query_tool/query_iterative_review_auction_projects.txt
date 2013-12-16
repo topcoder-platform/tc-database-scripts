@@ -1,0 +1,23 @@
+SELECT DISTINCT
+  (SELECT COUNT(DISTINCT u.resource_id)
+   FROM upload u
+   INNER JOIN submission s ON u.upload_id = s.upload_id 
+   WHERE u.project_id = p.project_id
+   AND s.submission_type_id = 1
+   AND s.submission_status_id in (1,2,3,4)
+   AND u.upload_type_id = 1) AS submission_count 
+   , pi6.value AS component_name 
+   , cat.category_name AS catalog 
+   , p.project_id 
+   , pp18.scheduled_start_time AS review_start 
+   , pi7.value AS version 
+  FROM project p
+  INNER JOIN project_phase pp2 ON pp2.project_id=p.project_id and pp2.phase_type_id=2
+  INNER JOIN project_phase pp18 ON pp18.project_id=p.project_id and pp18.phase_type_id=18
+  INNER JOIN phase_dependency pd ON pd.dependent_phase_id=pp18.project_phase_id and pd.dependent_start=1
+  and pd.dependency_phase_id=pp2.project_phase_id and pd.dependency_start=1
+  INNER JOIN project_info pi5 ON p.project_id = pi5.project_id AND pi5.project_info_type_id = 5
+  INNER JOIN project_info pi6 ON p.project_id = pi6.project_id AND pi6.project_info_type_id = 6
+  INNER JOIN project_info pi7 ON p.project_id = pi7.project_id AND pi7.project_info_type_id = 7
+  INNER JOIN categories cat ON cat.category_id = pi5.value::DECIMAL(12,0) 
+ WHERE p.project_id IN (@pids@)
