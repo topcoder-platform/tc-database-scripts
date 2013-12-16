@@ -168,8 +168,10 @@ insert into 'informix'.user_account values (4, 1, 1, 'user', 'password', current
 
 insert into 'informix'.client_status values (1, 'Active', 'Active', 0, current, 'admin', current, 'admin');
 
-insert into 'informix'.client values (1, 'ACME', 1, 1, 1, 0, current, mdy(1,1,2011),  'ACME', 0, 1, current, 'admin', current, 'admin');
-insert into 'informix'.client values (2, 'TopCoder', 1, 1, 1, 0, current, mdy(1,1,2011), 'cronos', 0, 1, current, 'admin', current, 'admin');
+insert into 'informix'.client (client_id, name, company_id, payment_term_id, status, salestax, start_date, end_date, code_name,is_deleted,client_status_id, creation_date, creation_user, modification_date, modification_user,cmc_account_id ) 
+     values (1, 'ACME', 1, 1, 1, 0, current, mdy(1,1,2016),  'ACME', 0, 1, current, 'admin', current, 'admin', null);
+insert into 'informix'.client (client_id, name, company_id, payment_term_id, status, salestax, start_date, end_date, code_name,is_deleted,client_status_id, creation_date, creation_user, modification_date, modification_user,cmc_account_id ) 
+ values (2, 'TopCoder', 1, 1, 1, 0, current, mdy(1,1,2011), 'cronos', 0, 1, current, 'admin', current, 'admin', null);
 
 insert into 'informix'.project_status values (1, 'Active', 'Active', 0, current, 'admin', current, 'admin');
 
