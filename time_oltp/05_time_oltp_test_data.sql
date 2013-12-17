@@ -250,7 +250,7 @@ insert into client_project values (2, 2, current, 'test', current, 'test');
 insert into client_project values (1, 3, current, 'test', current, 'test');
 
 
-insert into client values (70014096, 'Notus', 1, 1, 1, '0.00', '2010-03-20 15:52:10', '2011-01-01 00:00:00', 'Notus-code', 0, 1, current, 'admin', current, 'admin');
+insert into client values (70014096, 'Notus', 1, 1, 1, '0.00', '2010-03-20 15:52:10', '2011-01-01 00:00:00', 'Notus-code', 0, 1, current, 'admin', current, 'admin', null);
 
 insert into  project values (70015983, 1, 'Liquid Community', 1, '0.00', 'Liquid PO 1', 1, 'description', '2010-03-20 15:52:10', '2012-01-01 00:00:00', 1, 70014096, null, 0, current, 'admin' , current, 'adming', 0, 5000);
 
