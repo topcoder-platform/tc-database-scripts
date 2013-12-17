@@ -1,4 +1,4 @@
-select first 1 p.project_id, p.name, c.client_id from time_oltp:project p, client c, time_oltp:client_project cp
+select first 1 p.project_id, p.name, c.client_id from tt_project p, tt_client c, tt_client_project cp
 where c.client_id = cp.client_id
 and p.project_id = cp.project_id
 and c.cmc_account_id = '@cmcaccountid@';
