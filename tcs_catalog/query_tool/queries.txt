@@ -502,3 +502,4 @@ query_restapi_answer_multiple_answers.txt|UPDATE query SET text = ? WHERE query_
 query_restapi_billing_accounts.txt|UPDATE query SET text = ? WHERE query_id = 33121
 query_iterative_review_auction_projects.txt|UPDATE query SET text = ? WHERE query_id = 33187
 query_iterative_review_project_detail.txt|UPDATE query SET text = ? WHERE query_id = 33188
+query_get_billing_with_cmc_account_id.txt|UPDATE query SET text = ? WHERE query_id = 33190

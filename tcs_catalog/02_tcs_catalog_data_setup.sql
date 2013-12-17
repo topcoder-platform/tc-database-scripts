@@ -852,6 +852,7 @@ INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUE
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32583, 'restapi_statistics_studio_profile_submission_both', 13337);
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32669, 'iterative_review_auction_projects', 13337);
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32679, 'iterative_review_project_detail', 13337);
+INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32700, 'get_billing_with_cmc_account_id', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -947,6 +948,8 @@ INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) 
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25947, 'catalog', 1005, 'project catalog description');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25940, 'auid', 1001, 'user id of the rest api caller');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25951, 'answerid', 1001, 'project answer id');
+INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25960, 'cmcaccountid', 1005, 'CMC Account Id');
+
 
 INSERT INTO 'informix'.comp_level(level_id,description) VALUES (0, 'No Level Selected');
 INSERT INTO 'informix'.comp_level(level_id,description) VALUES (100, 'Level 1');
@@ -2052,6 +2055,7 @@ INSERT INTO 'informix'.query (query_id, name, ranking) values (33120, 'restapi_a
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33121, 'restapi_billing_accounts', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33187, 'iterative_review_auction_projects', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33188, 'iterative_review_project_detail', 0);
+INSERT INTO 'informix'.query (query_id, name, ranking) values (33190, 'get_billing_with_cmc_account_id', 0);
 
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
@@ -2958,6 +2962,7 @@ INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input
 INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33059, NULL, NULL, 25690, 0);
 INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33187, 'N', NULL, 25561, 0);
 INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33188, 'N', NULL, 13342, 0);
+INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33190, 'N', NULL, 25960, 0);
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (11010, 11010, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12153, 12154, 0);
@@ -3490,6 +3495,7 @@ INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALU
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32583, 32729, 0);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32669, 33187, 0);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32679, 33188, 0);
+INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32700, 33190, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);
