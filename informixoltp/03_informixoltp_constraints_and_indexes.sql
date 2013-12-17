@@ -3231,10 +3231,4 @@ alter table 'informix'.user_api_spin add constraint foreign key
     references 'informix'.coder
     (coder_id) 
     constraint user_api_spin_user_id_fk;   
-	
-alter table 'informix'.coder add constraint foreign key 
-	(comp_country_code)
-	references 'informix'.country
-	(country_code) 
-	constraint codercompcountry_country_fk;
     
