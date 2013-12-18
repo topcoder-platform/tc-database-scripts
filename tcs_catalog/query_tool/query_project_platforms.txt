@@ -1,0 +1,8 @@
+select ppl.name as platform_name
+  from project p
+     , project_platform_lu ppl
+     , project_platform pp
+ where 1=1
+   and p.project_id = @pj@
+   and p.project_id = pp.project_id
+   and pp.project_platform_id = ppl.project_platform_id

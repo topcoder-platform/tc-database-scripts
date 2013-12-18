@@ -8,6 +8,9 @@ select cc.component_name
      , round(nvl(pr1.prize_amount,0)) * 0.75 as first_payment
      , round(nvl(pr1.prize_amount,0)) * 0.25 as second_payment
      , round(nvl(pr2.prize_amount,0)) as second_place_payment
+     , round(nvl(pr3.prize_amount,0)) as third_place_payment
+     , round(nvl(pr4.prize_amount,0)) as fourth_place_payment
+     , round(nvl(pr5.prize_amount,0)) as fifth_place_payment
      , nvl(pp1.scheduled_start_time, pp2.scheduled_start_time) posting_date
      , pp2.scheduled_end_time initial_submission_date
      , NVL(pp6.scheduled_end_time, pp4.scheduled_end_time) winner_announced_date
@@ -95,6 +98,9 @@ select cc.component_name
      , OUTER comp_milestone_feedback mf
      , OUTER prize pr1
      , OUTER prize pr2
+     , OUTER prize pr3
+     , OUTER prize pr4
+     , OUTER prize pr5
  where 1=1
    and p.project_id = @pj@
    and p.project_category_id = pc.project_category_id
@@ -103,7 +109,7 @@ select cc.component_name
    and pi.project_info_type_id = 1
    and pi.value = cv.comp_vers_id
    and cv.component_id= cc.component_id
-   and p.project_category_id in (1,2,6,5,7,9,13,14,23,19,24,25,26,29,35,36)
+   and p.project_category_id in (1,2,6,5,7,9,13,14,23,19,24,25,26,29,35,36,38,39)
    and cv.comp_vers_id = cvd.comp_vers_id
    and cv.phase_id = cvd.phase_id
 --these dates make this query return more than one row
@@ -143,3 +149,12 @@ select cc.component_name
    and pr2.project_id = p.project_id
    and pr2.prize_type_id = 15
    and pr2.place = 2
+   and pr3.project_id = p.project_id
+   and pr3.prize_type_id = 15
+   and pr3.place = 3
+   and pr4.project_id = p.project_id
+   and pr4.prize_type_id = 15
+   and pr4.place = 4
+   and pr5.project_id = p.project_id
+   and pr5.prize_type_id = 15
+   and pr5.place = 5
