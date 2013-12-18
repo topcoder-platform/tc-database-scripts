@@ -158,3 +158,4 @@ select cc.component_name
    and pr5.project_id = p.project_id
    and pr5.prize_type_id = 15
    and pr5.place = 5
+   and pp4.project_phase_id = (select max(project_phase.project_phase_id) from project_phase where project_phase.phase_type_id in (4, 18) and project_phase.project_id = p.project_id)
