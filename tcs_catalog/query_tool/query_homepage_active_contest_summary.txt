@@ -1,10 +1,11 @@
 SELECT pcl.name as category_name
      , p.project_category_id
      , count(*) as total_contests
-     , sum((select round(nvl(pi16.value::decimal, 0)) from project_info pi16 where pi16.project_info_type_id = 16 and pi16.project_id = p.project_id))*1.5 as total_prizes
+     , NVL(sum (pr.prize_amount * pr.number_of_submissions), 0) as total_prizes
 FROM project p
    ,project_phase submpp
    ,project_phase regpp
+   ,prize pr
    ,categories cat
    ,project_info pi_ci
    ,project_info pidr
@@ -16,6 +17,7 @@ AND regpp.phase_type_id = 1
 AND submpp.project_id = p.project_id
 AND submpp.phase_type_id = 2
 and p.project_status_id = 1
+AND p.project_id = pr.project_id
 AND (submpp.phase_status_id = 2 or regpp.phase_status_id = 2)
 and cc.root_category_id = cat.category_id
 AND pi_ci.project_id = p.project_id 
