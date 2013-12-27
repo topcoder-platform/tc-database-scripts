@@ -1194,7 +1194,8 @@ create table 'informix'.submission (
     prize_id INTEGER,
     file_size DECIMAL(18,0),
     view_count DECIMAL(10,0),
-    system_file_name varchar(254) 
+    system_file_name varchar(254),
+    thurgood_job_id VARCHAR(100)
 )
 extent size 5000 next size 2000
 lock mode row;
