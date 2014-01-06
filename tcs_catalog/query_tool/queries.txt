@@ -10,7 +10,6 @@ query_aol_component_downloads.txt|UPDATE query SET text= ? WHERE query_id=28656
 query_aol_project_data.txt|UPDATE query SET text= ? WHERE query_id=27066
 query_application_component_report.txt|UPDATE query SET text= ? WHERE query_id=27426
 query_application_report.txt|UPDATE query SET text= ? WHERE query_id=27427
-query_architecture_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=28969
 query_architecture_project_status.txt|UPDATE query SET text= ? WHERE query_id=28796
 query_architecture_registrants.txt|UPDATE query SET text= ? WHERE query_id=28417
 query_assembly_registrants.txt|UPDATE query SET text= ? WHERE query_id=27318
@@ -183,11 +182,6 @@ query_User_List.txt|UPDATE query SET text= ? WHERE query_id=11010
 query_wager_history.txt|UPDATE query SET text= ? WHERE query_id=26602
 query_winners.txt|UPDATE query SET text= ? WHERE query_id=13694
 query_winning_designer_check.txt|UPDATE query SET text= ? WHERE query_id=15953
-query_conceptualization_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29266
-query_specification_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29267
-query_ria_build_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29646
-query_ria_component_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29647
-query_ui_prototype_active_contests_summary.txt|UPDATE query SET text= ? WHERE query_id=29648
 query_project_requirements.txt|UPDATE query SET text= ? WHERE query_id= 29736
 query_spec_review_project_detail.txt|UPDATE query SET text= ? WHERE query_id= 29788
 query_project_docs.txt|UPDATE query SET text= ? WHERE query_id= 29966
@@ -241,7 +235,6 @@ query_is_in_copilot_pool.txt|UPDATE query SET text = ? WHERE query_id = 30786
 query_copilot_postings_permission.txt|UPDATE query SET text = ? WHERE query_id = 30787
 query_copilot_posting_permission.txt|UPDATE query SET text = ? WHERE query_id = 30788
 query_is_copilot_posting_registered.txt|UPDATE query SET text = ? WHERE query_id = 30789
-query_copilot_posting_active_contests_summary.txt|UPDATE query SET text = ? WHERE query_id = 30790
 query_project_phases_status.txt|UPDATE query SET text = ? WHERE query_id = 30796
 query_registration_status.txt|UPDATE query SET text = ? WHERE query_id = 30797
 query_project_dependencies_statuses.txt|UPDATE query SET text = ? WHERE query_id = 30798
@@ -262,7 +255,6 @@ query_current_project_phases.txt|UPDATE query SET text = ? WHERE query_id = 3087
 query_rss_cc_forum_feed.txt|UPDATE query SET text = ? WHERE query_id = 30886
 query_rss_cc_studio_forum_feed.txt|UPDATE query SET text = ? WHERE query_id = 30887
 query_dd_cc_scheduled_contests.txt|UPDATE query SET text = ? WHERE query_id = 30936
-query_content_creation_active_contests_summary.txt|UPDATE query SET text = ? WHERE query_id = 30966
 query_rss_Pipeline.txt|UPDATE query SET text = ? WHERE query_id = 29867
 query_dd_pipeline_feed.txt|UPDATE query SET text = ? WHERE query_id = 30977
 query_direct_project_copilots.txt|UPDATE query SET text = ? WHERE query_id = 30996
@@ -340,7 +332,6 @@ query_direct_project_general_info_projected_cost.txt|UPDATE query SET text = ? W
 query_direct_project_general_info_projected_end_date.txt|UPDATE query SET text = ? WHERE query_id = 31847
 query_resource_role_names.txt|UPDATE query SET text = ? WHERE query_id = 31781
 query_has_milestone_write_permission.txt|UPDATE query SET text = ? WHERE query_id = 31866
-query_bug_hunt_active_contests_summary.txt|UPDATE query SET text = ? WHERE query_id = 31876
 query_bug_hunt_project_status.txt|UPDATE query SET text = ? WHERE query_id = 31877
 query_bug_hunt_review_project_detail.txt|UPDATE query SET text = ? WHERE query_id = 31878
 query_direct_software_project_milestone_submissions.txt|UPDATE query SET text = ? WHERE query_id = 31886
