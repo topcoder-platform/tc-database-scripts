@@ -1,0 +1,11 @@
+SELECT distinct
+rr.user_id, rr.rating, rr.review_date
+FROM reviewer_rating rr
+INNER JOIN review_auction ra ON ra.review_auction_id=@aid@
+INNER JOIN review_application rap ON rap.review_auction_id=ra.review_auction_id
+INNER JOIN project p ON p.project_id=ra.project_id
+INNER JOIN project p2 ON p2.project_category_id=p.project_category_id and p2.project_id=rr.project_id
+WHERE rr.user_id=rap.user_id
+
+-- IMPORTANT: sort all records by the review_date because in the code only the last record for each member will be used, thus giving their current reviewer rating
+ORDER BY rr.review_date ASC;
