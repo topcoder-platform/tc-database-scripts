@@ -24,5 +24,6 @@ select FIRST 15 pr.user_id
   INNER JOIN comp_catalog cc ON cv.component_id = cc.component_id
   INNER JOIN categories c ON cc.root_category_id = c.category_id
   INNER JOIN component_inquiry ci ON ci.user_id = pr.user_id and ci.project_id = pr.project_id 
+  INNER JOIN user u ON u.user_id = pr.user_id and u.status = 'A'
  WHERE pr.user_id = @uid@
  ORDER BY resolution_date DESC
