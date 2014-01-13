@@ -15,9 +15,12 @@ select p.project_id
      , case when p.project_category_id = 2 then "Development" else "Testing" end as type
   from project_result pr
      , project p
+     , coder c
  where p.project_id = pr.project_id 
    and pr.placed > 0 
    and p.status_id in (4,5,7) 
    and p.project_category_id in (@pts@)
    and user_id = @cr@
+   and user_id = c.coder_id
+   and c.status = 'A'
 order by @sc@ @sd@, 1 desc
