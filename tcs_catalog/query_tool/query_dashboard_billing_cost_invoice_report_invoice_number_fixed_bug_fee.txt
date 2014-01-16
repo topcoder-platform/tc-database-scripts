@@ -72,7 +72,7 @@ where  pmd.component_project_id = p.project_id
    and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
    and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@)
+  --and p.project_category_id IN (@pcids@)
   and p.project_id = pi.project_id and pi.project_info_type_id = 6
   and p.project_id = pi3.project_id and pi3.project_info_type_id = 32
   and pi3.value = ttp.project_id and ttp.project_id = ttcp.project_id and ttcp.client_id = ttc.client_id

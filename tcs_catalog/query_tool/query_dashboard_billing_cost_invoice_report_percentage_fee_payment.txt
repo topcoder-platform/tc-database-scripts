@@ -66,7 +66,7 @@ FROM project p, tc_direct_project tdp, project_status_lu ps, project_category_lu
      informixoltp:payment_detail pmd, informixoltp:payment pm
 where  p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@)
+ -- and p.project_category_id IN (@pcids@)
   and (p.project_status_id not in (1,2,3) or (pmd.payment_type_id in (23,37,46,47, 45, 57) and pmd.jira_issue_id is not null)
     OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
        	   and exists (select phase_type_id from project_phase

@@ -72,7 +72,7 @@ FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.mo
 where  pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.payment_type_id
    and pmd.installment_number = 1 and pmd.payment_type_id != 4 AND NOT pmd.payment_status_id IN (65,68, 69)
    and p.project_status_id = ps.project_status_id and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@)
+  --and p.project_category_id IN (@pcids@)
   and p.project_id = pi.project_id and pi.project_info_type_id = 6
   and p.project_id = pi2.project_id and pi2.project_info_type_id = 31
   and p.project_id = pi3.project_id and pi3.project_info_type_id = 32

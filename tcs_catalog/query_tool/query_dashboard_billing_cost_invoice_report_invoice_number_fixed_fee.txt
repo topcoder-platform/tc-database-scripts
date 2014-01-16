@@ -131,7 +131,7 @@ where  pmd.component_project_id = p.project_id
    AND NOT pmd.payment_status_id IN (65,68, 69)
   and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@) 
+ -- and p.project_category_id IN (@pcids@) 
   and p.project_id = pi.project_id
   and pi.project_info_type_id = 6
   and p.project_id = pi2.project_id
