@@ -137,29 +137,29 @@ where  p.project_status_id = ps.project_status_id
              OR
                 exists (
                         SELECT
-                               tdp.project_id as tc_direct_project_id
-                        FROM tc_direct_project tdp
-                        INNER JOIN group_associated_direct_projects gadp ON tdp.project_id = gadp.tc_direct_project_id
+                               tdp2.project_id as tc_direct_project_id
+                        FROM tc_direct_project tdp2
+                        INNER JOIN group_associated_direct_projects gadp ON tdp2.project_id = gadp.tc_direct_project_id
                         INNER JOIN customer_group sg ON sg.group_id = gadp.group_id
                         INNER JOIN group_member gm ON gm.group_id = sg.group_id
                         WHERE gm.user_id = DECODE(@uid@, 0, gm.user_id, @uid@)
                         AND   gm.active = 1
                         AND   sg.archived = 0
-                        AND   tdp.project_id = p.tc_direct_project_id
+                        AND   tdp2.project_id = p.tc_direct_project_id
                         )
              OR
                  exists (
                          SELECT
-                                tdp.project_id as tc_direct_project_id
-                         FROM tc_direct_project tdp
-                         INNER JOIN corporate_oltp:direct_project_account dpa ON tdp.project_id = dpa.project_id
+                                tdp2.project_id as tc_direct_project_id
+                         FROM tc_direct_project tdp2
+                         INNER JOIN corporate_oltp:direct_project_account dpa ON tdp2.project_id = dpa.project_id
                          INNER JOIN group_associated_billing_accounts gaba ON gaba.billing_account_id = dpa.billing_account_id
                          INNER JOIN customer_group sg ON sg.group_id = gaba.group_id
                          INNER JOIN group_member gm ON gm.group_id = sg.group_id
                          WHERE gm.user_id = DECODE(@uid@, 0, gm.user_id, @uid@)
                          AND   gm.active = 1
                          AND   sg.archived = 0
-                         AND tdp.project_id = p.tc_direct_project_id
+                         AND tdp2.project_id = p.tc_direct_project_id
                          )
             OR
                 exists (
