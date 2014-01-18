@@ -2960,6 +2960,8 @@ INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input
 INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33188, 'N', NULL, 13342, 0);
 INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33190, 'N', NULL, 25960, 0);
 INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33206, 'N', NULL, 25961, 0);
+-- remove the pcids input for all dashboard billing cost report queries, write like this so we can revert back easily
+delete from query_input_xref where query_id IN (select q.query_id from query_input_xref qix, query q where qix.query_id = q.query_id and qix.input_id = 25591 and name like '%dashboard_billing%') and input_id = 25591;
 
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (11010, 11010, NULL);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (12153, 12154, 0);

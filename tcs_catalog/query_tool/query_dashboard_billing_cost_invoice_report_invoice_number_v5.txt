@@ -111,7 +111,7 @@ where  pmd.component_project_id = p.project_id
    AND NOT pmd.payment_status_id IN (65,68, 69)
    and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@) 
+  -- and p.project_category_id IN (@pcids@) 
   and p.project_id = pi.project_id
   and pi.project_info_type_id = 6
   and p.project_id = pi2.project_id
@@ -256,7 +256,7 @@ where  pmd.component_project_id = p.project_id
    AND NOT pmd.payment_status_id IN (65,68, 69)
    and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@) 
+  -- and p.project_category_id IN (@pcids@) 
   and p.project_id = pi.project_id
   and pi.project_info_type_id = 6
   and p.project_id = pi2.project_id
@@ -392,7 +392,7 @@ where  pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.paym
    and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
   and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@) 
+  -- and p.project_category_id IN (@pcids@) 
   and p.project_id = pi.project_id
   and pi.project_info_type_id = 6
   and p.project_id = pi26.project_id
@@ -570,7 +570,7 @@ where  pmd.component_project_id = p.project_id
    AND NOT pmd.payment_status_id IN (65,68, 69)
   and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@) 
+  -- and p.project_category_id IN (@pcids@) 
   and p.project_id = pi.project_id
   and pi.project_info_type_id = 6
   and p.project_id = pi2.project_id
@@ -710,7 +710,7 @@ FROM project p,
 
 where  p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@) 
+  -- and p.project_category_id IN (@pcids@) 
   and (p.project_status_id not in (1,2,3) or (pmd.payment_type_id in (23,37,46,47, 45, 57) and pmd.jira_issue_id is not null)
     OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
        	   and exists (select phase_type_id from project_phase
@@ -845,7 +845,7 @@ FROM project p,
 
 where  p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@) 
+  -- and p.project_category_id IN (@pcids@) 
     and (p.project_status_id not in (1,2,3) 
           OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
        	   and exists (select phase_type_id from project_phase where project_id = p.project_id and phase_type_id =4 and phase_status_id = 3))
@@ -987,7 +987,7 @@ where pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.payme
    and pmd.installment_number = 1 AND NOT pmd.payment_status_id IN (65,68, 69)
   and p.project_status_id = ps.project_status_id
   and p.project_category_id = pc.project_category_id
-  and p.project_category_id IN (@pcids@) 
+  -- and p.project_category_id IN (@pcids@) 
   and (p.project_status_id = 7 
           OR (p.project_status_id  = 1 and (p.project_category_id in (9, 29) or pc.project_type_id = 3)
        	   and exists (select phase_type_id from project_phase
