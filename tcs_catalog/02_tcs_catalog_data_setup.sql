@@ -3738,6 +3738,7 @@ INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review
 INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (2, 'Component Development Review', 1);
 INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (3, 'Specification Review', 2);
 INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (4, 'Regular Iterative Review', 3);
+INSERT INTO 'informix'.review_auction_type_lu(review_auction_type_id,name,review_auction_category_id) VALUES (5, 'Contest Review - 3 Secondaries', 1);
 
 INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (1, 'Primary Reviewer', 1, 1, 1);
 INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (2, 'Secondary Reviewer', 1, 3, 2);
@@ -3747,6 +3748,7 @@ INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,nam
 INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (6, 'Failure Reviewer', 2, 1, 4);
 INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (7, 'Specification Reviewer', 3, 1, 1);
 INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (8, 'Iterative Reviewer', 4, 3, 1);
+INSERT INTO 'informix'.review_application_role_lu(review_application_role_id,name,review_auction_type_id,positions,order_index) VALUES (9, 'Reviewer', 5, 3, 1);
 
 INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (1, 2, 't');
 INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (1, 4, 'f');
@@ -3762,6 +3764,7 @@ INSERT INTO 'informix'.review_application_role_resource_role_xref(review_applica
 INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (6, 6, 't');
 INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (7, 18, 't');
 INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (8, 21, 'f');
+INSERT INTO 'informix'.review_application_role_resource_role_xref(review_application_role_id,resource_role_id,unique_role) VALUES (9, 4, 'f');
 
 INSERT INTO 'informix'.review_application_status_lu(review_application_status_id,name) VALUES (1, 'Pending');
 INSERT INTO 'informix'.review_application_status_lu(review_application_status_id,name) VALUES (2, 'Cancelled');
