@@ -1358,6 +1358,14 @@ revoke all on "informix".seq_access_token from "public";
 CREATE SEQUENCE seq_authorization_code_grant;
 revoke all on "informix".seq_authorization_code_grant from "public";
 
+CREATE SEQUENCE SEQUENCE_USER_GROUP_SEQ INCREMENT BY 1 START WITH 40000000;
+  
+CREATE SEQUENCE SEQUENCE_EMAIL_SEQ INCREMENT BY 1 START WITH 3000000;
+   
+CREATE SEQUENCE SEQUENCE_USER_SEQ INCREMENT BY 1 START WITH 40000000;
+revoke all on "informix".SEQUENCE_USER_GROUP_SEQ from "public";
+revoke all on "informix".SEQUENCE_EMAIL_SEQ from "public";
+revoke all on "informix".SEQUENCE_USER_SEQ from "public";
 
 create view "informix".email_user (user_id,first_name,last_name,
        create_date,modify_date,handle,last_login,status,
@@ -2357,6 +2365,9 @@ grant select,update,insert,delete on access_token_has_permission to public as in
 grant select,update,insert,delete on authorization_code_grant_has_permission to public as informix;
 grant select on "informix".seq_access_token to "public" as "informix";
 grant select on "informix".seq_authorization_code_grant to "public" as "informix";
+grant select on "informix".SEQUENCE_USER_GROUP_SEQ to "public" as "informix";
+grant select on "informix".SEQUENCE_EMAIL_SEQ to "public" as "informix";
+grant select on "informix".SEQUENCE_USER_SEQ to "public" as "informix";
 grant select,update,insert,delete on password_reset_token to public as informix;
 grant select,update,insert,delete on email_request to public as informix;
 
