@@ -1130,6 +1130,7 @@ query_long_contest_invisible_round_check.txt|UPDATE query SET text= ? WHERE quer
 query_long_contest_exclusive_round_check.txt|UPDATE query SET text= ? WHERE query_id=29916
 query_long_contest_collab_round_check.txt|UPDATE query SET text= ? WHERE query_id=29561
 query_search_users_by_handle_email.txt|UPDATE query SET text= ? WHERE query_id=32330
+query_get_users_by_handles.txt|UPDATE query SET text= ? WHERE query_id=32331
 query_user_handle_email_by_user_id.txt|UPDATE query SET text= ? WHERE query_id=32329
 query_user_rating_list.txt|UPDATE query SET text= ? WHERE query_id=29986
 query_email_history.txt|UPDATE query SET text= ? WHERE query_id=32046
