@@ -760,7 +760,8 @@ CREATE TABLE 'informix'.client_project_dim (
     project_name VARCHAR(64) NOT NULL,
     project_create_date DATETIME YEAR TO SECOND NOT NULL,
     project_modification_date DATETIME YEAR TO SECOND NOT NULL,
-    billing_account_code VARCHAR(64) NOT NULL
+    billing_account_code VARCHAR(64) NOT NULL,
+	cmc_account_id VARCHAR(100)
 )
 extent size 128 next size 128
 lock mode page;
