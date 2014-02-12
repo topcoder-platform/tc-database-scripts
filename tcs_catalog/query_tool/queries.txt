@@ -432,6 +432,8 @@ query_dashboard_billing_cost_invoice_report_invoice_number_percentage_fee_paymen
 query_dashboard_billing_cost_invoice_report_invoice_number_percentage_fee_payment2.txt|UPDATE query SET text = ? WHERE query_id = 32875
 query_dashboard_billing_cost_invoice_report_invoice_number_project_level_payments.txt|UPDATE query SET text = ? WHERE query_id = 32880
 query_dashboard_billing_cost_invoice_report_invoice_number_reliability.txt|UPDATE query SET text = ? WHERE query_id = 32881
+query_dashboard_billing_cost_invoice_report_credit.txt|UPDATE query SET text = ? WHERE query_id = 32882
+query_dashboard_billing_cost_invoice_report_invoice_number_credit.txt|UPDATE query SET text = ? WHERE query_id = 32883
 query_dashboard_cost_report_v2.txt|UPDATE query SET text = ? WHERE query_id = 32886
 query_dashboard_project_metrics_report_v2.txt|UPDATE query SET text = ? WHERE query_id = 32887
 query_direct_my_pm_projects_contests_v3.txt|UPDATE query SET text = ? WHERE query_id = 32896
