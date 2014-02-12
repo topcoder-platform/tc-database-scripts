@@ -2,7 +2,7 @@ select c.component_name
      , c.root_category_id
      , ci.user_id
      , ci.create_time as inquiry_date
-     , s.modify_date as submission_date
+     , max(s.modify_date) as submission_date
      , ri4.value::int as rating
      , cv.component_id
      , cv.version_text
@@ -57,8 +57,4 @@ select c.component_name
   and p.project_id = @pj@
   and pcat.category_id = c.root_category_id
 
--- if submission dates are to be hidden then don't order by them
-order by 
-(case when exists (select 1 from project_phase pp where pp.project_id = p.project_id and pp.phase_status_id in (1,2) and pp.phase_type_id in (1,2,3,4,5,6) and p.project_status_id=1)
-then null else s.modify_date end) desc, 
-4 desc
+GROUP BY 1,2,3,4,6,7,8,9,10,11,12,13,14,15,16
