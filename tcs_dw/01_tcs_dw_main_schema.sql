@@ -81,7 +81,9 @@ create table 'informix'.project (
     client_project_id INTEGER,
     start_date_calendar_id DECIMAL(12, 0),
     duration DECIMAL(10, 2),
-    fulfillment DECIMAL(10, 2)
+    fulfillment DECIMAL(10, 2),
+	last_modification_date DATETIME YEAR TO SECOND
+	
 )
 extent size 512 next size 512
 lock mode page;
