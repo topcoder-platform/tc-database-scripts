@@ -3394,6 +3394,15 @@ extent size 64 next size 64
 lock mode row;
 revoke all on project_platform_lu from 'public';
 
+database tcs_catalog;
+create table 'informix'.client_group_xref (
+    client_id INT NOT NULL,
+    group_id INT NOT NULL
+)
+extent size 128 next size 128
+lock mode row;
+revoke all on client_group_xref from 'public';
+
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -5325,6 +5334,8 @@ grant select,insert,update,delete on platform_lu to public as 'informix';
 
 grant select,insert,update,delete on user_recent_item_type to public as 'informix';
 grant select,insert,update,delete on user_recent_item to public as 'informix';
+
+grant select,insert,update,delete on client_group_xref to public as 'informix';
 
 grant insert on project_platform to 'public' as 'informix';
 grant update on project_platform to 'public' as 'informix';
