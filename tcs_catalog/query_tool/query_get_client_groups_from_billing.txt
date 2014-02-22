@@ -1,0 +1,9 @@
+SELECT sg.group_id, sg.description as group_name
+FROM security_groups sg, client c, time_oltp:client_project cp,
+time_oltp:project p, client_group_xref cgx
+WHERE c.client_id = cp.client_id
+AND   cp.project_id = p.project_id
+AND   p.project_id = @billingaccountid@
+AND   cgx.client_id = c.client_id
+AND   cgx.group_id = sg.group_id
+order by sg.description;

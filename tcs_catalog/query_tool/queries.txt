@@ -498,3 +498,4 @@ query_iterative_review_project_detail.txt|UPDATE query SET text = ? WHERE query_
 query_get_billing_with_cmc_account_id.txt|UPDATE query SET text = ? WHERE query_id = 33190
 query_project_platforms.txt|UPDATE query SET text = ? WHERE query_id = 33098
 query_reviewer_ratings_for_auction.txt|UPDATE query SET text = ? WHERE query_id = 33206
+query_get_client_groups_from_billing.txt|UPDATE query SET text = ? WHERE query_id = 33207
