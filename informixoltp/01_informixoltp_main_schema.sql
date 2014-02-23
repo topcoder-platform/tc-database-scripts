@@ -4148,6 +4148,16 @@ extent size 250 next size 100
 lock mode row;
 revoke all on user_api_spin from 'public';
 
+create table 'informix'.docusign_envelope (
+    docusign_envelope_id VARCHAR(64) not null,
+    docusign_template_id VARCHAR(64) not null,
+    user_id DECIMAL(10,0) not null,
+    is_completed DECIMAL(1,0) not null
+)
+extent size 150 next size 150
+lock mode row;
+revoke all on docusign_envelope from 'public';
+
 grant insert, update, select, delete on custom_build_setting to 'public' as 'informix';
 
 grant select on rating to 'informix' with grant option ;
@@ -7244,3 +7254,5 @@ GRANT INSERT, DELETE, INDEX, SELECT, UPDATE ON invoice TO 'public' AS 'informix'
 grant insert, update, select, delete on round_event to 'public' as 'informix';
 
 grant insert, update, select, delete on user_api_spin to 'public' as 'informix';
+
+grant insert, update, select, delete on docusign_envelope to 'public' as 'informix';

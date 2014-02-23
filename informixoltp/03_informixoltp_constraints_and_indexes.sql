@@ -3230,5 +3230,8 @@ alter table 'informix'.user_api_spin add constraint foreign key
     (user_id)
     references 'informix'.coder
     (coder_id) 
-    constraint user_api_spin_user_id_fk;   
-    
+    constraint user_api_spin_user_id_fk;
+
+alter table 'informix'.docusign_envelope add constraint primary key 
+    (docusign_envelope_id)
+    constraint 'informix'.docusign_envelope_pkey;
