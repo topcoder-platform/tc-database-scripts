@@ -83,6 +83,12 @@ create index 'informix'.phone_user_id_idx on 'informix'.phone
     primary_ind
     );
 
+create index 'informix'.contest_elig_idx1 on 'informix'.contest_eligibility
+	(
+	contest_id
+	);
+
+
 create unique index 'informix'.page_tracker_i2 on 'informix'.page_tracker
 (
 tracking_id
