@@ -853,7 +853,7 @@ INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUE
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32679, 'iterative_review_project_detail', 13337);
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32699, 'reviewer_ratings_for_auction', 13337);
 INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32700, 'get_billing_with_cmc_account_id', 13337);
-INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32701, 'get_client_groups_from_billing', 13337);
+INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUES(32759, 'get_client_groups_from_billing', 13337);
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -2054,7 +2054,7 @@ INSERT INTO 'informix'.query (query_id, name, ranking) values (33187, 'iterative
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33188, 'iterative_review_project_detail', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33190, 'get_billing_with_cmc_account_id', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33206, 'reviewer_ratings_for_auction', 0);
-INSERT INTO 'informix'.query (query_id, name, ranking) values (33207, 'get_client_groups_from_billing', 0);
+INSERT INTO 'informix'.query (query_id, name, ranking) values (33286, 'get_client_groups_from_billing', 0);
 
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
@@ -2979,7 +2979,7 @@ INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input
 INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33188, 'N', NULL, 13342, 0);
 INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33190, 'N', NULL, 25960, 0);
 INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33206, 'N', NULL, 25961, 0);
-INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33207, 'N', NULL, 25542, 0);
+INSERT INTO 'informix'.query_input_xref(query_id, optional, default_value, input_id, sort_order) VALUES (33286, 'N', NULL, 25542, 0);
 -- remove the pcids input for all dashboard billing cost report queries, write like this so we can revert back easily
 delete from query_input_xref where query_id IN (select q.query_id from query_input_xref qix, query q where qix.query_id = q.query_id and qix.input_id = 25591 and name like '%dashboard_billing%') and input_id = 25591;
 
@@ -3513,7 +3513,7 @@ INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALU
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32679, 33188, 0);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32700, 33190, 0);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32699, 33206, 0);
-INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32701, 33207, 0);
+INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32759, 33286, 0);
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (20, current, 0, 1);
