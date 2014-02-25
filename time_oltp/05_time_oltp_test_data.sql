@@ -175,9 +175,9 @@ insert into 'informix'.client (client_id, name, company_id, payment_term_id, sta
 
 insert into 'informix'.project_status values (1, 'Active', 'Active', 0, current, 'admin', current, 'admin');
 
-insert into 'informix'.project values (1, 1, 'Test Project 1', 1, 0, 'TESTPROJECT-01', 1, 'description', current, mdy(1,1,2014), 1, 1, null, 0,current, 'admin', current, 'admin', 0, 5000);
-insert into 'informix'.project values (2, 1, 'Test Project 2', 1, 0, 'TESTPROJECT-02', 1, 'description', current, mdy(1,1,2014), 1, 1, null, 0, current, 'admin', current, 'admin', 0, 5000);
-insert into 'informix'.project values (3, 1, 'Test Project 3', 1, 0, 'TESTPROJECT-03', 1, 'description', current, mdy(1,1,2014), 1, 1, null, 0, current, 'admin', current, 'admin', 1,  5000);
+insert into 'informix'.project values (1, 1, 'Test Project 1', 1, 0, 'TESTPROJECT-01', 1, 'description', current, mdy(1,1,2014), 1, 1, null, 0,current, 'admin', current, 'admin', 0, 5000, 'null');
+insert into 'informix'.project values (2, 1, 'Test Project 2', 1, 0, 'TESTPROJECT-02', 1, 'description', current, mdy(1,1,2014), 1, 1, null, 0, current, 'admin', current, 'admin', 0, 5000, 'null');
+insert into 'informix'.project values (3, 1, 'Test Project 3', 1, 0, 'TESTPROJECT-03', 1, 'description', current, mdy(1,1,2014), 1, 1, null, 0, current, 'admin', current, 'admin', 1,  5000, 'null');
 
 insert into 'informix'.project_worker values (1, 1, current, mdy(1,1,2014), 0, 0, 1, current, 'admin', current, 'admin');
 insert into 'informix'.project_worker values (1, 2, current, mdy(1,1,2014), 0, 0, 1, current, 'admin', current, 'admin');
