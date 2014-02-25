@@ -62,6 +62,7 @@ FROM project p
    ,comp_catalog cc
    ,comp_versions cv
    ,prize pr
+   ,project_info pi12
 WHERE p.project_category_id = @pt@
 AND regpp.project_id = p.project_id
 AND regpp.phase_type_id = 1
@@ -78,4 +79,7 @@ AND cv.comp_vers_id = pi_ci.value
 AND cv.component_id= cc.component_id
 AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce WHERE ce.is_studio = 0 AND ce.contest_id = p.project_id)
 AND pr.project_id = p.project_id and pr.place = 1 and pr.prize_type_id = 15
+AND pi12.project_id = p.project_id
+AND pi12.project_info_type_id = 12
+AND pi12.value = "Yes"
 order by @sc@ @sd@

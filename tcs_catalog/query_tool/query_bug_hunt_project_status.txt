@@ -50,6 +50,7 @@ SELECT cc.component_name
    ,categories cat
    ,outer (project_result pr1, user u1)
    ,outer (project_result pr2, user u2)
+   ,project_info pi12
  WHERE p.project_status_id = 1
  AND p.project_category_id = @pt@
  AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
@@ -68,4 +69,7 @@ SELECT cc.component_name
  AND ph.actual_start_time < current
  AND ph.scheduled_end_time = (select min(scheduled_end_time)  
                                from project_phase 
-                          where project_id = p.project_id and phase_type_id = 2)  
+                          where project_id = p.project_id and phase_type_id = 2)
+AND pi12.project_id = p.project_id
+AND pi12.project_info_type_id = 12
+AND pi12.value="Yes"

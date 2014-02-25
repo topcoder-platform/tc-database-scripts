@@ -52,6 +52,7 @@ SELECT cc.component_name
    ,categories cat
    ,outer (project_result pr1, user u1)
    ,outer (project_result pr2, user u2)
+   ,project_info pi12
  WHERE p.project_status_id = 1
  and ((cv.phase_id in (112, 113) and p.project_category_id in (1,2)) or (p.project_category_id in (6,7,9,13,14,23,19,24,25,26,35,36,38,39)))
  AND p.project_category_id = @pt@
@@ -84,4 +85,7 @@ and ph1.phase_type_id = 10
 AND ph1.scheduled_end_time = (select max(scheduled_end_time) 
                               from project_phase 
                              where project_id = p.project_id and phase_type_id = 10)
+AND pi12.project_id = p.project_id
+AND pi12.project_info_type_id = 12
+AND pi12.value="Yes"
   order by final_review_end_date asc

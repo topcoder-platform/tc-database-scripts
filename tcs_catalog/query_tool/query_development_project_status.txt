@@ -56,6 +56,7 @@ SELECT cc.component_name
    ,categories cat
    ,outer (project_result pr1, user u1)
    ,outer (project_result pr2, user u2)
+   ,project_info pi12
  WHERE p.project_status_id = 1
  AND p.project_category_id in (2, 5)
  AND NOT EXISTS (SELECT 'has_eligibility_constraints' FROM contest_eligibility ce
@@ -87,4 +88,7 @@ and ph1.phase_type_id = 10
 AND ph1.scheduled_end_time = (select max(scheduled_end_time) 
                               from project_phase 
                              where project_id = p.project_id and phase_type_id = 10)
+AND pi12.project_id = p.project_id
+AND pi12.project_info_type_id = 12
+AND pi12.value="Yes"
   order by final_review_end_date asc;

@@ -14,6 +14,7 @@ FROM project p
 ,comp_catalog cc
 ,comp_versions cv
 , outer project_info pi16
+,project_info pi12
 WHERE p.project_category_id = DECODE(@pt@, 1, p.project_category_id, @pt@)
 AND regpp.project_id = p.project_id
 AND regpp.phase_type_id = 1
@@ -29,4 +30,7 @@ AND cv.comp_vers_id = pi_ci.value
 and cv.component_id= cc.component_id
 and pi16.project_info_type_id = 16
 and pi16.project_id = p.project_id
-order by regpp.scheduled_end_time desc;
+AND pi12.project_id = p.project_id
+AND pi12.project_info_type_id = 12
+AND pi12.value="Yes"
+order by regpp.scheduled_end_time desc
