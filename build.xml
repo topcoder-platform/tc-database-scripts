@@ -45,18 +45,20 @@
 
   <macrodef name="updatetextcolumn">
     <attribute name="database"/>
+    <attribute name="subdir" default="query_tool" />
+    <attribute name="updatelists" default="queries.txt" />
     <attribute name="outfile" />
     <attribute name="append" />
     <attribute name="failonerror" default="true" />
     <sequential>
-      <echo message="Update text column from file @{database}/query_tool/queries.txt" />
+      <echo message="Update text column from file @{database}/@{subdir}/@{updatelists}" />
       <java classname="com.topcoder.tools.UpdateTextColumn"
-          dir="@{database}/query_tool"
+          dir="@{database}/@{subdir}"
           fork="true"
           output="logs/@{outfile}" append="@{append}"
           failonerror="@{failonerror}">
 
-        <arg line="F jdbc:informix-sqli://${database.server}:${database.port}/@{database}:informixserver=${INFORMIXSERVER};user=${database.username};password=${database.password};DB_LOCALE=${locale};CLIENT_LOCALE=${locale} queries.txt"/>
+        <arg line="F jdbc:informix-sqli://${database.server}:${database.port}/@{database}:informixserver=${INFORMIXSERVER};user=${database.username};password=${database.password};DB_LOCALE=${locale};CLIENT_LOCALE=${locale} @{updatelists}"/>
 
         <classpath>
           <fileset file="tools/UpdateTextColumn/ifxjdbc.jar"/>
@@ -147,7 +149,9 @@
     <dbaccess file="informixoltp/03_informixoltp_constraints_and_indexes.sql" outfile="informixoltp.log" append="true" />
     <dbaccess file="informixoltp/04_informixoltp_synonyms_procedures_and_triggers.sql" outfile="informixoltp.log" append="true" />
     <dbaccess file="informixoltp/05_informixoltp_test_data.sql" outfile="informixoltp.log" append="true" />
-	
+    <updatetextcolumn database="informixoltp" subdir="problem_presetup" updatelists="problem_presetups.txt" outfile="informixoltp.log" append="true"  />
+    <updatetextcolumn database="informixoltp" subdir="contest_presetup" updatelists="contest_presetups.txt" outfile="informixoltp.log" append="true"  />
+
 	<!-- complete setup tcs_catalog -->
 	<dbaccess file="tcs_catalog/04_tcs_catalog_synonyms_procedures_and_triggers.sql" outfile="tcs_catalog.log" append="true" />
     <dbaccess file="tcs_catalog/05_tcs_catalog_test_data.sql" outfile="tcs_catalog.log" append="true" />
@@ -236,4 +240,7 @@
     <updatetextcolumn database="topcoder_dw" outfile="topcoder_dw.log" append="true"/>
   </target>
 
+  <target name="problem_presetup" description="problem presetup of informixoltp">
+    <updatetextcolumn database="informixoltp" subdir="problem_presetup" updatelists="problem_presetups.txt" outfile="informixoltp.log" append="true"  />
+  </target>
 </project>

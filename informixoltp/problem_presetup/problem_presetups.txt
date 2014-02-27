@@ -1,0 +1,34 @@
+single_problem_solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121312
+long_problem_solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121319
+TestProblem.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121312 and sort_order=1
+LongTest.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=1
+BlackAndWhiteGame.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=2
+LongTest$WriterCache.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=3
+LongTest$1.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=4
+LongTest$ExposedMethodReader.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=5
+LongProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2020
+SingleProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2021
+single_test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121313 and component_id=2021
+single_test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121314 and component_id=2021
+single_test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121315 and component_id=2021
+single_test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121316 and component_id=2021
+single_test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121317 and component_id=2021
+single_test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121318 and component_id=2021
+single_test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121313 and component_id=2021
+single_test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121314 and component_id=2021
+single_test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121315 and component_id=2021
+single_test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121316 and component_id=2021
+single_test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121317 and component_id=2021
+single_test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121318 and component_id=2021
+long_test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121326 and component_id=2020
+long_test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121327 and component_id=2020
+long_test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121328 and component_id=2020
+long_test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121329 and component_id=2020
+long_test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121330 and component_id=2020
+long_test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121331 and component_id=2020
+long_test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121326 and component_id=2020
+long_test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121327 and component_id=2020
+long_test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121328 and component_id=2020
+long_test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121329 and component_id=2020
+long_test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121330 and component_id=2020
+long_test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121331 and component_id=2020
