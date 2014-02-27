@@ -844,7 +844,8 @@ create table 'informix'.solution (
     modify_date DATETIME YEAR TO FRACTION,
     solution_class BYTE,
     language_id DECIMAL(3,0),
-    package VARCHAR(255)
+    package VARCHAR(255),
+    has_check_answer boolean default 'f'
 )
 extent size 25000 next size 15000
 lock mode row;
@@ -907,7 +908,8 @@ create table 'informix'.challenge (
     defendant_points DECIMAL(7,2),
     expected BYTE,
     received BYTE,
-    status_id DECIMAL(3,0)
+    status_id DECIMAL(3,0),
+    check_answer_response varchar(255)
 )
 extent size 35000 next size 20000
 lock mode row;
