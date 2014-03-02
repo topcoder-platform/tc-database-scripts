@@ -9,3 +9,17 @@ LEFT JOIN resource_info ri1 ON r.resource_id = ri1.resource_id AND ri1.resource_
 LEFT JOIN resource_info ri2 ON r.resource_id = ri2.resource_id AND ri2.resource_info_type_id = 2
 WHERE pp.project_id = @pj@
 AND   pp.phase_type_id = 4
+
+UNION
+
+SELECT (pp.scheduled_start_time - CURRENT)::INTERVAL HOUR(9) TO HOUR::char(20)::decimal(10,2) AS hours_left,
+       NVL(pc.parameter::INT,0) AS required_reviewers_count,
+       ri1.value::DECIMAL(12, 0) AS reviewer_id,
+       ri2.value AS reviewer_handle
+FROM project_phase pp
+LEFT JOIN phase_criteria pc ON pp.project_phase_id = pc.project_phase_id AND pc.phase_criteria_type_id = 6
+LEFT JOIN resource r ON pp.project_id = r.project_id AND r.resource_role_id = 21
+LEFT JOIN resource_info ri1 ON r.resource_id = ri1.resource_id AND ri1.resource_info_type_id = 1
+LEFT JOIN resource_info ri2 ON r.resource_id = ri2.resource_id AND ri2.resource_info_type_id = 2
+WHERE pp.project_id = @pj@
+AND   pp.project_phase_id = (select min(project_phase_id) from project_phase pp2 where pp2.project_id = @pj@ and pp2.phase_type_id = 18);
