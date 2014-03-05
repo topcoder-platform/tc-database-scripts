@@ -1084,6 +1084,7 @@ create table 'informix'.resource (
     resource_role_id INT not null,
     project_id INT,
     project_phase_id INT,
+    user_id DECIMAL(10,0)
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
