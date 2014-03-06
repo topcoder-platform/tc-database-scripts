@@ -1084,7 +1084,7 @@ create table 'informix'.resource (
     resource_role_id INT not null,
     project_id INT,
     project_phase_id INT,
-    user_id DECIMAL(10,0)
+    user_id DECIMAL(10,0),
     create_user VARCHAR(64) not null,
     create_date DATETIME YEAR TO FRACTION not null,
     modify_user VARCHAR(64) not null,
@@ -5106,6 +5106,8 @@ grant select on "informix".PROJECT_USER_AUDIT_SEQ to "public" as "informix";
 CREATE SEQUENCE "informix".user_recent_item_sequence;
 revoke all on "informix".user_recent_item_sequence from "public";
 grant select on "informix".user_recent_item_sequence to "public" as "informix";
+
+
 
 grant select,insert,update,delete on "informix".client_billing_config to public as "informix";
 grant select,insert,update,delete on "informix".client_billing_config_type_lu to public as "informix";
