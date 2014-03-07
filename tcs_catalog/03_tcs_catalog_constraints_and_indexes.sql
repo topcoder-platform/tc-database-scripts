@@ -2535,3 +2535,8 @@ alter table 'informix'.project_platform add constraint foreign key
     references 'informix'.project_platform_lu
     (project_platform_id) 
     constraint fk_projectplatform_projectplatformlu_projectplatformid;
+
+create index 'informix'.review_project_phase_id_idx on 'informix'.review
+	(
+	project_phase_id
+	);
