@@ -1,7 +1,21 @@
-select * from user_address_xref uax, address a, country c
+
+select c.country_code from user_address_xref uax, address a, country c
 where
 uax.user_id=@cr@ and uax.address_id=a.address_id and a.country_code=c.country_code and
 c.country_name not in
+(
+"Iran",
+"North Korea",
+"Cuba",
+"Sudan",
+"Syria"
+)
+
+union
+
+select cc.country_code from informixoltp:coder cd, country cc
+where cd.comp_country_code = cc.country_code and cd.coder_id = @cr@
+and cc.country_name not in 
 (
 "Iran",
 "North Korea",
