@@ -3752,6 +3752,11 @@ INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create
 INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(2, 'feedback_answer', 'system', CURRENT, 'system', CURRENT);
 INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(3, 'feedback_author', 'system', CURRENT, 'system', CURRENT);
 INSERT INTO copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(4, 'feedback_status', 'system', CURRENT, 'system', CURRENT);
+insert into copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(5, 'feedback_timeline_rating', 'system', CURRENT, 'system', CURRENT);
+insert into copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(6, 'feedback_quality_rating', 'system', CURRENT, 'system', CURRENT);
+insert into copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(7, 'feedback_communication_rating', 'system', CURRENT, 'system', CURRENT);
+insert into copilot_project_info_type (copilot_project_info_type_id, name,create_user, create_date, modify_user, modify_date ) VALUES(8, 'feedback_management_rating', 'system', CURRENT, 'system', CURRENT);
+
 
 INSERT INTO 'informix'.review_auction_category_lu(review_auction_category_id,name) VALUES (1, 'Contest Review');
 INSERT INTO 'informix'.review_auction_category_lu(review_auction_category_id,name) VALUES (2, 'Specification Review');
