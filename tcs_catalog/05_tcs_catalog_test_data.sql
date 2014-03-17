@@ -326,5 +326,5 @@ INSERT INTO tcs_catalog:rboard_user (user_id, project_type_id, catalog_id, statu
 
 insert into tcs_catalog:comp_reg_question values (1, "Test question", 3, 1, 1);
 
-insert into tcs_catalog:resource values (1, 13, null, null, 132456, current, 132456, current);
-insert into tcs_catalog:resource_info values (1, 1, 132456,	132456, current, 132456, current);
+insert into tcs_catalog:resource values (1, 13, null, null, 132456, 132456, current, 132456, current);
+insert into tcs_catalog:resource_info values (1, 1, 132456, 132456, current, 132456, current);
