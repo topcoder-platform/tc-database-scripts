@@ -247,6 +247,13 @@ create table 'informix'.state (
 extent size 64 next size 64
 lock mode row;
 
+create table 'informix'.terms_of_use_docusign_template_xref (
+    terms_of_use_id DECIMAL(10,0) NOT NULL,
+    docusign_template_id VARCHAR(64) NOT NULL
+)
+extent size 16 next size 16
+lock mode row;
+
 revoke all on state from 'public';
 create table 'informix'.country (
     country_code VARCHAR(3),
@@ -2385,4 +2392,4 @@ grant select,update,insert,delete on email_request to public as informix;
 
 grant select,update,insert,delete on social_login_provider to public as informix;
 grant select,update,insert,delete on user_social_login to public as informix;
-
+grant select,update,insert,delete on terms_of_use_docusign_template_xref to public as informix;

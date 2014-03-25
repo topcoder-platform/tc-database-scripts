@@ -154,6 +154,16 @@ alter table 'informix'.project_role_terms_of_use_xref add constraint primary key
     (project_id, resource_role_id, terms_of_use_id, group_ind)
     constraint pk_project_role_terms_of_use_xref;
 
+alter table 'informix'.terms_of_use_docusign_template_xref add constraint primary key 
+	(terms_of_use_id)
+	constraint terms_of_use_docusign_template_xref_pk;
+
+alter table 'informix'.terms_of_use_docusign_template_xref add constraint foreign key
+    (terms_of_use_id)
+    references 'informix'.terms_of_use
+    (terms_of_use_id)
+    constraint terms_of_use_docusign_template_xref_terms_of_use_fk;
+
 alter table 'informix'.state add constraint primary key 
     (state_code)
     constraint state_pkey;
