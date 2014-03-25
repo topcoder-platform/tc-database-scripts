@@ -12120,3 +12120,4 @@ INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_bui
 INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (8,'Approved Path for Python 2.7.5','/lib64,/usr/lib64,/usr/local/python-2.7.5',8);
 INSERT INTO 'informix'.custom_build_setting (custom_build_setting_id, custom_build_setting_desc, custom_build_setting_value, custom_build_setting_type_id) values (9,'Approved Path for Python 2.7.5','/lib64,/usr/lib64,/usr/local/python-2.7.5',4);
 
+INSERT INTO 'informix'.dual(value) VALUES(22);
