@@ -5107,6 +5107,10 @@ CREATE SEQUENCE "informix".user_recent_item_sequence;
 revoke all on "informix".user_recent_item_sequence from "public";
 grant select on "informix".user_recent_item_sequence to "public" as "informix";
 
+CREATE SEQUENCE SEQUENCE_REVIEW_APPLICATION_SEQ INCREMENT BY 1 START WITH 3000000;
+revoke all on "informix".SEQUENCE_REVIEW_APPLICATION_SEQ from "public";
+grant select on "informix".SEQUENCE_REVIEW_APPLICATION_SEQ to "public" as "informix";    
+
 
 
 grant select,insert,update,delete on "informix".client_billing_config to public as "informix";
