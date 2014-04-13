@@ -41,7 +41,7 @@ SELECT p.project_id AS contest_id
        FROM project_info pi 
        WHERE pi.project_id = p.project_id 
        AND pi.project_info_type_id = 30)::DECIMAL(10, 2) AS dr_points
-    , (SELECT c.event_id
+    , (SELECT distinct c.event_id
         FROM contest c,
              contest_project_xref pcx
         WHERE pcx.project_id = p.project_id

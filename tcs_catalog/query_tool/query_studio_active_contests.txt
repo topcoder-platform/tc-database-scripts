@@ -31,7 +31,7 @@ SELECT
            THEN 1 
            ELSE 0 
       END AS is_user_registered
-    , (SELECT c.event_id
+    , (SELECT distinct c.event_id
         FROM contest c,
              contest_project_xref pcx
         WHERE pcx.project_id = p.project_id

@@ -33,7 +33,7 @@ FROM  table(multiset(
             WHERE pr.project_id = p.project_id
             AND pr.prize_type_id = 15 and pr.place = 1)::DECIMAL(10,2) AS first_place
          , pi_dr.value::DECIMAL(10, 2) AS dr_points
-         , (SELECT c.event_id
+         , (SELECT distinct c.event_id
             FROM contest c
             INNER JOIN contest_project_xref pcx ON c.contest_id = pcx.contest_id
             WHERE pcx.project_id = p.project_id) AS event_id
