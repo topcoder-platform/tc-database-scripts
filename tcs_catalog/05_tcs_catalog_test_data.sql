@@ -194,6 +194,9 @@ INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id,
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (28, 8, 30000419, 'System', CURRENT, 'System', CURRENT);
 -- Code
 INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (39, 2, 30000415, 'System', CURRENT, 'System', CURRENT);
+-- Design First2Finish
+INSERT INTO 'informix'.default_scorecard(project_category_id, scorecard_type_id, scorecard_id, create_user, create_date, modify_user, modify_date) VALUES (40, 2, 30000418, 'System', CURRENT, 'System', CURRENT);
+
 
 INSERT INTO 'informix'.rboard_user(user_id, project_type_id, catalog_id, status_id, immune_ind) VALUES (124764, 1, 1, 100, 1);
 INSERT INTO 'informix'.rboard_user(user_id, project_type_id, catalog_id, status_id, immune_ind) VALUES (124772, 1, 1, 100, 1);

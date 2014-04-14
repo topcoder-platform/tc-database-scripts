@@ -1188,6 +1188,7 @@ INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,n
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (37, 2, 'Marathon Match', 'Marathon Match', 'System', current, 'System', current, 't', 25);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (38, 2, 'First2Finish', 'First2Finish', 'System', current, 'System', current, 't', 26);
 INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (39, 2, 'Code', 'Code', 'System', current, 'System', current, 't', 27);
+INSERT INTO 'informix'.project_category_lu(project_category_id,project_type_id,name,description,create_user,create_date,modify_user,modify_date, display, display_order) VALUES (40, 3, 'Design First2Finish', 'Design First2Finish', 'System', current, 'System', current, 't', 28);
 
 INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Screening', 'Screening', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.scorecard_type_lu(scorecard_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Review', 'Review', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -3952,6 +3953,10 @@ INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role
 -- First2Finish
 INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (38, 14, 40.0, 0.0, 0.0);
 INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (38, 21, 0.0, 0.02, 0.04);
+
+-- Design First2Finish
+INSERT INTO 'informix'.default_project_payment(project_category_id,resource_role_id,fixed_amount,base_coefficient,incremental_coefficient) VALUES (40, 14, 40.0, 0.0, 0.0);
+
 
 
 insert into asset_category VALUES(1, "Conceptualization", "GLOBAL", 0);
