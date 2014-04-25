@@ -2834,19 +2834,19 @@ grant delete on invoice_upload to 'public' as 'informix';
 grant select on invoice_upload to 'public' as 'informix';
 grant index on invoice_upload to 'public' as 'informix';
 
-CREATE SEQUENCE SEQUENCE_PROJECT_SEQ;
+CREATE SEQUENCE SEQUENCE_PROJECT_SEQ INCREMENT BY 1 START WITH 10000000;
 revoke all on "informix".SEQUENCE_PROJECT_SEQ from "public";
 grant select on "informix".SEQUENCE_PROJECT_SEQ to "public" as "informix";
 
-CREATE SEQUENCE SEQUENCE_CLIENT_SEQ;
+CREATE SEQUENCE SEQUENCE_CLIENT_SEQ INCREMENT BY 1 START WITH 10000000;
 revoke all on "informix".SEQUENCE_CLIENT_SEQ from "public";
 grant select on "informix".SEQUENCE_CLIENT_SEQ to "public" as "informix";
 
-CREATE SEQUENCE SEQUENCE_ADDRESS_SEQ;
+CREATE SEQUENCE SEQUENCE_ADDRESS_SEQ INCREMENT BY 1 START WITH 10000000;
 revoke all on "informix".SEQUENCE_ADDRESS_SEQ from "public";
 grant select on "informix".SEQUENCE_ADDRESS_SEQ to "public" as "informix";
 
-CREATE SEQUENCE SEQUENCE_CONTACT_SEQ;
+CREATE SEQUENCE SEQUENCE_CONTACT_SEQ INCREMENT BY 1 START WITH 10000000;
 revoke all on "informix".SEQUENCE_CONTACT_SEQ from "public";
 grant select on "informix".SEQUENCE_CONTACT_SEQ to "public" as "informix";
 

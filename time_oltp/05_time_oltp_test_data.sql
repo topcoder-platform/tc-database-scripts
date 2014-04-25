@@ -272,5 +272,15 @@ insert into  client_project values (70014096, 70016347, current, 'test', current
 insert into 'informix'.project_worker values (70015984, 2, current, mdy(1,1,2014), 0, 0, 1, current, 'admin', current, 'admin');
 insert into 'informix'.project_worker values (70015983, 2, current, mdy(1,1,2014), 0, 0, 1, current, 'admin', current, 'admin');
 
+insert into 'informix'.country_name(country_name_id, name, creation_date, creation_user, modification_date, modification_user) values (840, 'United States', CURRENT, '132456', CURRENT, '132456');
+insert into 'informix'.state_name(state_name_id, name, abbreviation, creation_date, creation_user, modification_date, modification_user) values (7, 'Connecticut', 'CT', CURRENT, '132456', CURRENT, '132456');
 
+insert into 'informix'.address_type(address_type_id, description, creation_date, creation_user, modification_date, modification_user) values (1, 'PROJECT', CURRENT, '132456', CURRENT, '132456');
+insert into 'informix'.address_type(address_type_id, description, creation_date, creation_user, modification_date, modification_user) values (2, 'CLIENT', CURRENT, '132456', CURRENT, '132456');
+insert into 'informix'.address_type(address_type_id, description, creation_date, creation_user, modification_date, modification_user) values (3, 'COMPANY', CURRENT, '132456', CURRENT, '132456');
+insert into 'informix'.address_type(address_type_id, description, creation_date, creation_user, modification_date, modification_user) values (4, 'USER', CURRENT, '132456', CURRENT, '132456');
 
+insert into 'informix'.contact_type(contact_type_id, description, creation_date, creation_user, modification_date, modification_user) values (1, 'PROJECT', CURRENT, '132456', CURRENT, '132456');
+insert into 'informix'.contact_type(contact_type_id, description, creation_date, creation_user, modification_date, modification_user) values (2, 'CLIENT', CURRENT, '132456', CURRENT, '132456');
+insert into 'informix'.contact_type(contact_type_id, description, creation_date, creation_user, modification_date, modification_user) values (3, 'COMPANY', CURRENT, '132456', CURRENT, '132456');
+insert into 'informix'.contact_type(contact_type_id, description, creation_date, creation_user, modification_date, modification_user) values (4, 'USER', CURRENT, '132456', CURRENT, '132456');
