@@ -4039,8 +4039,8 @@ CREATE TABLE invoice_record (
     invoice_type_id INTEGER NOT NULL,
     payment_id DECIMAL(10,0),
     processed BOOLEAN not null,
-	invoice_amount DECIMAL(10,2), 
-	invoice_id DECIMAL(10,0) NOT NULL,
+    invoice_amount DECIMAL(10,2),
+    invoice_id DECIMAL(10,0) NOT NULL,
     create_user VARCHAR(64) NOT NULL,
     create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
     modify_user VARCHAR(64) NOT NULL,
@@ -4067,7 +4067,7 @@ REVOKE ALL ON invoice FROM 'public';
 
 create table 'informix'.round_event (
     round_id DECIMAL(10,0),
-    event_id DECIMAL(10,0),    
+    event_id DECIMAL(10,0),
     event_name VARCHAR(50),
     registration_url VARCHAR(255)
 )
@@ -4078,15 +4078,15 @@ REVOKE ALL ON round_event FROM 'public';
 create view "informix".rating (coder_id,round_id,rating,num_ratings,
        modify_date,vol,rating_no_vol) as
    select x0.coder_id ,x0.round_id ,x0.rating ,x0.num_ratings ,
-       x0.modify_date ,x0.vol ,x0.vol 
-   from "informix".algo_rating x0 
+       x0.modify_date ,x0.vol ,x0.vol
+   from "informix".algo_rating x0
    where (x0.algo_rating_type_id = 1. ) ;
 revoke all on rating from 'public';
 create view "informix".rated_members (user_id) as
-   select x0.coder_id 
-   from "informix".algo_rating x0 
-   where (x0.num_ratings > 0. )  union select x1.user_id 
-      from tcs_catalog:"informix".user_rating x1 
+   select x0.coder_id
+   from "informix".algo_rating x0
+   where (x0.num_ratings > 0. )  union select x1.user_id
+      from tcs_catalog:"informix".user_rating x1
       where (x1.num_ratings > 0.0000000000000000 ) ;
 revoke all on rated_members from 'public';
 
@@ -4134,7 +4134,7 @@ grant insert, update, select, delete on custom_build_setting_type_lu to 'public'
 create table 'informix'.custom_build_setting (
     custom_build_setting_id DECIMAL(3,0)  NOT NULL,
     custom_build_setting_desc VARCHAR(50) NOT NULL,
-    custom_build_setting_value VARCHAR(255) NOT NULL, 
+    custom_build_setting_value VARCHAR(255) NOT NULL,
     custom_build_setting_type_id DECIMAL(3,0)  NOT NULL
 )
 extent size 32 next size 32
@@ -7258,3 +7258,15 @@ grant insert, update, select, delete on round_event to 'public' as 'informix';
 grant insert, update, select, delete on user_api_spin to 'public' as 'informix';
 
 grant insert, update, select, delete on docusign_envelope to 'public' as 'informix';
+
+CREATE SEQUENCE SEQUENCE_PATH_SEQ INCREMENT BY 1 START WITH 1000000;
+
+revoke all on "informix".SEQUENCE_PATH_SEQ from "public";
+
+grant select on "informix".SEQUENCE_PATH_SEQ to "public" as "informix";
+
+CREATE SEQUENCE SEQUENCE_IMAGE_SEQ INCREMENT BY 1 START WITH 1000000;
+
+revoke all on "informix".SEQUENCE_IMAGE_SEQ from "public";
+
+grant select on "informix".SEQUENCE_IMAGE_SEQ to "public" as "informix";
