@@ -4,6 +4,7 @@ select c.class_name
        , con.name as contest_name
        , r.round_type_id
        , r.round_id
+       , r.forum_id
 from component c
      , round r
      , round_component rc

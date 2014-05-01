@@ -3,6 +3,7 @@ SELECT r.round_id AS round_id
      , comp.component_id AS component_id
      , c.name AS contest_name
      , r.name AS round_name
+     , r.forum_id
      , r.round_type_id
      , p.name as problem_name
      , (SELECT COUNT(coder_id)
