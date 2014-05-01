@@ -11,7 +11,7 @@ SELECT r.round_id
           FROM round_segment rs
          WHERE rs.round_id = r.round_id
            AND rs.segment_id = 2) AS date
-     , p.path || i.file_name AS path,
+     , p.path || i.file_name AS path
      , i.height
      , i.width
      , TO_CHAR(rs1.start_time, '%M') as minute
