@@ -1,6 +1,6 @@
 SELECT r.round_id
      , r.name AS round_name
-     , (select min(c.component_id) FROM component c, problem p, round_component rc WHERE rc.round_id = @rd@ AND rc.component_id = c.component_id AND c.problem_id = p.problem_id) as component_id
+     , (select min(p.problem_id) FROM component c, problem p, round_component rc WHERE rc.round_id = @rd@ AND rc.component_id = c.component_id AND c.problem_id = p.problem_id) as problem_id
      , c.contest_id
      , c.name AS contest_name
      , (SELECT TO_CHAR(start_time, '%D')
