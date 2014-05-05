@@ -1,5 +1,6 @@
 SELECT r.round_id
      , r.name AS round_name
+	 , r.short_name as contest_name
      , (select min(p.problem_id) FROM component c, problem p, round_component rc WHERE rc.round_id = @rd@ AND rc.component_id = c.component_id AND c.problem_id = p.problem_id) as problem_id
      , c.contest_id
      , c.name AS contest_name
