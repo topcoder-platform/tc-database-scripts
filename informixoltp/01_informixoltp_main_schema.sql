@@ -3277,6 +3277,17 @@ extent size 64 next size 64
 lock mode row;
 
 revoke all on round from 'public';
+
+create table 'informix'.round_prize (
+    round_id DECIMAL(10,0),
+	place INTEGER not null,
+	amount FLOAT not null
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on round_prize from 'public';
+
 create table 'informix'.aol_alert_info (
     user_id DECIMAL(10,0) not null,
     aol_encrypted_user_id VARCHAR(254) not null
@@ -7270,3 +7281,5 @@ CREATE SEQUENCE SEQUENCE_IMAGE_SEQ INCREMENT BY 1 START WITH 1000000;
 revoke all on "informix".SEQUENCE_IMAGE_SEQ from "public";
 
 grant select on "informix".SEQUENCE_IMAGE_SEQ to "public" as "informix";
+
+grant insert, update, select, delete on round_prize to 'public' as 'informix';

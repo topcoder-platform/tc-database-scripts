@@ -1396,6 +1396,10 @@ alter table 'informix'.long_system_test_data add constraint primary key
     (round_id, component_id, coder_id, example, submission_number, test_case_id)
     constraint long_system_test_data_pk;
 
+alter table 'informix'.round_prize add constraint primary key 
+    (round_id, place)
+    constraint round_prize_pk;
+	
 alter table 'informix'.education add constraint foreign key 
     (degree_id)
     references 'informix'.degree
@@ -3231,6 +3235,12 @@ alter table 'informix'.user_api_spin add constraint foreign key
     references 'informix'.coder
     (coder_id) 
     constraint user_api_spin_user_id_fk;
+
+alter table 'informix'.round_prize add constraint foreign key 
+    (round_id)
+    references 'informix'.round
+    (round_id) 
+    constraint round_prize_round_fk;
 
 alter table 'informix'.docusign_envelope add constraint primary key 
     (docusign_envelope_id)
