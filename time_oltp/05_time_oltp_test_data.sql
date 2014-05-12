@@ -169,22 +169,22 @@ insert into 'informix'.user_account values (4, 1, 1, 'user', 'password', current
 insert into 'informix'.client_status values (1, 'Active', 'Active', 0, current, 'admin', current, 'admin');
 
 insert into 'informix'.client (client_id, name, company_id, payment_term_id, status, salestax, start_date, end_date, code_name,is_deleted,client_status_id, creation_date, creation_user, modification_date, modification_user,cmc_account_id ) 
-     values (1, 'ACME', 1, 1, 1, 0, current, mdy(1,1,2016),  'ACME', 0, 1, current, 'admin', current, 'admin', null);
+     values (1, 'ACME', 1, 1, 1, 0, current, mdy(1,1,2020),  'ACME', 0, 1, current, 'admin', current, 'admin', null);
 insert into 'informix'.client (client_id, name, company_id, payment_term_id, status, salestax, start_date, end_date, code_name,is_deleted,client_status_id, creation_date, creation_user, modification_date, modification_user,cmc_account_id ) 
- values (2, 'TopCoder', 1, 1, 1, 0, current, mdy(1,1,2011), 'cronos', 0, 1, current, 'admin', current, 'admin', null);
+ values (2, 'TopCoder', 1, 1, 1, 0, current, mdy(1,1,2020), 'cronos', 0, 1, current, 'admin', current, 'admin', null);
 
 insert into 'informix'.project_status values (1, 'Active', 'Active', 0, current, 'admin', current, 'admin');
 
-insert into 'informix'.project values (1, 1, 'Test Project 1', 1, 0, 'TESTPROJECT-01', 1, 'description', current, mdy(1,1,2014), 1, 1, null, 0,current, 'admin', current, 'admin', 0, 5000, 'null');
-insert into 'informix'.project values (2, 1, 'Test Project 2', 1, 0, 'TESTPROJECT-02', 1, 'description', current, mdy(1,1,2014), 1, 1, null, 0, current, 'admin', current, 'admin', 0, 5000, 'null');
-insert into 'informix'.project values (3, 1, 'Test Project 3', 1, 0, 'TESTPROJECT-03', 1, 'description', current, mdy(1,1,2014), 1, 1, null, 0, current, 'admin', current, 'admin', 1,  5000, 'null');
+insert into 'informix'.project values (1, 1, 'Test Project 1', 1, 0, 'TESTPROJECT-01', 1, 'description', current, mdy(1,1,2020), 1, 1, null, 0,current, 'admin', current, 'admin', 0, 5000, 'null');
+insert into 'informix'.project values (2, 1, 'Test Project 2', 1, 0, 'TESTPROJECT-02', 1, 'description', current, mdy(1,1,2020), 1, 1, null, 0, current, 'admin', current, 'admin', 0, 5000, 'null');
+insert into 'informix'.project values (3, 1, 'Test Project 3', 1, 0, 'TESTPROJECT-03', 1, 'description', current, mdy(1,1,2020), 1, 1, null, 0, current, 'admin', current, 'admin', 1,  5000, 'null');
 
-insert into 'informix'.project_worker values (1, 1, current, mdy(1,1,2014), 0, 0, 1, current, 'admin', current, 'admin');
-insert into 'informix'.project_worker values (1, 2, current, mdy(1,1,2014), 0, 0, 1, current, 'admin', current, 'admin');
-insert into 'informix'.project_worker values (1, 3, current, mdy(1,1,2014), 0, 0, 1, current, 'admin', current, 'admin');
-insert into 'informix'.project_worker values (2, 1, current, mdy(1,1,2014), 0, 0, 1, current, 'admin', current, 'admin');
-insert into 'informix'.project_worker values (3, 1, current, mdy(1,1,2014), 0, 0, 1, current, 'admin', current, 'admin');
-insert into 'informix'.project_worker values (3, 2, current, mdy(1,1,2014), 0, 0, 1, current, 'admin', current, 'admin');
+insert into 'informix'.project_worker values (1, 1, current, mdy(1,1,2020), 0, 0, 1, current, 'admin', current, 'admin');
+insert into 'informix'.project_worker values (1, 2, current, mdy(1,1,2020), 0, 0, 1, current, 'admin', current, 'admin');
+insert into 'informix'.project_worker values (1, 3, current, mdy(1,1,2020), 0, 0, 1, current, 'admin', current, 'admin');
+insert into 'informix'.project_worker values (2, 1, current, mdy(1,1,2020), 0, 0, 1, current, 'admin', current, 'admin');
+insert into 'informix'.project_worker values (3, 1, current, mdy(1,1,2020), 0, 0, 1, current, 'admin', current, 'admin');
+insert into 'informix'.project_worker values (3, 2, current, mdy(1,1,2020), 0, 0, 1, current, 'admin', current, 'admin');
 
 
 insert into 'informix'.project_manager values (3, 2, 0, 0, 1, current, 'admin', current, 'admin');
@@ -242,6 +242,9 @@ values(2018, 1, 0, 25, 6008, 0);
 
 insert into project_contest_fee(project_contest_fee_id, project_id, is_studio, contest_type_id, contest_fee, is_deleted)
 values(2019, 1, 0, 19, 6009, 0);
+
+insert into project_contest_fee_percentage(project_contest_fee_percentage_id, project_id, contest_fee_percentage, active, creation_user, creation_date, modification_user, modification_date)
+VALUES(1000, 2, 0.50, 't', 'system', current, 'system', current);
 
 insert into client_project values (1, 1, current, 'test', current, 'test');
 
