@@ -155,7 +155,7 @@ CREATE TABLE `FARM_PROCESSOR_PROPERTIES` (
 
 /*!40000 ALTER TABLE `FARM_PROCESSOR_PROPERTIES` DISABLE KEYS */;
 LOCK TABLES `FARM_PROCESSOR_PROPERTIES` WRITE;
-INSERT INTO `FARM_PROCESSOR_PROPERTIES` VALUES (1,'Linux Dev Generic', 'PR-LX', 2),(2,'Windows Dev Generic', 'PR-WN', 2),(3,'Linux MM Tester', 'LX-MM-TEST-CJP', 1),(4,'Windows MM Tester', 'WN-MM-TEST-NET', 1),(5,'Linux IMM Compiler', 'LX-IMM-COMP-CJP', 2),(6,'Linux IMM Tester', 'LX-IMM-TEST-CJP', 1),(7,'Windows IMM Tester', 'WN-IMM-TEST-NET', 1),(8,'Linux Generic Processor', 'LX-GEN', 2),(9,'Windows Generic Processor', 'WN-GEN', 2),(10,'AMD Tester/Compiler', 'AMD-TEST', 1),(11,'AMD Compiler', 'AMD-COMP', 1),(12, 'Linux QA Dev Generic', 'LX-QA', 1),(13, 'Windows QA Dev Generic', 'WN-QA', 1);
+INSERT INTO `FARM_PROCESSOR_PROPERTIES` VALUES (1,'Linux Dev Generic', 'PR-LX', 1),(2,'Windows Dev Generic', 'PR-WN', 1),(3,'Linux MM Tester', 'LX-MM-TEST-CJP', 1),(4,'Windows MM Tester', 'WN-MM-TEST-NET', 1),(5,'Linux IMM Compiler', 'LX-IMM-COMP-CJP', 2),(6,'Linux IMM Tester', 'LX-IMM-TEST-CJP', 1),(7,'Windows IMM Tester', 'WN-IMM-TEST-NET', 1),(8,'Linux Generic Processor', 'LX-GEN', 2),(9,'Windows Generic Processor', 'WN-GEN', 2),(10,'AMD Tester/Compiler', 'AMD-TEST', 1),(11,'AMD Compiler', 'AMD-COMP', 1),(12, 'Linux QA Dev Generic', 'LX-QA', 1),(13, 'Windows QA Dev Generic', 'WN-QA', 1);
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `FARM_PROCESSOR_PROPERTIES` ENABLE KEYS */;
 
@@ -215,6 +215,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
-update FARM_PROCESSOR set MAX_TASKS = 1 where PRC_ID = 1;
-update FARM_PROCESSOR set MAX_TASKS = 1 where PRC_ID = 2;
