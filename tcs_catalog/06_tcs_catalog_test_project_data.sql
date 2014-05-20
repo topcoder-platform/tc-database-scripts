@@ -146,8 +146,8 @@ VALUES ('18', '19', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', 
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('19', '20', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('11', '13', '11', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('11', '13', '11', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('11', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -317,8 +317,8 @@ VALUES ('28', '29', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', 
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('29', '30', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('21', '13', '21', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('21', '13', '21', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('21', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -488,8 +488,8 @@ VALUES ('38', '39', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', 
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('39', '40', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('31', '13', '31', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('31', '13', '31', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('31', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -659,8 +659,8 @@ VALUES ('48', '49', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', 
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('49', '50', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('41', '13', '41', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('41', '13', '41', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('41', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -830,8 +830,8 @@ VALUES ('58', '59', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', 
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('59', '60', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('51', '13', '51', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('51', '13', '51', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('51', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -1001,8 +1001,8 @@ VALUES ('68', '69', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', 
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('69', '70', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('61', '13', '61', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('61', '13', '61', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('61', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -1172,8 +1172,8 @@ VALUES ('78', '79', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', 
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('79', '80', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('71', '13', '71', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('71', '13', '71', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('71', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -1343,8 +1343,8 @@ VALUES ('88', '89', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', 
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('89', '90', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('81', '13', '81', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('81', '13', '81', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('81', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -1514,8 +1514,8 @@ VALUES ('98', '99', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', 
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('99', '100', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('91', '13', '91', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('91', '13', '91', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('91', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -1685,8 +1685,8 @@ VALUES ('108', '109', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('109', '110', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('101', '13', '101', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('101', '13', '101', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('101', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -1856,8 +1856,8 @@ VALUES ('118', '119', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('119', '120', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('111', '13', '111', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('111', '13', '111', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('111', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -2027,8 +2027,8 @@ VALUES ('128', '129', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('129', '130', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('121', '13', '121', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('121', '13', '121', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('121', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -2198,8 +2198,8 @@ VALUES ('138', '139', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('139', '140', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('131', '13', '131', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('131', '13', '131', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('131', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -2369,8 +2369,8 @@ VALUES ('148', '149', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('149', '150', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('141', '13', '141', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('141', '13', '141', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('141', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -2540,8 +2540,8 @@ VALUES ('158', '159', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('159', '160', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('151', '13', '151', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('151', '13', '151', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('151', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -2711,8 +2711,8 @@ VALUES ('168', '169', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('169', '170', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('161', '13', '161', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('161', '13', '161', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('161', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -2882,8 +2882,8 @@ VALUES ('178', '179', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('179', '180', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('171', '13', '171', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('171', '13', '171', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('171', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -3053,8 +3053,8 @@ VALUES ('188', '189', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('189', '190', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('181', '13', '181', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('181', '13', '181', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('181', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -3224,8 +3224,8 @@ VALUES ('198', '199', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('199', '200', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('191', '13', '191', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('191', '13', '191', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('191', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -3395,8 +3395,8 @@ VALUES ('208', '209', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('209', '210', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('201', '13', '201', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('201', '13', '201', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('201', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -3566,8 +3566,8 @@ VALUES ('218', '219', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('219', '220', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('211', '13', '211', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('211', '13', '211', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('211', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -3737,8 +3737,8 @@ VALUES ('228', '229', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('229', '230', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('221', '13', '221', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('221', '13', '221', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('221', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -3908,8 +3908,8 @@ VALUES ('238', '239', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('239', '240', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('231', '13', '231', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('231', '13', '231', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('231', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -4079,8 +4079,8 @@ VALUES ('248', '249', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('249', '250', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('241', '13', '241', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('241', '13', '241', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('241', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -4250,8 +4250,8 @@ VALUES ('258', '259', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('259', '260', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('251', '13', '251', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('251', '13', '251', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('251', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -4421,8 +4421,8 @@ VALUES ('268', '269', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('269', '270', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('261', '13', '261', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('261', '13', '261', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('261', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -4592,8 +4592,8 @@ VALUES ('278', '279', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('279', '280', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('271', '13', '271', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('271', '13', '271', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('271', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -4763,8 +4763,8 @@ VALUES ('288', '289', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('289', '290', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('281', '13', '281', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('281', '13', '281', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('281', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -4934,8 +4934,8 @@ VALUES ('298', '299', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('299', '300', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('291', '13', '291', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('291', '13', '291', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('291', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -5105,8 +5105,8 @@ VALUES ('308', '309', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('309', '310', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('301', '13', '301', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('301', '13', '301', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('301', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -5276,8 +5276,8 @@ VALUES ('318', '319', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('319', '320', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('311', '13', '311', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('311', '13', '311', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('311', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -5447,8 +5447,8 @@ VALUES ('328', '329', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('329', '330', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('321', '13', '321', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('321', '13', '321', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('321', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -5618,8 +5618,8 @@ VALUES ('338', '339', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('339', '340', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('331', '13', '331', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('331', '13', '331', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('331', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -5789,8 +5789,8 @@ VALUES ('348', '349', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('349', '350', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('341', '13', '341', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('341', '13', '341', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('341', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -5960,8 +5960,8 @@ VALUES ('358', '359', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('359', '360', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('351', '13', '351', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('351', '13', '351', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('351', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -6131,8 +6131,8 @@ VALUES ('368', '369', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('369', '370', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('361', '13', '361', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('361', '13', '361', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('361', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -6302,8 +6302,8 @@ VALUES ('378', '379', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('379', '380', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('371', '13', '371', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('371', '13', '371', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('371', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -6473,8 +6473,8 @@ VALUES ('388', '389', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('389', '390', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('381', '13', '381', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('381', '13', '381', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('381', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -6644,8 +6644,8 @@ VALUES ('398', '399', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('399', '400', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('391', '13', '391', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('391', '13', '391', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('391', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -6815,8 +6815,8 @@ VALUES ('408', '409', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('409', '410', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('401', '13', '401', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('401', '13', '401', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('401', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -6986,8 +6986,8 @@ VALUES ('418', '419', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('419', '420', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('411', '13', '411', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('411', '13', '411', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('411', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -7157,8 +7157,8 @@ VALUES ('428', '429', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('429', '430', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('421', '13', '421', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('421', '13', '421', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('421', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -7328,8 +7328,8 @@ VALUES ('438', '439', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('439', '440', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('431', '13', '431', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('431', '13', '431', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('431', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -7499,8 +7499,8 @@ VALUES ('448', '449', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('449', '450', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('441', '13', '441', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('441', '13', '441', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('441', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -7670,8 +7670,8 @@ VALUES ('458', '459', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('459', '460', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('451', '13', '451', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('451', '13', '451', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('451', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -7841,8 +7841,8 @@ VALUES ('468', '469', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('469', '470', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('461', '13', '461', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('461', '13', '461', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('461', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -8012,8 +8012,8 @@ VALUES ('478', '479', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('479', '480', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('471', '13', '471', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('471', '13', '471', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('471', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -8183,8 +8183,8 @@ VALUES ('488', '489', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('489', '490', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('481', '13', '481', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('481', '13', '481', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('481', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -8354,8 +8354,8 @@ VALUES ('498', '499', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('499', '500', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('491', '13', '491', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('491', '13', '491', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('491', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -8525,8 +8525,8 @@ VALUES ('508', '509', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('509', '510', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('501', '13', '501', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('501', '13', '501', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('501', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -8696,8 +8696,8 @@ VALUES ('518', '519', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('519', '520', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('511', '13', '511', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('511', '13', '511', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('511', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -8867,8 +8867,8 @@ VALUES ('528', '529', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('529', '530', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('521', '13', '521', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('521', '13', '521', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('521', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -9038,8 +9038,8 @@ VALUES ('538', '539', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('539', '540', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('531', '13', '531', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('531', '13', '531', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('531', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -9209,8 +9209,8 @@ VALUES ('548', '549', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('549', '550', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('541', '13', '541', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('541', '13', '541', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('541', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -9380,8 +9380,8 @@ VALUES ('558', '559', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('559', '560', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('551', '13', '551', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('551', '13', '551', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('551', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -9551,8 +9551,8 @@ VALUES ('568', '569', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('569', '570', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('561', '13', '561', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('561', '13', '561', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('561', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -9722,8 +9722,8 @@ VALUES ('578', '579', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('579', '580', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('571', '13', '571', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('571', '13', '571', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('571', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -9893,8 +9893,8 @@ VALUES ('588', '589', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('589', '590', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('581', '13', '581', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('581', '13', '581', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('581', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -10064,8 +10064,8 @@ VALUES ('598', '599', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('599', '600', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('591', '13', '591', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('591', '13', '591', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('591', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -10235,8 +10235,8 @@ VALUES ('608', '609', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('609', '610', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('601', '13', '601', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('601', '13', '601', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('601', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -10406,8 +10406,8 @@ VALUES ('618', '619', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('619', '620', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('611', '13', '611', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('611', '13', '611', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('611', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -10577,8 +10577,8 @@ VALUES ('628', '629', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('629', '630', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('621', '13', '621', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('621', '13', '621', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('621', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -10748,8 +10748,8 @@ VALUES ('638', '639', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('639', '640', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('631', '13', '631', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('631', '13', '631', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('631', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -10919,8 +10919,8 @@ VALUES ('648', '649', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('649', '650', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('641', '13', '641', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('641', '13', '641', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('641', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -11090,8 +11090,8 @@ VALUES ('658', '659', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('659', '660', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('651', '13', '651', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('651', '13', '651', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('651', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -11261,8 +11261,8 @@ VALUES ('668', '669', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('669', '670', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('661', '13', '661', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('661', '13', '661', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('661', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -11432,8 +11432,8 @@ VALUES ('678', '679', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('679', '680', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('671', '13', '671', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('671', '13', '671', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('671', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -11603,8 +11603,8 @@ VALUES ('688', '689', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('689', '690', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('681', '13', '681', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('681', '13', '681', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('681', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -11774,8 +11774,8 @@ VALUES ('698', '699', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('699', '700', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('691', '13', '691', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('691', '13', '691', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('691', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -11945,8 +11945,8 @@ VALUES ('708', '709', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('709', '710', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('701', '13', '701', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('701', '13', '701', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('701', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -12116,8 +12116,8 @@ VALUES ('718', '719', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('719', '720', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('711', '13', '711', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('711', '13', '711', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('711', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -12287,8 +12287,8 @@ VALUES ('728', '729', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('729', '730', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('721', '13', '721', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('721', '13', '721', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('721', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -12458,8 +12458,8 @@ VALUES ('738', '739', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('739', '740', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('731', '13', '731', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('731', '13', '731', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('731', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -12629,8 +12629,8 @@ VALUES ('748', '749', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('749', '750', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('741', '13', '741', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('741', '13', '741', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('741', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -12800,8 +12800,8 @@ VALUES ('758', '759', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('759', '760', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('751', '13', '751', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('751', '13', '751', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('751', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -12971,8 +12971,8 @@ VALUES ('768', '769', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('769', '770', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('761', '13', '761', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('761', '13', '761', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('761', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -13142,8 +13142,8 @@ VALUES ('778', '779', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('779', '780', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('771', '13', '771', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('771', '13', '771', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('771', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -13313,8 +13313,8 @@ VALUES ('788', '789', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('789', '790', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('781', '13', '781', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('781', '13', '781', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('781', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -13484,8 +13484,8 @@ VALUES ('798', '799', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('799', '800', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('791', '13', '791', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('791', '13', '791', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('791', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -13655,8 +13655,8 @@ VALUES ('808', '809', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('809', '810', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('801', '13', '801', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('801', '13', '801', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('801', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -13826,8 +13826,8 @@ VALUES ('818', '819', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('819', '820', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('811', '13', '811', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('811', '13', '811', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('811', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -13997,8 +13997,8 @@ VALUES ('828', '829', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('829', '830', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('821', '13', '821', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('821', '13', '821', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('821', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -14168,8 +14168,8 @@ VALUES ('838', '839', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('839', '840', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('831', '13', '831', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('831', '13', '831', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('831', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -14339,8 +14339,8 @@ VALUES ('848', '849', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('849', '850', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('841', '13', '841', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('841', '13', '841', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('841', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -14510,8 +14510,8 @@ VALUES ('858', '859', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('859', '860', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('851', '13', '851', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('851', '13', '851', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('851', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -14681,8 +14681,8 @@ VALUES ('868', '869', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('869', '870', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('861', '13', '861', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('861', '13', '861', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('861', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -14852,8 +14852,8 @@ VALUES ('878', '879', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('879', '880', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('871', '13', '871', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('871', '13', '871', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('871', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -15023,8 +15023,8 @@ VALUES ('888', '889', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('889', '890', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('881', '13', '881', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('881', '13', '881', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('881', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -15194,8 +15194,8 @@ VALUES ('898', '899', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('899', '900', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('891', '13', '891', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('891', '13', '891', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('891', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -15365,8 +15365,8 @@ VALUES ('908', '909', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('909', '910', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('901', '13', '901', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('901', '13', '901', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('901', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -15536,8 +15536,8 @@ VALUES ('918', '919', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('919', '920', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('911', '13', '911', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('911', '13', '911', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('911', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -15707,8 +15707,8 @@ VALUES ('928', '929', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('929', '930', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('921', '13', '921', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('921', '13', '921', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('921', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -15878,8 +15878,8 @@ VALUES ('938', '939', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('939', '940', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('931', '13', '931', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('931', '13', '931', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('931', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -16049,8 +16049,8 @@ VALUES ('948', '949', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('949', '950', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('941', '13', '941', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('941', '13', '941', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('941', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -16220,8 +16220,8 @@ VALUES ('958', '959', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('959', '960', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('951', '13', '951', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('951', '13', '951', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('951', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -16391,8 +16391,8 @@ VALUES ('968', '969', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('969', '970', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('961', '13', '961', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('961', '13', '961', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('961', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -16562,8 +16562,8 @@ VALUES ('978', '979', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('979', '980', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('971', '13', '971', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('971', '13', '971', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('971', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
@@ -16733,8 +16733,8 @@ VALUES ('988', '989', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('989', '990', '0', '1', '0', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('981', '13', '981', NULL, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('981', '13', '981', NULL, 132456, '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('981', '1', '132456', '132456', '2010-05-21 07:26:30.0', '132456', '2010-05-21 07:26:30.0');
@@ -16904,8 +16904,8 @@ VALUES ('998', '999', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457'
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('999', '1000', '0', '1', '0', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('991', '13', '991', NULL, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('991', '13', '991', NULL, 132457, '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('991', '1', '132457', '132457', '2010-05-21 07:26:30.0', '132457', '2010-05-21 07:26:30.0');
@@ -17075,8 +17075,8 @@ VALUES ('1008', '1009', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '13245
 INSERT INTO phase_dependency (dependency_phase_id, dependent_phase_id, dependency_start, dependent_start, lag_time, create_user, create_date, modify_user, modify_date)
 VALUES ('1009', '1010', '0', '1', '0', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource
-INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, create_user, create_date, modify_user, modify_date)
-VALUES ('1001', '13', '1001', NULL, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
+INSERT INTO resource (resource_id, resource_role_id, project_id, project_phase_id, user_id, create_user, create_date, modify_user, modify_date)
+VALUES ('1001', '13', '1001', NULL, 132458, '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
 --  Data for resource_info
 INSERT INTO resource_info (resource_id, resource_info_type_id, value, create_user, create_date, modify_user, modify_date)
 VALUES ('1001', '1', '132458', '132458', '2010-05-21 07:26:30.0', '132458', '2010-05-21 07:26:30.0');
