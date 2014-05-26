@@ -19,7 +19,9 @@ end as number_of_forum,
 
 pi.value as billing_account_id,
  
-(select value from project_info where project_info_type_id =4 and project_id =  p.project_id) as forum_id, 
+(select value from project_info where project_info_type_id =4 and project_id =  p.project_id) as forum_id,
+
+(select value from project_info where project_info_type_id =78 and project_id =  p.project_id) as forum_type,
 case when p.project_status_id != 1 then psl.name 
        when exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id = 2 and phase_status_id = 1)
              and exists (select project_phase_id from project_phase where project_id = p.project_id and phase_type_id = 14 and phase_status_id = 3)

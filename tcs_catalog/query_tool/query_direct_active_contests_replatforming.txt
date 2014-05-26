@@ -38,7 +38,7 @@ else
     and pi.project_id =  p.project_id)
     end as number_of_forum,
       (select value from project_info where project_info_type_id =4 and project_id =  p.project_id) as forum_id,
- 
+(select value from project_info where project_info_type_id =78 and project_id =  p.project_id) as forum_type,
 (select ptl.name from project_phase ph left outer join phase_type_lu ptl on (ph.phase_type_id = ptl.phase_type_id)
 where ph.project_phase_id =
 (select min(project_phase_id) from project_phase  where phase_status_id = 2 and project_id = p.project_id)) as active_phase,
