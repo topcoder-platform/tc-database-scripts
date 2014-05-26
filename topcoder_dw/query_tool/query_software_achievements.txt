@@ -5,6 +5,6 @@ select ar.user_achievement_rule_id as id
  , user_achievement_count_query IS NOT NULL AS has_currently_at
  from tcs_dw:user_achievement_rule ar, tcs_dw:user_achievement_xref arx
  where ar.user_achievement_rule_id = arx.user_achievement_rule_id
-    and ar.user_achievement_type_id = 3
+    and ar.user_achievement_type_id IN (3,4)
     and arx.user_id = @cr@
  order by create_date desc

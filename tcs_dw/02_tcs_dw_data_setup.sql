@@ -906,6 +906,9 @@ INSERT INTO 'informix'.user_achievement_type_lu(user_achievement_type_id, user_a
 
 INSERT INTO 'informix'.user_achievement_type_lu(user_achievement_type_id, user_achievement_type_desc)
 	VALUES (3, "Software Achievements");
+
+INSERT INTO 'informix'.user_achievement_type_lu(user_achievement_type_id, user_achievement_type_desc)
+	VALUES (4, "HP Badges Achievements");
 	
 ------------------------------------------------------------------------------------------------------
 -------------------------- Populating Data For user_achievement_rule  --------------------------------
@@ -1082,6 +1085,35 @@ INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achi
 INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated) VALUES (125, 'Marathon Copilot / Problem Writer', 'Marathon Copilot / Problem Writer', NULL, 3, 'f');
 INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_earned_sql_file, user_achievement_count_query, user_achievement_type_id, is_automated, db_schema) VALUES (126, 'Solved Hard Div1 Problem in SRM', 'Solved Hard Div1 Problem in SRM', 'solved_div1_hard.sql', 'solved_div1_hard.sql', 'achievements_solved_div1_hard', 3, 't', 'topcoder_dw');
 INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_earned_sql_file, user_achievement_count_query, user_achievement_type_id, is_automated, db_schema) VALUES (127, 'Solved Hard Div2 Problem in SRM', 'Solved Hard Div2 Problem in SRM', 'solved_div2_hard.sql', 'solved_div2_hard.sql', 'achievements_solved_div2_hard', 3, 't', 'topcoder_dw');
+
+
+--HP badges
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated)
+	VALUES (130, 'Getting Started', 'Successfully obtaining an API Key', NULL, 4, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated)
+	VALUES (131, 'Novice', 'Building a single application using at least one IDOL OnDemand API', NULL, 4, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated)
+	VALUES (132, 'Journeyman', 'Building two application using two or more IDOL OnDemand APIs, each from different categories', NULL, 4, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated)
+	VALUES (133, 'Expert', 'Building an application with at least 1 IDOL OnDemand API from each category', NULL, 4, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated)
+	VALUES (134, 'Master', '5 passing submissions with Level 4 or higher on IDOL Category', NULL, 4, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated)
+	VALUES (135, 'Grand Master', '10 passing submissions with Level 4 or higher on IDOL Category', NULL, 4, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated)
+	VALUES (136, 'Paragon', '20 passing submissions with Level 4 or higher on IDOL Category', NULL, 4, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated)
+	VALUES (137, 'Grand Paragon', '25 passing submissions with Level 4 or higher on IDOL Category', NULL, 4, 'f');
+
+INSERT INTO 'informix'.user_achievement_rule(user_achievement_rule_id, user_achievement_name, user_achievement_rule_desc, user_achievement_rule_sql_file, user_achievement_type_id, is_automated)
+	VALUES (138, 'Social Evangelist', 'Evangelizing HP IDOL OnDemand in blogs and social media', NULL, 4, 'f');
 
 INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) values (4, 'TCS Load');
 INSERT INTO 'informix'.log_type_lu (log_type_id, log_type_desc) values (5, 'Participation Metrics');
