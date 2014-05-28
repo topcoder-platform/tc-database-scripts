@@ -320,8 +320,8 @@ insert into jivecategory(categoryid,	name	,description,	creationdate	,modificati
   values(21,	"High School Matches",	"Discuss High School Matches.",	1149260523691,	1314890188427,	22912,	22913);
 insert into jivecategory(categoryid,	name	,description,	creationdate	,modificationdate	,lft,	rgt)
   values(22,	"Software Forums",	null	,1170979211601,	1329774211851	,12,	22909);
-insert into jivecategory(categoryid,	name	,description,	creationdate	,modificationdate	,lft,	rgt)
-  values(23,	"Design Forums",	null	,1170979211601,	1329774211851	, 23382,	23383);
+  insert into jivecategory(categoryid,	name	,description,	creationdate	,modificationdate	,lft,	rgt)
+  values(23250,	"Design Forums",	null	,1401291440837,	1401291440837	, 45290,	45291);
 
 insert into jiveforum 
   values( 7126	,"Evolving Strategy",	"evolving_strategy",	"Discuss TopCoder's business model and direction.",	1	,1,	975607958957	,1325625553678,	13	,0	,1557);
@@ -373,6 +373,8 @@ insert into jivecategoryprop values(21,'showEmptyForumsOnMain', 'true');
 insert into jivecategoryprop values (21,'leftNavName', 'High School Matches');
 insert into jivecategoryprop values(22,'showEmptyForumsOnMain', 'true');
 insert into jivecategoryprop values (22,'leftNavName', 'Software Forums');
+insert into jivecategoryprop values(23250,'showEmptyForumsOnMain', 'true');
+insert into jivecategoryprop values (23250,'leftNavName', 'Design Forums');
 
 insert into jivegroup values (6, 'Software Admins', 'Software Admins', 1170993541468, 1332771806201);
 
