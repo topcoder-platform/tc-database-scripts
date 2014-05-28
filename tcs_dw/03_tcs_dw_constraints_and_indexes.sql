@@ -34,6 +34,14 @@ create index 'informix'.proj_result_idx1 on 'informix'.project_result
 	user_id
 	);
 
+alter table 'informix'.project_technology add constraint primary key
+	(project_id, project_technology_id)
+	constraint project_technology_pkey;
+
+alter table 'informix'.project_platform add constraint primary key
+	(project_id, project_platform_id)
+	constraint project_platform_pkey;
+
 alter table 'informix'.project_result add constraint primary key 
 	(project_id, user_id)
 	constraint proj_result_pkey;

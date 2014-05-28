@@ -77,6 +77,10 @@ create table 'informix'.project (
     project_category_name VARCHAR(254),
     tc_direct_project_id INT,
     admin_fee DECIMAL(10, 2),
+    first_place_prize DECIMAL(10, 2),
+    num_checkpoint_submissions DECIMAL(5,0),
+    num_valid_checkpoint_submissions DECIMAL(5,0),
+    total_prize DECIMAL(10, 2),
     contest_prizes_total DECIMAL(10, 2),
     client_project_id INTEGER,
     start_date_calendar_id DECIMAL(12, 0),
@@ -89,6 +93,28 @@ extent size 512 next size 512
 lock mode page;
 
 revoke all on project from 'public';
+
+create table 'informix'.project_technology (
+    project_id DECIMAL(12,0),
+    project_technology_id DECIMAL(12,0),
+    name VARCHAR(100)
+)
+extent size 2048 next size 2048
+lock mode row;
+
+revoke all on project_technology from 'public';
+
+create table 'informix'.project_platform (
+    project_id DECIMAL(12,0),
+    project_platform_id DECIMAL(12,0),
+    name VARCHAR(255)
+)
+extent size 2048 next size 2048
+lock mode row;
+
+revoke all on project_platform from 'public';
+
+
 create table 'informix'.contest (
     contest_id DECIMAL(12,0),
     contest_name NVARCHAR(128),
@@ -1211,6 +1237,10 @@ grant select on project_result to 'public' as 'informix';
 grant insert on project_result to 'public' as 'informix';
 
 grant update on project_result to 'public' as 'informix';
+
+grant delete, select, insert, update on project_platform to 'public' as 'informix';
+
+grant delete, select, insert, update on project_technology to 'public' as 'informix';
 
 grant select on submission_review to 'public' as 'informix';
 
