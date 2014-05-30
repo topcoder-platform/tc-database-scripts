@@ -10,4 +10,4 @@ select user_id,
  from project_result pr
 where project_id = @pj@
   and submit_ind = 1
-order by valid_submission_ind desc, final_score desc, screening_score desc
+order by valid_submission_ind desc, placed asc, final_score desc, screening_score desc, submit_timestamp asc;
