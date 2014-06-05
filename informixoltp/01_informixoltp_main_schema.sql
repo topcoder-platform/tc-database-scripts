@@ -2928,7 +2928,8 @@ create table 'informix'.long_system_test_result (
     timestamp DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     fatal_errors BYTE,
     score FLOAT,
-    test_action DECIMAL(2,0) default 10 not null
+    test_action DECIMAL(2,0) default 10 not null,
+    peak_memory_used DECIMAL(32,0) default -1
 )
 extent size 300000 next size 300000
 lock mode row;
@@ -3066,7 +3067,8 @@ create table 'informix'.long_test_result (
     stdout TEXT,
     stderr TEXT,
     ltc_id DECIMAL(12,0) not null,
-    processing_time DECIMAL(14,0)
+    processing_time DECIMAL(14,0),
+    peak_memory_used DECIMAL(32,0) default -1
 )
 extent size 10000 next size 10000
 lock mode row;

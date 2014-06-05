@@ -4,6 +4,7 @@ select stc.expected_result
      , sto.stderr
      , str.score
      , str.processing_time
+     , str.peak_memory_used
   from long_system_test_result str
      , long_system_test_output sto
      , system_test_case stc
