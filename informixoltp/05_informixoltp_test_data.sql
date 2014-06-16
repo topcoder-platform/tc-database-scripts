@@ -528,11 +528,13 @@ UPDATE 'informix'.id_sequences set next_block_start=33121332 where name = 'MAIN_
 
 INSERT INTO contest (contest_id, name, status, group_id, activate_menu) VALUES (12917, "Test SRM", "A", -1, 0);
 INSERT INTO contest (contest_id, name, status, group_id, activate_menu, start_date, end_date) VALUES (12918, "Test MM", "A", -1, 0, current, ADD_MONTHS(current, 1));
-UPDATE 'informix'.id_sequences set next_block_start=12919 where name = 'CONTEST_SEQ';
+INSERT INTO contest (contest_id, name, status) VALUES (12919, "Practice Test SRM DIV 2", "A");
+UPDATE 'informix'.id_sequences set next_block_start=12920 where name = 'CONTEST_SEQ';
 
 INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind, invitational, registration_limit) VALUES (13672, 12917, "Test SRM Round", "Test SRM Round", "F", 1, 0, 0, 1024);
 INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind, invitational, registration_limit) VALUES (13673, 12918, "Test MM Round", "Test MM Round", "F", 13, 0, 0, 1024);
-UPDATE 'informix'.id_sequences set next_block_start=13674 where name = 'ROUND_SEQ';
+INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind) VALUES (13674, 12919, "Practice", "Practice", "A", 3, 0);
+UPDATE 'informix'.id_sequences set next_block_start=13675 where name = 'ROUND_SEQ';
 
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 1, current, current + 5 UNITS MINUTE, "F");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 7, current + 5 UNITS MINUTE, current + 10 UNITS MINUTE, "F");
@@ -546,16 +548,25 @@ INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) V
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 3, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), "F");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 4, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), "F");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13673, 5, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 1, current, current + 5 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 7, current + 5 UNITS MINUTE, current + 10 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 2, current + 10 UNITS MINUTE, current + 25 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 3, current + 25 UNITS MINUTE, current + 25 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 4, current + 25 UNITS MINUTE, current + 30 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 5, current + 30 UNITS MINUTE, current + 30 UNITS MINUTE, "F");
 
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13672, 2021, 0, 2, 1, 250, 0);
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13673, 2020, 0, 1, 1, 250, 0);
+INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13674, 2021, 0, 2, 1, 250, 0);
 
 INSERT INTO round_room_assignment (round_id, coders_per_room, algorithm, by_division, by_region, final, p) VALUES (13672, 20, 1, 1, 0, 1, 2);
 INSERT INTO round_room_assignment (round_id, coders_per_room, algorithm, by_division, by_region, final, p) VALUES (13673, 0, 2, 1, 0, 1, 0);
 
 INSERT INTO room (room_id, round_id, name, division_id, room_type_id) VALUES (299154, 13672, "Admin Room", -1, 1);
 INSERT INTO room (room_id, round_id, name, division_id, room_type_id) VALUES (299155, 13673, "Admin Room", -1, 1);
-UPDATE 'informix'.id_sequences set next_block_start=299156 where name = 'ROOM_SEQ';
+INSERT INTO room (room_id, round_id, name, division_id, room_type_id) VALUES (299156, 13674, "Practice Test SRM DIV 2", 2, 3);
+UPDATE 'informix'.id_sequences set next_block_start=299157 where name = 'ROOM_SEQ';
 
+INSERT INTO round_group_xref(round_id, group_id) VALUES(13674, 2);
 INSERT INTO round_terms (round_id) VALUES (13672);
 INSERT INTO round_terms (round_id) VALUES (13673);
