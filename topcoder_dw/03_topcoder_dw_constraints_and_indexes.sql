@@ -1207,4 +1207,9 @@ alter table 'informix'.round add constraint foreign key
 	references 'informix'.time
 	(time_id) 
 	constraint round_time_id;
+	
+create index 'informix'.algo_rating_rating on 'informix'.algo_rating
+	(
+		rating
+	);
 
