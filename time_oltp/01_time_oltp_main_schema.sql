@@ -2850,4 +2850,8 @@ CREATE SEQUENCE SEQUENCE_CONTACT_SEQ INCREMENT BY 1 START WITH 10000000;
 revoke all on "informix".SEQUENCE_CONTACT_SEQ from "public";
 grant select on "informix".SEQUENCE_CONTACT_SEQ to "public" as "informix";
 
+CREATE SEQUENCE SEQUENCE_USER_ACCOUNT_SEQ INCREMENT BY 1 START WITH 10000000;
+revoke all on "informix".SEQUENCE_USER_ACCOUNT_SEQ from "public";
+grant select on "informix".SEQUENCE_USER_ACCOUNT_SEQ to "public" as "informix";
+
 
