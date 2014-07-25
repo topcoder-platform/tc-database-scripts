@@ -1307,6 +1307,7 @@ INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VAL
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25321, 'fri', 1005, 'First Row Index');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25323, 'usernames', 1005, 'Query usernames array');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25903, 'utm_medium', 1005, 'user.utm_medium column');
+INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (25904, 'utm_source', 1005, 'user.utm_source column');
 
 
 INSERT INTO 'informix'.email_template_group_lu(email_template_group_id,email_template_group_name) VALUES (99999, '[Deleted]');
