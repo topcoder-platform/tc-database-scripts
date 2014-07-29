@@ -356,7 +356,8 @@ create table "informix".command_execution
     command_id decimal(10,0),
     timestamp datetime year to fraction(3) 
         default current year to fraction(3),
-    execution_time integer
+    execution_time integer,
+    inputs lvarchar(2000)
   ) 
   extent size 1000000 next size 1000000 
   lock mode page;

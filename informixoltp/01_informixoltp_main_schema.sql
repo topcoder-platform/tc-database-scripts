@@ -3301,7 +3301,8 @@ revoke all on aol_alert_info from 'public';
 create table 'informix'.command_execution (
     command_id DECIMAL(10,0),
     timestamp DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
-    execution_time INT
+    execution_time INT,
+    inputs lvarchar(2000)
 )
 extent size 1000000 next size 1000000
 lock mode page;
