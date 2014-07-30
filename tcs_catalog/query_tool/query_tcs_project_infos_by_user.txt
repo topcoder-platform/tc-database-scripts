@@ -1,7 +1,6 @@
-SELECT {+AVOID_FULL(pi), AVOID_FULL(p)}
-       DISTINCT pi.project_id, pi.project_info_type_id, pi.value
+SELECT DISTINCT
+pi.project_id, pi.project_info_type_id, pi.value
 FROM project_info pi
 INNER JOIN project p ON p.project_id = pi.project_id
-INNER JOIN resource r ON r.project_id=p.project_id
-INNER JOIN resource_info ri ON ri.resource_id=r.resource_id AND ri.resource_info_type_id=1 AND ri.value = '@uid@'
+INNER JOIN resource r ON r.project_id=p.project_id and r.user_id=@uid@
 WHERE p.project_status_id = 1
