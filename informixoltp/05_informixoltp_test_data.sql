@@ -386,6 +386,18 @@ INSERT INTO 'informix'.algo_rating(coder_id,rating,vol,round_id,num_ratings,algo
 INSERT INTO 'informix'.algo_rating(coder_id,rating,vol,round_id,num_ratings,algo_rating_type_id,modify_date) VALUES (27244069, 0, 0, NULL, 0, 1, '2008-09-24 14:05:33.000');
 INSERT INTO 'informix'.algo_rating(coder_id,rating,vol,round_id,num_ratings,algo_rating_type_id,modify_date) VALUES (27244073, 0, 0, NULL, 0, 1, '2008-09-24 14:13:17.000');
 INSERT INTO 'informix'.algo_rating(coder_id,rating,vol,round_id,num_ratings,algo_rating_type_id,modify_date) VALUES (27244093, 0, 0, NULL, 0, 1, '2008-09-24 14:49:37.000');
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124766,1,290);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124772,1,590);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124776,1,890);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124834,1,1090);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124835,1,1190);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124836,1,1390);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124852,1,1790);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124853,1,2190);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124856,1,2590);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124857,1,2990);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124861,1,3390);
+insert into 'informix'.rating(coder_id,num_ratings,rating) values (124916,1,600);
 INSERT INTO 'informix'.season(season_id,start_date,end_date,name,season_type_id,event_id) VALUES (1, '2006-06-05 00:00:00.000', '2007-06-01 00:00:00.000', 'Season 1', 2, 990);
 INSERT INTO 'informix'.season(season_id,start_date,end_date,name,season_type_id,event_id) VALUES (2, '2007-07-12 00:00:00.000', '2008-03-16 00:00:00.000', 'Season 2', 2, 991);
 INSERT INTO 'informix'.season(season_id,start_date,end_date,name,season_type_id,event_id) VALUES (3, '2008-06-09 00:00:00.000', '2009-03-15 00:00:00.000', 'Season 3', 2, 993);
