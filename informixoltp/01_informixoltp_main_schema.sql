@@ -7285,4 +7285,10 @@ revoke all on "informix".SEQUENCE_IMAGE_SEQ from "public";
 
 grant select on "informix".SEQUENCE_IMAGE_SEQ to "public" as "informix";
 
+CREATE SEQUENCE SEQUENCE_SURVEY_SEQ INCREMENT BY 1 START WITH 1000000;
+
+revoke all on "informix".SEQUENCE_SURVEY_SEQ from "public";
+
+grant select on "informix".SEQUENCE_SURVEY_SEQ to "public" as "informix";    
+
 grant insert, update, select, delete on round_prize to 'public' as 'informix';
