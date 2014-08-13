@@ -16,6 +16,7 @@ SELECT tdp.project_id AS tc_direct_project_id,
         WHERE r.project_id = p.project_id
         AND   r.resource_role_id = 1
        ) AS reliability_total,
+       (select nvl(value, 'false') from project_info where project_id = p.project_Id and project_info_type_id = 45) as reliability_eligible,
        (SELECT phase_status_id 
         FROM project_phase pp 
         WHERE pp.project_id = p.project_id AND phase_type_id = 1) 
