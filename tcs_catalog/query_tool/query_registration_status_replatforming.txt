@@ -5,7 +5,8 @@ SELECT COUNT(unique r.resource_id) AS registrants_count,
        (SELECT phase_status_id FROM project_phase WHERE project_id = @pj@ AND phase_type_id = 1) AS registration_phase_status,
        (SELECT project_category_id FROM project WHERE project_id = @pj@) AS project_category_id,
        (select value from project_info
-                     where project_id = @pj@ and project_info_type_id = 78) as forum_type
+                     where project_id = @pj@ and project_info_type_id = 78) as forum_type,
+       (select value from project_info where project_id = @pj@ and project_info_type_id = 45) as reliability_eligible
 FROM resource r
 LEFT JOIN resource_info ri ON r.resource_id = ri.resource_id AND ri.resource_info_type_id = 5 AND UPPER(ri.value) <> 'N/A' AND ri.value <> ''
 LEFT JOIN upload u ON r.resource_id = u.resource_id AND u.upload_status_id = 1
