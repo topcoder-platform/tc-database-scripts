@@ -209,9 +209,11 @@
   
   <!-- update database scripts -->
   <target name="update_scripts" if="svn.update">
-    <svn username="${svn.username}" password="${svn.password}">
-      <update dir="." />
-    </svn>
+    <exec executable="svn">
+     <arg value="update" />
+     <arg value="--username=${svn.username}" />
+     <arg value="--password=${svn.password}" />
+    </exec>
   </target>
 
   <!-- Target to automatically stop jboss and reinstall databases. Used for CI mostly -->
