@@ -238,7 +238,7 @@ and (exists (select u.user_id
                                   WHERE gm.user_id = @uid@
                                   AND   gm.active = 1
                                   AND   sg.archived = 0
-                                  AND   tdp2.project_id = tdp2.project_id
+                                  AND   tdp2.project_id = tdp.project_id
                                   )
                        OR
                            exists (
