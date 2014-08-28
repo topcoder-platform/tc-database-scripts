@@ -3249,7 +3249,3 @@ alter table 'informix'.docusign_envelope add constraint primary key
 alter table 'informix'.user_action_audit add constraint primary key 
     (user_action_audit_id)
     constraint user_action_audit_pk;
-
-ALTER TABLE long_test_result add(peak_memory_used DECIMAL(32,0) default -1);
-
-ALTER TABLE long_system_test_result add(peak_memory_used DECIMAL(32,0) default -1);
