@@ -4174,6 +4174,18 @@ extent size 150 next size 150
 lock mode row;
 revoke all on docusign_envelope from 'public';
 
+create table 'informix'.user_action_audit(
+    user_action_audit_id DECIMAL(10,0) NOT NULL,
+    handle VARCHAR(50) NOT NULL,
+    action_name VARCHAR(100) NOT NULL,
+    client VARCHAR(50) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION
+)
+extent size 4096 next size 4096
+lock mode row;
+revoke all on user_action_audit from 'public';
+grant select,update,insert,delete on user_action_audit to public as informix;
+
 grant insert, update, select, delete on custom_build_setting to 'public' as 'informix';
 
 grant select on rating to 'informix' with grant option ;

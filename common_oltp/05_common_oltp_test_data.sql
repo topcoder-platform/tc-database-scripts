@@ -362,3 +362,4 @@ INSERT INTO 'informix'.school(school_id,sort_letter,city,state_code,country_code
 INSERT INTO 'informix'.user_security_key(user_id,security_key,security_key_type_id) VALUES (124916, 'some key data for Yoshi', 1); 
 INSERT INTO 'informix'.user_security_key(user_id,security_key,security_key_type_id) VALUES (132456, 'some key data for heffan', 1);
 INSERT INTO 'informix'.user_security_key(user_id,security_key,security_key_type_id) VALUES (124764, 'some key data for Hung', 1);
+INSERT INTO 'informix'.id_sequences (name,next_block_start,block_size,exhausted) VALUES('USER_ACTION_AUDIT_SEQ', 1000,10,0); 
