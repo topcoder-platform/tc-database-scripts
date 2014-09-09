@@ -7309,5 +7309,10 @@ revoke all on "informix".SEQUENCE_ROOM_SEQ from "public";
 
 grant select on "informix".SEQUENCE_ROOM_SEQ to "public" as "informix";
 
+CREATE SEQUENCE SEQUENCE_ROUND_SEQ INCREMENT BY 1 START WITH 1000000;
+
+revoke all on "informix".SEQUENCE_ROUND_SEQ from "public";
+
+grant select on "informix".SEQUENCE_ROUND_SEQ to "public" as "informix";
 grant insert, update, select, delete on round_prize to 'public' as 'informix';
 
