@@ -132,5 +132,10 @@ alter table 'informix'.user_permission_grant_audit add constraint foreign key
     references 'informix'.audit_action_type_lu
     (audit_action_type_id) 
     constraint user_permission_grant_audit_audit_action_type_lu_fk;
+
+CREATE INDEX 'informix'.bac_id_ix ON direct_project_account 
+    (
+        billing_account_id
+    ); 
 	
 

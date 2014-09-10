@@ -2540,3 +2540,9 @@ create index 'informix'.resource_user_id_idx on 'informix'.resource
 	(
 	user_id
 	);
+
+
+CREATE INDEX 'informix'.bac_id_ix ON group_associated_billing_accounts 
+    (
+        billing_account_id
+    );
