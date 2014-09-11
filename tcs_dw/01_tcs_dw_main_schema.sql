@@ -1067,6 +1067,64 @@ create view "informix".active_reporting_competitors (user_id) as
    from "informix".user_rating x0 ,"informix".project x1 
    where ((((x0.last_rated_project_id = x1.project_id ) AND (x0.phase_id = 147. ) ) AND (x1.phase_id = x0.phase_id ) ) AND (x1.posting_date > (CURRENT year to fraction(3) - interval(180) day(9) to day ) ) ) ;
 
+create view 'informix'.past_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions, 
+                                                     num_registrants, registration_start_date, submission_end_date, 
+                                                     challenge_community, posting_date) as 
+    -- Data Science projects
+select
+    p.project_category_name::nvarchar(254) as challenge_type,
+    p.component_name::nvarchar(128) as challenge_name,
+    p.project_id as challenge_id,
+    p.num_submissions,
+    p.num_registrations as num_registrants,
+    p.posting_date as registration_start_date,
+    p.submitby_date as submission_end_date,
+    'Develop'::nvarchar(50) as challenge_community,
+    p.posting_date as posting_date
+from project p
+inner join project_technology pt on pt.project_id = p.project_id
+where pt.name = 'Data Science'
+and   p.status_id in (4, 5, 6, 7, 8, 9, 10, 11)
+    -- SRMs
+union all    
+select
+    'SRM'::nvarchar(254) as challenge_type,
+    r.short_name::nvarchar(128) as challenge_name,
+    r.round_id as challenge_id,
+    NVL(rd1.problems_submitted, 0) + NVL(rd2.problems_submitted, 0) as num_submissions,
+    NVL(rd1.num_coders, 0) + NVL(rd2.num_coders, 0) as num_registrants,
+    c.start_date::datetime year to second as registration_start_date,
+    c.end_date::datetime year to second as submission_end_date,
+    'Data'::nvarchar(50) as challenge_community,
+    cal.date::datetime year to second as posting_date
+from topcoder_dw:contest c
+join topcoder_dw:round as r on r.contest_id = c.contest_id and r.failed = 0 and r.status='P'
+left join topcoder_dw:round_division as rd1 on rd1.division_id = 1 and rd1.round_id = r.round_id
+left join topcoder_dw:round_division as rd2 on rd2.division_id = 2 and rd2.round_id = r.round_id
+join topcoder_dw:calendar as cal on cal.calendar_id = r.calendar_id
+where  r.round_type_id in (1, 2, 10)
+    -- Marathon Matches
+union all    
+select
+    'Marathon'::nvarchar(254) as challenge_type,
+    c.name || ' ' || r.name::nvarchar(128) as challenge_name,
+    r.round_id as challenge_id,
+    (select sum(num_submissions) from topcoder_dw:long_comp_result where round_id = r.round_id and attended = 'Y') as num_submissions,
+    (select count(*) from topcoder_dw:long_comp_result where round_id = r.round_id and attended = 'Y') as num_registrants,
+    c.start_date::datetime year to second as registration_start_date,
+    c.end_date::datetime year to second as submission_end_date,
+    'Data'::nvarchar(50) as challenge_community,
+    cal.date::datetime year to second as posting_date
+from topcoder_dw:round r
+inner join topcoder_dw:contest c on r.contest_id = c.contest_id
+inner join topcoder_dw:calendar cal on cal.calendar_id = r.calendar_id
+where r.round_type_id in (10,13,15,19,22,24,25,27) 
+and r.failed = 0;
+
+revoke all on past_data_science_challenges from 'public';
+grant select on past_data_science_challenges to 'coder' as 'informix';
+grant select on past_data_science_challenges to 'informix' with grant option;
+
 grant select on active_designers to 'informix' with grant option;
 grant select on active_developers to 'informix' with grant option;
 grant select on active_conceptualizers to 'informix' with grant option;
