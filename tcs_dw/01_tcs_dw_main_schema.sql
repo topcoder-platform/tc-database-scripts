@@ -1107,7 +1107,7 @@ where  r.round_type_id in (1, 2, 10)
 union all    
 select
     'Marathon'::nvarchar(254) as challenge_type,
-    c.name || ' ' || r.name::nvarchar(128) as challenge_name,
+    r.name::nvarchar(128) as challenge_name,
     r.round_id as challenge_id,
     (select sum(num_submissions) from topcoder_dw:long_comp_result where round_id = r.round_id and attended = 'Y') as num_submissions,
     (select count(*) from topcoder_dw:long_comp_result where round_id = r.round_id and attended = 'Y') as num_registrants,
