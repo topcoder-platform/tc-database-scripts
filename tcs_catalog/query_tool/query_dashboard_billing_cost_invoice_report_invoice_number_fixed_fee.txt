@@ -203,14 +203,14 @@ where  pmd.component_project_id = p.project_id
                         AND   sg.client_id = ttc.client_id
                         )                         
              )
-   and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13)
+   and pmd.payment_type_id in(6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13, 45)
   and pmd.payment_detail_id =
   (select min(pmd2.payment_detail_id) from informixoltp:payment pm2  
         INNER JOIN informixoltp:payment_detail pmd2 ON pm2.most_recent_detail_id = pmd2.payment_detail_id
         where pmd2.component_project_id = p.project_id
            and pmd2.installment_number = 1
            AND NOT pmd2.payment_status_id IN (65,68, 69)
-           and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13))
+           and pmd2.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13, 45))
   and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
   and (nvl((select (cast (nvl(pi57.value, '0') as DECIMAL (10,2))) from project_info pi57 where
     pi57.project_id=p.project_id and pi57.project_info_type_id=57), 0) = 0)
