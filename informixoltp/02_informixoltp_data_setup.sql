@@ -1213,6 +1213,7 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31358, 'long_contest_active_contests_user', 24754);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (29619, 'long_contest_exclusive_round_check', 24754);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31356, 'long_contest_invisible_round_check', 24754);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (29284, 'long_contest_collab_round_check', 24754);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31891, 'user_handle_email_by_user_id', 24754);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31892, 'search_users_by_handle_email', 20442);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (31893, 'get_users_by_handles', 20442);
