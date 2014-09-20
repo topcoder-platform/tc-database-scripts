@@ -2546,3 +2546,38 @@ CREATE INDEX 'informix'.bac_id_ix ON group_associated_billing_accounts
     (
         billing_account_id
     );
+
+CREATE INDEX 'informix'.group_associated_direct_projects_i1 ON group_associated_direct_projects
+    (
+        group_id
+    );
+
+CREATE INDEX 'informix'.group_associated_direct_projects_i2 ON group_associated_direct_projects
+    (
+        tc_direct_project_id
+    );
+
+CREATE INDEX 'informix'.customer_group_i1 ON customer_group
+    (
+        auto_grant
+    );
+
+CREATE INDEX 'informix'.customer_group_i2 ON customer_group
+    (
+        client_id
+    );
+
+CREATE INDEX 'informix'.group_member_i1 ON group_member
+    (
+        group_id
+    );
+
+CREATE INDEX 'informix'.group_member_i2 ON group_member
+    (
+        user_id
+    );
+
+CREATE INDEX 'informix'.project_idx_cu ON project
+    (
+        create_user
+    );
