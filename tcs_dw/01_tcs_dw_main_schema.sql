@@ -1123,7 +1123,7 @@ create view "informix".active_reporting_competitors (user_id) as
 --
 -- revoke all on past_data_science_challenges from 'public';
 -- grant select on past_data_science_challenges to 'coder' as 'informix';
-grant select on past_data_science_challenges to 'informix' with grant option;
+-- grant select on past_data_science_challenges to 'informix' with grant option;
 grant select on active_designers to 'informix' with grant option;
 grant select on active_developers to 'informix' with grant option;
 grant select on active_conceptualizers to 'informix' with grant option;
