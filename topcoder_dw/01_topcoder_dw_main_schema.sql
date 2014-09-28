@@ -559,6 +559,7 @@ create table 'informix'.coder (
     quote NVARCHAR(255),
     employer_search NCHAR(1),
     relocate NCHAR(1),
+    create_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     modify_date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION,
     editor_id DECIMAL(1,0),
     notify_inquiry NCHAR(1),
@@ -573,9 +574,9 @@ create table 'informix'.coder (
     handle_lower NVARCHAR(30),
     last_site_hit_date DATETIME YEAR TO FRACTION,
     reg_source VARCHAR(20),
-	utm_source VARCHAR(50),
-	utm_medium VARCHAR(50),
-	utm_campaign VARCHAR(50)
+	  utm_source VARCHAR(50),
+	  utm_medium VARCHAR(50),
+	  utm_campaign VARCHAR(50)
 )
 extent size 75000 next size 50000
 lock mode page;
