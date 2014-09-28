@@ -571,7 +571,11 @@ create table 'informix'.coder (
     image INT,
     comp_country_code NVARCHAR(3),
     handle_lower NVARCHAR(30),
-    last_site_hit_date DATETIME YEAR TO FRACTION
+    last_site_hit_date DATETIME YEAR TO FRACTION,
+    reg_source VARCHAR(20),
+	utm_source VARCHAR(50),
+	utm_medium VARCHAR(50),
+	utm_campaign VARCHAR(50)
 )
 extent size 75000 next size 50000
 lock mode page;
@@ -1332,6 +1336,19 @@ create table 'informix'.event_registration (
 )
 extent size 496 next size 248
 lock mode row;
+
+create table 'informix'.user_notification (
+    user_id DECIMAL(10,0),
+    notify_id DECIMAL(5,0),
+    name VARCHAR(255),
+    status VARCHAR(3),
+    notify_type_id DECIMAL(5,0),
+    notify_type_desc VARCHAR(64)
+)
+extent size 2496 next size 2496
+lock mode row;
+revoke all on user_notification from 'public';
+
 
 revoke all on event_registration from 'public';
 create table 'informix'.system_test_case (
@@ -2102,6 +2119,16 @@ grant index on event to 'public' as 'informix';
 grant delete on event to 'public' as 'informix';
 
 grant update on event to 'public' as 'informix';
+
+grant select on user_notification to 'public' as 'informix';
+
+grant insert on user_notification to 'public' as 'informix';
+
+grant index on user_notification to 'public' as 'informix';
+
+grant delete on user_notification to 'public' as 'informix';
+
+grant update on user_notification to 'public' as 'informix';
 
 grant delete on event_registration to 'public' as 'informix';
 
