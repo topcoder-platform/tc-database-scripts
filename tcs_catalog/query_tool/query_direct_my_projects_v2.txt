@@ -30,7 +30,7 @@ INNER JOIN group_member gm ON gm.group_id = sg.group_id
 WHERE gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
 AND   gm.active = 1
 AND   sg.archived = 0
-AND   tdp.project_status_id = 1
+AND   tdp.project_status_id= DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
 UNION
 SELECT UNIQUE
     tdp.project_id as tc_direct_project_id,
@@ -47,8 +47,8 @@ WHERE
     sg.auto_grant = 1
     AND   gm.active = 1
     AND   sg.archived = 0
-    AND   tdp.project_status_id = 1
-    AND   ttc.status = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
+    AND   ttc.status = 1
+    AND   tdp.project_status_id= DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
     AND gm.user_id = DECODE(@uid@,0,gm.user_id,@uid@)
 UNION
 SELECT UNIQUE 
@@ -61,9 +61,9 @@ INNER JOIN tt_client_project cp ON cp.project_id = pi.value::INT
 INNER JOIN tt_client c ON c.client_id = cp.client_id
 INNER JOIN customer_administrator ca ON ca.client_id = c.client_id
 WHERE pi.project_info_type_id = 32
-AND   tdp.project_status_id = 1
+AND   c.status = 1
 AND   c.is_deleted = 0
-AND   c.status = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
+AND   tdp.project_status_id = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
 AND   ca.user_id = DECODE(@uid@,0,ca.user_id,@uid@)
 UNION
 SELECT UNIQUE
