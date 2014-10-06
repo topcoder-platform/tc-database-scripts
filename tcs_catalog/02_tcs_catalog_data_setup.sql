@@ -456,7 +456,14 @@ INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,descr
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27203172, 'PHP', 'PHP', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27203173, 'Ruby', 'Ruby', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27203174, 'Objective C', 'Objective C', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27610142, 'SWIFT', 'SWIFT', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27611794, 'XMPP', 'XMPP', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27611797, 'Jabber', 'Jabber', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27612606, 'iOS 8.0', 'iOS 8.0', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27612607, 'Cisco', 'Cisco', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27624863, 'Aura', 'Aura', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27203175, 'Data Science', 'Data Science', 1);
+
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (11004, 'Util');
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (13337, 'development');
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (13343, 'report');
