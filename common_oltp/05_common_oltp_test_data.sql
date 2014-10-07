@@ -331,6 +331,7 @@ insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_ty
 insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (20753  , null, 5, CURRENT, CURRENT, 'Assignment 2.0', null, 2);
 insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (20963  , null, 5, CURRENT, CURRENT, 'Government id term', null, 2);
 insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (21113  , null, 5, CURRENT, CURRENT, 'Appirio NDA V1', null, 2);
+insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (21173  , null, 5, CURRENT, CURRENT, 'Standard Terms for TopCoder Competitions v2.0', null, 3);
 
 
 INSERT INTO 'informix'.key_generation(user_def,high_value) VALUES ('main_sequence', 18);
