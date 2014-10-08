@@ -208,6 +208,54 @@ LOCK TABLES `FARM_SHARED_OBJECT` WRITE;
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `FARM_SHARED_OBJECT` ENABLE KEYS */;
 
+--
+-- Table structure for table `FARM_QUEUE_CONFIG`
+--
+
+DROP TABLE IF EXISTS `FARM_QUEUE_CONFIG`;
+CREATE TABLE `FARM_QUEUE_CONFIG` (
+  `ID` bigint(10) not null auto_increment,
+  `ROUND` varchar(12) not null default 'ANY',
+  `APP` varchar(40) not null,
+  `ACTION` varchar(40) not null,
+  `PLATFORM` varchar(40) not null,
+  `PRACTICE` bool not null default 0, 
+  `QUEUE_NAME` varchar(80) not null,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `CFG_KEY` (`ROUND`, `APP`, `ACTION`, `PLATFORM`, `PRACTICE`) 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `FARM_QUEUE_CONFIG` DISABLE KEYS */;
+LOCK TABLE `FARM_QUEUE_CONFIG` WRITE, `FARM_QUEUE_CONFIG` as FQREAD READ;
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('match', 'compile', 'nix', 'compile');
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('match', 'compile', 'windows', 'compile-windows');
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('marathon', 'compile', 'nix', 'compile');
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('marathon', 'compile', 'windows', 'compile-windows');
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('match', 'test', 'nix', 'srm-test');
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('marathon', 'test', 'windows', 'mm-test-windows');
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('marathon', 'test', 'nix', 'mm-test');
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('marathon', 'test', 'windows', 'mm-test-windows');
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('marathon', 'score', 'nix', 'mm-test');
+-- duplicate config for practice=true
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `PRACTICE`, `QUEUE_NAME`)
+(select `APP`, `ACTION`, `PLATFORM`, 1, `QUEUE_NAME` from `FARM_QUEUE_CONFIG` AS FQREAD);
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('admin', 'test', 'nix', 'admin-test');
+insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
+values ('admin', 'compile', 'nix', 'compile');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `FARM_SHARED_OBJECT` ENABLE KEYS */;
+
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
