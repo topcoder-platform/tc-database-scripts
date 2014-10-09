@@ -1,0 +1,7 @@
+SELECT UNIQUE
+       tdp.project_id as tc_direct_project_id,
+       name as tc_direct_project_name
+FROM   tc_direct_project tdp
+WHERE  tdp.project_status_id = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
+AND    EXISTS (SELECT 1 FROM user_role_xref urx WHERE urx.login_id = @uid@ AND urx.role_id = 9385)
+ORDER BY tc_direct_project_name

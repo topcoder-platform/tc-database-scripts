@@ -1,0 +1,1 @@
+SELECT 1 FROM customer_administrator ca WHERE ca.user_id = @uid@

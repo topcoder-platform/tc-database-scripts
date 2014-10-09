@@ -499,3 +499,7 @@ query_get_billing_with_cmc_account_id.txt|UPDATE query SET text = ? WHERE query_
 query_project_platforms.txt|UPDATE query SET text = ? WHERE query_id = 33098
 query_reviewer_ratings_for_auction.txt|UPDATE query SET text = ? WHERE query_id = 33206
 query_get_client_groups_from_billing.txt|UPDATE query SET text = ? WHERE query_id = 33286
+query_direct_my_projects_v3_user.txt|UPDATE query SET text = ? WHERE query_id = 33300
+query_direct_my_projects_v3_customer_admin.txt|UPDATE query SET text = ? WHERE query_id = 33301
+query_direct_my_projects_v3_admin.txt|UPDATE query SET text = ? WHERE query_id = 33302
+query_is_customer_admin.txt|UPDATE query SET text = ? WHERE query_id = 33303

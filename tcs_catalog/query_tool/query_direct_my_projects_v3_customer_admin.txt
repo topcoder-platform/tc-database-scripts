@@ -1,0 +1,15 @@
+SELECT UNIQUE
+       tdp.project_id as tc_direct_project_id,
+       tdp.name as tc_direct_project_name
+FROM project_info pi
+INNER JOIN project p ON pi.project_id = p.project_id
+INNER JOIN tc_direct_project tdp ON p.tc_direct_project_id = tdp.project_id
+INNER JOIN tt_client_project cp ON cp.project_id = pi.value::INT
+INNER JOIN tt_client c ON c.client_id = cp.client_id
+INNER JOIN customer_administrator ca ON ca.client_id = c.client_id
+WHERE pi.project_info_type_id = 32
+AND   c.status = 1
+AND   c.is_deleted = 0
+AND   tdp.project_status_id = DECODE(@directProjectStatusId@, 0, tdp.project_status_id, @directProjectStatusId@)
+AND   ca.user_id = DECODE(@uid@,0,ca.user_id,@uid@)
+ORDER BY tc_direct_project_name
