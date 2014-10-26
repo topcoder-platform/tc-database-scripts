@@ -490,6 +490,7 @@ INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) V
 
 INSERT INTO 'informix'.solution(solution_id,coder_id, modify_date, language_id, package) VALUES (33121312, 124776, current, 1, 'com.topcoder.tester.solutions.s33121312');
 INSERT INTO 'informix'.solution(solution_id,coder_id, modify_date, language_id, package) VALUES (33121319, 124776, current, 1, 'com.topcoder.tester.solutions.s33121319');
+INSERT INTO 'informix'.solution(solution_id, coder_id, modify_date, language_id, package) VALUES (33121332, 124776, current, 1, 'com.topcoder.tester.solutions.s33121332');
 
 INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121312, 1, 'com/topcoder/tester/solutions/s33121312/TestProblem.class');
 INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121319, 1, 'com/topcoder/tester/solutions/s33121319/LongTest.class');
@@ -497,31 +498,47 @@ INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES
 INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121319, 3, 'com/topcoder/tester/solutions/s33121319/LongTest$WriterCache.class');
 INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121319, 4, 'com/topcoder/tester/solutions/s33121319/LongTest$1.class');
 INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121319, 5, 'com/topcoder/tester/solutions/s33121319/LongTest$ExposedMethodReader.class');
-
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121332, 1, 'com/topcoder/tester/solutions/s33121332/CloudType.class');
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121332, 2, 'com/topcoder/tester/solutions/s33121332/LongTest$ExposedMethodReader.class');
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121332, 3, 'com/topcoder/tester/solutions/s33121332/Constants.class');
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121332, 4, 'com/topcoder/tester/solutions/s33121332/TestCase.class');
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121332, 5, 'com/topcoder/tester/solutions/s33121332/SnowCleaning.class');
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121332, 6, 'com/topcoder/tester/solutions/s33121332/World.class');
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121332, 7, 'com/topcoder/tester/solutions/s33121332/LongTest$WriterCache.class');
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121332, 8, 'com/topcoder/tester/solutions/s33121332/LongTest$1.class');
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121332, 9, 'com/topcoder/tester/solutions/s33121332/Cell.class');
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121332, 10, 'com/topcoder/tester/solutions/s33121332/LongTest.class');
 
 INSERT INTO 'informix'.problem(problem_id,name,status_id,proposed_division_id,problem_type_id,proposed_difficulty_id, accept_submissions) VALUES (10194,'BlackAndWhiteGame',75,-1,3,-1, 1);
 INSERT INTO 'informix'.problem(problem_id,name,status_id,proposed_division_id,problem_type_id,proposed_difficulty_id,accept_submissions) VALUES (10195,'TestProblem',75,1,1,1,1);
-UPDATE 'informix'.id_sequences set next_block_start=10204 where name = 'PROBLEM_SEQ';
+INSERT INTO 'informix'.problem(problem_id,name,status_id,proposed_division_id,problem_type_id,proposed_difficulty_id, accept_submissions) VALUES (10205,'SnowCleaning',75,-1,3,-1, 1);
+UPDATE 'informix'.id_sequences set next_block_start=10206 where name = 'PROBLEM_SEQ';
 
 INSERT INTO 'informix'.component(component_id,problem_id,result_type_id,method_name,class_name,component_type_id,status_id) VALUES (2020,10194,18,'displayTestCase','BlackAndWhiteGame',2,1);
 INSERT INTO 'informix'.component(component_id,problem_id,result_type_id,method_name,class_name,component_type_id,status_id) VALUES (2021,10195,1,'sum','TestProblem',1,1);
-UPDATE 'informix'.id_sequences set next_block_start=2040 where name = 'COMPONENT_SEQ';
+INSERT INTO 'informix'.component(component_id,problem_id,result_type_id,method_name,class_name,component_type_id,status_id) VALUES (2041,10205,18,'displayTestCase','SnowCleaning',2,1);
+UPDATE 'informix'.id_sequences set next_block_start=2042 where name = 'COMPONENT_SEQ';
 
 INSERT INTO 'informix'.component_solution_xref(component_id, solution_id, primary_solution) VALUES (2021, 33121312, 1);
 INSERT INTO 'informix'.component_solution_xref(component_id, solution_id, primary_solution) VALUES (2020, 33121319, 1);
+INSERT INTO 'informix'.component_solution_xref(component_id, solution_id, primary_solution) VALUES (2041, 33121332, 1);
 
 INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2020, 10);
 INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2021, 10);
+INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2041, 10);
 
 INSERT INTO 'informix'.component_user_xref(component_id,user_id,user_type_id) VALUES(2020, 124776, 5);
 INSERT INTO 'informix'.component_user_xref(component_id,user_id,user_type_id) VALUES(2021, 124776, 5);
 INSERT INTO 'informix'.component_user_xref(component_id,user_id,user_type_id) VALUES(2020, 124834, 6);
 INSERT INTO 'informix'.component_user_xref(component_id,user_id,user_type_id) VALUES(2021, 124834, 6);
+INSERT INTO 'informix'.component_user_xref(component_id,user_id,user_type_id) VALUES(2041, 124776, 5);
+INSERT INTO 'informix'.component_user_xref(component_id,user_id,user_type_id) VALUES(2041, 124834, 6);
 
 INSERT INTO 'informix'.parameter(parameter_id,component_id,data_type_id,name,sort_order) VALUES(296569, 2020,18,'s',1);
 INSERT INTO 'informix'.parameter(parameter_id,component_id,data_type_id,name,sort_order) VALUES(296570, 2021,1,'A',1);
 INSERT INTO 'informix'.parameter(parameter_id,component_id,data_type_id,name,sort_order) VALUES(296571, 2021,1,'B',2);
-UPDATE 'informix'.id_sequences set next_block_start=296585 where name = 'PARAMETER_SEQ';
+INSERT INTO 'informix'.parameter(parameter_id,component_id,data_type_id,name,sort_order) VALUES(296590, 2041, 18, 's', 1);
+UPDATE 'informix'.id_sequences set next_block_start=296591 where name = 'PARAMETER_SEQ';
 
 INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121313, 2021, current, 1, 1, 0, 0);
 INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121314, 2021, current, 1, 1, 0, 1);
@@ -536,17 +553,26 @@ INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date,
 INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121329, 2020, current, 1, 0, 0, 3);
 INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121330, 2020, current, 1, 0, 0, 4);
 INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121331, 2020, current, 1, 0, 0, 5);
-UPDATE 'informix'.id_sequences set next_block_start=33121332 where name = 'MAIN_SEQ';
+
+INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121333, 2041, current, 1, 1, 0, 0);
+INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121334, 2041, current, 1, 1, 0, 1);
+INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121335, 2041, current, 1, 1, 0, 2);
+INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121336, 2041, current, 1, 0, 0, 3);
+INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121337, 2041, current, 1, 0, 0, 4);
+INSERT INTO 'informix'.system_test_case(test_case_id, component_id, modify_date, status, example_flag, system_flag, test_number) VALUES(33121338, 2041, current, 1, 0, 0, 5);
+UPDATE 'informix'.id_sequences set next_block_start=33121339 where name = 'MAIN_SEQ';
 
 INSERT INTO contest (contest_id, name, status, group_id, activate_menu) VALUES (12917, "Test SRM", "A", -1, 0);
 INSERT INTO contest (contest_id, name, status, group_id, activate_menu, start_date, end_date) VALUES (12918, "Test MM", "A", -1, 0, current, ADD_MONTHS(current, 1));
 INSERT INTO contest (contest_id, name, status) VALUES (12919, "Practice Test SRM DIV 2", "A");
-UPDATE 'informix'.id_sequences set next_block_start=12920 where name = 'CONTEST_SEQ';
+INSERT INTO contest (contest_id, name, status, group_id, activate_menu, start_date, end_date) VALUES (12920, "Test MM SnowCleaning", "A", -1, 0, current, ADD_MONTHS(current, 1));
+UPDATE 'informix'.id_sequences set next_block_start=12921 where name = 'CONTEST_SEQ';
 
 INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind, invitational, registration_limit) VALUES (13672, 12917, "Test SRM Round", "Test SRM Round", "F", 1, 0, 0, 1024);
 INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind, invitational, registration_limit) VALUES (13673, 12918, "Test MM Round", "Test MM Round", "F", 13, 0, 0, 1024);
 INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind) VALUES (13674, 12919, "Practice", "Practice", "A", 3, 0);
-UPDATE 'informix'.id_sequences set next_block_start=13675 where name = 'ROUND_SEQ';
+INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind, invitational, registration_limit) VALUES (13675, 12920, "Test MM SnowCleaning Round", "Test MM SnowCleaning Round", "F", 13, 0, 0, 1024);
+UPDATE 'informix'.id_sequences set next_block_start=13676 where name = 'ROUND_SEQ';
 
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 1, current, current + 5 UNITS MINUTE, "F");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 7, current + 5 UNITS MINUTE, current + 10 UNITS MINUTE, "F");
@@ -566,18 +592,27 @@ INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) V
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 3, current + 25 UNITS MINUTE, current + 25 UNITS MINUTE, "F");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 4, current + 25 UNITS MINUTE, current + 30 UNITS MINUTE, "F");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13674, 5, current + 30 UNITS MINUTE, current + 30 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 1, current, ADD_MONTHS(current, 1), "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 7, current, current, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 2, current, ADD_MONTHS(current, 1), "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 3, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 4, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 5, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), "F");
 
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13672, 2021, 0, 2, 1, 250, 0);
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13673, 2020, 0, 1, 1, 250, 0);
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13674, 2021, 0, 2, 1, 250, 0);
+INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13675, 2041, 0, 1, 1, 250, 0);
 
 INSERT INTO round_room_assignment (round_id, coders_per_room, algorithm, by_division, by_region, final, p) VALUES (13672, 20, 1, 1, 0, 1, 2);
 INSERT INTO round_room_assignment (round_id, coders_per_room, algorithm, by_division, by_region, final, p) VALUES (13673, 0, 2, 1, 0, 1, 0);
+INSERT INTO round_room_assignment (round_id, coders_per_room, algorithm, by_division, by_region, final, p) VALUES (13675, 0, 2, 1, 0, 1, 0);
 
 INSERT INTO room (room_id, round_id, name, division_id, room_type_id) VALUES (299154, 13672, "Admin Room", -1, 1);
 INSERT INTO room (room_id, round_id, name, division_id, room_type_id) VALUES (299155, 13673, "Admin Room", -1, 1);
 INSERT INTO room (room_id, round_id, name, division_id, room_type_id) VALUES (299156, 13674, "Practice Test SRM DIV 2", 2, 3);
-UPDATE 'informix'.id_sequences set next_block_start=299157 where name = 'ROOM_SEQ';
+INSERT INTO room (room_id, round_id, name, division_id, room_type_id) VALUES (299157, 13675, "Admin Room", -1, 1);
+UPDATE 'informix'.id_sequences set next_block_start=299158 where name = 'ROOM_SEQ';
 
 INSERT INTO round_group_xref(round_id, group_id) VALUES(13674, 2);
 INSERT INTO round_terms (round_id) VALUES (13672);

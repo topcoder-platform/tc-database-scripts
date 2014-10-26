@@ -1,0 +1,103 @@
+<?xml version="1.0"?><problem xmlns="http://topcoder.com" name="" code_length_limit="2147483647" execution_time_limit="840000" compile_time_limit="30000" gcc_build_command="" cpp_approved_path="" python_command="" python_approved_path=""><signature><class>SnowCleaning</class><method><name>displayTestCase</name><return><type>String</type></return><params><param><type>String</type><name>s</name></param></params></method><method><name>init</name><return><type>int</type></return><params><param><type>int</type><name>boardSize</name></param><param><type>int</type><name>salary</name></param><param><type>int</type><name>snowFine</name></param></params></method><method><name>nextDay</name><return><type>String[]</type></return><params><param><type>int[]</type><name>snowFalls</name></param></params></method></signature><intro escaped="1"><p>
+<i>IMPORTANT:</i> This problem is used for two simultaneous matches: TCO'13 Marathon Round 1 and Marathon Match 79. You can compete in TCO'13 R1 only if you are eligible for TCO'13. You can compete in MM 79 if you are not eligible for TCO'13 or if you would like to skip TCO'13 R1 by some reason. Competing in both matches is <i>not allowed</i>. Doing so will lead to <i>disqualification</i>.
+</p>
+<p>&amp;nbsp;</p>
+<p>
+You've decided to start a snow cleaning business. You've signed a contract with your native city according to which your company is responsible for cleaning all snow in the city during the next 2,000 days.
+</p>
+<p>
+The city can be represented as a rectangular board with <b>boardSize</b> rows and columns. Both rows and columns are numbered 0 to <b>boardSize</b>-1, where row 0 is the topmost row, row <b>boardSize</b>-1 is the bottommost row, column 0 is the leftmost column and column <b>boardSize</b>-1 is the rightmost column.
+</p>
+<p>
+Each cell of the city may either be clean or it may contain snow. If a cell contains snow, its amount is not tracked and is irrelevant in this problem. Before the first day all cells are clean. Then, during each day there may be snowfalls in some cells. If a cell is clean and there is a snowfall in this cell, it will contain snow after the snowfall.
+</p>
+<p>
+In order to clean snow, you can hire workers. You are allowed to have up to 100 workers. A worker can't be fired. When you hire a worker, you can choose in which cell of the city it should appear. The worker will appear in this cell and clean all snow from it by the end of the current day (if there is snow in the cell). During each of the next days, you can request your worker either to stay in his current cell or to move into one of 4 neighboring cells. Two cells are neighboring if they share a side. Once completing your request, the worker will clean all snow from his/her current cell (if there is snow in the cell). Note that if you request your worker to move, he/she will first move and then will clean snow, so if the worker's original cell contains snow, it will remain uncleaned. Multiple workers are allowed to share the same cell at any time.
+</p>
+<p>
+In the end of each day, each your worker needs to get a salary of <b>salary</b>. Additionally, for each uncleaned cell the city will request you to pay a fine of <b>snowFine</b>. Your contract with the city assumes a fixed size reward for cleaning snow during all the 2,000 days. Therefore, if you want to maximize income, you need to minimize expenses. Your task in this problem is to operate the business so that the sum of paid salaries and fines is as small as possible.
+</p>
+<p>&amp;nbsp;</p>
+<p><b>Implementation</b></p>
+<p>
+You will need to implement two methods: <tt>init</tt> and <tt>nextDay</tt>.
+</p>
+<p>
+<tt>init</tt> will be called only once and before all <tt>nextDay</tt> calls. It serves to give your solution the values of <b>boardSize</b>, <b>salary</b> and <b>snowFine</b>. The return value from this method will be ignored.
+</p>
+<p>
+<tt>nextDay</tt> will be called 2,000 times -- once for each day. Its input parameter <b>snowFalls</b> contains exactly 2*K elements where K is the number of snowfalls at this day. The elements are <i>Row</i>[0], <i>Col</i>[0], <i>Row</i>[1], <i>Col</i>[1], ..., <i>Row</i>[K-1], <i>Col</i>[K-1], respectively. Here <i>Row</i>[i] and <i>Col</i>[i] are the row and column of the cell where the i-th snowfall takes place. The cells are listed in row-major order (sorted in increasing order of rows, ties are breaked by increasing order of columns).
+</p>
+<p>
+The return value from <tt>nextDay</tt> should be a list of commands that you issue for your workers. Each element must contain a single command. There are two types of commands:
+<ul>
+<li><tt>"H &amp;lt;ROW&amp;gt; &amp;lt;COL&amp;gt;"</tt>. This command hires a new worker and places him at row <tt>&amp;lt;ROW&amp;gt;</tt> and column <tt>&amp;lt;COL&amp;gt;</tt>. Each worker gets an ID depending when it was hired. Chronologically first hired worker has an ID of 0, second hired worker has an ID of 1, and so on. If several workers were hired during the same day, they get IDs depending on where the commands used to hire them are located in the return value (earlier standing command means lower ID).</li>
+<li><tt>"M &amp;lt;ID&amp;gt; &amp;lt;DIR&amp;gt"</tt>. This command moves a worker with ID = <tt>&amp;lt;ID&amp;gt;</tt> using the direction specified by <tt>&amp;lt;DIR&amp;gt;</tt>. <tt>&amp;lt;DIR&amp;gt;</tt> is a single character 'U' (up), 'D' (down), 'L' (left) or 'R' (right). It is not possible to move a worker outside the board and to move worker more than once during the same day. If you hired a worker, you can't move it at the same day.</li>
+</ul>
+</p>
+<p>If you don't issue any command for some worker, he will stay in his current cell.</p>
+<p>There are many different events happening during the same day. Here is the order in which they occur:
+<ul>
+<li>First, some cells may experience snowfalls.</li>
+<li>Then, each your worker will execute his command.</li>
+<li>Finally, the salaries and fines will be updated according to the current number of workers and uncleaned cells.</li>
+</ul>
+</p>
+<p>&amp;nbsp;</p>
+<p><b>Scoring</b></p>
+<p>For each test case we will calculate your raw and normalized scores. If you were not able to operate the business successfully during all 2,000 days (due to time limit, memory limit, crash, invalid return value, etc.), then your raw score is -1 and the normalized score is 0. Otherwise, the raw score will be the sum of all salaries and fines you paid. The normalized score for each test is 1,000,000.0 * BEST / YOUR, where BEST is the lowest non-negative score currently obtained on this test case (i.e., considering the last submission from each competitor). Finally, your total score is equal to the arithmetic average of normalized scores on all test cases.</p>
+<p>You can see your raw scores on each example test case when you are making an example submit. You can also see total scores of all competitors on provisional test set in the match standings. No other information about scores is available during the match.</p>
+<p>&amp;nbsp;</p>
+<p><b>Test case generation</b></p>
+<p>Each test case generated using the same algorithm (but a different seed for random number generator). The algorithm is described in this section of the problem statement. For shorter explanation, unless otherwise specified, each occurrence of "chosen" means "chosen uniformly, at random".</p>
+<p><b>boardSize</b> is chosen between 20 and 50, inclusive. <b>salary</b> and <b>snowFine</b> are each (independently) chosen between 10 and 100, inclusive.</p>
+<p>Snow is assumed to be produced by snow clouds. There can be different types of clouds. The number of types is chosen between 1 and 10, inclusive. A cloud type has the following parameters:
+<ul>
+<li><i>R</i> -- chosen between 1 and 3, inclusive. The cloud is basically a (2*<i>R</i>+1)x(2*<i>R</i>+1) square of cells. The cell in row <i>R</i>, column <i>R</i> is called cloud's center.</li>
+<li><i>T</i> -- chosen between 10 and 25, inclusive. This is the amount of days the cloud remains active once it appeared.</li>
+<li><i>GlobalP</i> (real value) -- chosen between 0.0 (inclusive) and 1.0 (exclusive). The meaning of this and subsequent parameters is explained below.</li>
+<li><i>LocalP</i> (matrix of real values) -- each value is chosen (independently) between 0.0 (inclusive) and 1.0 (exclusive).</li>
+<li><i>MoveP</i> (matrix of 4 integers). Each value is generated as <i>Ceil</i>(100*<i>x</i>*<i>x</i>), where <i>Ceil</i> rounds a number up towards the nearest integer and <i>x</i> is a real number chosen between 0.0 (inclusive) and 1.0 (exclusive).</li>
+</ul>
+</p>
+<p>
+Each cloud of the given type works as follows during each day. With probability of (1 - GlobalP) it does not generate any snowfalls during the day. Assuming it does generate showfalls, let its center be currently at row <i>CenterRow</i> and column <i>CenterCol</i>. For each (<i>LocalRow</i>, <i>LocalCol</i>), 0 &amp;lt;= <i>LocalRow</i>, <i>LocalCol</i> &amp;lt;= 2*<i>R</i>, if cell at row <i>CenterRow</i> + <i>LocalRow</i> - <i>R</i>, column <i>CenterCol</i> + <i>LocalCol</i> - <i>R</i> exists within the city, a snowfall at this cell is generated with probability of <i>LocalP</i>[<i>LocalRow</i>][<i>LocalCol</i>]. In other words, <i>GlobalP</i> gives a global probability for a cloud to snow at a given day and <i>LocalP</i> gives probabilities for a cloud to snow at each particular cell around its center. Once all snowfalls are generated, the cloud's center will move into one of its 4 consecutive cells. The probabilities to move in each of 4 directions are proportional to <i>MoveP</i>. A cloud is allowed to move completely or partially outside the city and it's also allowed to return back to city after that (we assume here that a city is just a part of an infinite rectangular grid).
+</p>
+<p>
+Once cloud types are generated for a test case, the total number of clouds to appear is chosen between 50 and 200, inclusive. Then each of these cloud is simulated. Its appearance day will be chosen between 0 and 1,999, inclusive, and its type will be chosen uniformly, at random. The cloud center's original location will be chosen uniformly, at random, within the city. Then cloud's activity is simulated according to its type and cloud's behaviour algorithm described in the previous paragraph. We assume that day 1,999 is the last day when you operate the business and it is possible that a cloud will generate some snowfalls after this day. All such snowfalls can just be ignored. It is possible that two or more snow clouds will generate a snowfall at the same cell at the same day. This will still be reported as one snowfall to <tt>nextDay</tt> method.
+</p>
+<p>&amp;nbsp;</p>
+<p><b>Tools</b></p>
+<p>
+An offline tester/visualizer is <a href="http://www.topcoder.com/contest/problem/SnowCleaning/manual.html">available</a>. You can use it to test/debug your solution locally. You can also check its source code for exact implementation of test case generation and score calculation.
+</p></intro><spec></spec><notes><note escaped="1">The time limit is 20 seconds (this includes only the time spent in your code). The memory limit is 1024 megabytes.</note><note escaped="1">There is no explicit code size limit. The implicit source code size limit is around 1 MB (it is not advisable to submit codes of size close to that or larger). Once your code is compiled, the binary size should not exceed 1 MB.</note><note escaped="1">The compilation time limit is 30 seconds. You can find information about compilers that we use and compilation options <a href="http://apps.topcoder.com/wiki/display/tc/Processing+Server+Specifications">here</a>.</note><note escaped="1">There are 10 example test cases and 100 full submission (provisional) test cases.</note></notes><constraints></constraints><test-cases><test-case id="33121333" example="1"><input>/ASCII34/1/ASCII34/</input><output>/ASCII34/Board size = 47
+Salary = 54
+Snow fine = 85
+Cloud types = 6
+Snowfalls = 9752
+/ASCII34/</output><annotation escaped="1"></annotation></test-case><test-case id="33121334" example="1"><input>/ASCII34/2/ASCII34/</input><output>/ASCII34/Board size = 22
+Salary = 50
+Snow fine = 24
+Cloud types = 6
+Snowfalls = 7509
+/ASCII34/</output><annotation escaped="1"></annotation></test-case><test-case id="33121335" example="1"><input>/ASCII34/3/ASCII34/</input><output>/ASCII34/Board size = 30
+Salary = 29
+Snow fine = 83
+Cloud types = 9
+Snowfalls = 12426
+/ASCII34/</output><annotation escaped="1"></annotation></test-case><test-case id="33121336"><input>/ASCII34/4/ASCII34/</input><output>/ASCII34/Board size = 39
+Salary = 83
+Snow fine = 79
+Cloud types = 3
+Snowfalls = 12213
+/ASCII34/</output><annotation escaped="1"></annotation></test-case><test-case id="33121337"><input>/ASCII34/5/ASCII34/</input><output>/ASCII34/Board size = 22
+Salary = 59
+Snow fine = 36
+Cloud types = 8
+Snowfalls = 5139
+/ASCII34/</output><annotation escaped="1"></annotation></test-case><test-case id="33121338"><input>/ASCII34/6/ASCII34/</input><output>/ASCII34/Board size = 37
+Salary = 36
+Snow fine = 65
+Cloud types = 6
+Snowfalls = 14471
+/ASCII34/</output><annotation escaped="1"></annotation></test-case></test-cases><memlimit>128</memlimit><stacklimit>0</stacklimit><roundType>13</roundType></problem>

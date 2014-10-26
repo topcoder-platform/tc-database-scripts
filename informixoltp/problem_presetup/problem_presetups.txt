@@ -32,3 +32,27 @@ long_test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_cas
 long_test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121329 and component_id=2020
 long_test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121330 and component_id=2020
 long_test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121331 and component_id=2020
+MM/SnowCleaning/ProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2041
+MM/SnowCleaning/solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121332
+MM/SnowCleaning/CloudType.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=1
+MM/SnowCleaning/LongTest$ExposedMethodReader.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=2
+MM/SnowCleaning/Constants.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=3
+MM/SnowCleaning/TestCase.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=4
+MM/SnowCleaning/SnowCleaning.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=5
+MM/SnowCleaning/World.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=6
+MM/SnowCleaning/LongTest$WriterCache.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=7
+MM/SnowCleaning/LongTest$1.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=8
+MM/SnowCleaning/Cell.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=9
+MM/SnowCleaning/LongTest.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=10
+MM/SnowCleaning/test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121333
+MM/SnowCleaning/test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121334
+MM/SnowCleaning/test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121335
+MM/SnowCleaning/test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121336
+MM/SnowCleaning/test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121337
+MM/SnowCleaning/test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121338
+MM/SnowCleaning/test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121333
+MM/SnowCleaning/test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121334
+MM/SnowCleaning/test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121335
+MM/SnowCleaning/test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121336
+MM/SnowCleaning/test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121337
+MM/SnowCleaning/test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121338

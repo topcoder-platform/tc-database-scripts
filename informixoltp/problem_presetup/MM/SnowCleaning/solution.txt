@@ -1,0 +1,423 @@
+import java.util.*;
+import java.math.*;
+import java.security.*;
+
+class Constants {
+    public static final int SIMULATION_TIME = 2000;
+    public static final int MAX_WORKERS = 100;
+    public static final String DIR_STR = "DLUR";
+    public static final int[] DR = new int[]{1, 0, -1, 0};
+    public static final int[] DC = new int[]{0, -1, 0, 1};
+}
+
+class CloudType {
+    public static final int MIN_CLOUD_SIZE = 1;
+    public static final int MAX_CLOUD_SIZE = 3;
+
+    public static final int MIN_CLOUD_TIME = 10;
+    public static final int MAX_CLOUD_TIME = 25;
+
+    int size;
+    int liveTime;
+    double snowProbGlobal;
+    double[][] snowProbLocal;
+
+    int[] moveProb;
+    int sumMoveProb;
+
+    public int getDirection(Random rnd) {
+        int val = rnd.nextInt(sumMoveProb);
+        int res = 0;
+        while (val >= moveProb[res]) {
+            val -= moveProb[res];
+            res++;
+        }
+        return res;
+    }
+
+    public CloudType(Random rnd) {
+        size = rnd.nextInt(MAX_CLOUD_SIZE - MIN_CLOUD_SIZE + 1) + MIN_CLOUD_SIZE;
+        liveTime = rnd.nextInt(MAX_CLOUD_TIME - MIN_CLOUD_TIME + 1) + MIN_CLOUD_TIME;
+        snowProbGlobal = rnd.nextDouble();
+        snowProbLocal = new double[2 * size + 1][2 * size + 1];
+        for (int i = 0; i <= 2 * size; i++) {
+            for (int j = 0; j <= 2 * size; j++) {
+                snowProbLocal[i][j] = rnd.nextDouble();
+            }
+        }
+
+        moveProb = new int[Constants.DR.length];
+        for (int i = 0; i < moveProb.length; i++) {
+            double x = rnd.nextDouble();
+            moveProb[i] = (int) Math.ceil(100 * x * x);
+            sumMoveProb += moveProb[i];
+        }
+    }
+}
+
+class Cell implements Comparable<Cell> {
+    public int r, c;
+
+    public Cell(int r, int c) {
+        this.r = r;
+        this.c = c;
+    }
+
+    public boolean equals(Object other) {
+        if (!(other instanceof Cell)) {
+            return false;
+        }
+
+        Cell otherCell = (Cell) other;
+        return this.r == otherCell.r && this.c == otherCell.c;
+    }
+
+    public int hashCode() {
+        return 100 * r + c;
+    }
+
+    public int compareTo(Cell other) {
+        return (r == other.r ? c - other.c : r - other.r);
+    }
+}
+
+class TestCase {
+    public static final int MIN_CLOUD_TYPES = 1;
+    public static final int MAX_CLOUD_TYPES = 10;
+
+    public static final int MIN_CLOUD_COUNT = 50;
+    public static final int MAX_CLOUD_COUNT = 200;
+
+    public static final int MIN_BOARD_SIZE = 20;
+    public static final int MAX_BOARD_SIZE = 50;
+
+    public static final int MIN_SALARY = 10;
+    public static final int MAX_SALARY = 100;
+
+    public static final int MIN_SNOW_FINE = 10;
+    public static final int MAX_SNOW_FINE = 100;
+
+    public int boardSize;
+    public int salary;
+    public int snowFine;
+
+    public int cloudTypeCnt;
+    public CloudType[] cloudTypes;
+
+    public int cloudCnt;
+
+    Set<Cell>[] snowFalls = new Set[Constants.SIMULATION_TIME];
+
+    public TestCase(long seed) {
+        SecureRandom rnd = null;
+
+        try {
+            rnd = SecureRandom.getInstance("SHA1PRNG");
+        } catch (Exception e) {
+            System.err.println("ERROR: unable to generate test case.");
+            System.exit(1);
+        }
+
+        rnd.setSeed(seed);
+
+        boardSize = rnd.nextInt(MAX_BOARD_SIZE - MIN_BOARD_SIZE + 1) + MIN_BOARD_SIZE;
+        salary = rnd.nextInt(MAX_SALARY - MIN_SALARY + 1) + MIN_SALARY;
+        snowFine = rnd.nextInt(MAX_SNOW_FINE - MIN_SNOW_FINE + 1) + MIN_SNOW_FINE;
+
+        cloudTypeCnt = rnd.nextInt(MAX_CLOUD_TYPES - MIN_CLOUD_TYPES + 1) + MIN_CLOUD_TYPES;
+        cloudTypes = new CloudType[cloudTypeCnt];
+        for (int i = 0; i < cloudTypeCnt; i++) {
+            cloudTypes[i] = new CloudType(rnd);
+        }
+
+        cloudCnt = rnd.nextInt(MAX_CLOUD_COUNT - MIN_CLOUD_COUNT + 1) + MIN_CLOUD_COUNT;
+
+        for (int t = 0; t < Constants.SIMULATION_TIME; t++) {
+            snowFalls[t] = new HashSet<Cell>();
+        }
+
+        for (int i = 0; i < cloudCnt; i++) {
+            int type = rnd.nextInt(cloudTypeCnt);
+
+            int curRow = rnd.nextInt(boardSize);
+            int curCol = rnd.nextInt(boardSize);
+            int startTime = rnd.nextInt(Constants.SIMULATION_TIME);
+
+            for (int t = startTime; t < startTime + cloudTypes[type].liveTime && t < Constants.SIMULATION_TIME; t++) {
+                if (rnd.nextDouble() < cloudTypes[type].snowProbGlobal) {
+                    for (int r = 0; r <= 2 * cloudTypes[type].size; r++) {
+                        for (int c = 0; c <= 2 * cloudTypes[type].size; c++) {
+                            if (rnd.nextDouble() < cloudTypes[type].snowProbLocal[r][c]) {
+                                int snowR = curRow + r - cloudTypes[type].size;
+                                int snowC = curCol + c - cloudTypes[type].size;
+                                if (snowR >= 0 && snowR < boardSize && snowC >= 0 && snowC < boardSize) {
+                                    snowFalls[t].add(new Cell(snowR, snowC));
+                                }
+                            }
+                        }
+                    }
+                }
+                int dir = cloudTypes[type].getDirection(rnd);
+                curRow += Constants.DR[dir];
+                curCol += Constants.DC[dir];
+            }
+        }
+    }
+}
+
+class World {
+    final Object workersLock = new Object();
+
+    int snowCnt;
+    boolean[][] haveSnow;
+
+    List<Cell> workers = new ArrayList<Cell>();
+    Set<Integer> usedWorkers = new HashSet<Integer>();
+
+    int salary, fine;
+    int totSalary, totFine;
+    int curDay = -1;
+
+    public World(int boardSize, int salary, int fine) {
+        this.salary = salary;
+        this.fine = fine;
+        haveSnow = new boolean[boardSize][boardSize];
+    }
+
+    public void updateTotalSalary() {
+        synchronized (workersLock) {
+            totSalary += salary * workers.size();
+        }
+    }
+
+    public void updateTotalFine() {
+        totFine += snowCnt * fine;
+    }
+
+    public void addSnow(int r, int c) {
+        if (!haveSnow[r][c]) {
+            snowCnt++;
+            haveSnow[r][c] = true;
+        }
+    }
+
+    public void removeSnow(int r, int c) {
+        if (haveSnow[r][c]) {
+            snowCnt--;
+            haveSnow[r][c] = false;
+        }
+    }
+
+    public void startNewDay() {
+        curDay++;
+        usedWorkers.clear();
+    }
+
+    public String addWorker(int r, int c) {
+        synchronized (workersLock) {
+            if (workers.size() == Constants.MAX_WORKERS) {
+                return "You are allowed to have at most " + Constants.MAX_WORKERS + " workers.";
+            } else if (r < 0 || r >= haveSnow.length || c < 0 || c >= haveSnow.length) {
+                return "You are trying to hire a worker at a cell outside the board.";
+            } else {
+                workers.add(new Cell(r, c));
+                usedWorkers.add(workers.size() - 1);
+                removeSnow(r, c);
+                return "";
+            }
+        }
+    }
+
+    public String moveWorker(int id, int dir) {
+        synchronized (workersLock) {
+            if (id < 0 || id >= workers.size()) {
+                return "You are trying to move worker which does not exist.";
+            } else if (usedWorkers.contains(id)) {
+                return "You are trying to execute a command for some worker more than once during the same turn.";
+            } else {
+                Cell worker = workers.get(id);
+                worker.r += Constants.DR[dir];
+                worker.c += Constants.DC[dir];
+                if (worker.r < 0 || worker.c < 0 || worker.r >= haveSnow.length || worker.c >= haveSnow.length) {
+                    return "You are trying to move a worker outside the board.";
+                }
+                removeSnow(worker.r, worker.c);
+                usedWorkers.add(id);
+                return "";
+            }
+        }
+    }
+
+    public void cleanAllSnow() {
+        synchronized (workersLock) {
+            for (Cell worker : workers) {
+                removeSnow(worker.r, worker.c);
+            }
+        }
+    }
+}
+
+public class SnowCleaning {
+    public static String MOVE_REG_EXP = "M [1-9]?[0-9] [ULDR]";
+    public static String HIRE_REG_EXP = "H [1-9]?[0-9] [1-9]?[0-9]";
+
+    public static String WRONG_COMMAND_ERROR = "ERROR: Each worker command must be formatted either \"M <ID> <DIR>\"" +
+            " or \"H <ROW> <COL>\". Here <ID>, <ROW> and <COL> are integers from 0 to 99 without leading zeros" +
+            " and <DIR> is one of 'U', 'L', 'D', 'R'.";
+
+    public String checkData(String seed) {
+        return "";
+    }
+
+    public String displayTestCase(String seed) {
+        TestCase tc = new TestCase(Long.parseLong(seed));
+
+        StringBuilder res = new StringBuilder();
+        res.append("Board size = " + tc.boardSize + "\n");
+        res.append("Salary = " + tc.salary + "\n");
+        res.append("Snow fine = " + tc.snowFine + "\n");
+        res.append("Cloud types = " + tc.cloudTypeCnt + "\n");
+
+        int snowFallCnt = 0;
+        for (int t = 0; t < Constants.SIMULATION_TIME; t++) {
+            snowFallCnt += tc.snowFalls[t].size();
+        }
+
+        res.append("Snowfalls = " + snowFallCnt + "\n");
+
+        return res.toString();
+    }
+
+    public double runTest(LongTest lt) {
+        long seed = Long.parseLong(lt.getTest());
+        TestCase tc = new TestCase(seed);
+
+        int remTime = 20 * 1000;
+
+        lt.setTimeLimit(remTime);
+        lt.init(tc.boardSize, tc.salary, tc.snowFine);
+        if (!lt.getStatus()) {
+            lt.addFatalError("Error during the call to init.");
+            return -1.0;
+        }
+        lt.getResult_init();
+        if (!lt.getStatus()) {
+            lt.addFatalError("Error during the call to init.");
+            return -1.0;
+        }
+        remTime -= lt.getTime();
+        if (remTime < 10) {
+            lt.addFatalError("Time limit exceeded during the call to init.");
+            return -1.0;
+        }
+
+        World world = new World(tc.boardSize, tc.salary, tc.snowFine);
+        for (int t = 0; t < Constants.SIMULATION_TIME; t++) {
+            world.startNewDay();
+
+            int snowFallCnt = tc.snowFalls[t].size();
+            Cell[] snowFalls = new Cell[snowFallCnt];
+            int pos = 0;
+            for (Cell cell : tc.snowFalls[t]) {
+                snowFalls[pos++] = cell;
+            }
+            Arrays.sort(snowFalls);
+
+            int[] inp = new int[2 * snowFalls.length];
+            for (int i = 0; i < snowFalls.length; i++) {
+                inp[2 * i] = snowFalls[i].r;
+                inp[2 * i + 1] = snowFalls[i].c;
+                world.addSnow(snowFalls[i].r, snowFalls[i].c);
+            }
+
+            lt.nextDay(inp);
+            if (!lt.getStatus()) {
+                lt.addFatalError("Error during the call to nextDay. Day = " + t + " (0-based).");
+                return -1.0;
+            }
+            String[] commands = lt.getResult_nextDay();
+            if (!lt.getStatus()) {
+                lt.addFatalError("Error during the call to nextDay. Day = " + t + " (0-based).");
+                return -1.0;
+            }
+            remTime -= lt.getTime();
+            if (remTime < 10) {
+                lt.addFatalError("Time limit exceeded during the call to nextDay. Day = " + t + " (0-based).");
+                return -1.0;
+            }
+
+            for (int i = 0; i < commands.length; i++) {
+                String command = commands[i];
+                
+                if (command.length() > 10) {
+                    lt.addFatalError("ERROR: time step = " + t + ", worker command = " + i + " (0-based indices). " + WRONG_COMMAND_ERROR);
+                    return -1.0;
+                }
+
+                if (command.matches(HIRE_REG_EXP)) {
+                    String[] items = command.split(" ");
+                    int row = Integer.parseInt(items[1]);
+                    int col = Integer.parseInt(items[2]);
+                    String msg = world.addWorker(row, col);
+                    if (msg.length() > 0) {
+                        lt.addFatalError("ERROR: time step = " + t + ", worker command = " + i + " (0-based indices). " + msg);
+                        return -1.0;
+                    }
+                } else if (command.matches(MOVE_REG_EXP)) {
+                    String[] items = command.split(" ");
+                    int id = Integer.parseInt(items[1]);
+                    int dir = Constants.DIR_STR.indexOf(items[2]);
+                    String msg = world.moveWorker(id, dir);
+                    if (msg.length() > 0 ){
+                        lt.addFatalError("ERROR: time step = " + t + ", worker command = " + i + " (0-based indices). " + msg);
+                        return -1.0;
+                    }
+                } else {
+                    lt.addFatalError("ERROR: time step = " + t + ", worker command = " + i + " (0-based indices). " + WRONG_COMMAND_ERROR);
+                    return -1.0;
+                }
+            }
+
+            world.cleanAllSnow();
+
+            world.updateTotalFine();
+            world.updateTotalSalary();
+        }
+
+        lt.addFatalError("Fine = " + world.totFine + "\n");
+        lt.addFatalError("Salary = " + world.totSalary + "\n");
+
+        return world.totFine + world.totSalary;
+    }
+
+    public double[] score(double[][] raw) {
+        int coderCnt = raw.length, testCnt = raw[0].length;
+
+        double[] res = new double[raw.length];
+
+        for (int test = 0; test < testCnt; test++) {
+            double best = 1e100;
+            for (int i=0; i < coderCnt; i++)
+                if (raw[i][test] >= -0.5)
+                    best = Math.min(best, raw[i][test]);
+
+                if (best > 1e10) continue;
+
+                for (int i=0; i < coderCnt; i++)
+                    if (raw[i][test] >= -0.5) {
+                        if (best == 0.0 && raw[i][test] == 0.0) {
+                            res[i] += 1.0;
+                        } else {
+                            res[i] += best / raw[i][test];
+                        }
+                    }
+        }
+
+        for (int i=0; i < res.length; i++) {
+            res[i] /= testCnt;
+            res[i] *= 1000000.0;
+        }
+
+        return res;
+    }
+}
