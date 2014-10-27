@@ -617,3 +617,4 @@ UPDATE 'informix'.id_sequences set next_block_start=299158 where name = 'ROOM_SE
 INSERT INTO round_group_xref(round_id, group_id) VALUES(13674, 2);
 INSERT INTO round_terms (round_id) VALUES (13672);
 INSERT INTO round_terms (round_id) VALUES (13673);
+INSERT INTO round_terms (round_id) VALUES (13675);
