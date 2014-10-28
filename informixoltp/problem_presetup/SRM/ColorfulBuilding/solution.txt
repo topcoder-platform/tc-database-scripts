@@ -1,0 +1,75 @@
+public class ColorfulBuilding{
+    static final long MOD = 1000000009;
+    
+    int[] col; int N, L;
+    long[][] dp; long[] mul, total;
+    
+    int tr(char c){
+        if(c >= 'a' && c <= 'z') return c - 'a';
+        if(c >= 'A' && c <= 'Z') return c - 'A' + 26;
+        return -1;
+    }
+
+    public int count(String[] color1, String[] color2, int _L){
+        L = _L;
+        String c1 = "", c2 = "";
+        for(int i=0;i<color1.length;i++){ c1 += color1[i]; c2 += color2[i]; }
+        N = c1.length(); col = new int[N];
+        for(int i=0;i<N;i++) col[N-1-i] = tr(c1.charAt(i))*52 + tr(c2.charAt(i));
+        
+        dp = new long[52*52][L+1];
+        mul = new long[52*52];
+        total = new long[L+1];
+        for(int i=0;i<52*52;i++){
+            mul[i] = 1;
+            for(int j=0;j<=L;j++) dp[i][j] = 0;
+        }
+        for(int i=0;i<=L;i++) total[i] = 0;
+        dp[col[0]][1] = 1; total[1] = 1;
+        
+        for(int i=1;i<N;i++){
+            for(int j=0;j<=L;j++) dp[col[i]][j] = (dp[col[i]][j] * mul[col[i]]) % MOD;
+            
+            for(int j=L;j>=1;j--){
+                total[j] = (total[j] - dp[col[i]][j] + MOD) % MOD;
+                total[j] = (total[j] * i);
+                
+                dp[col[i]][j] = (dp[col[i]][j] * (i+1) + (total[j-1] - dp[col[i]][j-1] + MOD)) % MOD;
+                total[j] = (total[j] + dp[col[i]][j]) % MOD;
+            }
+            for(int j=0;j<52*52;j++) mul[j] = (mul[j] * i) % MOD;
+            mul[col[i]] = 1;
+        }
+        
+        long ret = 0;
+        for(int i=0;i<52*52;i++) ret = (ret + dp[i][L] * mul[i]) % MOD;
+        
+        return (int)ret;
+    }
+    
+    boolean range(int v, int l, int r){ return l <= v && v <= r; }
+    boolean isLetter(char c){ return (c>='a'&&c<='z') || (c>='A'&&c<='Z'); }
+    public String checkData(String[] color1, String[] color2, int L){
+        if(!range(color1.length, 1, 36) || !range(color2.length, 1, 36)) return "color1 and color2 must each contain between 1 and 36 elements, inclusive.";
+        if(color1.length != color2.length) return "color1 and color2 must contain the same number of elements.";
+        for(int i=0;i<color1.length;i++)
+            if(!range(color1[i].length(), 1, 36) || !range(color2[i].length(), 1, 36))
+                return "Each element of color1 and color2 must contain between 1 and 36 characters, inclusive.";
+        for(int i=0;i<color1.length;i++)
+            if(color1[i].length() != color2[i].length())
+                return "For each i, the i-th elements of color1 and color2 must contain the same number of characters.";
+        for(int i=0;i<color1.length;i++){
+            for(int j=0;j<color1[i].length();j++){
+                if(!isLetter(color1[i].charAt(j)) || !isLetter(color2[i].charAt(j)))
+                    return "Each character of each element of color1 and color2 must be lower-case or upper-case letter ('a'-'z' or 'A'-'Z').";
+            }
+        }
+        
+        int N = 0;
+        for(int i=0;i<color1.length;i++) N += color1[i].length();
+        
+        if(!range(L, 1, N)) return "L must be between 1 and N, where N is the total number of characters in color1.";
+        
+        return "";
+    }
+}

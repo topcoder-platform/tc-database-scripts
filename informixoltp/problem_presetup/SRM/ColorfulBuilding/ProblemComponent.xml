@@ -1,0 +1,164 @@
+<?xml version="1.0"?><problem xmlns="http://topcoder.com" name="" code_length_limit="2147483647" execution_time_limit="2000" compile_time_limit="30000" gcc_build_command="" cpp_approved_path="" python_command="" python_approved_path=""><signature><class>ColorfulBuilding</class><method><name>count</name><return><type>int</type></return><params><param><type>String[]</type><name>color1</name></param><param><type>String[]</type><name>color2</name></param><param><type>int</type><name>L</name></param></params></method></signature><intro escaped="1">There are N skyscrapers standing in a line from left to right.
+The buildings are numbered 1 through N, in some order (not necessarily from left to right).
+You do not know this order.
+For each i, the height of building i is i.
+Thus, the heights of the N buildings form a permutation of 1 through N.
+<br></br>
+Each of the buildings is painted using a single color.
+Multiple buildings may share the same color.
+For each i, you know the color of building i.
+(The technical details are specified below.)
+<br></br>
+You are standing far to the left of all the buildings.
+From your location, you can only see parts of some buildings, because smaller buildings farther from you are obscured by taller ones that are closer.
+Formally, you can see (some top part of) building X if and only if all of the buildings in front of X (that is, to the left of X in the row) are lower than building X.
+<br></br>
+Additionally, from where you are standing you cannot distinguish between two buildings that have the same color.
+More precisely, whenever you see two buildings with heights H1 and H2 (H1 &amp;lt; H2) such that they both have the same color and you can see no building that stands between them, they seem to you as one building.
+This also naturally extends to more than two buildings of the same color.
+<br></br>
+You think you now see <b>L</b> buildings.
+In other words, as you look at the buildings from where you are standing, you see exactly <b>L</b>-1 places where the color changes.
+<br></br>
+You are given <type>String[]</type>s <b>color1</b> and <b>color2</b>, and the <type>int</type> <b>L</b>.
+The <type>String[]</type>s <b>color1</b> and <b>color2</b> can be used to determine the colors of buildings in the following way:
+Concatenate all elements of <b>color1</b> to obtain a <type>String</type> C1.
+Concatenate all elements of <b>color2</b> to obtain a <type>String</type> C2.
+The strings C1 and C2 will each have exactly N characters.
+Now, for each i and j: buildings i and j have the same color if and only if both C1[i-1]=C1[j-1] and C2[i-1]=C2[j-1].
+In other words, for each i the color of building i is described by the two-character string C1[i-1] + C2[i-1].
+<br></br>
+Given this information, compute and return the number of possible orders of the N buildings, modulo 1,000,000,009.</intro><spec></spec><notes></notes><constraints><user-constraint escaped="1"><b>color1</b> and <b>color2</b> will each contain between 1 and 36 elements, inclusive.</user-constraint><user-constraint escaped="1"><b>color1</b> and <b>color2</b> will contain the same number of elements.</user-constraint><user-constraint escaped="1">Each element of <b>color1</b> and <b>color2</b> will contain between 1 and 36 characters, inclusive.</user-constraint><user-constraint escaped="1">For each i, the i-th elements of <b>color1</b> and <b>color2</b> will contain the same number of characters.</user-constraint><user-constraint escaped="1">Each character of each element of <b>color1</b> and <b>color2</b> will be a lowercase or an uppercase letter ('a'-'z' or 'A'-'Z').</user-constraint><user-constraint escaped="1"><b>L</b> will be between 1 and N, where N is the total number of characters in <b>color1</b>.</user-constraint></constraints><test-cases><test-case id="33121339" example="1"><input>{/ASCII34/aaba/ASCII34/}</input><input>{/ASCII34/aaaa/ASCII34/}</input><input>3</input><output>6</output><annotation escaped="1">There are 4 buildings.
+Buildings 1, 2, and 4 share the same color, building 3 is different.
+<br></br>
+There are 6 valid orders of buildings (from left to right):
+<ul>
+<li>1, 2, 3, 4</li>
+<li>1, 3, 2, 4</li>
+<li>1, 3, 4, 2</li>
+<li>2, 1, 3, 4</li>
+<li>2, 3, 1, 4</li>
+<li>2, 3, 4, 1</li>
+</ul>
+Note that if the buildings stand in the order 1, 2, 3, 4, you can see all four buildings.
+However, as buildings 1 and 2 have the same color, you regard them as one building.
+Therefore, you think you see 3 buildings.
+</annotation></test-case><test-case id="33121340" example="1"><input>{/ASCII34/aaba/ASCII34/}</input><input>{/ASCII34/aaba/ASCII34/}</input><input>4</input><output>0</output><annotation escaped="1">For each possible order of these buildings you will think you see at most 3 buildings.</annotation></test-case><test-case id="33121341" example="1"><input>{/ASCII34/ab/ASCII34/, /ASCII34/ba/ASCII34/, /ASCII34/a/ASCII34/, /ASCII34/aab/ASCII34/}</input><input>{/ASCII34/bb/ASCII34/, /ASCII34/ba/ASCII34/, /ASCII34/a/ASCII34/, /ASCII34/aba/ASCII34/}</input><input>5</input><output>432</output><annotation escaped="1">Make sure to concatenate all the elements of <b>color1</b> and <b>color2</b>.</annotation></test-case><test-case id="33121342"><input>{/ASCII34/xxxxxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxxxxx/ASCII34/}
+</input><input>{/ASCII34/xxxxxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOxxxxxxxxxxxxOOxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxOOOOOOOOOOOOOOOOxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxxxxx/ASCII34/,
+ /ASCII34/xxxxxxxxxxxxxxxxxxxx/ASCII34/}
+</input><input>58</input><output>619787617</output><annotation escaped="1"></annotation></test-case><test-case id="33121343"><input>{/ASCII34/SJXcabKTWeUXhwxGixFepQaQlFxrAedNAtVP/ASCII34/,
+ /ASCII34/gorBIkcTlOFbLDbFeElYAyAqszQdMbpxSRdE/ASCII34/,
+ /ASCII34/SQVHPehlNtesbJDflyGxMqvgzjXisRnqDcQO/ASCII34/,
+ /ASCII34/pIAEBwbmpPWCooQAujbGXFGLvXxTmExLARkf/ASCII34/,
+ /ASCII34/AFnWyWKVObfxDGCjTxdZaObgwdxlPKtIxaAd/ASCII34/,
+ /ASCII34/uznMpJVNjAofbHJjOrZeSHgSagOCUMGbvkVR/ASCII34/,
+ /ASCII34/LBRrDbTAyKfVnedKiRfzgRzECpcsziqaTwdo/ASCII34/,
+ /ASCII34/JrJHvsEVVGDkNVGqLbpxyLDPloBuNDQKnReI/ASCII34/,
+ /ASCII34/SSYpbjKHSCnQhuyYrVauWDHDyhAoGyecrZMv/ASCII34/,
+ /ASCII34/UdetQfWEUWHHuAxRSdkJOOJSixKpQXpCFZHO/ASCII34/,
+ /ASCII34/KXVsQbuQtIgsULOMsTvPFNUqkBldMTLCipYK/ASCII34/,
+ /ASCII34/hoXConjnDWQkZVtyZlwSedvdVrNWqQhGUClQ/ASCII34/,
+ /ASCII34/TpsvvyoXsXmQpBAGGVDrXCkodoRHQZmpoQDW/ASCII34/,
+ /ASCII34/csiJspzTqeFBRmPgeEtTAzfrfCGlTZqcPuyO/ASCII34/,
+ /ASCII34/vsPDVBJVaJmUAtDdcsKoUkPEbDmAwtZKwjjP/ASCII34/,
+ /ASCII34/MOfoMhMiKIvGQoeIJXHzyClWRtRuKXMqxUAF/ASCII34/,
+ /ASCII34/KyyUCkRBjsYvmPFFEGBqqVhIUdtvIyyLacfu/ASCII34/,
+ /ASCII34/BfuwfSajSlcuTzhMufHSQLudvGEGlyHsEmBD/ASCII34/,
+ /ASCII34/PLpIXZkdyXveTMfSvqnDGKWOZrTBMUIlZrqF/ASCII34/,
+ /ASCII34/dzVMCqrSLbanRJTYpDJNHAOLPSzmvSEPQJYm/ASCII34/,
+ /ASCII34/rAjRkrSjouJyFaCSPPLYSzqDmMoADyWAbobJ/ASCII34/,
+ /ASCII34/eOCBrJNoyFnGpXpxiExXcoOHnVsaEPXhPfLe/ASCII34/,
+ /ASCII34/XMjRksnxWssPEINhdhbiLBSYpCLtwNshFjXS/ASCII34/,
+ /ASCII34/HnnDeUAbuswsgsYQuAaXySLkFYUwFXwYTreM/ASCII34/,
+ /ASCII34/uqLnwOEGbwZZDgAAWEdLRZxFlogDmlhjhgHM/ASCII34/,
+ /ASCII34/NcfaQsgPQfirkYDRFrLQpySmBGfRHumKULZf/ASCII34/,
+ /ASCII34/mOpmmgclsxRzXskEywfryqCRyATNoJwnlHiD/ASCII34/,
+ /ASCII34/AnoKoKAjrasttjNlHCROnvTJMhEHlVPVoVMo/ASCII34/,
+ /ASCII34/yegLyIuRkkENFAjwzDoPLKjgUHHEkfzYDIpo/ASCII34/,
+ /ASCII34/EcxRGGfuaBXUFXkSxctJWOLmmVbvoMkWtTvV/ASCII34/,
+ /ASCII34/nBMkOBHgaltEVzfyGxseGhmBscfGIbxFbqRn/ASCII34/,
+ /ASCII34/GvkEcLtqdOofGtsbWDafVMbNdJxsffKDzSiR/ASCII34/,
+ /ASCII34/jhZQUVzTzalrZcebvyqPWtOUUyniBKTWdyLi/ASCII34/,
+ /ASCII34/ODJLQPMdjDdTlxrfGsNmBfeGYjzeXApqKDhJ/ASCII34/,
+ /ASCII34/vlJkWMzdVQujKdLViQClOrJXMTBkuZEasFgg/ASCII34/,
+ /ASCII34/FAsbuzrLVIgaryqXBfuBRAbReleXSSgEKSvt/ASCII34/}</input><input>{/ASCII34/XAhlUHtfjOpOlQlowWppQcodMGUiqoLobxnD/ASCII34/,
+ /ASCII34/IDzGlKrHiVGdBjZxIcoxjwagbWieKvUwZrjg/ASCII34/,
+ /ASCII34/SkpkTVeIFeoNQzUUgmYAYskKONNZdgXxSiWd/ASCII34/,
+ /ASCII34/rXBGhTmqnvxkmqiutoDzPusDiOUggEFXGCzm/ASCII34/,
+ /ASCII34/fzrxVuTbFXunGbeEavjshmrIRlDorTuISCxn/ASCII34/,
+ /ASCII34/LsvIaxTkOBjcskiekmrKNNFEXqnfMNXLWqqu/ASCII34/,
+ /ASCII34/ekzxGIlbJPVEQPYAbTuMtZKsCiubDXDiBVzU/ASCII34/,
+ /ASCII34/hZuOCJxvBOYENGSFcUiKKAKfCdebutVmnyvB/ASCII34/,
+ /ASCII34/UveNkKRQmHnedrROQOpHJfrHjwcNLUShlDbn/ASCII34/,
+ /ASCII34/ptUkvbaGDryHRkYfHKLkSgVpjWCEcgazyxGK/ASCII34/,
+ /ASCII34/nVPYEqTTJsRPjzjfdOiULhnZPFeNcnbXaQlk/ASCII34/,
+ /ASCII34/IPXBXRhMQIkxpygsgbcRfMuvIcuzUPPHGOWX/ASCII34/,
+ /ASCII34/yWWlNyEyqZSIOXBFAybIuFpVqpvmKRaRFrAE/ASCII34/,
+ /ASCII34/EvBJVtHvKhjrFcmtpdBbFTdTVtXXZQKAglKT/ASCII34/,
+ /ASCII34/bCVjHzUvyINFkxXageZQMzCyNhcifACdJVDh/ASCII34/,
+ /ASCII34/lZITYcDSeIbLweyFtoMAfOQyBNupKlhcNpgo/ASCII34/,
+ /ASCII34/BduslNrJdWOUukYFFidEkMFaghfofpxVgvJd/ASCII34/,
+ /ASCII34/YrJpDZKqdjEPzdLsOQEdkcrBfNHPemXHokCW/ASCII34/,
+ /ASCII34/GjeUKSGjDlgKTyUGNrMQbBLxRUcgrWpkAwOD/ASCII34/,
+ /ASCII34/wgxTcswqdJHaDugNIRMvrhBsdDaJAssVbSRW/ASCII34/,
+ /ASCII34/qmVmqFEpvgGioMXDSFqEoQcDOAaUoGPEovSO/ASCII34/,
+ /ASCII34/KrukPlpfOhawaovCfteTSCIdLMrtImVtiMyQ/ASCII34/,
+ /ASCII34/ykwmxHsKMFzFHwcbyyedLvhZPnaNGqJMMCxd/ASCII34/,
+ /ASCII34/HUNYCXjNLQIFCLLGpCXHBCHLTxLynBxnHFbx/ASCII34/,
+ /ASCII34/uwjzbNbJepVFgMPUXVirxYHzExquBEtPmKju/ASCII34/,
+ /ASCII34/xXAxAbJePyUsVHeLytDvAxBGMRtnvCEiZZqe/ASCII34/,
+ /ASCII34/xMkQoIVxWPXPgaOYmDjTOXiMImVdzojERNxS/ASCII34/,
+ /ASCII34/dwICFwMAmdOIUxyAdXdshasnzwyhfnVWVqZJ/ASCII34/,
+ /ASCII34/etypXNVvSTEQvriGBZdSGmDEHhvpSqkFklCS/ASCII34/,
+ /ASCII34/YkxpFBCRYUueRcKaJUXVdaMoYMYEooPQVMOr/ASCII34/,
+ /ASCII34/DTrexDqclZNKdPuTRFHualJSFziCLPCZjpxo/ASCII34/,
+ /ASCII34/TfEijcAsSJPikkmBSbXMqYHAhPTcpcKVSkIX/ASCII34/,
+ /ASCII34/xKXHYPYMJxFpSbxltDKYuRiTkOLxpQKnXZPs/ASCII34/,
+ /ASCII34/YFYuvuYHfpFJcrLNIdlNfBxRnWdppsdalBkx/ASCII34/,
+ /ASCII34/NFTysBvNFjejdnlhRTclbcfGipNCxpFEOriY/ASCII34/,
+ /ASCII34/thkgVflJYmbUYbIlafNUMGePQWiZyYzYXvUR/ASCII34/}</input><input>1200</input><output>396065426</output><annotation escaped="1"></annotation></test-case><test-case id="33121344"><input>{/ASCII34/magicalgirl/ASCII34/}</input><input>{/ASCII34/magicalgirl/ASCII34/}</input><input>3</input><output>12505320</output><annotation escaped="1"></annotation></test-case></test-cases><memlimit>64</memlimit><stacklimit>0</stacklimit><roundType>1</roundType></problem>

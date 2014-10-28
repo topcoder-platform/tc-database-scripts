@@ -56,3 +56,18 @@ MM/SnowCleaning/test_result_3|UPDATE system_test_case set expected_result= ? WHE
 MM/SnowCleaning/test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121336
 MM/SnowCleaning/test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121337
 MM/SnowCleaning/test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121338
+SRM/ColorfulBuilding/ProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2043
+SRM/ColorfulBuilding/solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121341
+SRM/ColorfulBuilding/ColorfulBuilding.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121341 and sort_order=1
+SRM/ColorfulBuilding/test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121339
+SRM/ColorfulBuilding/test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121340
+SRM/ColorfulBuilding/test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121341
+SRM/ColorfulBuilding/test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121342
+SRM/ColorfulBuilding/test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121343
+SRM/ColorfulBuilding/test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121344
+SRM/ColorfulBuilding/test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121339
+SRM/ColorfulBuilding/test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121340
+SRM/ColorfulBuilding/test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121341
+SRM/ColorfulBuilding/test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121342
+SRM/ColorfulBuilding/test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121343
+SRM/ColorfulBuilding/test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121344
