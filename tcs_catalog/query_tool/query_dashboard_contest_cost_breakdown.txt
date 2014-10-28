@@ -13,7 +13,20 @@ select p.project_id as id,
             AND pm.most_recent_detail_id = pmd.payment_detail_id 
             AND NOT pmd.payment_status_id IN (65, 68, 69)
             AND pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 13, 64, 65)), 0)
-   ) AS prizes,
+   )
+
+   +
+  NVL((SELECT sum(total_amount)
+         FROM  informixoltp:payment_detail pmd, informixoltp:payment pm, project_info pi56
+          WHERE pi56.project_id = p.project_id AND pi56.project_info_type_id = 56
+          AND pmd.algorithm_round_id = pi56.value::INTEGER and pmd.installment_number = 1
+          AND pmd.component_project_id IS NULL
+          and pm.most_recent_detail_id = pmd.payment_detail_id
+          AND pmd.payment_type_id IN (21, 32, 66)
+          AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
+
+
+   AS prizes,
 
   (NVL((SELECT sum(pmd.total_amount)
           FROM informixoltp:payment_detail pmd, informixoltp:payment pm
@@ -47,7 +60,7 @@ select p.project_id as id,
           AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
           AND pmd2.payment_type_id in (24)
           AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
-   ) AS reliability,   
+   ) AS reliability,
 
 case when p.project_status_id = 7 then
 nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
@@ -96,7 +109,16 @@ else 0 end as digital_run,
           AND pm.most_recent_detail_id = pmd.payment_detail_id  
           AND pm2.most_recent_detail_id = pmd2.payment_detail_id 
           AND pmd2.payment_type_id not in (24)
-          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0) AS misc
+          AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0) AS misc,
+
+     NVL((SELECT sum(total_amount)
+          FROM  informixoltp:payment_detail pmd, informixoltp:payment pm, project_info pi56
+           WHERE pi56.project_id = p.project_id AND pi56.project_info_type_id = 56
+           AND pmd.algorithm_round_id = pi56.value::INTEGER and pmd.installment_number = 1
+           AND pmd.component_project_id IS NULL
+           and pm.most_recent_detail_id = pmd.payment_detail_id
+           AND pmd.payment_type_id = 14
+           AND NOT pmd.payment_status_id IN (65, 68, 69)), 0) as testing
 
  FROM project p,
       project_info pi2 -- contest_fee

@@ -20,7 +20,24 @@ and (p.project_status_id not in (1,2,3) OR (p.project_status_id  = 1 and (p.proj
 AND   p.project_category_id != 27 and p.project_category_id = pcl.project_category_id
 AND   p.tc_direct_project_id IN (@tcdirectids@)
 
-UNION ALL
+
+        -- algorithm (marathon) payment
+        UNION ALL
+
+                SELECT
+                    pm.create_date as paydate, p.tc_direct_project_id, 0 as contest_fee_amount,  NVL(pmd.total_amount, 0) as cost_amount
+                FROM
+                informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id, project p, project_info pi56
+                WHERE pmd.component_project_id IS NULL
+                AND   pmd.algorithm_round_id = pi56.value
+                AND   pmd.installment_number = 1
+                AND   NOT pmd.payment_status_id IN (65, 68, 69)
+                AND   p.project_id = pi56.project_id
+                AND   pi56.project_info_type_id = 56
+                AND   p.project_category_id = 37
+                AND   p.tc_direct_project_id IN (@tcdirectids@)
+
+        UNION ALL
 
 SELECT
 	pm2.create_date as paydate, p.tc_direct_project_id, (0 + nvl((select cast (nvl(pi57.value, '0') as DECIMAL (10,2)) from project_info pi57

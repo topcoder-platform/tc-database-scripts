@@ -54,6 +54,52 @@ WHERE   pmd.component_project_id   = p.project_id
 
 UNION ALL
 
+SELECT
+        CASE
+                WHEN pmd.payment_type_id IN (21, 32, 66)
+                THEN 'Winner'
+                WHEN pmd.payment_type_id = 14
+                THEN 'Testing'
+                ELSE 'Not Sure'
+        END              AS payment_type  ,
+        pmd.total_amount AS payment_amount,
+        (SELECT value
+        FROM    project_info
+        WHERE   project_info_type_id = 58
+            AND project_id           = p.project_id
+        ) AS contest_launcher_id,
+        CASE
+                WHEN p.project_status_id IN (7,4,5,6,8,9,10,11)
+                THEN 'Finished'
+                ELSE 'Not Finished'
+        END AS status,
+        CASE
+                WHEN (p.project_status_id NOT IN (1,2,3)
+                    OR (p.project_status_id = 1
+							and exists (select * from project_phase where project_id = p.project_id and phase_type_id = 10 and phase_status_id in (2,3))))
+                THEN 1
+                ELSE 0
+        END AS show_receipt
+FROM    informixoltp:payment pm
+        INNER JOIN informixoltp:payment_detail pmd
+        ON      pm.most_recent_detail_id = pmd.payment_detail_id,
+                informixoltp:payment_type_lu pt                 ,
+                project p                                       ,
+                project_info pi56                               ,
+                project_category_lu pcl
+WHERE
+        p.project_id               = pi56.project_id
+    AND pi56.project_info_type_id  = 56
+    AND pmd.algorithm_round_id     = pi56.value::integer
+    AND pmd.payment_type_id        = pt.payment_type_id
+    AND pmd.installment_number     = 1
+    AND pmd.payment_type_id       != 4
+    AND NOT pmd.payment_status_id IN (65,68, 69)
+    AND p.project_id               = @pj@
+    AND p.project_category_id      = pcl.project_category_id
+
+UNION ALL
+
 SELECT CASE WHEN pmd2.payment_type_id = 24
                 THEN 'Reliability' 
 		ELSE 'Credit' 

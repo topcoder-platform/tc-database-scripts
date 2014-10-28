@@ -30,6 +30,14 @@ SELECT pm.create_date payment_date, p.project_id as contest_id,  ttc.name client
     nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
         where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id
         and pi26.value = 'On' and pi26.project_id =  p.project_id ), 0)
+     +
+            NVL((SELECT sum(total_amount)
+                   FROM  informixoltp:payment_detail pmd, informixoltp:payment pm, project_info pi56
+                    WHERE pi56.project_id = p.project_id AND pi56.project_info_type_id = 56
+                    AND pmd.algorithm_round_id = pi56.value::INTEGER and pmd.installment_number = 1
+                    AND pmd.component_project_id IS NULL
+                    and pm.most_recent_detail_id = pmd.payment_detail_id
+                    AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
   else NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.component_project_id = p.project_id and pmd.installment_number = 1
@@ -44,16 +52,25 @@ SELECT pm.create_date payment_date, p.project_id as contest_id,  ttc.name client
             and pm.most_recent_detail_id = pmd.payment_detail_id
             and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
+     +
+            NVL((SELECT sum(total_amount)
+                   FROM  informixoltp:payment_detail pmd, informixoltp:payment pm, project_info pi56
+                    WHERE pi56.project_id = p.project_id AND pi56.project_info_type_id = 56
+                    AND pmd.algorithm_round_id = pi56.value::INTEGER and pmd.installment_number = 1
+                    AND pmd.component_project_id IS NULL
+                    and pm.most_recent_detail_id = pmd.payment_detail_id
+                    AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
   end) as actual_total_member_costs,
        pt.payment_type_desc,
     CASE WHEN pmd.payment_type_id in (45,57) THEN 'Copilot'
          WHEN pmd.payment_type_id in (27, 48) THEN 'Spec Review'
-         WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13, 21) THEN 'Winner'
+         WHEN pmd.payment_type_id in (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13, 21, 32, 66) THEN 'Winner'
          WHEN pmd.payment_type_id in (7, 28, 26) THEN 'Review'
          WHEN pmd.payment_type_id in (24) THEN 'Reliability'
          WHEN pmd.payment_type_id in (4) THEN 'Referral'
          WHEN pmd.payment_type_id in (23,37,46,47) THEN 'Bugs'
          WHEN pmd.payment_type_id in (39) THEN 'Build'
+         WHEN pmd.payment_type_id in (14) THEN 'Testing'
          ELSE 'Misc' END as line_item_category,
     CASE WHEN pmd.payment_type_id in (23,37,46,47, 45, 57) THEN pmd.jira_issue_id ELSE '' END as reference_id,
     pmd.total_amount as line_item_amount, ttc.client_id,  ttp.project_id billing_project_id,
@@ -66,10 +83,13 @@ SELECT pm.create_date payment_date, p.project_id as contest_id,  ttc.name client
   (select invoice_record_id from informixoltp:invoice_record where contest_id = p.project_id and payment_id = pm.payment_id and invoice_type_id!=9) as invoice_record_id
 
 FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
-     informixoltp:payment_type_lu pt, project p, tc_direct_project tdp, project_status_lu ps,
+     informixoltp:payment_type_lu pt,
+     project p LEFT OUTER JOIN project_info pi56 on pi56.project_id = p.project_id and pi56.project_info_type_id = 56,
+     tc_direct_project tdp, project_status_lu ps,
      project_category_lu pc, project_info pi, project_info pi2, project_info pi3,
      time_oltp:project ttp, time_oltp:client_project ttcp, time_oltp:client ttc
-where  pmd.component_project_id = p.project_id and pmd.payment_type_id = pt.payment_type_id
+where  (pmd.component_project_id = p.project_id OR (pmd.algorithm_round_id IS NOT NULL and pmd.algorithm_round_id = pi56.value))
+   and pmd.payment_type_id = pt.payment_type_id
    and pmd.installment_number = 1 and pmd.payment_type_id != 4 AND NOT pmd.payment_status_id IN (65,68, 69)
    and p.project_status_id = ps.project_status_id and p.project_category_id = pc.project_category_id
   --and p.project_category_id IN (@pcids@)

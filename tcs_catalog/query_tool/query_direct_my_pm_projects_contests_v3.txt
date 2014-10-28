@@ -220,6 +220,14 @@ NVL((SELECT sum(pmd2.total_amount)
 				and pm.most_recent_detail_id = pmd.payment_detail_id 
 				and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
 				AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
++
+NVL((SELECT sum(total_amount)
+                           FROM  informixoltp:payment_detail pmd, informixoltp:payment pm, project_info pi56
+                            WHERE pi56.project_id = p.project_id AND pi56.project_info_type_id = 56
+                            AND pmd.algorithm_round_id = pi56.value::INTEGER and pmd.installment_number = 1
+                            AND pmd.component_project_id IS NULL
+                            and pm.most_recent_detail_id = pmd.payment_detail_id
+                            AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
 else  (nvl((SELECT sum(prize_amount * number_of_submissions) from prize pr
                 where pr.project_id = p.project_id), 0)
 	 + 

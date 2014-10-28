@@ -34,6 +34,43 @@ FROM
                 FROM    direct_project_account
                 WHERE   project_id = tdp.project_id
                 )
+
+        UNION ALL
+
+        SELECT pmd.total_amount       as total_amount        ,
+                        m.metadata_value              ,
+                        pm.create_date AS payment_date,
+                        ttcp.client_id AS client_id
+                FROM    project p                      ,
+                        project_info pi56              ,
+                        tc_direct_project tdp          ,
+                        informixoltp:payment pm        ,
+                        informixoltp:payment_detail pmd,
+                        tt_client_project ttcp         ,
+                        tt_project ttp                 ,
+                        direct_project_account b       ,
+                        direct_project_metadata m
+                WHERE   pm.most_recent_detail_id   = pmd.payment_detail_id
+        		    AND (month(pm.create_date) + year(pm.create_date) * 100) >= (month(TO_DATE('@sdt@', '%Y-%m')) + year(TO_DATE('@sdt@', '%Y-%m')) * 100)
+                    AND  (month(pm.create_date) + year(pm.create_date) * 100) <= (month(TO_DATE('@edt@', '%Y-%m')) + year(TO_DATE('@edt@', '%Y-%m')) * 100)
+                    AND p.tc_direct_project_id     = tdp.project_id
+                    AND pmd.component_project_id   IS NULL
+                    AND pi56.project_id            = p.project_id
+                    AND pi56.project_info_type_id  = 56
+                    AND pmd.algorithm_round_id     = pi56.value
+                    AND pmd.installment_number     = 1
+                    AND pmd.payment_type_id       != 4
+                    AND NOT pmd.payment_status_id IN (65,68,69)
+                    AND m.project_metadata_key_id  = 2
+                    AND m.tc_direct_project_id     = tdp.project_id
+                    AND b.project_id               = tdp.project_id
+                    AND b.billing_account_id       = ttp.project_id
+                    AND ttcp.project_id            = ttp.project_id
+                    AND b.billing_account_id       =
+                        (SELECT MAX(billing_account_id)
+                        FROM    direct_project_account
+                        WHERE   project_id = tdp.project_id
+                        )
         
         UNION ALL
         
