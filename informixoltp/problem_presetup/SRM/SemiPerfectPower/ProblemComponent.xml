@@ -1,0 +1,17 @@
+<?xml version="1.0"?><problem xmlns="http://topcoder.com" name="" code_length_limit="2147483647" execution_time_limit="3000" compile_time_limit="30000" gcc_build_command="" cpp_approved_path="" python_command="" python_approved_path=""><signature><class>SemiPerfectPower</class><method><name>count</name><return><type>long</type></return><params><param><type>long</type><name>L</name></param><param><type>long</type><name>R</name></param></params></method></signature><intro escaped="1">Magical Girl Iris loves perfect powers.
+A positive integer n is a perfect power if and only if there are positive integers b &amp;gt; 1 and c &amp;gt; 1 such that b^c = n (where ^ denotes exponentiation).
+For example, 8 (=2^3) and 243 (=3^5) are perfect powers, while 1 and 54 are not.
+<br></br>
+One day, Iris discovered that there are very few perfect powers.
+To avoid being disappointed, she quickly invented the semi-perfect powers:
+A positive integer n is a semi-perfect power if and only if there are positive integers a &amp;gt;= 1, b &amp;gt; 1, and c &amp;gt; 1 such that a &amp;lt; b and a*(b^c) = n.
+For example, 243 (=1*3^5) and 54 (=2*3^3) are semi-perfect powers, while 1 and 24 are not.
+<br></br>
+Note that for some semi-perfect numbers there may be more than one corresponding triple (a,b,c).
+For example, 432 can be expressed as 2*6^3, but also as 3*12^2.
+<br></br>
+You are given <type>long</type>s <b>L</b> and <b>R</b>.
+Calculate and return the number of semi-perfect powers that lie between <b>L</b> and <b>R</b>, inclusive.</intro><spec></spec><notes></notes><constraints><user-constraint escaped="1"><b>L</b> will be between 1 and 8*10^16, inclusive.</user-constraint><user-constraint escaped="1"><b>R</b> will be between <b>L</b> and 8*10^16, inclusive.</user-constraint></constraints><test-cases><test-case id="33121364" example="1"><input>18</input><input>58</input><output>9</output><annotation escaped="1">There are 9 semi-perfect powers between 18 and 58, inclusive: 18, 25, 27, 32, 36, 48, 49, 50, and 54.</annotation></test-case><test-case id="33121365" example="1"><input>60</input><input>70</input><output>1</output><annotation escaped="1">The number 64 is the only semi-perfect power in the given range.
+Note that there are multiple ways to choose a, b, and c when showing that 64 is a semi-perfect power.
+Still, each semi-perfect power should only be counted once.
+</annotation></test-case><test-case id="33121366" example="1"><input>1</input><input>10</input><output>3</output><annotation escaped="1"></annotation></test-case><test-case id="33121367"><input>80000000000000000</input><input>80000000000000000</input><output>1</output><annotation escaped="1"></annotation></test-case><test-case id="33121368"><input>319268319114310</input><input>35860463407469139</input><output>95023825161</output><annotation escaped="1"></annotation></test-case><test-case><input>1</input><input>80000000000000000</input><output>169502909978</output><annotation escaped="1"></annotation></test-case></test-cases><memlimit>64</memlimit><stacklimit>0</stacklimit><roundType>1</roundType></problem>

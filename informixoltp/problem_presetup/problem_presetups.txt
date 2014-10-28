@@ -13,25 +13,25 @@ SRM/TestProblem/single_test_result_3|UPDATE system_test_case set expected_result
 SRM/TestProblem/single_test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121316 and component_id=2021
 SRM/TestProblem/single_test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121317 and component_id=2021
 SRM/TestProblem/single_test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121318 and component_id=2021
-MM/BlackWhiteGame/long_problem_solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121319
-MM/BlackWhiteGame/LongTest.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=1
-MM/BlackWhiteGame/BlackAndWhiteGame.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=2
-MM/BlackWhiteGame/LongTest$WriterCache.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=3
-MM/BlackWhiteGame/LongTest$1.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=4
-MM/BlackWhiteGame/LongTest$ExposedMethodReader.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=5
-MM/BlackWhiteGame/LongProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2020
-MM/BlackWhiteGame/long_test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121326 and component_id=2020
-MM/BlackWhiteGame/long_test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121327 and component_id=2020
-MM/BlackWhiteGame/long_test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121328 and component_id=2020
-MM/BlackWhiteGame/long_test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121329 and component_id=2020
-MM/BlackWhiteGame/long_test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121330 and component_id=2020
-MM/BlackWhiteGame/long_test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121331 and component_id=2020
-MM/BlackWhiteGame/long_test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121326 and component_id=2020
-MM/BlackWhiteGame/long_test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121327 and component_id=2020
-MM/BlackWhiteGame/long_test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121328 and component_id=2020
-MM/BlackWhiteGame/long_test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121329 and component_id=2020
-MM/BlackWhiteGame/long_test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121330 and component_id=2020
-MM/BlackWhiteGame/long_test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121331 and component_id=2020
+MM/BlackAndWhiteGame/long_problem_solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121319
+MM/BlackAndWhiteGame/LongTest.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=1
+MM/BlackAndWhiteGame/BlackAndWhiteGame.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=2
+MM/BlackAndWhiteGame/LongTest$WriterCache.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=3
+MM/BlackAndWhiteGame/LongTest$1.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=4
+MM/BlackAndWhiteGame/LongTest$ExposedMethodReader.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121319 and sort_order=5
+MM/BlackAndWhiteGame/LongProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2020
+MM/BlackAndWhiteGame/long_test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121326 and component_id=2020
+MM/BlackAndWhiteGame/long_test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121327 and component_id=2020
+MM/BlackAndWhiteGame/long_test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121328 and component_id=2020
+MM/BlackAndWhiteGame/long_test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121329 and component_id=2020
+MM/BlackAndWhiteGame/long_test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121330 and component_id=2020
+MM/BlackAndWhiteGame/long_test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121331 and component_id=2020
+MM/BlackAndWhiteGame/long_test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121326 and component_id=2020
+MM/BlackAndWhiteGame/long_test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121327 and component_id=2020
+MM/BlackAndWhiteGame/long_test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121328 and component_id=2020
+MM/BlackAndWhiteGame/long_test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121329 and component_id=2020
+MM/BlackAndWhiteGame/long_test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121330 and component_id=2020
+MM/BlackAndWhiteGame/long_test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121331 and component_id=2020
 MM/SnowCleaning/ProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2041
 MM/SnowCleaning/solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121332
 MM/SnowCleaning/CloudType.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121332 and sort_order=1
@@ -71,3 +71,48 @@ SRM/ColorfulBuilding/test_result_3|UPDATE system_test_case set expected_result= 
 SRM/ColorfulBuilding/test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121342
 SRM/ColorfulBuilding/test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121343
 SRM/ColorfulBuilding/test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121344
+SRM/RandomPaintingOnABoard/ProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2048
+SRM/RandomPaintingOnABoard/solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121347
+SRM/RandomPaintingOnABoard/RandomPaintingOnABoard.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121347 and sort_order=1
+SRM/RandomPaintingOnABoard/test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121348
+SRM/RandomPaintingOnABoard/test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121349
+SRM/RandomPaintingOnABoard/test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121350
+SRM/RandomPaintingOnABoard/test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121351
+SRM/RandomPaintingOnABoard/test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121352
+SRM/RandomPaintingOnABoard/test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121353
+SRM/RandomPaintingOnABoard/test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121348
+SRM/RandomPaintingOnABoard/test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121349
+SRM/RandomPaintingOnABoard/test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121350
+SRM/RandomPaintingOnABoard/test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121351
+SRM/RandomPaintingOnABoard/test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121352
+SRM/RandomPaintingOnABoard/test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121353
+SRM/GooseInZooDivOne/ProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2049
+SRM/GooseInZooDivOne/solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121354
+SRM/GooseInZooDivOne/GooseInZooDivOne.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121354 and sort_order=1
+SRM/GooseInZooDivOne/test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121354
+SRM/GooseInZooDivOne/test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121355
+SRM/GooseInZooDivOne/test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121356
+SRM/GooseInZooDivOne/test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121357
+SRM/GooseInZooDivOne/test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121358
+SRM/GooseInZooDivOne/test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121359
+SRM/GooseInZooDivOne/test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121354
+SRM/GooseInZooDivOne/test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121355
+SRM/GooseInZooDivOne/test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121356
+SRM/GooseInZooDivOne/test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121357
+SRM/GooseInZooDivOne/test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121358
+SRM/GooseInZooDivOne/test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121359
+SRM/SemiPerfectPower/ProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2051
+SRM/SemiPerfectPower/solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121363
+SRM/SemiPerfectPower/SemiPerfectPower.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121363 and sort_order=1
+SRM/SemiPerfectPower/test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121364
+SRM/SemiPerfectPower/test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121365
+SRM/SemiPerfectPower/test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121366
+SRM/SemiPerfectPower/test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121367
+SRM/SemiPerfectPower/test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121368
+SRM/SemiPerfectPower/test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121369
+SRM/SemiPerfectPower/test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121364
+SRM/SemiPerfectPower/test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121365
+SRM/SemiPerfectPower/test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121366
+SRM/SemiPerfectPower/test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121367
+SRM/SemiPerfectPower/test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121368
+SRM/SemiPerfectPower/test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121369

@@ -1,0 +1,54 @@
+public class GooseInZooDivOne {
+    int mod = 1000000007;
+    int n, m, d;
+    Boolean[][] used = new Boolean[55][55];
+    
+    public int dfs(int x, int y){
+        int res = 1;
+        used[x][y] = true;
+        for(int i = Math.max(0,x-d); i <= Math.min(n-1,x+d); i++){
+            for(int j = Math.max(0,y-d+Math.abs(x-i)); j <= Math.min(m-1,y+d-Math.abs(x-i)); j++){
+                if(!used[i][j]) res += dfs(i,j);
+            }
+        }
+        return res;
+    }
+    
+    public int count(String[] field, int dist) {
+        n = field.length; m = field[0].length(); d = dist;
+        int res, ans = 1, odd = 0;
+        
+        for(int i = 0; i < n; i++)for(int j = 0; j < m; j++) used[i][j] = (field[i].charAt(j)=='.');
+        for(int i = 0; i < n; i++)for(int j = 0; j < m; j++){
+            if(used[i][j]) continue;
+            res = dfs(i,j);
+            if(res%2 == 0) ans = ans*2%mod; else odd++;
+        }
+        
+        for(int i = 0; i < odd-1; i++) ans = ans*2%mod;
+        
+        return (ans-1+mod)%mod;
+    }
+    
+    
+    public String checkData(String[] field, int dist){
+        if(field.length == 0 || field.length > 50)
+            return "field must contain between 1 and 50 elements, inclusive.";
+        if(field[0].length() == 0 || field[0].length() > 50)
+            return "Each element of field must contain between 1 and 50 characters, inclusive.";
+        int i, j;
+        for(i = 0; i < field.length; i++){
+            if(field[0].length() != field[i].length())
+                return "Each element of field must contain the same number of characters.";
+            for(j = 0; j < field[i].length(); j++){
+                if(field[i].charAt(j) != 'v' && field[i].charAt(j) != '.')
+                    return "Each character of each element of field must be 'v' or '.'.";
+            }
+        }
+        
+        if(dist < 0 || dist > 100)
+            return "dist must be between 0 and 100, inclusive.";
+        
+        return "";
+    }
+}

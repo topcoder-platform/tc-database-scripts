@@ -1,0 +1,119 @@
+import java.util.Arrays;
+import java.math.BigDecimal;
+
+public class RandomPaintingOnABoard {
+    public double expectedSteps(String[] prob) {
+        int n = prob.length;
+        int m = prob[0].length();
+        int[][] a;
+        if (n > m) {
+            a = new int[m][n];
+            for (int i = 0; i < n; i ++)
+                for (int j = 0; j < m; j ++)
+                    a[j][i] = prob[i].charAt(j) - '0';
+            int t = n;
+            n = m;
+            m = t;
+        } else {
+            a = new int[n][m];
+            for (int i = 0; i < n; i ++)
+                for (int j = 0; j < m; j ++)
+                    a[i][j] = prob[i].charAt(j) - '0';
+        }
+        int s = 0;
+        for (int i = 0; i < n; i ++)
+            for (int j = 0; j < m; j ++)
+                s += a[i][j];
+
+        long[] c = new long[s + 1];
+        long[][][] f = new long[m + 1][s + 1][2];
+        Arrays.fill(c, 0);
+        for (int mask = 0; mask < 1 << n; mask ++) {
+            int[] cnt = new int[m];
+            Arrays.fill(cnt, 0);
+            int ss = 0;
+            for (int i = 0; i < n; i ++)
+                for (int j = 0; j < m; j ++)
+                    if ((mask & 1 << i) != 0) {
+                        ss += a[i][j];
+                    } else {
+                        cnt[j] += a[i][j];
+                    }
+            for (int i = 0; i <= m; i ++)
+                for (int j = 0; j <= s - ss; j ++) {
+                    f[i][j][0] = 0;
+                    f[i][j][1] = 0;
+                }
+            f[0][0][0] = 1;
+            for (int i = 0; i < m; i ++)
+                for (int j = 0; j <= s - ss; j ++) {
+                    f[i + 1][j][0] += f[i][j][0];
+                    f[i + 1][j][1] += f[i][j][1];
+                    if (j + cnt[i] <= s - ss) {
+                        f[i + 1][j + cnt[i]][1] += f[i][j][0];
+                        f[i + 1][j + cnt[i]][0] += f[i][j][1];
+                    }
+                }
+            for (int i = 0; i <= s - ss; i ++)
+                for (int k = 0; k < 2; k ++) {
+                    int t = k + Integer.bitCount(mask);
+                    if (t % 2 == 1) {
+                        c[s - (i + ss)] += f[m][i][k];
+                    } else {
+                        c[s - (i + ss)] -= f[m][i][k];
+                    }
+                }
+        }
+
+        BigDecimal ans = BigDecimal.ONE;
+        for (int i = 1; i < s; i ++) {
+            BigDecimal tmp = BigDecimal.valueOf(i);
+            tmp = tmp.divide(BigDecimal.valueOf(s - i), 100, BigDecimal.ROUND_HALF_EVEN);
+            tmp = tmp.multiply(BigDecimal.valueOf(c[i]));
+            ans = ans.add(tmp);
+        }
+        return ans.doubleValue();
+    }
+
+    public String checkData(String[] prob) {
+        int n = prob.length;
+        if (n < 1 || n > 21) {
+            return "prob should contain between 1 and 21 elements, inclusive.";
+        }
+        int m = prob[0].length();
+        if (m < 1 || m > 21) {
+            return "Each element of prob should be between 1 and 21 characters long, inclusive.";
+        }
+        if (n * m > 150) {
+            return "The total number of cells (i.e., the total number of digits in prob) should be between 1 and 150, inclusive.";
+        }
+        boolean[] row = new boolean[n];
+        Arrays.fill(row, false);
+        boolean[] column = new boolean[m];
+        Arrays.fill(column, false);
+        for (int i = 0; i < n; i ++) {
+            if (prob[i].length() != m) {
+                return "The elements of prob should be of the same length.";
+            }
+            for (int j = 0; j < m; j ++) {
+                char x = prob[i].charAt(j);
+                if ('0' > x || x > '9') {
+                    return "Each element of prob should consist of digits only ('0'-'9').";
+                }
+                if (x != '0') {
+                    row[i] = true;
+                    column[j] = true;
+                }
+            }
+        }
+        for (int i = 0; i < n; i ++)
+            if (! row[i]) {
+                return "In each row there must be at least one non-zero digit.";
+            }
+        for (int i = 0; i < m; i ++)
+            if (! column[i]) {
+                return "In each column there must be at least one non-zero digit.";
+            }
+        return "";
+    }
+}

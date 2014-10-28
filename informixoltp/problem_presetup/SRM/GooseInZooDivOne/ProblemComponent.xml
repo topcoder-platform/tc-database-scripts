@@ -1,0 +1,75 @@
+<?xml version="1.0"?><problem xmlns="http://topcoder.com" name="" code_length_limit="2147483647" execution_time_limit="2000" compile_time_limit="30000" gcc_build_command="" cpp_approved_path="" python_command="" python_approved_path=""><signature><class>GooseInZooDivOne</class><method><name>count</name><return><type>int</type></return><params><param><type>String[]</type><name>field</name></param><param><type>int</type><name>dist</name></param></params></method></signature><intro escaped="1">Crow Keith is looking at the goose cage in the zoo.
+The bottom of the cage is divided into a grid of square cells.
+There are some birds sitting on those cells (with at most one bird per cell).
+Some of them are geese and all the others are ducks.
+
+Keith wants to know which birds are geese.
+He knows the following facts about them:
+<ul>
+<li>There is at least one goose in the cage.</li>
+<li>The number of geese is even.</li>
+<li>Each bird within Manhattan distance <b>dist</b> of any goose is also a goose.</li>
+</ul>
+ 
+You are given a <type>String[]</type> <b>field</b> and the <type>int</type> <b>dist</b>.
+The array <b>field</b> describes the bottom of the cage.
+Each character of each element of <b>field</b> describes one of the cells.
+The meaning of individual characters follows.
+<ul>
+<li>The character 'v' represents a cell that contains a bird.</li>
+<li>The character '.' represents an empty cell.</li>
+</ul>
+
+Return the number of possible sets of geese in the cage, modulo 1,000,000,007.
+Note that for some of the test cases there can be no possible sets of geese.</intro><spec></spec><notes><note escaped="1">The Manhattan distance between cells (a,b) and (c,d) is |a-c| + |b-d|, where || denotes absolute value. In words, the Manhattan distance is the smallest number of steps needed to get from one cell to the other, given that in each step you can move to a cell that shares a side with your current cell.</note></notes><constraints><user-constraint escaped="1"><b>field</b> will contain between 1 and 50 elements, inclusive.</user-constraint><user-constraint escaped="1">Each element of <b>field</b> will contain between 1 and 50 characters, inclusive.</user-constraint><user-constraint escaped="1">Each element of <b>field</b> will contain the same number of characters.</user-constraint><user-constraint escaped="1">Each character of each element of <b>field</b> will be 'v' or '.'.</user-constraint><user-constraint escaped="1"><b>dist</b> will be between 0 and 100, inclusive.</user-constraint></constraints><test-cases><test-case id="33121354" example="1"><input>{/ASCII34/vvv/ASCII34/}</input><input>0</input><output>3</output><annotation escaped="1">There are three possible sets of positions of geese: "ggd", "gdg", or "dgg" ('g' are geese and 'd' are ducks).</annotation></test-case><test-case id="33121355" example="1"><input>{/ASCII34/./ASCII34/}</input><input>100</input><output>0</output><annotation escaped="1">The number of geese must be positive, but there are no birds in the cage.</annotation></test-case><test-case id="33121356" example="1"><input>{/ASCII34/vvv/ASCII34/}</input><input>1</input><output>0</output><annotation escaped="1"></annotation></test-case><test-case id="33121357"><input>{/ASCII34/v.v..................v............................/ASCII34/
+,/ASCII34/.v......v..................v.....................v/ASCII34/
+,/ASCII34/..v.....v....v.........v...............v......v.../ASCII34/
+,/ASCII34/.........vvv...vv.v.........v.v..................v/ASCII34/
+,/ASCII34/.....v..........v......v..v...v.......v.........../ASCII34/
+,/ASCII34/...................vv...............v.v..v.v..v.../ASCII34/
+,/ASCII34/.v.vv.................v..............v............/ASCII34/
+,/ASCII34/..vv.......v...vv.v............vv.....v.....v...../ASCII34/
+,/ASCII34/....v..........v....v........v.......v.v.v......../ASCII34/
+,/ASCII34/.v.......v.............v.v..........vv......v...../ASCII34/
+,/ASCII34/....v.v.......v........v.....v.................v../ASCII34/
+,/ASCII34/....v..v..v.v..............v.v.v....v..........v../ASCII34/
+,/ASCII34/..........v...v...................v..............v/ASCII34/
+,/ASCII34/..v........v..........................v....v..v.../ASCII34/
+,/ASCII34/....................v..v.........vv........v....../ASCII34/
+,/ASCII34/..v......v...............................v.v....../ASCII34/
+,/ASCII34/..v.v..............v........v...............vv.vv./ASCII34/
+,/ASCII34/...vv......v...............v.v..............v...../ASCII34/
+,/ASCII34/............................v..v.................v/ASCII34/
+,/ASCII34/.v.............v.......v........................../ASCII34/
+,/ASCII34/......v...v........................v............../ASCII34/
+,/ASCII34/.........v.....v..............vv................../ASCII34/
+,/ASCII34/................v..v..v.........v....v.......v..../ASCII34/
+,/ASCII34/........v.....v.............v......v.v............/ASCII34/
+,/ASCII34/...........v....................v.v....v.v.v...v../ASCII34/
+,/ASCII34/...........v......................v...v.........../ASCII34/
+,/ASCII34/..........vv...........v.v.....................v../ASCII34/
+,/ASCII34/.....................v......v............v...v..../ASCII34/
+,/ASCII34/.....vv..........................vv.v.....v.v...../ASCII34/
+,/ASCII34/.vv.......v...............v.......v..v.....v....../ASCII34/
+,/ASCII34/............v................v..........v....v..../ASCII34/
+,/ASCII34/................vv...v............................/ASCII34/
+,/ASCII34/................v...........v........v...v....v.../ASCII34/
+,/ASCII34/..v...v...v.............v...v........v....v..v..../ASCII34/
+,/ASCII34/......v..v.......v........v..v....vv............../ASCII34/
+,/ASCII34/...........v..........v........v.v................/ASCII34/
+,/ASCII34/v.v......v................v....................v../ASCII34/
+,/ASCII34/.v........v................................v....../ASCII34/
+,/ASCII34/............................v...v.......v........./ASCII34/
+,/ASCII34/........................vv.v..............v...vv../ASCII34/
+,/ASCII34/.......................vv........v.............v../ASCII34/
+,/ASCII34/...v.............v.........................v....../ASCII34/
+,/ASCII34/....v......vv...........................v........./ASCII34/
+,/ASCII34/....vv....v................v...vv..............v../ASCII34/
+,/ASCII34/................................................../ASCII34/
+,/ASCII34/vv........v...v..v.....v..v..................v..../ASCII34/
+,/ASCII34/.........v..............v.vv.v.............v....../ASCII34/
+,/ASCII34/.......v.....v......v...............v............./ASCII34/
+,/ASCII34/..v..................v................v....v....../ASCII34/
+,/ASCII34/.....v.....v.....................v.v......v......./ASCII34/}</input><input>3</input><output>898961330</output><annotation escaped="1"></annotation></test-case><test-case id="33121358"><input>{/ASCII34/v../ASCII34/
+,/ASCII34/..v/ASCII34/
+,/ASCII34/.v./ASCII34/}</input><input>2</input><output>1</output><annotation escaped="1"></annotation></test-case><test-case id="33121359"><input>{/ASCII34/./ASCII34/,/ASCII34/./ASCII34/,/ASCII34/./ASCII34/}</input><input>4</input><output>0</output><annotation escaped="1"></annotation></test-case></test-cases><memlimit>64</memlimit><stacklimit>0</stacklimit><roundType>1</roundType></problem>
