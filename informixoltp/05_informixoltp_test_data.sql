@@ -546,10 +546,13 @@ INSERT INTO 'informix'.component_solution_xref(component_id, solution_id, primar
 INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2020, 10);
 INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2021, 10);
 INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2041, 10);
-INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2043, 10);
-INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2048, 10);
+INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2043, 2);
+INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2048, 2);
+INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2048, 11);
 INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2049, 10);
-INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2051, 10);
+INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2049, 16);
+INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2051, 6);
+INSERT INTO 'informix'.component_category_xref(component_id, component_category_id) VALUES (2051, 11);
 
 INSERT INTO 'informix'.component_user_xref(component_id,user_id,user_type_id) VALUES(2020, 124776, 5);
 INSERT INTO 'informix'.component_user_xref(component_id,user_id,user_type_id) VALUES(2021, 124776, 5);
