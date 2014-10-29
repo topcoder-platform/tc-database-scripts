@@ -1,0 +1,164 @@
+import java.util.*;
+public class ShoutterDiv1 {
+    int INF = 10000000;
+    public int count(String[] s1000, String[] s100, String[] s10, String[] s1, String[] t1000, String[] t100, String[] t10, String[] t1) {
+        int m = s1000.length, i, j;
+        String S1000 = "";
+        String S100 = "";
+        String S10 = "";
+        String S1 = "";
+        String T1000 = "";
+        String T100 = "";
+        String T10 = "";
+        String T1 = "";
+        for(i = 0; i < m; i++){
+            S1000 += s1000[i];
+            S100 += s100[i];
+            S10 += s10[i];
+            S1 += s1[i];
+            T1000 += t1000[i];
+            T100 += t100[i];
+            T10 += t10[i];
+            T1 += t1[i];
+        }
+        
+        int n = S1.length();
+        Dat[] d = new Dat[n];
+        for(i = 0; i < n; i++){
+            d[i] = new Dat();
+            d[i].s = (S1000.charAt(i)-'0') * 1000 + (S100.charAt(i)-'0') * 100 + (S10.charAt(i)-'0') * 10 + (S1.charAt(i)-'0');
+            d[i].t = (T1000.charAt(i)-'0') * 1000 + (T100.charAt(i)-'0') * 100 + (T10.charAt(i)-'0') * 10 + (T1.charAt(i)-'0');
+        }
+        
+        Arrays.sort(d,new Comp1());
+        int[] ldp = new int[n];
+        int minv;
+        for(i = 0; i < n; i++){
+            ldp[i] = 0;
+            for(j = 0; j < i; j++){
+                if(d[i].s > d[j].t) ldp[i] = INF;
+            }
+        }
+        for(i = 0; i < n; i++){
+            d[i].x = i;
+            if(ldp[i] == 0) continue;
+            minv = INF;
+            for(j = 0; j < i; j++){
+                if(d[i].s <= d[j].t) minv = Math.min(minv,ldp[j]+1);
+            }
+            if(minv == INF) return -1;
+            ldp[i] = minv;
+        }
+        
+        Arrays.sort(d,new Comp2());
+        int[] rdp = new int[n];
+        for(i = 0; i < n; i++){
+            rdp[d[i].x] = 0;
+            for(j = 0; j < i; j++){
+                if(d[i].t < d[j].s) rdp[d[i].x] = INF;
+            }
+        }
+        for(i = 0; i < n; i++){
+            minv = INF;
+            if(rdp[d[i].x] == 0) continue;
+            for(j = 0; j < i; j++){
+                if(d[i].t >= d[j].s) minv = Math.min(minv,rdp[d[j].x]+1);
+            }
+            if(minv == INF) return -1;
+            rdp[d[i].x] = minv;
+        }
+        
+        Arrays.sort(d,new Comp3());
+        int[] dp = new int[n];
+        int ans = 0;
+        for(i = 0; i < n; i++){
+            dp[d[i].x] = ldp[d[i].x]+rdp[d[i].x];
+            for(j = 0; j < i; j++){
+                if(d[i].s >= d[j].s && d[i].t <= d[j].t) dp[d[i].x] = Math.min(dp[d[i].x],dp[d[j].x]+1);
+            }
+            ans += dp[d[i].x];
+        }
+        
+        return ans;
+    }
+    
+    public String checkData(String[] s1000, String[] s100, String[] s10, String[] s1, String[] t1000, String[] t100, String[] t10, String[] t1){
+        int n, m = s1000.length, x, i, j, s, t;
+        if(m == 0 || m > 50)
+            return "s1000, s100, s10, s1, t1000, t100, t10 and t1 must each contain between 1 and 50 elements, inclusive.";
+        if(s100.length != m || s10.length != m || s1.length != m)
+            return "s1000, s100, s10, s1, t1000, t100, t10 and t1 must contain the same number of elements.";
+        if(t1000.length != m || t100.length != m || t10.length != m || t1.length != m)
+            return "s1000, s100, s10, s1, t1000, t100, t10 and t1 must contain the same number of elements.";
+        
+        for(i = 0; i < m; i++){
+            x = s1000[i].length();
+            if(x == 0 || x > 50)
+                return "Each element of s1000, s100, s10, s1, t1000, t100, t10 and t1 must contain between 1 and 50 characters, inclusive.";
+            if(s100[i].length() != x || s10[i].length() != x || s1[i].length() != x)
+                return "For each i, the i-th elements of all input variables must all contain the same number of characters.";
+            if(t1000[i].length() != x || t100[i].length() != x || t10[i].length() != x || t1[i].length() != x)
+                return "For each i, the i-th elements of all input variables must all contain the same number of characters.";
+            for(j = 0; j < x; j++){
+                if(s1000[i].charAt(j) < '0' || s1000[i].charAt(j) > '9'
+                   || s100[i].charAt(j) < '0' || s100[i].charAt(j) > '9'
+                   || s10[i].charAt(j) < '0' || s10[i].charAt(j) > '9'
+                   || s1[i].charAt(j) < '0' || s1[i].charAt(j) > '9'
+                   || t1000[i].charAt(j) < '0' || t1000[i].charAt(j) > '9'
+                   || t100[i].charAt(j) < '0' || t100[i].charAt(j) > '9'
+                   || t10[i].charAt(j) < '0' || t10[i].charAt(j) > '9'
+                   || t1[i].charAt(j) < '0' || t1[i].charAt(j) > '9')
+                    return "Each character in the input variables must be a digit ('0'-'9').";
+            }
+        }
+        
+        String S1000 = "";
+        String S100 = "";
+        String S10 = "";
+        String S1 = "";
+        String T1000 = "";
+        String T100 = "";
+        String T10 = "";
+        String T1 = "";
+        for(i = 0; i < m; i++){
+            S1000 += s1000[i];
+            S100 += s100[i];
+            S10 += s10[i];
+            S1 += s1[i];
+            T1000 += t1000[i];
+            T100 += t100[i];
+            T10 += t10[i];
+            T1 += t1[i];
+        }
+        n = S1000.length();
+        
+        for(i = 0; i < n; i++){
+            s = (S1000.charAt(i)-'0') * 1000 + (S100.charAt(i)-'0') * 100 + (S10.charAt(i)-'0') * 10 + (S1.charAt(i)-'0');
+            t = (T1000.charAt(i)-'0') * 1000 + (T100.charAt(i)-'0') * 100 + (T10.charAt(i)-'0') * 10 + (T1.charAt(i)-'0');
+            if(s > t) return "For each i, t[i] must be greater than or equal to s[i].";
+        }
+        
+        return "";
+    }
+}
+
+
+class Comp1 implements Comparator{
+    public int compare(Object o1,Object o2){
+        return ((Dat)o1).s - ((Dat)o2).s;
+    }
+}
+class Comp2 implements Comparator{
+    public int compare(Object o1,Object o2){
+        return ((Dat)o2).t - ((Dat)o1).t;
+    }
+}
+class Comp3 implements Comparator{
+    public int compare(Object o1,Object o2){
+        return (((Dat)o2).t-((Dat)o2).s) - (((Dat)o1).t-((Dat)o1).s);
+    }
+}
+class Dat {
+    public int s, t, x;
+    public Dat(){}
+}

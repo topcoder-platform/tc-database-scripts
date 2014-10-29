@@ -116,3 +116,37 @@ SRM/SemiPerfectPower/test_result_3|UPDATE system_test_case set expected_result= 
 SRM/SemiPerfectPower/test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121367
 SRM/SemiPerfectPower/test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121368
 SRM/SemiPerfectPower/test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121369
+SRM/ShoutterDiv1/ProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2052
+SRM/ShoutterDiv1/solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121370
+SRM/ShoutterDiv1/Dat.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121370 and sort_order=1
+SRM/ShoutterDiv1/Comp2.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121370 and sort_order=2
+SRM/ShoutterDiv1/Comp3.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121370 and sort_order=3
+SRM/ShoutterDiv1/ShoutterDiv1.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121370 and sort_order=4
+SRM/ShoutterDiv1/Comp1.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121370 and sort_order=5
+SRM/ShoutterDiv1/test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121371
+SRM/ShoutterDiv1/test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121372
+SRM/ShoutterDiv1/test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121373
+SRM/ShoutterDiv1/test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121374
+SRM/ShoutterDiv1/test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121375
+SRM/ShoutterDiv1/test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121376
+SRM/ShoutterDiv1/test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121371
+SRM/ShoutterDiv1/test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121372
+SRM/ShoutterDiv1/test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121373
+SRM/ShoutterDiv1/test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121374
+SRM/ShoutterDiv1/test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121375
+SRM/ShoutterDiv1/test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121376
+SRM/UndoHistory/ProblemComponent.xml|UPDATE component set component_text= ? WHERE component_id=2053
+SRM/UndoHistory/solution.txt|UPDATE solution SET solution_text= ? WHERE solution_id=33121377
+SRM/UndoHistory/UndoHistory.class|UPDATE solution_class_file set class_file= ? WHERE solution_id=33121377 and sort_order=1
+SRM/UndoHistory/test_arg_1|UPDATE system_test_case set args= ? WHERE test_case_id=33121378
+SRM/UndoHistory/test_arg_2|UPDATE system_test_case set args= ? WHERE test_case_id=33121379
+SRM/UndoHistory/test_arg_3|UPDATE system_test_case set args= ? WHERE test_case_id=33121380
+SRM/UndoHistory/test_arg_4|UPDATE system_test_case set args= ? WHERE test_case_id=33121381
+SRM/UndoHistory/test_arg_5|UPDATE system_test_case set args= ? WHERE test_case_id=33121382
+SRM/UndoHistory/test_arg_6|UPDATE system_test_case set args= ? WHERE test_case_id=33121383
+SRM/UndoHistory/test_result_1|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121378
+SRM/UndoHistory/test_result_2|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121379
+SRM/UndoHistory/test_result_3|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121380
+SRM/UndoHistory/test_result_4|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121381
+SRM/UndoHistory/test_result_5|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121382
+SRM/UndoHistory/test_result_6|UPDATE system_test_case set expected_result= ? WHERE test_case_id=33121383

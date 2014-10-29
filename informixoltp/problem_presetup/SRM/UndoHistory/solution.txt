@@ -1,0 +1,43 @@
+public class UndoHistory
+{
+    public int minPresses(String[] lines) {
+        String[] undo = new String[51];
+        undo[0] = "";
+        int res = 0;
+        for (int i = 0; i < lines.length; i++) {
+            int cost = 53;
+            for (int j = 0; j <= i; j++) {
+                int common = 0;
+                while ( common < lines[i].length() && common < undo[j].length() && lines[i].charAt(common) == undo[j].charAt(common) ) {
+                    common++;
+                }
+                cost = Math.min(cost, ( ( (j!=i) || (common != undo[j].length() ) ) ? 2: 0 ) + (lines[i].length() - common) + 1 );
+            }
+            undo[i+1] = lines[i];
+            //System.out.println(cost);
+            res += cost;
+        }
+        return res;
+    }
+    public String checkData(String[] lines) {
+          int n = lines.length;
+          if ( !(1 <= n && n <= 50) ) {
+               return "lines must contain between 1 and 50 elements, inclusive.";
+          }
+          for (int j = 0; j < n; j++) {
+              String s = lines[j];
+          int t = s.length();
+              if ( !(1 <= t && t <= 50) ) {
+                   return "lines["+j+"] must contain between 1 and 50 characters, inclusive.";
+              }
+              for (int i=0; i<t; i++) {
+                  char ch = s.charAt(i);
+                  if ( !('a' <= ch && ch <= 'z') ) {
+                   return "lines["+j+"] must contain only lowercase letters ('a'-'z').";
+                  }
+              }
+
+          }
+          return "";
+    }
+}

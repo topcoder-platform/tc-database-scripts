@@ -1,0 +1,33 @@
+<?xml version="1.0"?><problem xmlns="http://topcoder.com" name="" code_length_limit="2147483647" execution_time_limit="2000" compile_time_limit="30000" gcc_build_command="" cpp_approved_path="" python_command="" python_approved_path=""><signature><class>UndoHistory</class><method><name>minPresses</name><return><type>int</type></return><params><param><type>String[]</type><name>lines</name></param></params></method></signature><intro escaped="1">Bob is using a peculiar text editor to write a sequence of lines of text.
+The editor consists of three parts: a results window, a text buffer and an undo history.
+More details about the three parts follow.
+<ul>
+<li>The results window contains a sequence of strings: the lines of text you already wrote. Initially, the results window is empty.</li>
+<li>The text buffer contains a string: the line you are writing at the moment. Initially, the string in the text buffer is empty.</li>
+<li>The undo history contains a sequence of strings: all the past states of the text buffer. Initially, the undo history contains a single element: an empty string.</li>
+</ul>
+
+You are given a <type>String[]</type> <b>lines</b>.
+Bob would like to print the contents of <b>lines</b> into the results window.
+(At the end, the sequence of strings stored in the results window must be precisely equal to <b>lines</b>. Order of elements matters.)
+Additionally, Bob would like to do so as quickly as possible.
+He is able to take the following actions:
+
+<ul>
+<li>Bob may type a lowercase letter. The letter is appended to the text buffer. The new text buffer is then added as a new element of the undo history. (For example, if the text buffer currently contains "do", then pressing 'g' changes the text buffer to "dog" and then stores "dog" into the undo history.)</li>
+<li>Bob may press Enter. When he does so, the current content of the text buffer is printed to the results window as a new line, after the lines that were printed earlier. The text buffer remains unmodified. (For example, if the text buffer contains "dog" and Bob presses Enter, "dog" will be appended to the results window, and the results buffer still contains "dog".)</li>
+<li>Bob may use two mouse clicks to restore any entry from the undo history to the text buffer. This operation does not modify the undo history.</li>
+</ul>
+
+Return the minimum total number of button presses (keyboard and mouse) that Bob needs to print all the given lines into the results window.</intro><spec></spec><notes></notes><constraints><user-constraint escaped="1"><b>lines</b> will contain between 1 and 50 elements, inclusive.</user-constraint><user-constraint escaped="1">Each element of <b>lines</b> will contain between 1 and 50 characters, inclusive.</user-constraint><user-constraint escaped="1">Each element of <b>lines</b> will contain only lowercase letters ('a'-'z').</user-constraint></constraints><test-cases><test-case id="33121378" example="1"><input>{/ASCII34/tomorrow/ASCII34/, /ASCII34/topcoder/ASCII34/}</input><output>18</output><annotation escaped="1"><ul>
+<li>Type 't'. The text buffer now contains "t", and the undo history now contains "" and "t".</li>
+<li>Type 'o'. The text buffer now contains "to", and the undo history now contains "", "t", and "to".</li>
+<li>Using six more keypresses, type the letters in "morrow". The text buffer now contains "tomorrow" and the undo history contains all prefixes of "tomorrow". The results window is still empty.</li>
+<li>Press Enter. The results window now contains one string: "tomorrow".</li>
+<li>Click the mouse twice to restore "to" from undo history.</li>
+<li>Using another six keypresses, type the letters in "pcoder".</li>
+<li>Press Enter. The results window now contains "tomorrow" and "topcoder", in this order, and we are done.</li>
+</ul>
+The total number of button presses was 8 (typing "tomorrow") + 1 (Enter) + 2 (mouse) + 6 (typing "pcoder") + 1 (Enter) = 18.
+</annotation></test-case><test-case id="33121379" example="1"><input>{/ASCII34/a/ASCII34/,/ASCII34/b/ASCII34/}</input><output>6</output><annotation escaped="1">After typing "a" and pressing enter, we need to restore the empty string (which is always present at the top of the undo buffer) before typing "b".
+</annotation></test-case><test-case id="33121380" example="1"><input>{/ASCII34/a/ASCII34/, /ASCII34/ab/ASCII34/, /ASCII34/abac/ASCII34/, /ASCII34/abacus/ASCII34/ }</input><output>10</output><annotation escaped="1">There are times when it is not necessary to use the undo history at all.</annotation></test-case><test-case id="33121381"><input>{/ASCII34/absolutely/ASCII34/, /ASCII34/abs/ASCII34/, /ASCII34/absolute/ASCII34/}</input><output>17</output><annotation escaped="1"></annotation></test-case><test-case id="33121382"><input>{/ASCII34/pyramid/ASCII34/, /ASCII34/sphinx/ASCII34/, /ASCII34/sphere/ASCII34/, /ASCII34/python/ASCII34/, /ASCII34/serpent/ASCII34/}</input><output>39</output><annotation escaped="1"></annotation></test-case><test-case id="33121383"><input>{/ASCII34/abcde/ASCII34/, /ASCII34/a/ASCII34/, /ASCII34/ab/ASCII34/, /ASCII34/abc/ASCII34/, /ASCII34/abcd/ASCII34/, /ASCII34/abcde/ASCII34/}</input><output>17</output><annotation escaped="1"></annotation></test-case></test-cases><memlimit>64</memlimit><stacklimit>0</stacklimit><roundType>1</roundType></problem>
