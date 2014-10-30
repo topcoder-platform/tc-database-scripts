@@ -7,7 +7,7 @@ pcl.project_category_id as contest_type_id,
 (select count(resource_id) from resource r where r.project_id = p.project_id and resource_role_id = 1) as number_of_registration, 
 (select count (resource_id) from upload u, submission sub where 
              u.project_id = p.project_id and u.upload_id=sub.upload_id and u.upload_status_id = 1 and u.upload_type_id = 1 
-             and sub.submission_type_id in (1, 3) and sub.submission_status_id in (1, 4)
+             and sub.submission_type_id in (1, 3) and sub.submission_status_id in (1,3, 4)
 ) as number_of_submission,
 
 case when pcl.project_type_id !=3 then
