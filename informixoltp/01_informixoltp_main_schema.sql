@@ -7362,7 +7362,7 @@ WHERE p.project_id = pn.project_id
     AND pp1.phase_status_id IN (2, 3)
     AND pi1.project_info_type_id = 1 -- external reference id
     AND pi1.project_id = p.project_id
-    AND pi1.value in (select technology_type_id from tcs_catalog:technology_types tt where tt.technology_name = 'Data Science')
+    AND EXISTS (SELECT DISTINCT 1 FROM comp_technology ct WHERE ct.comp_vers_id = pi1.value AND ct.technology_type_id = 27203175)
     -- SRMs
 union all
 select
@@ -7445,7 +7445,7 @@ WHERE p.project_id = pn.project_id
     AND pp1.scheduled_start_time < CURRENT + 90 UNITS DAY
     AND pi1.project_info_type_id = 1 -- external reference id
     AND pi1.project_id = p.project_id
-    AND pi1.value in (select technology_type_id from tcs_catalog:technology_types tt where tt.technology_name = 'Data Science')
+    AND EXISTS (SELECT DISTINCT 1 FROM comp_technology ct WHERE ct.comp_vers_id = pi1.value AND ct.technology_type_id = 27203175)
     -- SRMs
 union all
 select
