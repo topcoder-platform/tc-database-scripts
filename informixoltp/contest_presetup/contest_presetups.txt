@@ -1,3 +1,4 @@
 srm_round_terms.txt|UPDATE round_terms SET terms_content=? WHERE round_id=13672
 mm_round_terms.txt|UPDATE round_terms SET terms_content=? WHERE round_id=13673
 mm_round_terms.txt|UPDATE round_terms SET terms_content=? WHERE round_id=13675
+srm_round_terms.txt|UPDATE round_terms SET terms_content=? WHERE round_id=13676

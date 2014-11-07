@@ -523,7 +523,7 @@ INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES
 INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121370, 3, 'com/topcoder/tester/solutions/s33121370/Comp3.class');
 INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121370, 4, 'com/topcoder/tester/solutions/s33121370/ShoutterDiv1.class');
 INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121370, 5, 'com/topcoder/tester/solutions/s33121370/Comp1.class');
-INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121377, 1, 'com/topcoder/tester/solutions/s33121370/UndoHistory.class');
+INSERT INTO 'informix'.solution_class_file(solution_id, sort_order, path) VALUES (33121377, 1, 'com/topcoder/tester/solutions/s33121377/UndoHistory.class');
 
 INSERT INTO 'informix'.problem(problem_id,name,status_id,proposed_division_id,problem_type_id,proposed_difficulty_id, accept_submissions) VALUES (10194,'BlackAndWhiteGame',75,-1,3,-1, 1);
 INSERT INTO 'informix'.problem(problem_id,name,status_id,proposed_division_id,problem_type_id,proposed_difficulty_id,accept_submissions) VALUES (10195,'TestProblem',75,1,1,1,1);
@@ -682,13 +682,15 @@ INSERT INTO contest (contest_id, name, status, group_id, activate_menu) VALUES (
 INSERT INTO contest (contest_id, name, status, group_id, activate_menu, start_date, end_date) VALUES (12918, "Test MM", "A", -1, 0, current, ADD_MONTHS(current, 1));
 INSERT INTO contest (contest_id, name, status) VALUES (12919, "Practice Test SRM DIV 2", "A");
 INSERT INTO contest (contest_id, name, status, group_id, activate_menu, start_date, end_date) VALUES (12920, "Test MM SnowCleaning", "A", -1, 0, current, ADD_MONTHS(current, 1));
-UPDATE 'informix'.id_sequences set next_block_start=12921 where name = 'CONTEST_SEQ';
+INSERT INTO contest (contest_id, name, status, group_id, activate_menu) VALUES (12921, "Formal SRM", "A", -1, 0);
+UPDATE 'informix'.id_sequences set next_block_start=12922 where name = 'CONTEST_SEQ';
 
 INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind, invitational, registration_limit) VALUES (13672, 12917, "Test SRM Round", "Test SRM Round", "F", 1, 0, 0, 1024);
 INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind, invitational, registration_limit) VALUES (13673, 12918, "Test MM Round", "Test MM Round", "F", 13, 0, 0, 1024);
 INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind) VALUES (13674, 12919, "Practice", "Practice", "A", 3, 0);
 INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind, invitational, registration_limit) VALUES (13675, 12920, "Test MM SnowCleaning Round", "Test MM SnowCleaning Round", "F", 13, 0, 0, 1024);
-UPDATE 'informix'.id_sequences set next_block_start=13676 where name = 'ROUND_SEQ';
+INSERT INTO round (round_id, contest_id, name, short_name, status, round_type_id, rated_ind, invitational, registration_limit) VALUES (13676, 12921, "Formal SRM Round", "Test SRM Round", "F", 1, 0, 0, 1024);
+UPDATE 'informix'.id_sequences set next_block_start=13677 where name = 'ROUND_SEQ';
 
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 1, current, current + 5 UNITS MINUTE, "F");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13672, 7, current + 5 UNITS MINUTE, current + 10 UNITS MINUTE, "F");
@@ -714,15 +716,28 @@ INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) V
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 3, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), "F");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 4, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), "F");
 INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13675, 5, ADD_MONTHS(current, 1), ADD_MONTHS(current, 1), "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 1, current, current + 5 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 7, current + 5 UNITS MINUTE, current + 10 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 2, current + 10 UNITS MINUTE, current + 25 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 3, current + 25 UNITS MINUTE, current + 25 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 4, current + 25 UNITS MINUTE, current + 30 UNITS MINUTE, "F");
+INSERT INTO round_segment (round_id, segment_id, start_time, end_time, status) VALUES (13676, 5, current + 30 UNITS MINUTE, current + 30 UNITS MINUTE, "F");
 
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13672, 2021, 0, 2, 1, 250, 0);
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13673, 2020, 0, 1, 1, 250, 0);
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13674, 2021, 0, 2, 1, 250, 0);
 INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13675, 2041, 0, 1, 1, 250, 0);
 
+INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13676, 2049, 0, 1, 1, 250, 0);
+INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13676, 2052, 0, 1, 2, 500, 0);
+INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13676, 2051, 0, 1, 3, 1000, 0);
+INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13676, 2053, 0, 2, 1, 250, 0);
+INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13676, 2043, 0, 2, 2, 500, 0);
+INSERT INTO round_component (round_id, component_id, submit_order, division_id, difficulty_id, points, open_order) VALUES (13676, 2048, 0, 2, 3, 1000, 0);
 INSERT INTO round_room_assignment (round_id, coders_per_room, algorithm, by_division, by_region, final, p) VALUES (13672, 20, 1, 1, 0, 1, 2);
 INSERT INTO round_room_assignment (round_id, coders_per_room, algorithm, by_division, by_region, final, p) VALUES (13673, 0, 2, 1, 0, 1, 0);
 INSERT INTO round_room_assignment (round_id, coders_per_room, algorithm, by_division, by_region, final, p) VALUES (13675, 0, 2, 1, 0, 1, 0);
+INSERT INTO round_room_assignment (round_id, coders_per_room, algorithm, by_division, by_region, final, p) VALUES (13676, 20, 2, 1, 0, 1, 2);
 
 INSERT INTO room (room_id, round_id, name, division_id, room_type_id) VALUES (299154, 13672, "Admin Room", -1, 1);
 INSERT INTO room (room_id, round_id, name, division_id, room_type_id) VALUES (299155, 13673, "Admin Room", -1, 1);
@@ -734,3 +749,4 @@ INSERT INTO round_group_xref(round_id, group_id) VALUES(13674, 2);
 INSERT INTO round_terms (round_id) VALUES (13672);
 INSERT INTO round_terms (round_id) VALUES (13673);
 INSERT INTO round_terms (round_id) VALUES (13675);
+INSERT INTO round_terms (round_id) VALUES (13676);
