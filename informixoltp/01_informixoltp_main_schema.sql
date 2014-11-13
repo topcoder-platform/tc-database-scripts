@@ -7379,7 +7379,8 @@ from informixoltp:contest c
 join informixoltp:round as r on r.contest_id = c.contest_id and r.status='A'
 join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1
 join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2
-where  r.round_type_id in (1, 2, 10)
+where  r.round_type_id in (1, 2, 10) 
+  and current between rs1.start_time and rs2.end_time
     -- Marathon Matches
 union all
 select
@@ -7396,8 +7397,8 @@ from informixoltp:contest c
 join informixoltp:round as r on r.contest_id = c.contest_id and r.status='A'
 join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
 join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
-where r.round_type_id in (10,13,15,19,22,24,25,27) AND
-  current between r1.start_time and rs2.end_time;
+where r.round_type_id in (10,13,15,19,22,24,25,27) 
+  and current between rs1.start_time and rs2.end_time;
 
 
 grant select on active_data_science_challenges to 'coder' as 'informix';
