@@ -7285,7 +7285,7 @@ grant insert, update, select, delete on user_api_spin to 'public' as 'informix';
 
 grant insert, update, select, delete on docusign_envelope to 'public' as 'informix';
 
-CREATE SEQUENCE SEQUENCE_PATH_SEQ INCREMENT BY 1 START WITH 1000000;
+CREATE SEQUENCE SEQUENCE_PATH_SEQ INCREMENT BY 1 START WITH 30000000;
 
 revoke all on "informix".SEQUENCE_PATH_SEQ from "public";
 
@@ -7362,7 +7362,7 @@ WHERE p.project_id = pn.project_id
     AND pp1.phase_status_id IN (2, 3)
     AND pi1.project_info_type_id = 1 -- external reference id
     AND pi1.project_id = p.project_id
-    AND EXISTS (SELECT DISTINCT 1 FROM comp_technology ct WHERE ct.comp_vers_id = pi1.value AND ct.technology_type_id = 27203175)
+    AND EXISTS (SELECT DISTINCT 1 FROM comp_technology ct WHERE ct.comp_vers_id = pi1.value AND ct.technology_type_id = 27621212)
     -- SRMs
 union all
 select
@@ -7396,7 +7396,8 @@ from informixoltp:contest c
 join informixoltp:round as r on r.contest_id = c.contest_id and r.status='A'
 join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
 join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
-where r.round_type_id in (10,13,15,19,22,24,25,27) ;
+where r.round_type_id in (10,13,15,19,22,24,25,27) AND
+  current between r1.start_time and rs2.end_time;
 
 
 grant select on active_data_science_challenges to 'coder' as 'informix';
@@ -7445,7 +7446,7 @@ WHERE p.project_id = pn.project_id
     AND pp1.scheduled_start_time < CURRENT + 90 UNITS DAY
     AND pi1.project_info_type_id = 1 -- external reference id
     AND pi1.project_id = p.project_id
-    AND EXISTS (SELECT DISTINCT 1 FROM comp_technology ct WHERE ct.comp_vers_id = pi1.value AND ct.technology_type_id = 27203175)
+    AND EXISTS (SELECT DISTINCT 1 FROM comp_technology ct WHERE ct.comp_vers_id = pi1.value AND ct.technology_type_id = 27621212)
     -- SRMs
 union all
 select
