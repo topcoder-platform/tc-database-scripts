@@ -7394,7 +7394,7 @@ select
     'Data'::nvarchar(50) as challenge_community,
     rs1.start_time::datetime year to second as posting_date
 from informixoltp:contest c
-join informixoltp:round as r on r.contest_id = c.contest_id and r.status='A'
+join informixoltp:round as r on r.contest_id = c.contest_id and (r.status='A' or r.status = 'F')
 join informixoltp:round_segment rs1 on rs1.round_id = r.round_id and rs1.segment_id = 1 -- registration phase
 join informixoltp:round_segment rs2 on rs2.round_id = r.round_id and rs2.segment_id = 2 -- coding phase
 where r.round_type_id in (10,13,15,19,22,24,25,27) 
