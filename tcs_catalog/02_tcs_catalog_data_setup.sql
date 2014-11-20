@@ -865,6 +865,8 @@ INSERT INTO 'informix'.command(command_id, command_desc, command_group_id) VALUE
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32760, 'direct_my_projects_v3_user', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32761, 'direct_my_projects_v3_customer_admin', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32763, 'is_customer_admin', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32764, 'direct_project_latest_activities', 13337);
+
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13342, 'pj', 1001, 'project id');
@@ -2047,6 +2049,8 @@ INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) value
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index)  VALUES (33300, null, 'direct_my_projects_v3_user',  0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index)  VALUES (33301, null, 'direct_my_projects_v3_customer_admin',  0, null);
 INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index)  VALUES (33303, null, 'is_customer_admin',  0, null);
+INSERT INTO 'informix'.query (query_id, text, name, ranking, column_index) values (33304, null, 'direct_project_latest_activities', 0, null);
+
 
 
 INSERT INTO 'informix'.query(query_id, name, ranking) VALUES(33100, 'restapi_search_active_contest', 0);
@@ -3006,6 +3010,12 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33301, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33301, NULL, NULL, 25831, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33303, NULL, NULL, 13347, 0);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33304, NULL, NULL, 25430, 5);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33304, NULL, NULL, 13347, 5);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33304, NULL, NULL, 25240, 5);
+
+
+
 -- remove the pcids input for all dashboard billing cost report queries, write like this so we can revert back easily
 delete from query_input_xref where query_id IN (select q.query_id from query_input_xref qix, query q where qix.query_id = q.query_id and qix.input_id = 25591 and name like '%dashboard_billing%') and input_id = 25591;
 
@@ -3543,6 +3553,8 @@ INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALU
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32760, 33300, 0);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32761, 33301, 0);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32763, 33303, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32764, 33304, 0);
+
 
 
 INSERT INTO 'informix'.user_master(login_id, last_login_time, num_logins, status_id) VALUES (132456, current, 0, 1);
