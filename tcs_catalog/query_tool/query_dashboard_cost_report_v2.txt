@@ -520,6 +520,7 @@ NVL((SELECT sum(total_amount)
        FROM  informixoltp:payment_detail pmd, informixoltp:payment pm
         WHERE pmd.cockpit_project_id = tdp.project_id and pmd.installment_number = 1
         and pm.most_recent_detail_id = pmd.payment_detail_id and pmd.payment_type_id != 4
+        and (pm.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
         AND NOT pmd.payment_status_id IN (65, 68, 69)), 0)
     +
     NVL((SELECT sum(pmd2.total_amount)
@@ -529,6 +530,7 @@ NVL((SELECT sum(total_amount)
             WHERE pmd.cockpit_project_id = tdp.project_id and pmd2.installment_number = 1
             and pm.most_recent_detail_id = pmd.payment_detail_id
             and pm2.most_recent_detail_id = pmd2.payment_detail_id and pmd2.payment_type_id != 4
+            and (pm2.create_date BETWEEN TO_DATE('@sdt@ 00:00:00', '%Y-%m-%d %H:%M:%S') AND TO_DATE('@edt@ 23:59:59', '%Y-%m-%d %H:%M:%S'))
             AND NOT pmd2.payment_status_id IN (65, 68, 69)), 0)
      as actual_member_costs, 0 as actual_active
  FROM informixoltp:payment pm INNER JOIN informixoltp:payment_detail pmd ON pm.most_recent_detail_id = pmd.payment_detail_id,
