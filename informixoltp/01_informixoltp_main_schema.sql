@@ -439,7 +439,7 @@ create table 'informix'.coder (
     language_id DECIMAL(3,0),
     coder_type_id DECIMAL(3,0),
     date_of_birth DATETIME YEAR TO FRACTION,
-	home_country_code VARCHAR(3),
+    home_country_code VARCHAR(3),
     comp_country_code VARCHAR(3),
     contact_date DATE,
     display_quote smallint DEFAULT 1,
@@ -3273,7 +3273,8 @@ create table 'informix'.round (
     forum_id DECIMAL(10,0),
     rated_ind DECIMAL(1,0) default 0,
     region_id DECIMAL(3,0),
-	tc_direct_project_id DECIMAL(10,0)
+    tc_direct_project_id DECIMAL(10,0),
+    auto_end DECIMAL(1,0) default 0
 )
 extent size 64 next size 64
 lock mode row;
@@ -3282,8 +3283,8 @@ revoke all on round from 'public';
 
 create table 'informix'.round_prize (
     round_id DECIMAL(10,0),
-	place INTEGER not null,
-	amount FLOAT not null
+        place INTEGER not null,
+        amount FLOAT not null
 )
 extent size 64 next size 64
 lock mode row;
@@ -4059,8 +4060,8 @@ CREATE TABLE invoice_record (
     create_date DATETIME YEAR TO FRACTION(3) NOT NULL,
     modify_user VARCHAR(64) NOT NULL,
     modify_date DATETIME YEAR TO FRACTION(3) NOT NULL,
-	reference_id DECIMAL(10,0),
-	jira_issue_id varchar(100)
+    reference_id DECIMAL(10,0),
+    jira_issue_id varchar(100)
 )
 extent size 1000 next size 1000
 lock mode row;
