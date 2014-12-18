@@ -242,7 +242,7 @@ values ('marathon', 'test', 'windows', 'mm-test-windows');
 insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
 values ('marathon', 'test', 'nix', 'mm-test');
 insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
-values ('marathon', 'test', 'windows', 'mm-test-windows');
+values ('marathon', 'score', 'windows', 'mm-test-windows');
 insert into `FARM_QUEUE_CONFIG`(`APP`, `ACTION`, `PLATFORM`, `QUEUE_NAME`)
 values ('marathon', 'score', 'nix', 'mm-test');
 -- duplicate config for practice=true
