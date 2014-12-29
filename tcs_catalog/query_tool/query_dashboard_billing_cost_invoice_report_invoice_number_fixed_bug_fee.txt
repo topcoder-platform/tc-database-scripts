@@ -5,8 +5,9 @@ nvl((select  MAX(NVL(actual_end_time, scheduled_end_time)) as completion_time fr
 				and project_id = p.project_id),
 		(select  MAX(NVL(actual_end_time, scheduled_end_time)) from project_phase where project_id = p.project_id and phase_type_id = 4)) as completion_date,
        DECODE(pc.name, 'UI Prototype Competition', 'UI Prototype', 'Assembly Competition', 'Assembly', pc.name) category, pi.value as contest_name,
-       CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
-            WHEN ps.project_status_id = 1 THEN 'Active' ELSE 'Draft' END as contest_status,
+       --CASE WHEN ps.project_status_id not in (1,2,3) THEN 'Finished'
+       --     WHEN ps.project_status_id = 1 THEN 'Active' ELSE 'Draft' END as contest_status,
+       ps.name as contest_status,
 
   SUM(case when (p.project_status_id  = 7 OR (p.project_status_id  = 1
         and exists (select phase_type_id from project_phase
