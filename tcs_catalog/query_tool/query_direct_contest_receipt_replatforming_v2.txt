@@ -4,8 +4,10 @@ SELECT
                 THEN 'Copilot'
                 WHEN pmd.payment_type_id IN (27, 48)
                 THEN 'Spec Review'
-                WHEN pmd.payment_type_id IN (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 64, 65, 60, 13, 21)
+                WHEN pmd.payment_type_id IN (6, 29, 10, 42, 43, 44, 49, 50, 51, 55, 61, 65, 60, 13, 21)
                 THEN 'Winner'
+                WHEN pmd.payment_type_id = 64
+                THEN 'Checkpoint Winner'
                 WHEN pmd.payment_type_id IN (7, 28, 26)
                 THEN 'Review'
                 WHEN pmd.payment_type_id IN (24)
@@ -20,6 +22,7 @@ SELECT
                 THEN 'Misc'
                 ELSE 'Not Sure'
         END              AS payment_type  ,
+        pmd.payment_type_id,
         pmd.total_amount AS payment_amount,
         (SELECT value
         FROM    project_info
@@ -62,6 +65,7 @@ SELECT
                 THEN 'Testing'
                 ELSE 'Not Sure'
         END              AS payment_type  ,
+        pmd.payment_type_id,
         pmd.total_amount AS payment_amount,
         (SELECT value
         FROM    project_info
@@ -104,6 +108,7 @@ SELECT CASE WHEN pmd2.payment_type_id = 24
                 THEN 'Reliability' 
 		ELSE 'Credit' 
 		END AS payment_type  ,
+		pmd.payment_type_id,
         pmd2.total_amount   AS payment_amoumt,
         (SELECT value
         FROM    project_info
@@ -145,8 +150,7 @@ WHERE   pmd.component_project_id   = p.project_id
 UNION ALL
 
 SELECT 'DR points' AS payment_type ,
-
-		
+0 as payment_type_id,
 case when p.project_status_id = 7 then
 	nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
 			where pi30.project_info_type_id = 30 and pi26.project_info_type_id = 26 and pi26.project_id = pi30.project_id 
@@ -178,6 +182,7 @@ WHERE   p.project_id          = @pj@
 UNION ALL
 
 SELECT 'Contest Fee' AS payment_type ,
+       0             AS payment_type_id,
         CASE
                 WHEN p.project_status_id IN (9, 10)
                     AND EXISTS
@@ -251,6 +256,7 @@ WHERE   p.project_id             = @pj@
 UNION ALL
 
 SELECT 'Contest Fee'                                                               AS payment_type  ,
+        0                                                                          AS payment_type_id,
         NVL(pmd.total_amount, 0) * (CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) AS payment_amount,
         (SELECT value
         FROM    project_info
@@ -290,6 +296,7 @@ WHERE   pmd.component_project_id                         = p.project_id
 UNION ALL
 
 SELECT 'Contest Fee'                                                                AS payment_type  ,
+        0                                                                           AS payment_type_id,
         NVL(pmd2.total_amount, 0) * (CAST (NVL(pi57.value, '0') AS DECIMAL (10,2))) AS payment_amoumt,
          (SELECT value
                 FROM    project_info
@@ -335,6 +342,7 @@ WHERE   pmd.component_project_id                         = p.project_id
 UNION ALL
 
 SELECT 'Contest Fee ' AS payment_type ,
+        0             AS payment_type_id,
         (
        case when p.project_status_id = 7 then
 	nvl((select nvl(sum (cast (nvl (pi30.value, '0') as DECIMAL (10,2))), 0) from project_info pi30, project_info pi26
