@@ -2380,6 +2380,8 @@ revoke all on web_service_java_doc from 'public';
 create table 'informix'.compilation (
     component_state_id DECIMAL(10,0),
     open_time DECIMAL(14,0),
+    saved_time DECIMAL(14,0),
+    compiled_time DECIMAL(14,0),
     compilation_text TEXT,
     compilation_class_file BYTE,
     language_id DECIMAL(3,0)
