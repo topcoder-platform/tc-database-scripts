@@ -425,6 +425,7 @@ INSERT INTO 'informix'.secure_object (secure_object_id,secure_object_type) VALUE
 INSERT INTO 'informix'.secure_object (secure_object_id,secure_object_type) VALUES (34,'G');
 INSERT INTO 'informix'.secure_object (secure_object_id,secure_object_type) VALUES (40,'G');
 INSERT INTO 'informix'.secure_object (secure_object_id,secure_object_type) VALUES (50,'G');
+INSERT INTO 'informix'.secure_object (secure_object_id, secure_object_type) VALUES(60, 'G');
 INSERT INTO 'informix'.group (group_id,group_desc,access_id) VALUES (-1,'Contest Defualt Group All Access',null);
 INSERT INTO 'informix'.group (group_id,group_desc,access_id) VALUES (1,'Executive',null);
 INSERT INTO 'informix'.group (group_id,group_desc,access_id) VALUES (2,'Manager',null);
@@ -438,6 +439,7 @@ INSERT INTO 'informix'.group (group_id,group_desc,access_id) VALUES (30,'writer'
 INSERT INTO 'informix'.group (group_id,group_desc,access_id) VALUES (31,'tester',null);
 INSERT INTO 'informix'.group (group_id,group_desc,access_id) VALUES (40,'College Student',10);
 INSERT INTO 'informix'.group (group_id,group_desc,access_id) VALUES (50,'Admin Monitor Contest-Round Administration',10);
+INSERT INTO 'informix'.group (group_id,group_desc,access_id) VALUES (60,'Web Arena Super User',null);
 INSERT INTO 'informix'.round (round_id,contest_id,name,status,ran_ratings,paid_money,registration_limit,notes,invitational,round_type_id) VALUES (0,null,'lobby round',null,null,null,null,null,null,null);
 INSERT INTO 'informix'.room (room_id,round_id,name,state_code,country_code,region_code,division_id,room_type_id,eligible,unrated,room_limit) VALUES (0,0,'Admin Lobby Room',null,null,null,null,5,null,null,-1);
 INSERT INTO 'informix'.room (room_id,round_id,name,state_code,country_code,region_code,division_id,room_type_id,eligible,unrated,room_limit) VALUES (11,0,'Chat Room 1',null,null,null,null,5,null,null,999);
@@ -472,6 +474,7 @@ INSERT INTO 'informix'.group_user VALUES (30,124776);
 INSERT INTO 'informix'.group_user VALUES (30,124834);
 INSERT INTO 'informix'.group_user VALUES (31,124776);
 INSERT INTO 'informix'.group_user VALUES (31,124834);
+INSERT INTO 'informix'.group_user VALUES (60,124861);
 INSERT INTO 'informix'.generic_counter_client VALUES (1, 'LongContestServices#Test');
 
 INSERT INTO 'informix'.tax_form(name, tax_form_id, text, status_id, tax_form_desc, default_withholding_amount, default_withholding_percentage, use_percentage) VALUES ("w-9", 1, null, 62, "US Tax Form", 0, 0, 1);
