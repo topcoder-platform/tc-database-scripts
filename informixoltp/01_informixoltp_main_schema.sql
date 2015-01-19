@@ -3277,7 +3277,8 @@ create table 'informix'.round (
     region_id DECIMAL(3,0),
     tc_direct_project_id DECIMAL(10,0),
     auto_end DECIMAL(1,0) default 0,
-    editorial_link VARCHAR(255)
+    editorial_link VARCHAR(255), 
+    creator_id DECIMAL(10,0)
 )
 extent size 64 next size 64
 lock mode row;

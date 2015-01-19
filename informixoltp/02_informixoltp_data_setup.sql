@@ -1874,6 +1874,7 @@ INSERT INTO 'informix'.round_type_lu(round_type_id,round_type_desc,algo_rating_t
 INSERT INTO 'informix'.round_type_lu(round_type_id,round_type_desc,algo_rating_type_id) VALUES (21, 'Education Round', 1);
 INSERT INTO 'informix'.round_type_lu(round_type_id,round_type_desc,algo_rating_type_id) VALUES (22, 'AMD Marathon Match', NULL);
 INSERT INTO 'informix'.round_type_lu(round_type_id,round_type_desc,algo_rating_type_id) VALUES (23, 'AMD Marathon Match Practice', NULL);
+INSERT INTO 'informix'.round_type_lu(round_type_id,round_type_desc,algo_rating_type_id) VALUES (24, 'Instant Match', 1);
 INSERT INTO 'informix'.modification_rationale_lu(modification_rationale_id,modification_rationale_desc) VALUES (1, 'New');
 INSERT INTO 'informix'.modification_rationale_lu(modification_rationale_id,modification_rationale_desc) VALUES (2, 'Address Change');
 INSERT INTO 'informix'.modification_rationale_lu(modification_rationale_id,modification_rationale_desc) VALUES (3, 'Witholding Amount Change');

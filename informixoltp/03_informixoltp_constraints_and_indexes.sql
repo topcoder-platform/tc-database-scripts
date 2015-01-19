@@ -2978,6 +2978,12 @@ alter table 'informix'.round add constraint foreign key
     (region_id) 
     constraint region_round_fk;
 
+alter table 'informix'.round add constraint foreign key 
+    (creator_id)
+    references 'informix'.coder
+    (user_id) 
+    constraint round_coder_fk;
+
 alter table 'informix'.command_execution add constraint foreign key 
     (command_id)
     references 'informix'.command
