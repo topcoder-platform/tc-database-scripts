@@ -1488,10 +1488,15 @@ INSERT INTO 'informix'.dr_points_type_lu(dr_points_type_id,dr_points_type_desc,c
 INSERT INTO 'informix'.dr_points_status_lu(dr_points_status_id,dr_points_status_desc,create_date,modify_date) VALUES (1, 'Active', '2008-07-14 18:20:39.000', '2008-07-14 18:20:39.000');
 INSERT INTO 'informix'.dr_points_status_lu(dr_points_status_id,dr_points_status_desc,create_date,modify_date) VALUES (2, 'Deleted', '2008-07-14 18:20:39.000', '2008-07-14 18:20:39.000');
 INSERT INTO 'informix'.points_calculator_lu(points_calculator_id,class_name,points_calculator_desc,create_date,modify_date) VALUES (1, 'com.topcoder.utilities.dwload.contestresult.drv2.DRv2July08TopPerformersCalculator', 'July calculator', '2008-07-14 18:20:23.000', '2008-07-14 18:20:23.000');
+INSERT INTO 'informix'.points_calculator_lu(points_calculator_id,class_name,points_calculator_desc,create_date,modify_date) VALUES (2, 'com.topcoder.utilities.dwload.contestresult.drv2.DRv2NoFloorTopPerformersCalculator', 'DR calculator with no floor', current, current);
+
 INSERT INTO 'informix'.track_contest_result_calculator_lu(track_contest_result_calculator_id,class_name,track_contest_result_calculator_desc,create_date,modify_date) VALUES (1, 'com.topcoder.utilities.dwload.contestresult.drv2.DRv2July08TopNCalculator', 'Top N', '2008-07-14 18:20:37.000', '2008-07-14 18:20:37.000');
 INSERT INTO 'informix'.track_contest_result_calculator_lu(track_contest_result_calculator_id,class_name,track_contest_result_calculator_desc,create_date,modify_date) VALUES (2, 'com.topcoder.utilities.dwload.contestresult.drv2.DRv2July08TopPerformersCalculator', 'Top Performers', '2008-07-14 18:20:37.000', '2008-07-14 18:20:37.000');
 INSERT INTO 'informix'.track_contest_result_calculator_lu(track_contest_result_calculator_id,class_name,track_contest_result_calculator_desc,create_date,modify_date) VALUES (3, 'com.topcoder.utilities.dwload.contestresult.drv2.DRv2StudioJuly08TopNCalculator', 'Studio Top N', '2008-07-15 18:24:51.000', '2008-07-15 18:24:51.000');
 INSERT INTO 'informix'.track_contest_result_calculator_lu(track_contest_result_calculator_id,class_name,track_contest_result_calculator_desc,create_date,modify_date) VALUES (4, 'com.topcoder.utilities.dwload.contestresult.drv2.DRv2StudioJuly08TopPerformersCalculator', 'Studio Top Performers', '2008-07-15 18:24:52.000', '2008-07-15 18:24:52.000');
+INSERT INTO 'informix'.track_contest_result_calculator_lu(track_contest_result_calculator_id,class_name,track_contest_result_calculator_desc,create_date,modify_date) VALUES (5, 'com.topcoder.utilities.dwload.contestresult.drv2.DRv2NoFloorTopNCalculator', 'Top N with no floor', current, current);
+INSERT INTO 'informix'.track_contest_result_calculator_lu(track_contest_result_calculator_id,class_name,track_contest_result_calculator_desc,create_date,modify_date) VALUES (6, 'com.topcoder.utilities.dwload.contestresult.drv2.DRv2NoFloorTopPerformersCalculator', 'Top Performers with no floor', current, current);
+
 INSERT INTO 'informix'.track_contest_type_lu(track_contest_type_id,track_contest_type_desc,create_date,modify_date) VALUES (1, 'Top N', '2008-07-14 18:20:34.000', '2008-07-14 18:20:34.000');
 INSERT INTO 'informix'.track_contest_type_lu(track_contest_type_id,track_contest_type_desc,create_date,modify_date) VALUES (2, 'Top Performers', '2008-07-14 18:20:34.000', '2008-07-14 18:20:34.000');
 INSERT INTO 'informix'.track_type_lu(track_type_id,track_type_desc,create_date,modify_date) VALUES (1, 'Design', '2008-07-14 18:20:20.000', '2008-07-14 18:20:20.000');
@@ -3011,7 +3016,6 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33301, NULL, NULL, 25831, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33303, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33304, NULL, NULL, 25430, 5);
-INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33304, NULL, NULL, 13347, 5);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33304, NULL, NULL, 25240, 5);
 
 
