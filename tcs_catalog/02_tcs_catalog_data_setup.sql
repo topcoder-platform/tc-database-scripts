@@ -1016,6 +1016,13 @@ INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES
 INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES (25, 'TCCC07 Overall');
 INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES (26, 'TCCC07 Wager');
 INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES (27, 'TCO08 Overall');
+INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES (28, 'TCO10 Overall');
+INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES (29, 'TCO11 Overall');
+INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES (30, 'TCO12 Overall');
+INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES (31, 'TCO13 Overall');
+INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES (32, 'TCO14 Overall');
+INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES (33, 'TCO15 Overall');
+INSERT INTO 'informix'.contest_type_lu(contest_type_id,contest_type_desc) VALUES (34, 'Member Program');
 INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (1, 'USDC First Winning Score');
 INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (2, 'USDC Highest Level 1 Score');
 INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (3, 'USDC Highest Level 2 Score');
