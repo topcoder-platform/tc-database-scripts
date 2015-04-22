@@ -59,6 +59,8 @@ create table 'informix'.project (
     posting_date DATETIME YEAR TO SECOND,
     submitby_date DATETIME YEAR TO SECOND,
     complete_date DATETIME YEAR TO SECOND,
+    checkpoint_start_date DATETIME YEAR TO SECOND,
+    checkpoint_end_date   DATETIME YEAR TO SECOND,
     review_phase_id DECIMAL(3,0),
     review_phase_name NVARCHAR(30),
     status_id DECIMAL(3,0),
@@ -86,8 +88,11 @@ create table 'informix'.project (
     start_date_calendar_id DECIMAL(12, 0),
     duration DECIMAL(10, 2),
     fulfillment DECIMAL(10, 2),
-	last_modification_date DATETIME YEAR TO SECOND
-	
+	last_modification_date DATETIME YEAR TO SECOND,
+    challenge_manager NVARCHAR(30),
+    challenge_creator NVARCHAR(30),
+    challenge_launcher NVARCHAR(30),
+    copilot NVARCHAR(30)
 )
 extent size 512 next size 512
 lock mode page;
@@ -950,6 +955,8 @@ revoke all on "informix".user_permission_grant from "public" as "informix";
 	contest_id INT,
 	project_id INT,
 	status VARCHAR(255),
+	payment_status VARCHAR(255),
+	issue_type VARCHAR(255),
 	PRIMARY KEY(jira_issue_id) CONSTRAINT  "informix".pk_jira_issue
 ) 
 EXTENT SIZE 32 NEXT SIZE 32 

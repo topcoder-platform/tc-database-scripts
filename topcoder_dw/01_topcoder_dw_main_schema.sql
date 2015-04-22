@@ -1272,6 +1272,7 @@ create table 'informix'.payment (
     payment_type_id DECIMAL(3,0),
     payment_type_desc VARCHAR(100),
     reference_id DECIMAL(10,0),
+    jira_ticket_id VARCHAR(100),
     parent_payment_id DECIMAL(10,0),
     charity_ind DECIMAL(1,0) default 1 not null,
     show_in_profile_ind DECIMAL(1,0) default 1 not null,
