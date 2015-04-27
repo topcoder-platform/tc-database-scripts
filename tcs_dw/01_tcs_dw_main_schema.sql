@@ -88,11 +88,11 @@ create table 'informix'.project (
     start_date_calendar_id DECIMAL(12, 0),
     duration DECIMAL(10, 2),
     fulfillment DECIMAL(10, 2),
-	last_modification_date DATETIME YEAR TO SECOND,
-    challenge_manager NVARCHAR(30),
-    challenge_creator NVARCHAR(30),
-    challenge_launcher NVARCHAR(30),
-    copilot NVARCHAR(30)
+	  last_modification_date DATETIME YEAR TO SECOND,
+    challenge_manager DECIMAL(10,0),
+    challenge_creator DECIMAL(10,0),
+    challenge_launcher DECIMAL(10,0),
+    copilot DECIMAL(10,0)
 )
 extent size 512 next size 512
 lock mode page;
