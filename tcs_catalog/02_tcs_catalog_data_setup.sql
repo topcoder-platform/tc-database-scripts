@@ -4078,3 +4078,5 @@ INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user
 INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (23, 'EC2', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (25, 'Force.com', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (26, 'Other', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (33, 'IBM Bluemix', 'System', CU
+RRENT, 'System', CURRENT);
