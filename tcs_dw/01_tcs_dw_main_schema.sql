@@ -92,7 +92,17 @@ create table 'informix'.project (
     challenge_manager DECIMAL(10,0),
     challenge_creator DECIMAL(10,0),
     challenge_launcher DECIMAL(10,0),
-    copilot DECIMAL(10,0)
+    copilot DECIMAL(10,0),
+    registration_end_date DATETIME YEAR TO SECOND,
+    scheduled_end_date DATETIME YEAR TO SECOND,
+    checkpoint_prize_amount DECIMAL(10, 2),
+    checkpoint_prize_number DECIMAL(5, 0),
+    dr_points DECIMAL(10, 2),
+    reliability_cost DECIMAL(10, 2),
+    review_cost DECIMAL(10, 2),
+    forum_id DECIMAL(10, 0),
+    submission_viewable DECIMAL(1,0),
+    is_private DECIMAL(1,0)
 )
 extent size 512 next size 512
 lock mode page;
