@@ -1,4 +1,4 @@
-SELECT submpp.scheduled_end_time as initial_submission_date
+SELECT submpp.scheduled_end_time as initial_submission_date 
  ,cc.component_name as contest_name
  , regpp.scheduled_end_time as reg_end_date
  ,cat.category_name as catalog_name
@@ -83,4 +83,5 @@ AND pr.project_id = p.project_id and pr.place = 1 and pr.prize_type_id = 15
 AND pi12.project_id = p.project_id
 AND pi12.project_info_type_id = 12
 AND pi12.value = "Yes"
+AND not exists (select 1 from project_info pi where pi.project_info_type_id = 79 and pi.project_id = p.project_id and UPPER(pi.value) = 'PEER')
 order by @sc@ @sd@
