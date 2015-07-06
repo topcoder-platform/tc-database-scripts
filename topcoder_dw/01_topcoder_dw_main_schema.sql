@@ -1280,6 +1280,8 @@ create table 'informix'.payment (
     payment_status_id DECIMAL(3,0),
     payment_status_desc VARCHAR(200),
     client VARCHAR(100),
+    created_calendar_id DECIMAL(10,0),
+    created_time_id DECIMAL(10,0),
     modified_calendar_id DECIMAL(10,0),
     modified_time_id DECIMAL(10,0),
     installment_number DECIMAL(3,0)
