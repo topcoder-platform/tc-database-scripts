@@ -962,6 +962,7 @@ revoke all on "informix".user_permission_grant from "public" as "informix";
 	votes INT,
 	winner VARCHAR(255),
 	payment_amount DECIMAL(15, 2),
+	admin_fee DECIMAL(10, 2),
 	contest_id INT,
 	project_id INT,
 	status VARCHAR(255),
@@ -1014,6 +1015,24 @@ lock mode page;
 
 revoke all on participation from 'public';
 
+create table 'informix'.design_project_result (
+    project_id DECIMAL(12,0),
+    user_id DECIMAL(12,0),
+    submission_id DECIMAL(12, 0),
+    upload_id DECIMAL(12, 0),
+    prize_id DECIMAL(12,0),
+    prize_amount DECIMAL(10,2),
+    placement DECIMAL(6,0),
+    dr_points FLOAT,
+    is_checkpoint DECIMAL(1, 0),
+    client_selection DECIMAL(1, 0),
+    submit_timestamp DATETIME YEAR TO MINUTE,
+    review_complete_timestamp DATETIME YEAR TO MINUTE
+)
+extent size 2048 next size 2048
+lock mode page;
+
+revoke all on design_project_result from 'public';
 
 create view "informix".active_developers (user_id) as
    select x0.user_id 
