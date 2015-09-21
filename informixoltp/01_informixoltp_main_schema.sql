@@ -446,9 +446,7 @@ create table 'informix'.coder (
     quote_location VARCHAR(255) DEFAULT 'md',
     quote_color VARCHAR(255) DEFAULT '#000000',
     display_banner smallint DEFAULT 0,
-    banner_style VARCHAR(255) DEFAULT 'bannerStyle1',
-    description lvarchar,
-    registration_type_id DECIMAL(3,0) default 0
+    banner_style VARCHAR(255) DEFAULT 'bannerStyle1'
 )
 extent size 17500 next size 5000
 lock mode row;
