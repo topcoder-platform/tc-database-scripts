@@ -1027,7 +1027,10 @@ create table 'informix'.design_project_result (
     is_checkpoint DECIMAL(1, 0),
     client_selection DECIMAL(1, 0),
     submit_timestamp DATETIME YEAR TO MINUTE,
-    review_complete_timestamp DATETIME YEAR TO MINUTE
+    review_complete_timestamp DATETIME YEAR TO MINUTE,
+    inquire_timestamp DATETIME YEAR TO MINUTE,
+    submit_ind DECIMAL(1, 0),
+    valid_submission_ind DECIMAL(1, 0)
 )
 extent size 2048 next size 2048
 lock mode page;
@@ -1102,6 +1105,110 @@ create view "informix".active_reporting_competitors (user_id) as
    select x0.user_id 
    from "informix".user_rating x0 ,"informix".project x1 
    where ((((x0.last_rated_project_id = x1.project_id ) AND (x0.phase_id = 147. ) ) AND (x1.phase_id = x0.phase_id ) ) AND (x1.posting_date > (CURRENT year to fraction(3) - interval(180) day(9) to day ) ) ) ;
+
+-- design_project_result
+create trigger "informix".design_project_result_update update on "informix".design_project_result
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+create trigger "informix".design_project_result_insert insert on "informix".design_project_result
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+-- project_result
+create trigger "informix".project_result_update update on "informix".project_result
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+create trigger "informix".project_result_insert insert on "informix".project_result
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+-- user_rating
+create trigger "informix".user_rating_update update on "informix".user_rating
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+create trigger "informix".user_rating_insert insert on "informix".user_rating
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+-- user_reliability
+create trigger "informix".user_reliability_update update on "informix".user_reliability
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+create trigger "informix".user_reliability_insert insert on "informix".user_reliability
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+-- user_rank
+create trigger "informix".user_rank_update update on "informix".user_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+create trigger "informix".user_rank_insert insert on "informix".user_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+-- school_user_rank
+create trigger "informix".school_user_rank_update update on "informix".school_user_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+create trigger "informix".school_user_rank_insert insert on "informix".school_user_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+-- country_user_rank
+create trigger "informix".country_user_rank_update update on "informix".country_user_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+create trigger "informix".country_user_rank_insert insert on "informix".country_user_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+-- copilot_statistics
+create trigger "informix".copilot_statistics_update update on "informix".copilot_statistics
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
+
+create trigger "informix".copilot_statistics_insert insert on "informix".copilot_statistics
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.user_id
+);
 
 -- create view 'informix'.past_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
 --                                                      num_registrants, registration_start_date, submission_end_date,
