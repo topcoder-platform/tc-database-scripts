@@ -76,4 +76,126 @@ create trigger "informix".trig_coder_update update of handle on "informix".coder
 create trigger "informix".trig_coder_insert insert on "informix".coder referencing new as n                                                                                                                                                                         for each row
         (
         execute function "informix".lower(n.handle ) into "informix".coder.handle_lower);
+        
+-- create stored procedure to get current time
+create procedure "informix".get_current() returning datetime year to fraction(3);
+  return CURRENT;
+end procedure;
+
+-- coder
+create trigger "informix".coder_update update on "informix".coder
+for each row
+(
+  execute function "informix".get_current() into "informix".coder.dw_stats_updated_time
+);
+
+create trigger "informix".coder_insert insert on "informix".coder
+for each row
+(
+  execute function "informix".get_current() into "informix".coder.dw_stats_updated_time
+);
+
+-- algo_rating
+create trigger "informix".algo_rating_update update on "informix".algo_rating
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+create trigger "informix".algo_rating_insert insert on "informix".algo_rating
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+-- coder_rank
+create trigger "informix".coder_rank_update update on "informix".coder_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+create trigger "informix".coder_rank_insert insert on "informix".coder_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+-- coder_rank_history
+create trigger "informix".coder_rank_history_update update on "informix".coder_rank_history
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+create trigger "informix".coder_rank_history_insert insert on "informix".coder_rank_history
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+-- country_coder_rank
+create trigger "informix".country_coder_rank_update update on "informix".country_coder_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+create trigger "informix".country_coder_rank_insert insert on "informix".country_coder_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+-- school_coder_rank
+create trigger "informix".school_coder_rank_update update on "informix".school_coder_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+create trigger "informix".school_coder_rank_insert insert on "informix".school_coder_rank
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+-- coder_level
+create trigger "informix".coder_level_update update on "informix".coder_level
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+create trigger "informix".coder_level_insert insert on "informix".coder_level
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+-- room_result
+create trigger "informix".room_result_update update on "informix".room_result
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+create trigger "informix".room_result_insert insert on "informix".room_result
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+-- long_comp_result
+create trigger "informix".long_comp_result_update update on "informix".long_comp_result
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
+
+create trigger "informix".long_comp_result_insert insert on "informix".long_comp_result
+referencing new as new for each row
+(
+  update "informix".coder set dw_stats_updated_time=current where coder_id=new.coder_id
+);
 

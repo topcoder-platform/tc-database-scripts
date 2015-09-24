@@ -1213,3 +1213,5 @@ create index 'informix'.algo_rating_rating on 'informix'.algo_rating
 		rating
 	);
 
+ALTER TABLE coder
+ADD dw_stats_updated_time DATETIME YEAR TO FRACTION;
