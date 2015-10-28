@@ -78,12 +78,12 @@ create table 'informix'.project (
     project_category_id INT,
     project_category_name VARCHAR(254),
     tc_direct_project_id INT,
-    admin_fee DECIMAL(10, 2),
+    admin_fee DECIMAL(10, 2), -- loaded from project_info 31 admin fee
     first_place_prize DECIMAL(10, 2),
     num_checkpoint_submissions DECIMAL(5,0),
     num_valid_checkpoint_submissions DECIMAL(5,0),
-    total_prize DECIMAL(10, 2),
-    contest_prizes_total DECIMAL(10, 2),
+    total_prize DECIMAL(10, 2), -- the total offered prizes when the challenge launched
+    contest_prizes_total DECIMAL(10, 2), -- the actual prizes earned by members in this challenge
     client_project_id INTEGER,
     start_date_calendar_id DECIMAL(12, 0),
     duration DECIMAL(10, 2),
@@ -102,7 +102,13 @@ create table 'informix'.project (
     review_cost DECIMAL(10, 2),
     forum_id DECIMAL(10, 0),
     submission_viewable DECIMAL(1,0),
-    is_private DECIMAL(1,0)
+    is_private DECIMAL(1,0),
+    actual_total_prize DECIMAL(10, 2),
+    copilot_cost DECIMAL(10, 2),
+    estimated_reliability_cost DECIMAL(10, 2),
+    estimated_review_cost DECIMAL(10, 2),
+    estimated_copilot_cost DECIMAL(10, 2),
+    estimated_admin_fee DECIMAL(10, 2)
 )
 extent size 512 next size 512
 lock mode page;
