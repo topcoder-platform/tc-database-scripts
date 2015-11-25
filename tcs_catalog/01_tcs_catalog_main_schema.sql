@@ -5112,6 +5112,11 @@ CREATE SEQUENCE SEQUENCE_REVIEW_APPLICATION_SEQ INCREMENT BY 1 START WITH 300000
 revoke all on "informix".SEQUENCE_REVIEW_APPLICATION_SEQ from "public";
 grant select on "informix".SEQUENCE_REVIEW_APPLICATION_SEQ to "public" as "informix";    
 
+create sequence "informix".copilot_project_sequence INCREMENT BY 1 START WITH 1 MINVALUE 1;
+alter sequence "informix".copilot_project_sequence restart with 5000;
+revoke all on "informix".copilot_project_sequence from "public";
+grant select on "informix".copilot_project_sequence to "public" as "informix";    
+
 
 
 grant select,insert,update,delete on "informix".client_billing_config to public as "informix";
