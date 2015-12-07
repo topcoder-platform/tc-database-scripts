@@ -1,3 +1,3 @@
-select i.file_name from submission_image si, image i
-where submission_id =  @subid@ and si.image_id = i.image_id and i.image_type_id = 30
+select i.file_name, i.image_type_id, si.sort_order from submission_image si, image i
+where submission_id =  @subid@ and si.image_id = i.image_id
 order by si.sort_order
