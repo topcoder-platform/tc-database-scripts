@@ -1,0 +1,1 @@
+select demand_work_id from tc_direct_project where project_id = @tcdirectid@
