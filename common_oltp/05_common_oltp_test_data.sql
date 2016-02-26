@@ -332,7 +332,7 @@ insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_ty
 insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (20963  , null, 5, CURRENT, CURRENT, 'Government id term', null, 2);
 insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (21113  , null, 5, CURRENT, CURRENT, 'Appirio NDA V1', null, 2);
 insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (21173  , null, 5, CURRENT, CURRENT, 'Standard Terms for TopCoder Competitions v2.0', null, 3);
-
+insert into 'informix'.terms_of_use(terms_of_use_id, terms_text, terms_of_use_type_id, create_date, modify_date, title, url, terms_of_use_agreeability_type_id) values (21193  , null, 5, CURRENT, CURRENT, 'Standard Terms for TopCoder Competitions v2.0', null, 3);
 
 INSERT INTO 'informix'.key_generation(user_def,high_value) VALUES ('main_sequence', 18);
 INSERT INTO 'informix'.user(user_id,first_name,last_name,create_date,handle,last_login,status,activation_code,middle_name,timezone_id,last_site_hit_date) VALUES (132456, 'firstdok', 'lastdok', '2008-02-08 15:28:56.000', 'heffan', NULL, 'A',  NULL, NULL, 143, NULL);
