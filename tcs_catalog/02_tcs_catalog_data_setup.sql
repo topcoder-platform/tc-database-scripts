@@ -866,6 +866,7 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32761, 'direct_my_projects_v3_customer_admin', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32763, 'is_customer_admin', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32764, 'direct_project_latest_activities', 13337);
+INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (33320, 'demand_work_id', 13337);
 
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
@@ -2092,6 +2093,7 @@ INSERT INTO 'informix'.query (query_id, name, ranking) values (33188, 'iterative
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33190, 'get_billing_with_cmc_account_id', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33206, 'reviewer_ratings_for_auction', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33286, 'get_client_groups_from_billing', 0);
+INSERT INTO 'informix'.query (query_id, name, ranking) values (33857, 'demand_work_id', 0);
 
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
@@ -3024,6 +3026,7 @@ INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33303, NULL, NULL, 13347, 0);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33304, NULL, NULL, 25430, 5);
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33304, NULL, NULL, 25240, 5);
+INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (33857, 'N', NULL, 25430, 0);
 
 
 
@@ -3565,6 +3568,7 @@ INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALU
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32761, 33301, 0);
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32763, 33303, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32764, 33304, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (33320, 33857, 0);
 
 
 
@@ -4079,5 +4083,4 @@ INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user
 INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (23, 'EC2', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (25, 'Force.com', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (26, 'Other', 'System', CURRENT, 'System', CURRENT);
-INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (33, 'IBM Bluemix', 'System', CU
-RRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_platform_lu (project_platform_id,name,create_user,create_date,modify_user,modify_date) VALUES (33, 'IBM Bluemix', 'System', CURRENT, 'System', CURRENT);
