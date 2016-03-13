@@ -612,6 +612,44 @@ end procedure;
 
 grant execute on proc_contest_submission to public as informix; 
 
+create procedure 'informix'.create_project_event(
+p_project_id int, 
+p_operation varchar(10), 
+p_source varchar(64),
+p_source_id int
+)
+  insert into project_event_log(project_id, operation, source, source_id) values (p_project_id, p_operation, p_source, p_source_id);
+end procedure;
+
+grant execute on procedure create_project_event(integer, varchar, varchar, integer) to 'public' as 'informix';
+
+create procedure 'informix'.create_project_studio_event(
+p_project_studio_spec_id int,
+p_operation varchar(10),
+p_source varchar(64)
+)
+  define first_project_id int;
+  let first_project_id = NULL;
+  select first 1 project_id into first_project_id from project p where p.project_studio_spec_id = p_project_studio_spec_id;
+  execute procedure create_project_event(first_project_id, p_operation, p_source, p_project_studio_spec_id);
+end procedure;
+
+grant execute on procedure create_project_studio_event(integer, varchar, varchar) to 'public' as 'informix';
+
+create procedure 'informix'.create_submission_event(
+p_submission_id int,
+p_upload_id int,
+p_operation varchar(10),
+p_source varchar(64)
+)
+  define first_project_id int;
+  let first_project_id = NULL;
+  select first 1 project_id into first_project_id from upload u where u.upload_id = p_upload_id;
+  execute procedure create_project_event(first_project_id, p_operation, p_source, p_submission_id);
+end procedure;
+
+grant execute on procedure create_project_studio_event(integer, varchar, varchar) to 'public' as 'informix';
+
 
 create trigger "informix".trig_comp_version_dates_modified update of comp_vers_id,phase_id,posting_date,initial_submission_date,winner_announced_date,final_submission_date,estimated_dev_date,price,total_submissions,status_id,level_id,screening_complete_date,review_complete_date,aggregation_complete_date,phase_complete_date,production_date,aggregation_complete_date_comment,phase_complete_date_comment,review_complete_date_comment,winner_announced_date_comment,initial_submission_date_comment,screening_complete_date_comment,final_submission_date_comment,production_date_comment on "informix".comp_version_dates referencing old as old                                                                                                                                         for each row
         (
@@ -661,6 +699,18 @@ create trigger "informix".trig_project_insert insert on "informix".project refer
 create trigger "informix".trig_project_update update on "informix".project referencing old as old new as nw      for each row
         (
         execute procedure "informix".proc_contest_creation_update(nw.modify_user, old.project_status_id, nw.project_status_id));
+
+create trigger "informix".trig_project_table_insert insert on "informix".project referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "INSERT", "project", nw.project_id));
+
+create trigger "informix".trig_project_table_update update on "informix".project referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "UPDATE", "project", nw.project_id));
+
+create trigger "informix".trig_project_table_delete delete on "informix".project referencing old as old for each row
+        (
+        execute procedure "informix".create_project_event(old.project_id, "DELETE", "project", old.project_id));
 		
 create trigger "informix".trig_review_completion insert on "informix".review referencing new as nw      for each row
         (
@@ -670,7 +720,86 @@ create trigger "informix".trig_contest_submission insert on "informix".submissio
         (
         execute procedure "informix".proc_contest_submission(nw.modify_user, nw.submission_type_id));
 
+create trigger "informix".trig_resource_table_insert insert on "informix".resource referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "INSERT", "resource", nw.resource_id));
+
+create trigger "informix".trig_resource_table_update update on "informix".resource referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "UPDATE", "resource", nw.resource_id));
+
+create trigger "informix".trig_resource_table_delete delete on "informix".resource referencing old as old for each row
+        (
+        execute procedure "informix".create_project_event(old.project_id, "DELETE", "resource", old.resource_id));
+
+create trigger "informix".trig_project_info_insert insert on "informix".project_info referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "INSERT", "project_info", nw.project_info_type_id));
+
+create trigger "informix".trig_project_info_update update on "informix".project_info referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "UPDATE", "project_info", nw.project_info_type_id));
+
+create trigger "informix".trig_project_info_delete delete on "informix".project_info referencing old as old for each row
+        (
+        execute procedure "informix".create_project_event(old.project_id, "DELETE", "project_info", old.project_info_type_id));
+
+create trigger "informix".trig_project_phase_insert insert on "informix".project_phase referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "INSERT", "project_phase", nw.project_phase_id));
+
+create trigger "informix".trig_project_phase_update update on "informix".project_phase referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "UPDATE", "project_phase", nw.project_phase_id));
+
+create trigger "informix".trig_project_phase_delete delete on "informix".project_phase referencing old as old for each row
+        (
+        execute procedure "informix".create_project_event(old.project_id, "DELETE", "project_phase", old.project_phase_id));
 		
+create trigger "informix".trig_project_spec_insert insert on "informix".project_spec referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "INSERT", "project_spec", nw.project_spec_id));
 
+create trigger "informix".trig_project_spec_update update on "informix".project_spec referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "UPDATE", "project_spec", nw.project_spec_id));
 
+create trigger "informix".trig_project_spec_delete delete on "informix".project_spec referencing old as old for each row
+        (
+        execute procedure "informix".create_project_event(old.project_id, "DELETE", "project_spec", old.project_spec_id));
 
+create trigger "informix".trig_project_studio_specification_insert insert on "informix".project_studio_specification referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_studio_event(nw.project_studio_spec_id, "INSERT", "project_studio_specification"));
+
+create trigger "informix".trig_project_studio_specification_update update on "informix".project_studio_specification referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_studio_event(nw.project_studio_spec_id, "UPDATE", "project_studio_specification"));
+
+create trigger "informix".trig_project_studio_specification_delete delete on "informix".project_studio_specification referencing old as old for each row
+        (
+        execute procedure "informix".create_project_studio_event(old.project_studio_spec_id, "DELETE", "project_studio_specification"));
+
+create trigger "informix".trig_prize_insert insert on "informix".prize referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "INSERT", "prize", nw.prize_id));
+
+create trigger "informix".trig_prize_update update on "informix".prize referencing new as nw for each row
+        (
+        execute procedure "informix".create_project_event(nw.project_id, "UPDATE", "prize", nw.prize_id));
+
+create trigger "informix".trig_prize_delete delete on "informix".prize referencing old as old for each row
+        (
+        execute procedure "informix".create_project_event(old.project_id, "DELETE", "prize", old.prize_id));
+
+create trigger "informix".trig_submission_insert insert on "informix".submission referencing new as nw for each row
+        (
+        execute procedure "informix".create_submission_event(nw.submission_id, nw.upload_id, "INSERT", "submission"));
+
+create trigger "informix".trig_submission_update update on "informix".submission referencing new as nw for each row
+        (
+        execute procedure "informix".create_submission_event(nw.submission_id, nw.upload_id, "UPDATE", "submission"));
+
+create trigger "informix".trig_submission_delete delete on "informix".submission referencing old as old for each row
+        (
+        execute procedure "informix".create_submission_event(old.submission_id, old.upload_id, "DELETE", "submission"));		

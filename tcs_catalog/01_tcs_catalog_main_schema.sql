@@ -3405,6 +3405,18 @@ extent size 128 next size 128
 lock mode row;
 revoke all on client_group_xref from 'public';
 
+create table 'informix'.project_event_log (
+    project_event_log_id bigserial,
+    project_id INT,
+    operation VARCHAR(10) not null,
+    date DATETIME YEAR TO FRACTION default CURRENT YEAR TO FRACTION not null,
+    source VARCHAR(64) not null,
+    source_id INT not null
+)
+extent size 64 next size 64
+lock mode row;
+revoke all on project_event_log from 'public';
+
 
 grant select on v_latest_version to 'informix' with grant option ;
 
