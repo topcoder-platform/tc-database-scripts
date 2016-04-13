@@ -45,6 +45,22 @@ FROM informixoltp:payment p
   LEFT OUTER JOIN time_oltp:client_project ttcp ON ttp.project_id = ttcp.project_id
   LEFT OUTER JOIN time_oltp:client ttc ON ttcp.client_id = ttc.client_id
 WHERE 1=1
-  and ttc.client_id = @clientid@
-  and p.create_date > mdy(1,1,2015)
+  and p.payment_id in ( -- subquery to get only the first payment for each user
+        SELECT MIN(p.payment_id) payment_id
+        FROM informixoltp:payment p
+          INNER JOIN informixoltp:payment_detail pd ON pd.payment_detail_id = p.most_recent_detail_id
+          INNER JOIN USER u ON u.user_id = p.user_id
+          LEFT OUTER JOIN tcs_catalog:project proj ON proj.project_id = pd.component_project_id
+          LEFT OUTER JOIN tcs_catalog:project_info pi
+                       ON pi.project_id = pd.component_project_id
+                      AND pi.project_info_type_id = 32
+          LEFT OUTER JOIN tcs_catalog:tc_direct_project tdp1 ON tdp1.project_id = pd.cockpit_project_id
+          LEFT OUTER JOIN tcs_catalog:tc_direct_project tdp2 ON tdp2.project_id = proj.tc_direct_project_id
+          LEFT OUTER JOIN time_oltp:project ttp ON ttp.project_id = pi.value
+          LEFT OUTER JOIN time_oltp:client_project ttcp ON ttp.project_id = ttcp.project_id
+        WHERE 1=1
+          and ttcp.client_id = @clientid@
+          and p.create_date > mdy(1,1,2015)
+        GROUP BY u.handle
+)
 
