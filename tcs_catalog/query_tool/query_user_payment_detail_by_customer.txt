@@ -1,0 +1,50 @@
+SELECT 
+       p.payment_id,
+       u.first_name,
+       u.middle_name,
+       u.last_name,
+       u.handle,
+       pd.payment_desc,
+       pd.gross_amount,
+       pd.net_amount,
+       pt.payment_type_desc,
+       pm.payment_method_desc,
+       s.payment_status_desc,
+       ttc.client_id,
+       ttc.name as client_name,
+       ttp.name AS billing_account_name,
+       ttp.po_box_number AS po_number,
+       nvl(tdp1.project_id,tdp2.project_id) AS cockpit_project_id,
+       nvl(tdp1.name,tdp2.name) AS cockpit_project_name,
+       pcl.name AS project_category_name,
+       NVL(pd.algorithm_round_id, NVL(pd.component_project_id, NVL(pd.cockpit_project_id, NVL(pd.algorithm_problem_id, NVL(pd.component_contest_id, NVL(pd.jira_issue_id, null)))))) as reference_id,
+       (SELECT MIN(i.invoice_number)
+                         FROM informixoltp:invoice i,
+                              informixoltp:invoice_record ir
+                         WHERE i.invoice_id = ir.invoice_id
+                         AND   ir.payment_id = p.payment_id) AS invoice_number,
+       p.create_date,
+       pd.date_modified,
+       pd.date_paid,
+       pd.installment_number
+FROM informixoltp:payment p
+  INNER JOIN informixoltp:payment_detail pd ON pd.payment_detail_id = p.most_recent_detail_id
+  INNER JOIN informixoltp:payment_type_lu pt ON pt.payment_type_id = pd.payment_type_id
+  INNER JOIN informixoltp:payment_method_lu pm ON pm.payment_method_id = pd.payment_method_id
+  INNER JOIN informixoltp:payment_status_lu s ON s.payment_status_id = pd.payment_status_id
+  INNER JOIN USER u ON u.user_id = p.user_id
+  LEFT OUTER JOIN informixoltp:payment_detail_status_reason_xref pdsrx ON pdsrx.payment_detail_id = pd.payment_detail_id
+  LEFT OUTER JOIN tcs_catalog:project proj ON proj.project_id = pd.component_project_id
+  LEFT OUTER JOIN tcs_catalog:project_category_lu pcl ON pcl.project_category_id = proj.project_category_id
+  LEFT OUTER JOIN tcs_catalog:project_info pi
+               ON pi.project_id = pd.component_project_id
+              AND pi.project_info_type_id = 32
+  LEFT OUTER JOIN tcs_catalog:tc_direct_project tdp1 ON tdp1.project_id = pd.cockpit_project_id
+  LEFT OUTER JOIN tcs_catalog:tc_direct_project tdp2 ON tdp2.project_id = proj.tc_direct_project_id
+  LEFT OUTER JOIN time_oltp:project ttp ON ttp.project_id = pi.value
+  LEFT OUTER JOIN time_oltp:client_project ttcp ON ttp.project_id = ttcp.project_id
+  LEFT OUTER JOIN time_oltp:client ttc ON ttcp.client_id = ttc.client_id
+WHERE 1=1
+  and ttc.client_id = @clientid@
+  and p.create_date > mdy(1,1,2015)
+
