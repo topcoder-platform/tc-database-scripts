@@ -5376,3 +5376,20 @@ create index 'informix'.project_platform_name_idx on 'informix'.project_platform
     name
     );
 
+CREATE TABLE 'informix'.submission_push_status (
+    push_id SERIAL NOT NULL,
+    tc_direct_project_id DECIMAL(10,0),
+    user_id DECIMAL(12,0),
+    value VARCHAR(64) NOT NULL,
+    create_user VARCHAR(64) NOT NULL,
+    create_date DATETIME YEAR TO FRACTION NOT NULL,
+    modify_user VARCHAR(64) NOT NULL,
+    modify_date DATETIME YEAR TO FRACTION NOT NULL
+)
+EXTENT SIZE 16 NEXT SIZE 16
+LOCK MODE ROW;
+
+REVOKE ALL ON 'informix'.submission_push_status FROM 'public';
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON 'informix'.submission_push_status TO PUBLIC AS 'informix';
+
