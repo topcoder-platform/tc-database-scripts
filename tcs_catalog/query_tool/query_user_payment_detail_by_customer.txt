@@ -12,6 +12,7 @@ SELECT
        s.payment_status_desc,
        ttc.client_id,
        ttc.name as client_name,
+       ttp.project_id AS billing_account_id,
        ttp.name AS billing_account_name,
        ttp.po_box_number AS po_number,
        nvl(tdp1.project_id,tdp2.project_id) AS cockpit_project_id,
@@ -26,7 +27,8 @@ SELECT
        p.create_date,
        pd.date_modified,
        pd.date_paid,
-       pd.installment_number
+       pd.installment_number,
+       (select max(docusign_envelope_id) from informixoltp:docusign_envelope where user_id = u.user_id and docusign_template_id in ('b5b773ce-1af1-4ca0-ad9d-ddb1952400d9', 'c36d9c3c-8d7e-4943-b65c-eca3f5ad15c2') and is_completed = 1) as envelop_id
 FROM informixoltp:payment p
   INNER JOIN informixoltp:payment_detail pd ON pd.payment_detail_id = p.most_recent_detail_id
   INNER JOIN informixoltp:payment_type_lu pt ON pt.payment_type_id = pd.payment_type_id
@@ -46,7 +48,7 @@ FROM informixoltp:payment p
   LEFT OUTER JOIN time_oltp:client ttc ON ttcp.client_id = ttc.client_id
 WHERE 1=1
   and p.payment_id in ( -- subquery to get only the first payment for each user
-        SELECT MIN(p.payment_id) payment_id
+        SELECT p.payment_id --MIN(p.payment_id) payment_id
         FROM informixoltp:payment p
           INNER JOIN informixoltp:payment_detail pd ON pd.payment_detail_id = p.most_recent_detail_id
           INNER JOIN USER u ON u.user_id = p.user_id
@@ -61,6 +63,5 @@ WHERE 1=1
         WHERE 1=1
           and ttcp.client_id = @clientid@
           and p.create_date > mdy(1,1,2015)
-        GROUP BY u.handle
+        --GROUP BY u.handle
 )
-
