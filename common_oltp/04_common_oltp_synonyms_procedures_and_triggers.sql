@@ -166,6 +166,27 @@ create procedure "informix".tc_lower( val varchar(255) )
 returning varchar(255);
   return lower(val);
 end procedure;
+
+create procedure "informix".get_sequence_ids(sequence_name VARCHAR(254))
+  RETURNS DECIMAL(12,0) AS next_block_start, DECIMAL(10,0) AS block_size;
+  DEFINE n DECIMAL(12,0);
+  DEFINE k DECIMAL(10,0);
+  IF sequence_name NOT IN (SELECT name FROM id_sequences) THEN
+    RAISE EXCEPTION -746, 0, 'Invalid sequence name';
+  END IF;
+  BEGIN;
+  LOCK TABLE id_sequences IN EXCLUSIVE MODE;
+  SELECT next_block_start, block_size
+    INTO n, k
+    FROM id_sequences
+    WHERE name = sequence_name;
+  UPDATE id_sequences
+    SET next_block_start = n + k
+    WHERE name = sequence_name;
+  COMMIT;
+  RETURN n,k;
+end procedure;
+
 create procedure "informix".proc_address_update(
   address_id DECIMAL(10,0),
   old_address_type_id DECIMAL(5,0),
@@ -269,6 +290,8 @@ grant execute on procedure millis_to_time(decimal) to 'public' as 'informix';
 grant execute on procedure tc_lower(varchar) to 'public' as 'informix';
 
 grant execute on procedure proc_address_update(decimal,decimal,decimal,varchar,varchar,varchar,varchar,varchar,varchar,varchar,varchar,char,char,varchar,varchar,varchar,varchar,char,char) to 'public' as 'informix';
+
+grant execute on procedure get_sequence_ids(varchar) to 'public' as 'informix';
 
 create trigger "informix".trig_audit_address update of address_type_id,address1,address2,address3,city,state_code,province,zip,country_code on "informix".address referencing old as old new as new   for each row
         (
