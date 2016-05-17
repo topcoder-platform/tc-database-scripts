@@ -1,5 +1,5 @@
 -- The following tables are included in this script: 
---       data_type_lu, query, command, command_query_xref, query_input_xref, input_lu, command_group_lu
+--       data_type_lu, achievement_type_lu, query, command, command_query_xref, query_input_xref, input_lu, command_group_lu
 --
 -- should .... be deleted?
 --
@@ -31,6 +31,20 @@ INSERT INTO 'informix'.data_type_lu(data_type_id,data_type_desc) VALUES (22, 'St
 INSERT INTO 'informix'.data_type_lu(data_type_id,data_type_desc) VALUES (23, 'String[][]');
 INSERT INTO 'informix'.data_type_lu(data_type_id,data_type_desc) VALUES (1004, 'Sort Direction');
 INSERT INTO 'informix'.data_type_lu(data_type_id,data_type_desc) VALUES (1005, 'String Input');
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (1, 'Coder of the Month',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (2, 'Naughty Behavior',2);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (3, 'Other',2);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (4, 'Tournament Award',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (5, 'Algorithm Coder of the Month',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (6, 'Design Coder of the Month',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (7, 'Development Coder of the Month',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (8, 'Digital Run',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (9, 'Studio Coder of the Month',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (10, 'Show Your Skills iOS Badge',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (11, 'iOS Developer Challenger Badge',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (12, 'iOS Designer Challenger Badge',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (13, 'iOS Participant Badge',1);
+INSERT INTO 'informix'.achievement_type_lu(achievement_type_id,achievement_type_desc,badge) VALUES (14, 'Crowd for Good Badge',1);
 INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (21675, null, 'Rounds_By_Date_short_name', 0, null);
 INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (26278, null, 'coder_achievements', 0, null);
 INSERT INTO 'informix'.query(query_id,text,name,ranking,column_index) VALUES (26280, null, 'Rating_Distribution_Graph_Design', 0, null);

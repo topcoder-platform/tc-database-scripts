@@ -846,6 +846,16 @@ extent size 32 next size 32
 lock mode row;
 
 revoke all on continent from 'public';
+
+create table 'informix'.achievement_type_lu (
+    achievement_type_id DECIMAL(5,0) not null,
+    achievement_type_desc VARCHAR(64) not null,
+	  badge INT
+)
+extent size 32 next size 32
+lock mode row;
+
+revoke all on achievement_type_lu from 'public';
 create table 'informix'.user_achievement (
     coder_id DECIMAL(10,0),
     achievement_date DATE not null,
@@ -1794,6 +1804,16 @@ grant insert on user_achievement to 'public' as 'informix';
 grant select on user_achievement to 'public' as 'informix';
 
 grant delete on user_achievement to 'public' as 'informix';
+
+grant update on achievement_type_lu to 'public' as 'informix';
+
+grant index on achievement_type_lu to 'public' as 'informix';
+
+grant insert on achievement_type_lu to 'public' as 'informix';
+
+grant select on achievement_type_lu to 'public' as 'informix';
+
+grant delete on achievement_type_lu to 'public' as 'informix';
 
 grant index on school to 'public' as 'informix';
 
