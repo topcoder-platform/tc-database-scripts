@@ -1,0 +1,37 @@
+
+# /
+/build.properties
+/connfile.sql
+/downsized_scripts
+/logs
+/build-ci.xml
+/go.bat
+/go.scs
+/svn-changes.txt
+/tc_db_scripts.iml
+
+# /informixoltp/contest_presetup/
+
+# /informixoltp/problem_presetup/
+
+# /informixoltp/problem_presetup/MM/
+
+# /informixoltp/problem_presetup/MM/BlackAndWhiteGame/
+
+# /informixoltp/problem_presetup/MM/SnowCleaning/
+
+# /informixoltp/problem_presetup/SRM/
+
+# /informixoltp/problem_presetup/SRM/ColorfulBuilding/
+
+# /informixoltp/problem_presetup/SRM/GooseInZooDivOne/
+
+# /informixoltp/problem_presetup/SRM/RandomPaintingOnABoard/
+
+# /informixoltp/problem_presetup/SRM/SemiPerfectPower/
+
+# /informixoltp/problem_presetup/SRM/ShoutterDiv1/
+
+# /informixoltp/problem_presetup/SRM/TestProblem/
+
+# /informixoltp/problem_presetup/SRM/UndoHistory/
