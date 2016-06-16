@@ -557,12 +557,3 @@ CREATE INDEX 'informix'.participationmetricsreportmember_contestid_idx ON 'infor
 CREATE INDEX 'informix'.project_tcdiretcprojectid_idx ON 'informix'.project(tc_direct_project_id);
 
 ALTER TABLE 'informix'.jira_issue ADD CONSTRAINT UNIQUE(ticket_id) CONSTRAINT unique_jira_issue_ticket_id;
-
-ALTER TABLE design_project_result
-ADD inquire_timestamp DATETIME YEAR TO MINUTE;
-
-ALTER TABLE design_project_result
-ADD submit_ind DECIMAL(1, 0);
-
-ALTER TABLE design_project_result
-ADD valid_submission_ind DECIMAL(1, 0);

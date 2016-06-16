@@ -2981,7 +2981,7 @@ alter table 'informix'.round add constraint foreign key
 alter table 'informix'.round add constraint foreign key 
     (creator_id)
     references 'informix'.coder
-    (user_id) 
+    (coder_id)
     constraint round_coder_fk;
 
 alter table 'informix'.command_execution add constraint foreign key 

@@ -2001,11 +2001,11 @@ alter table 'informix'.copilot_profile add constraint foreign key
   (copilot_profile_status_id)
   constraint fk_copilotProfile_copilotProfileStatus_copilotProfileStatusId;
 
-alter table 'informix'.copilot_profile add constraint foreign key
+/*alter table 'informix'.copilot_profile add constraint foreign key
   (user_id)
   references 'informix'.user
   (user_id)
-  constraint fk_copilotProfile_userId;
+  constraint fk_copilotProfile_userId;*/
 
 alter table 'informix'.copilot_profile_info add constraint foreign key
   (copilot_profile_info_type_id)
