@@ -2741,9 +2741,9 @@ grant select on coder_rank to 'public' as 'informix';
 
 
 
-### create tcs_dw view here, as the view references topcoder_dw
+--### create tcs_dw view here, as the view references topcoder_dw
 
-create view 'informix'.past_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
+/*create view 'informix'.past_data_science_challenges (challenge_type, challenge_name, challenge_id, num_submissions,
                                                      num_registrants, registration_start_date, submission_end_date,
                                                      challenge_community, posting_date) as
     -- Data Science projects
@@ -2802,4 +2802,4 @@ and r.failed = 0;
 
 revoke all on past_data_science_challenges from 'public';
 grant select on past_data_science_challenges to 'coder' as 'informix';
-grant select on past_data_science_challenges to 'informix' with grant option;
+grant select on past_data_science_challenges to 'informix' with grant option;*/
