@@ -1,4 +1,4 @@
-FROM informix:base
+FROM appiriodevops/informix:base
 
 WORKDIR /home/informix/
 ADD . trunk
