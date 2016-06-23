@@ -1319,7 +1319,7 @@ INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (77, 'TCO points', 'TCO points', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (78, 'Forum Type', 'Forum Type', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (79, 'Review Type', 'Review Type', 'System', CURRENT, 'System', CURRENT);
-INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (80, 'Challenge Originator', 'the originating system for the challenge creation', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (81, 'Challenge Originator', 'The originating system for the challenge creation', 'System', CURRENT, 'System', CURRENT);
 
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scheduled', 'Scheduled', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Open', 'Open', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
