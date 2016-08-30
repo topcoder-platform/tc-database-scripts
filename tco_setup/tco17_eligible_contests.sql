@@ -1,3 +1,6 @@
+-- This script needs to run on the oltp01 database server. Login as informix and add it under /home/informix/cron_scripts/tco/ and
+-- update the crontab to run the script every 5 minutes. (crontab -e)
+
 set lock mode to wait 5;
 
 -- DEVELOPMENT
