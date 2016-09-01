@@ -17,7 +17,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14, 39)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (628, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 -- Stage 2
 insert into contest_project_xref
@@ -31,7 +32,9 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14, 39)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (628, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
+   
 
 -- Stage 3
 insert into contest_project_xref
@@ -46,6 +49,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (7,14, 39)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (628, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and mod(p.project_id, 2) = 0;
 
 -- Stage 4
 insert into contest_project_xref
@@ -59,7 +63,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14, 39)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (628, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 
 
@@ -77,7 +82,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (19)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (623, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 -- Stage 2
 insert into contest_project_xref
@@ -92,6 +98,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (19)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (623, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and mod(p.project_id, 2) = 0;
 
 -- Stage 3
 insert into contest_project_xref
@@ -105,7 +112,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (19)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (623, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 -- Stage 4
 insert into contest_project_xref
@@ -119,7 +127,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (19)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (623, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 
 
@@ -136,7 +145,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (618, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 -- Stage 2
 insert into contest_project_xref
@@ -149,7 +159,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (618, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 
 -- Stage 3
@@ -163,7 +174,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (618, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 
 -- Stage 4
@@ -177,7 +189,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (618, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 
 -- F2F
@@ -193,7 +206,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (613, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 -- Stage 2
 insert into contest_project_xref
@@ -206,7 +220,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (613, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 -- Stage 3
 insert into contest_project_xref
@@ -219,7 +234,8 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (613, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 -- Stage 4
 insert into contest_project_xref
@@ -232,6 +248,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (613, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce);
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and mod(p.project_id, 2) = 0;
 
 
