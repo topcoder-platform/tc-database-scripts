@@ -867,6 +867,7 @@ INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES 
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32763, 'is_customer_admin', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (32764, 'direct_project_latest_activities', 13337);
 INSERT INTO 'informix'.command(command_id,command_desc,command_group_id) VALUES (33320, 'demand_work_id', 13337);
+insert into 'informix'.command(command_id,command_desc,command_group_id) VALUES (33321, 'get_review_scorecard', 13337);
 
 
 INSERT INTO 'informix'.input_lu(input_id,input_code,data_type_id,input_desc) VALUES (13341, 'ph', 1001, 'phase id');
@@ -2094,6 +2095,7 @@ INSERT INTO 'informix'.query (query_id, name, ranking) values (33190, 'get_billi
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33206, 'reviewer_ratings_for_auction', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33286, 'get_client_groups_from_billing', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33857, 'demand_work_id', 0);
+INSERT INTO 'informix'.query (query_id, name, ranking) values (33858, 'get_review_scorecard', 0);
 
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
@@ -3538,6 +3540,7 @@ INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALU
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32763, 33303, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32764, 33304, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (33320, 33857, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (33321, 33858, 0);
 
 
 
