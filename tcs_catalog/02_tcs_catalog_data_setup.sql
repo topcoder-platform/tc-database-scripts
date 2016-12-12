@@ -966,7 +966,7 @@ INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) 
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25951, 'answerid', 1001, 'project answer id');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25960, 'cmcaccountid', 1005, 'CMC Account Id');
 INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25961, 'aid', 1001, 'Review Auction ID');
-INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25962, 'cid', 1001, 'Projet Category ID');
+INSERT INTO 'informix'.input_lu(input_id, input_code, data_type_id, input_desc) VALUES(25963, 'cid', 1001, 'Projet Category ID');
 
 
 INSERT INTO 'informix'.comp_level(level_id,description) VALUES (0, 'No Level Selected');
