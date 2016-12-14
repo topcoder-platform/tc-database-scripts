@@ -1322,6 +1322,7 @@ INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (78, 'Forum Type', 'Forum Type', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (79, 'Review Type', 'Review Type', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (81, 'Challenge Originator', 'The originating system for the challenge creation', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (82, 'Private Project Status', 'Private Project Status', 'System', CURRENT, 'System', CURRENT);
 
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scheduled', 'Scheduled', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Open', 'Open', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -2097,6 +2098,7 @@ INSERT INTO 'informix'.query (query_id, name, ranking) values (33206, 'reviewer_
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33286, 'get_client_groups_from_billing', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33857, 'demand_work_id', 0);
 INSERT INTO 'informix'.query (query_id, name, ranking) values (33858, 'get_review_scorecard', 0);
+
 
 -- query parameter for 13717 (review_projects) added (pt) per TCS 2.2.0
 INSERT INTO 'informix'.query_input_xref(query_id,optional,default_value,input_id,sort_order) VALUES (13717, 'N', NULL, 25190, 1);
@@ -3541,6 +3543,7 @@ INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALU
 INSERT INTO 'informix'.command_query_xref(command_id, query_id, sort_order) VALUES(32763, 33303, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (32764, 33304, 0);
 INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (33320, 33857, 0);
+INSERT INTO 'informix'.command_query_xref(command_id,query_id,sort_order) VALUES (33321, 33858, 0);
 
 
 
