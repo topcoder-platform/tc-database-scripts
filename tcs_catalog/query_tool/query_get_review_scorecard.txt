@@ -1,1 +1,3 @@
-select * from scorecard where scorecard_type_id = 2 and project_category_id in ( 6, @cid@)
+select * from scorecard where scorecard_status_id = 1 and scorecard_type_id = 2 and project_category_id in (6, @cid@) and @cid@ != 38
+UNION
+select * from scorecard where scorecard_status_id = 1 and scorecard_type_id = 8 and project_category_id in (28, @cid@) and @cid@ = 38
