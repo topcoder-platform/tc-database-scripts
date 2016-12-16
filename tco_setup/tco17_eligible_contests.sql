@@ -24,7 +24,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 2
 insert into contest_project_xref
-SELECT 628, p.project_id, current
+SELECT 629, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2016-12-01 00:00:00.000' and pp.actual_start_time <  '2017-03-01 00:00:00.000'
@@ -38,11 +38,11 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and pi82.value is null -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
-   
+
 
 -- Stage 3
 insert into contest_project_xref
-SELECT 628, p.project_id, current
+SELECT 630, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2017-03-01 00:00:00.000' and pp.actual_start_time <  '2017-06-01 00:00:00.000'
@@ -59,7 +59,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 4
 insert into contest_project_xref
-SELECT 628, p.project_id, current
+SELECT 631, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2017-06-01 00:00:00.000' and pp.actual_start_time <  '2017-08-01 00:00:00.000'
@@ -97,7 +97,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 2
 insert into contest_project_xref
-SELECT 623, p.project_id, current
+SELECT 624, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2016-12-01 00:00:00.000' and pp.actual_start_time <  '2017-03-01 00:00:00.000'
@@ -114,7 +114,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 3
 insert into contest_project_xref
-SELECT 623, p.project_id, current
+SELECT 625, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2017-03-01 00:00:00.000' and pp.actual_start_time <  '2017-06-01 00:00:00.000'
@@ -131,7 +131,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 4
 insert into contest_project_xref
-SELECT 623, p.project_id, current
+SELECT 626, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2017-06-01 00:00:00.000' and pp.actual_start_time <  '2017-08-01 00:00:00.000'
@@ -168,7 +168,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 2
 insert into contest_project_xref
-SELECT 618, p.project_id, current
+SELECT 619, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2016-12-01 00:00:00.000' and pp.actual_start_time <  '2017-03-01 00:00:00.000'
@@ -185,7 +185,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 3
 insert into contest_project_xref
-SELECT 618, p.project_id, current
+SELECT 620, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2017-03-01 00:00:00.000' and pp.actual_start_time <  '2017-06-01 00:00:00.000'
@@ -202,7 +202,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 4
 insert into contest_project_xref
-SELECT 618, p.project_id, current
+SELECT 621, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2017-06-01 00:00:00.000' and pp.actual_start_time <  '2017-08-01 00:00:00.000'
@@ -237,7 +237,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 2
 insert into contest_project_xref
-SELECT 613, p.project_id, current
+SELECT 614, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2016-12-01 00:00:00.000' and pp.actual_start_time <  '2017-03-01 00:00:00.000'
@@ -253,7 +253,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 3
 insert into contest_project_xref
-SELECT 613, p.project_id, current
+SELECT 615, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2017-03-01 00:00:00.000' and pp.actual_start_time <  '2017-06-01 00:00:00.000'
@@ -269,7 +269,7 @@ WHERE p.project_status_id = 1
 
 -- Stage 4
 insert into contest_project_xref
-SELECT 613, p.project_id, current
+SELECT 616, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2017-06-01 00:00:00.000' and pp.actual_start_time <  '2017-08-01 00:00:00.000'
