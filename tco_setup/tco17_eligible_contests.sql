@@ -19,7 +19,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (7,14, 39)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (628, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 -- Stage 2
@@ -36,7 +36,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (7,14, 39)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (628, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 
@@ -54,7 +54,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (7,14, 39)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (628, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 -- Stage 4
@@ -71,7 +71,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (7,14, 39)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (628, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 
@@ -92,7 +92,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (19)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (623, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 -- Stage 2
@@ -109,7 +109,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (19)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (623, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 -- Stage 3
@@ -126,7 +126,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (19)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (623, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 -- Stage 4
@@ -143,7 +143,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (19)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (623, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 
@@ -163,7 +163,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (618, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 -- Stage 2
@@ -179,7 +179,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (618, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 
@@ -196,7 +196,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (618, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 
@@ -213,7 +213,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (618, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 
@@ -232,7 +232,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (613, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 -- Stage 2
@@ -248,7 +248,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (613, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 -- Stage 3
@@ -264,7 +264,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (613, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 -- Stage 4
@@ -280,7 +280,7 @@ WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (613, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0;
 
 
@@ -299,7 +299,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (18)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (633, 583)) -- make sure we exclude from tco
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.project_id not in (select ce.contest_id from contest_eligibility ce);
 
 -- Stage 2
@@ -315,7 +315,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (18)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (634, 583)) -- make sure we exclude from tco
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.project_id not in (select ce.contest_id from contest_eligibility ce);
 
 -- Stage 3
@@ -331,7 +331,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (18)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (635, 583)) -- make sure we exclude from tco
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.project_id not in (select ce.contest_id from contest_eligibility ce);
 
 -- Stage 4
@@ -347,7 +347,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (18)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (636, 583)) -- make sure we exclude from tco
-   and pi82.value is null -- No TCO if these are tasks
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.project_id not in (select ce.contest_id from contest_eligibility ce);
 
 
