@@ -10,7 +10,7 @@ SELECT
     ri2.value AS submitter_handle,
     s.submission_status_id = 2 AS failed_screening,
     s.submission_status_id = 3 AS failed_review,
-    (select MAX(place) from prize pr where pr.project_id = @pj@ and pr.prize_type_id = 15) as prize_placement_number
+    NVL((select MAX(place) from prize pr where pr.project_id = @pj@ and pr.prize_type_id = 15), 0) as prize_placement_number
 FROM
     submission s
     INNER JOIN upload u ON s.upload_id = u.upload_id
