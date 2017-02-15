@@ -1,10 +1,10 @@
 FROM ibmcom/informix-developer-database:latest
 
-RUN apt-get update && apt-get install -y \
+RUN sudo apt-get update && sudo apt-get install -y \
     openjdk-7-jdk \
     wget \
-    dos2unit \
- && rm -rf /var/lib/apt/lists/*
+    dos2unix \
+ && sudo rm -rf /var/lib/apt/lists/*
 
 # Get Apache ant
 RUN sudo wget http://archive.apache.org/dist/ant/binaries/apache-ant-1.9.8-bin.tar.gz -O /apache-ant-1.9.8-bin.tar.gz
