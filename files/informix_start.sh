@@ -31,7 +31,7 @@ sudo echo "${INFORMIXSERVER}        onsoctcp        ${HOSTNAME}               sq
 sudo echo "${INFORMIXSERVER}_dr        drsoctcp        ${HOSTNAME}               sqlexec_dr" >> "${INFORMIXSQLHOSTS}"
 sudo chown informix: $INFORMIXSQLHOSTS
 sudo chmod 744 $INFORMIXSQLHOSTS
-sed -i 's/.*database.server.*/'database.server=$HOSTNAME/ $INFORMIX_HOME/tc-database-scripts/build.properties
+
 if [ ! -e "${INFORMIX_DATA_DIR}/.initialized" ] ; then
 	echo ">>>    Create data directory structure in ${INFORMIX_DATA_DIR} (ifx initialization)"
 	mkdir -p "${INFORMIX_DATA_DIR}"/logs
@@ -131,8 +131,8 @@ fi
 INSTALL_DIR=$INFORMIXDIR
 cd ${INSTALL_DIR}/etc
 
-TCP_PORT=9088
-DRDA_PORT=9089
+TCP_PORT=2021
+DRDA_PORT=2022
 MONGO_PORT=27017
 REST_PORT=27018
 MQTT_PORT=27883
@@ -251,5 +251,6 @@ echo ""
 #trap "/bin/bash /informix_stop.sh; exit $?" SIGHUP SIGINT SIGTERM SIGKILL
 #while [ 1 ]; do sleep 1; done
 #bash /informix_stop.sh
+sed -i 's/.*database.server.*/'database.server=$HOSTNAME/ $INFORMIX_HOME/tc-database-scripts/build.properties
 bash
 bash /informix_stop.sh
