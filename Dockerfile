@@ -1,4 +1,4 @@
-FROM ibmcom/informix-developer-database:latest
+FROM ibmcom/informix-innovator-c:latest
 
 RUN sudo apt-get update && sudo apt-get install -y \
     openjdk-7-jdk \
