@@ -796,7 +796,8 @@ create table 'informix'.project (
     modification_user VARCHAR(64) not null,
     is_manual_prize_setting SMALLINT DEFAULT 0,
     budget DECIMAL(10,3),
-	subscription_number  VARCHAR(64)
+    subscription_number  VARCHAR(64),
+    billable boolean default 'f'
 )
 extent size 32 next size 32
 lock mode row;
