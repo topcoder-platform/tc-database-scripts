@@ -1601,6 +1601,7 @@ create table 'informix'.payment_detail (
     installment_number DECIMAL(3,0) default 1,
     digital_run_track_id DECIMAL(10,0),
     jira_issue_id VARCHAR(100),
+    task_id DECIMAL(10, 0)
     create_user DECIMAL(10,0)
 )
 extent size 3000 next size 1000
