@@ -25,6 +25,8 @@ INFORMIX_DATA_DIR="${INFORMIX_DATA_DIR%/}"
 source "${INFORMIX_HOME}/.bashrc"
 source "${INFORMIX_HOME}/ifx_informixoltp_tcp.env"
 
+export HOSTNAME=${HOSTNAME:-`hostname`}
+
 echo ">>>    Update sqlhost ..."
 sudo echo "${INFORMIXSERVER}        onsoctcp        ${HOSTNAME}               sqlexec" > "${INFORMIXSQLHOSTS}"
 sudo echo "${INFORMIXSERVER}_dr        drsoctcp        ${HOSTNAME}               sqlexec_dr" >> "${INFORMIXSQLHOSTS}"
@@ -72,6 +74,12 @@ if [ ! -e "${INFORMIX_DATA_DIR}/.initialized" ] ; then
         myfatal 1 "Problem creating sysadmin with oninit"
     fi
     onspaces -c -d datadbs -p "${INFORMIX_DATA_DIR}"/spaces/datadbs.000 -o 0 -s 204800
-	/opt/apache-ant-1.9.8/bin/ant -f "${INFORMIX_HOME}"/tc-database-scripts/build.xml reinstall_db
-	onmode -ky
+	/opt/apache-ant-1.9.8/bin/ant -f "${INFORMIX_HOME}"/tc-database-scripts/build.xml setup_db
+	if [ $? -ne 0 ] ; then
+		echo "Could not setup TC database" >&2
+		onmode -ky
+		exit 1
+	else
+	    onmode -ky
+	fi
 fi
