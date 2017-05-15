@@ -2174,6 +2174,30 @@ lock mode row;
  
 revoke all on third_party_library from public;
 
+create table 'informix'.project_group_lu (
+    project_group_id INT not null,
+    name VARCHAR(255) not null,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION not null
+)
+extent size 64 next size 64
+lock mode row;
+revoke all on project_group_lu from 'public';
+
+create table 'informix'.project_group_xref (
+    project_id INT not null,
+    project_group_id INT not null,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION not null
+)
+extent size 2000 next size 2000
+lock mode row;
+revoke all on project_group_xref from 'public';
+
 create view "informix".v_latest_version (version,component_name,
        component_id,comp_vers_id,phase_id) as
    select max(x0.version ) ,x1.component_name ,x1.component_id ,

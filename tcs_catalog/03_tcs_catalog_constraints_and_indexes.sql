@@ -2542,6 +2542,26 @@ alter table 'informix'.project_platform add constraint foreign key
     (project_platform_id) 
     constraint fk_projectplatform_projectplatformlu_projectplatformid;
 
+alter table 'informix'.project_group_lu add constraint primary key
+    (project_group_id)
+    constraint pk_project_group_lu;
+
+alter table 'informix'.project_group_xref add constraint primary key
+    (project_id, project_group_id)
+    constraint pk_project_group_xref;
+
+alter table 'informix'.project_group_xref add constraint foreign key
+    (project_id)
+    references 'informix'.project
+    (project_id)
+    constraint fk_projectgroupxref_project_projectid;
+
+alter table 'informix'.project_group_xref add constraint foreign key
+    (project_group_id)
+    references 'informix'.project_group_lu
+    (project_group_id)
+    constraint fk_projectgroupxref_projectgrouplu_projectgroupid;
+    
 create index 'informix'.resource_user_id_idx on 'informix'.resource
 	(
 	user_id
