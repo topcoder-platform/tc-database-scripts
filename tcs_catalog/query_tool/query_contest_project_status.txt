@@ -88,4 +88,5 @@ AND ph1.scheduled_end_time = (select max(scheduled_end_time)
 AND pi12.project_id = p.project_id
 AND pi12.project_info_type_id = 12
 AND pi12.value="Yes"
+AND not exists (select 1 from resource r, project_info pi82 where r.project_id = p.project_id and r.resource_role_id = 1 and p.project_id = pi82.project_id and project_info_type_id = 82 and pi82.value = 1) -- exclude assigned tasks
   order by final_review_end_date asc
