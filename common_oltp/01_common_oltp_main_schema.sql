@@ -47,6 +47,7 @@ revoke all on user_group_xref from 'public';
 create table 'informix'.security_groups (
     group_id DECIMAL(12,0) not null,
     description VARCHAR(254) not null,
+    challenge_group_ind smallint DEFAULT 0 NOT NULL,
     create_user_id DECIMAL(12,0)
 )
 extent size 128 next size 128
