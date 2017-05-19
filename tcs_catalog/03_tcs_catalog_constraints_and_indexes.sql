@@ -2587,3 +2587,22 @@ CREATE INDEX 'informix'.project_idx_cu ON project
     (
         create_user
     );
+
+alter table 'informix'.project_group_lu add constraint primary key 
+    (project_group_id)
+    constraint pk_project_group_lu;
+
+alter table 'informix'.project_group_xref add constraint primary key 
+    (project_id, project_group_id)
+    constraint pk_project_group_xref;
+
+alter table 'informix'.project_group_xref add constraint foreign key 
+    (project_id)
+    references 'informix'.project
+    (project_id) 
+    constraint fk_projectgroupxref_project_projectid;
+
+alter table 'informix'.project_group_xref add constraint foreign key 
+    (project_group_id)
+    references 'informix'.project_group_lu
+    (project_group_id);

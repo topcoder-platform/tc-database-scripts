@@ -3417,6 +3417,30 @@ extent size 64 next size 64
 lock mode row;
 revoke all on project_event_log from 'public';
 
+create table 'informix'.project_group_lu (
+    project_group_id INT not null,
+    name VARCHAR(255) not null,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION not null
+)
+extent size 64 next size 64
+lock mode row;
+revoke all on project_group_lu from 'public';
+
+create table 'informix'.project_group_xref (
+    project_id INT not null,
+    project_group_id INT not null,
+    create_user VARCHAR(64) not null,
+    create_date DATETIME YEAR TO FRACTION not null,
+    modify_user VARCHAR(64) not null,
+    modify_date DATETIME YEAR TO FRACTION not null
+)
+extent size 2000 next size 2000
+lock mode row;
+
+revoke all on project_group_xref from 'public';
 
 grant select on v_latest_version to 'informix' with grant option ;
 
@@ -5370,6 +5394,15 @@ grant insert on project_platform_lu to 'public' as 'informix';
 grant update on project_platform_lu to 'public' as 'informix';
 grant delete on project_platform_lu to 'public' as 'informix';
 grant select on project_platform_lu to 'public' as 'informix';
+
+grant insert on project_group_xref to 'public' as 'informix';
+grant update on project_group_xref to 'public' as 'informix';
+grant delete on project_group_xref to 'public' as 'informix';
+grant select on project_group_xref to 'public' as 'informix';
+grant insert on project_group_lu to 'public' as 'informix';
+grant update on project_group_lu to 'public' as 'informix';
+grant delete on project_group_lu to 'public' as 'informix';
+grant select on project_group_lu to 'public' as 'informix';
 
 create index 'informix'.project_platform_name_idx on 'informix'.project_platform_lu
     (
