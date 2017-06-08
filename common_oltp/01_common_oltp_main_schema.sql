@@ -1355,6 +1355,28 @@ lock mode row;
 
 revoke all on user_social_login from 'public';
 
+CREATE TABLE informix.sso_login_provider (
+  sso_login_provider_id DECIMAL(10,0) NOT NULL,
+  name VARCHAR(50),
+  type VARCHAR(50) NOT NULL
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on sso_login_provider from 'public';
+
+CREATE TABLE informix.user_sso_login (
+  user_id DECIMAL(10,0) NOT NULL,
+  sso_user_id VARCHAR(100) NOT NULL,
+  sso_user_name VARCHAR(100),
+  provider_id DECIMAL(10,0) NOT NULL,
+  email VARCHAR(100)
+)
+extent size 64 next size 64
+lock mode row;
+
+revoke all on user_sso_login from 'public';
+
 
 CREATE SEQUENCE "informix".CONTEST_ELIGIBILITY_SEQ INCREMENT BY 1 START WITH 1 MINVALUE 1;
 
@@ -2394,3 +2416,6 @@ grant select,update,insert,delete on email_request to public as informix;
 grant select,update,insert,delete on social_login_provider to public as informix;
 grant select,update,insert,delete on user_social_login to public as informix;
 grant select,update,insert,delete on terms_of_use_docusign_template_xref to public as informix;
+
+grant select,update,insert,delete,index on sso_login_provider to public as informix;
+grant select,update,insert,delete,index on user_sso_login to public as informix;
