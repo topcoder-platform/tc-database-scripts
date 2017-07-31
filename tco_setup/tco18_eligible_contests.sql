@@ -10,7 +10,7 @@ insert into contest_project_xref
 SELECT 653, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2016-09-01 00:00:00.000' and pp.actual_start_time <  '2016-12-01 00:00:00.000'
+                               pp.actual_start_time >= '2017-08-01 00:00:00.000' and pp.actual_start_time <  '2017-11-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and (pi13.value = 'Yes' or p.project_category_id = 39) -- Code challenges are included even if not rated
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -28,8 +28,7 @@ insert into contest_project_xref
 SELECT 654, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
---                               pp.actual_start_time >= '2016-12-01 00:00:00.000' and pp.actual_start_time <  '2017-03-01 00:00:00.000'
-                               pp.actual_start_time >= '2017-02-01 00:00:00.000' and pp.actual_start_time <  '2017-02-15 00:00:00.000'
+                               pp.actual_start_time >= '2017-11-01 00:00:00.000' and pp.actual_start_time <  '2018-02-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and (pi13.value = 'Yes' or p.project_category_id = 39) -- Code challenges are included even if not rated
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -49,7 +48,7 @@ insert into contest_project_xref
 SELECT 655, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2017-03-01 00:00:00.000' and pp.actual_start_time <  '2017-06-01 00:00:00.000'
+                               pp.actual_start_time >= '2018-01-01 00:00:00.000' and pp.actual_start_time <  '2018-05-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and (pi13.value = 'Yes' or p.project_category_id = 39) -- Code challenges are included even if not rated
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -68,7 +67,7 @@ insert into contest_project_xref
 SELECT 656, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2017-06-01 00:00:00.000' and pp.actual_start_time <  '2017-08-01 00:00:00.000'
+                               pp.actual_start_time >= '2018-05-01 00:00:00.000' and pp.actual_start_time <  '2018-08-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and (pi13.value = 'Yes' or p.project_category_id = 39) -- Code challenges are included even if not rated
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -91,7 +90,7 @@ insert into contest_project_xref
 SELECT 648, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2016-09-01 00:00:00.000' and pp.actual_start_time <  '2016-12-01 00:00:00.000'
+                               pp.actual_start_time >= '2017-08-01 00:00:00.000' and pp.actual_start_time <  '2017-11-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -109,8 +108,7 @@ insert into contest_project_xref
 SELECT 649, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
---                               pp.actual_start_time >= '2016-12-01 00:00:00.000' and pp.actual_start_time <  '2017-03-01 00:00:00.000'
-                               pp.actual_start_time >= '2017-02-01 00:00:00.000' and pp.actual_start_time <  '2017-02-15 00:00:00.000'
+                               pp.actual_start_time >= '2017-11-01 00:00:00.000' and pp.actual_start_time <  '2018-02-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -129,7 +127,7 @@ insert into contest_project_xref
 SELECT 650, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2017-03-01 00:00:00.000' and pp.actual_start_time <  '2017-06-01 00:00:00.000'
+                               pp.actual_start_time >= '2018-01-01 00:00:00.000' and pp.actual_start_time <  '2018-05-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -147,7 +145,7 @@ insert into contest_project_xref
 SELECT 651, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2017-06-01 00:00:00.000' and pp.actual_start_time <  '2017-08-01 00:00:00.000'
+                               pp.actual_start_time >= '2018-05-01 00:00:00.000' and pp.actual_start_time <  '2018-08-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -169,7 +167,7 @@ insert into contest_project_xref
 SELECT 643, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2016-09-01 00:00:00.000' and pp.actual_start_time <  '2016-12-01 00:00:00.000'
+                               pp.actual_start_time >= '2017-08-01 00:00:00.000' and pp.actual_start_time <  '2017-11-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -186,8 +184,7 @@ insert into contest_project_xref
 SELECT 644, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
---                               pp.actual_start_time >= '2016-12-01 00:00:00.000' and pp.actual_start_time <  '2017-03-01 00:00:00.000'
-                               pp.actual_start_time >= '2017-02-01 00:00:00.000' and pp.actual_start_time <  '2017-02-15 00:00:00.000'
+                               pp.actual_start_time >= '2017-11-01 00:00:00.000' and pp.actual_start_time <  '2018-02-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -205,7 +202,7 @@ insert into contest_project_xref
 SELECT 645, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2017-03-01 00:00:00.000' and pp.actual_start_time <  '2017-06-01 00:00:00.000'
+                               pp.actual_start_time >= '2018-01-01 00:00:00.000' and pp.actual_start_time <  '2018-05-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -224,7 +221,7 @@ insert into contest_project_xref
 SELECT 646, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2017-06-01 00:00:00.000' and pp.actual_start_time <  '2017-08-01 00:00:00.000'
+                               pp.actual_start_time >= '2018-05-01 00:00:00.000' and pp.actual_start_time <  '2018-08-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -244,7 +241,7 @@ insert into contest_project_xref
 SELECT 638, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2016-09-01 00:00:00.000' and pp.actual_start_time <  '2016-12-01 00:00:00.000'
+                               pp.actual_start_time >= '2017-08-01 00:00:00.000' and pp.actual_start_time <  '2017-11-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -261,8 +258,7 @@ insert into contest_project_xref
 SELECT 639, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
---                               pp.actual_start_time >= '2016-12-01 00:00:00.000' and pp.actual_start_time <  '2017-03-01 00:00:00.000'
-                               pp.actual_start_time >= '2017-02-01 00:00:00.000' and pp.actual_start_time <  '2017-02-15 00:00:00.000'
+                               pp.actual_start_time >= '2017-11-01 00:00:00.000' and pp.actual_start_time <  '2018-02-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -280,7 +276,7 @@ insert into contest_project_xref
 SELECT 640, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2017-03-01 00:00:00.000' and pp.actual_start_time <  '2017-06-01 00:00:00.000'
+                               pp.actual_start_time >= '2018-01-01 00:00:00.000' and pp.actual_start_time <  '2018-05-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -297,7 +293,7 @@ insert into contest_project_xref
 SELECT 641, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2017-06-01 00:00:00.000' and pp.actual_start_time <  '2017-08-01 00:00:00.000'
+                               pp.actual_start_time >= '2018-05-01 00:00:00.000' and pp.actual_start_time <  '2018-08-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
