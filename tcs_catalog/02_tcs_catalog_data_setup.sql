@@ -478,6 +478,7 @@ INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,descr
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27380236, 'IBM COGNOS', 'IBM COGNOS', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27380237, 'IBM Content Manager', 'IBM Content Manager', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27380238, 'IBM DB2', 'IBM DB2', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (20, 'QA', 'QA', 1);
 
 
 
