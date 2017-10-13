@@ -446,6 +446,20 @@ alter table 'informix'.user_social_login add constraint primary key
     (user_id, social_login_provider_id)
     constraint user_social_prkey;
 
+alter table 'informix'.sso_login_provider add constraint primary key
+    (sso_login_provider_id)
+    constraint sso_provider_prkey;
+	
+alter table 'informix'.user_sso_login add constraint primary key
+    (user_id, provider_id)
+    constraint user_sso_prkey;
+
+create index 'informix'.idx_user_social_login_sso_user_id_provider_id on 'informix'.user_sso_login
+    (
+    sso_user_id,
+    provider_id
+    );
+
 alter table 'informix'.user_role_xref add constraint foreign key 
     (login_id)
     references 'informix'.security_user
@@ -1128,3 +1142,14 @@ alter table 'informix'.user_social_login add constraint foreign key
     (user_id)
     constraint user_social_user_fk;
 
+alter table 'informix'.user_sso_login add constraint foreign key
+    (user_id)
+    references 'informix'.user
+    (user_id)
+    constraint user_sso_login_user_fk;
+
+alter table 'informix'.user_sso_login add constraint foreign key
+    (provider_id)
+    references 'informix'.sso_login_provider
+    (sso_login_provider_id)
+    constraint user_sso_login_provider_fk;

@@ -478,6 +478,9 @@ INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,descr
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27380236, 'IBM COGNOS', 'IBM COGNOS', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27380237, 'IBM Content Manager', 'IBM Content Manager', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27380238, 'IBM DB2', 'IBM DB2', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (78, 'QA', 'QA', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (79, 'Marvel - Design', 'Marvel - Design', 1);
+
 
 
 
@@ -1341,6 +1344,8 @@ INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (81, 'Challenge Originator', 'The originating system for the challenge creation', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (82, 'Private Project Status', 'Private Project Status', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (83, 'Product SKU', 'Product SKU', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO "informix".project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (84, 'Environment', 'Environment', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO "informix".project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (85, 'Code Repo', 'Code Repo', 'System', CURRENT, 'System', CURRENT);
 
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scheduled', 'Scheduled', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Open', 'Open', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
