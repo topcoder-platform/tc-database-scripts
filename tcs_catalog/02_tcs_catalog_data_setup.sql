@@ -1346,6 +1346,8 @@ INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (83, 'Product SKU', 'Product SKU', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO "informix".project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (84, 'Environment', 'Environment', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO "informix".project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (85, 'Code Repo', 'Code Repo', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO "informix".project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (86, 'Marathon Match Contest Id', 'Marathon Match Contest Id', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO "informix".project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (87, 'Marathon Match Type', 'Marathon Match Type', 'System', CURRENT, 'System', CURRENT);
 
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scheduled', 'Scheduled', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Open', 'Open', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
