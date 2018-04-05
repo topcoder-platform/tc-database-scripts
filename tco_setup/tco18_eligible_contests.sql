@@ -63,6 +63,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and (select lower(value) from project_info where project_id = p.project_id and project_info_type_id = 6) not like 'ibm cognitive%' -- exclude IBM Cognitive Community Segment
    and p.project_id not in (30057468, 30057606) -- exclude specific challenges
+   and p.project_id not in (30063672, 30063673, 30063674, 30063675, 30063676 ) -- exclude consensys blockchain
    and p.tc_direct_project_id not in (16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
    and 1=1;  
 --   and mod(p.project_id, 2) = 0;
@@ -84,6 +85,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and (select lower(value) from project_info where project_id = p.project_id and project_info_type_id = 6) not like 'ibm cognitive%' -- exclude IBM Cognitive Community Segment
    and p.project_id not in (30057968) -- exclude specific challenges
+   and p.project_id not in (30063672, 30063673, 30063674, 30063675, 30063676 ) -- exclude consensys blockchain
    and p.tc_direct_project_id not in (16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and 1 = 1; 
 --   and mod(p.project_id, 2) = 0;
@@ -145,6 +147,7 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (650, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.project_id not in (30063672, 30063673, 30063674, 30063675, 30063676 ) -- exclude consensys blockchain
    and (select lower(value) from project_info where project_id = p.project_id and project_info_type_id = 6) not like 'ibm cognitive%' -- exclude IBM Cognitive Community Segment
    and p.tc_direct_project_id not in (16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and 1 = 1;
@@ -166,6 +169,7 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and (select lower(value) from project_info where project_id = p.project_id and project_info_type_id = 6) not like 'ibm cognitive%' -- exclude IBM Cognitive Community Segment
+   and p.project_id not in (30063672, 30063673, 30063674, 30063675, 30063676 ) -- exclude consensys blockchain
    and p.tc_direct_project_id not in (16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and 1 = 1; 
 --   and mod(p.project_id, 2) = 0;
@@ -226,6 +230,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and (select lower(value) from project_info where project_id = p.project_id and project_info_type_id = 6) not like 'ibm cognitive%' -- exclude IBM Cognitive Community Segment
    and p.project_id not in (30057516) -- exclude specific challenges
+   and p.project_id not in (30063672, 30063673, 30063674, 30063675, 30063676 ) -- exclude consensys blockchain
    and p.tc_direct_project_id not in (16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and 1 = 1; 
 --   and mod(p.project_id, 2) = 0;
@@ -245,6 +250,7 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (646, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.project_id not in (30063672, 30063673, 30063674, 30063675, 30063676 ) -- exclude consensys blockchain
    and (select lower(value) from project_info where project_id = p.project_id and project_info_type_id = 6) not like 'ibm cognitive%' -- exclude IBM Cognitive Community Segment
    and p.tc_direct_project_id not in (16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
    and 1 = 1;
@@ -304,6 +310,8 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (640, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.project_id not in (30063672, 30063673, 30063674, 30063675, 30063676 ) -- exclude consensys blockchain
+  
    and (select lower(value) from project_info where project_id = p.project_id and project_info_type_id = 6) not like 'ibm cognitive%' -- exclude IBM Cognitive Community Segment
 --   and mod(p.project_id, 2) = 0;
    and p.tc_direct_project_id not in (16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
@@ -323,7 +331,8 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (641, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
-   and p.project_id not in (30057968,30057832,30057829,30057831) -- exclude specific challenges   
+   and p.project_id not in (30057968,30057832,30057829,30057831) -- exclude specific challenges 
+   and p.project_id not in (30063672, 30063673, 30063674, 30063675, 30063676 ) -- exclude consensys blockchain 
    and (select lower(value) from project_info where project_id = p.project_id and project_info_type_id = 6) not like 'ibm cognitive%' -- exclude IBM Cognitive Community Segment
 --   and mod(p.project_id, 2) = 0;
    and p.tc_direct_project_id not in (16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
