@@ -1061,6 +1061,7 @@ INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (12, 
 INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (13, 'Introductory Event Overall');
 INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (14, 'Checkpoint Prize');
 INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (15, 'Contest Prize');
+INSERT INTO 'informix'.prize_type_lu(prize_type_id,prize_type_desc) VALUES (16, 'Challenge Points');
 INSERT INTO 'informix'.notification_mail_type_lu(notification_mail_type_id,mail_template,subject,from) VALUES (1, 'forum_post.xsl', 'Notification: new forum post', 'competitions@topcoder.com');
 INSERT INTO 'informix'.notification_mail_type_lu(notification_mail_type_id,mail_template,subject,from) VALUES (2, 'component_requested.xsl', 'Notification: component requested', 'competitions@topcoder.com');
 INSERT INTO 'informix'.question_style(question_style_id,question_style_desc,status_id) VALUES (1, 'Single Choice', 1);
