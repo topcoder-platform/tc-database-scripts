@@ -3739,6 +3739,9 @@ INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file,
 VALUES(44, 'HTML', 44, 'f', '-', 'f', 'System', Current, 'System', Current);
 INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
 VALUES(45, 'RP file created with Axure', 45, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(47, 'Mac OS X Sketch vector graphics', 47, 'f', 'SKETCH', 'f', 'System', Current, 'System', Current);
+
 
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(1, 1, 'application/msword');
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(2, 6, 'application/rtf');
