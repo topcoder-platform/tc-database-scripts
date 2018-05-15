@@ -1,4 +1,6 @@
-
+*.iml
+*.ipr
+*.iws
 # /
 /build.properties
 /connfile.sql

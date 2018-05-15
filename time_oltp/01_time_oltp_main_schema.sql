@@ -282,8 +282,9 @@ create table 'informix'.client (
     creation_user VARCHAR(64) not null,
     modification_date DATETIME YEAR TO SECOND not null,
     modification_user VARCHAR(64) not null,
-	cmc_account_id VARCHAR(100),
-	customer_number VARCHAR(100)
+    cmc_account_id VARCHAR(100),
+    customer_number VARCHAR(100),
+    enable_effort_hours SMALLINT
 )
 extent size 16 next size 16
 lock mode row;
