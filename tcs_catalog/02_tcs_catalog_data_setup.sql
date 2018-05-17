@@ -1262,7 +1262,7 @@ INSERT INTO 'informix'.project_status_lu(project_status_id,name,description,crea
 INSERT INTO 'informix'.project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (8, 'Cancelled - Winner Unresponsive', 'Cancelled - Winner Unresponsive', 'dok', '2007-05-23 15:47:06.000', 'dok', '2007-05-23 15:47:06.000');
 INSERT INTO 'informix'.project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (9, 'Cancelled - Client Request', 'Cancelled - Client Request', 156859, '2009-12-10 12:21:12.000', 156859, '2009-12-10 12:21:12.000');
 INSERT INTO 'informix'.project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (10, 'Cancelled - Requirements Infeasible', 'Cancelled - Requirements Infeasible', 156859, '2009-12-10 12:21:12.000', 156859, '2009-12-10 12:21:12.000');
-insert into project_status_lu (project_status_id,name,description,create_user,create_date,modify_user,modify_date) values (11, 'Cancelled - Zero Registrations', 'Cancelled - Zero Registrations', 156859, current, 156859, current);
+insert into 'informix'.project_status_lu(project_status_id,name,description,create_user,create_date,modify_user,modify_date) values (11, 'Cancelled - Zero Registrations', 'Cancelled - Zero Registrations', 156859, current, 156859, current);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'External Reference ID', 'External Reference ID', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Component ID', 'Component ID', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Version ID', 'Version ID', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -1345,11 +1345,11 @@ INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,descriptio
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (81, 'Challenge Originator', 'The originating system for the challenge creation', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (82, 'Private Project Status', 'Private Project Status', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (83, 'Product SKU', 'Product SKU', 'System', CURRENT, 'System', CURRENT);
-INSERT INTO "informix".project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (84, 'Environment', 'Environment', 'System', CURRENT, 'System', CURRENT);
-INSERT INTO "informix".project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (85, 'Code Repo', 'Code Repo', 'System', CURRENT, 'System', CURRENT);
-INSERT INTO "informix".project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (86, 'Marathon Match Contest Id', 'Marathon Match Contest Id', 'System', CURRENT, 'System', CURRENT);
-INSERT INTO "informix".project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (87, 'Marathon Match Type', 'Marathon Match Type', 'System', CURRENT, 'System', CURRENT);
-
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (84, 'Environment', 'Environment', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (85, 'Code Repo', 'Code Repo', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (86, 'Marathon Match Contest Id', 'Marathon Match Contest Id', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (87, 'Marathon Match Type', 'Marathon Match Type', 'System', CURRENT, 'System', CURRENT);
+INSERT INTO 'informix'.project_info_type_lu(project_info_type_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (88, 'Effort Hours Estimate', 'Effort Hours Estimate', 'System', CURRENT, 'System', CURRENT);
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (1, 'Scheduled', 'Scheduled', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (2, 'Open', 'Open', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
 INSERT INTO 'informix'.phase_status_lu(phase_status_id,name,description,create_user,create_date,modify_user,modify_date) VALUES (3, 'Closed', 'Closed', 'System', '2006-11-02 20:14:24.000', 'System', '2006-11-02 20:14:24.000');
@@ -3740,6 +3740,9 @@ INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file,
 VALUES(44, 'HTML', 44, 'f', '-', 'f', 'System', Current, 'System', Current);
 INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
 VALUES(45, 'RP file created with Axure', 45, 'f', '-', 'f', 'System', Current, 'System', Current);
+INSERT INTO 'informix'.file_type_lu(file_type_id, description, sort, image_file, extension, bundled_file, create_user, create_date, modify_user, modify_date)
+VALUES(47, 'Mac OS X Sketch vector graphics', 47, 'f', 'SKETCH', 'f', 'System', Current, 'System', Current);
+
 
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(1, 1, 'application/msword');
 INSERT INTO 'informix'.mime_type_lu(mime_type_id, file_type_id, mime_type_desc) VALUES(2, 6, 'application/rtf');
