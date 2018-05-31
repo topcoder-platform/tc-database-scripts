@@ -9,6 +9,9 @@ RUN sudo apt-get update && sudo apt-get install -y \
     openjdk-7-jdk \
     wget \
  && sudo rm -rf /var/lib/apt/lists/*
+
+# set time timezone to est
+RUN ln -snf /usr/share/zoneinfo/America/New_York /etc/localtime && echo "America/New_York" > /etc/timezone
  
 # install Apache ant
 COPY ant-libs.tgz $INFORMIX_HOME
