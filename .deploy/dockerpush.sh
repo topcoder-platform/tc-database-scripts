@@ -12,6 +12,6 @@ docker login -u $DOCKER_USER -p $DOCKER_PASSWD
 
 echo "Pushing docker image"
 echo "############################"
-#docker push $DOCKER_REPO:$CIRCLE_SHA1
-#docker tag $DOCKER_REPO:$CIRCLE_SHA1 $DOCKER_REPO:latest
-#docker push $DOCKER_REPO:latest
+docker push $DOCKER_REPO:$CIRCLE_SHA1
+docker tag $DOCKER_REPO:$CIRCLE_SHA1 $DOCKER_REPO:latest
+docker push $DOCKER_REPO:latest
