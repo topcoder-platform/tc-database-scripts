@@ -16,4 +16,4 @@ workflows:
       - build:
           filters:
             branches:
-              only: [master,dev-circleci2]
+              only: [master]
