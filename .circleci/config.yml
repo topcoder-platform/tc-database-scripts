@@ -1,0 +1,19 @@
+version: 2
+
+jobs:
+  build:
+    machine: true
+    environment: 
+      DOCKER_REPO: appiriodevops/tc-database-scripts
+    steps:
+      - checkout
+      - run: .deploy/dockerpush.sh
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: [master,dev-circleci2]
