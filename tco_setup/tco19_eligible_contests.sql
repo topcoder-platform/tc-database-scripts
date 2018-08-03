@@ -105,15 +105,19 @@ FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2018-08-01 00:00:00.000' and pp.actual_start_time <  '2018-11-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
-INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
+-- INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes' --This seems No for Bug Hunts
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
-INNER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
-INNER JOIN comp_technology   ON comp_technology.comp_vers_id = pi1.value
-
+LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+
 WHERE p.project_status_id = 1
-   and p.project_category_id in (7,9,13,14,19,39)
-   and comp_technology.technology_type_id = 78 -- Include only QA
+   and 
+   ( 
+     p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
+     OR 
+     exists (SELECT 1 FROM comp_technology 
+                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
+   )  
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (668, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
@@ -128,15 +132,20 @@ FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2018-11-01 00:00:00.000' and pp.actual_start_time <  '2019-02-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
-INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
+-- INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 INNER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 INNER JOIN comp_technology   ON comp_technology.comp_vers_id = pi1.value
 
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
-   and p.project_category_id in (7,9,13,14,19,39)
-   and comp_technology.technology_type_id = 78 -- Include only QA   
+   and 
+   ( 
+     p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
+     OR 
+     exists (SELECT 1 FROM comp_technology 
+                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
+   )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (669, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
@@ -151,15 +160,20 @@ FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2019-02-01 00:00:00.000' and pp.actual_start_time <  '2019-05-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
-INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
+--INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 INNER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 INNER JOIN comp_technology   ON comp_technology.comp_vers_id = pi1.value
 
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
-   and p.project_category_id in (7,9,13,14,19,39)
-   and comp_technology.technology_type_id = 78 -- Include only QA   
+    and 
+   ( 
+     p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
+     OR 
+     exists (SELECT 1 FROM comp_technology 
+                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
+   )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (670, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
@@ -174,15 +188,20 @@ FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
                                pp.actual_start_time >= '2019-05-01 00:00:00.000' and pp.actual_start_time <  '2019-08-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
-INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
+--INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 INNER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 INNER JOIN comp_technology   ON comp_technology.comp_vers_id = pi1.value
 
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
-   and p.project_category_id in (7,9,13,14,19,39)
-   and comp_technology.technology_type_id = 78 -- Include only QA   
+    and 
+    ( 
+      p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
+      OR 
+      exists (SELECT 1 FROM comp_technology 
+                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
+    )  
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (671, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
