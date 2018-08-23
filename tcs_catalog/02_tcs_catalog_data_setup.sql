@@ -480,9 +480,11 @@ INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,descr
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (27380238, 'IBM DB2', 'IBM DB2', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (78, 'QA', 'QA', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (79, 'Marvel - Design', 'Marvel - Design', 1);
-
-
-
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (100, 'Ethereum', 'Ethereum', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (101, 'Solidity', 'Solidity', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (102, 'Xamarin', 'Xamarin', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (103, 'MarkLogic', 'MarkLogic', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (104, 'UI Prototype', 'UI Prototype', 1);
 
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (11004, 'Util');
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (13337, 'development');
