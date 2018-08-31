@@ -486,6 +486,13 @@ INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,descr
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (103, 'MarkLogic', 'MarkLogic', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (104, 'UI Prototype', 'UI Prototype', 1);
 INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (105, 'Frontend', 'Frontend', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (106, 'Quorum', 'Quorum', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (107, 'R3 Corda', 'R3 Corda', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (108, 'Hashgraph', 'Hashgraph', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (109, 'Hyperledger Sawtooth', 'Hyperledger Sawtooth', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (110, 'Multichain', 'Multichain', 1);
+INSERT INTO 'informix'.technology_types(technology_type_id,technology_name,description,status_id) VALUES (111, 'ipfs', 'ipfs', 1);
+
 
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (11004, 'Util');
 INSERT INTO 'informix'.command_group_lu(command_group_id,command_group_name) VALUES (13337, 'development');
