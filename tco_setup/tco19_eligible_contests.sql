@@ -17,7 +17,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 WHERE p.project_status_id = 1
-   and p.project_category_id in (7,14,19,39) -- include UI Prototype track as well
+   and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (673, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
@@ -39,7 +39,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 WHERE p.project_status_id = 1
-   and p.project_category_id in (7,14,19,39)
+   and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (674, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
@@ -62,7 +62,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82  
 LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 WHERE p.project_status_id = 1
-   and p.project_category_id in (7,14,19, 39) -- include UI Prototype track as well
+   and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (675, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
@@ -84,7 +84,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 WHERE p.project_status_id = 1
-   and p.project_category_id in (7,14,19, 39) -- include UI Prototype track as well
+   and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (676, 583)) -- make sure we exclude from tco
    and p.project_id not in (select ce.contest_id from contest_eligibility ce)
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
