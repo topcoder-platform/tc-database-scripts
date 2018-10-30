@@ -19,7 +19,13 @@ LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.proj
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (673, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
    and p.project_id not in (30070720, 30070724, 30070725, 30070727) -- IBM Hackathon Challenges to be excluded
@@ -42,7 +48,13 @@ LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.proj
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (674, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -65,7 +77,13 @@ LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.proj
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (675, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -87,7 +105,13 @@ LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.proj
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (676, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -120,7 +144,13 @@ WHERE p.project_status_id = 1
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
    )  
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (668, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -148,7 +178,14 @@ WHERE p.project_status_id = 1
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
    )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (669, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
+
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -176,7 +213,14 @@ WHERE p.project_status_id = 1
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
    )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (670, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
+
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -204,7 +248,13 @@ WHERE p.project_status_id = 1
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
     )  
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (671, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -226,7 +276,13 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (663, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -244,7 +300,13 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (664, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -262,7 +324,13 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (665, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -282,7 +350,13 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (666, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
  --and mod(p.project_id, 2) = 0
@@ -303,7 +377,13 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (658, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 --   and mod(p.project_id, 2) = 0
@@ -321,7 +401,13 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (659, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks 
    and p.tc_direct_project_id not in (16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -339,7 +425,13 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (660, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -357,7 +449,13 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (661, 583)) -- make sure we exclude from tco
-   and p.project_id not in (select ce.contest_id from contest_eligibility ce)
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and mod(p.project_id, 2) = 0
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) --exclude projects for fun and university challenges
