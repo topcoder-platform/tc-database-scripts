@@ -166,8 +166,6 @@ INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_
 -- INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 INNER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
-INNER JOIN comp_technology   ON comp_technology.comp_vers_id = pi1.value
-
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
    and 
@@ -175,7 +173,8 @@ WHERE p.project_status_id = 1
      p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
      OR 
      exists (SELECT 1 FROM comp_technology 
-                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
+                    WHERE comp_vers_id = pi1.value AND p.project_category_id NOT IN (38, 40) 
+                    AND technology_type_id = 78) -- if the challlenge is tagged as QA
    )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (669, 583)) -- make sure we exclude from tco
    and p.project_id not in
@@ -201,7 +200,6 @@ INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_
 --INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 INNER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
-INNER JOIN comp_technology   ON comp_technology.comp_vers_id = pi1.value
 
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
@@ -210,7 +208,9 @@ WHERE p.project_status_id = 1
      p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
      OR 
      exists (SELECT 1 FROM comp_technology 
-                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
+                    WHERE comp_vers_id = pi1.value 
+                    AND p.project_category_id NOT IN (38, 40)
+                    AND technology_type_id = 78) -- if the challlenge is tagged as QA
    )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (670, 583)) -- make sure we exclude from tco
    and p.project_id not in
@@ -236,7 +236,6 @@ INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_
 --INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 INNER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
-INNER JOIN comp_technology   ON comp_technology.comp_vers_id = pi1.value
 
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
@@ -245,7 +244,9 @@ WHERE p.project_status_id = 1
       p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
       OR 
       exists (SELECT 1 FROM comp_technology 
-                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
+                    WHERE comp_vers_id = pi1.value 
+                    AND p.project_category_id NOT IN (38, 40)
+                    AND technology_type_id = 78) -- if the challlenge is tagged as QA
     )  
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (671, 583)) -- make sure we exclude from tco
    and p.project_id not in
