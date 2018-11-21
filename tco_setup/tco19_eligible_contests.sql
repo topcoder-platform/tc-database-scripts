@@ -173,7 +173,7 @@ WHERE p.project_status_id = 1
      p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
      OR 
      exists (SELECT 1 FROM comp_technology 
-                    WHERE comp_vers_id = pi1.value AND p.project_category_id NOT IN (38, 40) 
+                    WHERE comp_vers_id = pi1.value  
                     AND technology_type_id = 78) -- if the challlenge is tagged as QA
    )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (669, 583)) -- make sure we exclude from tco
@@ -209,7 +209,6 @@ WHERE p.project_status_id = 1
      OR 
      exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value 
-                    AND p.project_category_id NOT IN (38, 40)
                     AND technology_type_id = 78) -- if the challlenge is tagged as QA
    )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (670, 583)) -- make sure we exclude from tco
@@ -245,7 +244,6 @@ WHERE p.project_status_id = 1
       OR 
       exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value 
-                    AND p.project_category_id NOT IN (38, 40)
                     AND technology_type_id = 78) -- if the challlenge is tagged as QA
     )  
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (671, 583)) -- make sure we exclude from tco
