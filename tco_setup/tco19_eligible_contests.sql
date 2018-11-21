@@ -375,6 +375,8 @@ INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
+
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (658, 583)) -- make sure we exclude from tco
@@ -388,6 +390,8 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 --   and mod(p.project_id, 2) = 0
+   and not exists (SELECT 1 FROM comp_technology 
+                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from F2F
    and 1 = 1;
 
 -- Stage 2
@@ -399,6 +403,8 @@ INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
+
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (659, 583)) -- make sure we exclude from tco
@@ -412,6 +418,8 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks 
    and p.tc_direct_project_id not in (16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and not exists (SELECT 1 FROM comp_technology 
+                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from F2F
    and 1=1;
 
 -- Stage 3
@@ -423,6 +431,7 @@ INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (660, 583)) -- make sure we exclude from tco
@@ -436,6 +445,8 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and not exists (SELECT 1 FROM comp_technology 
+                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from F2F
    and 1 = 1;
 
 -- Stage 4
@@ -447,6 +458,7 @@ INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 WHERE p.project_status_id = 1
    and p.project_category_id in (38,40)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (661, 583)) -- make sure we exclude from tco
@@ -458,7 +470,8 @@ WHERE p.project_status_id = 1
            AND group_id = 20000002) 
       ) -- include challenges from Anemoi
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
-   and mod(p.project_id, 2) = 0
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) --exclude projects for fun and university challenges
--- and mod(p.project_id, 2) = 0 
+   and not exists (SELECT 1 FROM comp_technology 
+                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from F2F
+   
    and 1 = 1;
