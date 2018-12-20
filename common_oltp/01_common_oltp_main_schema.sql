@@ -1395,6 +1395,7 @@ CREATE SEQUENCE SEQUENCE_COMPONENT_INQUIRY_SEQ INCREMENT BY 1 START WITH 4000000
 CREATE SEQUENCE SEQUENCE_RESOURCE_ID_SEQ INCREMENT BY 1 START WITH 4000000;
 CREATE SEQUENCE SEQUENCE_UPLOAD_SEQ INCREMENT BY 1 START WITH 4000000;
 CREATE SEQUENCE SEQUENCE_SUBMISSION_SEQ INCREMENT BY 1 START WITH 4000000;
+CREATE SEQUENCE sequence_address_seq INCREMENT BY 1 START WITH 3000000 MINVALUE 3000000;
 
 
 revoke all on "informix".SEQUENCE_USER_GROUP_SEQ from "public";
@@ -1404,6 +1405,7 @@ revoke all on "informix".SEQUENCE_COMPONENT_INQUIRY_SEQ from "public";
 revoke all on "informix".SEQUENCE_RESOURCE_ID_SEQ from "public";
 revoke all on "informix".SEQUENCE_UPLOAD_SEQ from "public";
 revoke all on "informix".SEQUENCE_SUBMISSION_SEQ from "public";
+revoke all on "informix".sequence_address_seq from "public";
 
 create view "informix".email_user (user_id,first_name,last_name,
        create_date,modify_date,handle,last_login,status,
@@ -2410,6 +2412,7 @@ grant select on "informix".SEQUENCE_COMPONENT_INQUIRY_SEQ to "public" as "inform
 grant select on "informix".SEQUENCE_RESOURCE_ID_SEQ to "public" as "informix";
 grant select on "informix".SEQUENCE_UPLOAD_SEQ to "public" as "informix";
 grant select on "informix".SEQUENCE_SUBMISSION_SEQ to "public" as "informix";
+grant select on "informix".sequence_address_seq to "public" as "informix";
 grant select,update,insert,delete on password_reset_token to public as informix;
 grant select,update,insert,delete on email_request to public as informix;
 
