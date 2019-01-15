@@ -473,3 +473,104 @@ WHERE p.project_status_id = 1
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from F2F
    
    and 1 = 1;
+
+
+  -- MM
+
+-- Stage 1
+insert into contest_project_xref
+SELECT 678, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2018-08-01 00:00:00.000' and pp.actual_start_time <  '2018-11-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+WHERE p.project_status_id = 1
+   and p.project_category_id in (37)
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (663, 583)) -- make sure we exclude from tco
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
+-- and mod(p.project_id, 2) = 0
+   and 1 = 1; 
+
+-- Stage 2
+insert into contest_project_xref
+SELECT 679, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2018-11-01 00:00:00.000' and pp.actual_start_time <  '2019-02-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+WHERE p.project_status_id = 1
+   and p.project_category_id in (37)
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (664, 583)) -- make sure we exclude from tco
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
+-- and mod(p.project_id, 2) = 0
+   and 1 = 1; 
+
+-- Stage 3
+insert into contest_project_xref
+SELECT 680, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2019-02-01 00:00:00.000' and pp.actual_start_time <  '2019-05-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+WHERE p.project_status_id = 1
+   and p.project_category_id in (37)
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (665, 583)) -- make sure we exclude from tco
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
+-- and mod(p.project_id, 2) = 0
+   and 1 = 1; 
+
+
+
+-- Stage 4
+insert into contest_project_xref
+SELECT 681, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2019-05-01 00:00:00.000' and pp.actual_start_time <  '2019-08-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+WHERE p.project_status_id = 1
+   and p.project_category_id in (37)
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (666, 583)) -- make sure we exclude from tco
+   and p.project_id not in
+      ( SELECT contest_id FROM contest_eligibility 
+        WHERE contest_id NOT IN 
+          (select contest_id from contest_eligibility ce inner join common_oltp:group_contest_eligibility gce 
+           ON ce.contest_eligibility_id = gce.contest_eligibility_id 
+           AND group_id = 20000002) 
+      ) -- include challenges from Anemoi
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
+ --and mod(p.project_id, 2) = 0
+   and 1 = 1; 
