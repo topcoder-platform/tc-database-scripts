@@ -488,7 +488,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
    and p.project_category_id in (37)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (663, 583)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (678)) -- make sure we exclude from tco
    and p.project_id not in
       ( SELECT contest_id FROM contest_eligibility 
         WHERE contest_id NOT IN 
@@ -512,7 +512,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
    and p.project_category_id in (37)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (664, 583)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (679)) -- make sure we exclude from tco
    and p.project_id not in
       ( SELECT contest_id FROM contest_eligibility 
         WHERE contest_id NOT IN 
@@ -536,7 +536,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
    and p.project_category_id in (37)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (665, 583)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (680)) -- make sure we exclude from tco
    and p.project_id not in
       ( SELECT contest_id FROM contest_eligibility 
         WHERE contest_id NOT IN 
@@ -562,7 +562,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
    and p.project_category_id in (37)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (666, 583)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (681)) -- make sure we exclude from tco
    and p.project_id not in
       ( SELECT contest_id FROM contest_eligibility 
         WHERE contest_id NOT IN 
