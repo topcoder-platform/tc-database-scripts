@@ -10,7 +10,7 @@ insert into contest_project_xref
 SELECT 698, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2019-08-01 00:00:00.000' and pp.actual_start_time <  '2019-11-01 00:00:00.000'
+                               pp.actual_start_time >= '2019-10-01 00:00:00.000' and pp.actual_start_time <  '2020-01-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and (pi13.value = 'Yes' or p.project_category_id = 39) -- Code challenges are included even if not rated
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -32,7 +32,7 @@ insert into contest_project_xref
 SELECT 699, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2019-11-01 00:00:00.000' and pp.actual_start_time <  '2020-02-01 00:00:00.000'
+                               pp.actual_start_time >= '2020-01-01 00:00:00.000' and pp.actual_start_time <  '2020-04-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and (pi13.value = 'Yes' or p.project_category_id = 39) -- Code challenges are included even if not rated
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -54,7 +54,7 @@ insert into contest_project_xref
 SELECT 700, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2020-02-01 00:00:00.000' and pp.actual_start_time <  '2020-05-01 00:00:00.000'
+                               pp.actual_start_time >= '2020-04-01 00:00:00.000' and pp.actual_start_time <  '2020-07-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and (pi13.value = 'Yes' or p.project_category_id = 39) -- Code challenges are included even if not rated
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -70,29 +70,8 @@ WHERE p.project_status_id = 1
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
    and 1 = 1; 
 
--- Stage 4
-insert into contest_project_xref
-SELECT 701, p.project_id, current
-FROM project p
-INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2020-05-01 00:00:00.000' and pp.actual_start_time <  '2020-08-01 00:00:00.000'
-INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
-INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and (pi13.value = 'Yes' or p.project_category_id = 39) -- Code challenges are included even if not rated
-INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
-LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
-LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
-WHERE p.project_status_id = 1
-   and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (701, 697)) -- make sure we exclude from tco
-   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
-   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
--- and mod(p.project_id, 2) = 0
-   and not exists (SELECT 1 FROM comp_technology 
-                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
-   and 1 = 1; 
-
-
-
+   
+   
 -- QA Track Challenges
 
 -- Stage 1
@@ -100,7 +79,7 @@ insert into contest_project_xref
 SELECT 693, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2019-08-01 00:00:00.000' and pp.actual_start_time <  '2019-11-01 00:00:00.000'
+                               pp.actual_start_time >= '2019-10-01 00:00:00.000' and pp.actual_start_time <  '2020-01-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 -- INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes' --This seems No for Bug Hunts
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -126,7 +105,7 @@ insert into contest_project_xref
 SELECT 694, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2019-11-01 00:00:00.000' and pp.actual_start_time <  '2020-02-01 00:00:00.000'
+                               pp.actual_start_time >= '2020-01-01 00:00:00.000' and pp.actual_start_time <  '2020-04-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 -- INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -152,7 +131,7 @@ insert into contest_project_xref
 SELECT 695, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2020-02-01 00:00:00.000' and pp.actual_start_time <  '2020-05-01 00:00:00.000'
+                               pp.actual_start_time >= '2020-04-01 00:00:00.000' and pp.actual_start_time <  '2020-07-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 --INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
@@ -174,33 +153,6 @@ WHERE p.project_status_id = 1
 -- and mod(p.project_id, 2) = 0
    and 1 = 1; 
 
--- Stage 4
-insert into contest_project_xref
-SELECT 696, p.project_id, current
-FROM project p
-INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2020-05-01 00:00:00.000' and pp.actual_start_time <  '2020-08-01 00:00:00.000'
-INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
---INNER JOIN project_info pi13 ON p.project_id = pi13.project_id and pi13.project_info_type_id = 13 and pi13.value = 'Yes'
-INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
-INNER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
-
-LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
-WHERE p.project_status_id = 1
-    and 
-    ( 
-      p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
-      OR 
-      exists (SELECT 1 FROM comp_technology 
-                    WHERE comp_vers_id = pi1.value 
-                    AND technology_type_id = 78) -- if the challlenge is tagged as QA
-    )  
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (696, 692)) -- make sure we exclude from tco
-   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
-   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
--- and mod(p.project_id, 2) = 0
-   and 1 = 1; 
-
 
 
 -- DESIGN
@@ -210,7 +162,7 @@ insert into contest_project_xref
 SELECT 688, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2019-08-01 00:00:00.000' and pp.actual_start_time <  '2019-11-01 00:00:00.000'
+                               pp.actual_start_time >= '2019-10-01 00:00:00.000' and pp.actual_start_time <  '2020-01-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -227,7 +179,7 @@ insert into contest_project_xref
 SELECT 689, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2019-11-01 00:00:00.000' and pp.actual_start_time <  '2020-02-01 00:00:00.000'
+                               pp.actual_start_time >= '2020-01-01 00:00:00.000' and pp.actual_start_time <  '2020-04-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -244,7 +196,7 @@ insert into contest_project_xref
 SELECT 690, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2020-02-01 00:00:00.000' and pp.actual_start_time <  '2020-05-01 00:00:00.000'
+                               pp.actual_start_time >= '2020-04-01 00:00:00.000' and pp.actual_start_time <  '2020-07-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -258,24 +210,6 @@ WHERE p.project_status_id = 1
 
 
 
--- Stage 4
-insert into contest_project_xref
-SELECT 691, p.project_id, current
-FROM project p
-INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2020-05-01 00:00:00.000' and pp.actual_start_time <  '2020-08-01 00:00:00.000'
-INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
-INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
-LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
-WHERE p.project_status_id = 1
-   and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (691, 687)) -- make sure we exclude from tco
-   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
-   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
- --and mod(p.project_id, 2) = 0
-   and 1 = 1;
-
-
 -- F2F
 
 -- Stage 1
@@ -283,7 +217,7 @@ insert into contest_project_xref
 SELECT 683, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2019-08-01 00:00:00.000' and pp.actual_start_time <  '2019-11-01 00:00:00.000'
+                               pp.actual_start_time >= '2019-10-01 00:00:00.000' and pp.actual_start_time <  '2020-01-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -304,7 +238,7 @@ insert into contest_project_xref
 SELECT 684, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2019-11-01 00:00:00.000' and pp.actual_start_time <  '2020-02-01 00:00:00.000'
+                               pp.actual_start_time >= '2020-01-01 00:00:00.000' and pp.actual_start_time <  '2020-04-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -325,7 +259,7 @@ insert into contest_project_xref
 SELECT 685, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2020-02-01 00:00:00.000' and pp.actual_start_time <  '2020-05-01 00:00:00.000'
+                               pp.actual_start_time >= '2020-04-01 00:00:00.000' and pp.actual_start_time <  '2020-07-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -340,35 +274,15 @@ WHERE p.project_status_id = 1
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from F2F
    and 1 = 1;
 
--- Stage 4
-insert into contest_project_xref
-SELECT 686, p.project_id, current
-FROM project p
-INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2020-05-01 00:00:00.000' and pp.actual_start_time <  '2020-08-01 00:00:00.000'
-INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
-INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
-LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
-LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
-WHERE p.project_status_id = 1
-   and p.project_category_id in (38,40)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (686, 682)) -- make sure we exclude from tco
-   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
-   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) --exclude projects for fun and university challenges
-   and not exists (SELECT 1 FROM comp_technology 
-                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from F2F
-   
-   and 1 = 1;
 
-
-  -- MM
+-- MM
 
 -- Stage 1
 insert into contest_project_xref
 SELECT 703, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2019-08-01 00:00:00.000' and pp.actual_start_time <  '2019-11-01 00:00:00.000'
+                               pp.actual_start_time >= '2019-10-01 00:00:00.000' and pp.actual_start_time <  '2020-01-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -385,7 +299,7 @@ insert into contest_project_xref
 SELECT 704, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2019-11-01 00:00:00.000' and pp.actual_start_time <  '2020-02-01 00:00:00.000'
+                               pp.actual_start_time >= '2020-01-01 00:00:00.000' and pp.actual_start_time <  '2020-04-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -402,7 +316,7 @@ insert into contest_project_xref
 SELECT 705, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2020-02-01 00:00:00.000' and pp.actual_start_time <  '2020-05-01 00:00:00.000'
+                               pp.actual_start_time >= '2020-04-01 00:00:00.000' and pp.actual_start_time <  '2020-07-01 00:00:00.000'
 INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
@@ -412,23 +326,4 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
-   and 1 = 1; 
-
-
-
--- Stage 4
-insert into contest_project_xref
-SELECT 706, p.project_id, current
-FROM project p
-INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
-                               pp.actual_start_time >= '2020-05-01 00:00:00.000' and pp.actual_start_time <  '2020-08-01 00:00:00.000'
-INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
-INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
-LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
-WHERE p.project_status_id = 1
-   and p.project_category_id in (37)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (706,702)) -- make sure we exclude from tco
-   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
-   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
- --and mod(p.project_id, 2) = 0
    and 1 = 1; 
