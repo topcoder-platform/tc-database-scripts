@@ -21,8 +21,9 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (698, 697)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
-   and p.project_id not in (30070720, 30070724, 30070725, 30070727) -- IBM Hackathon Challenges to be excluded
+-- and p.project_id not in (30070720, 30070724, 30070725, 30070727) -- IBM Hackathon Challenges to be excluded
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and not exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
    and 1 = 1; 
@@ -44,6 +45,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and not exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
    and 1 = 1; 
@@ -66,6 +68,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and not exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
    and 1 = 1; 
@@ -98,6 +101,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
 
 -- Stage 2
@@ -124,6 +128,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
 
 -- Stage 3
@@ -151,6 +156,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
 
 
@@ -172,6 +178,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
 
 -- Stage 2
@@ -189,6 +196,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
 
 -- Stage 3
@@ -206,6 +214,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
 
 
@@ -231,6 +240,7 @@ WHERE p.project_status_id = 1
 --   and mod(p.project_id, 2) = 0
    and not exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from F2F
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1;
 
 -- Stage 2
@@ -252,6 +262,7 @@ WHERE p.project_status_id = 1
 -- and mod(p.project_id, 2) = 0
    and not exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from F2F
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1=1;
 
 -- Stage 3
@@ -272,6 +283,7 @@ WHERE p.project_status_id = 1
 -- and mod(p.project_id, 2) = 0
    and not exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from F2F
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1;
 
 
@@ -292,6 +304,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
 
 -- Stage 2
@@ -309,6 +322,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
 
 -- Stage 3
@@ -326,4 +340,5 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
