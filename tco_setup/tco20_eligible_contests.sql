@@ -95,9 +95,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and 
    ( 
-   --  p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
-     --p.project_category_id in (9,13,38,40) -- include Bug Hunt and Test Suites always, adding f2f and df2f
-     p.project_category_id in (9,13,37,38,39,40) --including bug hunt,test suits,Marathon,f2f,code,df2f 
+    p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
      OR 
      exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
@@ -123,9 +121,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
    and 
    ( 
-   --  p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
-     --p.project_category_id in (9,13,38,40) -- include Bug Hunt and Test Suites always, adding f2f and df2f
-     p.project_category_id in (9,13,37,38,39,40) --including bug hunt,test suits,Marathon,f2f,code,df2f
+     p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
      OR 
      exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value  
@@ -153,9 +149,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
     and 
    ( 
-      --  p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
-     --p.project_category_id in (9,13,38,40) -- include Bug Hunt and Test Suites always, adding f2f and df2f
-     p.project_category_id in (9,13,37,38,39,40) --including bug hunt,test suits,Marathon,f2f,code,df2f
+     p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
      OR 
      exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value 
