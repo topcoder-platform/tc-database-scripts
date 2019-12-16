@@ -315,6 +315,7 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (703,702)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
+   and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be dealt specially, check last section
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
@@ -339,6 +340,7 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (704,702)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
+   and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be dealt specially, check last section
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
@@ -363,6 +365,66 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (705,702)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
+   and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be dealt specially, check last section
+-- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
+   and 1 = 1; 
+
+
+-- Rodeo Challenge Series are launched as MM but need to be treated as Development
+-- Stage 1   
+insert into contest_project_xref
+SELECT 698, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2019-10-01 00:00:00.000' and pp.actual_start_time <  '2020-01-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1 
+WHERE p.project_status_id = 1
+   and p.project_category_id in (37) -- include marathon matches always
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (698 ,697)) -- make sure we exclude from tco
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id in ( 22249 ) --Rodeo Challenges 
+-- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
+   and 1 = 1; 
+
+-- Stage 2
+insert into contest_project_xref
+SELECT 699, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2020-01-01 00:00:00.000' and pp.actual_start_time <  '2020-04-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1 
+WHERE p.project_status_id = 1
+   and p.project_category_id in (37) -- include marathon matches always
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (699,697)) -- make sure we exclude from tco
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id in ( 22249 ) --Rodeo Challenges 
+-- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
+   and 1 = 1; 
+
+-- Stage 3
+insert into contest_project_xref
+SELECT 700, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2020-04-01 00:00:00.000' and pp.actual_start_time <  '2020-07-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1 
+WHERE p.project_status_id = 1
+   and p.project_category_id in (37) -- include marathon matches always
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (700, 697)) -- make sure we exclude from tco
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id in ( 22249 ) --Rodeo Challenges 
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
