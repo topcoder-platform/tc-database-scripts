@@ -296,6 +296,8 @@ WHERE p.project_status_id = 1
 
 
 -- MM
+--As per community team, Challenges tagged with Data Science are removed from Marathon Match tag. 
+--They will not be counted for any leaderboards for tco20
 
 -- Stage 1
 insert into contest_project_xref
@@ -308,12 +310,13 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 LEFT OUTER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1 
 WHERE p.project_status_id = 1
-   and (
+   and 
+   --(
        p.project_category_id in (37) -- include marathon matches always
-       OR
-       exists (SELECT 1 FROM comp_technology
-                   WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- if the challlenge is tagged as Data Science
-   )
+   --    OR
+   --    exists (SELECT 1 FROM comp_technology
+   --                WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- if the challlenge is tagged as Data Science
+   --)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (703,702)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
@@ -333,12 +336,13 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 LEFT OUTER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1 
 WHERE p.project_status_id = 1
-   and (
+   and 
+   --(
        p.project_category_id in (37) -- include marathon matches always
-       OR
-       exists (SELECT 1 FROM comp_technology
-                   WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- if the challlenge is tagged as Data Science
-   )
+   --    OR
+   --    exists (SELECT 1 FROM comp_technology
+   --                WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- if the challlenge is tagged as Data Science
+   --)
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (704,702)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
@@ -358,12 +362,13 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 LEFT OUTER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1 
 WHERE p.project_status_id = 1
-   and (
+   and
+   --(
        p.project_category_id in (37) -- include marathon matches always
-       OR
-       exists (SELECT 1 FROM comp_technology
-                   WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- if the challlenge is tagged as Data Science
-   ) 
+   --    OR
+   --    exists (SELECT 1 FROM comp_technology
+   --                WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- if the challlenge is tagged as Data Science
+   --) 
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (705,702)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
