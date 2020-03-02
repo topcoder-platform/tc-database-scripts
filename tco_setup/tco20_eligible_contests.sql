@@ -349,7 +349,7 @@ WHERE p.project_status_id = 1
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
-   and p.project_id not in ( 30114809, 30116975 ) --excluding specific challenge
+   and p.project_id not in ( 30114809, 30116975, 30116520 ) --excluding specific challenge
    and 1 = 1; 
 
 -- Stage 3
