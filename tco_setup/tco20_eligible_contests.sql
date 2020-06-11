@@ -75,6 +75,7 @@ WHERE p.project_status_id = 1
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
+   and p.project_id not in (30128882) --excluding practice contest
    and not exists (SELECT 1 FROM comp_technology 
                  --   WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
                   WHERE comp_vers_id = pi1.value AND technology_type_id in (78,27621212)) -- exclude QA/Data Science Challenges from Dev
@@ -109,6 +110,7 @@ WHERE p.project_status_id = 1
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
+   and p.project_id not in (30108180) --excluding practice contest
    and 1 = 1; 
 
 -- Stage 2
@@ -222,6 +224,7 @@ WHERE p.project_status_id = 1
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
+   and p.project_id not in (30129083) --excluding practice contest
    and 1 = 1; 
 
 -- F2F
@@ -376,6 +379,7 @@ WHERE p.project_status_id = 1
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
+   and p.project_id not in (30129332) --excluding practice contest
    and 1 = 1; 
 
 
