@@ -398,7 +398,7 @@ WHERE p.project_status_id = 1
 
 -- MM
 --As per community team, Challenges tagged with Data Science are removed from Marathon Match tag. 
---They will not be counted for any leaderboards for tco20
+--They will  be counted for data science leaderboards for tco21
 
 -- Stage 1
 insert into contest_project_xref
@@ -505,4 +505,120 @@ WHERE p.project_status_id = 1
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
 --   and p.project_id not in (30129332) --excluding practice contest
+   and 1 = 1; 
+
+
+-- Data Science
+--As per community team, Challenges with category code and tagged with Data Science 
+--are only counted in Data Science leaderboard
+
+--Stage 1
+
+insert into contest_project_xref
+SELECT 733, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2020-07-01 00:00:00.000' and pp.actual_start_time <  '2020-10-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1 
+WHERE p.project_status_id = 1
+   and 
+   --(
+       p.project_category_id in (39) -- include code matches always
+	   and
+       exists (SELECT 1 FROM comp_technology
+                   WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- to check if the challlenge is tagged as Data Science
+   --)
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (733,732)) -- make sure we exclude from tco
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
+   and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
+-- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
+   and 1 = 1; 
+
+
+   --Stage 2
+
+   insert into contest_project_xref
+SELECT 734, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2020-10-01 00:00:00.000' and pp.actual_start_time <  '2021-01-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1 
+WHERE p.project_status_id = 1
+   and 
+   --(
+       p.project_category_id in (39) -- include code matches always
+	   and
+       exists (SELECT 1 FROM comp_technology
+                   WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- to check if the challlenge is tagged as Data Science
+   --)
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (734,732)) -- make sure we exclude from tco
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
+   and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
+-- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
+   and 1 = 1; 
+
+
+   --Stage 3
+
+   insert into contest_project_xref
+SELECT 735, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2021-01-01 00:00:00.000' and pp.actual_start_time <  '2021-04-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1 
+WHERE p.project_status_id = 1
+   and 
+   --(
+       p.project_category_id in (39) -- include code matches always
+	   and
+       exists (SELECT 1 FROM comp_technology
+                   WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- to check if the challlenge is tagged as Data Science
+   --)
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (735,732)) -- make sure we exclude from tco
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
+   and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
+-- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
+   and 1 = 1; 
+
+
+--Stage 4
+
+insert into contest_project_xref
+SELECT 736, p.project_id, current
+FROM project p
+INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
+                               pp.actual_start_time >= '2021-04-01 00:00:00.000' and pp.actual_start_time <  '2021-07-01 00:00:00.000'
+INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_info_type_id = 12 and pi12.value = 'Yes'
+INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
+LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
+LEFT OUTER JOIN project_info pi1 ON pi1.project_id = p.project_id and pi1.project_info_type_id = 1 
+WHERE p.project_status_id = 1
+   and 
+   --(
+       p.project_category_id in (39) -- include code matches always
+	   and
+       exists (SELECT 1 FROM comp_technology
+                   WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- to check if the challlenge is tagged as Data Science
+   --)
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (736,732)) -- make sure we exclude from tco
+   and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
+   and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
+   and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
+-- and mod(p.project_id, 2) = 0
+   and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
