@@ -28,7 +28,7 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and not exists (SELECT 1 FROM comp_technology 
                --    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
-                    WHERE comp_vers_id = pi1.value AND technology_type_id in (78,27621212)) -- exclude QA/Data Science Challenges from Dev
+                    WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483,27621212)) -- exclude QA/QA - Regression/QA - Hunt/QA - Test Case Writing/Data Science Challenges from Dev
    and 1 = 1; 
 
 -- Stage 2
@@ -52,7 +52,7 @@ WHERE p.project_status_id = 1
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and not exists (SELECT 1 FROM comp_technology 
                --     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
-                WHERE comp_vers_id = pi1.value AND technology_type_id in (78,27621212)) -- exclude QA/Data Science Challenges from Dev
+                WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483,27621212)) -- exclude QA/QA - Regression/QA - Hunt/QA - Test Case Writing/Data Science Challenges from Dev
    and 1 = 1; 
 
 
@@ -78,7 +78,7 @@ WHERE p.project_status_id = 1
 --   and p.project_id not in (30128882) --excluding practice contest
    and not exists (SELECT 1 FROM comp_technology 
                  --   WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
-                  WHERE comp_vers_id = pi1.value AND technology_type_id in (78,27621212)) -- exclude QA/Data Science Challenges from Dev
+                  WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483,27621212)) -- exclude QA/QA - Regression/QA - Hunt/QA - Test Case Writing/Data Science Challenges from Dev
    and 1 = 1;
 
 -- Stage 4
@@ -103,7 +103,7 @@ WHERE p.project_status_id = 1
 --   and p.project_id not in (30128882) --excluding practice contest
    and not exists (SELECT 1 FROM comp_technology 
                  --   WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
-                  WHERE comp_vers_id = pi1.value AND technology_type_id in (78,27621212)) -- exclude QA/Data Science Challenges from Dev
+                  WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483,27621212)) -- exclude QA/QA - Regression/QA - Hunt/QA - Test Case Writing/Data Science Challenges from Dev
    and 1 = 1;   
 
    
@@ -128,7 +128,7 @@ WHERE p.project_status_id = 1
     p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
      OR 
      exists (SELECT 1 FROM comp_technology 
-                    WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- if the challlenge is tagged as QA
+                    WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483)) -- if the challlenge is tagged as QA/QA - Regression/QA - Hunt/QA - Test Case Writing
    )  
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (718, 717)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
@@ -157,7 +157,7 @@ WHERE p.project_status_id = 1
      OR 
      exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value  
-                    AND technology_type_id = 78) -- if the challlenge is tagged as QA
+                    AND technology_type_id in (78,481,482,483)) -- if the challlenge is tagged as QA/QA - Regression/QA - Hunt/QA - Test Case Writing
    )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (719, 717)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
@@ -185,7 +185,7 @@ WHERE p.project_status_id = 1
      OR 
      exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value 
-                    AND technology_type_id = 78) -- if the challlenge is tagged as QA
+                    AND technology_type_id in (78,481,482,483)) -- if the challlenge is tagged as QA/QA - Regression/QA - Hunt/QA - Test Case Writing
    )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (720, 717)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
@@ -213,7 +213,7 @@ WHERE p.project_status_id = 1
      OR 
      exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value 
-                    AND technology_type_id = 78) -- if the challlenge is tagged as QA
+                    AND technology_type_id = in (78,481,482,483)) -- if the challlenge is tagged as QA/QA - Regression/QA - Hunt/QA - Test Case Writing
    )   
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (721, 717)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
