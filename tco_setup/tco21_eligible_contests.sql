@@ -422,6 +422,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
+   and p.tc_direct_project_id not in ( 26910 ) --USBR Streamflow Forecasting challenges to be excluded 
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and p.project_id not in ( 30138384 ) --excluding as per support ticket 67942
@@ -451,6 +452,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
+   and p.tc_direct_project_id not in ( 26910 ) --USBR Streamflow Forecasting challenges to be excluded
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
  --  and p.project_id not in ( 30114809, 30116975, 30116520 ) --excluding specific challenge
@@ -478,6 +480,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
+   and p.tc_direct_project_id not in ( 26910 ) --USBR Streamflow Forecasting challenges to be excluded
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
 --   and p.project_id not in (30129332) --excluding practice contest
@@ -505,6 +508,7 @@ WHERE p.project_status_id = 1
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
+   and p.tc_direct_project_id not in ( 26910 ) --USBR Streamflow Forecasting challenges to be excluded
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
 --   and p.project_id not in (30129332) --excluding practice contest
