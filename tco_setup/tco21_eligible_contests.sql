@@ -630,3 +630,4 @@ WHERE p.project_status_id = 1
 -- and mod(p.project_id, 2) = 0
    and p.project_id not in (select ce.contest_id from contest_eligibility ce) --excluding private challenges
    and 1 = 1; 
+   
