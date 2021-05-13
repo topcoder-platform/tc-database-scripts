@@ -2234,6 +2234,7 @@ INSERT INTO 'informix'.payment_status_reason_lu(payment_status_reason_id,payment
 INSERT INTO 'informix'.payment_status_reason_lu(payment_status_reason_id,payment_status_reason_desc) VALUES (100, 'Attached to parent');
 INSERT INTO 'informix'.payment_status_reason_lu(payment_status_reason_id,payment_status_reason_desc) VALUES (101, 'Member under 18');
 INSERT INTO 'informix'.payment_status_reason_lu(payment_status_reason_id,payment_status_reason_desc) VALUES (14, 'Waiting for signed assignment document');
+INSERT INTO 'informix'.payment_status_reason_lu(payment_status_reason_id,payment_status_reason_desc) VALUES (500, 'Created by V5');
 INSERT INTO 'informix'.student_classroom_status_lu(status_id,description) VALUES (1, 'Active');
 INSERT INTO 'informix'.student_classroom_status_lu(status_id,description) VALUES (2, 'Pending');
 INSERT INTO 'informix'.student_classroom_status_lu(status_id,description) VALUES (3, 'Inactive');
