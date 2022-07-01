@@ -18,7 +18,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (753, 752)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (768)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -45,7 +45,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (754, 752)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (767, 768)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -71,7 +71,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (755, 752)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (769, 768)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -97,7 +97,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.project_info_type_id = 1
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39) -- exclude UI Prototype track as well
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (756, 752)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (770, 768)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -134,7 +134,7 @@ WHERE p.project_status_id = 1
      exists (SELECT 1 FROM comp_technology 
                     WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483)) -- if the challlenge is tagged as QA/QA - Regression/QA - Hunt/QA - Test Case Writing
    )  
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (748, 747)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (774)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -163,7 +163,7 @@ WHERE p.project_status_id = 1
                     WHERE comp_vers_id = pi1.value  
                     AND technology_type_id in (78,481,482,483)) -- if the challlenge is tagged as QA/QA - Regression/QA - Hunt/QA - Test Case Writing
    )   
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (749, 747)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (773, 774)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -191,7 +191,7 @@ WHERE p.project_status_id = 1
                     WHERE comp_vers_id = pi1.value 
                     AND technology_type_id in (78,481,482,483)) -- if the challlenge is tagged as QA/QA - Regression/QA - Hunt/QA - Test Case Writing
    )   
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (750, 747)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (772, 774)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -219,7 +219,7 @@ WHERE p.project_status_id = 1
                     WHERE comp_vers_id = pi1.value 
                     AND technology_type_id = in (78,481,482,483)) -- if the challlenge is tagged as QA/QA - Regression/QA - Hunt/QA - Test Case Writing
    )   
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (751, 747)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (771, 774)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -241,7 +241,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (743, 742)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (775)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -259,7 +259,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (744, 742)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (776, 775)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -277,7 +277,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (745, 742)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (777, 775)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -297,7 +297,7 @@ INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
    and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (746, 742)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (778, 775)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
 -- and mod(p.project_id, 2) = 0
@@ -328,7 +328,7 @@ WHERE p.project_status_id = 1
    --    exists (SELECT 1 FROM comp_technology
    --                WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- if the challlenge is tagged as Data Science
    --)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (758,757)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (783)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -358,7 +358,7 @@ WHERE p.project_status_id = 1
    --    exists (SELECT 1 FROM comp_technology
    --                WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- if the challlenge is tagged as Data Science
    --)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (759,757)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (784,783)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -389,7 +389,7 @@ WHERE p.project_status_id = 1
    --    exists (SELECT 1 FROM comp_technology
    --                WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- if the challlenge is tagged as Data Science
    --) 
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (760,757)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (785,783)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -418,7 +418,7 @@ WHERE p.project_status_id = 1
    --    exists (SELECT 1 FROM comp_technology
    --                WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- if the challlenge is tagged as Data Science
    --) 
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (761,757)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (786,783)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -452,7 +452,7 @@ WHERE p.project_status_id = 1
        exists (SELECT 1 FROM comp_technology
                    WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- to check if the challlenge is tagged as Data Science
    --)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (733,732)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (787)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -481,7 +481,7 @@ WHERE p.project_status_id = 1
        exists (SELECT 1 FROM comp_technology
                    WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- to check if the challlenge is tagged as Data Science
    --)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (734,732)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (788,787)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -510,7 +510,7 @@ WHERE p.project_status_id = 1
        exists (SELECT 1 FROM comp_technology
                    WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- to check if the challlenge is tagged as Data Science
    --)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (735,732)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (789,787)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -539,7 +539,7 @@ WHERE p.project_status_id = 1
        exists (SELECT 1 FROM comp_technology
                    WHERE comp_vers_id = pi1.value AND technology_type_id = 27621212) -- to check if the challlenge is tagged as Data Science
    --)
-   and p.project_id not in (select project_id from contest_project_xref where contest_id in (736,732)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from contest_project_xref where contest_id in (790,787)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
