@@ -2213,6 +2213,7 @@ INSERT INTO 'informix'.payment_reference_lu(payment_reference_id,reference_field
 INSERT INTO 'informix'.payment_reference_lu(payment_reference_id,reference_field_name) VALUES (8, 'parent_payment_id');
 INSERT INTO 'informix'.payment_reference_lu(payment_reference_id,reference_field_name) VALUES (9, 'digital_run_track_id');
 INSERT INTO 'informix'.payment_reference_lu(payment_reference_id,reference_field_name) VALUES (10, 'cockpit_project_id');
+INSERT INTO 'informix'.payment_reference_lu(payment_reference_id, reference_field_name) VALUES (11, 'Task ID');
 INSERT INTO 'informix'.payment_status_lu(payment_status_id,payment_status_desc,payment_status_active_ind) VALUES (53, 'Paid', 1);
 INSERT INTO 'informix'.payment_status_lu(payment_status_id,payment_status_desc,payment_status_active_ind) VALUES (55, 'On Hold', 1);
 INSERT INTO 'informix'.payment_status_lu(payment_status_id,payment_status_desc,payment_status_active_ind) VALUES (56, 'Owed', 1);
@@ -2233,6 +2234,7 @@ INSERT INTO 'informix'.payment_status_reason_lu(payment_status_reason_id,payment
 INSERT INTO 'informix'.payment_status_reason_lu(payment_status_reason_id,payment_status_reason_desc) VALUES (100, 'Attached to parent');
 INSERT INTO 'informix'.payment_status_reason_lu(payment_status_reason_id,payment_status_reason_desc) VALUES (101, 'Member under 18');
 INSERT INTO 'informix'.payment_status_reason_lu(payment_status_reason_id,payment_status_reason_desc) VALUES (14, 'Waiting for signed assignment document');
+INSERT INTO 'informix'.payment_status_reason_lu(payment_status_reason_id,payment_status_reason_desc) VALUES (500, 'Created by V5');
 INSERT INTO 'informix'.student_classroom_status_lu(status_id,description) VALUES (1, 'Active');
 INSERT INTO 'informix'.student_classroom_status_lu(status_id,description) VALUES (2, 'Pending');
 INSERT INTO 'informix'.student_classroom_status_lu(status_id,description) VALUES (3, 'Inactive');
@@ -2310,6 +2312,11 @@ INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment
 INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,requires_client_ind,global_ad_ind) VALUES ("Project Copilot Payment", 69, 10, 1, 1, 30, current, current, 2, 'f');
 INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,requires_client_ind,global_ad_ind) VALUES ("Project Deployment Task Payment", 70, 10, 1, 1, 30, current, current, 2, 't');
 INSERT INTO 'informix'.payment_type_lu(payment_type_desc,payment_type_id,payment_reference_id,show_in_profile_ind,show_details_ind,due_date_interval,create_date,modify_date,requires_client_ind,global_ad_ind) VALUES ("Project Enhancements Payment", 71, 10, 1, 1, 30, current, current, 2, 't');
+INSERT INTO 'informix'.payment_type_lu (payment_type_desc, payment_type_id, payment_reference_id, show_in_profile_ind, show_details_ind, due_date_interval, create_date, modify_date, requires_client_ind, global_ad_ind) VALUES ("Task Payment", 72, 11, 1, 1, 15, current, current, 2, 't');
+INSERT INTO 'informix'.payment_type_lu (payment_type_desc, payment_type_id, payment_reference_id, show_in_profile_ind, show_details_ind, due_date_interval, create_date, modify_date, requires_client_ind, global_ad_ind) VALUES ("Task Review Payment", 73, 11, 1, 1, 15, current, current, 2, 't');
+INSERT INTO 'informix'.payment_type_lu (payment_type_desc, payment_type_id, payment_reference_id, show_in_profile_ind, show_details_ind, due_date_interval, create_date, modify_date, requires_client_ind, global_ad_ind) VALUES ("Task Copilot Payment", 74, 11, 1, 1, 15, current, current, 2, 't');
+
+
 
 INSERT INTO 'informix'.affidavit_template (affidavit_template_id, country_code, affidavit_type_id, text) values (1, 840, 1, null);
 INSERT INTO 'informix'.affidavit_template (affidavit_template_id, country_code, affidavit_type_id, text) values (10, 850, 1, null);
