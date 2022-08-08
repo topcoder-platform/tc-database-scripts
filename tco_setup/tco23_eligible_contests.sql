@@ -19,6 +19,7 @@ LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.proj
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39,38) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (767)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from project_platform where project_platform_id in (36)) -- exclude challenges with platform Automated Testing as they are QA
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -27,7 +28,13 @@ WHERE p.project_status_id = 1
    and not exists (SELECT 1 FROM comp_technology
                --     WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
                -- WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483,27621212)) -- exclude QA/QA - Regression/QA - Hunt/QA - Test Case Writing/Data Science Challenges from Dev
-                 WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483)) -- exclude QA/QA - Regression/QA - Hunt/QA - Test Case Writing Challenges from Dev
+                 WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483,497,541)) -- excludes from Development by Tags:
+                 -- 78: QA
+                 -- 481: QA - Regression
+                 -- 482: QA - Hunt
+                 -- 483: QA - Test Case Writing
+                 -- 497: Automation Testing
+                 -- 514 - Idea Generation
    and 1 = 1;
 
 
@@ -45,6 +52,7 @@ LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.proj
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39,38) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (769)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from project_platform where project_platform_id in (36)) -- exclude challenges with platform Automated Testing as they are QA
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -54,7 +62,7 @@ WHERE p.project_status_id = 1
    and not exists (SELECT 1 FROM comp_technology
                  --   WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
                  -- WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483,27621212)) -- exclude QA/QA - Regression/QA - Hunt/QA - Test Case Writing/Data Science Challenges from Dev
-                  WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483)) -- exclude QA/QA - Regression/QA - Hunt/QA - Test Case Writing Challenges from Dev
+                  WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483,497,541)) -- exclude per Tags, see above (S1 for desc)
    and 1 = 1;
 
 -- Stage 3
@@ -71,6 +79,7 @@ LEFT OUTER JOIN project_info pi1  ON pi1.project_id  = p.project_id and pi1.proj
 WHERE p.project_status_id = 1
    and p.project_category_id in (7,14,39,38) -- exclude UI Prototype track as well
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (770)) -- make sure we exclude from tco
+   and p.project_id not in (select project_id from project_platform where project_platform_id in (36)) -- exclude challenges with platform Automated Testing as they are QA
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407) -- exclude projects for fun and university challenges
    and p.tc_direct_project_id not in ( 22249 ) --Rodeo Challenges to be excluded
@@ -80,7 +89,7 @@ WHERE p.project_status_id = 1
    and not exists (SELECT 1 FROM comp_technology
                  --   WHERE comp_vers_id = pi1.value AND technology_type_id = 78) -- exclude QA Challenges from Dev
                  -- WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483,27621212)) -- exclude QA/QA - Regression/QA - Hunt/QA - Test Case Writing/Data Science Challenges from Dev
-                  WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483)) -- exclude QA/QA - Regression/QA - Hunt/QA - Test Case Writing Challenges from Dev
+                  WHERE comp_vers_id = pi1.value AND technology_type_id in (78,481,482,483,497,541)) -- exclude per Tags, see above (S1 for desc)
    and 1 = 1;
 
 
@@ -128,7 +137,7 @@ LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.pro
 WHERE p.project_status_id = 1
     and
    (
-     p.project_category_id in (9,13) -- include Bug Hunt and Test Suites always
+     p.project_category_id in (9,13) -- include Bug Hunt and Test Suites
      OR
      exists (SELECT 1 FROM comp_technology
                     WHERE comp_vers_id = pi1.value
@@ -182,7 +191,7 @@ INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
-   and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
+   and p.project_category_id in (16, 17, 20, 21, 30, 32, 34,40) -- add design F2Fs
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (776)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
@@ -200,7 +209,7 @@ INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
-   and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
+   and p.project_category_id in (16, 17, 20, 21, 30, 32, 34,40) -- add design F2Fs
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (777)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
@@ -220,7 +229,7 @@ INNER JOIN project_info pi12 ON p.project_id = pi12.project_id and pi12.project_
 INNER JOIN project_info pi14 ON p.project_id = pi14.project_id and pi14.project_info_type_id = 14 and pi14.value = 'Open'
 LEFT OUTER JOIN project_info pi82 ON pi82.project_id = p.project_id and pi82.project_info_type_id = 82
 WHERE p.project_status_id = 1
-   and p.project_category_id in (16, 17, 20, 21, 30, 32, 34)
+   and p.project_category_id in (16, 17, 20, 21, 30, 32, 34,40) -- add design F2Fs
    and p.project_id not in (select project_id from contest_project_xref where contest_id in (778)) -- make sure we exclude from tco
    and NVL(pi82.value, 0) = 0 -- No TCO if these are tasks
    and p.tc_direct_project_id not in (8943, 16411, 16412, 16413, 16406, 16399, 16407)-- exclude projects for fun and university challenges
@@ -325,12 +334,11 @@ WHERE p.project_status_id = 1
 -- Data Science
 --As per community team, Challenges with category code and tagged with Data Science
 --are only counted in Data Science leaderboard
--- TDDO: include DS ideation challenges
 
 
 --Stage 1
 
-   insert into contest_project_xref
+insert into contest_project_xref
 SELECT 788, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
@@ -359,7 +367,7 @@ WHERE p.project_status_id = 1
 
    --Stage 2
 
-   insert into contest_project_xref
+insert into contest_project_xref
 SELECT 789, p.project_id, current
 FROM project p
 INNER JOIN project_phase pp ON p.project_id = pp.project_id and pp.phase_type_id = 1 and
