@@ -15,7 +15,7 @@ create table 'informix'.autopilot_phase_changes (
        project_id INT not null,
        phase_type_id INT not null,
        end_or_start VARCHAR(5) not null,
-       end_or_start_time DATETIME YEAR TO MINUTE not null,
+       end_or_start_time DATETIME YEAR TO FRACTION not null,
        in_progress boolean default 'f' not null
 )
 extend size 16 next size 16

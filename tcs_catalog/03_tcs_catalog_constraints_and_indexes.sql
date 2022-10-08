@@ -1,7 +1,7 @@
 database tcs_catalog;
 
 alter table 'informix'.autopilot_phase_changes add constraint primary key
-    (project_phase_id)
+    (project_phase_id, end_or_start)
     constraint pk_autopilot_phase_changes;
 
 alter table 'informix'.company_size add constraint primary key

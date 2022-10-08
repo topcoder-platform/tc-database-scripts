@@ -185,9 +185,20 @@ for corporate_oltp:"informix".direct_project_account;
 create synonym 'informix'.corona_event
 for common_oltp:'informix'.corona_event;
 
-
-
 create role read_only ;
+
+create procedure "informix".create_autopilot_phase_change_event(
+project_phase_id int,
+project_id int,
+phase_type_id int,
+scheduled_start_time year to fraction
+scheduled_end_time year to fraction)
+insert into table "informix".autopilot_phase_changes (project_phase_id, project_id, phase_type_id, end_or_start, end_or_start_time)
+       values (project_phase_id, project_id, phase_type_id, "start", scheduled_start_time);
+insert into table "informix".autopilot_phase_changes (project_phase_id, project_id, phase_type_id, end_or_start, end_or_start_time)
+       values (project_phase_id, project_id, phase_type_id, "end", scheduled_end_time);
+end procedure;
+
 create procedure "informix".get_current() returning datetime year to fraction(3);
       return CURRENT;
     end procedure;
@@ -747,6 +758,11 @@ create trigger "informix".trig_project_phase_insert insert on "informix".project
         (
         execute procedure "informix".create_project_event(nw.project_id, "INSERT", "project_phase", nw.project_phase_id));
 
+create trigger "informix".trig_project_phase_insert_autopilot on "informix".project_phase referencing new as nw for each row
+        (
+        execute procedure "informix".create_autopilot_phase_change_event(nw.project_phase_id, nw.project_id, nw.phase_type_id
+                                                                         nw.scheduled_start_time, nw.scheduled_end_time)
+        )
 create trigger "informix".trig_project_phase_update update on "informix".project_phase referencing new as nw for each row
         (
         execute procedure "informix".create_project_event(nw.project_id, "UPDATE", "project_phase", nw.project_phase_id));
