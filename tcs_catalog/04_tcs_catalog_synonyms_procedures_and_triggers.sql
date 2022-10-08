@@ -63,7 +63,7 @@ for common_oltp:'informix'.project_role_terms_of_use_xref;
 create synonym 'informix'.client
 for time_oltp:'informix'.client;
 
-    
+
 create synonym 'informix'.tt_project
 for time_oltp:'informix'.project;
 
@@ -95,13 +95,13 @@ for common_oltp:'informix'.client_terms_mapping;
 
 -- CORPORATE_OLTP SYNONYMS
 
-create synonym "informix".tc_direct_project 
+create synonym "informix".tc_direct_project
 for corporate_oltp:"informix".tc_direct_project;
 
-create synonym "informix".permission_type 
+create synonym "informix".permission_type
 for corporate_oltp:"informix".permission_type;
 
-create synonym "informix".user_permission_grant 
+create synonym "informix".user_permission_grant
 for corporate_oltp:"informix".user_permission_grant;
 
 create synonym 'informix'.PERMISSION_SEQ
@@ -134,28 +134,28 @@ for corporate_oltp:'informix'.spec_review_comment_view;
 create synonym 'informix'.SPEC_REVIEW_REVIEWER_SEQ
 for corporate_oltp:'informix'.SPEC_REVIEW_REVIEWER_SEQ;
 
-create synonym 'informix'.coder 
+create synonym 'informix'.coder
 for informixoltp:'informix'.coder;
 
-create synonym 'informix'.current_school 
+create synonym 'informix'.current_school
 for informixoltp:'informix'.current_school;
 
-create synonym 'informix'.coder_referral 
+create synonym 'informix'.coder_referral
 for informixoltp:'informix'.coder_referral;
 
-create synonym 'informix'.secret_question 
+create synonym 'informix'.secret_question
 for common_oltp:'informix'.secret_question;
 
-create synonym 'informix'.professor 
+create synonym 'informix'.professor
 for common_oltp:'informix'.professor;
 
-create synonym 'informix'.professor_status_lu 
+create synonym 'informix'.professor_status_lu
 for common_oltp:'informix'.professor_status_lu;
 
-create synonym 'informix'.user_security_key 
+create synonym 'informix'.user_security_key
 for common_oltp:'informix'.user_security_key;
 
-create synonym "informix".image 
+create synonym "informix".image
 for informixoltp:"informix".image;
 
 -- JIVE synonyms
@@ -169,14 +169,14 @@ for jive:'informix'.jiveforum;
 create synonym 'informix'.jivemessage
 for jive:'informix'.jivemessage;
 
-create synonym "informix".event_registration 
+create synonym "informix".event_registration
 for common_oltp:"informix".event_registration;
 
 
-create synonym "informix".direct_project_type 
+create synonym "informix".direct_project_type
 for corporate_oltp:"informix".direct_project_type;
 
-create synonym "informix".direct_project_category 
+create synonym "informix".direct_project_category
 for corporate_oltp:"informix".direct_project_category;
 
 create synonym "informix".direct_project_account
@@ -203,7 +203,7 @@ CREATE PROCEDURE predictor(project_id DECIMAL(12,0)) RETURNING DECIMAL(5,4)
                 FROM project_result pr
                    , user_reliability ur
                    , project p
-               WHERE pr.project_id = project_id 
+               WHERE pr.project_id = project_id
                  AND pr.user_id = ur.user_id
                  AND pr.project_id = p.project_id
                  AND p.project_category_id + 111 = ur.phase_id
@@ -224,23 +224,23 @@ new_num_ratings decimal(5,0),
 old_last_rated_project_id decimal(12,0),
 new_last_rated_project_id decimal(12,0)
 )
- 
-      if (old_rating != new_rating) then 
+
+      if (old_rating != new_rating) then
          insert into user_rating_audit (column_name, old_value, new_value, user_id, phase_id)
          values ('RATING', old_rating, new_rating, p_user_id, p_phase_id);
       End If;
 
-      if (old_vol != new_vol) then 
+      if (old_vol != new_vol) then
          insert into user_rating_audit (column_name, old_value, new_value, user_id, phase_id)
          values ('VOL', old_vol, new_vol, p_user_id, p_phase_id);
       End If;
 
-      if (old_num_ratings != new_num_ratings) then 
+      if (old_num_ratings != new_num_ratings) then
          insert into user_rating_audit (column_name, old_value, new_value, user_id, phase_id)
          values ('NUM_RATINGS', old_num_ratings, new_num_ratings, p_user_id, p_phase_id);
       End If;
 
-      if (old_last_rated_project_id != new_last_rated_project_id) then 
+      if (old_last_rated_project_id != new_last_rated_project_id) then
          insert into user_rating_audit (column_name, old_value, new_value, user_id, phase_id)
          values ('LAST_RATED_PROJECT_ID', old_last_rated_project_id, new_last_rated_project_id, p_user_id, p_phase_id);
       End If;
@@ -254,8 +254,8 @@ p_phase_id decimal(3,0),
 old_rating decimal(5,4),
 new_rating decimal(5,4)
 )
- 
-      if (old_rating != new_rating) then 
+
+      if (old_rating != new_rating) then
          insert into user_reliability_audit (column_name, old_value, new_value, user_id, phase_id)
          values ('RATING', old_rating, new_rating, p_user_id, p_phase_id);
       End If;
@@ -291,7 +291,7 @@ define t_cat_desc lvarchar(1000);
 let o_cat_list = "";
 
 foreach
-select cat.category_name 
+select cat.category_name
   into t_cat_desc
 from comp_categories cc, categories cat
 where cc.category_id = cat.category_id
@@ -345,18 +345,18 @@ CREATE PROCEDURE last_posters(forumid DECIMAL(12,0))
     LET posters = "";
 
 	IF forumid IS NOT NULL THEN
-		FOREACH SELECT FIRST 3 DISTINCT u.user_id, u.handle, to_number(TRIM(((current - Millis_to_time(max(m.modificationdate)))::INTERVAL DAY(6) TO DAY)::CHAR(10))) as modificationdate  
+		FOREACH SELECT FIRST 3 DISTINCT u.user_id, u.handle, to_number(TRIM(((current - Millis_to_time(max(m.modificationdate)))::INTERVAL DAY(6) TO DAY)::CHAR(10))) as modificationdate
 				 INTO userid, handle, daysAgo
-				 FROM   jivemessage m, 
-						 USER u, 
-						 jivecategory jc, 
+				 FROM   jivemessage m,
+						 USER u,
+						 jivecategory jc,
 						 jiveforum jf
-				 WHERE  u.user_id = m.userid 
-						 AND jc.categoryid = forumid 
-						 AND jc.categoryid = jf.categoryid 
-						 AND m.forumid = jf.forumid 
-						 GROUP BY user_id, handle 
-						 ORDER BY modificationdate ASC 
+				 WHERE  u.user_id = m.userid
+						 AND jc.categoryid = forumid
+						 AND jc.categoryid = jf.categoryid
+						 AND m.forumid = jf.forumid
+						 GROUP BY user_id, handle
+						 ORDER BY modificationdate ASC
 				IF length(posters) == 0 THEN
 					LET posters = userid || ',' || handle || ',' || daysAgo;
 				ELSE
@@ -385,22 +385,22 @@ create procedure component_developer(component_id decimal(12)) returning lvarcha
 			 , project_info pi
 			 , project p
 			 , comp_catalog c
-			 , comp_versions v 
+			 , comp_versions v
 			 , user u
 			 , email e
 		 where r.resource_id = ri.resource_id
-		   and ri.resource_info_type_id = 1 
-		   and ri.value = s.login_id 
+		   and ri.resource_info_type_id = 1
+		   and ri.value = s.login_id
 		   and r.project_id = pi.project_id
-		   and r.project_id = p.project_id 
-		   and pi.project_info_type_id = 1 
+		   and r.project_id = p.project_id
+		   and pi.project_info_type_id = 1
 		   and (r.resource_role_id = 1 and exists (select 1 from project_info piW where piW.project_info_type_id = 23 and piW.project_id = p.project_id and piW.value = s.login_id ))
-		   and c.component_id = component_id 
+		   and c.component_id = component_id
 		   and p.project_status_id = 7
 		   and p.project_category_id in (1,2)
 		   and c.component_id = v.component_id
-		   and pi.value = v.comp_vers_id 
-		   and pi.value = v.comp_vers_id 
+		   and pi.value = v.comp_vers_id
+		   and pi.value = v.comp_vers_id
 		   and c.current_version = v.version
 		   and s.login_id = u.user_id
 		   and e.user_id = u.user_id
@@ -426,8 +426,8 @@ create procedure categories(i_component_vers_id decimal(12)) returning lvarchar(
 	foreach
 		select tt.technology_name || "|" || tt.technology_type_id
 		  into t_cat_desc
-		  from comp_technology ct, technology_types tt 
-		 where ct.comp_vers_id = i_component_vers_id 
+		  from comp_technology ct, technology_types tt
+		 where ct.comp_vers_id = i_component_vers_id
 		   and ct.technology_type_id = tt.technology_type_id
 		 order by tt.technology_name
 
@@ -452,7 +452,7 @@ create procedure all_categories() returning lvarchar(1000);
 	foreach
 		select tt.technology_name || "|" || tt.technology_type_id
 		  into t_cat_desc
-		  from  technology_types tt 
+		  from  technology_types tt
 		 order by tt.technology_name
 
   		if length(o_cat_list) = 0 then
@@ -501,9 +501,9 @@ create procedure technology_list( i_comp_vers_id decimal(12)  )
 
     foreach
 
-        select tt.technology_name 
+        select tt.technology_name
             into t_cat_desc
-        from comp_technology ct, 
+        from comp_technology ct,
         technology_types tt
         where ct.technology_type_id = tt.technology_type_id
         and ct.comp_vers_id = i_comp_vers_id
@@ -514,7 +514,7 @@ create procedure technology_list( i_comp_vers_id decimal(12)  )
         else
             let o_cat_list = o_cat_list || ", " || t_cat_desc;
         end if
-    
+
     end foreach
 
 return o_cat_list;
@@ -556,7 +556,7 @@ end procedure;
 grant execute on platform_list to public as informix;
 
 create procedure proc_resource_insert( r_id INT, resoure_info_type_id INT, value VARCHAR(255))
-   
+
     if (resoure_info_type_id == 1 and exists (select resource_id from resource where resource_id = r_id and resource_role_id = 1)) then
 		insert into corona_event (corona_event_type_id,user_id)  values (3, TO_NUMBER(value));
 	end if;
@@ -595,14 +595,14 @@ create procedure "informix".proc_review_scorecard_completion (modify_user VARCHA
         SELECT s.scorecard_type_id into scorecard_type_id FROM review r, scorecard s WHERE r.review_id = review_id and r.scorecard_id = s.scorecard_id;
 		SELECT pc.project_type_id into project_type_id FROM review r, resource re, project p, project_category_lu pc WHERE r.review_id = review_id and re.resource_id = r.resource_id and p.project_id = re.project_id and p.project_category_id = pc.project_category_id;
 
-        if ((project_type_id in (1,2) and project_category_id not in (29, 9) and (scorecard_type_Id == 2 or scorecard_type_id == 5)) 
-		          or (project_type_id == 3 and (scorecard_type_Id == 1 or scorecard_type_id == 5 or scorecard_type_id == 6))) then            
+        if ((project_type_id in (1,2) and project_category_id not in (29, 9) and (scorecard_type_Id == 2 or scorecard_type_id == 5))
+		          or (project_type_id == 3 and (scorecard_type_Id == 1 or scorecard_type_id == 5 or scorecard_type_id == 6))) then
 						insert into corona_event (corona_event_type_id,user_id)  values (6, TO_NUMBER(modify_user));
         end if;
     end if;
 end procedure;
 
-grant execute on proc_review_scorecard_completion to public as informix; 
+grant execute on proc_review_scorecard_completion to public as informix;
 
 create procedure "informix".proc_contest_submission (modify_user VARCHAR(64), submission_type_id INTEGER)
     if(submission_type_id in (1,3)) then
@@ -610,11 +610,11 @@ create procedure "informix".proc_contest_submission (modify_user VARCHAR(64), su
     end if;
 end procedure;
 
-grant execute on proc_contest_submission to public as informix; 
+grant execute on proc_contest_submission to public as informix;
 
 create procedure 'informix'.create_project_event(
-p_project_id int, 
-p_operation varchar(10), 
+p_project_id int,
+p_operation varchar(10),
 p_source varchar(64),
 p_source_id int
 )
@@ -649,7 +649,6 @@ p_source varchar(64)
 end procedure;
 
 grant execute on procedure create_project_studio_event(integer, varchar, varchar) to 'public' as 'informix';
-
 
 create trigger "informix".trig_comp_version_dates_modified update of comp_vers_id,phase_id,posting_date,initial_submission_date,winner_announced_date,final_submission_date,estimated_dev_date,price,total_submissions,status_id,level_id,screening_complete_date,review_complete_date,aggregation_complete_date,phase_complete_date,production_date,aggregation_complete_date_comment,phase_complete_date_comment,review_complete_date_comment,winner_announced_date_comment,initial_submission_date_comment,screening_complete_date_comment,final_submission_date_comment,production_date_comment on "informix".comp_version_dates referencing old as old                                                                                                                                         for each row
         (
@@ -687,7 +686,7 @@ create trigger "informix".trig_stage_modified update of season_id,name,start_dat
 create trigger "informix".trig_contest_modified update of contest_name,phase_id,contest_type_id,start_date,end_date,event_id,contest_result_calculator_id on "informix".contest referencing old as old                                                              for each row
         (
         execute function "informix".get_current() into "informix".contest.modify_date);
-		
+
 create trigger "informix".trig_resource_insert insert on "informix".resource_info referencing new as nw                   for each row
         (
         execute procedure "informix".proc_resource_insert(nw.resource_id, nw.resource_info_type_id, nw.value));
@@ -711,7 +710,7 @@ create trigger "informix".trig_project_table_update update on "informix".project
 create trigger "informix".trig_project_table_delete delete on "informix".project referencing old as old for each row
         (
         execute procedure "informix".create_project_event(old.project_id, "DELETE", "project", old.project_id));
-		
+
 create trigger "informix".trig_review_completion insert on "informix".review referencing new as nw      for each row
         (
         execute procedure "informix".proc_review_scorecard_completion(nw.modify_user, nw.review_id, nw.committed));
@@ -755,7 +754,7 @@ create trigger "informix".trig_project_phase_update update on "informix".project
 create trigger "informix".trig_project_phase_delete delete on "informix".project_phase referencing old as old for each row
         (
         execute procedure "informix".create_project_event(old.project_id, "DELETE", "project_phase", old.project_phase_id));
-		
+
 create trigger "informix".trig_project_spec_insert insert on "informix".project_spec referencing new as nw for each row
         (
         execute procedure "informix".create_project_event(nw.project_id, "INSERT", "project_spec", nw.project_spec_id));
@@ -802,4 +801,4 @@ create trigger "informix".trig_submission_update update on "informix".submission
 
 create trigger "informix".trig_submission_delete delete on "informix".submission referencing old as old for each row
         (
-        execute procedure "informix".create_submission_event(old.submission_id, old.upload_id, "DELETE", "submission"));		
+        execute procedure "informix".create_submission_event(old.submission_id, old.upload_id, "DELETE", "submission"));
