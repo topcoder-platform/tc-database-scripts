@@ -18,7 +18,7 @@ create table 'informix'.autopilot_phase_changes (
        end_or_start_time DATETIME YEAR TO FRACTION not null,
        in_progress boolean default 'f' not null
 )
-extend size 16 next size 16
+extent size 16 next size 16
 lock mode row;
 
 create table 'informix'.company_size (

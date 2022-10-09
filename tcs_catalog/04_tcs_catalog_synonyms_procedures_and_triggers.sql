@@ -185,7 +185,7 @@ for corporate_oltp:"informix".direct_project_account;
 create synonym 'informix'.corona_event
 for common_oltp:'informix'.corona_event;
 
-create role read_only ;
+create role read_only;
 
 create procedure 'informix'.create_autopilot_phase_change_event(
 p_project_phase_id int,
@@ -193,9 +193,9 @@ p_project_id int,
 p_phase_type_id int,
 p_scheduled_start_time datetime year to fraction,
 p_scheduled_end_time datetime year to fraction)
-insert into table 'informix'.autopilot_phase_changes (project_phase_id, project_id, phase_type_id, end_or_start, end_or_start_time)
+insert into autopilot_phase_changes (project_phase_id, project_id, phase_type_id, end_or_start, end_or_start_time)
        values (p_project_phase_id, p_project_id, p_phase_type_id, 'start', p_scheduled_start_time);
-insert into table 'informix'.autopilot_phase_changes (project_phase_id, project_id, phase_type_id, end_or_start, end_or_start_time)
+insert into autopilot_phase_changes (project_phase_id, project_id, phase_type_id, end_or_start, end_or_start_time)
        values (p_project_phase_id, p_project_id, p_phase_type_id, 'end', p_scheduled_end_time);
 end procedure;
 grant execute on procedure create_autopilot_phase_change_event(
@@ -212,11 +212,11 @@ p_new_scheduled_start_time datetime year to fraction,
 p_old_scheduled_end_time datetime year to fraction,
 p_new_scheduled_end_time datetime year to fraction)
 if (p_old_scheduled_start_time != p_new_scheduled_start_time) then
-update 'informix'.autopilot_phase_changes set end_or_start_time = p_new_scheduled_start_time
+update autopilot_phase_changes set end_or_start_time = p_new_scheduled_start_time
        where project_phase_id = p_project_phase_id and end_or_start = 'start';
 end if;
 if (p_old_scheduled_end_time != p_new_scheduled_end_time) then
-update 'informix'.autopilot_phase_changes set end_or_start_time = p_new_scheduled_end_time
+update autopilot_phase_changes set end_or_start_time = p_new_scheduled_end_time
        where project_phase_id = p_project_phase_id and end_or_start = 'end';
 end if;
 end procedure;
@@ -228,7 +228,7 @@ datetime year to fraction,
 datetime year to fraction) to 'public' as 'informix';
 
 create procedure 'informix'.delete_autopilot_phase_change_event(p_project_phase_id int)
-delete from 'informix'.autopilot_phase_changes where project_phase_id = p_project_phase_id and end_or_start in ('end', 'start');
+delete from autopilot_phase_changes where project_phase_id = p_project_phase_id and end_or_start in ('end', 'start');
 end procedure;
 grant execute on procedure delete_autopilot_phase_change_event(int) to 'public' as 'informix';
 
@@ -791,20 +791,20 @@ create trigger "informix".trig_project_phase_insert insert on "informix".project
         (
         execute procedure "informix".create_project_event(nw.project_id, "INSERT", "project_phase", nw.project_phase_id));
 
-create trigger "informix".trig_project_phase_insert_autopilot on "informix".project_phase referencing new as nw for each row
+create trigger "informix".trig_project_phase_insert_autopilot insert on "informix".project_phase referencing new as nw for each row
         (
-        execute procedure "informix".create_autopilot_phase_change_event(nw.project_phase_id, nw.project_id, nw.phase_type_id
+        execute procedure "informix".create_autopilot_phase_change_event(nw.project_phase_id, nw.project_id, nw.phase_type_id,
                                                                          nw.scheduled_start_time, nw.scheduled_end_time));
 
 create trigger "informix".trig_project_phase_update update on "informix".project_phase referencing new as nw for each row
         (
         execute procedure "informix".create_project_event(nw.project_id, "UPDATE", "project_phase", nw.project_phase_id));
 
-create trigger "informix".trig_project_phase_update_autopilot update on "informix".project_phase of scheduled_start_time,
-               scheduled_end_time on "informix".project_phase referencing new as nw, old as old for each row
+create trigger "informix".trig_project_phase_update_autopilot update of scheduled_start_time, scheduled_end_time
+       on "informix".project_phase referencing new as nw old as old for each row
        (
-       execute procedure "informix".update_autopilot_phase_change_event(old.project_phase_id, old.scheduled_start_time, new.scheduled_start_time,
-                                                                        old.scheduled_end_time, new.scheduled_end_time));
+       execute procedure "informix".update_autopilot_phase_change_event(old.project_phase_id, old.scheduled_start_time, nw.scheduled_start_time,
+                                                                        old.scheduled_end_time, nw.scheduled_end_time));
 
 create trigger "informix".trig_project_phase_delete delete on "informix".project_phase referencing old as old for each row
         (
