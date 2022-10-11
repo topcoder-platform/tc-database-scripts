@@ -1033,25 +1033,6 @@ alter table 'informix'.project_platform add constraint primary key
     (project_id, project_platform_id)
     constraint pk_project_platform;
 
-
-alter table 'informix'.autopilot_phase_changes add constraint foreign key
-    (project_phase_id)
-    references 'informix'.project_phase
-    (project_phase_id)
-    constraint fk_autopilot_phase_changes_1;
-
-alter table 'informix'.autopilot_phase_changes add constraint foreign key
-    (project_id)
-    references 'informix'.project
-    (project_id)
-    constraint fk_autopilot_phase_changes_2;
-
-alter table 'informix'.autopilot_phase_changes add constraint foreign key
-    (phase_type_id)
-    references 'informix'.phase_type_lu
-    (phase_type_id)
-    constraint fk_autopilot_phase_changes_3;
-
 alter table 'informix'.comp_categories add constraint foreign key
     (category_id)
     references 'informix'.categories
